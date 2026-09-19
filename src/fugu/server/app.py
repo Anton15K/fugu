@@ -20,7 +20,7 @@ import os
 from pathlib import Path
 from typing import Any, Iterable
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import APIRouter, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -85,7 +85,10 @@ class AppState:
         static_dir: Path | None,
         db: str | Path | None = None,
     ) -> None:
-        self.stages: list[Any] = list(stages)
+        # Full-pipeline list; depth=standard filters the harness (A/B) stage
+        # out per job — "fastest path to verdict" must actually skip it.
+        self._stages_all: list[Any] = list(stages)
+        self.stages: list[Any] = self._stages_all
         store: JobStore | None = None
         if db is not None:
             from fugu.store.sqlite import SqliteJobStore
@@ -93,6 +96,12 @@ class AppState:
             store = JobStore(store=SqliteJobStore(db))
         self.store = store if store is not None else JobStore()
         self.static_dir = static_dir
+
+    def stages_for(self, depth: str) -> list[Any]:
+        """Per-depth stage list: standard skips the harness A/B stage."""
+        if depth == "full":
+            return self._stages_all
+        return [s for s in self._stages_all if "harness" not in type(s).__name__.lower()]
 
 
 def create_app(
@@ -132,8 +141,12 @@ def create_app(
     )
 
     # --- routes (registered BEFORE the static mount) --------------------------
+    # Routes are defined once on a router and mounted TWICE: at "/" (curl,
+    # tests) and at "/api" (the SPA's API_BASE both in dev - the vite proxy
+    # forwards /api/* verbatim - and in production same-origin).
+    api = APIRouter()
 
-    @app.get("/health")
+    @api.get("/health")
     async def health() -> dict[str, Any]:
         return {
             "status": "ok",
@@ -142,7 +155,7 @@ def create_app(
             "jobs": len(state.store.all_ids()),
         }
 
-    @app.post("/audits", status_code=202, response_model=AuditCreateResponse)
+    @api.post("/audits", status_code=202, response_model=AuditCreateResponse)
     async def create_audit(req: AuditCreateRequest) -> AuditCreateResponse:
         if req.depth not in ("standard", "full"):
             raise HTTPException(
@@ -175,7 +188,7 @@ def create_app(
         asyncio.create_task(
             run_job(
                 job,
-                state.stages,
+                state.stages_for(req.depth),
                 state.store,
                 max_files=max_files,
                 max_bytes=max_bytes,
@@ -184,10 +197,10 @@ def create_app(
         return AuditCreateResponse(
             job_id=job.id,
             status=job.status.value,
-            events=f"/audits/{job.id}/events",
+            events=f"/api/audits/{job.id}/events",
         )
 
-    @app.get("/audits/{job_id}")
+    @api.get("/audits/{job_id}")
     async def get_audit(job_id: str) -> dict[str, Any]:
         snap = state.store.get(job_id)
         if snap is None:
@@ -202,7 +215,7 @@ def create_app(
             "findings": [finding_public(f) for f in snap.findings],
         }
 
-    @app.get("/audits/{job_id}/events")
+    @api.get("/audits/{job_id}/events")
     async def audit_events(job_id: str, request: Request) -> StreamingResponse:
         snap = state.store.get(job_id)
         if snap is None:
@@ -255,6 +268,9 @@ def create_app(
                 "X-Accel-Buffering": "no",
             },
         )
+
+    app.include_router(api)
+    app.include_router(api, prefix="/api")
 
     # --- static frontend (optional, LAST so /audits wins) ----------------------
 
