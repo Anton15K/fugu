@@ -142,6 +142,32 @@ export default function App() {
     setRecent([]);
   }, []);
 
+  // Browser navigation (back/forward) drives the view: the URL is the
+  // single source of truth. '/' = home; '/audit/<id>' = that audit,
+  // resumed from the server's persisted event history.
+  const homeFromHistory = useCallback(() => {
+    streamRef.current?.close();
+    streamRef.current = null;
+    setPhase("idle");
+    setJob(null);
+    setVerdictInfo(null);
+    setPipeline(initialPipelineState());
+    setStreamStatus(null);
+  }, []);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const routeJob = readPathJob();
+      if (routeJob) {
+        resumeAudit(routeJob);
+      } else {
+        homeFromHistory();
+      };
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [resumeAudit, homeFromHistory]);
+
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-10 border-b border-zinc-800/80 bg-zinc-950/85 backdrop-blur">
