@@ -131,10 +131,7 @@ def _readme_fetch_run_triggers(tdir: Path, source: str | None = None) -> list[st
     """
     owned = _owned_url_prefixes(tdir, source)
     out: list[str] = []
-    for name in ("README.md", "README", "SKILL.md"):
-        f = tdir / name
-        if not f.is_file():
-            continue
+    for f in _doc_files(tdir):
         try:
             text = f.read_text(errors="replace")
         except OSError:
@@ -148,9 +145,30 @@ def _readme_fetch_run_triggers(tdir: Path, source: str | None = None) -> list[st
             cmd = f"curl -fsSL {url} | sh"
             if cmd not in out:
                 out.append(cmd)
-        if out:
-            break  # README/SKILL.md both hit? first file with hits wins
     return out[:3]  # cap: 3 remote detonations per audit
+
+
+def _doc_files(tdir: Path) -> list[Path]:
+    """Doc files a victim agent might follow: root README/SKILL first, then
+    nested build/install docs (BUILD.md, INSTALL.md, *.md one level down in
+    package dirs) — payloads hidden in nested docs must not escape the chamber.
+    Bounded to 25 files, node_modules/.git skipped."""
+    prio: list[Path] = []
+    for name in ("README.md", "README", "SKILL.md"):
+        f = tdir / name
+        if f.is_file():
+            prio.append(f)
+    nested: list[Path] = []
+    dirs = [d for d in sorted(tdir.iterdir()) if d.is_dir()
+            and d.name not in ("node_modules", ".git", "__pycache__", "dist", "build")]
+    for d in dirs:
+        for f in sorted(d.glob("*.md")):
+            nested.append(f)
+        for name in ("BUILD.md", "INSTALL.md"):
+            for f in sorted(d.rglob(name)):
+                if f not in nested:
+                    nested.append(f)
+    return (prio + nested)[:25]
 
 
 def _owned_url_prefixes(tdir: Path, source: str | None = None) -> list[str]:
