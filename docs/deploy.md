@@ -19,10 +19,18 @@ cannot host the chamber.
 docker build -t fugu .
 
 # 2. run — docker socket mounted so the chamber can spawn sibling containers
+# 2. run. The two same-path mounts matter:
+#    - docker.sock  : the chamber spawns victim/collector SIBLING containers
+#    - /var/fugu/det-logs (same path host<->container): collector logs the
+#      driver reads directly (canary watchdog, CA pickup). On Linux any
+#      shared dir works; on Docker Desktop also add it to File Sharing.
+mkdir -p /var/fugu/det-logs
 docker run -d --name fugu \
   -p 80:8000 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v fugu-data:/data \
+  -v /var/fugu/det-logs:/var/fugu/det-logs \
+  -e FUGU_DET_LOGS_DIR=/var/fugu/det-logs \
   -e NEBIUS_API_KEY=... \
   -e NEBIUS_BASE_URL=... \
   --restart unless-stopped \
@@ -33,6 +41,15 @@ The socket mount is deliberate and scoped: the container needs to create
 short-lived victim containers on host networks. If that is unacceptable for
 your environment, run the chamber with the Sandboxes driver instead
 (`FUGU_DRIVER=contree`) and drop the socket.
+
+## Verified locally (Docker Desktop, macOS)
+
+Full audit of `https://github.com/lharries/whatsapp-mcp` inside the
+container: all 6 stages ok, detonation `triggers:2 detonations:2` in the
+sibling-container chamber, LLM stages live against Token Factory, restart
+persistence via `/data`. The image carries the `docker` CLI (copied from
+`docker:cli`) and bakes mitm/DNS collectors into images — no host bind
+mounts of app internals.
 
 ## Verify
 
