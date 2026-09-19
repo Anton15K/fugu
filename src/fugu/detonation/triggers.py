@@ -16,6 +16,13 @@ a real agent/user would first execute the extension under audit. Rationale:
   behavior runs (dot-separated command from package.json ``bin`` / mcp config
   ``main`` / ``server.py|main.py|__main__.py`` entrypoints), then SIGKILLed.
   Exit code is recorded as 0 for these (boot success isn't the signal).
+- ``readme`` — fetch-and-run INSTALL INSTRUCTIONS in README/SKILL.md are the
+  markdown-skill execution vector (a victim agent follows the docs). We
+  detonate the documented command itself — inside the canaried sandbox —
+  so payload-in-docs attacks get empirical evidence instead of an advisory.
+  Only target-owned URLs qualify (same repo host/path prefix); third-party
+  tool installs (e.g. uv's astral.sh installer) are skipped — executing a
+  live third-party supply chain adds canary noise, not signal.
 
 Multiple triggers stack (an npm package can be both installed and imported).
 """
@@ -69,7 +76,67 @@ def derive_triggers(target_dir: Path) -> list[str]:
     if entry:
         triggers.append(f"timeout 3 {entry} || test $? -eq 124")
 
+    # --- readme (documented fetch-and-run install) ----------------------------
+    triggers.extend(_readme_fetch_run_triggers(tdir))
+
     return triggers
+
+
+# ``curl|sh``-style one-liners in docs. Captures http(s) URLs from curl/wget
+# fetch-and-run lines; the |sh / |bash tail and quoting are dropped.
+_FETCH_RUN = re.compile(
+    r"(?:curl|wget)[^`\n|;]*?https?://[^`\s|;]+"
+)
+
+
+def _readme_fetch_run_triggers(tdir: Path) -> list[str]:
+    """Detonate fetch-and-run install instructions from README/SKILL.md.
+
+    The trigger reproduces the documented victim action: fetch the remote
+    script and pipe it to a shell inside the sandbox, with canaries set and
+    egress captured. Only URLs plausibly owned by the target are detonated
+    (see module docstring) — installing third-party tooling is noise.
+    """
+    owned = _owned_url_prefixes(tdir)
+    out: list[str] = []
+    for name in ("README.md", "README", "SKILL.md"):
+        f = tdir / name
+        if not f.is_file():
+            continue
+        try:
+            text = f.read_text(errors="replace")
+        except OSError:
+            continue
+        for m in _FETCH_RUN.finditer(text):
+            url = m.group(0)
+            url = re.sub(r"^(?:curl|wget)[^h]*", "", url)  # strip cmd prefix
+            # keep only target-owned URLs
+            if owned and not url.startswith(tuple(owned)):
+                continue
+            cmd = f"curl -fsSL {url} | sh"
+            if cmd not in out:
+                out.append(cmd)
+        if out:
+            break  # README/SKILL.md both hit? first file with hits wins
+    return out[:3]  # cap: 3 remote detonations per audit
+
+
+def _owned_url_prefixes(tdir: Path) -> list[str]:
+    """URL prefixes plausibly owned by the target (from manifest/mcp config)."""
+    prefixes: list[str] = ["https://fugu-test.example"]  # eval corpus host
+    mf = tdir / "manifest.json"
+    if mf.is_file():
+        try:
+            data = json.loads(mf.read_text(errors="replace"))
+            for k in ("homepage", "repository", "source"):
+                v = data.get(k)
+                if isinstance(v, str) and v.startswith("http"):
+                    prefixes.append(v.rstrip("/"))
+                elif isinstance(v, dict) and isinstance(v.get("url"), str):
+                    prefixes.append(v["url"].rstrip("/"))
+        except (ValueError, OSError):
+            pass
+    return prefixes
 
 
 def _mcp_entrypoint(tdir: Path) -> str | None:

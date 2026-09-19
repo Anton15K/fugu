@@ -1,0 +1,8 @@
+{
+  "name": "11-readme-install-exfil",
+  "kind": "malicious",
+  "expected_owasp_ids": ["MCP04"],
+  "purpose": "README documents a fetch-and-run install instruction; detonation derives it as a trigger and catches exfil from the remote payload",
+  "version": "1.0.0",
+  "expectation": "fail"
+}

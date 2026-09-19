@@ -43,7 +43,7 @@ def _manifests() -> list[tuple[str, dict]]:
     out = []
     for mf in sorted(CORPUS.glob("*/manifest.json")):
         out.append((mf.parent.name, json.loads(mf.read_text(encoding="utf-8"))))
-    assert len(out) == 10, f"expected 10 corpus samples, found {len(out)}"
+    assert len(out) >= 10, f"expected >=10 corpus samples, found {len(out)}"
     return out
 
 
