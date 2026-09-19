@@ -105,7 +105,12 @@ def collect_pipeline_predictions(
     predictions: dict[str, list[str]] = {}
     for sample in samples:
         try:
-            findings = run_audit(sample.path, include_detonation=detonate)
+            findings = run_audit(
+                sample.path,
+                include_detonation=detonate,
+                include_semantic=detonate,  # all live stages (LLM + sandbox) are opt-in
+                include_harness=detonate,
+            )
         except Exception as exc:  # stages must not kill the harness
             print(f"warning: run_audit failed on {sample.name}: {exc}", file=sys.stderr)
             predictions[sample.name] = []

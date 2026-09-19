@@ -23,6 +23,7 @@ __all__ = ["build_stages", "run_audit", "run_stages"]
 def build_stages(
     include_detonation: bool = True,
     include_semantic: bool = True,
+    include_harness: bool = True,
 ) -> list:
     """Assemble the currently-implemented stages in execution order.
 
@@ -35,6 +36,10 @@ def build_stages(
         from fugu.pipeline.stages.semantic import SemanticStage
 
         stages.append(SemanticStage())
+    if include_harness:
+        from fugu.pipeline.stages.harness import HarnessStage
+
+        stages.append(HarnessStage())
     if include_detonation:
         try:
             from fugu.detonation.docker_driver import DockerDriver
@@ -63,16 +68,32 @@ async def run_stages(job: AuditJob, target: Path, stages: list) -> list[StageRes
     return results
 
 
-def run_audit(target: Path | str, include_detonation: bool = True) -> list[Finding]:
+def run_audit(
+    target: Path | str,
+    include_detonation: bool = True,
+    include_semantic: bool = True,
+    include_harness: bool = True,
+) -> list[Finding]:
     """Canonical entry: audit a local directory, return all findings.
 
-    Used by the eval harness (--results auto mode) and the CLI.
+    Used by the eval harness (--results auto mode) and the CLI. LLM-backed
+    stages (semantic, harness) self-no-op without NEBIUS_API_KEY.
     """
     target = Path(target).resolve()
     if not target.is_dir():
         raise NotADirectoryError(f"audit target must be a directory: {target}")
     job = AuditJob(id="cli", source=str(target), status=JobStatus.running)
-    results = asyncio.run(run_stages(job, target, build_stages(include_detonation)))
+    results = asyncio.run(
+        run_stages(
+            job,
+            target,
+            build_stages(
+                include_detonation=include_detonation,
+                include_semantic=include_semantic,
+                include_harness=include_harness,
+            ),
+        )
+    )
     findings: list[Finding] = []
     for r in results:
         findings.extend(r.findings)
