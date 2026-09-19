@@ -126,6 +126,7 @@ class DockerDriver:
         self.keep_logs = keep_logs
         self.evidence_grace_s = evidence_grace_s
         self._dns_img_built = False
+        self._mitm_img_built = False
 
     # ------------------------------------------------------------------ api
     async def detonate(
@@ -200,7 +201,22 @@ class DockerDriver:
                 except Exception:  # noqa: BLE001 - progress must never kill a run
                     pass
 
-        logs_dir = Path(tempfile.mkdtemp(prefix=f"{run_id}-logs-"))
+        # Collector logs dir semantics: the driver READS these files
+        # directly (canary watchdog, CA pickup) AND the daemon bind-mounts
+        # the same path into collector containers. So the path must be
+        # visible AT THE SAME PATH to both this process and the daemon:
+        #   - bare metal: any tempdir (daemon shares /var/folders, /tmp).
+        #   - Fugu in a container: mount a host dir SAME-PATH into the
+        #     container and point FUGU_DET_LOGS_DIR at it, e.g.
+        #       -v /var/fugu/det-logs:/var/fugu/det-logs         #       -e FUGU_DET_LOGS_DIR=/var/fugu/det-logs
+        import os as _os
+        forced = _os.environ.get("FUGU_DET_LOGS_DIR")
+        if forced:
+            forced_path = Path(forced)
+            forced_path.mkdir(parents=True, exist_ok=True)
+            logs_dir = Path(tempfile.mkdtemp(prefix=f"{run_id}-logs-", dir=forced_path))
+        else:
+            logs_dir = Path(tempfile.mkdtemp(prefix=f"{run_id}-logs-"))
         victim_img = f"{run_id}/victim:latest"
         ca_pem = logs_dir / "mitmca.pem"
         evidence: list[DetonationEvidence] = []
@@ -214,15 +230,18 @@ class DockerDriver:
             await self._create_network(subnet, net_name)
 
             # ---- mitm first (CA must exist before victim image build) --------
+            # The addon is BAKED into an image (not bind-mounted): when Fugu
+            # itself runs in a container, bind sources under /app are unknown
+            # to the host daemon behind the socket.
+            mitm_img = await self._build_mitm_image()
             await self._run(
                 [
                     "run", "-d", "--rm", "--name", mitm_container,
                     "--network", net_name, "--ip", mitm_ip, "--dns", dns_ip,
                     "--label", f"fugu.run={run_id}",
-                    "-v", f"{_COLLECTORS_DIR / 'mitm_addon.py'}:/addon.py:ro",
                     "-v", f"{logs_dir}:/logs",
-                    _MITM_IMG,
-                    "mitmdump", "-s", "/addon.py",
+                    mitm_img,
+                    "mitmdump", "-s", "/srv/mitm_addon.py",
                     "--listen-host", "0.0.0.0", "--listen-port", "8080",
                     "--set", "connection_strategy=lazy",
                 ],
@@ -304,6 +323,22 @@ class DockerDriver:
                 return
             await asyncio.sleep(1.0)
         raise RuntimeError("mitmproxy CA not generated within 30s")
+
+    async def _build_mitm_image(self) -> str:
+        """mitmproxy image with our addon baked in (no host bind-mounts)."""
+        tag = "fugu-mitm:latest"
+        if self._mitm_img_built:
+            return tag
+        # Based on the official image so the mitmproxy USER and its home
+        # (/home/mitmproxy — where the CA confdir lives) match what
+        # _wait_mitm_ca polls.
+        dockerfile = (
+            "FROM mitmproxy/mitmproxy:latest\n"
+            "COPY mitm_addon.py /srv/mitm_addon.py\n"
+        )
+        await self._build_image(tag, dockerfile, ["mitm_addon.py"])
+        self._mitm_img_built = True
+        return tag
 
     async def _build_dns_image(self) -> None:
         if self._dns_img_built:
