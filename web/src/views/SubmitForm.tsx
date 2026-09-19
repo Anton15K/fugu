@@ -100,7 +100,7 @@ export function SubmitForm({
                   spellCheck={false}
                   autoComplete="off"
                   aria-label="Extension source"
-                  className="h-11 w-full rounded-md border border-zinc-700 bg-zinc-950/70 pl-[5.4rem] pr-3 font-mono text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-600"
+                  className="h-11 w-full rounded-md border border-zinc-700 bg-zinc-950/70 pl-[7rem] pr-3 font-mono text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-600"
                 />
               </div>
               <Button type="submit" disabled={!valid || busy} className="h-11 px-5 font-mono text-[13px]">

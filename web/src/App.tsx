@@ -146,11 +146,17 @@ export default function App() {
     <div className="min-h-screen">
       <header className="sticky top-0 z-10 border-b border-zinc-800/80 bg-zinc-950/85 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={resetToIdle}
+            aria-label="Fugu home — new audit"
+            title="new audit"
+            className="flex items-center gap-3 rounded-md px-1 py-0.5 transition-colors hover:bg-zinc-800/60"
+          >
             <span className="text-xl" role="img" aria-label="fugu">
               🐡
             </span>
-            <div>
+            <div className="text-left">
               <h1 className="font-mono text-sm font-bold tracking-[0.3em] text-zinc-100">
                 FUGU
               </h1>
@@ -158,7 +164,7 @@ export default function App() {
                 agent-extension security auditor
               </p>
             </div>
-          </div>
+          </button>
           <div className="flex items-center gap-3 font-mono text-[11px] text-zinc-500">
             <span className={mock ? "text-amber-400" : "text-emerald-400"}>
               {mock ? "mock replay" : "live api"}
@@ -174,7 +180,13 @@ export default function App() {
           <SubmitForm
             onSubmit={(s, d) => void startAudit(s, d)}
             recent={recent}
-            onSelectRecent={(j) => void startAudit(j.source, j.depth)}
+            onSelectRecent={(j) => {
+              // Open the EXISTING audit (server replays its persisted
+              // events) — never create a duplicate job for the same source.
+              writePathJob(j.id);
+              rememberJobMeta(j);
+              resumeAudit(j);
+            }}
             onClearRecent={clearRecent}
             busy={busy}
             error={submitError}
