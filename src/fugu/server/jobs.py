@@ -2,7 +2,11 @@
 
 Everything here is asyncio-safe and process-local: the JobStore keeps a
 dict of job snapshots plus per-job subscriber queues (plain asyncio.Queue
-objects) that the SSE endpoint consumes. Persistence (SQLite) comes later.
+objects) that the SSE endpoint consumes. Persistence is optional: pass
+``store=SqliteJobStore(path)`` and every snapshot/event/finding is
+mirrored to SQLite; ``get()`` then transparently recovers jobs that
+predate this process (server restart). With store=None the fast path is
+purely in-memory, byte-for-byte the original behavior.
 
 run_job() drives the injected stages sequentially, publishing
 stage_started / finding / stage_done StageEvents as work happens and a
@@ -13,16 +17,20 @@ lives here so POST /audits stays thin.
 from __future__ import annotations
 
 import asyncio
+import json
 import shutil
 import subprocess
 import tempfile
 import uuid
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+from fugu.store.sqlite import SqliteJobStore
 from fugu.types import (
     AuditJob,
+    EvidenceSnippet,
     Finding,
     JobStatus,
     StageEvent,
@@ -89,13 +97,28 @@ class JobStore:
     All mutation happens on the event loop (endpoints and run_job are
     coroutines), so plain dict access needs no lock. Each subscriber gets
     its own bounded asyncio.Queue; publishing never blocks the runner.
+
+    With ``store=`` (a SqliteJobStore) every create/publish/close is
+    mirrored to SQLite and ``get()`` recovers snapshots that predate
+    this process, so GET /audits/<id> survives a server restart.
     """
 
-    def __init__(self, queue_size: int = 512, history_limit: int = 10_000) -> None:
+    def __init__(
+        self,
+        queue_size: int = 512,
+        history_limit: int = 10_000,
+        store: SqliteJobStore | None = None,
+    ) -> None:
         self._jobs: dict[str, JobSnapshot] = {}
         self._subs: dict[str, list[asyncio.Queue[StageEvent | None]]] = {}
         self._queue_size = queue_size
         self._history_limit = history_limit
+        self._db: SqliteJobStore | None = store
+
+    @property
+    def db(self) -> SqliteJobStore | None:
+        """The backing SQLite store, when persistence is enabled."""
+        return self._db
 
     # -- job lifecycle ----------------------------------------------------------
 
@@ -104,13 +127,112 @@ class JobStore:
             raise ValueError(f"duplicate job id {job.id!r}")
         snap = JobSnapshot(job=job)
         self._jobs[job.id] = snap
+        if self._db is not None:
+            self._db.save_job(
+                job.id,
+                source=job.source,
+                depth=job.depth,
+                status=job.status.value,
+                created_at=job.created_at,
+            )
         return snap
 
     def get(self, job_id: str) -> JobSnapshot | None:
-        return self._jobs.get(job_id)
+        snap = self._jobs.get(job_id)
+        if snap is not None or self._db is None:
+            return snap
+        return self._recover(job_id)
 
     def all_ids(self) -> list[str]:
-        return list(self._jobs.keys())
+        if self._db is None:
+            return list(self._jobs.keys())
+        seen = set(self._jobs.keys())
+        ids = list(self._jobs.keys())
+        for jid in self._db.job_ids():
+            if jid not in seen:
+                ids.append(jid)
+        return ids
+
+    # -- persistence helpers ------------------------------------------------------
+
+    def _persist_status(self, job: AuditJob, finished_at: str | None = None,
+                        verdict: dict[str, Any] | None = None) -> None:
+        if self._db is not None:
+            self._db.save_job(
+                job.id,
+                source=job.source,
+                depth=job.depth,
+                status=job.status.value,
+                created_at=job.created_at,
+                finished_at=finished_at,
+                verdict=verdict,
+            )
+
+    def _recover(self, job_id: str) -> JobSnapshot | None:
+        """Rebuild a JobSnapshot from SQLite (server-restart path).
+
+        Reconstructs AuditJob / StageResult / Finding objects from the
+        persisted JSON (projectors are lossy by design — findings lose
+        nothing, stages lose their Finding objects, which GET /audits
+        never returns anyway). Marks the snapshot ended when the stored
+        event history already contains a terminal event.
+        """
+        assert self._db is not None  # only called when backing store present
+        row = self._db.load_job(job_id)
+        if row is None:
+            return None
+        try:
+            job = AuditJob(
+                id=row["job_id"],
+                source=row["source"],
+                created_at=row["created_at"],
+                status=JobStatus(row["status"]),
+                depth=row["depth"],  # type: ignore[arg-type]
+            )
+        except ValueError:  # unknown status/depth enum → sanitized fallback
+            return None
+        snap = JobSnapshot(job=job)
+
+        stages: list[StageResult] = []
+        for ev in self._db.load_events(job_id):
+            try:
+                data = json.loads(ev["data_json"])
+            except (TypeError, ValueError):
+                data = {}
+            snap.events.append(
+                StageEvent(type=ev["type"], job_id=job_id, ts=ev["ts"], data=data)  # type: ignore[arg-type]
+            )
+            if ev["type"] == "stage_done":
+                stages.append(
+                    StageResult(
+                        stage=str(data.get("stage", "?")),
+                        ok=bool(data.get("ok")),
+                        metrics=dict(data.get("metrics") or {}),
+                        error=str(data["error"]) if data.get("error") else None,
+                    )
+                )
+            elif ev["type"] == "error":
+                stages.append(
+                    StageResult(
+                        stage=str(data.get("stage", "extraction")),
+                        ok=False,
+                        error=str(data.get("error", "unknown error")),
+                    )
+                )
+        snap.stages = stages
+
+        for fr in self._db.load_findings(job_id):
+            try:
+                snap.findings.append(_finding_from_public(json.loads(fr["finding_json"])))
+            except (TypeError, ValueError, KeyError):
+                continue  # tolerate a corrupt row; the audit stays readable
+
+        snap.ended = (
+            job.status in (JobStatus.done, JobStatus.failed)
+            and any(e.type in ("verdict", "error") for e in snap.events)
+        )
+        self._jobs[job_id] = snap
+        return snap
 
     # -- event bus --------------------------------------------------------------
 
@@ -138,6 +260,19 @@ class JobStore:
         snap = self._jobs.get(job_id)
         if snap is not None and len(snap.events) < self._history_limit:
             snap.events.append(event)
+        if self._db is not None:
+            finding_payload = (
+                event.data.get("finding")
+                if event.type == "finding"
+                else None
+            )
+            try:
+                self._db.record_event(
+                    job_id, event.ts, event.type, event.data,
+                    finding=finding_payload,
+                )
+            except Exception:  # noqa: BLE001 - persistence must not kill a job
+                pass
         for q in self._subs.get(job_id, []):
             if q.full():
                 try:
@@ -154,6 +289,17 @@ class JobStore:
         snap = self._jobs.get(job_id)
         if snap is not None:
             snap.ended = True
+        if self._db is not None and snap is not None:
+            verdict = None
+            for e in reversed(snap.events):
+                if e.type == "verdict":
+                    verdict = e.data.get("verdict")
+                    break
+            self._persist_status(
+                snap.job,
+                finished_at=datetime.now(timezone.utc).isoformat(),
+                verdict=verdict,
+            )
         for q in self._subs.pop(job_id, []):
             try:
                 q.put_nowait(None)
@@ -274,6 +420,7 @@ async def run_job(
 
     job.status = JobStatus.running
     _emit(store, job, "log", {"message": "job started", "source": job.source})
+    store._persist_status(job)
 
     cloned_dir: Path | None = None
     try:
@@ -379,6 +526,26 @@ def finding_public(f: Finding) -> dict[str, Any]:
             for e in f.evidence
         ],
     }
+
+
+def _finding_from_public(d: dict[str, Any]) -> Finding:
+    """Rebuild a Finding from finding_public() output (restart recovery)."""
+    return Finding(
+        owasp_ids=[str(i) for i in d.get("owasp_ids", [])],
+        title=str(d.get("title", "")),
+        detail=str(d.get("detail", "")),
+        severity=d.get("severity", "info"),  # type: ignore[arg-type]
+        confidence=d.get("confidence", "advisory"),  # type: ignore[arg-type]
+        stage=str(d.get("stage", "?")),
+        evidence=[
+            EvidenceSnippet(
+                source=str(e.get("source", "")),
+                excerpt=str(e.get("excerpt", "")),
+                meta=dict(e.get("meta") or {}),
+            )
+            for e in d.get("evidence", [])
+        ],
+    )
 
 
 def new_job_id() -> str:

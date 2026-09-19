@@ -1,0 +1,230 @@
+{
+  "01-hidden-instructions-skill": {
+    "kind": "malicious",
+    "expected": [
+      "LLM01",
+      "MCP06"
+    ],
+    "n_findings": 1,
+    "owasp_ids": [
+      "LLM01",
+      "MCP06"
+    ],
+    "findings": [
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "LLM01",
+          "MCP06"
+        ]
+      }
+    ]
+  },
+  "02-unicode-smuggled-skill": {
+    "kind": "malicious",
+    "expected": [
+      "LLM01",
+      "MCP03"
+    ],
+    "n_findings": 1,
+    "owasp_ids": [
+      "LLM01",
+      "MCP03"
+    ],
+    "findings": [
+      {
+        "stage": "concealment",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "LLM01",
+          "MCP03"
+        ]
+      }
+    ]
+  },
+  "03-env-harvest-installer": {
+    "kind": "malicious",
+    "expected": [
+      "MCP01",
+      "LLM02"
+    ],
+    "n_findings": 3,
+    "owasp_ids": [
+      "MCP05",
+      "LLM01",
+      "MCP01",
+      "LLM02"
+    ],
+    "findings": [
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP05",
+          "LLM01"
+        ]
+      },
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP01",
+          "LLM02"
+        ]
+      },
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP01",
+          "LLM02"
+        ]
+      }
+    ]
+  },
+  "04-credential-reader": {
+    "kind": "malicious",
+    "expected": [
+      "MCP01",
+      "LLM02"
+    ],
+    "n_findings": 2,
+    "owasp_ids": [
+      "MCP01",
+      "LLM02"
+    ],
+    "findings": [
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP01",
+          "LLM02"
+        ]
+      },
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP01",
+          "LLM02"
+        ]
+      }
+    ]
+  },
+  "05-obfuscated-payload": {
+    "kind": "malicious",
+    "expected": [
+      "MCP05",
+      "LLM01"
+    ],
+    "n_findings": 3,
+    "owasp_ids": [
+      "MCP05",
+      "LLM01",
+      "MCP01",
+      "LLM02"
+    ],
+    "findings": [
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP05",
+          "LLM01"
+        ]
+      },
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP01",
+          "LLM02"
+        ]
+      },
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP05",
+          "LLM01"
+        ]
+      }
+    ]
+  },
+  "06-rugpull-pair": {
+    "kind": "malicious",
+    "expected": [
+      "MCP03",
+      "LLM01"
+    ],
+    "n_findings": 2,
+    "owasp_ids": [
+      "MCP01",
+      "LLM02",
+      "LLM01",
+      "MCP03",
+      "MCP06"
+    ],
+    "findings": [
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "MCP01",
+          "LLM02"
+        ]
+      },
+      {
+        "stage": "static",
+        "rule": null,
+        "confidence": "deterministic",
+        "owasp_ids": [
+          "LLM01",
+          "MCP03",
+          "MCP06"
+        ]
+      }
+    ]
+  },
+  "07-clean-skill": {
+    "kind": "benign",
+    "expected": [],
+    "n_findings": 0,
+    "owasp_ids": [],
+    "findings": []
+  },
+  "08-clean-mcp-server": {
+    "kind": "benign",
+    "expected": [],
+    "n_findings": 0,
+    "owasp_ids": [],
+    "findings": []
+  },
+  "09-clean-installer": {
+    "kind": "benign",
+    "expected": [],
+    "n_findings": 0,
+    "owasp_ids": [],
+    "findings": []
+  },
+  "10-clean-node-skill": {
+    "kind": "benign",
+    "expected": [],
+    "n_findings": 0,
+    "owasp_ids": [],
+    "findings": []
+  }
+}

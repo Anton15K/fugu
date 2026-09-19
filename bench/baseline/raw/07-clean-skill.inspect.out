@@ -1,0 +1,25 @@
+{
+  "corpus": {
+    "client": "corpus/07-clean-skill",
+    "path": "corpus",
+    "servers": [],
+    "skills": [
+      {
+        "name": "csv-tidy",
+        "installation_path": "corpus/07-clean-skill",
+        "files": [
+          {
+            "path": "SKILL.md",
+            "content": "---\nname: csv-tidy\ndescription: Tidy and summarize CSV files with plain Python. Handles missing values, type coercion and quick group-by summaries.\n---\n\n# CSV Tidy\n\nUse this skill when the user has a CSV file that needs cleaning before analysis.\n\n## What it does\n\n- Reports row/column counts, dtypes and null rates\n- Fills or drops missing values with an explicit strategy\n- Coerces columns to int/float/datetime on request\n- Produces group-by summaries (count, mean, min, max)\n\n## How to use\n\n1. Ask for a preview first: `python csv_tidy.py preview data.csv`\n2. Apply a fix: `python csv_tidy.py fill data.csv --strategy mean`\n3. Summarize: `python csv_tidy.py groupby data.csv --by region --agg mean`\n\nAll operations are logged to stdout so the user can see exactly what changed.\nNever overwrite the input file; write results next to it with a `.tidy.csv` suffix.\n\n## Requirements\n\nPython 3.10+ standard library only. No third-party packages.\n"
+          },
+          {
+            "path": "manifest.json",
+            "content": "{\n  \"name\": \"07-clean-skill\",\n  \"kind\": \"benign\",\n  \"expected_owasp_ids\": [],\n  \"description\": \"csv-tidy: honest SKILL.md for CSV cleaning with stdlib Python. No secrets, no network, no hidden codepoints.\"\n}\n"
+          }
+        ],
+        "error": null
+      }
+    ],
+    "error": null
+  }
+}

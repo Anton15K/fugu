@@ -79,9 +79,19 @@ class AuditCreateResponse(BaseModel):
 class AppState:
     """Server singletons attached to app.state.fugu."""
 
-    def __init__(self, stages: Iterable[Any], static_dir: Path | None) -> None:
+    def __init__(
+        self,
+        stages: Iterable[Any],
+        static_dir: Path | None,
+        db: str | Path | None = None,
+    ) -> None:
         self.stages: list[Any] = list(stages)
-        self.store = JobStore()
+        store: JobStore | None = None
+        if db is not None:
+            from fugu.store.sqlite import SqliteJobStore
+
+            store = JobStore(store=SqliteJobStore(db))
+        self.store = store if store is not None else JobStore()
         self.static_dir = static_dir
 
 
@@ -91,6 +101,7 @@ def create_app(
     cors_origins: list[str] | None = None,
     max_files: int = DEFAULT_MAX_FILES,
     max_bytes: int = DEFAULT_MAX_BYTES,
+    db: str | Path | None = None,
 ) -> FastAPI:
     """Build the Fugu audit server.
 
@@ -98,7 +109,8 @@ def create_app(
     empty list until the real stages land; jobs then complete with no
     findings. static_dir: web/dist location (default <repo>/web/dist);
     a missing dir is fine — no static routes are mounted. cors_origins
-    defaults to wide-open (dev).
+    defaults to wide-open (dev). db: SQLite path for job persistence
+    (restart-safe GET /audits/<id>); None keeps the store in-memory.
     """
     resolved_static = Path(static_dir) if static_dir is not None else DEFAULT_STATIC_DIR
     app = FastAPI(
@@ -106,7 +118,7 @@ def create_app(
         description="Agentic security auditor for third-party agent extensions.",
         version="0.1.0",
     )
-    state = AppState(stages or [], resolved_static)
+    state = AppState(stages or [], resolved_static, db=db)
     app.state.fugu = state
 
     if cors_origins is None:

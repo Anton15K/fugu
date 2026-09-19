@@ -14,8 +14,14 @@ def main() -> None:
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--static-dir", default=None, help="web/dist to serve (default: auto)")
+    parser.add_argument(
+        "--db",
+        default="fugu.db",
+        help="SQLite path for job persistence, or 'none' to disable (default: fugu.db)",
+    )
     args = parser.parse_args()
-    app = create_app(stages=build_stages(), static_dir=args.static_dir)
+    db = None if args.db.lower() in ("", "none") else args.db
+    app = create_app(stages=build_stages(), static_dir=args.static_dir, db=db)
     uvicorn.run(app, host=args.host, port=args.port)
 
 
