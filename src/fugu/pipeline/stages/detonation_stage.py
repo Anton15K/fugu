@@ -6,7 +6,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Protocol
 
-from fugu.types import AuditJob, StageResult
+from fugu.types import AuditJob, Finding, StageResult
 
 
 class DetonationDriverProtocol(Protocol):
@@ -29,9 +29,30 @@ class DetonationStage:
 
         triggers = derive_triggers(target)
         if not triggers:
+            # A third of real registry servers never start (arXiv 2609.10962:
+            # 37.5% fail to boot, only 48.8% complete the handshake). That is
+            # evidence about the target, not an error in the audit: record it
+            # as an informational finding so the verdict reflects "static-only
+            # coverage" instead of silently skipping the stage.
             return StageResult(
                 stage=self.name,
                 ok=True,
+                findings=[
+                    Finding(
+                        owasp_ids=["MCP08"],
+                        title="Target produced no runnable triggers",
+                        detail=(
+                            "No install hook, importable module, or MCP entrypoint could be "
+                            "derived, so the target was never executed. 37.5% of real registry "
+                            "servers never start (arXiv 2609.10962); treat this verdict as "
+                            "static-analysis-only coverage."
+                        ),
+                        severity="info",
+                        confidence="empirical",
+                        stage=self.name,
+                        evidence=[],
+                    )
+                ],
                 metrics={"triggers": 0, "note": "no runnable triggers found"},
             )
         try:

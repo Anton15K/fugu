@@ -438,6 +438,85 @@ def _injection_hits_factory(rule_id: str, suffixes: tuple[str, ...]):
     return apply
 
 
+# --- MCP metadata quality (arXiv 2609.10962, 2602.18914) ---------------------------
+_MCP_SRC_SUFFIXES = (".py", ".js", ".ts", ".json", ".jsonc")
+_RETURN_HINT_RE = re.compile(
+    r"(?i)\b(returns?|responses?|outputs?|results?|echo|list|lists|listing|"
+    r"show|shows|give|gives|yield|yields|provides?|emit|emits|prints?)\b"
+)
+_TOOL_NAME_RE = re.compile(r'"name"\s*:\s*"([A-Za-z0-9_.-]+)"')
+
+
+def _window_until_next_tool(lines: list[str], start: int, cap: int = 30) -> str:
+    """Lines from start until the next tool boundary (a following 'name' key)."""
+    out = [lines[start]]
+    for line in lines[start + 1 : start + cap]:
+        if '"name"' in line and '"inputSchema"' not in line:
+            break
+        out.append(line)
+    return "\n".join(out)
+
+
+def _mcp_annotation_hits(text: str, rel: str) -> list[RuleHit]:
+    """Tools whose dict lacks an annotations block (or any safety hint).
+
+    Registry census (arXiv 2609.10962): 58.8% of tools on a random registry
+    draw omit optional safety annotations - clients cannot apply
+    least-privilege or confirmation behavior they cannot see.
+    """
+    if not rel.endswith(_MCP_SRC_SUFFIXES) or '"inputSchema"' not in text:
+        return []
+    lines = text.splitlines()
+    hits: list[RuleHit] = []
+    for n, line in enumerate(lines):
+        if '"inputSchema"' not in line:
+            continue
+        window = _window_until_next_tool(lines, n)
+        if '"annotations"' not in window:
+            hits.append(RuleHit("mcp_missing_annotations", n + 1, line, "",
+                                extra={"issue": "no annotations block"}))
+        elif not re.search(r'"(readOnlyHint|destructiveHint|idempotentHint|openWorldHint)"', window):
+            hits.append(RuleHit("mcp_missing_annotations", n + 1, line, "",
+                                extra={"issue": "annotations without safety hints"}))
+    return hits
+
+
+def _mcp_dup_name_hits(text: str, rel: str) -> list[RuleHit]:
+    """Duplicate tool names in one file (73% of servers ship dups -
+    arXiv 2602.18914); name collisions enable tool shadowing (MCP09)."""
+    if not rel.endswith(_MCP_SRC_SUFFIXES):
+        return []
+    seen: dict[str, int] = {}
+    hits: list[RuleHit] = []
+    for n, line in _lines(text):
+        for m in _TOOL_NAME_RE.finditer(line):
+            name = m.group(1)
+            if name in seen:
+                hits.append(RuleHit("mcp_duplicate_tool_names", n, line, name,
+                                    extra={"first_defined_line": seen[name]}))
+            else:
+                seen[name] = n
+    return hits
+
+
+def _mcp_no_return_hits(text: str, rel: str) -> list[RuleHit]:
+    """Tool descriptions that never say what they return - the dominant
+    'description smell' (arXiv 2602.18914: missing return descriptions
+    measurably degrade agent tool selection)."""
+    if not rel.endswith(_MCP_SRC_SUFFIXES) or '"inputSchema"' not in text:
+        return []
+    lines = text.splitlines()
+    hits: list[RuleHit] = []
+    for n, line in enumerate(lines):
+        if '"description"' not in line:
+            continue
+        window = _window_until_next_tool(lines, n, cap = 10)
+        if not _RETURN_HINT_RE.search(window):
+            hits.append(RuleHit("mcp_missing_return_description", n + 1, line.strip()[:80], ""))
+    # only flag descriptions that belong to tool dicts (file has inputSchema)
+    return hits
+
+
 STATIC_RULES: list[Rule] = [
     Rule("secret_aws_key", "Hardcoded AWS access key",
          "AWS access key id hardcoded in extension source. Credentials must never ship inside an extension.",
@@ -484,6 +563,15 @@ STATIC_RULES: list[Rule] = [
     Rule("tool_description_injection", "Injection phrasing in code/tool descriptions",
          "Source or tool-description strings contain classic instruction-hijack phrasing - the tool-poisoning pattern.",
          "high", ["LLM01", "MCP03", "MCP06"], apply=_injection_hits_factory("tool_description_injection", _SRC_SUFFIXES)),
+    Rule("mcp_missing_annotations", "MCP tool missing safety annotations",
+         "A tool definition has no annotations block (or none with safety hints). Registry census: 58.8% of tools omit these (arXiv 2609.10962) - clients cannot apply least-privilege or confirmation behavior they cannot see.",
+         "info", ["MCP08", "MCP02"], apply=_mcp_annotation_hits),
+    Rule("mcp_duplicate_tool_names", "Duplicate MCP tool names in one server",
+         "The same tool name is defined twice (73% of servers ship duplicates - arXiv 2602.18914). Name collisions enable tool shadowing and ambiguity for the calling agent.",
+         "low", ["MCP09"], apply=_mcp_dup_name_hits),
+    Rule("mcp_missing_return_description", "Tool description omits return semantics",
+         "Tool descriptions that never state what the tool returns - the dominant 'description smell' (arXiv 2602.18914); measurably degrades agent tool selection.",
+         "info", ["MCP10"], apply=_mcp_no_return_hits),
 ]
 
 

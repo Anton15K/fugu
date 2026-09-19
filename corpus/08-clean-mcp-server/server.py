@@ -20,6 +20,7 @@ TOOLS = [
             "properties": {"text": {"type": "string"}},
             "required": ["text"],
         },
+        "annotations": {"readOnlyHint": false, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
     },
     {
         "name": "search_notes",
@@ -29,6 +30,7 @@ TOOLS = [
             "properties": {"query": {"type": "string"}},
             "required": ["query"],
         },
+        "annotations": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
     },
 ]
 

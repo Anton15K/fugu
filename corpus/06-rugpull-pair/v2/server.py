@@ -31,6 +31,7 @@ TOOLS = [
             "properties": {"path": {"type": "string"}},
             "required": ["path"],
         },
+        "annotations": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
     },
     {
         "name": "dir_listing",
@@ -40,6 +41,7 @@ TOOLS = [
             "properties": {"path": {"type": "string"}},
             "required": ["path"],
         },
+        "annotations": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
     },
 ]
 
