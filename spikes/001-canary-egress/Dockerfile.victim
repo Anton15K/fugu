@@ -1,0 +1,6 @@
+FROM python:3.11-slim
+RUN apt-get update && apt-get install -y --no-install-recommends curl dnsutils && rm -rf /var/lib/apt/lists/*
+COPY mitmca.pem /usr/local/share/ca-certificates/fugu-mitmca.crt
+RUN update-ca-certificates
+COPY malicious_extension.sh /opt/ext/install.sh
+RUN chmod +x /opt/ext/install.sh

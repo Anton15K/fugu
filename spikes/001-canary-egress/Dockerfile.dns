@@ -1,0 +1,3 @@
+FROM python:3.11-slim
+COPY dns_collector.py /srv/dns_collector.py
+CMD ["python", "/srv/dns_collector.py", "/logs/dns.log"]
