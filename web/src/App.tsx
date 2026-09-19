@@ -60,7 +60,10 @@ export default function App() {
             severity_counts: raw?.severity_counts ?? d.severity_counts ?? {},
             findings: next.findings,
           },
-          elapsedMs: next.startedAt ? (next.finishedAt ?? Date.now()) - next.startedAt : 0,
+          // Final elapsed is frozen at finish from SERVER timestamps —
+          // never recomputed on re-render, so reloading an old audit keeps
+          // its true duration instead of restarting the clock.
+          elapsedMs: next.startedAt ? (next.finishedAt ?? next.startedAt) - next.startedAt : 0,
         });
         setPhase("done");
       } else if (event.type === "error" && event.data.fatal) {

@@ -38,13 +38,18 @@ export function initialPipelineState(): PipelineState {
 export function applyEvent(state: PipelineState, event: StageEvent): PipelineState {
   const next: PipelineState = { ...state, stages: { ...state.stages } };
   const stage = event.data.stage as StageName | undefined;
+  // Server clock is the source of truth for elapsed time: resume/reload
+  // replays events whose ts predates page load, so Date.now() would restart
+  // the timer near zero. All arithmetic happens on event timestamps.
+  const ts = Date.parse(event.ts);
+  const safeTs = Number.isFinite(ts) ? ts : Date.now();
 
   switch (event.type) {
     case "stage_started":
       if (stage) {
         next.stages[stage] = "running";
         next.currentStage = stage;
-        next.startedAt ??= Date.now();
+        next.startedAt ??= safeTs;
       }
       break;
     case "finding": {
@@ -66,7 +71,7 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
         if (next.stages[s] !== "error" && next.stages[s] !== "done") next.stages[s] = "done";
       }
       next.stages.verdict = "done";
-      next.finishedAt = Date.now();
+      next.finishedAt = safeTs;
       break;
     case "error":
       if (stage) next.stages[stage] = "error";

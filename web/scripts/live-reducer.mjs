@@ -136,5 +136,27 @@ if (state && typeof state === "object") {
   ok(typeof state.findings?.length === "number" || findings.length === 4, "reducer state findings consistent");
 }
 
+// ---- ELAPSED-REPLAY: server-clock elapsed survives replay-after-the-fact ----
+// (simulates: audit finished at T; user opens /audit/<id> at T+10min)
+{
+  const evs = events;                      // already parsed, w/ server ts
+  const first = evs.find((e) => e.type === "stage_started");
+  const last = evs.find((e) => e.type === "verdict") ?? evs[evs.length - 1];
+  const realMs = Date.parse(last.ts) - Date.parse(first.ts);
+
+  let s2 = initialPipelineState();
+  for (const e of evs) s2 = applyEvent(s2, e);
+
+  const okStart = Math.abs(s2.startedAt - Date.parse(first.ts)) < 5;
+  ok(okStart, `elapsed REPLAY: startedAt from server ts (got ${new Date(s2.startedAt).toISOString()})`);
+  ok(s2.finishedAt !== null && Math.abs(s2.finishedAt - Date.parse(last.ts)) < 5,
+    `elapsed REPLAY: finishedAt from server ts (got ${s2.finishedAt ? new Date(s2.finishedAt).toISOString() : "null"})`);
+  const elapsedMs = s2.startedAt ? s2.finishedAt - s2.startedAt : 0;
+  ok(Math.abs(elapsedMs - realMs) < 10,
+    `elapsed REPLAY: duration preserved (${(elapsedMs / 1000).toFixed(1)}s vs real ${(realMs / 1000).toFixed(1)}s)`);
+  ok(elapsedMs > 5000, `elapsed REPLAY: not restarted near zero (${(elapsedMs / 1000).toFixed(1)}s)`);
+}
+
 console.log(fails.length ? `\n✗ FAILURES (${fails.length}):\n- ${fails.join("\n- ")}` : "\nALL LIVE-PAYLOAD ASSERTIONS PASSED ✓");
 process.exit(fails.length ? 1 : 0);
+
