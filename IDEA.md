@@ -95,8 +95,9 @@ Runtime component ("don't corrupt me *during* coding"): CLI `fugu verify` re-has
 **MUST**
 - [ ] Inputs: local skills folder, git URL, MCP server config (stdio command)
 - [ ] Stages 0–3 + verdict report (5 = Tavily, cheap, keep; 4 = harness sim, minimal probe set)
-- [ ] Stage 4 minimal: ~30-probe battery, absent-vs-mounted diff on 1 harness agent
-- [ ] **Eval harness**: labeled corpus (MCPTox subset ~200 cases + crafted + benign) → published per-category precision/recall + confusion matrix (differentiation proof)
+- [ ] Stage 4: **red/blue/verifier harness** (drift D1, docs/strategy-arxiv-drift.md) — red Nemotron generates recorded probes, blue = agent w/ extension mounted, verifier diffs; canary env during runs
+- [ ] **Eval honesty pack** (D2): crafted-vs-real split, explicit aggregation convention, ~50-alert manual validation subset
+- [ ] S1 additions (D3): missing safety annotations, smell-lite checks; Detonation: non-start = evidence class (D5)
 - [ ] 8–10 crafted sample corpus: hidden SKILL.md instructions, env-harvest install script, tool-poisoned description, rug-pull pair, typosquat dep, shadowing pair, invisible-unicode payload, delayed/conditional exfil
 - [ ] React UI: submit → live pipeline view → OWASP scorecard w/ evidence + tiered-confidence labels
 - [ ] CLI parity: `fugu audit <path|url>`
