@@ -1,108 +1,137 @@
-# <PROJECT TITLE> — Nebius x NVIDIA Global AI Hackathon
+# 🐡 Fugu — the detonation chamber for AI-agent extensions
 
-> **Status: scaffold.** Track not chosen yet; this repo will be fleshed out as
-> the idea develops. Placeholder sections below are marked TODO.
+**Static scanners read the label. Fugu tastes the food.**
 
-## What it is
+Fugu is an agentic security auditor for third-party AI-agent extensions — skills (SKILL.md), MCP servers, plugins. Before you install that shiny community skill, Fugu audits it four independent ways and hands you an OWASP-mapped, evidence-backed verdict. Not a score. Not vibes. Exhibits.
 
-TODO: one-paragraph description of the project (track-agnostic for now).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![tests](https://img.shields.io/badge/tests-184%20passed-brightgreen)]()
 
-Built for the [Nebius x NVIDIA Global AI Hackathon](https://docs.tokenfactory.nebius.com/)
-on top of the **Nebius Token Factory** inference API running **NVIDIA open
-source models** (the Nemotron family).
+> Built for the [Nebius × NVIDIA Global AI Hackathon](https://nebiusglobalaihackathon.devpost.com) · Track 1: Coding & Agentic Engineering
+> Demo: *(URL — coming with deploy)* · Video: *(≤3 min, coming)*
 
-## Setup
+---
 
-Requires Python 3.10+ and [uv](https://docs.astral.sh/uv/).
+## The problem
 
-```bash
-git clone <repo-url>
-cd nebius_hack
-uv venv
-uv sync --extra dev
-```
+AI agents are installing third-party brains at scale — 10,000+ public MCP servers, ~427M monthly SDK downloads, thousands of community skills. The attack surface is real:
 
-## Configuration
+- **Scanners cry wolf.** A 2026 ecosystem study ([MCPZoo, arXiv 2607.11086](https://arxiv.org/abs/2607.11086)) found existing security scanners flag **96.89% of MCP servers as risky** — and manual validation showed **fewer than half of those alerts are true positives**. A tool that flags everything trains you to ignore it.
+- **Agents don't refuse attacks.** [MCPTox (AAAI-26)](https://arxiv.org/abs/2508.14925) measured tool-poisoning attack success up to **72.8%** across 20 agents, with a best refusal rate of **<3%**.
+- **Static-only analysis misses behavior.** Descriptions that misrepresent code, payloads that only fire at runtime, instructions hidden from human eyes in Unicode.
 
-Copy the example env file and add your Nebius Token Factory API key:
+Fugu answers with the pattern antivirus learned 20 years ago: **detonate it and watch what it does** — plus the discipline the field lacks: published, provenance-split, manually-adjudicated numbers.
 
-```bash
-cp .env.example .env
-# then edit .env:
-#   NEBIUS_API_KEY=...      (required for real API calls)
-#   NEBIUS_BASE_URL=...     (optional; EU endpoint by default)
-```
+## What Fugu does
 
-`.env` is gitignored — never commit real keys.
+Drop a skill or MCP server in; Fugu runs four independent analysis engines and produces a tiered-confidence scorecard:
 
-## Run
+| Stage | Engine | What it catches | Confidence tier |
+|---|---|---|---|
+| **S0 Concealment** | deterministic Unicode decoder | ASCII smuggling (U+E0000–7F), zero-width binary, bidi Trojan Source, variation-selector payloads — **decoded as evidence** | deterministic |
+| **S1 Static** | 18 rule families | secrets, env harvesting, curl→shell, credential-file access, typosquats, rug-pull phrasing, MCP annotation/smell checks | deterministic |
+| **S2 Semantic** | Nemotron Ultra LLM-judge via Token Factory | paraphrased injections, deceptive descriptions, intent-vs-text gaps — every finding localized with verbatim excerpt | advisory |
+| **S3 Detonation** | isolated chamber (Docker today, Nebius Sandboxes driver) | runtime exfiltration: the extension runs in a network-instrumented sandbox seeded with **canary credentials** (fake AWS keys, tokens); any canary byte leaving via HTTPS body, DNS label, or file write = **critical, with forensic evidence** | deterministic |
+| **S4 Harness** | red/blue/verifier A/B on two Nemotron tiers | does the extension actually **hijack an agent?** The same benign probes run against a baseline agent and an agent with the extension mounted; trajectory diff = measured behavioral poisoning | empirical |
+| **S5 Reputation** | Tavily | adverse web reputation for packages/domains, source-cited | advisory |
 
-```bash
-# 1. Smoke test: validate wiring without a key
-uv run python scripts/smoke_test.py --dry-run
+Then one verdict policy: **FAIL** on critical or hard-evidence highs · **WARN** on advisory highs/mediums · **PASS** — and a static-only PASS says so explicitly.
 
-# 2. Smoke test: real Token Factory calls (needs NEBIUS_API_KEY)
-uv run python scripts/smoke_test.py
+## Benchmark results
 
-# 3. Demo tool-calling agent (needs NEBIUS_API_KEY)
-uv run python scripts/demo_agent.py "What time is it right now, in UTC?"
-uv run python scripts/demo_agent.py --task reasoning "Plan a 3-step experiment"  # routes to Ultra
+Full methodology + raw JSON: [`bench/results/`](bench/results) · harness: `python -m bench.run_bench`
 
-# 4. API server
-uv run uvicorn src.app.api:app --reload
-# GET  http://127.0.0.1:8000/health
-# POST http://127.0.0.1:8000/chat  {"message": "hello"}
-```
-
-## NVIDIA open source models used
-
-All inference runs on **NVIDIA open source models** served by Nebius Token
-Factory:
-
-| Model | Tier | When to use |
+| Evaluation | Result | Field context |
 |---|---|---|
-| `nvidia/nemotron-3-super-120b-a12b` | Super (MoE) | Default: fast everyday calls, ~1M context, native function calling |
-| `nvidia/nemotron-3-ultra-550b` | Ultra | Heavy reasoning when quality matters more than latency/cost |
+| **MCPTox attack detection** (field's benchmark, AAAI-26; n=160 stratified, strict severity contract) | **160/160 — 100%**, all 11 categories | no competing auditor publishes a number on this benchmark |
+| Static-only on MCPTox (n=1,312, full corpus) | 9% — *by design*: paraphrase detection is the LLM tier's job; the 9%→100% delta is the cascade architecture quantified | |
+| **Real-world benign skills** (n=76, 4 public repos incl. Anthropic, obra/superpowers, community packs) | **0 static false positives**; semantic 3 flags → manually adjudicated: 1 true bug, 2 severity FPs (fixed) | field: 96.89% flagged / <50% true |
+| **Random registry draw** (skills.sh, seed 20260920, 25 of 2,862 skills) | 1 flag → adjudicated **true positive** | MCPZoo-comparable methodology, no ground truth |
+| Crafted corpus (6 attacks / 4 benign) | 6/6 detected · 0/4 FPs | internal consistency |
 
-Model selection is centralized in `src/app/model_router.py`. The full model
-catalogue is discovered at runtime via `client.models.list()` — never
-hardcoded.
+### Found in the wild
 
-## Nebius Token Factory usage
+- **A deceptive-behavior bug in Anthropic's production `docx` skill** (timeout reported as success in `accept_changes.py`) — found by the unsupervised LLM judge reading cold code during a benchmark run; independently corroborates defect #1 of [anthropics/skills#1770](https://github.com/anthropics/skills/issues/1770) (still open). Details: [`docs/wild-findings.md`](docs/wild-findings.md).
+- **A live `curl … | bash` install** in a randomly drawn registry skill — exactly the fetch-and-exec pattern an install-time auditor exists to catch.
 
-The Token Factory API (`https://api.tokenfactory.nebius.com/v1/`) is
-wire-compatible with the OpenAI API, so this project uses the official
-`openai` Python SDK with the base URL and key swapped:
+### Methodology (why you can trust the numbers)
 
-```python
-from app.client import make_client
+- **Provenance-split reporting** — crafted and real-world results are never pooled ([CASCADE, arXiv 2604.17125](https://arxiv.org/abs/2604.17125), shows synthetic corpora inflate recall).
+- **Explicit aggregation convention** — "detected" = any finding ≥ medium, stated up front.
+- **Manual adjudication** — every real-world flag was hand-verified; our first semantic run flagged 17% of benign skills, adjudication found the judge defect + our own harness bug, we fixed both and re-measured to 4%. The mistake and the fix are both committed.
+- **Reproducible draws** — seeded random sampling from a 2,862-skill catalog union; pinned, SHA-verified MCPTox source.
 
-client = make_client()  # OpenAI(base_url=NEBIUS_BASE_URL, api_key=NEBIUS_API_KEY)
-completion = client.chat.completions.create(model="nvidia/nemotron-3-super-120b-a12b", ...)
+## Quickstart
+
+Requires Python 3.10+, [uv](https://docs.astral.sh/uv/), Docker (for detonation). Node 20+ for the web UI.
+
+```bash
+git clone <repo-url> && cd fugu
+uv sync --extra dev
+cp .env.example .env        # add NEBIUS_API_KEY (Token Factory); TAVILY_API_KEY optional
 ```
 
-- Docs: https://docs.tokenfactory.nebius.com/llms.txt
-- Cookbook: https://github.com/nebius/token-factory-cookbook
+```bash
+# API server + web UI (SSE live pipeline, scorecard)
+uv run python -m fugu.server --port 8000 --db fugu.db   # persistence via SQLite
 
-## Project structure
+# web UI
+cd web && npm install && npm run dev    # http://localhost:5173 (proxies /api)
+# or serve built SPA from the server: npm run build  (dist/ auto-mounted at /)
+
+# one-shot audit (CLI path shared with eval harness)
+uv run python -c "from fugu.pipeline import run_audit; \
+  [print(f.severity, f.owasp_ids, f.title) for f in run_audit('corpus/03-env-harvest-installer')]"
+
+# reproduce the benchmark (static, free, offline)
+uv run python -m bench.fetch_real          # clone public skill repos (gitignored)
+uv run python -m bench.run_bench           # writes docs/benchmark.md
+
+# tests (hermetic — no network, no keys)
+uv run pytest -q                           # 184 passed
+```
+
+Try the demo samples: `corpus/01-hidden-instructions-skill` (caught three independent ways), `corpus/03-env-harvest-installer` (canary exfiltration → critical), `corpus/07-clean-skill` (passes).
+
+## Nebius Token Factory + NVIDIA models
+
+All inference runs on **NVIDIA open-source Nemotron models** served by the [Nebius Token Factory](https://docs.tokenfactory.nebius.com/) (OpenAI-wire-compatible API):
+
+| Model | Role in Fugu |
+|---|---|
+| `nvidia/Nemotron-3-Ultra-550b-a55b` | S2 security judge — deep reasoning over untrusted content, strict severity contract |
+| `nvidia/nemotron-3-super-120b-a12b` | S4 harness "everyday agent" arm + red probe generation (models what real deployed agents run) |
+| `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | bulk triage tier (router-ready) |
+
+**Where Nebius accelerated the workflow:** one wire-compatible endpoint powers the whole LLM side — the judge, both harness arms, and the red probe generator — with per-call logging (model/latency/tokens) recorded into every audit's stage metrics (`llm_calls`). Detonation runs in an isolated chamber (Docker driver today; the Nebius Sandboxes driver is written against the same interface pending our beta access). Analysis is 100% local: nothing you audit leaves your machine — unlike cloud-scoring scanners.
+
+Model routing: `src/fugu/model_router.py` (explicit nano/super/ultra tiers). A finding from our own harness: **Ultra-550b resists naive skill injections that hijack Super-120b** — susceptibility is a property of (model × framing), which is why S4 tests two tiers.
+
+## Repository layout
 
 ```
-├── pyproject.toml          # uv-managed project + deps
-├── .env.example            # env template (NEBIUS_API_KEY, NEBIUS_BASE_URL)
-├── LICENSE                 # MIT
-├── README.md
-├── src/app/
-│   ├── config.py           # env loading, base URLs, model IDs, require_api_key()
-│   ├── client.py           # make_client(): OpenAI SDK wired to Token Factory
-│   ├── model_router.py     # pick_model(task): Super vs Ultra routing
-│   └── api.py              # FastAPI skeleton (/health, /chat)
-├── scripts/
-│   ├── smoke_test.py       # models.list + chat completion; --dry-run mode
-│   └── demo_agent.py       # minimal tool-calling agent loop; --dry-run mode
-└── tests/
-    └── test_config.py      # config/router/dry-run unit tests (no network)
+src/fugu/
+├── pipeline/stages/    # S0 concealment · S1 static · S2 semantic · S4 harness · S5 reputation
+├── detonation/         # canary env, mitm+DNS collectors, Docker driver, evidence→findings
+├── server/             # FastAPI + SSE job runner, JobStore (+ SQLite persistence)
+├── store/              # sqlite WAL persistence (jobs/events/findings)
+├── verdict.py          # tiered verdict policy (shared by server/CLI/eval)
+└── types.py            # contracts: Finding, evidence tiers, OWASP ids
+corpus/                 # 10 labeled samples (6 attacks / 4 benign)
+bench/                  # benchmark harness: MCPTox adapter, real-world fetch, random draw
+eval/                   # precision/recall harness, selfcheck
+web/                    # React+Vite+TS+Tailwind dashboard
+tests/                  # 184 hermetic tests
+docs/                   # strategy, methodology, wild-findings citation sheet
 ```
+
+## Honest limitations
+
+- Detonation captures proxy-aware HTTP(S) + DNS; raw-socket egress is a documented residual risk (fail-closed hardening planned).
+- S4 harness is single-turn stated-intent (a tool-loop harness is next); results are framing-dependent — measured, not hidden.
+- The real-world set is skill-shaped; a server-heavy MCP corpus is the next expansion.
+- Reputation (S5) needs a `TAVILY_API_KEY` to activate; it no-ops cleanly without.
 
 ## License
 
-[MIT](LICENSE) © 2026 Nebius Hackathon Team
+[MIT](LICENSE) © 2026 — built by a solo developer and a team of AI agents on Nebius Token Factory.
