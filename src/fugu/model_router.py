@@ -15,7 +15,7 @@ quality is insufficient for the task.
 
 from __future__ import annotations
 
-from app.config import SUPER_MODEL, ULTRA_MODEL
+from fugu.config import SUPER_MODEL, ULTRA_MODEL
 
 # Task keywords that signal "serious reasoning" -> ULTRA tier.
 _REASONING_TASKS = {

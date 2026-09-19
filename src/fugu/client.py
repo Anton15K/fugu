@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from openai import OpenAI
 
-from app.config import Settings, get_settings
+from fugu.config import Settings, get_settings
 
 
 def make_client(settings: Settings | None = None) -> OpenAI:

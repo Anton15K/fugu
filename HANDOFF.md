@@ -21,8 +21,8 @@ Idea is LOCKED (Fugu — see IDEA.md) and the core mechanism is spike-validated.
 - **Spike 001 VALIDATED**: local Docker detonation chamber — canary env vars + mitmproxy (lazy strategy) + stdlib DNS collector caught all 3 exfil vectors. `spikes/001-canary-egress/` (README verdict + RUN_OUTPUT.txt + evidence JSONLs). Driver interface defined; Sandboxes driver swaps in when access lands.
 - **Sandboxes beta access: form submitted** by user 2026-09-19 (request text in `docs/sandbox-access-request.md`); free during beta. Python SDK: `contree-sdk`/`contree_client.httpx`.
 
-## Decisions still open
-- [ ] Track: 1 (Coding & Agentic — recommended, slam-dunk fit) vs 2
+## Decisions
+- [x] **Track: 1 — Coding and Agentic Engineering** (decided 2026-09-19)
 - [ ] Effort level / hours per week (MVP scope in IDEA.md assumes ~60–80 h total)
 - [ ] Frontend ownership (agent builds React UI vs user builds)
 - [ ] Name (Fugu / Canary / other)

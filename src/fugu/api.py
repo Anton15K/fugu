@@ -2,9 +2,9 @@
 
 Run (from the project root, after `uv sync`):
 
-    uv run uvicorn src.app.api:app --reload
+    uv run uvicorn src.fugu.api:app --reload
 
-This module path (src.app.api) works because the project root is on
+This module path (src.fugu.api) works because the project root is on
 sys.path when launching uvicorn from there; the installed package path
 is `app` (see pyproject hatch config).
 """
@@ -15,19 +15,19 @@ import sys
 from pathlib import Path
 
 # Allow running both as installed package (app.api) and from repo root
-# (src.app.api) without installing in editable mode.
+# (src.fugu.api) without installing in editable mode.
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 try:
-    from app.client import make_client
-    from app.config import SUPER_MODEL, get_settings
-    from app.model_router import pick_model
-except ImportError:  # pragma: no cover - fallback for src.app.api invocation
-    from src.app.client import make_client  # type: ignore
-    from src.app.config import SUPER_MODEL, get_settings  # type: ignore
-    from src.app.model_router import pick_model  # type: ignore
+    from fugu.client import make_client
+    from fugu.config import SUPER_MODEL, get_settings
+    from fugu.model_router import pick_model
+except ImportError:  # pragma: no cover - fallback for src.fugu.api invocation
+    from src.fugu.client import make_client  # type: ignore
+    from src.fugu.config import SUPER_MODEL, get_settings  # type: ignore
+    from src.fugu.model_router import pick_model  # type: ignore
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -64,7 +64,7 @@ def health() -> dict:
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest) -> ChatResponse:
     """One-shot chat completion through Nebius Token Factory."""
-    from app.config import require_api_key
+    from fugu.config import require_api_key
 
     require_api_key()
     model = pick_model(req.task) if req.task else SUPER_MODEL

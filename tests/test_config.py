@@ -9,8 +9,8 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
-import app.client as client_module
-import app.config as config
+import fugu.client as client_module
+import fugu.config as config
 import scripts.smoke_test as smoke_test  # noqa: E402  (scripts/ has no __init__)
 
 
@@ -43,7 +43,7 @@ def test_model_constants() -> None:
 
 
 def test_model_router_routing() -> None:
-    from app.model_router import pick_model
+    from fugu.model_router import pick_model
 
     assert pick_model("reasoning") == config.ULTRA_MODEL
     assert pick_model("prove this math theorem") == config.ULTRA_MODEL
