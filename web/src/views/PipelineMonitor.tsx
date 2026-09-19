@@ -59,7 +59,12 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
       }
       break;
     case "verdict":
-      for (const s of STAGE_ORDER) next.stages[s] ??= "done";
+      // Terminal: finish every stage that didn't explicitly fail or complete.
+      // (The backend runs 6 stages today; cards for planned-but-unbuilt
+      // stages must not stay "idle" forever after the verdict lands.)
+      for (const s of STAGE_ORDER) {
+        if (next.stages[s] !== "error" && next.stages[s] !== "done") next.stages[s] = "done";
+      }
       next.stages.verdict = "done";
       next.finishedAt = Date.now();
       break;
