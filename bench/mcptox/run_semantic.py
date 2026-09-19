@@ -21,7 +21,7 @@ from bench.mcptox.run_static import RESULTS, SAMPLES_ROOT, SEV_ORDER, stratified
 from fugu.pipeline import run_audit  # noqa: E402
 
 
-async def main_async(n: int) -> int:
+async def main_async(n: int, tag: str = "") -> int:
     from bench.mcptox.fetch import fetch, load_cases
     from bench.mcptox.adapter import adapt_cases
     from fugu.pipeline import build_stages, run_stages
@@ -76,8 +76,11 @@ async def main_async(n: int) -> int:
         lines.append(f"| {cat} | {d}/{t} ({d/t:.0%}) | {t} |")
     text = "\n".join(lines)
     RESULTS.mkdir(exist_ok=True)
-    (RESULTS / "mcptox-semantic.md").write_text(text + "\n")
-    (RESULTS / "mcptox-semantic.json").write_text(json.dumps({"n": len(rows), "det_med": det_med, "rows": rows}, indent=1))
+    suffix = f"-{tag}" if tag else ""
+    (RESULTS / f"mcptox-semantic{suffix}.md").write_text(text + "\n")
+    (RESULTS / f"mcptox-semantic{suffix}.json").write_text(
+        json.dumps({"n": len(rows), "det_med": det_med, "rows": rows}, indent=1)
+    )
     print(text)
     return 0
 
@@ -85,8 +88,9 @@ async def main_async(n: int) -> int:
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--n", type=int, default=120)
+    p.add_argument("--tag", default="", help="suffix for output files (e.g. 'confirm')")
     args = p.parse_args()
-    return asyncio.run(main_async(args.n))
+    return asyncio.run(main_async(args.n, args.tag))
 
 
 if __name__ == "__main__":

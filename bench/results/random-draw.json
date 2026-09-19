@@ -1,0 +1,166 @@
+[
+ {
+  "dir": "affaan-m__ecc__uncloud",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "anthropics__claude-plugins-official__build-mcpb",
+  "findings": 1,
+  "med_plus": 1,
+  "med": [
+   {
+    "title": "Access to credential files in references/local-security.md",
+    "severity": "high",
+    "confidence": "deterministic",
+    "excerpt": "L149 - [ ] Tested with adversarial inputs: `../../etc/passwd`, `; rm -rf ~`, 10GB file"
+   }
+  ]
+ },
+ {
+  "dir": "anthropics__knowledge-work-plugins__build-dashboard",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "anthropics__knowledge-work-plugins__task-management",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "atlassian__atlassian-mcp-server__capture-tasks-from-meeting-notes",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "borski__travel-hacking-toolkit__american-airlines",
+  "findings": 6,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "borski__travel-hacking-toolkit__award-calendar",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "brianlovin__agent-config__playwriter",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "composiohq__awesome-claude-skills__file-organizer",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "dceoy__speckit-agent-skills__speckit-checklist",
+  "findings": 3,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "gamedev-skills__awesome-gamedev-agent-skills__card-game",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "github__awesome-copilot__create-github-issues-feature-from-implementation-plan",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "github__awesome-copilot__mkdocs-translations",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "github__awesome-copilot__pytest-coverage",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "googleworkspace__cli__recipe-create-vacation-responder",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "huggingface__skills__huggingface-datasets",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "louisblythe__sales-skills__sentiment-trend-tracking",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "mcp-use__mcp-use__mcp-apps-builder",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "nvidia__skills__tao-generate-image-grounding",
+  "findings": 2,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "owl-listener__designer-skills__diary-study-plan",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "pexoai__pexo-skills__videoagent-video-studio",
+  "findings": 10,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "reason-machines__trending-skills__openviking-context-database",
+  "findings": 2,
+  "med_plus": 1,
+  "med": [
+   {
+    "title": "Remote install script fetched and executed in SKILL.md",
+    "severity": "high",
+    "confidence": "deterministic",
+    "excerpt": "L35 curl -fsSL https://raw.githubusercontent.com/volcengine/OpenViking/main/crates/ov_cli/install.sh | bash"
+   }
+  ]
+ },
+ {
+  "dir": "runwayml__skills__rw-check-org-details",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "shopify__shopify-ai-toolkit__shopify-custom-data",
+  "findings": 5,
+  "med_plus": 0,
+  "med": []
+ },
+ {
+  "dir": "tldraw__tldraw__write-docs",
+  "findings": 0,
+  "med_plus": 0,
+  "med": []
+ }
+]

@@ -354,6 +354,11 @@ def _raw_ip_hits(text: str, rel: str) -> list[RuleHit]:
 
 
 def _sensitive_path_hits(text: str, rel: str) -> list[RuleHit]:
+    # Path MENTIONS in prose/docs (e.g. a security checklist telling you to
+    # test against ../../etc/passwd) are not access. Deterministic path
+    # rules are for code/config; prose judgement is S2's job.
+    if rel.endswith(_MARKDOWN_SUFFIXES):
+        return []
     return _regex_hits(_SENSITIVE_PATH_RE, "sensitive_path_access", text, group=0)
 
 
