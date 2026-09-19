@@ -60,7 +60,13 @@ export interface ScorecardProps {
 }
 
 export function Scorecard({ verdict, elapsedMs }: ScorecardProps) {
-  const theme = verdictTheme[verdict.verdict];
+  const theme =
+    verdictTheme[verdict.verdict] ??
+    verdictTheme[
+      (typeof verdict.verdict === "string" && verdict.verdict in verdictTheme
+        ? verdict.verdict
+        : "warn") as keyof typeof verdictTheme
+    ];
   const { Icon } = theme;
 
   const severityCounts = useMemo(

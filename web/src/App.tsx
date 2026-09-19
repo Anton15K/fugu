@@ -40,12 +40,22 @@ export default function App() {
     setPipeline((prev) => {
       const next = applyEvent(prev, event);
       if (event.type === "verdict") {
-        const d = event.data as Partial<VerdictData>;
+        // Backend shape: { verdict: {status, severity_counts, reasons, ...},
+        //                 severity_counts, total_findings, stages } — the
+        // document lives in data.verdict; findings come from the stream
+        // (pipeline state), NOT from the verdict event.
+        const d = event.data as {
+          verdict?: { status?: string; severity_counts?: VerdictData["severity_counts"] };
+          severity_counts?: VerdictData["severity_counts"];
+        };
+        const raw = d.verdict;
+        const status =
+          typeof raw === "string" ? raw : (raw?.status as VerdictData["verdict"]) ?? "warn";
         setVerdictInfo({
           verdict: {
-            verdict: d.verdict ?? "warn",
-            severity_counts: d.severity_counts ?? {},
-            findings: d.findings ?? [],
+            verdict: status,
+            severity_counts: raw?.severity_counts ?? d.severity_counts ?? {},
+            findings: next.findings,
           },
           elapsedMs: next.startedAt ? (next.finishedAt ?? Date.now()) - next.startedAt : 0,
         });
