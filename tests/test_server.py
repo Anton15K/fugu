@@ -221,7 +221,7 @@ def test_full_flow_stages_findings_sse_order() -> None:
     verdict = events[-1]["data"]
     assert verdict["status"] == "done"
     assert verdict["total_findings"] == 2
-    assert verdict["severity_counts"] == {"high": 1, "info": 1}
+    assert verdict["severity_counts"] == {"critical": 0, "high": 1, "medium": 0, "low": 0, "info": 1}
     assert len(verdict["stages"]) == 2
 
     # stage_done of the failed stage carries the error

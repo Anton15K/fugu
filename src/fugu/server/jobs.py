@@ -331,13 +331,14 @@ async def run_job(
             "metrics": result.metrics,
         })
 
-    counts: dict[str, int] = {}
-    for f in snap.findings:
-        counts[f.severity] = counts.get(f.severity, 0) + 1
+    from fugu.verdict import aggregate_verdict
+
+    verdict = aggregate_verdict(snap.findings, snap.stages)
     _emit(store, job, "verdict", {
         "status": "done",
-        "total_findings": len(snap.findings),
-        "severity_counts": counts,
+        "verdict": verdict,
+        "total_findings": verdict["total_findings"],
+        "severity_counts": verdict["severity_counts"],
         "stages": [stage_public(r) for r in snap.stages],
     })
     job.status = JobStatus.done

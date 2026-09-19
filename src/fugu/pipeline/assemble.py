@@ -24,6 +24,7 @@ def build_stages(
     include_detonation: bool = True,
     include_semantic: bool = True,
     include_harness: bool = True,
+    include_reputation: bool = True,
 ) -> list:
     """Assemble the currently-implemented stages in execution order.
 
@@ -40,6 +41,10 @@ def build_stages(
         from fugu.pipeline.stages.harness import HarnessStage
 
         stages.append(HarnessStage())
+    if include_reputation:
+        from fugu.pipeline.stages.reputation import ReputationStage
+
+        stages.append(ReputationStage())
     if include_detonation:
         try:
             from fugu.detonation.docker_driver import DockerDriver
@@ -73,6 +78,7 @@ def run_audit(
     include_detonation: bool = True,
     include_semantic: bool = True,
     include_harness: bool = True,
+    include_reputation: bool = True,
 ) -> list[Finding]:
     """Canonical entry: audit a local directory, return all findings.
 

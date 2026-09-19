@@ -162,6 +162,10 @@ def _chunks(text: str) -> list[str]:
     return out
 
 
+# Corpus/eval infrastructure files are not extension content - judging them
+# is circular (a manifest that labels a sample malicious is OUR metadata).
+_SEMANTIC_SKIP_FILES = {"manifest.json"}
+
 _VALID_SEV = {"critical", "high", "medium", "low", "info"}
 
 
@@ -197,11 +201,11 @@ class SemanticStage:
 
         units: list[tuple[str, int, str]] = []  # (rel, chunk_index, text)
         for tf in files:
+            if Path(tf.rel).name.lower() in _SEMANTIC_SKIP_FILES:
+                continue
             for i, chunk in enumerate(_chunks(tf.text)):
                 units.append((tf.rel, i, chunk))
         units = units[:MAX_UNITS]
-        if len(units) < sum(1 for tf in files for _ in _chunks(tf.text)):
-            stats["units_truncated"] = True
 
         findings: list[Finding] = []
         calls: list[JudgeCall] = []
