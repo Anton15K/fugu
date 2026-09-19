@@ -1,4 +1,5 @@
 import { ShieldAlert, ShieldCheck, ShieldX } from "lucide-react";
+import { API_BASE } from "@/lib/api";
 import { useMemo, useState } from "react";
 import {
   ConfidenceBadge,
@@ -259,6 +260,77 @@ function bySeverityDesc(a: Finding, b: Finding): number {
   return (SEV_RANK[b.severity] ?? 0) - (SEV_RANK[a.severity] ?? 0);
 }
 
+/** Per-finding chamber probe: re-runs the flagged command in a fresh
+ *  canary sandbox and reports empirical results inline. */
+function DetonateButton({ finding }: { finding: Finding }) {
+  const [state, setState] = useState<"idle" | "running" | "done" | "error">("idle");
+  const [result, setResult] = useState<{
+    ok: boolean;
+    trigger: string | null;
+    metrics: Record<string, unknown>;
+    findings: { title: string; severity: string; detail: string }[];
+  } | null>(null);
+
+  const run = async () => {
+    setState("running");
+    setResult(null);
+    try {
+      const res = await fetch(`${API_BASE}/probe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ finding, timeout_s: 60 }),
+      });
+      if (!res.ok) throw new Error(`probe failed: HTTP ${res.status}`);
+      setResult(await res.json());
+      setState("done");
+    } catch (e) {
+      setResult({ ok: false, trigger: null, metrics: { error: String(e) }, findings: [] });
+      setState("error");
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-end gap-1">
+      <button
+        type="button"
+        onClick={() => void run()}
+        disabled={state === "running"}
+        title="re-run the flagged command in the canary chamber"
+        className="shrink-0 rounded-md border border-amber-700/60 bg-amber-950/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-amber-300 transition-colors hover:bg-amber-900/40 disabled:opacity-50"
+      >
+        {state === "running" ? "detonating…" : "detonate"}
+      </button>
+      {result && (
+        <div className="max-w-md rounded-md border border-zinc-800 bg-zinc-950/80 p-2 text-right">
+          {result.trigger && (
+            <p className="font-mono text-[10px] text-zinc-500 break-all">{result.trigger}</p>
+          )}
+          {result.ok ? (
+            <>
+              <p className="font-mono text-[10px] text-zinc-400">
+                canary {String(result.metrics.canary_hits ?? 0)} · flows {String(result.metrics.flows ?? 0)} · dns {String(result.metrics.dns ?? 0)}
+              </p>
+              {result.findings.length > 0 ? (
+                result.findings.map((f, i) => (
+                  <p key={i} className="font-mono text-[11px] text-red-300">
+                    [{f.severity}] {f.title}
+                  </p>
+                ))
+              ) : (
+                <p className="font-mono text-[10px] text-emerald-400">no canary/egress hits — command behaved</p>
+              )}
+            </>
+          ) : (
+            <p className="font-mono text-[10px] text-red-400">
+              {String(result.metrics.error ?? "probe failed")}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function FindingRow({ finding, defaultOpen }: { finding: Finding; defaultOpen: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
@@ -287,6 +359,7 @@ function FindingRow({ finding, defaultOpen }: { finding: Finding; defaultOpen: b
             </span>
           </span>
         </CollapsibleTrigger>
+        <DetonateButton finding={finding} />
       </div>
       <CollapsibleContent open={open} className="px-3 pb-3">
         <div className="border-t border-zinc-800/70 pt-3">

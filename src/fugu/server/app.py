@@ -76,6 +76,13 @@ class AuditCreateResponse(BaseModel):
     events: str
 
 
+class ProbeRequest(BaseModel):
+    finding: dict[str, Any] = Field(
+        ..., description="finding_public() JSON of the finding to detonate"
+    )
+    timeout_s: int = Field(60, ge=5, le=180)
+
+
 class AppState:
     """Server singletons attached to app.state.fugu."""
 
@@ -213,6 +220,40 @@ def create_app(
             "created_at": snap.job.created_at,
             "stages": [stage_public(r) for r in snap.stages],
             "findings": [finding_public(f) for f in snap.findings],
+        }
+
+    @api.post("/probe")
+    async def probe_finding(req: ProbeRequest) -> dict[str, Any]:
+        """One-shot: detonate a single finding's command in a fresh chamber.
+
+        Independent of any audit job — the "detonate this finding" button.
+        Chamber internals (canary env, mitm/DNS collectors, watchdog) are
+        identical to full detonation; only the target dir is an empty temp
+        dir and the trigger is the command quoted in the finding's evidence.
+        """
+        from fugu.detonation.probe import command_from_finding, run_probe
+        from fugu.server.jobs import _finding_from_public
+
+        try:
+            finding = _finding_from_public(req.finding)
+        except Exception as exc:  # noqa: BLE001
+            raise HTTPException(status_code=422, detail=f"invalid finding: {exc}")
+
+        cmd = command_from_finding(finding)
+        if cmd is None:
+            return {
+                "ok": False,
+                "trigger": None,
+                "metrics": {"error": "no executable command found in finding"},
+                "findings": [],
+            }
+
+        result = await run_probe(finding, timeout_s=req.timeout_s)
+        return {
+            "ok": result.ok,
+            "trigger": result.trigger,
+            "metrics": result.metrics,
+            "findings": [finding_public(f) for f in result.findings],
         }
 
     @api.get("/audits/{job_id}/events")
