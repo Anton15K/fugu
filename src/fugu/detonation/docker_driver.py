@@ -133,6 +133,7 @@ class DockerDriver:
         target_dir: Path,
         triggers: list[str],
         timeout_s: int = 120,
+        on_progress=None,
     ) -> list[DetonationEvidence]:
         """Run every trigger in a fresh chamber; return evidence per trigger.
 
@@ -153,7 +154,7 @@ class DockerDriver:
         mitm_ip = f"{_SUBNET_BASE}.{k}.11"
 
         return await self._detonate_chamber(
-            run_id, target_dir, triggers, timeout_s, subnet, dns_ip, mitm_ip
+            run_id, target_dir, triggers, timeout_s, subnet, dns_ip, mitm_ip, on_progress
         )
 
     # ------------------------------------------------------------- internals
@@ -190,7 +191,15 @@ class DockerDriver:
         subnet: str,
         dns_ip: str,
         mitm_ip: str,
+        on_progress=None,
     ) -> list[DetonationEvidence]:
+        def log(msg: str) -> None:
+            if on_progress is not None:
+                try:
+                    on_progress(msg)  # stage tag comes from the SSE envelope
+                except Exception:  # noqa: BLE001 - progress must never kill a run
+                    pass
+
         logs_dir = Path(tempfile.mkdtemp(prefix=f"{run_id}-logs-"))
         victim_img = f"{run_id}/victim:latest"
         ca_pem = logs_dir / "mitmca.pem"
@@ -234,12 +243,16 @@ class DockerDriver:
                 check=True,
             )
             await asyncio.sleep(1.0)  # let collectors settle
+            log("chamber up: network %s, dns+mitm collectors running" % net_name)
 
             await self._build_victim_image(target_dir, ca_pem, victim_img)
+            log("victim image built (target copied in, CA installed)")
 
             canary_env, canary_values = fresh_canary_env()
 
+            log("detonating %d trigger(s)" % len(triggers))
             for i, trigger in enumerate(triggers):
+                log("trigger %d/%d: %s" % (i + 1, len(triggers), trigger))
                 evidence.append(
                     await self._exec_trigger(
                         run_id=run_id,
@@ -255,6 +268,7 @@ class DockerDriver:
                         logs_dir=logs_dir,
                     )
                 )
+            log("all triggers executed; tearing chamber down")
             return evidence
         finally:
             await self._teardown(

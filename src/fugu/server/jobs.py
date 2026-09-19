@@ -449,6 +449,17 @@ async def run_job(
     loop = asyncio.get_running_loop()
     for stage in stages:
         name = getattr(stage, "name", type(stage).__name__)
+        # Per-stage progress narration: stages may accept on_progress(msg) and
+        # emit human-readable log lines mid-run (chamber builds, per-trigger
+        # execution...). Wired per-stage before the run so it reaches the SSE
+        # stream and the persisted event history (resume replays it too).
+        def _stage_progress(msg: str, _stage_name: str = name) -> None:
+            _emit(store, job, "log", {"stage": _stage_name, "message": msg})
+        if hasattr(stage, "_on_progress"):
+            try:
+                stage._on_progress = _stage_progress
+            except Exception:  # noqa: BLE001
+                pass
         _emit(store, job, "stage_started", {"stage": name})
         started = loop.time()
         try:

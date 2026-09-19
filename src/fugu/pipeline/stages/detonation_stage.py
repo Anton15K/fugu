@@ -16,9 +16,10 @@ class DetonationDriverProtocol(Protocol):
 class DetonationStage:
     name = "detonation"
 
-    def __init__(self, driver: DetonationDriverProtocol, timeout_s: int = 120):
+    def __init__(self, driver: DetonationDriverProtocol, timeout_s: int = 120, on_progress=None):
         self._driver = driver
         self._timeout_s = timeout_s
+        self._on_progress = on_progress
 
     async def run(self, job: AuditJob, target: Path) -> StageResult:
         try:
@@ -27,7 +28,21 @@ class DetonationStage:
         except ImportError as exc:
             return StageResult(stage=self.name, ok=False, error=f"driver unavailable: {exc}")
 
+        def emit_progress(msg: str) -> None:
+            if self._on_progress is not None:
+                try:
+                    self._on_progress(msg)
+                except Exception:  # noqa: BLE001 - progress must never kill the stage
+                    pass
+
         triggers = derive_triggers(target, source=getattr(job, "source", None))
+        if triggers:
+            emit_progress(
+                "derived %d trigger(s): %s"
+                % (len(triggers), "; ".join(t[:60] for t in triggers))
+            )
+        else:
+            emit_progress("no runnable triggers derived — target never executed")
         if not triggers:
             # A third of real registry servers never start (arXiv 2609.10962:
             # 37.5% fail to boot, only 48.8% complete the handshake). That is
@@ -56,7 +71,13 @@ class DetonationStage:
                 metrics={"triggers": 0, "note": "no runnable triggers found"},
             )
         try:
-            evidences = await self._driver.detonate(target, triggers, timeout_s=self._timeout_s)
+            detonate_kwargs = {"timeout_s": self._timeout_s}
+            # drivers that accept on_progress get live narration; older
+            # protocol drivers simply run without it
+            import inspect
+            if "on_progress" in inspect.signature(self._driver.detonate).parameters:
+                detonate_kwargs["on_progress"] = emit_progress
+            evidences = await self._driver.detonate(target, triggers, **detonate_kwargs)
         except Exception as exc:  # noqa: BLE001 - chamber failures must not kill the audit
             return StageResult(stage=self.name, ok=False, error=f"{type(exc).__name__}: {exc}")
 
