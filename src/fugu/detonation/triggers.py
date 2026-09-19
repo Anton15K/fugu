@@ -40,7 +40,7 @@ _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*$")
 TARGET_MOUNT = "/opt/target"
 
 
-def derive_triggers(target_dir: Path) -> list[str]:
+def derive_triggers(target_dir: Path, source: str | None = None) -> list[str]:
     """Return trigger commands for a target dir (deterministic, ordered)."""
     tdir = Path(target_dir)
     triggers: list[str] = []
@@ -60,15 +60,7 @@ def derive_triggers(target_dir: Path) -> list[str]:
             pass
 
     # --- import (python package) --------------------------------------------
-    py_top: list[str] = []
-    for child in sorted(tdir.iterdir()):
-        name = child.name
-        if name == "setup.py" or name.startswith("test"):
-            continue
-        if child.is_dir() and (child / "__init__.py").is_file() and _IDENT.match(name):
-            py_top.append(name)
-        elif child.is_file() and name.endswith(".py") and _IDENT.match(name[: -len(".py")]):
-            py_top.append(name[: -len(".py")])
+    py_top = _top_py_modules(tdir)
     triggers.extend(f'python -c "import {m}"' for m in py_top[:10])
 
     # --- invoke (MCP server entrypoint) --------------------------------------
@@ -77,9 +69,49 @@ def derive_triggers(target_dir: Path) -> list[str]:
         triggers.append(f"timeout 3 {entry} || test $? -eq 124")
 
     # --- readme (documented fetch-and-run install) ----------------------------
-    triggers.extend(_readme_fetch_run_triggers(tdir))
+    triggers.extend(_readme_fetch_run_triggers(tdir, source))
+
+    # --- nested sub-projects (monorepo layouts) --------------------------------
+    if not triggers or not _mcp_entrypoint(tdir):
+        for sub in _nested_project_dirs(tdir):
+            rel = f"{TARGET_MOUNT}/{sub.name}"
+            entry = _mcp_entrypoint(sub)
+            if entry:
+                triggers.append(entry.replace(f"{TARGET_MOUNT}/", f"{rel}/", 1))
+            mods = _top_py_modules(sub)
+            if mods:
+                joined = ", ".join(mods[:5])
+                triggers.append(
+                    f"python -c \"import sys; sys.path.insert(0, '{rel}'); import {joined}\""
+                )
 
     return triggers
+
+
+_PROJECT_MARKERS = ("pyproject.toml", "package.json", "requirements.txt", "setup.py")
+
+
+def _nested_project_dirs(tdir: Path) -> list[Path]:
+    """Immediate subdirectories that look like standalone projects."""
+    out = []
+    for child in sorted(tdir.iterdir()):
+        if child.is_dir() and any((child / m).is_file() for m in _PROJECT_MARKERS):
+            out.append(child)
+    return out
+
+
+def _top_py_modules(tdir: Path) -> list[str]:
+    """Top-level python module names of a directory (shared helper)."""
+    mods: list[str] = []
+    for child in sorted(tdir.iterdir()):
+        name = child.name
+        if name == "setup.py" or name.startswith("test"):
+            continue
+        if child.is_dir() and (child / "__init__.py").is_file() and _IDENT.match(name):
+            mods.append(name)
+        elif child.is_file() and name.endswith(".py") and _IDENT.match(name[: -3]):
+            mods.append(name[: -3])
+    return mods
 
 
 # ``curl|sh``-style one-liners in docs. Captures http(s) URLs from curl/wget
@@ -89,7 +121,7 @@ _FETCH_RUN = re.compile(
 )
 
 
-def _readme_fetch_run_triggers(tdir: Path) -> list[str]:
+def _readme_fetch_run_triggers(tdir: Path, source: str | None = None) -> list[str]:
     """Detonate fetch-and-run install instructions from README/SKILL.md.
 
     The trigger reproduces the documented victim action: fetch the remote
@@ -97,7 +129,7 @@ def _readme_fetch_run_triggers(tdir: Path) -> list[str]:
     egress captured. Only URLs plausibly owned by the target are detonated
     (see module docstring) — installing third-party tooling is noise.
     """
-    owned = _owned_url_prefixes(tdir)
+    owned = _owned_url_prefixes(tdir, source)
     out: list[str] = []
     for name in ("README.md", "README", "SKILL.md"):
         f = tdir / name
@@ -121,9 +153,18 @@ def _readme_fetch_run_triggers(tdir: Path) -> list[str]:
     return out[:3]  # cap: 3 remote detonations per audit
 
 
-def _owned_url_prefixes(tdir: Path) -> list[str]:
-    """URL prefixes plausibly owned by the target (from manifest/mcp config)."""
+def _owned_url_prefixes(tdir: Path, source: str | None = None) -> list[str]:
+    """URL prefixes plausibly owned by the target.
+
+    Sources, in order: the job's git source URL (a repo owns its own GitHub
+    host/raw/codeload/releases URLs — this is what makes real-world repos
+    derivable), the eval corpus host, and manifest metadata. A URL that is
+    not under any of these belongs to a third party and is never detonated.
+    """
     prefixes: list[str] = ["https://fugu-test.example"]  # eval corpus host
+    src = (source or "").strip()
+    if src.startswith(("http://", "https://")):
+        prefixes.extend(_source_url_prefixes(src))
     mf = tdir / "manifest.json"
     if mf.is_file():
         try:
@@ -137,6 +178,28 @@ def _owned_url_prefixes(tdir: Path) -> list[str]:
         except (ValueError, OSError):
             pass
     return prefixes
+
+
+def _source_url_prefixes(url: str) -> list[str]:
+    """URL prefixes a git source URL owns (repo + its raw/codeload/releases)."""
+    from urllib.parse import urlsplit
+
+    u = url.strip().rstrip("/")
+    if u.endswith(".git"):
+        u = u[: -len(".git")]
+    out = [u]
+    try:
+        parts = urlsplit(u)
+        host = parts.netloc.lower()
+        path = parts.path.strip("/")
+    except ValueError:
+        return out
+    if host.endswith("github.com") and path.count("/") >= 1:
+        owner, repo = path.split("/")[:2]
+        out.append(f"https://raw.githubusercontent.com/{owner}/{repo}")
+        out.append(f"https://codeload.github.com/{owner}/{repo}")
+        out.append(f"https://github.com/{owner}/{repo}/releases/download")
+    return out
 
 
 def _mcp_entrypoint(tdir: Path) -> str | None:

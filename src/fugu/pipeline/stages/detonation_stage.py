@@ -27,7 +27,7 @@ class DetonationStage:
         except ImportError as exc:
             return StageResult(stage=self.name, ok=False, error=f"driver unavailable: {exc}")
 
-        triggers = derive_triggers(target)
+        triggers = derive_triggers(target, source=getattr(job, "source", None))
         if not triggers:
             # A third of real registry servers never start (arXiv 2609.10962:
             # 37.5% fail to boot, only 48.8% complete the handshake). That is
