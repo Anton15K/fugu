@@ -99,11 +99,16 @@ _SENSITIVE_PATH_RE = re.compile(
     r"|\b(?:id_rsa|authorized_keys)\b"
 )
 _ENV_HARVEST_RE = re.compile(
-    r"\bfor\s+\w+(?:\s*,\s*\w+)*\s+in\s+(?:os\.environ(?:\.items\(\))?|process\.env|\$\(env\)|env)"
+    r"\bfor\s+\w+(?:\s*,\s*\w+)*\s+in\s+(?:os\.environ(?:\.items\(\))?|process\.env|\$\(env\)|env(?![\w-]))"
     r"|\bos\.environ\.items\(\)"
     r"|\b(?:printenv|env)\s*\|[^|!\n]{0,80}\b(?:curl|wget|nc|base64|xxd|logger)\b"
     r"|JSON\.stringify\(process\.env\)"
     r"|Object\.(?:entries|keys|values)\(process\.env\)"
+)
+# Safe pattern: building a FILTERED env for a subprocess (the recommended
+# way to pass environments without leaking) - not harvesting.
+_ENV_FILTER_SAFE_RE = re.compile(
+    r"os\.environ\.items\(\)\s*if\s+\w+\s*!=|os\.environ\.items\(\)[^.\n]{0,60}\bif\b[^.\n]{0,40}not\s+in"
 )
 _B64_DECODE_EXEC_RE = re.compile(
     r"(?i)(?:base64\s+(?:-d|--decode)|atob\(|frombase64|b64decode|base64\.decode)"
@@ -168,6 +173,16 @@ _INJECTION_PHRASES = [
     r"(?i)before\s+(?:answering|responding|replying|any\s+response)[^.\n]{0,100}?"
     r"(?:must\s+)?(?:call|invoke|run|use|send|include|read)",
 ]
+# Doc-prose arms too weak for documentation (normal prose and operator
+# guidance match them); source files keep the full set. Paraphrased
+# injections in docs are S2's (semantic) job - static doc mode is
+# high-precision only.
+_INJECTION_DOC_PHRASES = [
+    p for p in _INJECTION_PHRASES
+    if not p.startswith(r"(?i)always\s+(?:call|invoke|run|use)")
+    and not p.startswith(r"(?i)before\s+(?:answering|responding|replying|any\s+response)")
+]
+_INJECTION_DOC_RES = [re.compile(p) for p in _INJECTION_DOC_PHRASES]
 _INJECTION_RES = [re.compile(p) for p in _INJECTION_PHRASES]
 
 _MARKDOWN_SUFFIXES = (".md", ".markdown", ".txt")
@@ -290,6 +305,10 @@ def _slack_hits(text: str, rel: str) -> list[RuleHit]:
 
 
 def _b64_secret_hits(text: str, rel: str) -> list[RuleHit]:
+    # Documentation legitimately contains code examples (auth snippets,
+    # config tables); the secret heuristic is for real source files only.
+    if rel.endswith(_MARKDOWN_SUFFIXES):
+        return []
     hits: list[RuleHit] = []
     for n, line in _lines(text):
         for m in _B64_BLOB_RE.finditer(line):
@@ -315,6 +334,9 @@ def _b64_secret_hits(text: str, rel: str) -> list[RuleHit]:
 
 
 def _pipe_shell_hits(text: str, rel: str) -> list[RuleHit]:
+    # curl examples in docs are documentation, not install-time execution
+    if rel.endswith(_MARKDOWN_SUFFIXES):
+        return []
     out = []
     for h in _regex_hits(_PIPE_SHELL_RE, "curl_pipe_shell", text):
         low = h.line.lower()
@@ -336,7 +358,14 @@ def _sensitive_path_hits(text: str, rel: str) -> list[RuleHit]:
 
 
 def _env_harvest_hits(text: str, rel: str) -> list[RuleHit]:
-    return _regex_hits(_ENV_HARVEST_RE, "env_harvest", text, group=0)
+    hits: list[RuleHit] = []
+    for n, line in _lines(text):
+        for m in _ENV_HARVEST_RE.finditer(line):
+            ctx = line[max(0, m.start() - 80): m.end() + 80]
+            if _ENV_FILTER_SAFE_RE.search(ctx):
+                continue  # filtered subprocess env build, the safe idiom
+            hits.append(RuleHit(rule_id="env_harvest", lineno=n, line=line, match=m.group(0)))
+    return hits
 
 
 def _b64_exec_hits(text: str, rel: str) -> list[RuleHit]:
@@ -421,12 +450,15 @@ def _typosquat_hits(text: str, rel: str) -> list[RuleHit]:
 
 
 def _injection_hits_factory(rule_id: str, suffixes: tuple[str, ...]):
+    doc_mode = suffixes == _MARKDOWN_SUFFIXES  # docs get the stricter arm set
+
     def apply(text: str, rel: str) -> list[RuleHit]:
         if not rel.lower().endswith(suffixes):
             return []
+        regexes = _INJECTION_DOC_RES if doc_mode else _INJECTION_RES
         hits: list[RuleHit] = []
         for n, line in _lines(text):
-            for rx in _INJECTION_RES:
+            for rx in regexes:
                 m = rx.search(line)
                 if m:
                     hits.append(
