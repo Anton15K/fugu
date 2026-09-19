@@ -27,8 +27,9 @@ DEFAULT_BASE_URL = BASE_URL_EU
 #   function/tool calling, fast and cheap. Default for everyday calls.
 # nemotron-3-ultra-550b: "Ultra" tier - heavy reasoning model. Use when answer
 #   quality on hard problems matters more than latency/cost.
+NANO_MODEL = "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
 SUPER_MODEL = "nvidia/nemotron-3-super-120b-a12b"
-ULTRA_MODEL = "nvidia/nemotron-3-ultra-550b"
+ULTRA_MODEL = "nvidia/Nemotron-3-Ultra-550b-a55b"
 
 
 class Settings:

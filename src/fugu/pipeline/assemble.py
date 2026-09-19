@@ -20,13 +20,21 @@ from fugu.types import AuditJob, Finding, JobStatus, StageResult
 __all__ = ["build_stages", "run_audit", "run_stages"]
 
 
-def build_stages(include_detonation: bool = True) -> list:
+def build_stages(
+    include_detonation: bool = True,
+    include_semantic: bool = True,
+) -> list:
     """Assemble the currently-implemented stages in execution order.
 
     Detonation is skipped when Docker is unavailable (eval/CI) or when
-    include_detonation=False (pure static pass).
+    include_detonation=False (pure static pass). Semantic self-no-ops
+    without NEBIUS_API_KEY, so include_semantic=True is safe offline.
     """
     stages: list = [ConcealmentStage(), StaticScanStage()]
+    if include_semantic:
+        from fugu.pipeline.stages.semantic import SemanticStage
+
+        stages.append(SemanticStage())
     if include_detonation:
         try:
             from fugu.detonation.docker_driver import DockerDriver

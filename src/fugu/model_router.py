@@ -15,7 +15,7 @@ quality is insufficient for the task.
 
 from __future__ import annotations
 
-from fugu.config import SUPER_MODEL, ULTRA_MODEL
+from fugu.config import NANO_MODEL, SUPER_MODEL, ULTRA_MODEL
 
 # Task keywords that signal "serious reasoning" -> ULTRA tier.
 _REASONING_TASKS = {
@@ -32,17 +32,27 @@ _REASONING_TASKS = {
 }
 
 
-def pick_model(task: str = "") -> str:
+def pick_model(task: str = "", tier: str = "") -> str:
     """Pick a Token Factory model ID for a task.
 
     Args:
         task: short free-text task descriptor (e.g. "reasoning", "chat",
             "summarize this article"). Matched case-insensitively against
             known reasoning keywords.
+        tier: explicit tier override - "nano" | "super" | "ultra".
+            When given, it wins over task heuristics. Use "nano" for bulk
+            triage, "super" as the everyday default, "ultra" for
+            adversarial/hard adjudication.
 
     Returns:
-        ULTRA_MODEL for reasoning-heavy tasks, SUPER_MODEL otherwise.
+        ULTRA_MODEL for reasoning-heavy tasks (or tier="ultra"),
+        NANO_MODEL for tier="nano", SUPER_MODEL otherwise.
     """
+    t = (tier or "").strip().lower()
+    if t == "nano":
+        return NANO_MODEL
+    if t == "ultra":
+        return ULTRA_MODEL
     normalized = (task or "").strip().lower()
     if any(keyword in normalized for keyword in _REASONING_TASKS):
         return ULTRA_MODEL

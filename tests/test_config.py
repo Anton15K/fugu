@@ -38,7 +38,10 @@ def test_settings_defaults_sane() -> None:
 
 def test_model_constants() -> None:
     assert config.SUPER_MODEL == "nvidia/nemotron-3-super-120b-a12b"
-    assert config.ULTRA_MODEL == "nvidia/nemotron-3-ultra-550b"
+    # Verified against the live account model list (2026-09-19): ULTRA is
+    # the -a55b variant; the bare -550b id 404s.
+    assert config.ULTRA_MODEL == "nvidia/Nemotron-3-Ultra-550b-a55b"
+    assert config.NANO_MODEL == "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
     assert config.SUPER_MODEL.startswith("nvidia/")
 
 
