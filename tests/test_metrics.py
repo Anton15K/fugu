@@ -434,12 +434,14 @@ def test_cli_end_to_end_with_results_file(tmp_path: Path, capsys: pytest.Capture
 
 
 def test_cli_missing_corpus_falls_back_to_fixtures(capsys: pytest.CaptureFixture[str]) -> None:
-    # No results file + no importable pipeline -> clear SystemExit error
-    # (after the fixtures fallback notice), never a stack trace.
-    with pytest.raises(SystemExit, match="no importable fugu pipeline"):
-        run_main(["--corpus", "/nonexistent/corpus"])
+    # With the landed pipeline, no --results means a LIVE static run over the
+    # fallback fixtures: must print a real report and exit 0 (no detonation
+    # by default — Docker stays out of unit tests).
+    rc = run_main(["--corpus", "/nonexistent/corpus"])
+    assert rc == 0
     captured = capsys.readouterr()
     assert "using built-in fixtures" in captured.err
+    assert "FUGU EVAL REPORT" in captured.out
 
 
 def test_cli_corrupt_manifest_exits_2(tmp_path: Path) -> None:

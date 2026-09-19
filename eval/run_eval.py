@@ -85,50 +85,29 @@ def load_results_file(path: str | Path) -> dict[str, list[str]]:
     return predictions
 
 
-def collect_pipeline_predictions(samples: list[Sample]) -> dict[str, list[str]]:
-    """Run the real fugu pipeline over each sample, behind try/except.
+def collect_pipeline_predictions(
+    samples: list[Sample], detonate: bool = False
+) -> dict[str, list[str]]:
+    """Run the real fugu pipeline over each sample via the pinned entrypoint.
 
-    The pipeline stages may not exist yet (parallel workstream), so every
-    import is guarded; if nothing is importable we raise SystemExit with
-    instructions to hand-write a results.json instead. The first adapter
-    whose import succeeds wins; expected interfaces, in order:
-
-    1. ``fugu.pipeline.run_audit(target: Path) -> list[Finding]``
-    2. ``fugu.stages.run_audit(target: Path) -> list[Finding]``
-    3. ``fugu.cli.audit_path(target: Path) -> list[Finding]``
+    Stable contract (lead-blessed): ``fugu.pipeline.run_audit(target, include_detonation)``.
+    Detonation is opt-in (--detonate) because it needs Docker and minutes,
+    not milliseconds; the default is the fast static pass (S0+S1).
     """
-    adapters: list[tuple[str, str]] = [
-        ("fugu.pipeline", "run_audit"),
-        ("fugu.stages", "run_audit"),
-        ("fugu.cli", "audit_path"),
-    ]
-    fn = None
-    module_name = None
-    for module, attr in adapters:
-        try:
-            imported = __import__(module, fromlist=[attr])
-            candidate = getattr(imported, attr, None)
-            if callable(candidate):
-                fn, module_name = candidate, f"{module}.{attr}"
-                break
-        except ImportError:
-            continue
-
-    if fn is None:
+    try:
+        from fugu.pipeline import run_audit
+    except ImportError as exc:  # pragma: no cover - would be a broken install
         raise SystemExit(
-            "error: no --results given and no importable fugu pipeline entrypoint was "
-            "found (tried: " + ", ".join(f"{m}.{a}" for m, a in adapters) + ").\n"
-            "Stage workstreams are still landing. Hand-write a results.json:\n\n"
-            '  {"predictions": {"<sample_name>": ["MCP01"], ...}}\n\n'
-            "and re-run with --results results.json (schema in eval/README.md)."
-        )
+            f"error: fugu.pipeline.run_audit is not importable ({exc}). "
+            "Fix the install, or hand-write a results.json (schema in eval/README.md)."
+        ) from exc
 
     predictions: dict[str, list[str]] = {}
     for sample in samples:
         try:
-            findings = fn(sample.path)
+            findings = run_audit(sample.path, include_detonation=detonate)
         except Exception as exc:  # stages must not kill the harness
-            print(f"warning: {module_name} failed on {sample.name}: {exc}", file=sys.stderr)
+            print(f"warning: run_audit failed on {sample.name}: {exc}", file=sys.stderr)
             predictions[sample.name] = []
             continue
         ids: list[str] = []
@@ -233,6 +212,8 @@ def main(argv: list[str] | None = None) -> int:
                              "omit to attempt a real pipeline run")
     parser.add_argument("--markdown", default=None,
                         help="also write a markdown report to this path")
+    parser.add_argument("--detonate", action="store_true",
+                        help="include the Docker detonation stage in live runs (slow)")
     parser.add_argument("--selfcheck", action="store_true",
                         help="run on synthetic perfect/garbage predictions and "
                              "verify expected metrics; ignores --corpus/--results")
@@ -265,7 +246,7 @@ def main(argv: list[str] | None = None) -> int:
         predictions = load_results_file(args.results)
         provenance = str(args.results)
     else:
-        predictions = collect_pipeline_predictions(samples)
+        predictions = collect_pipeline_predictions(samples, detonate=args.detonate)
         provenance = "live fugu pipeline"
 
     report = category_metrics(samples, predictions)
