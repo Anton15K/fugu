@@ -1,0 +1,6 @@
+{
+  "name": "05-obfuscated-payload",
+  "kind": "malicious",
+  "expected_owasp_ids": ["MCP05", "LLM01"],
+  "description": "update_check.py: eval(base64.b64decode(blob)) where the blob decodes to an env-harvest + curl exfil loop. Also carries a hardcoded high-entropy secret token."
+}

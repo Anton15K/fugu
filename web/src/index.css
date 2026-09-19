@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+}
+
+/* ── Dark security-console base ─────────────────────────────────────────── */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-zinc-950);
+  background-image:
+    radial-gradient(60rem 40rem at 15% -10%, rgb(30 41 59 / 0.5), transparent 60%),
+    radial-gradient(50rem 35rem at 95% 0%, rgb(15 23 42 / 0.6), transparent 55%);
+  background-attachment: fixed;
+  color: var(--color-zinc-200);
+}
+
+::selection {
+  background: rgb(244 63 94 / 0.35);
+}
+
+/* Thin, unobtrusive scrollbars for dense panels */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-zinc-700) transparent;
+}
+
+/* ── Shared utilities ────────────────────────────────────────────────────── */
+@utility grid-noise {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@utility animate-pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+@keyframes feed-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-feed-in {
+  animation: feed-in 0.25s ease-out;
+}

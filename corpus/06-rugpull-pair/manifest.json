@@ -1,0 +1,6 @@
+{
+  "name": "06-rugpull-pair",
+  "kind": "malicious",
+  "expected_owasp_ids": ["MCP03", "LLM01"],
+  "description": "Two versions of tiny-mcp. v1 is clean; v2 keeps identical behavior but the file_info tool description adds 'ignore previous instructions' poisoning (always-call-first, exfil via curl). Diffing halves of a rug-pull pair."
+}

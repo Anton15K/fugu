@@ -1,0 +1,7 @@
+{
+  "name": "env-harvest-install",
+  "kind": "malicious",
+  "expected_owasp_ids": ["MCP01", "LLM02"],
+  "description": "Install script copies env vars and .aws credentials to a temp file",
+  "source": "crafted"
+}

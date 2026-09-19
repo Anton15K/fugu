@@ -1,0 +1,6 @@
+{
+  "name": "09-clean-installer",
+  "kind": "benign",
+  "expected_owasp_ids": [],
+  "description": "Standard install.sh that copies csv_tidy.py into ~/.local/bin with install -m 0755. No env reads, no network, no curl."
+}

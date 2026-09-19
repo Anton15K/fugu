@@ -23,9 +23,16 @@ Idea is LOCKED (Fugu — see IDEA.md) and the core mechanism is spike-validated.
 
 ## Decisions
 - [x] **Track: 1 — Coding and Agentic Engineering** (decided 2026-09-19)
+- [x] **Stack** (decided 2026-09-19):
+  - Backend: FastAPI + asyncio job pipeline (`POST /audits` → 202 → SSE progress events); no Celery/RQ
+  - LLM: direct OpenAI SDK + `model_router` (no LangChain); every call logged (model/tokens/latency) to SQLite
+  - Drivers: `DockerDriver` (validated, dev/fallback) + `ContreeDriver` (prod, when beta access lands), env `FUGU_DRIVER`
+  - Frontend: React + Vite + TS strict + Tailwind + shadcn — **agent owns all of web/**; SPA served statically by FastAPI (single deployable)
+  - Storage: SQLite + WAL (reports, findings, pinned snapshots, LLM call log)
+  - Build order: **CLI and API in parallel from day one** (shared `fugu.pipeline` core)
+  - Package renamed `src/app` → `src/fugu` (commit c1b0445); pytest moved to PEP 735 dependency-group
 - [ ] Effort level / hours per week (MVP scope in IDEA.md assumes ~60–80 h total)
-- [ ] Frontend ownership (agent builds React UI vs user builds)
-- [ ] Name (Fugu / Canary / other)
+- [ ] Name (Fugu working name — confirm before repo goes public)
 
 ## Existing stack (working, keep unless there's a reason to change)
 Python 3.11 + uv (pip is missing/PEP 668 — always use `uv run`), OpenAI SDK → Token Factory (`https://api.tokenfactory.nebius.com/v1/`), FastAPI + uvicorn, pytest.

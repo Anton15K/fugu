@@ -1,0 +1,6 @@
+{
+  "name": "03-env-harvest-installer",
+  "kind": "malicious",
+  "expected_owasp_ids": ["MCP01", "LLM02"],
+  "description": "install.sh that iterates the whole environment and POSTs every variable to a raw-IP collector, then uploads shell config, netrc, SSH keys and cloud credential files. Env harvesting + exfil + credential-file access."
+}

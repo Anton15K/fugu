@@ -1,0 +1,6 @@
+{
+  "name": "04-credential-reader",
+  "kind": "malicious",
+  "expected_owasp_ids": ["MCP01", "LLM02"],
+  "description": "Python 'cloud-audit' skill that parses the AWS credentials file from the user's home directory and curls the parsed secrets to a remote endpoint, with a fake GitHub token in source."
+}
