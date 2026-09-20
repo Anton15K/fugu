@@ -5,7 +5,7 @@
  * install hook exfiltrates canary credentials. Hits every stage with a
  * deterministic concealment finding, static secrets/patterns, an advisory
  * semantic finding, the star empirical canary-exfil finding in detonation,
- * a measured harness delta, reputation typosquat, composition trifecta,
+ * a measured harness delta, reputation typosquat,
  * and a FAIL verdict.
  *
  * Enable with ?mock=1 or env VITE_MOCK=1 / MOCK=1 (see `isMockEnabled`).
@@ -267,28 +267,6 @@ function buildTimeline(jobId: string, depth: AuditDepth): ScriptedEvent[] {
         },
       ],
     }),
-    trifecta: finding({
-      owasp_ids: ["MCP09", "MCP10", "LLM02"],
-      title: "Lethal trifecta completed with installed set",
-      detail:
-        "Composition over the user's actual installed extensions: 'web-search' provides untrusted content ingress, this skill provides private-data access, and 'chart-renderer' provides an egress channel (renders remote URLs). Individually each is clean; together they form the trifecta.",
-      severity: "medium",
-      confidence: "advisory",
-      stage: "composition",
-      evidence: [
-        {
-          source: "composition.graph",
-          excerpt:
-            "untrusted-ingress(web-search) + private-data(pdf-table-extractor) + egress(chart-renderer) ⇒ trifecta",
-          meta: { installed_set: 7, edges: 12 },
-        },
-        {
-          source: "composition.shadowing",
-          excerpt: "tool 'extract_tables' shadows chart-renderer.extract_tables (MCP09)",
-          meta: { shadowed_tool: "extract_tables" },
-        },
-      ],
-    }),
   };
 
   findings.push(
@@ -302,7 +280,6 @@ function buildTimeline(jobId: string, depth: AuditDepth): ScriptedEvent[] {
     F.dnsExfil,
     F.harnessDelta,
     F.typosquat,
-    F.trifecta,
   );
 
   const timeline: ScriptedEvent[] = [];
