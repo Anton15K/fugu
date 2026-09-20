@@ -47,11 +47,16 @@ def _default_search(api_key: str, query: str) -> dict[str, Any]:
 _MANIFEST_NAME_RE = re.compile(r"\"name\"\s*:\s*\"([A-Za-z0-9_.@/-]+)\"")
 _DEPENDENCY_KEYS = ("dependencies", "devDependencies", "requires", "install_requires")
 _DOMAIN_RE = re.compile(r"\bhttps?://([a-z0-9.-]+\.[a-z]{2,})\b", re.I)
+_GENERIC_IDENTIFIERS = {
+    "mcp", "http", "https", "cli", "sdk", "api", "core", "utils", "tools",
+    "server", "client", "common", "types", "config", "test", "docs",
+}
 _SKIP_DOMAINS = {
     "example.com", "example.org", "example.net", "localhost", "schema.org",
     "www.w3.org", "json-schema.org", "github.com", "npmjs.com", "pypi.org",
 }
 _PYPI_SETUP_NAME = re.compile(r"name\s*=\s*[\"']([A-Za-z0-9_.-]+)[\"']")
+_DEP_NAME = re.compile(r"[\"']([A-Za-z0-9_][A-Za-z0-9_.-]*)[!<>~=@;\[ ]")
 
 
 def extract_identifiers(target: Path, max_files: int = 200) -> dict[str, list[str]]:
@@ -63,26 +68,52 @@ def extract_identifiers(target: Path, max_files: int = 200) -> dict[str, list[st
     except Exception:
         return {"packages": [], "domains": []}
 
-    pkg_json = target / "package.json"
-    if pkg_json.is_file():
-        try:
-            doc = json.loads(pkg_json.read_text(errors="replace"))
-            if isinstance(doc.get("name"), str):
-                packages.append(doc["name"])
-            for key in ("dependencies", "devDependencies"):
-                deps = doc.get(key)
-                if isinstance(deps, dict):
-                    packages.extend(str(d) for d in deps)
-        except ValueError:
-            pass
-    setup_py = target / "setup.py"
-    pyproject = target / "pyproject.toml"
-    for manifest in (setup_py, pyproject):
-        if manifest.is_file():
+    # manifest dirs: root + nested sub-projects (monorepo layouts — the
+    # server commonly lives one level down, as in whatsapp-mcp)
+    manifest_dirs = [target]
+    try:
+        for child in sorted(target.iterdir()):
+            if child.is_dir() and any(
+                (child / m).is_file() for m in ("package.json", "pyproject.toml", "setup.py")
+            ):
+                manifest_dirs.append(child)
+    except OSError:
+        pass
+
+    for mdir in manifest_dirs:
+        pkg_json = mdir / "package.json"
+        if pkg_json.is_file():
+            try:
+                doc = json.loads(pkg_json.read_text(errors="replace"))
+                if isinstance(doc.get("name"), str):
+                    packages.append(doc["name"])
+                for key in ("dependencies", "devDependencies"):
+                    deps = doc.get(key)
+                    if isinstance(deps, dict):
+                        packages.extend(str(d) for d in deps)
+            except ValueError:
+                pass
+        setup_py = mdir / "setup.py"
+        pyproject = mdir / "pyproject.toml"
+        for manifest in (setup_py, pyproject):
+            if not manifest.is_file():
+                continue
             text = manifest.read_text(errors="replace")
-            m = _PYPI_SETUP_NAME.search(text)
-            if m:
-                packages.append(m.group(1))
+            if manifest.name == "pyproject.toml":
+                # [project] name = "..."  (PEP 621)
+                m = re.search(r'(?m)^\s*name\s*=\s*"([A-Za-z0-9_.-]+)"', text)
+                if m:
+                    packages.append(m.group(1))
+                # dependencies = ["pkg>=1", ...]
+                deps_m = re.search(r"(?ms)^dependencies\s*=\s*\[(.*?)\]", text)
+                if deps_m:
+                    packages.extend(
+                        d for d in _DEP_NAME.findall(deps_m.group(1)) if d
+                    )
+            else:
+                m = _PYPI_SETUP_NAME.search(text)
+                if m:
+                    packages.append(m.group(1))
 
     for tf in files:
         for m in _DOMAIN_RE.finditer(tf.text):
@@ -169,13 +200,24 @@ class ReputationStage:
 
     @classmethod
     def _reputation_finding(cls, ident: str, results: list[dict[str, Any]]) -> Finding | None:
+        # Anti-crying-wolf: a hit requires BOTH (a) the identifier itself
+        # appearing in the result text (not a keyword in a loosely-related
+        # article) AND (b) a security word nearby. Searching "X package
+        # vulnerability" returns security NEWS; only results that are
+        # actually ABOUT the identifier count.
+        ident_l = ident.lower()
+        # Generic identifiers (short acronyms, common words) pollute results:
+        # "mcp" matches every MCP-security news article ever written. Require
+        # enough specificity for the web-reputation signal to be meaningful.
+        if len(ident) < 5 or ident.lower() in _GENERIC_IDENTIFIERS:
+            return None
         hits: list[tuple[str, str, str]] = []  # url, title, matched word
         for r in results:
             title = str(r.get("title") or "")
             url = str(r.get("url") or "")
             blob = f"{title} {r.get('content') or ''}"
             m = cls._BAD_WORDS.search(blob)
-            if m:
+            if m and ident_l in blob.lower():
                 hits.append((url, title, m.group(0)))
         if not hits:
             return None
