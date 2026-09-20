@@ -8,8 +8,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
+# dist ships in the repo (Dockerfile COPYs the built SPA)
+# dist ships in the repo (Dockerfile COPYs the built SPA)-ssr
 *.local
 
 # Editor directories and files
