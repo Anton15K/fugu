@@ -29,3 +29,7 @@ spikes/*/logs/
 
 # Benchmark clones (regenerate with: python -m bench.fetch_real)
 bench/real/
+
+# Spike run artifacts contain captured canary values — regenerate, don't commit
+spikes/*/RUN_OUTPUT.txt
+spikes/*/evidence-*.jsonl

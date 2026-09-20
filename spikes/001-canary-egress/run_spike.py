@@ -17,7 +17,8 @@ LOGS = SPIKE / "logs"
 NET = "fugu-spike-net"
 DNS_IP = "172.28.0.10"
 MITM_IP = "172.28.0.11"
-CANARY = "REDACTED-CANARY"
+import secrets as _secrets
+CANARY = f"FUGU-CANARY-{_secrets.token_hex(8)}"  # fresh per run; never commit values
 CANARY_AWS = "REDACTED-AWS-FAKE"
 
 DNS_IMG = "fugu-spike/dns:latest"
