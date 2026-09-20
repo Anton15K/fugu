@@ -35,7 +35,6 @@ export type StageName =
   | "detonation"
   | "harness"
   | "reputation"
-  | "composition"
   | "verdict";
 
 /** Audit-job lifecycle. `queued` → `running` → `done` | `failed`. */
@@ -185,6 +184,10 @@ export const OWASP_LABELS: Record<string, string> = {
 };
 
 /** Display order of the pipeline stages (fixed; matches the backend). */
+// Cards mirror what the backend ACTUALLY runs (see build_stages()). A stage
+// that isn't implemented must never appear as a green card — that would be
+// fake coverage. Composition (cross-extension trifecta) is designed but not
+// built; when it lands, add it back here.
 export const STAGE_ORDER: StageName[] = [
   "concealment",
   "static",
@@ -192,7 +195,6 @@ export const STAGE_ORDER: StageName[] = [
   "detonation",
   "harness",
   "reputation",
-  "composition",
   "verdict",
 ];
 
@@ -227,11 +229,6 @@ export const STAGE_META: Record<StageName, { index: number; label: string; blurb
     index: 5,
     label: "Reputation",
     blurb: "Author history · CVEs · typosquats",
-  },
-  composition: {
-    index: 6,
-    label: "Composition",
-    blurb: "Cross-extension lethal trifecta",
   },
   verdict: {
     index: 7,

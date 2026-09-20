@@ -370,11 +370,6 @@ function buildTimeline(jobId: string, depth: AuditDepth): ScriptedEvent[] {
   emitFinding(F.typosquat, 1200);
   stageDone("reputation", 1, { deps_checked: 6, cves: 0, duration_s: 4.2 }, 800);
 
-  // ── composition ─────────────────────────────────────────────────
-  stageStarted("composition", 600);
-  emitFinding(F.trifecta, 1100);
-  stageDone("composition", 1, { installed_set: 7, edges: 12, duration_s: 2.8 }, 700);
-
   // ── verdict ─────────────────────────────────────────────────────
   stageStarted("verdict", 500);
   push(1200, ev(jobId, "verdict", buildVerdictData(findings) as unknown as Record<string, unknown>));
