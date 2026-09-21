@@ -26,6 +26,51 @@ _RESULT_MARKER = "tavily.result"
 SearchFn = Callable[[str, str], dict[str, Any]]  # (api_key, query) -> tavily response
 
 
+def osv_query(package: str, version: str, ecosystem: str = "PyPI") -> list[dict[str, Any]]:
+    """Authoritative vulnerability check: OSV.dev structured affected-ranges
+    for the EXACT version pinned in the codebase. Free, no key. Returns the
+    raw vuln entries (id, summary, aliases, affected)."""
+    req = urllib.request.Request(
+        "https://api.osv.dev/v1/query",
+        data=json.dumps(
+            {"package": {"name": package, "ecosystem": ecosystem}, "version": version}
+        ).encode(),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        return json.loads(resp.read()).get("vulns", [])
+
+
+def _osv_finding(pkg: str, version: str, vulns: list[dict[str, Any]]) -> Finding:
+    ids = [v.get("id") or "" for v in vulns]
+    aliases = sorted({a for v in vulns for a in v.get("aliases", []) if a.startswith("GHSA") or a.startswith("CVE")})
+    summary = str(vulns[0].get("summary") or "known vulnerability")[:140]
+    return Finding(
+        owasp_ids=["MCP04", "LLM03"],
+        title=f"{len(vulns)} known vulnerabilit{'y' if len(vulns) == 1 else 'ies'} in '{pkg}' @ {version}",
+        detail=(
+            f"OSV.dev reports {len(vulns)} vulnerabilit{'y' if len(vulns) == 1 else 'ies'} "
+            f"affecting {pkg} at exactly {version} - the version pinned in the "
+            f"codebase lock/manifest. {summary}. Verified against structured "
+            "affected-ranges, not web text. "
+            + (f"Identifiers: {', '.join((aliases + ids)[:4])}. " if ids else "")
+            + "Advisory: upgrade the pin."
+        ),
+        severity="medium",
+        confidence="measured",
+        stage="reputation",
+        evidence=[
+            EvidenceSnippet(
+                source=f"osv.dev/{i or 'vuln'}",
+                excerpt=str(v.get("summary") or v.get("id", ""))[:160],
+                meta={"package": pkg, "version": version, "id": v.get("id")},
+            )
+            for v, i in zip(vulns[:3], ids[:3])
+        ],
+    )
+
+
 def _default_search(api_key: str, query: str) -> dict[str, Any]:
     req = urllib.request.Request(
         "https://api.tavily.com/search",
@@ -56,6 +101,14 @@ _SKIP_DOMAINS = {
     "www.w3.org", "json-schema.org", "github.com", "npmjs.com", "pypi.org",
 }
 _PYPI_SETUP_NAME = re.compile(r"name\s*=\s*[\"']([A-Za-z0-9_.-]+)[\"']")
+
+# exact pinned versions from uv.lock / poetry.lock (codebase truth, better
+# than manifest floors):  name = "httpx"\nversion = "0.28.1"
+_LOCK_ENTRY = re.compile(r'(?m)^name = "([A-Za-z0-9_.-]+)"\nversion = "([^"]+)"')
+# npm lockfiles: "httpx": {"version": "1.2.3"}
+_NPM_LOCK_ENTRY = re.compile(r'"([@A-Za-z0-9_./-]+)":\s*\{\s*"version":\s*"([^"]+)"')
+# first version-ish token in a spec: >=0.28.1, ~=1.6, ==2.0.0
+_DEP_VERSION = re.compile(r"[=<>~!^]*\s*(\d[\w.*-]*)")
 _DEP_NAME = re.compile(r"[\"']([A-Za-z0-9_][A-Za-z0-9_.-]*)[!<>~=@;\[ ]")
 
 
@@ -63,10 +116,29 @@ def extract_identifiers(target: Path, max_files: int = 200) -> dict[str, list[st
     """Package names, dependencies and outbound domains worth searching."""
     packages: list[str] = []
     domains: list[str] = []
+    dep_versions: dict[str, str | None] = {}
     try:
         files, _ = collect_text_files(target, 1_000_000, max_files)
     except Exception:
-        return {"packages": [], "domains": []}
+        return {"packages": [], "domains": [], "dep_versions": {}}
+
+    # Lock files are the strongest signal: the EXACT version the target runs.
+    # Walk root + nested project dirs.
+    for mdir in [target] + [
+        c for c in sorted(target.iterdir()) if c.is_dir()
+    ]:
+        for lock_name in ("uv.lock", "poetry.lock", "package-lock.json", "npm-shrinkwrap.json"):
+            lock = mdir / lock_name
+            if not lock.is_file():
+                continue
+            try:
+                text = lock.read_text(errors="replace")
+            except OSError:
+                continue
+            for nm, ver in _LOCK_ENTRY.findall(text):
+                dep_versions[nm] = ver
+            for nm, ver in _NPM_LOCK_ENTRY.findall(text):
+                dep_versions.setdefault(nm, ver)
 
     # manifest dirs: root + nested sub-projects (monorepo layouts — the
     # server commonly lives one level down, as in whatsapp-mcp)
@@ -107,9 +179,15 @@ def extract_identifiers(target: Path, max_files: int = 200) -> dict[str, list[st
                 # dependencies = ["pkg>=1", ...]
                 deps_m = re.search(r"(?ms)^dependencies\s*=\s*\[(.*?)\]", text)
                 if deps_m:
-                    packages.extend(
-                        d for d in _DEP_NAME.findall(deps_m.group(1)) if d
-                    )
+                    for spec in re.findall(r'"([^"]+)"', deps_m.group(1)):
+                        nm_m = _DEP_NAME.match(f'"{spec}"')
+                        if not nm_m:
+                            continue
+                        nm = nm_m.group(1)
+                        ver = _DEP_VERSION.search(spec)
+                        if ver:
+                            dep_versions.setdefault(nm, ver.group(1))
+                        packages.append(nm)
             else:
                 m = _PYPI_SETUP_NAME.search(text)
                 if m:
@@ -123,7 +201,11 @@ def extract_identifiers(target: Path, max_files: int = 200) -> dict[str, list[st
 
     seen: set[str] = set()
     unique_pkgs = [p for p in packages if not (p in seen or seen.add(p))]
-    return {"packages": unique_pkgs[:6], "domains": domains[:6]}
+    return {
+        "packages": unique_pkgs[:6],
+        "domains": domains[:6],
+        "dep_versions": {p: dep_versions.get(p) for p in unique_pkgs[:6]},
+    }
 
 
 class ReputationStage:
@@ -151,11 +233,19 @@ class ReputationStage:
             search = _default_search
 
         ids = extract_identifiers(target)
-        queries: list[tuple[str, str]] = []
+        dep_versions: dict[str, str | None] = ids.get("dep_versions", {})
+        queries: list[tuple[str, str, str | None]] = []
         for pkg in ids["packages"]:
-            queries.append((pkg, f'"{pkg}" package vulnerability OR typosquat OR malware report'))
+            ver = dep_versions.get(pkg)
+            # Codebase truth first: search the EXACT version the target pins
+            # (lock file, else manifest floor). A CVE hit for an unpinned
+            # name is likely stale for this target.
+            if ver:
+                queries.append((pkg, f'"{pkg}" {ver} vulnerability CVE', ver))
+            else:
+                queries.append((pkg, f'"{pkg}" package vulnerability OR typosquat OR malware report', None))
         for domain in ids["domains"]:
-            queries.append((domain, f'"{domain}" domain malware OR data exfiltration report'))
+            queries.append((domain, f'"{domain}" domain malware OR data exfiltration report', None))
         queries = queries[: self.max_queries]
         if not queries:
             return StageResult(
@@ -167,15 +257,36 @@ class ReputationStage:
         findings: list[Finding] = []
         call_errors: list[str] = []
         results_meta: list[dict[str, Any]] = []
-        for ident, q in queries:
+
+        # --- authoritative CVE check: OSV vs codebase-pinned versions -------
+        osv_meta: list[dict[str, Any]] = []
+        if os.environ.get("FUGU_DISABLE_OSV"):
+            osv_meta.append({"note": "disabled via FUGU_DISABLE_OSV"})
+        else:
+            for pkg, ver in (dep_versions or {}).items():
+                if not ver or len(pkg) < 5 or pkg.lower() in _GENERIC_IDENTIFIERS:
+                    continue
+                eco = "npm" if any(
+                    (Path(target) / l).is_file()
+                    for l in ("package-lock.json", "npm-shrinkwrap.json")
+                ) else "PyPI"
+                try:
+                    vulns = osv_query(pkg, ver, ecosystem=eco)
+                except Exception as exc:  # noqa: BLE001 - OSV down = degraded, not failed
+                    call_errors.append(f"osv:{pkg}: {type(exc).__name__}: {exc}")
+                    continue
+                osv_meta.append({"package": pkg, "version": ver, "vulns": len(vulns)})
+                if vulns:
+                    findings.append(_osv_finding(pkg, ver, vulns))
+        for ident, q, ver in queries:
             try:
                 resp = search(api_key, q)
             except Exception as exc:
                 call_errors.append(f"{ident}: {type(exc).__name__}: {exc}")
                 continue
             results = resp.get("results") or []
-            results_meta.append({"identifier": ident, "results": len(results)})
-            finding = self._reputation_finding(ident, results)
+            results_meta.append({"identifier": ident, "version": ver, "results": len(results)})
+            finding = self._reputation_finding(ident, results, version=ver)
             if finding:
                 findings.append(finding)
 
@@ -185,6 +296,7 @@ class ReputationStage:
             findings=findings,
             metrics={
                 "identifiers": ids,
+                "osv": osv_meta,
                 "queries": len(queries),
                 "results": results_meta,
                 "call_errors": call_errors,
@@ -199,13 +311,16 @@ class ReputationStage:
     )
 
     @classmethod
-    def _reputation_finding(cls, ident: str, results: list[dict[str, Any]]) -> Finding | None:
+    def _reputation_finding(
+        cls, ident: str, results: list[dict[str, Any]], *, version: str | None = None
+    ) -> Finding | None:
         # Anti-crying-wolf: a hit requires BOTH (a) the identifier itself
         # appearing in the result text (not a keyword in a loosely-related
         # article) AND (b) a security word nearby. Searching "X package
         # vulnerability" returns security NEWS; only results that are
         # actually ABOUT the identifier count.
         ident_l = ident.lower()
+        version_l = (version or "").lower()
         # Generic identifiers (short acronyms, common words) pollute results:
         # "mcp" matches every MCP-security news article ever written. Require
         # enough specificity for the web-reputation signal to be meaningful.
@@ -217,18 +332,31 @@ class ReputationStage:
             url = str(r.get("url") or "")
             blob = f"{title} {r.get('content') or ''}"
             m = cls._BAD_WORDS.search(blob)
-            if m and ident_l in blob.lower():
-                hits.append((url, title, m.group(0)))
+            if not (m and ident_l in blob.lower()):
+                continue
+            # CVE relevance is decided AUTHORITATIVELY by OSV against the
+            # codebase-pinned version (structured affected-ranges), not by
+            # text-matching search snippets — those proved unreliable both
+            # ways (pages say "before 0.23.0" without naming the affected
+            # version; unrelated pages name current versions incidentally).
+            # So when we have a pinned version + OSV verdict, drop CVE-ish
+            # web hits for that package; keep malware/typosquat/backdoor
+            # signals (version-independent).
+            if version and m.group(0).lower().startswith(("cve", "vulnerabilit")):
+                continue
+            hits.append((url, title, m.group(0)))
         if not hits:
             return None
         cve = any(h[2].startswith("CVE") for h in hits)
         return Finding(
             owasp_ids=["MCP04", "LLM03"],
-            title=f"Adverse web reputation for '{ident}'",
+            title=f"Adverse web reputation for '{ident}'" + (f" @ {version}" if version else ""),
             detail=(
                 f"{len(hits)} search result(s) mention "
                 + ("a CVE" if cve else "security keywords")
-                + f" in connection with '{ident}'. Advisory signal only - verify the "
+                + f" in connection with '{ident}'"
+                + (f" at the version pinned in the codebase ({version})" if version else "")
+                + ". Advisory signal only - verify the "
                 "sources before acting (reputation is not proof of malice)."
             ),
             severity="medium" if cve else "low",
