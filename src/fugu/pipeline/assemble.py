@@ -46,17 +46,40 @@ def build_stages(
 
         stages.append(ReputationStage())
     if include_detonation:
-        try:
-            from fugu.detonation.docker_driver import DockerDriver
-            from fugu.pipeline.stages.detonation_stage import DetonationStage
-        except ImportError:
-            return stages
-        try:
-            driver = DockerDriver()
-        except Exception:
+        from fugu.pipeline.stages.detonation_stage import DetonationStage
+
+        driver = _make_detonation_driver()
+        if driver is None:
             return stages
         stages.append(DetonationStage(driver))
     return stages
+
+
+def _make_detonation_driver():
+    """Select the detonation chamber driver.
+
+    FUGU_DRIVER=contree -> Nebius Token Factory Sandboxes (production;
+    needs NEBIUS_API_KEY + NEBIUS_AI_PROJECT). Default/any other value ->
+    local Docker chamber. Selection errors degrade to Docker, never crash.
+    """
+    import os
+
+    choice = os.environ.get("FUGU_DRIVER", "").strip().lower()
+    if choice == "contree":
+        try:
+            from fugu.detonation.contree_driver import ContreeDriver
+
+            drv = ContreeDriver()
+            if drv.token and drv.project:
+                return drv
+        except Exception:  # noqa: BLE001 - fall through to Docker
+            pass
+    try:
+        from fugu.detonation.docker_driver import DockerDriver
+
+        return DockerDriver()
+    except Exception:  # noqa: BLE001
+        return None
 
 
 async def run_stages(job: AuditJob, target: Path, stages: list) -> list[StageResult]:
