@@ -520,7 +520,9 @@ def _mcp_annotation_hits(text: str, rel: str) -> list[RuleHit]:
 
 def _mcp_dup_name_hits(text: str, rel: str) -> list[RuleHit]:
     """Duplicate tool names in one file (73% of servers ship dups -
-    arXiv 2602.18914); name collisions enable tool shadowing (MCP09)."""
+    arXiv 2602.18914); name collisions enable tool shadowing. Official OWASP
+    mapping: shadowing lives under MCP03 Tool Poisoning (MCP09 is Shadow MCP
+    *Servers* - ungoverned deployments - a different class)."""
     if not rel.endswith(_MCP_SRC_SUFFIXES):
         return []
     seen: dict[str, int] = {}
@@ -605,10 +607,10 @@ STATIC_RULES: list[Rule] = [
          "info", ["MCP08", "MCP02"], apply=_mcp_annotation_hits),
     Rule("mcp_duplicate_tool_names", "Duplicate MCP tool names in one server",
          "The same tool name is defined twice (73% of servers ship duplicates - arXiv 2602.18914). Name collisions enable tool shadowing and ambiguity for the calling agent.",
-         "low", ["MCP09"], apply=_mcp_dup_name_hits),
+         "low", ["MCP03"], apply=_mcp_dup_name_hits),
     Rule("mcp_missing_return_description", "Tool description omits return semantics",
          "Tool descriptions that never state what the tool returns - the dominant 'description smell' (arXiv 2602.18914); measurably degrades agent tool selection.",
-         "info", ["MCP10"], apply=_mcp_no_return_hits),
+         "info", ["MCP08"], apply=_mcp_no_return_hits),
 ]
 
 

@@ -475,8 +475,24 @@ async def run_job(
         elapsed = loop.time() - started
         result.metrics.setdefault("duration_s", round(elapsed, 3))
         snap.stages.append(result)
-        for finding in result.findings:
-            snap.findings.append(finding)
+        # Cross-stage dedup: a weaker (advisory/measured) finding whose
+        # high-specificity evidence token (URL/command/file) is already
+        # covered by an earlier stronger finding is a redundant echo — drop
+        # it before it reaches the stream/verdict. Deterministic/empirical
+        # findings are never dropped (different rules = different evidence).
+        from fugu.dedupe import dedupe_findings
+        before = len(snap.findings)
+        snap.findings.extend(result.findings)
+        deduped = dedupe_findings(snap.findings)
+        survivors = deduped[before:]  # this stage's findings that survived
+        dropped_echoes = len(result.findings) - len(survivors)
+        snap.findings = deduped if len(deduped) < len(snap.findings) else snap.findings
+        if dropped_echoes:
+            _emit(store, job, "log", {
+                "stage": name,
+                "message": f"dedup: dropped {dropped_echoes} subsumed echo(es) of stronger findings",
+            })
+        for finding in survivors:
             _emit(store, job, "finding", {
                 "stage": name,
                 "finding": finding_public(finding),

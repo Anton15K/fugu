@@ -11,7 +11,10 @@ from enum import Enum
 from typing import Any, Literal
 
 # --- OWASP taxonomy -----------------------------------------------------------
-# MCP01..MCP10 from the OWASP MCP Top 10 (v0.1 beta); LLMxx from the OWASP
+# MCP01..MCP10 from the OWASP MCP Top 10 (2025 release; verified against
+# github.com/OWASP/www-project-mcp-top-10 — MCP03=Tool Poisoning incl.
+# shadowing, MCP07=AuthN/AuthZ, MCP09=Shadow MCP Servers, MCP10=Context
+# Injection & Over-Sharing); LLMxx from the OWASP
 # Top 10 for LLM Applications 2025. MCP04B is our rug-pull-drift extension.
 OWASP_IDS = (
     "MCP01", "MCP02", "MCP03", "MCP04", "MCP04B", "MCP05", "MCP06",

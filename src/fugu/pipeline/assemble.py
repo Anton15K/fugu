@@ -103,4 +103,8 @@ def run_audit(
     findings: list[Finding] = []
     for r in results:
         findings.extend(r.findings)
-    return findings
+    # cross-stage dedup: one authoritative row per concrete artifact (a
+    # deterministic static HIGH subsumes the advisory semantic echo about the
+    # same curl|sh line). Never drops deterministic/empirical evidence.
+    from fugu.dedupe import dedupe_findings
+    return dedupe_findings(findings)

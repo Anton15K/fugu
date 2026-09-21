@@ -145,7 +145,7 @@ def test_evidence_to_findings_unexpected_egress():
         dns=[DnsRecord(query="api.vendor.test")],
     )
     (fnd,) = evidence_to_findings(ev)
-    assert set(fnd.owasp_ids) == {"MCP10", "LLM02"}
+    assert set(fnd.owasp_ids) == {"MCP07", "LLM02"}
     assert fnd.confidence == "empirical"
 
 

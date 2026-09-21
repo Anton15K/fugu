@@ -55,7 +55,8 @@ a DNS query                                         left the sandbox; MCP01
                                                     token mismanagement — a
                                                     credential was read from
                                                     env and transmitted
-unexpected egress:         MCP10, LLM02            MCP10 context over-sharing
+unexpected egress:         MCP07, LLM02            undeclared outbound data
+outbound flows or DNS                              movement (authz/audit gap)
 outbound flows or DNS                              — the extension shipped
 queries with NO canary hit                          data somewhere undeclared
                                                     (lower severity; LLM02
@@ -723,7 +724,7 @@ def evidence_to_findings(ev: DetonationEvidence) -> list[Finding]:
         doms = sorted({d.query for d in ev.dns})[:5]
         findings.append(
             Finding(
-                owasp_ids=["MCP10", "LLM02"],
+                owasp_ids=["MCP07", "LLM02"],
                 title="Unexpected network egress during trigger execution",
                 detail=(
                     f"Trigger {shlex.quote(ev.trigger)} caused {len(ev.flows)} "
