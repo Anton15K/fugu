@@ -100,6 +100,12 @@ export default function App() {
 
   const startAudit = useCallback(
     async (source: string, depth: AuditDepth) => {
+      // Comma-separated refs (2..8) => multi-source composition audit (S6).
+      const refs = source
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const target: string | string[] = refs.length > 1 ? refs : source.trim();
       streamRef.current?.close();
       streamRef.current = null;
       setSubmitError(null);
@@ -107,7 +113,7 @@ export default function App() {
       try {
         const created = mock
           ? await mockSubmitAudit(source, depth)
-          : await submitAudit(source, depth);
+          : await submitAudit(target, depth);
         if (!mock) { writePathJob(created.id); rememberJobMeta(created); }
         setJob(created);
         pushRecentJob(RECENT_KEY, created, setRecent);

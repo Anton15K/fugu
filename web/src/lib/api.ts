@@ -32,33 +32,43 @@ export interface SubmitOptions {
   signal?: AbortSignal;
 }
 
-/** Submit a new audit; resolves to the created job (202 + job resource). */
+/** Submit a new audit; resolves to the created job (202 + job resource).
+ *
+ * `source` is a single ref, or an array of 2+ refs for a multi-source
+ * (composition) audit — the backend fans out one child audit per ref and
+ * runs the S6 composition stage on the union.
+ */
 export async function submitAudit(
-  source: string,
+  source: string | string[],
   depth: AuditDepth,
   opts: SubmitOptions = {},
 ): Promise<AuditJob> {
+  const multi = Array.isArray(source) && source.length > 1;
+  const body = multi
+    ? { sources: (source as string[]).map((ref) => ({ ref })), depth }
+    : { source: Array.isArray(source) ? source[0] : source, depth };
   const res = await fetch(`${API_BASE}/audits`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ source, depth }),
+    body: JSON.stringify(body),
     signal: opts.signal,
   });
   if (!res.ok) {
     throw new ApiError(res.status, `submit failed: HTTP ${res.status}`);
   }
-  const body: unknown = await res.json();
+  const bodyJson: unknown = await res.json();
   // Backend returns at minimum { job_id }; treat a full AuditJob as a bonus.
-  if (isAuditJob(body)) return body;
+  if (isAuditJob(bodyJson)) return bodyJson;
   if (
-    typeof body === "object" &&
-    body !== null &&
-    typeof (body as { job_id?: unknown }).job_id === "string"
+    typeof bodyJson === "object" &&
+    bodyJson !== null &&
+    typeof (bodyJson as { job_id?: unknown }).job_id === "string"
   ) {
-    const job = body as { job_id: string; source?: string; depth?: string };
+    const job = bodyJson as { job_id: string; source?: string; depth?: string };
+    const fallbackSource = Array.isArray(source) ? source.join(", ") : source;
     return {
       id: job.job_id,
-      source: job.source ?? source,
+      source: job.source ?? fallbackSource,
       created_at: new Date().toISOString(),
       status: "queued",
       depth: (job.depth as AuditJob["depth"]) ?? depth,

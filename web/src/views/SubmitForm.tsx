@@ -16,6 +16,7 @@ const SOURCE_PRESETS: { label: string; value: string }[] = [
   { label: "local skill", value: "./skills/pdf-table-extractor" },
   { label: "git url", value: "https://github.com/anthropics/skills" },
   { label: "mcp config", value: "mcp://stdio:npx -y @modelcontextprotocol/server-github" },
+  { label: "set audit (S6)", value: "corpus/composition/trifecta-canonical/web-digest, corpus/composition/trifecta-canonical/notes-lookup, corpus/composition/trifecta-canonical/status-poster" },
 ];
 
 function sourceIcon(source: string) {
@@ -96,7 +97,7 @@ export function SubmitForm({
                 <input
                   value={source}
                   onChange={(e) => setSource(e.target.value)}
-                  placeholder="./skills/my-skill"
+                  placeholder="./skills/my-skill  (or a, b, c — 2+ sources = set audit)"
                   spellCheck={false}
                   autoComplete="off"
                   aria-label="Extension source"
