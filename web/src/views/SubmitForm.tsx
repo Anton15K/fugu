@@ -12,11 +12,17 @@ import {
 import type { AuditDepth, AuditJob } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
+const SET_AUDIT_PRESET = [
+  "https://github.com/brooksy4503/rss-agent-viewer",
+  "https://github.com/rookie-ricardo/erduo-skills",
+  "https://github.com/vapiai/skills",
+].join(", ");
+
 const SOURCE_PRESETS: { label: string; value: string }[] = [
   { label: "local skill", value: "./skills/pdf-table-extractor" },
   { label: "git url", value: "https://github.com/anthropics/skills" },
   { label: "mcp config", value: "mcp://stdio:npx -y @modelcontextprotocol/server-github" },
-  { label: "set audit (S6)", value: "corpus/composition/trifecta-canonical/web-digest, corpus/composition/trifecta-canonical/notes-lookup, corpus/composition/trifecta-canonical/status-poster" },
+  { label: "set audit", value: SET_AUDIT_PRESET },
 ];
 
 function sourceIcon(source: string) {
