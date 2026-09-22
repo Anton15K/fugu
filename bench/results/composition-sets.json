@@ -1,0 +1,75 @@
+{
+  "sets": [
+    {
+      "set": "control-ingress-egress",
+      "trifecta": false,
+      "shadowing": false,
+      "findings": []
+    },
+    {
+      "set": "control-private-egress",
+      "trifecta": false,
+      "shadowing": false,
+      "findings": []
+    },
+    {
+      "set": "control-self-sufficient",
+      "trifecta": false,
+      "shadowing": false,
+      "findings": []
+    },
+    {
+      "set": "shadow-pair",
+      "trifecta": false,
+      "shadowing": true,
+      "findings": [
+        {
+          "severity": "medium",
+          "confidence": "deterministic",
+          "title": "Cross-extension tool shadowing: 'listdir' defined by 2 members"
+        },
+        {
+          "severity": "medium",
+          "confidence": "deterministic",
+          "title": "Cross-extension tool shadowing: 'readfile' defined by 2 members"
+        }
+      ]
+    },
+    {
+      "set": "trifecta-canonical",
+      "trifecta": true,
+      "shadowing": false,
+      "findings": [
+        {
+          "severity": "medium",
+          "confidence": "measured",
+          "title": "Potential trifecta across installed set (web-digest, notes-lookup, status-poster)"
+        }
+      ]
+    },
+    {
+      "set": "trifecta-diluted",
+      "trifecta": true,
+      "shadowing": false,
+      "findings": [
+        {
+          "severity": "medium",
+          "confidence": "measured",
+          "title": "Potential trifecta across installed set (web-digest, notes-lookup, status-poster)"
+        }
+      ]
+    },
+    {
+      "set": "trifecta-shuffled",
+      "trifecta": true,
+      "shadowing": false,
+      "findings": [
+        {
+          "severity": "medium",
+          "confidence": "measured",
+          "title": "Potential trifecta across installed set (web-digest, notes-lookup, status-poster)"
+        }
+      ]
+    }
+  ]
+}

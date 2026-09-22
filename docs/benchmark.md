@@ -1,13 +1,13 @@
 # Fugu benchmark report
 
-Mode: **static S0+S1** · Generated: 2026-09-19 22:34 · Tool: `python -m bench.run_bench`
+Mode: **static S0+S1** · Generated: 2026-09-22 21:48 · Tool: `python -m bench.run_bench`
 
 Provenance-split results (CASCADE 2604.17125: pooled crafted+real numbers inflate; we never pool):
 
 | Provenance set | n (mal/ben) | Attack detection | Benign flag rate | Info-only on benign | avg s/audit |
 |---|---|---|---|---|---|
-| crafted (corpus/) | 10 (6/4) | 6/6 (100%) | 0/4 (0%) | 0 | 0.0 |
-| real (public skills, n=101) | 101 (0/76) | n/a | 0/76 (0%) | 0 | 0.0 |
+| crafted (corpus/) | 11 (7/4) | 7/7 (100%) | 0/4 (0%) | 0 | 0.0 |
+| real (public skills, n=76) | 76 (0/76) | n/a | 0/76 (0%) | 0 | 0.0 |
 
 Field context (published, not our measurements):
 
