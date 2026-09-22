@@ -1,0 +1,10 @@
+{
+  "name": "control-private-egress",
+  "kind": "control",
+  "description": "Benign union: config-lookup (private data) + deploy-notify (egress), no ingress member; no trifecta may be reported.",
+  "members": [
+    {"dir": "config-lookup", "label": "config-lookup"},
+    {"dir": "deploy-notify", "label": "deploy-notify"}
+  ],
+  "expected": {"trifecta": false, "shadowing": false}
+}

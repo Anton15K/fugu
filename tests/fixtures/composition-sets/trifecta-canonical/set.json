@@ -1,0 +1,11 @@
+{
+  "name": "trifecta-canonical",
+  "kind": "attack",
+  "description": "ingress (web-digest) + private-data (notes-lookup) + egress (status-poster), each member individually clean",
+  "members": [
+    {"dir": "web-digest", "label": "web-digest"},
+    {"dir": "notes-lookup", "label": "notes-lookup"},
+    {"dir": "status-poster", "label": "status-poster"}
+  ],
+  "expected": {"trifecta": true, "shadowing": false}
+}

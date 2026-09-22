@@ -27,7 +27,12 @@ export type ConfidenceTier =
   | "empirical"
   | "advisory";
 
-/** Pipeline stages in execution order; `verdict` is terminal. */
+/** Pipeline stages in execution order; `verdict` is terminal.
+ *
+ * `composition` runs only on multi-source jobs (the parent's single stage);
+ * single-source jobs never emit it, so the default card strip must not
+ * include it — see STAGE_ORDER / MULTI_SOURCE_STAGE_ORDER below.
+ */
 export type StageName =
   | "concealment"
   | "static"
@@ -35,6 +40,7 @@ export type StageName =
   | "detonation"
   | "harness"
   | "reputation"
+  | "composition"
   | "verdict";
 
 /** Audit-job lifecycle. `queued` → `running` → `done` | `failed`. */
@@ -164,6 +170,15 @@ export interface LogData {
   level?: "debug" | "info" | "warn" | "error";
 }
 
+/** LogData for multi-source (composition) parent jobs: the parent emits one
+ * log per finished member child audit (§6): stage "composition", message
+ * `member <label>: job <child_id> <status>, <N> findings`, plus a
+ * `child_job_id` discriminator. History replay delivers the same events.
+ */
+export interface MemberLogData extends LogData {
+  child_job_id?: string;
+}
+
 /** Human-readable names for OWASP ids (drives the scorecard matrix labels). */
 export const OWASP_LABELS: Record<string, string> = {
   MCP01: "Token mismanagement / secrets",
@@ -183,11 +198,16 @@ export const OWASP_LABELS: Record<string, string> = {
   LLM06: "Excessive agency",
 };
 
-/** Display order of the pipeline stages (fixed; matches the backend). */
-// Cards mirror what the backend ACTUALLY runs (see build_stages()). A stage
-// that isn't implemented must never appear as a green card — that would be
-// fake coverage. Composition (cross-extension trifecta) is designed but not
-// built; when it lands, add it back here.
+/** Display order of the pipeline stage cards (fixed; matches the backend).
+ *
+ * Cards mirror what the backend ACTUALLY runs (see build_stages()). A stage
+ * that isn't implemented must never appear as a green card — that would be
+ * fake coverage. `composition` is the exception: it runs ONLY on multi-source
+ * jobs (contracts §6), so it lives in {@link MULTI_SOURCE_STAGE_ORDER} and is
+ * spliced into the strip only when the job actually emitted composition
+ * events (see {@link compositionPresent}). Single-source jobs render the
+ * exact same 7 cards as before.
+ */
 export const STAGE_ORDER: StageName[] = [
   "concealment",
   "static",
@@ -195,6 +215,14 @@ export const STAGE_ORDER: StageName[] = [
   "detonation",
   "harness",
   "reputation",
+  "verdict",
+];
+
+/** Stage-card order for multi-source (composition) parent jobs. The parent
+ * fans children out first (per-member child audits run the standard 6
+ * stages server-side), then runs `composition` as its single own stage. */
+export const MULTI_SOURCE_STAGE_ORDER: StageName[] = [
+  "composition",
   "verdict",
 ];
 
@@ -230,6 +258,11 @@ export const STAGE_META: Record<StageName, { index: number; label: string; blurb
     label: "Reputation",
     blurb: "Author history · CVEs · typosquats",
   },
+  composition: {
+    index: 6,
+    label: "Composition",
+    blurb: "Cross-extension trifecta · tool shadowing",
+  },
   verdict: {
     index: 7,
     label: "Verdict",
@@ -239,3 +272,81 @@ export const STAGE_META: Record<StageName, { index: number; label: string; blurb
 
 /** All severities, ordered ascending for counts UI. */
 export const SEVERITIES: Severity[] = ["info", "low", "medium", "high", "critical"];
+
+/* ── Composition (multi-source jobs, contracts §6) ─────────────────── */
+
+const JOB_STATUSES: ReadonlySet<string> = new Set([
+  "queued",
+  "running",
+  "done",
+  "failed",
+]);
+
+/**
+ * Parse a parent `log` event payload into a member row, or null when the
+ * payload is not a member log. Wire shape (composition_jobs.py):
+ *   { stage: "composition", message: "member <label>: job <id> <status>, <N> findings",
+ *     child_job_id: "<id>" }
+ * Also tolerates the runner-error followup
+ *   { stage: "composition", message: "member <label>: runner error (…)" }.
+ *
+ * Pure so both the live path and SSE history replay (events arrive in a
+ * burst at connect) fold identically through applyEvent.
+ */
+export function parseMemberLog(data: Record<string, unknown>): MemberInfo | null {
+  if (typeof data.child_job_id !== "string" || !data.child_job_id) return null;
+  const message = typeof data.message === "string" ? data.message : "";
+  // member <label>: job <child_id> <status>, <N> findings
+  const m = /^member (.*?): job \S+ (\w+), (\d+) findings$/.exec(message);
+  if (m) {
+    const status = m[2] ?? "";
+    return {
+      label: m[1] ?? message,
+      status: JOB_STATUSES.has(status) ? (status as JobStatus) : "running",
+      findings: Number(m[3] ?? 0),
+      childJobId: data.child_job_id,
+    };
+  }
+  // member <label>: runner error (…) — a failed member without a parseable count
+  const e = /^member (.*?): /.exec(message);
+  if (e) {
+    return {
+      label: e[1] ?? message,
+      status: "failed",
+      findings: 0,
+      childJobId: data.child_job_id,
+    };
+  }
+  return null;
+}
+
+/** One member (child audit) of a multi-source job, as shown in the strip. */
+export interface MemberInfo {
+  label: string;
+  status: JobStatus;
+  findings: number;
+  /** Empty while the member is still queued/running (no child log yet). */
+  childJobId: string;
+}
+
+/** Split a trifecta finding's evidence sources into per-leg rows.
+ * source format (composition.py): `member:<slug>:<finding-title>` with
+ * meta { leg, member (label), strength, tier }. */
+export const TRIFECTA_LEGS = ["INGRESS", "PRIVATE-DATA", "EGRESS"] as const;
+export type TrifectaLeg = (typeof TRIFECTA_LEGS)[number];
+
+/** Parse `member:<slug>:<title>` evidence sources (trifecta legs). */
+export function parseMemberEvidence(
+  source: string,
+): { slug: string; title: string } | null {
+  const m = /^member:([^:]+):([\s\S]+)$/.exec(source);
+  return m ? { slug: m[1] ?? source, title: m[2] ?? "" } : null;
+}
+
+/** Parse `tools:<name>` evidence sources (shadowing collisions). */
+export function parseToolEvidence(
+  source: string,
+): { name: string } | null {
+  const m = /^tools:(.+)$/.exec(source);
+  return m ? { name: m[1] ?? source } : null;
+}

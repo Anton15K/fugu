@@ -1,7 +1,7 @@
 # BOTS.md — operating guide for autonomous workstreams on Fugu
 
 > You are one of several autonomous agents working IN PARALLEL in the same
-> working tree at `/Users/antonkogun/Desktop/nebius_hack`. A tech lead (the
+> working tree at `/Users/antonkogun/dev/nebius_hack`. A tech lead (the
 > orchestrating agent) reviews and commits all work. You do NOT use git.
 
 ## Project (60-second version)

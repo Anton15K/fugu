@@ -28,6 +28,16 @@ results.json schema (documented in eval/README.md):
 
 A bare ``{"name": [...]}`` mapping (no ``predictions`` wrapper, no
 provenance) is accepted too, for hand-written smoke files.
+
+``--sets DIR`` switches to composition-set mode (S6, contracts §5): DIR
+is a root of ``<set-name>/set.json`` specs loaded via
+``eval.loader.load_set_specs``; ``--results`` must point at a sets
+predictions JSON of shape ``{"sets": [{"set": name, "trifecta": bool,
+"shadowing": bool}, ...]}``. The mode prints a markdown table of per-set
+verdicts plus set_detection_rate / set_fp_rate and the advisory-tier
+caveat. Composition metrics are reported SEPARATELY from per-extension
+metrics and never merged into them (strategy-arxiv-drift D2). ``--sets``
+cannot be combined with ``--corpus``/``--fixtures``/``--selfcheck``.
 """
 from __future__ import annotations
 
@@ -40,8 +50,22 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
-from eval.loader import ManifestError, Sample, fixtures_dir, load_corpus
-from eval.metrics import MetricsReport, category_metrics, to_console, to_markdown
+from eval.loader import (
+    ManifestError,
+    Sample,
+    SetSpecError,
+    fixtures_dir,
+    load_corpus,
+    load_set_specs,
+)
+from eval.metrics import (
+    MetricsReport,
+    category_metrics,
+    set_metrics,
+    sets_to_markdown,
+    to_console,
+    to_markdown,
+)
 
 DEFAULT_CORPUS = _PROJECT_ROOT / "corpus"
 
@@ -200,6 +224,80 @@ def _print_report(report: MetricsReport, markdown_out: str | None) -> None:
     print(to_console(report))
 
 
+# --- sets-mode helpers --------------------------------------------------------------
+
+
+def load_sets_results_file(path: str | Path) -> list[dict[str, object]]:
+    """Parse a sets predictions JSON (``{"sets": [{...}]}``) into rows.
+
+    Shape per contracts §5: ``{"sets": [{"set": name, "trifecta": bool,
+    "shadowing": bool}, ...]}``. Raises SystemExit with a pointed message
+    on structural violations rather than a stack trace.
+    """
+    p = Path(path)
+    if not p.is_file():
+        raise SystemExit(f"error: sets results file not found: {p}")
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"error: {p} is not valid JSON: {exc}") from exc
+
+    if not isinstance(data, dict) or not isinstance(data.get("sets"), list):
+        raise SystemExit(
+            f"error: {p} must be a JSON object of shape "
+            f'{{"sets": [{{"set": name, "trifecta": bool, "shadowing": bool}}, ...]}}'
+        )
+    return data["sets"]
+
+
+def _run_sets_mode(sets_dir: str, results_path: str | None, markdown_out: str | None) -> int:
+    """Score composition-set predictions; return a process exit code."""
+    try:
+        specs = load_set_specs(sets_dir)
+    except SetSpecError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+
+    if not specs:
+        print(f"error: no sets found under {sets_dir} (expected <set>/set.json)", file=sys.stderr)
+        return 2
+
+    if results_path:
+        try:
+            results = load_sets_results_file(results_path)
+        except SystemExit:
+            raise
+        provenance = str(results_path)
+    else:
+        print(
+            "error: --sets requires --results with a sets predictions JSON "
+            '(shape {"sets": [...]}; schema in eval/README.md)',
+            file=sys.stderr,
+        )
+        return 2
+
+    try:
+        report = set_metrics(results, specs)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+
+    print(f"# provenance: {provenance}")
+    print(sets_to_markdown(report))
+    print()
+    if markdown_out:
+        Path(markdown_out).write_text(sets_to_markdown(report) + "\n", encoding="utf-8")
+        print(f"markdown report written to {markdown_out}")
+
+    if report["unmatched_prediction_keys"]:
+        print(
+            "warning: sets results contain keys with no set spec: "
+            + ", ".join(report["unmatched_prediction_keys"]),
+            file=sys.stderr,
+        )
+    return 0
+
+
 # --- entrypoint --------------------------------------------------------------------
 
 def main(argv: list[str] | None = None) -> int:
@@ -219,13 +317,26 @@ def main(argv: list[str] | None = None) -> int:
                         help="also write a markdown report to this path")
     parser.add_argument("--detonate", action="store_true",
                         help="include the Docker detonation stage in live runs (slow)")
+    parser.add_argument("--sets", default=None,
+                        help="composition-sets root (dirs of <set>/set.json); "
+                             "scores a sets predictions JSON via --results")
     parser.add_argument("--selfcheck", action="store_true",
                         help="run on synthetic perfect/garbage predictions and "
                              "verify expected metrics; ignores --corpus/--results")
     args = parser.parse_args(argv)
 
+    if args.selfcheck and args.sets:
+        parser.error("--selfcheck cannot be combined with --sets")
+    if args.sets and (args.corpus != str(DEFAULT_CORPUS) or args.fixtures):
+        parser.error(
+            "--sets cannot be combined with --corpus/--fixtures "
+            "(it scores composition sets, not per-extension corpora)"
+        )
     if args.selfcheck:
         return _selfcheck()
+
+    if args.sets:
+        return _run_sets_mode(args.sets, args.results, args.markdown)
 
     corpus_dir = fixtures_dir() if args.fixtures else Path(args.corpus)
     using_fixtures = False

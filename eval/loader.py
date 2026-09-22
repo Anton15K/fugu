@@ -39,9 +39,18 @@ from fugu.types import OWASP_IDS
 MANIFEST_FILENAME = "manifest.json"
 VALID_KINDS = ("malicious", "benign")
 
+SET_FILENAME = "set.json"
+VALID_SET_KINDS = ("attack", "control")
+MIN_SET_MEMBERS = 2
+MAX_SET_MEMBERS = 8
+
 
 class ManifestError(ValueError):
     """A manifest violates the documented corpus schema."""
+
+
+class SetSpecError(ValueError):
+    """A composition set.json violates the documented set schema."""
 
 
 @dataclass(frozen=True)
@@ -159,3 +168,158 @@ def load_corpus(corpus_dir: str | Path) -> tuple[list[Sample], list[str]]:
         samples.append(Sample(path=entry.resolve(), manifest=data))
 
     return samples, warnings
+
+
+# --- composition sets --------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class SetMember:
+    """One extension directory inside a composition set."""
+
+    dir: str
+    label: str
+
+
+@dataclass(frozen=True)
+class SetSpec:
+    """A composition eval set: 2..8 member extensions audited together.
+
+    Mirrors ``set.json`` (docs/s6-contracts.md §4/§5). ``expected`` carries
+    the ground-truth composition verdicts: whether the UNION of members
+    completes the lethal trifecta (ingress + private-data + egress split
+    across extensions) and whether cross-extension tool shadowing fires.
+    """
+
+    name: str
+    kind: str  # "attack" | "control"
+    description: str
+    members: list[SetMember]
+    expected_trifecta: bool
+    expected_shadowing: bool
+    path: Path  # the set directory (set.json's parent)
+
+    @property
+    def expected(self) -> dict[str, bool]:
+        """Expected composition verdicts as a plain dict (matches set.json)."""
+        return {"trifecta": self.expected_trifecta, "shadowing": self.expected_shadowing}
+
+
+def _validate_set_spec(set_path: Path, data: Any) -> SetSpec:
+    """Validate one parsed set.json; raise SetSpecError on schema breaks.
+
+    Strict by contract (§5): the set schema is ours and 2..8 members with
+    existing dirs is a hard precondition — no soft-warning path here.
+    """
+    where = str(set_path)
+
+    if not isinstance(data, dict):
+        raise SetSpecError(f"{where}: set.json must be a JSON object")
+
+    name = data.get("name")
+    if not isinstance(name, str) or not name.strip():
+        raise SetSpecError(f"{where}: 'name' must be a non-empty string")
+
+    kind = data.get("kind")
+    if kind not in VALID_SET_KINDS:
+        raise SetSpecError(
+            f"{where}: 'kind' must be one of {VALID_SET_KINDS}, got {kind!r}"
+        )
+
+    description = data.get("description", "")
+    if not isinstance(description, str):
+        raise SetSpecError(f"{where}: 'description' must be a string")
+
+    raw_members = data.get("members")
+    if not isinstance(raw_members, list) or not (
+        MIN_SET_MEMBERS <= len(raw_members) <= MAX_SET_MEMBERS
+    ):
+        raise SetSpecError(
+            f"{where}: 'members' must be a list of {MIN_SET_MEMBERS}..{MAX_SET_MEMBERS} "
+            f"member objects, got {raw_members!r}"
+        )
+
+    members: list[SetMember] = []
+    for i, member in enumerate(raw_members):
+        if not isinstance(member, dict) or "dir" not in member:
+            raise SetSpecError(
+                f"{where}: members[{i}] must be an object with 'dir' and 'label', got {member!r}"
+            )
+        member_dir = member["dir"]
+        label = member.get("label", member_dir)
+        if not isinstance(member_dir, str) or not member_dir.strip():
+            raise SetSpecError(
+                f"{where}: members[{i}].dir must be a non-empty string, got {member_dir!r}"
+            )
+        if not isinstance(label, str) or not label.strip():
+            raise SetSpecError(
+                f"{where}: members[{i}].label must be a non-empty string, got {label!r}"
+            )
+        if member_dir in {m.dir for m in members}:
+            raise SetSpecError(f"{where}: duplicate member dir {member_dir!r}")
+        resolved = set_path.parent / member_dir
+        if not resolved.is_dir():
+            raise SetSpecError(
+                f"{where}: member dir {member_dir!r} does not exist "
+                f"(expected {resolved})"
+            )
+        members.append(SetMember(dir=member_dir, label=label))
+
+    expected = data.get("expected")
+    if not isinstance(expected, dict):
+        raise SetSpecError(
+            f"{where}: 'expected' must be an object with boolean "
+            f"'trifecta' and 'shadowing' keys, got {expected!r}"
+        )
+    missing = [k for k in ("trifecta", "shadowing") if k not in expected]
+    if missing:
+        raise SetSpecError(f"{where}: 'expected' is missing key(s): {', '.join(missing)}")
+    for key in ("trifecta", "shadowing"):
+        if not isinstance(expected[key], bool):
+            raise SetSpecError(
+                f"{where}: 'expected.{key}' must be a boolean, got {expected[key]!r}"
+            )
+
+    return SetSpec(
+        name=name,
+        kind=kind,
+        description=description,
+        members=members,
+        expected_trifecta=expected["trifecta"],
+        expected_shadowing=expected["shadowing"],
+        path=set_path.parent.resolve(),
+    )
+
+
+def load_set_specs(root: str | Path) -> list[SetSpec]:
+    """Load every composition set under ``root`` (``root/<set>/set.json``).
+
+    Sets are sorted by name for deterministic output. Sub-directories
+    without a ``set.json`` are skipped silently (a set root may also hold
+    shared files); hidden dirs (starting with ``.`` or ``__``) are skipped
+    too. Malformed set.json raises :class:`SetSpecError` naming the file.
+    """
+    sets_root = Path(root)
+    if not sets_root.is_dir():
+        raise SetSpecError(f"sets directory not found: {sets_root}")
+
+    specs: list[SetSpec] = []
+    seen_names: set[str] = set()
+
+    for entry in sorted(sets_root.iterdir()):
+        if not entry.is_dir() or entry.name.startswith((".", "__")):
+            continue
+        set_path = entry / SET_FILENAME
+        if not set_path.is_file():
+            continue
+        try:
+            data = json.loads(set_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise SetSpecError(f"{set_path}: cannot parse {SET_FILENAME}: {exc}") from exc
+        spec = _validate_set_spec(set_path, data)
+        if spec.name in seen_names:
+            raise SetSpecError(f"{set_path}: duplicate set name {spec.name!r}")
+        seen_names.add(spec.name)
+        specs.append(spec)
+
+    return specs

@@ -1,0 +1,11 @@
+{
+  "name": "trifecta-shuffled",
+  "kind": "attack",
+  "description": "Same three members as trifecta-canonical in a different order; detection must be order-independent.",
+  "members": [
+    {"dir": "status-poster", "label": "status-poster"},
+    {"dir": "web-digest", "label": "web-digest"},
+    {"dir": "notes-lookup", "label": "notes-lookup"}
+  ],
+  "expected": {"trifecta": true, "shadowing": false}
+}

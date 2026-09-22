@@ -115,7 +115,7 @@ export default function App() {
         setVerdictInfo(null);
         setPhase("running");
         streamRef.current = mock
-          ? openMockAuditStream(created.id, depth, handleEvent)
+          ? openMockAuditStream(created.id, depth, handleEvent, { source })
           : openAuditStream(created.id, {
               onEvent: handleEvent,
               onStatus: setStreamStatus,

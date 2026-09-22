@@ -1,0 +1,10 @@
+{
+  "name": "benign-pair",
+  "kind": "control",
+  "description": "ingress + egress with NO private-data leg: the union must stay clean",
+  "members": [
+    {"dir": "weather-fetch", "label": "weather-fetch"},
+    {"dir": "unit-convert", "label": "unit-convert"}
+  ],
+  "expected": {"trifecta": false, "shadowing": false}
+}

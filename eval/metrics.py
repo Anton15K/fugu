@@ -21,16 +21,24 @@ id Y increments ``confusion[X -> Y]`` — read it as "cried X where Y was
 the truth". Benign samples never contribute confusion pairs (there is no
 true Y to confuse with); their wrong findings surface in benign-FP.
 
+Composition-set scoring (S6): :func:`set_metrics` scores whole-SET
+composition predictions (trifecta / shadowing booleans per set) against
+SetSpec ground truth, producing set_detection_rate over attacks and
+set_fp_rate over controls. Per docs/strategy-arxiv-drift.md D2 these are
+reported SEPARATELY from per-extension metrics and carry
+``tier: "advisory"`` until stable across ≥2 runs — never fold set rows
+into the headline per-extension recall/FP numbers.
+
 All functions are pure (no I/O, no globals); the report is a plain typed
 dict that JSON-serializes as-is.
 """
 from __future__ import annotations
 
-from typing import Iterable, Mapping, TypedDict
+from typing import Iterable, Mapping, Sequence, TypedDict
 
 from fugu.types import OWASP_IDS
 
-from eval.loader import Sample
+from eval.loader import Sample, SetSpec
 
 
 class IdMetrics(TypedDict):
@@ -355,4 +363,223 @@ def to_console(report: MetricsReport) -> str:
             ids = ", ".join(str(i) for i in entry["ids"])  # type: ignore[attr-defined]
             lines.append(f"  {entry['sample']}: {ids}")
     lines.append("=" * len(header))
+    return "\n".join(lines)
+
+
+# --- composition set metrics (S6) --------------------------------------------------
+
+COMPOSITION_TIER = "advisory"
+SET_ADVISORY_CAVEAT = (
+    "advisory tier: composition metrics are computed on a small curated set "
+    "of extension combinations; numbers are not stable across runs yet — "
+    "report them SEPARATELY from per-extension metrics"
+)
+
+
+class SetRow(TypedDict):
+    name: str
+    kind: str
+    expected_trifecta: bool
+    predicted_trifecta: bool
+    predicted_shadowing: bool
+    correct: bool  # predicted_trifecta == expected_trifecta
+
+
+class SetAggregate(TypedDict):
+    n_attacks: int
+    n_attacks_detected: int  # attacks with correct trifecta prediction
+    set_detection_rate: float  # detected / n_attacks (0.0 when no attacks)
+    n_controls: int
+    n_controls_flagged: int  # controls predicted trifecta OR shadowing
+    set_fp_rate: float  # flagged / n_controls (0.0 when no controls)
+
+
+class SetMetricsReport(TypedDict):
+    tier: str  # always "advisory" until stable across >=2 runs (D2)
+    n_sets: int
+    n_sets_with_predictions: int
+    unmatched_prediction_keys: list[str]  # result set names with no spec
+    rows: list[SetRow]  # sorted by name
+    aggregate: SetAggregate
+
+
+def set_metrics(
+    results: Iterable[Mapping[str, object]],
+    specs: Sequence[SetSpec],
+) -> SetMetricsReport:
+    """Score per-SET composition predictions against SetSpec ground truth.
+
+    ``results`` is a list of ``{"set": name, "trifecta": bool,
+    "shadowing": bool}`` dicts (the run_eval ``--sets`` predictions JSON).
+    A set with no result row counts as "no composition findings" (missed
+    attacks hurt detection rate; silent controls count as clean, which is
+    the desired behavior). Extra result keys with no matching spec are
+    reported in ``unmatched_prediction_keys``.
+
+    Aggregates (composition metrics — kept SEPARATE from per-extension
+    metrics, tier "advisory" until stable across >=2 runs):
+
+    * ``set_detection_rate`` = attacks whose predicted trifecta equals
+      the expected trifecta / all attacks. Note: an attack set expected
+      *clean* of trifecta (a shadowing-only attack, say) is "detected"
+      when we correctly do NOT cry trifecta on it.
+    * ``set_fp_rate`` = controls where we predicted trifecta OR shadowing
+      / all controls — a control firing ANY composition finding is a
+      false positive, per contracts §5.
+    """
+    # name -> predicted booleans; later rows win, last one stands.
+    by_name: dict[str, tuple[bool, bool]] = {}
+    for entry in results:
+        raw_name = entry.get("set")
+        if not isinstance(raw_name, str) or not raw_name.strip():
+            raise ValueError(f"set result entry has no non-empty 'set' key: {entry!r}")
+        name = raw_name
+        trifecta = entry.get("trifecta", False)
+        shadowing = entry.get("shadowing", False)
+        if not isinstance(trifecta, bool) or not isinstance(shadowing, bool):
+            raise ValueError(
+                f"set result for {name!r}: 'trifecta' and 'shadowing' must be booleans, "
+                f"got trifecta={trifecta!r}, shadowing={shadowing!r}"
+            )
+        by_name[name] = (trifecta, shadowing)
+
+    spec_names = {spec.name for spec in specs}
+    unmatched = sorted(name for name in by_name if name not in spec_names)
+
+    rows: list[SetRow] = []
+    n_with_predictions = 0
+    n_attacks = n_attacks_detected = 0
+    n_controls = n_controls_flagged = 0
+
+    for spec in specs:
+        predicted_trifecta, predicted_shadowing = by_name.get(spec.name, (False, False))
+        if spec.name in by_name:
+            n_with_predictions += 1
+        correct = predicted_trifecta == spec.expected_trifecta
+        rows.append(
+            SetRow(
+                name=spec.name,
+                kind=spec.kind,
+                expected_trifecta=spec.expected_trifecta,
+                predicted_trifecta=predicted_trifecta,
+                predicted_shadowing=predicted_shadowing,
+                correct=correct,
+            )
+        )
+        if spec.kind == "attack":
+            n_attacks += 1
+            if correct:
+                n_attacks_detected += 1
+        else:  # control
+            n_controls += 1
+            if predicted_trifecta or predicted_shadowing:
+                n_controls_flagged += 1
+
+    aggregate = SetAggregate(
+        n_attacks=n_attacks,
+        n_attacks_detected=n_attacks_detected,
+        set_detection_rate=round(n_attacks_detected / n_attacks, 4) if n_attacks else 0.0,
+        n_controls=n_controls,
+        n_controls_flagged=n_controls_flagged,
+        set_fp_rate=round(n_controls_flagged / n_controls, 4) if n_controls else 0.0,
+    )
+
+    return SetMetricsReport(
+        tier=COMPOSITION_TIER,
+        n_sets=len(specs),
+        n_sets_with_predictions=n_with_predictions,
+        unmatched_prediction_keys=unmatched,
+        rows=rows,
+        aggregate=aggregate,
+    )
+
+
+def sets_to_markdown(report: SetMetricsReport) -> str:
+    """Render a set report as a GitHub-flavored markdown document."""
+    lines: list[str] = []
+    lines.append(f"## Fugu composition-set report (tier: {report['tier']})")
+    lines.append("")
+    lines.append(
+        f"- Sets: **{report['n_sets']}** "
+        f"({report['aggregate']['n_attacks']} attack, "
+        f"{report['aggregate']['n_controls']} control); "
+        f"{report['n_sets_with_predictions']} received predictions"
+    )
+    agg = report["aggregate"]
+    lines.append(
+        f"- set_detection_rate (attacks): **{_fmt(agg['set_detection_rate'])}** "
+        f"({agg['n_attacks_detected']}/{agg['n_attacks']})"
+    )
+    lines.append(
+        f"- set_fp_rate (controls): **{_fmt(agg['set_fp_rate'])}** "
+        f"({agg['n_controls_flagged']}/{agg['n_controls']})"
+    )
+    if report["unmatched_prediction_keys"]:
+        lines.append(
+            f"- ⚠️ unmatched prediction keys (no such set spec): "
+            f"{', '.join(report['unmatched_prediction_keys'])}"
+        )
+    lines.append("")
+    lines.append("### Per-set composition verdicts")
+    lines.append("")
+    lines.append("| set | kind | expected trifecta | predicted trifecta | predicted shadowing | correct |")
+    lines.append("|---|---|---|---|---|---|")
+    if report["rows"]:
+        for row in report["rows"]:
+            lines.append(
+                f"| {row['name']} | {row['kind']} | {row['expected_trifecta']} "
+                f"| {row['predicted_trifecta']} | {row['predicted_shadowing']} "
+                f"| {'✅' if row['correct'] else '❌'} |"
+            )
+    else:
+        lines.append("| _none_ | — | — | — | — | — |")
+    lines.append("")
+    lines.append(f"> ⚠️ {SET_ADVISORY_CAVEAT}.")
+    return "\n".join(lines)
+
+
+def sets_to_console(report: SetMetricsReport) -> str:
+    """Render a set report as fixed-width plain text for terminals/CI logs."""
+    lines: list[str] = []
+    lines.append("=" * 72)
+    lines.append(f"FUGU COMPOSITION-SET REPORT (tier: {report['tier']})")
+    lines.append("=" * 72)
+    agg = report["aggregate"]
+    lines.append(
+        f"sets: {report['n_sets']} (attack {agg['n_attacks']}, control {agg['n_controls']}); "
+        f"with predictions: {report['n_sets_with_predictions']}"
+    )
+    lines.append(
+        f"set_detection_rate: {_fmt(agg['set_detection_rate'])} "
+        f"({agg['n_attacks_detected']}/{agg['n_attacks']})"
+    )
+    lines.append(
+        f"set_fp_rate: {_fmt(agg['set_fp_rate'])} "
+        f"({agg['n_controls_flagged']}/{agg['n_controls']})"
+    )
+    if report["unmatched_prediction_keys"]:
+        lines.append(
+            "WARNING unmatched prediction keys: "
+            + ", ".join(report["unmatched_prediction_keys"])
+        )
+    lines.append("-" * 72)
+    lines.append(
+        f"{'set'.ljust(28)}  {'kind'.ljust(8)}  {'exp_tf':>6} {'pred_tf':>7} "
+        f"{'pred_sh':>7}  {'ok':>2}"
+    )
+    lines.append("-" * 72)
+    if report["rows"]:
+        for row in report["rows"]:
+            lines.append(
+                f"{row['name'][:28].ljust(28)}  {row['kind'].ljust(8)}  "
+                f"{str(row['expected_trifecta']).lower():>6} "
+                f"{str(row['predicted_trifecta']).lower():>7} "
+                f"{str(row['predicted_shadowing']).lower():>7}  "
+                f"{'ok' if row['correct'] else 'X':>2}"
+            )
+    else:
+        lines.append("(no sets)")
+    lines.append("-" * 72)
+    lines.append(f"note: {SET_ADVISORY_CAVEAT}")
+    lines.append("=" * 72)
     return "\n".join(lines)

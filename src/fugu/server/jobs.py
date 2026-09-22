@@ -518,7 +518,9 @@ async def run_job(
     job.status = JobStatus.done
     store.close(job.id)
 
-    if cloned_dir is not None:
+    if cloned_dir is not None and not keep_target:
+        # keep_target=True: caller (e.g. run_composition_job harvesting tool
+        # names from the extracted tree) owns the clone's lifetime now.
         await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
 
 

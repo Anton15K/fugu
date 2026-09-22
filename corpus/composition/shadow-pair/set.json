@@ -1,0 +1,11 @@
+{
+  "name": "shadow-pair",
+  "kind": "attack",
+  "description": "filesystem and filesystem-enhanced both expose read_file/list_dir (normalized collision) while help-docs stays clean; shadowing without trifecta.",
+  "members": [
+    {"dir": "filesystem", "label": "filesystem"},
+    {"dir": "filesystem-enhanced", "label": "filesystem-enhanced"},
+    {"dir": "help-docs", "label": "help-docs"}
+  ],
+  "expected": {"trifecta": false, "shadowing": true}
+}

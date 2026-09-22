@@ -1,0 +1,13 @@
+{
+  "name": "trifecta-diluted",
+  "kind": "attack",
+  "description": "Canonical trifecta members plus two irrelevant clean members (weather-lookup, unit-convert); the attack must survive dilution.",
+  "members": [
+    {"dir": "web-digest", "label": "web-digest"},
+    {"dir": "notes-lookup", "label": "notes-lookup"},
+    {"dir": "status-poster", "label": "status-poster"},
+    {"dir": "weather-lookup", "label": "weather-lookup"},
+    {"dir": "unit-convert", "label": "unit-convert"}
+  ],
+  "expected": {"trifecta": true, "shadowing": false}
+}

@@ -1,4 +1,4 @@
-import { ShieldAlert, ShieldCheck, ShieldX } from "lucide-react";
+import { Link2, ShieldAlert, ShieldCheck, ShieldX, Waypoints } from "lucide-react";
 import { API_BASE } from "@/lib/api";
 import { useMemo, useState } from "react";
 import {
@@ -25,7 +25,13 @@ import type {
   Severity,
   VerdictData,
 } from "@/lib/types";
-import { OWASP_LABELS, SEVERITIES } from "@/lib/types";
+import {
+  OWASP_LABELS,
+  SEVERITIES,
+  TRIFECTA_LEGS,
+  parseMemberEvidence,
+  parseToolEvidence,
+} from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const verdictTheme = {
@@ -236,6 +242,9 @@ export function Scorecard({ verdict, elapsedMs }: ScorecardProps) {
         </Table>
       </div>
 
+      {/* ── Combination (composition) section — multi-source only ── */}
+      <CombinationSection findings={verdict.findings} />
+
       {/* ── findings detail ──────────────────────────────────────── */}
       <div className="flex flex-col gap-2">
         <h3 className="px-1 font-mono text-xs uppercase tracking-wider text-zinc-400">
@@ -255,6 +264,231 @@ export function Scorecard({ verdict, elapsedMs }: ScorecardProps) {
 }
 
 const SEV_RANK: Record<string, number> = { critical: 4, high: 3, medium: 2, low: 1, info: 0 };
+
+function sevRank(sev: string): number {
+  return SEV_RANK[sev] ?? 0;
+}
+
+/* ── Combination section (composition findings, contracts §6) ───────── */
+
+/** A trifecta leg row parsed from `member:<slug>:<title>` evidence with
+ * meta { leg, member, strength, tier } (composition.py emits exactly this). */
+interface LegRow {
+  leg: string;
+  memberLabel: string;
+  slug: string;
+  strength: string;
+  tier?: string;
+  excerpt: string;
+}
+
+function parseLegs(finding: Finding): LegRow[] {
+  const rows: LegRow[] = [];
+  for (const e of finding.evidence) {
+    const parsed = parseMemberEvidence(e.source);
+    if (!parsed) continue;
+    const meta = e.meta as Record<string, unknown> | undefined;
+    const leg = typeof meta?.leg === "string" ? meta.leg : "";
+    rows.push({
+      leg,
+      memberLabel:
+        typeof meta?.member === "string" && meta.member
+          ? meta.member
+          : parsed.slug,
+      slug: parsed.slug,
+      strength: typeof meta?.strength === "string" ? meta.strength : "",
+      tier: typeof meta?.tier === "string" ? meta.tier : undefined,
+      excerpt: e.excerpt,
+    });
+  }
+  // Canonical display order INGRESS → PRIVATE-DATA → EGRESS; unknown legs last.
+  const rank = new Map(TRIFECTA_LEGS.map((l, i) => [l as string, i]));
+  return rows.sort(
+    (a, b) => (rank.get(a.leg) ?? 99) - (rank.get(b.leg) ?? 99),
+  );
+}
+
+/** The trifecta chain view: INGRESS → PRIVATE-DATA → EGRESS nodes labeled
+ * with member labels, red when this finding actually fired (severity high →
+ * "lethal" styling per the backend's severity policy). */
+function TrifectaChain({ finding }: { finding: Finding }) {
+  const legs = parseLegs(finding);
+  const fired = sevRank(finding.severity) >= (SEV_RANK.high ?? 0);
+  const nodeTheme = fired
+    ? "border-red-700/80 bg-red-950/40"
+    : "border-zinc-700 bg-zinc-900/60";
+  const labelTheme = fired ? "text-red-300" : "text-zinc-300";
+  const arrowTheme = fired ? "text-red-500" : "text-zinc-600";
+
+  if (legs.length === 0) return null;
+
+  return (
+    <div className="flex flex-wrap items-stretch gap-1.5">
+      {legs.map((l, i) => (
+        <div key={`${l.leg}-${l.slug}-${i}`} className="flex items-center gap-1.5">
+          {i > 0 && (
+            <span
+              aria-hidden
+              className={cn("font-mono text-lg leading-none select-none", arrowTheme)}
+            >
+              →
+            </span>
+          )}
+          <div
+            className={cn(
+              "flex min-w-[9rem] flex-col gap-1 rounded-lg border px-3 py-2",
+              nodeTheme,
+            )}
+            title={l.excerpt}
+          >
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-zinc-500">
+              {l.leg || "leg"}
+            </span>
+            <span className={cn("truncate font-mono text-xs font-semibold", labelTheme)}>
+              {l.memberLabel}
+            </span>
+            {l.strength && (
+              <span className="font-mono text-[10px] text-zinc-500">
+                {l.strength}
+                {l.tier ? ` · ${l.tier}` : ""}
+              </span>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Shadowing: colliding tool names across members, parsed from `tools:<name>`
+ * evidence (meta { normalized, member(slug), raw }). */
+function ShadowingCollisions({ finding }: { finding: Finding }) {
+  const tools = finding.evidence
+    .map((e) => {
+      const p = parseToolEvidence(e.source);
+      if (!p) return null;
+      const meta = e.meta as Record<string, unknown> | undefined;
+      const normalized = typeof meta?.normalized === "string" ? meta.normalized : "";
+      const slug = typeof meta?.member === "string" ? meta.member : "";
+      return { name: p.name, normalized, slug, excerpt: e.excerpt };
+    })
+    .filter((t): t is NonNullable<typeof t> => t !== null);
+  if (tools.length === 0) return null;
+  const normalized = tools[0]?.normalized ?? tools[0]?.name ?? "";
+  return (
+    <div className="flex flex-col gap-2">
+      {normalized && (
+        <p className="font-mono text-[11px] text-zinc-500">
+          all normalize to{" "}
+          <code className="rounded border border-amber-800/70 bg-amber-950/40 px-1.5 py-px text-amber-300">
+            {normalized}
+          </code>
+        </p>
+      )}
+      <div className="flex flex-wrap gap-1.5">
+        {tools.map((t, i) => (
+          <span
+            key={`${t.name}-${i}`}
+            className="inline-flex items-center gap-1.5 rounded-md border border-amber-800/60 bg-amber-950/30 px-2 py-1 font-mono text-[11px] text-amber-200"
+          >
+            <Link2 className="size-3 shrink-0 text-amber-500/80" aria-hidden />
+            {t.slug && <span className="text-zinc-500">{t.slug}/</span>}
+            <span className="font-semibold">{t.name}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** True when the finding is a trifecta (member-attributed legs) vs shadowing
+ * (tools: evidence). Derives from evidence shape, not title text. */
+function isTrifectaFinding(f: Finding): boolean {
+  return f.evidence.some((e) => parseMemberEvidence(e.source) !== null);
+}
+
+/** Renders ONLY when composition findings exist (multi-source jobs). Single
+ * source verdicts render nothing — their scorecard stays exactly as today. */
+function CombinationSection({ findings }: { findings: Finding[] }) {
+  const compositionFindings = useMemo(
+    () => findings.filter((f) => f.stage === "composition"),
+    [findings],
+  );
+  if (compositionFindings.length === 0) return null;
+
+  const trifectas = compositionFindings.filter(isTrifectaFinding);
+  const shadowing = compositionFindings.filter((f) => !isTrifectaFinding(f));
+  const fired = trifectas.some((f) => sevRank(f.severity) >= (SEV_RANK.high ?? 0));
+
+  return (
+    <div
+      className={cn(
+        "overflow-hidden rounded-lg border",
+        fired ? "border-red-800/70 bg-red-950/20" : "border-zinc-800 bg-zinc-900/40",
+      )}
+    >
+      <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2.5">
+        <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-zinc-400">
+          <Waypoints className="size-3.5 text-zinc-500" aria-hidden />
+          Combination
+        </h3>
+        <span className="text-[10px] text-zinc-600">
+          cross-extension composition · members are individually clean
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-4 p-4">
+        {trifectas.length > 0 && (
+          <section className="flex flex-col gap-3">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+              lethal trifecta chain · ingress → private data → egress
+            </p>
+            {trifectas.map((f, i) => (
+              <div key={i} className="flex flex-col gap-2 rounded-lg border border-zinc-800/70 bg-zinc-950/50 p-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <SeverityChip severity={f.severity} />
+                  <ConfidenceBadge tier={f.confidence} />
+                  <span className="text-[13px] font-medium text-zinc-200">{f.title}</span>
+                </div>
+                <TrifectaChain finding={f} />
+                <p className="text-[12px] leading-relaxed text-zinc-400">{f.detail}</p>
+                <div className="flex flex-wrap gap-1">
+                  {f.owasp_ids.map((id) => (
+                    <OwaspChip key={id} id={id} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {shadowing.length > 0 && (
+          <section className="flex flex-col gap-3">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+              tool shadowing · colliding names across members
+            </p>
+            {shadowing.map((f, i) => (
+              <div key={i} className="flex flex-col gap-2 rounded-lg border border-zinc-800/70 bg-zinc-950/50 p-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <SeverityChip severity={f.severity} />
+                  <ConfidenceBadge tier={f.confidence} />
+                  <span className="text-[13px] font-medium text-zinc-200">{f.title}</span>
+                </div>
+                <ShadowingCollisions finding={f} />
+                <p className="text-[12px] leading-relaxed text-zinc-400">{f.detail}</p>
+                <div className="flex flex-wrap gap-1">
+                  {f.owasp_ids.map((id) => (
+                    <OwaspChip key={id} id={id} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function bySeverityDesc(a: Finding, b: Finding): number {
   return (SEV_RANK[b.severity] ?? 0) - (SEV_RANK[a.severity] ?? 0);

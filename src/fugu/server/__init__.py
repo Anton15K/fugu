@@ -7,6 +7,7 @@ Public surface:
 from __future__ import annotations
 
 from fugu.server.app import create_app
+from fugu.server.composition_jobs import run_composition_job
 from fugu.server.jobs import (
     DEFAULT_MAX_BYTES,
     DEFAULT_MAX_FILES,
@@ -25,5 +26,6 @@ __all__ = [
     "create_app",
     "extract_source",
     "is_git_source",
+    "run_composition_job",
     "run_job",
 ]

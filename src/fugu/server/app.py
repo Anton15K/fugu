@@ -65,9 +65,27 @@ def _sse_line(event: Any) -> str:
     return f"data: {payload}\n\n"
 
 
+class AuditSourceSpec(BaseModel):
+    """One member of a multi-source (composition) audit request."""
+
+    ref: str = Field(..., description="local dir path or git URL")
+    label: str | None = Field(
+        None, max_length=64, description="display label; defaults to ref basename"
+    )
+
+
 class AuditCreateRequest(BaseModel):
-    source: str = Field(..., min_length=1, description="local dir path or git URL")
+    source: str | None = Field(
+        None, min_length=1, description="local dir path or git URL"
+    )
     depth: str = Field("standard", description="'standard' or 'full'")
+    sources: list[AuditSourceSpec] | None = Field(
+        None,
+        description=(
+            "2..8 member sources for a composition audit; when present, "
+            "`source` must be absent/null"
+        ),
+    )
 
 
 class AuditCreateResponse(BaseModel):
@@ -168,6 +186,72 @@ def create_app(
             raise HTTPException(
                 status_code=422,
                 detail=f"depth must be 'standard' or 'full', got {req.depth!r}",
+            )
+
+        # --- multi-source (composition) path ----------------------------------
+        # When `sources` is present the request fans out into per-member
+        # child jobs via run_composition_job; `source` must be absent.
+        if req.sources is not None:
+            if req.source is not None:
+                raise HTTPException(
+                    status_code=422,
+                    detail="pass either 'source' or 'sources', not both",
+                )
+            from fugu.server.composition_jobs import normalize_sources
+
+            try:
+                specs = normalize_sources(
+                    [{"ref": s.ref, "label": s.label} for s in req.sources]
+                )
+            except ValueError as exc:
+                raise HTTPException(status_code=422, detail=str(exc))
+
+            # Per-member validation mirrors the single-source rules: local
+            # paths must exist and be dirs; git URLs are accepted now and
+            # cloned at runtime (clone failures surface per child job).
+            for spec in specs:
+                if not is_git_source(spec.ref):
+                    local = Path(spec.ref).expanduser()
+                    if not local.exists():
+                        raise HTTPException(
+                            status_code=422,
+                            detail=f"local source path does not exist: {spec.ref}",
+                        )
+                    if not local.is_dir():
+                        raise HTTPException(
+                            status_code=422,
+                            detail=f"local source path is not a directory: {spec.ref}",
+                        )
+
+            from fugu.server.composition_jobs import run_composition_job
+
+            parent_source = "composition:" + ", ".join(
+                spec.label or spec.ref for spec in specs
+            )
+            job = AuditJob(id=new_job_id(), source=parent_source, depth=req.depth)  # type: ignore[arg-type]
+            state.store.create(job)
+            asyncio.create_task(
+                run_composition_job(
+                    job,
+                    specs,
+                    # children are depth='standard' per contracts §3 — give
+                    # them the standard stage set regardless of parent depth
+                    state.stages_for("standard"),
+                    state.store,
+                    max_files=max_files,
+                    max_bytes=max_bytes,
+                )
+            )
+            return AuditCreateResponse(
+                job_id=job.id,
+                status=job.status.value,
+                events=f"/api/audits/{job.id}/events",
+            )
+
+        # --- single-source path (unchanged) ------------------------------------
+        if req.source is None:
+            raise HTTPException(
+                status_code=422, detail="source must not be empty"
             )
         source = req.source.strip()
         if not source:

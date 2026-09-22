@@ -1,0 +1,11 @@
+{
+  "name": "control-self-sufficient",
+  "kind": "control",
+  "description": "Single self-sufficient extension (workspace-sync carries ingress+private+egress alone) flanked by two clean neighbors; no CROSS-extension finding may be reported.",
+  "members": [
+    {"dir": "workspace-sync", "label": "workspace-sync"},
+    {"dir": "weather-lookup", "label": "weather-lookup"},
+    {"dir": "unit-convert", "label": "unit-convert"}
+  ],
+  "expected": {"trifecta": false, "shadowing": false}
+}

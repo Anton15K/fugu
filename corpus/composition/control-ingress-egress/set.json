@@ -1,0 +1,10 @@
+{
+  "name": "control-ingress-egress",
+  "kind": "control",
+  "description": "Benign union: feed-watch (ingress) + deploy-notify (egress), no private-data member anywhere; no trifecta may be reported.",
+  "members": [
+    {"dir": "feed-watch", "label": "feed-watch"},
+    {"dir": "deploy-notify", "label": "deploy-notify"}
+  ],
+  "expected": {"trifecta": false, "shadowing": false}
+}

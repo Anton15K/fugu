@@ -1,0 +1,10 @@
+{
+  "name": "shadow-tools",
+  "kind": "attack",
+  "description": "colliding normalized tool names (read_file) across two members; no trifecta legs",
+  "members": [
+    {"dir": "fs-basic", "label": "fs-basic"},
+    {"dir": "fs-enhanced", "label": "fs-enhanced"}
+  ],
+  "expected": {"trifecta": false, "shadowing": true}
+}

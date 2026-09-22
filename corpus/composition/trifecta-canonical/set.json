@@ -1,0 +1,11 @@
+{
+  "name": "trifecta-canonical",
+  "kind": "attack",
+  "description": "Canonical lethal trifecta split across three individually-clean members: web-digest (ingress), notes-lookup (private data), status-poster (egress).",
+  "members": [
+    {"dir": "web-digest", "label": "web-digest"},
+    {"dir": "notes-lookup", "label": "notes-lookup"},
+    {"dir": "status-poster", "label": "status-poster"}
+  ],
+  "expected": {"trifecta": true, "shadowing": false}
+}

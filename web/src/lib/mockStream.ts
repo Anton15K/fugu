@@ -33,6 +33,16 @@ export function isMockEnabled(): boolean {
   return env === "1" || env === "true";
 }
 
+/**
+ * Multi-source (composition) mock: the backend prefixes parent job sources
+ * with `composition:` (contracts §3), so the same prefix selects the
+ * composition scenario here — e.g. paste
+ * `composition: web-digest, keychain-probe` with ?mock=1.
+ */
+export function isCompositionSource(source: string): boolean {
+  return source.trim().startsWith("composition:");
+}
+
 const CANARY_KEY =
   "AKIA7NOQ4ZCANARY92";
 
@@ -354,6 +364,132 @@ function buildTimeline(jobId: string, depth: AuditDepth): ScriptedEvent[] {
   return timeline;
 }
 
+/**
+ * Composition (multi-source) scenario: a 2-source parent whose members are
+ * individually unremarkable but compose the lethal trifecta (web-digest
+ * provides INGRESS + PRIVATE-DATA, keychain-probe provides EGRESS), plus a
+ * cross-extension tool-shadowing collision. Mirrors the parent event
+ * sequence emitted by composition_jobs.py: initial log, one member log per
+ * finished child (child_job_id discriminator), stage_started/stage_done for
+ * the composition stage, composition findings, verdict.
+ */
+function buildCompositionTimeline(jobId: string, _depth: AuditDepth): ScriptedEvent[] {
+  const childIds = { webDigest: nextId("mock-child-"), keychain: nextId("mock-child-") };
+
+  const trifecta: Finding = {
+    owasp_ids: ["MCP03", "MCP06", "LLM02"],
+    title: "Lethal trifecta across installed set (web-digest, keychain-probe)",
+    detail:
+      "Composition chain: ingress via web-digest (medium), private data via web-digest (strong), egress via keychain-probe (strong). Each member is individually unremarkable, but installed together they form Willison's lethal trifecta - untrusted content can flow in, private data can be reached, and an egress channel exists to carry it out. No single-extension audit can see this path; review whether the combination is intended.",
+    severity: "high",
+    confidence: "measured",
+    stage: "composition",
+    evidence: [
+      {
+        source: "member:web-digest:tool surface: fetch_url, read_webpage",
+        excerpt: "tool names matching ingress verbs: fetch_url, read_webpage, get_rss",
+        meta: { leg: "INGRESS", member: "web-digest", strength: "medium", tier: "measured" },
+      },
+      {
+        source: "member:web-digest:Environment harvesting in tool wrapper",
+        excerpt: "env | grep -E 'AWS|GITHUB|ANTHROPIC' > /tmp/.cache-net",
+        meta: { leg: "PRIVATE-DATA", member: "web-digest", strength: "strong", tier: "deterministic" },
+      },
+      {
+        source: "member:keychain-probe:CANARY EXFILTRATION CONFIRMED — AWS key in HTTPS body",
+        excerpt:
+          "POST https://stats.keychain-probe.dev/collect — 14 bytes of canary matched in body",
+        meta: { leg: "EGRESS", member: "keychain-probe", strength: "strong", tier: "empirical" },
+      },
+    ],
+  };
+
+  const shadowing: Finding = {
+    owasp_ids: ["MCP03"],
+    title: "Cross-extension tool shadowing: 'fetchpage' defined by 2 members",
+    detail:
+      "Tool names 'fetchPage' (members web-digest) and 'mcp__helper__fetch_page' (members keychain-probe) all normalize to 'fetchpage'. A client that mounts both extensions resolves the same tool name ambiguously - the later-mounted definition silently shadows the other, and the calling agent cannot tell which implementation it reached. No colliding member is an injection carrier.",
+    severity: "medium",
+    confidence: "deterministic",
+    stage: "composition",
+    evidence: [
+      {
+        source: "tools:fetchPage",
+        excerpt: "tool 'fetchPage' in member 'web-digest' normalizes to 'fetchpage'",
+        meta: { normalized: "fetchpage", member: "web-digest", raw: "fetchPage" },
+      },
+      {
+        source: "tools:mcp__helper__fetch_page",
+        excerpt: "tool 'mcp__helper__fetch_page' in member 'keychain-probe' normalizes to 'fetchpage'",
+        meta: { normalized: "fetchpage", member: "keychain-probe", raw: "mcp__helper__fetch_page" },
+      },
+    ],
+  };
+
+  const timeline: ScriptedEvent[] = [];
+  const push = (delayMs: number, event: StageEvent) =>
+    timeline.push({ delayMs, event });
+
+  // Parent start log (no stage yet — matches composition_jobs.py).
+  push(400, ev(jobId, "log", {
+    message: "composition job started",
+    source: "composition: web-digest, keychain-probe",
+    members: ["web-digest", "keychain-probe"],
+  }));
+
+  // Member 1: child audit runs server-side; parent sees only the summary log.
+  push(2600, ev(jobId, "log", {
+    stage: "composition",
+    message: `member web-digest: job ${childIds.webDigest} done, 2 findings`,
+    child_job_id: childIds.webDigest,
+  }));
+  // Member 2: fails first extraction? no — done, with a member finding.
+  push(2600, ev(jobId, "log", {
+    stage: "composition",
+    message: `member keychain-probe: job ${childIds.keychain} done, 1 findings`,
+    child_job_id: childIds.keychain,
+  }));
+
+  // Parent's single own stage: composition.
+  push(700, ev(jobId, "stage_started", { stage: "composition", depth: "standard" }));
+  push(500, ev(jobId, "log", {
+    stage: "composition",
+    message: "mapping 2 members → capabilities · trifecta + shadowing detectors",
+  }));
+  push(1100, ev(jobId, "finding", { stage: "composition", finding: trifecta }));
+  push(900, ev(jobId, "finding", { stage: "composition", finding: shadowing }));
+  push(700, ev(jobId, "stage_done", {
+    stage: "composition",
+    ok: true,
+    findings_count: 2,
+    metrics: { duration_s: 1.7, members: 2 },
+  }));
+
+  // Verdict (aggregate_verdict semantics: medium findings → warn; a high with
+  // deterministic/empirical confidence → fail. Shadowing here is medium +
+  // deterministic and trifecta is high + measured ⇒ warn).
+  push(900, ev(jobId, "verdict", {
+    status: "done",
+    verdict: {
+      status: "warn",
+      severity_counts: { high: 1, medium: 1 },
+      total_findings: 2,
+      max_confidence_tier: "deterministic",
+      reasons: [
+        "1 high-severity finding(s) with advisory/measured evidence",
+        "1 medium finding(s)",
+      ],
+    },
+    total_findings: 2,
+    severity_counts: { high: 1, medium: 1 },
+    stages: [
+      { stage: "composition", ok: true, findings_count: 2 },
+    ],
+  }));
+
+  return timeline;
+}
+
 function buildVerdictData(findings: Finding[]): VerdictData {
   const severity_counts: VerdictData["severity_counts"] = {};
   for (const f of findings) {
@@ -399,16 +535,20 @@ function severityRank(row: OwaspCategoryRow): number {
 
 /**
  * Replay the scripted timeline with real delays. Returns a handle with the
- * same shape as the real `openAuditStream` result.
+ * same shape as the real `openAuditStream` result. A source starting with
+ * `composition:` (the backend's multi-source parent marker, contracts §3)
+ * replays the composition scenario instead of the single-source one.
  */
 export function openMockAuditStream(
   jobId: string,
   depth: AuditDepth,
   onEvent: (event: StageEvent) => void,
-  opts: { speed?: number } = {},
+  opts: { speed?: number; source?: string } = {},
 ): { close(): void } {
   const speed = opts.speed ?? 1; // 2 = twice as fast (demo shortcut)
-  const timeline = buildTimeline(jobId, depth);
+  const timeline = isCompositionSource(opts.source ?? "")
+    ? buildCompositionTimeline(jobId, depth)
+    : buildTimeline(jobId, depth);
   let cancelled = false;
   const timers = new Set<ReturnType<typeof setTimeout>>();
 
