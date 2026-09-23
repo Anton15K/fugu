@@ -661,8 +661,14 @@ def test_fallback_stage_zero_findings(tmp_path: Path, monkeypatch) -> None:
 
     snap = store.get("p7")
     assert snap is not None
-    # stub → zero findings, but lifecycle events all present
-    assert snap.findings == []
+    # stub → zero COMPOSITION findings; union view still carries the member
+    # findings (2 members × 1 fabricated finding), each attributed
+    assert not any(f.stage == "composition" for f in snap.findings)
+    assert len(snap.findings) == 2
+    assert all(
+        any(ev.source.startswith("member:") for ev in f.evidence)
+        for f in snap.findings
+    )
     assert parent.status is JobStatus.done
     stage_names = [r.stage for r in snap.stages]
     assert stage_names == ["composition"]

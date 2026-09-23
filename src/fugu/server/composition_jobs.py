@@ -22,6 +22,7 @@ from the literal source path" rule and is a no-op on missing dirs.
 from __future__ import annotations
 
 import asyncio
+import os
 import re
 import shutil
 from dataclasses import dataclass
@@ -43,7 +44,7 @@ from fugu.server.jobs import (
     run_stage_loop,
     stage_public,
 )
-from fugu.types import AuditJob, Finding, JobStatus, StageResult
+from fugu.types import AuditJob, EvidenceSnippet, Finding, JobStatus, StageResult
 
 __all__ = [
     "MAX_LABEL_CHARS",
@@ -457,6 +458,38 @@ async def run_composition_job(
 
     from fugu.verdict import aggregate_verdict
 
+    # Union view: the parent IS the audit of the whole set. Member findings
+    # join the parent's findings — each attributed with a member:<slug>
+    # evidence snippet AND re-emitted as parent-stream finding events so
+    # live and replay views agree — so totals, severity mix, the OWASP
+    # matrix and the verdict reflect everything found. A set whose members
+    # produced 21 findings must never render as "PASS · 0 findings".
+    # Child jobs remain the per-member drill-down.
+    member_by_slug: dict[str, Any] = {}
+    for m in members:
+        member_by_slug[getattr(m, "slug", _slugify(getattr(m, "label", "")))] = m
+    for m in members:
+        for finding in list(getattr(m, "findings", [])):
+            if finding in snap.findings:
+                continue
+            finding.evidence.append(
+                EvidenceSnippet(
+                    source=f"member:{m.slug}",
+                    excerpt=f"finding from member '{m.label}'",
+                    meta={"member": m.slug, "member_label": m.label},
+                )
+            )
+            snap.findings.append(finding)
+            _emit(
+                store,
+                job,
+                "finding",
+                {
+                    "stage": getattr(finding, "stage", "static"),
+                    "finding": finding_public(finding),
+                },
+            )
+
     verdict = aggregate_verdict(snap.findings, snap.stages)
     _emit(
         store,
@@ -477,7 +510,10 @@ async def run_composition_job(
 # --- Auto fan-out: one source, many skill units ---------------------------------------
 
 _AUTO_MIN_UNITS = 2
-_AUTO_MAX_UNITS = MAX_SOURCES
+#: Fan-out cap: audited units per repo. Cost guard (each unit runs the
+#: full pipeline incl. harness A/B); env-tunable. Truncation is announced
+#: in the event stream and the remaining units are listed in the log.
+_AUTO_MAX_UNITS = int(os.environ.get("FUGU_FANOUT_MAX", "24"))
 
 
 async def run_auto_job(
