@@ -135,70 +135,70 @@ def _is_member(data: dict[str, Any]) -> bool:
 
 
 def test_multi_source_happy_path(tmp_path: Path) -> None:
+    """Explicit sources[] HTTP surface was removed (auto fan-out replaced
+    it); the engine run_composition_job remains — drive it directly."""
     a, b = _two_local_dirs(tmp_path)
+    store = JobStore()
+    parent = AuditJob(id="happy", source="composition:alpha, member-b")
+    store.create(parent)
 
-    with _client([FakeMemberStage()]) as client:
-        resp = client.post(
-            "/audits",
-            json={
-                "sources": [
-                    {"ref": str(a), "label": "alpha"},
-                    {"ref": str(b)},  # label defaults to basename
-                ]
-            },
+    asyncio.run(
+        run_composition_job(
+            parent,
+            [{"ref": str(a), "label": "alpha"}, {"ref": str(b)}],
+            [FakeMemberStage()],
+            store,
         )
-        assert resp.status_code == 202, resp.text
-        parent_id = resp.json()["job_id"]
+    )
+    assert parent.status is JobStatus.done
 
-        parent = _wait_done(client, parent_id)
-        assert parent["status"] == "done"
-        assert parent["source"] == "composition:alpha, member-b"
+    snap = store.get("happy")
+    events = [
+        {"type": e.type, "data": e.data} for e in snap.events
+    ]
+    types = [e["type"] for e in events]
 
-        events = _events(client, parent_id)
-        types = [e["type"] for e in events]
+    # member log events carry child_job_id + the contract message format
+    member_lines = _member_lines(events)
+    assert len(member_lines) == 2
+    assert member_lines[0]["data"]["message"] == (
+        f"member alpha: job {member_lines[0]['data']['child_job_id']} "
+        "done, 1 findings"
+    )
+    assert member_lines[1]["data"]["message"] == (
+        f"member member-b: job {member_lines[1]['data']['child_job_id']} "
+        "done, 1 findings"
+    )
 
-        # member log events carry child_job_id + the contract message format
-        member_lines = _member_lines(events)
-        assert len(member_lines) == 2
-        assert member_lines[0]["data"]["message"] == (
-            f"member alpha: job {member_lines[0]['data']['child_job_id']} "
-            "done, 1 findings"
-        )
-        assert member_lines[1]["data"]["message"] == (
-            f"member member-b: job {member_lines[1]['data']['child_job_id']} "
-            "done, 1 findings"
-        )
+    # composition stage lifecycle on the parent stream
+    comp_started = [
+        e
+        for e in events
+        if e["type"] == "stage_started" and e["data"]["stage"] == "composition"
+    ]
+    comp_done = [
+        e
+        for e in events
+        if e["type"] == "stage_done" and e["data"]["stage"] == "composition"
+    ]
+    assert comp_started and comp_done
+    assert types[-1] == "verdict"
+    verdict = events[-1]["data"]
+    assert verdict["status"] == "done"
+    assert "stages" in verdict
 
-        # composition stage lifecycle on the parent stream
-        comp_started = [
-            e
-            for e in events
-            if e["type"] == "stage_started" and e["data"]["stage"] == "composition"
-        ]
-        comp_done = [
-            e
-            for e in events
-            if e["type"] == "stage_done" and e["data"]["stage"] == "composition"
-        ]
-        assert comp_started and comp_done
-        assert types[-1] == "verdict"
-        verdict = events[-1]["data"]
-        assert verdict["status"] == "done"
-        assert "stages" in verdict
+    # parent findings = composition-stage findings only (member findings
+    # live on the child jobs).
+    done_count = comp_done[0]["data"]["findings_count"]
+    comp_findings = [f for f in snap.findings if f.stage == "composition"]
+    assert len(comp_findings) == done_count
 
-        # parent findings = composition-stage findings only (member findings
-        # live on the child jobs). Stub → zero; W1 → whatever it emits — the
-        # count must equal the composition stage_done findings_count.
-        done_count = comp_done[0]["data"]["findings_count"]
-        comp_findings = [f for f in parent["findings"] if f["stage"] == "composition"]
-        assert len(comp_findings) == done_count
-
-        # child jobs exist in the store with their own findings
-        for e in member_lines:
-            child = client.get(f"/audits/{e['data']['child_job_id']}").json()
-            assert child["status"] == "done"
-            assert len(child["findings"]) == 1
-            assert child["depth"] == "standard"
+    # child jobs exist in the store with their own findings
+    for e in member_lines:
+        child_snap = store.get(e["data"]["child_job_id"])
+        assert child_snap.job.status is JobStatus.done
+        assert len(child_snap.findings) == 1
+        assert child_snap.job.depth == "standard"
 
     # local member dirs were NOT deleted
     assert a.is_dir() and (a / "SKILL.md").exists()
@@ -209,13 +209,17 @@ def test_multi_source_event_sequence_order(tmp_path: Path) -> None:
     """Exact parent event sequence: start log → member logs → stage
     lifecycle → verdict."""
     a, b = _two_local_dirs(tmp_path)
-    with _client([FakeMemberStage()]) as client:
-        parent_id = client.post(
-            "/audits",
-            json={"sources": [{"ref": str(a)}, {"ref": str(b)}]},
-        ).json()["job_id"]
-        _wait_done(client, parent_id)
-        events = _events(client, parent_id)
+    store = JobStore()
+    parent = AuditJob(id="seq", source="composition:x, y")
+    store.create(parent)
+    asyncio.run(
+        run_composition_job(
+            parent, [{"ref": str(a)}, {"ref": str(b)}], [FakeMemberStage()], store
+        )
+    )
+    events = [
+        {"type": e.type, "data": e.data} for e in store.get("seq").events
+    ]
 
     seq = []
     for e in events:
@@ -345,13 +349,17 @@ def test_single_source_path_unchanged(tmp_path: Path, monkeypatch) -> None:
 
     seen: list[dict[str, Any]] = []
 
-    real_run_job = app_mod.run_job
+    import fugu.server.composition_jobs as cj_mod
 
-    async def spy_run_job(job, stages, store, **kwargs):
-        seen.append({"job_id": job.id, "kwargs": kwargs, "stages": stages})
-        return await real_run_job(job, stages, store, **kwargs)
+    real_run_auto = cj_mod.run_auto_job
 
-    monkeypatch.setattr(app_mod, "run_job", spy_run_job)
+    async def spy_run_auto(job, source, stages, store, **kwargs):
+        seen.append({"job_id": job.id, "source": source, "stages": stages})
+        return await real_run_auto(job, source, stages, store, **kwargs)
+
+    # create_audit imports run_auto_job inside the handler, so patch at the
+    # source module (handler resolves it at call time).
+    monkeypatch.setattr(cj_mod, "run_auto_job", spy_run_auto)
 
     with _client([FakeMemberStage()]) as client:
         resp = client.post("/audits", json={"source": str(target)})
@@ -363,7 +371,7 @@ def test_single_source_path_unchanged(tmp_path: Path, monkeypatch) -> None:
         assert body["source"] == str(target)  # NOT composition-prefixed
         assert len(seen) == 1
         assert seen[0]["job_id"] == job_id
-        assert seen[0]["kwargs"].get("keep_target") is None  # not passed
+        assert seen[0]["source"] == str(target)
         # findings flow exactly as the old path
         assert len(body["findings"]) == 1
         # explicit null source with no sources → 422
@@ -675,3 +683,106 @@ def test_api_prefix_multi_source(tmp_path: Path) -> None:
         assert resp.json()["events"].startswith("/api/audits/")
         body = _wait_done(client, resp.json()["job_id"])
         assert body["status"] == "done"
+
+
+# --- auto fan-out (skill-unit discovery) ----------------------------------------------
+
+
+def test_find_skill_units_discovery(tmp_path: Path) -> None:
+    from fugu.server.jobs import find_skill_units
+
+    (tmp_path / "skill-a").mkdir()
+    (tmp_path / "skill-a" / "SKILL.md").write_text("# a\n")
+    (tmp_path / "pkg" / "skill-b").mkdir(parents=True)
+    (tmp_path / "pkg" / "skill-b" / "SKILL.md").write_text("# b\n")
+    # vendored tree with a SKILL.md must be ignored
+    (tmp_path / "node_modules" / "dep").mkdir(parents=True)
+    (tmp_path / "node_modules" / "dep" / "SKILL.md").write_text("# v\n")
+    # root-level SKILL.md means single-skill repo, not a unit
+    (tmp_path / "SKILL.md").write_text("# root\n")
+
+    units = find_skill_units(tmp_path)
+    labels = [label for label, _ in units]
+    # deterministic path-sorted order: "pkg/skill-b" sorts before "skill-a"
+    assert labels == ["skill-b", "skill-a"]
+
+
+def test_run_auto_job_fans_out_and_composes(tmp_path: Path) -> None:
+    from fugu.server.composition_jobs import run_auto_job
+
+    # multi-skill repo: three units with a splittable trifecta shape
+    root = tmp_path / "monorepo"
+    for name in ("web-digest", "notes-lookup", "status-poster"):
+        unit = root / name
+        unit.mkdir(parents=True)
+        (unit / "SKILL.md").write_text(f"# {name}\n")
+
+    store = JobStore()
+    parent = AuditJob(id="auto1", source=str(root))
+    store.create(parent)
+    asyncio.run(
+        run_auto_job(parent, str(root), [FakeMemberStage()], store)
+    )
+
+    assert parent.status is JobStatus.done
+    snap = store.get("auto1")
+    msgs = [e.data.get("message", "") for e in snap.events if e.type == "log"]
+    assert any(m.startswith("auto fan-out: 3 skill units") for m in msgs)
+    member_msgs = [m for m in msgs if m.startswith("member ")]
+    assert len(member_msgs) == 3
+    # composition stage ran on the parent
+    assert any(
+        e.type == "stage_done" and e.data.get("stage") == "composition"
+        for e in snap.events
+    )
+    # children live in the store as their own jobs
+    child_ids = [
+        e.data["child_job_id"]
+        for e in snap.events
+        if e.type == "log" and "child_job_id" in e.data
+    ]
+    assert len(child_ids) == 3
+    assert all(store.get(cid) is not None for cid in child_ids)
+
+
+def test_run_auto_job_single_skill_falls_back(tmp_path: Path) -> None:
+    from fugu.server.composition_jobs import run_auto_job
+
+    solo = tmp_path / "solo-skill"
+    solo.mkdir()
+    (solo / "SKILL.md").write_text("# solo\n")
+
+    store = JobStore()
+    parent = AuditJob(id="auto2", source=str(solo))
+    store.create(parent)
+    asyncio.run(run_auto_job(parent, str(solo), [FakeMemberStage()], store))
+
+    assert parent.status is JobStatus.done
+    snap = store.get("auto2")
+    # ordinary single-source audit: stage lifecycle, no composition events
+    assert any(
+        e.type == "stage_done" and e.data.get("stage") == "static"
+        for e in snap.events
+    )
+    assert not any(
+        e.type == "stage_started" and e.data.get("stage") == "composition"
+        for e in snap.events
+    )
+
+
+def test_depth_standard_maps_to_full(tmp_path: Path) -> None:
+    """depth presets are gone: 'standard' (legacy clients) silently runs
+    the full pipeline too."""
+    target = tmp_path / "solo"
+    target.mkdir()
+    (target / "SKILL.md").write_text("# solo\n")
+
+    with _client([FakeMemberStage()]) as client:
+        resp = client.post("/audits", json={"source": str(target), "depth": "standard"})
+        assert resp.status_code == 202
+        body = _wait_done(client, resp.json()["job_id"])
+        assert body["status"] == "done"
+        assert body["depth"] == "full"
+
+        resp = client.post("/audits", json={"source": str(target), "depth": "bogus"})
+        assert resp.status_code == 422

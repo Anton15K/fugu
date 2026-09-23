@@ -47,7 +47,7 @@ __all__ = [
     "finding_public",
     "is_git_source",
     "new_job_id",
-    "run_job",
+    "run_job", "run_stage_loop", "find_skill_units",
     "stage_public",
 ]
 
@@ -398,54 +398,19 @@ async def _git_clone(source: str, target: Path) -> None:
 
 # --- Runner ------------------------------------------------------------------------
 
-async def run_job(
+async def run_stage_loop(
     job: AuditJob,
+    snap: Any,
+    target: Path,
     stages: Iterable[Any],
     store: JobStore,
-    max_files: int = DEFAULT_MAX_FILES,
-    max_bytes: int = DEFAULT_MAX_BYTES,
-    keep_target: bool = False,
 ) -> None:
-    """Execute all stages sequentially for `job`, publishing SSE events.
+    """Run `stages` sequentially against `target`, publishing SSE events.
 
-    Stage exceptions are caught and converted into StageResult(ok=False,
-    error=...) — a failing stage must never 500 the job. The final event
-    is `verdict` (severity counts + per-stage summary) on success or
-    `error` when extraction itself failed. Either way the stream is then
-    closed (EOF sentinel) and the job status set to done/failed.
+    Extracted from run_job so the auto fan-out runner can drive a
+    single-source audit over an already-materialized target. Closes the
+    stream (verdict event + status done) exactly like run_job.
     """
-    snap = store.get(job.id)
-    if snap is None:  # pragma: no cover - internal wiring bug
-        snap = store.create(job)
-
-    job.status = JobStatus.running
-    _emit(store, job, "log", {"message": "job started", "source": job.source})
-    store._persist_status(job)
-
-    cloned_dir: Path | None = None
-    try:
-        target = await extract_source(
-            job, max_files=max_files, max_bytes=max_bytes, keep_target=keep_target
-        )
-        snap.target_dir = target
-        if target != Path(job.source.strip()).expanduser():
-            cloned_dir = target  # we created it (git clone); clean up later
-    except ExtractionError as exc:
-        job.status = JobStatus.failed
-        result = StageResult(
-            stage="extraction",
-            ok=False,
-            error=f"source extraction failed: {exc}",
-        )
-        snap.stages.append(result)
-        _emit(store, job, "error", {
-            "error": result.error,
-            "stage": "extraction",
-            "stage_results": [stage_public(r) for r in snap.stages],
-        })
-        store.close(job.id)
-        return
-
     loop = asyncio.get_running_loop()
     for stage in stages:
         name = getattr(stage, "name", type(stage).__name__)
@@ -518,10 +483,95 @@ async def run_job(
     job.status = JobStatus.done
     store.close(job.id)
 
+
+async def run_job(
+    job: AuditJob,
+    stages: Iterable[Any],
+    store: JobStore,
+    max_files: int = DEFAULT_MAX_FILES,
+    max_bytes: int = DEFAULT_MAX_BYTES,
+    keep_target: bool = False,
+) -> None:
+    """Execute all stages sequentially for `job`, publishing SSE events.
+
+    Stage exceptions are caught and converted into StageResult(ok=False,
+    error=...) — a failing stage must never 500 the job. The final event
+    is `verdict` (severity counts + per-stage summary) on success or
+    `error` when extraction itself failed. Either way the stream is then
+    closed (EOF sentinel) and the job status set to done/failed.
+    """
+    snap = store.get(job.id)
+    if snap is None:  # pragma: no cover - internal wiring bug
+        snap = store.create(job)
+
+    job.status = JobStatus.running
+    _emit(store, job, "log", {"message": "job started", "source": job.source})
+    store._persist_status(job)
+
+    cloned_dir: Path | None = None
+    try:
+        target = await extract_source(
+            job, max_files=max_files, max_bytes=max_bytes, keep_target=keep_target
+        )
+        snap.target_dir = target
+        if target != Path(job.source.strip()).expanduser():
+            cloned_dir = target  # we created it (git clone); clean up later
+    except ExtractionError as exc:
+        job.status = JobStatus.failed
+        result = StageResult(
+            stage="extraction",
+            ok=False,
+            error=f"source extraction failed: {exc}",
+        )
+        snap.stages.append(result)
+        _emit(store, job, "error", {
+            "error": result.error,
+            "stage": "extraction",
+            "stage_results": [stage_public(r) for r in snap.stages],
+        })
+        store.close(job.id)
+        return
+
+    await run_stage_loop(job, snap, target, stages, store)
+
     if cloned_dir is not None and not keep_target:
         # keep_target=True: caller (e.g. run_composition_job harvesting tool
         # names from the extracted tree) owns the clone's lifetime now.
+        loop = asyncio.get_running_loop()
         await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
+
+
+# --- Skill-unit discovery (auto fan-out) ---------------------------------------------
+
+#: vendored/dependency trees that never constitute skill units
+_VENDOR_DIRS = frozenset(
+    {".git", "node_modules", "__pycache__", ".venv", "venv", "vendor", "site-packages"}
+)
+
+
+def find_skill_units(target: Path) -> list[tuple[str, Path]]:
+    """Skill-unit discovery for the auto fan-out path.
+
+    A skill *unit* is a directory that DIRECTLY contains a SKILL.md — the
+    packaging unit agents actually install. Only units strictly below the
+    root count: a root-level SKILL.md means the repo IS one skill (an
+    ordinary single-source audit, decided by the caller). Vendored trees
+    (node_modules, .venv, ...) are skipped. Deterministic order (sorted
+    by path). Returns [(label, dir)] where label is the unit's directory
+    name.
+    """
+    root = Path(target)
+    hits: list[Path] = []
+    for skill_md in root.rglob("SKILL.md"):
+        rel = skill_md.parent.relative_to(root)
+        if not rel.parts:  # root-level SKILL.md: repo is a single skill
+            continue
+        if any(part in _VENDOR_DIRS for part in rel.parts):
+            continue
+        hits.append(skill_md.parent)
+    # deterministic order: by full relative path (depth-first, alphabetical)
+    hits.sort(key=lambda d: d.relative_to(root).as_posix())
+    return [(d.relative_to(root).parts[-1], d) for d in hits]
 
 
 def _emit(store: JobStore, job: AuditJob, etype: str, data: dict[str, Any]) -> None:

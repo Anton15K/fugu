@@ -71,7 +71,6 @@ export function SubmitForm({
   mockMode,
 }: SubmitFormProps) {
   const [source, setSource] = useState("");
-  const [depth, setDepth] = useState<AuditDepth>("standard");
 
   const trimmed = source.trim();
   const valid = useMemo(() => trimmed.length >= 3, [trimmed]);
@@ -93,7 +92,7 @@ export function SubmitForm({
             className="flex flex-col gap-3"
             onSubmit={(e) => {
               e.preventDefault();
-              if (valid && !busy) onSubmit(trimmed, depth);
+              if (valid && !busy) onSubmit(trimmed, "full");
             }}
           >
             <div className="flex gap-2">
@@ -129,31 +128,11 @@ export function SubmitForm({
               ))}
             </div>
 
-            <div className="flex items-center justify-between gap-4 border-t border-zinc-800/70 pt-3">
-              <div className="flex items-center gap-1 rounded-lg border border-zinc-800 bg-zinc-900/70 p-1">
-                {(["standard", "full"] as const).map((d) => (
-                  <button
-                    key={d}
-                    type="button"
-                    aria-pressed={depth === d}
-                    onClick={() => setDepth(d)}
-                    className={cn(
-                      "rounded-md px-3 py-1 font-mono text-xs transition-colors",
-                      depth === d
-                        ? "bg-zinc-700/80 text-zinc-50"
-                        : "text-zinc-500 hover:text-zinc-300",
-                    )}
-                  >
-                    {d}
-                  </button>
-                ))}
-              </div>
-              <p className="text-[11px] leading-tight text-zinc-500">
-                {depth === "full"
-                  ? "all stages incl. harness A/B probe battery (~2 min)"
-                  : "skips harness A/B · fastest path to verdict"}
-              </p>
-            </div>
+            <p className="border-t border-zinc-800/70 pt-3 text-[11px] leading-tight text-zinc-500">
+              full-depth audit — all stages, incl. harness A/B probe battery.
+              Multi-skill repos fan out automatically into per-skill audits +
+              cross-extension composition.
+            </p>
           </form>
 
           {error && (

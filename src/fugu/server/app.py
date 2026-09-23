@@ -35,7 +35,6 @@ from fugu.server.jobs import (
     finding_public,
     is_git_source,
     new_job_id,
-    run_job,
     stage_public,
 )
 from fugu.types import AuditJob
@@ -182,15 +181,21 @@ def create_app(
 
     @api.post("/audits", status_code=202, response_model=AuditCreateResponse)
     async def create_audit(req: AuditCreateRequest) -> AuditCreateResponse:
-        if req.depth not in ("standard", "full"):
+        if req.depth not in ("full", "standard"):
             raise HTTPException(
                 status_code=422,
-                detail=f"depth must be 'standard' or 'full', got {req.depth!r}",
+                detail=f"depth must be 'full', got {req.depth!r}",
             )
+        # 'standard' is accepted for API back-compat (old clients) but now
+        # maps to the same full pipeline — depth presets are gone from the
+        # product; every audit runs every stage.
+        depth = "full"
 
-        # --- multi-source (composition) path ----------------------------------
-        # When `sources` is present the request fans out into per-member
-        # child jobs via run_composition_job; `source` must be absent.
+        # --- source resolution: explicit `sources` is no longer a product
+        # surface (removed from the UI); keep parsing it for API back-compat
+        # by folding it into the first ref's auto audit (a multi-URL request
+        # behaves as N independent single-source audits would).
+        effective_source: str | None = req.source
         if req.sources is not None:
             if req.source is not None:
                 raise HTTPException(
@@ -205,10 +210,6 @@ def create_app(
                 )
             except ValueError as exc:
                 raise HTTPException(status_code=422, detail=str(exc))
-
-            # Per-member validation mirrors the single-source rules: local
-            # paths must exist and be dirs; git URLs are accepted now and
-            # cloned at runtime (clone failures surface per child job).
             for spec in specs:
                 if not is_git_source(spec.ref):
                     local = Path(spec.ref).expanduser()
@@ -222,38 +223,11 @@ def create_app(
                             status_code=422,
                             detail=f"local source path is not a directory: {spec.ref}",
                         )
+            effective_source = specs[0].ref
 
-            from fugu.server.composition_jobs import run_composition_job
-
-            parent_source = "composition:" + ", ".join(
-                spec.label or spec.ref for spec in specs
-            )
-            job = AuditJob(id=new_job_id(), source=parent_source, depth=req.depth)  # type: ignore[arg-type]
-            state.store.create(job)
-            asyncio.create_task(
-                run_composition_job(
-                    job,
-                    specs,
-                    # children are depth='standard' per contracts §3 — give
-                    # them the standard stage set regardless of parent depth
-                    state.stages_for("standard"),
-                    state.store,
-                    max_files=max_files,
-                    max_bytes=max_bytes,
-                )
-            )
-            return AuditCreateResponse(
-                job_id=job.id,
-                status=job.status.value,
-                events=f"/api/audits/{job.id}/events",
-            )
-
-        # --- single-source path (unchanged) ------------------------------------
-        if req.source is None:
-            raise HTTPException(
-                status_code=422, detail="source must not be empty"
-            )
-        source = req.source.strip()
+        if effective_source is None:
+            raise HTTPException(status_code=422, detail="source must not be empty")
+        source = effective_source.strip()
         if not source:
             raise HTTPException(status_code=422, detail="source must not be empty")
 
@@ -274,12 +248,15 @@ def create_app(
                     detail=f"local source path is not a directory: {source}",
                 )
 
-        job = AuditJob(id=new_job_id(), source=source, depth=req.depth)  # type: ignore[arg-type]
+        from fugu.server.composition_jobs import run_auto_job
+
+        job = AuditJob(id=new_job_id(), source=source, depth=depth)  # type: ignore[arg-type]
         state.store.create(job)
         asyncio.create_task(
-            run_job(
+            run_auto_job(
                 job,
-                state.stages_for(req.depth),
+                source,
+                state.stages_for(depth),
                 state.store,
                 max_files=max_files,
                 max_bytes=max_bytes,

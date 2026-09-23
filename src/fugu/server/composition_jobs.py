@@ -32,11 +32,15 @@ from fugu.pipeline.stages.static_scan import _TOOL_NAME_RE
 from fugu.server.jobs import (
     DEFAULT_MAX_BYTES,
     DEFAULT_MAX_FILES,
+    ExtractionError,
     JobStore,
     _emit,
+    extract_source,
+    find_skill_units,
     finding_public,
     new_job_id,
     run_job,
+    run_stage_loop,
     stage_public,
 )
 from fugu.types import AuditJob, Finding, JobStatus, StageResult
@@ -48,6 +52,7 @@ __all__ = [
     "SourceSpec",
     "harvest_tool_names",
     "normalize_sources",
+    "run_auto_job",
     "run_composition_job",
 ]
 
@@ -208,6 +213,19 @@ class _StubCompositionStage:
                 "members": len(self._member_results),
             },
         )
+
+
+def _member_result_class() -> type:
+    """MemberResult (real module) or the field-compatible fallback."""
+    try:
+        from fugu.pipeline.stages.composition import MemberResult  # type: ignore[no-redef]
+
+        return MemberResult
+    except ImportError:
+        return _FallbackMemberResult
+
+
+MemberResult = _member_result_class()
 
 
 # --- The runner ---------------------------------------------------------------------
@@ -416,6 +434,283 @@ async def run_composition_job(
     # Cross-stage dedupe is intentionally SKIPPED: composition findings
     # describe member combinations — they are never echoes of member
     # findings, and the parent has no earlier stages to echo anyway.
+    snap.findings.extend(result.findings)
+    for finding in result.findings:
+        _emit(
+            store,
+            job,
+            "finding",
+            {"stage": name, "finding": finding_public(finding)},
+        )
+    _emit(
+        store,
+        job,
+        "stage_done",
+        {
+            "stage": name,
+            "ok": result.ok,
+            "error": result.error,
+            "findings_count": len(result.findings),
+            "metrics": result.metrics,
+        },
+    )
+
+    from fugu.verdict import aggregate_verdict
+
+    verdict = aggregate_verdict(snap.findings, snap.stages)
+    _emit(
+        store,
+        job,
+        "verdict",
+        {
+            "status": "done",
+            "verdict": verdict,
+            "total_findings": verdict["total_findings"],
+            "severity_counts": verdict["severity_counts"],
+            "stages": [stage_public(r) for r in snap.stages],
+        },
+    )
+    job.status = JobStatus.done
+    store.close(job.id)
+
+
+# --- Auto fan-out: one source, many skill units ---------------------------------------
+
+_AUTO_MIN_UNITS = 2
+_AUTO_MAX_UNITS = MAX_SOURCES
+
+
+async def run_auto_job(
+    job: AuditJob,
+    source: str,
+    stages_for_children: Iterable[Any],
+    store: JobStore,
+    max_files: int = DEFAULT_MAX_FILES,
+    max_bytes: int = DEFAULT_MAX_BYTES,
+    min_units: int = _AUTO_MIN_UNITS,
+    max_units: int = _AUTO_MAX_UNITS,
+) -> None:
+    """Auto fan-out: audit one source's skill UNITS, then compose.
+
+    Extracts the source once (clone or local dir), discovers skill units
+    (directories directly containing a SKILL.md, excluding vendored
+    trees). Fewer than `min_units` units -> falls back to a plain
+    single-source audit over the whole tree (no composition). Otherwise
+    each unit becomes a member: its own child AuditJob driven through
+    run_stage_loop against the unit dir (shared, read-only extraction —
+    never per-member clones), then run_composition_job's composition
+    stage over the harvested members. Child SSE streams are real
+    (children get job ids and run through the same emit path); the
+    extraction is cleaned up once at the end.
+
+    Parent job.source keeps the original ref; a `source` log event names
+    the detected units so the UI member strip has something to show.
+    """
+    snap = store.get(job.id)
+    if snap is None:  # pragma: no cover - internal wiring bug
+        snap = store.create(job)
+
+    job.status = JobStatus.running
+    _emit(store, job, "log", {"message": "job started", "source": job.source})
+    store._persist_status(job)
+
+    loop = asyncio.get_running_loop()
+    cloned_dir: Path | None = None
+    try:
+        target = await extract_source(
+            job, max_files=max_files, max_bytes=max_bytes, keep_target=True
+        )
+        snap.target_dir = target
+        if target != Path(job.source.strip()).expanduser():
+            cloned_dir = target
+    except ExtractionError as exc:
+        job.status = JobStatus.failed
+        result = StageResult(
+            stage="extraction",
+            ok=False,
+            error=f"source extraction failed: {exc}",
+        )
+        snap.stages.append(result)
+        _emit(
+            store,
+            job,
+            "error",
+            {
+                "error": result.error,
+                "stage": "extraction",
+                "stage_results": [stage_public(r) for r in snap.stages],
+            },
+        )
+        store.close(job.id)
+        return
+
+    try:
+        units = find_skill_units(target)
+        if len(units) < min_units:
+            # Single skill (or none): plain audit over the whole tree.
+            await run_stage_loop(job, snap, target, stages_for_children, store)
+            return
+
+        if len(units) > max_units:
+            kept = units[:max_units]
+            _emit(
+                store,
+                job,
+                "log",
+                {
+                    "stage": "composition",
+                    "message": (
+                        f"{len(units)} skill units found; auditing the first "
+                        f"{max_units} (cap)"
+                    ),
+                },
+            )
+            units = kept
+
+        labels = [label for label, _ in units]
+        _emit(
+            store,
+            job,
+            "log",
+            {
+                "stage": "composition",
+                "message": (
+                    f"auto fan-out: {len(units)} skill units "
+                    f"({', '.join(labels)})"
+                ),
+                "units": labels,
+            },
+        )
+
+        stages = list(stages_for_children)
+        members: list[Any] = []
+        summaries: list[dict[str, Any]] = []
+        for label, unit_dir in units:
+            child = AuditJob(id=new_job_id(), source=str(unit_dir), depth="full")
+            store.create(child)
+            child_snap = store.get(child.id)
+            crashed: str | None = None
+            try:
+                await run_stage_loop(child, child_snap, unit_dir, stages, store)
+            except Exception as exc:  # noqa: BLE001 - one unit must not kill the run
+                crashed = f"{type(exc).__name__}: {exc}"
+                child_snap.job.status = JobStatus.failed
+                store.close(child.id)
+            status = child_snap.job.status.value
+            n_findings = len(child_snap.findings)
+            _emit(
+                store,
+                job,
+                "log",
+                {
+                    "stage": "composition",
+                    "message": (
+                        f"member {label}: job {child.id} {status}, "
+                        f"{n_findings} findings"
+                    ),
+                    "child_job_id": child.id,
+                },
+            )
+            members.append(
+                MemberResult(
+                    label=label,
+                    slug=_slugify(label),
+                    findings=list(child_snap.findings),
+                    tool_names=harvest_tool_names(unit_dir),
+                    target_dir=unit_dir,
+                )
+            )
+            summaries.append(
+                {
+                    "label": label,
+                    "job_id": child.id,
+                    "status": status,
+                    "findings": n_findings,
+                }
+            )
+
+        failed = [s for s in summaries if s["status"] == "failed"]
+        if failed and len(failed) == len(summaries):
+            job.status = JobStatus.failed
+            result = StageResult(
+                stage="extraction",
+                ok=False,
+                error="auto fan-out failed: all "
+                f"{len(failed)} skill units failed ({', '.join(s['label'] for s in failed)})",
+            )
+            snap.stages.append(result)
+            _emit(
+                store,
+                job,
+                "error",
+                {
+                    "error": result.error,
+                    "stage": "extraction",
+                    "stage_results": [stage_public(r) for r in snap.stages],
+                },
+            )
+            store.close(job.id)
+            return
+
+        await _compose_members(job, snap, members, store)
+    finally:
+        if cloned_dir is not None:
+            await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
+
+
+async def _compose_members(
+    job: AuditJob,
+    snap: Any,
+    members: list[Any],
+    store: JobStore,
+) -> None:
+    """Run the composition stage over harvested members + parent verdict.
+
+    Shared tail of run_composition_job and run_auto_job.
+    """
+    try:
+        from fugu.pipeline.stages.composition import CompositionStage
+    except ImportError:
+        CompositionStage = _StubCompositionStage  # type: ignore[assignment]
+
+    loop = asyncio.get_running_loop()
+    stage = CompositionStage()
+    try:
+        stage._member_results = members  # runner-injected, contracts §2
+    except Exception:  # pragma: no cover
+        _emit(
+            store,
+            job,
+            "log",
+            {
+                "stage": "composition",
+                "message": "could not inject _member_results; stage sees no members",
+            },
+        )
+    name = getattr(stage, "name", "composition")
+    parent_target = next(
+        (m.target_dir for m in members if getattr(m, "target_dir", None) is not None),
+        None,
+    )
+
+    _emit(store, job, "stage_started", {"stage": name})
+    started = loop.time()
+    try:
+        result = await stage.run(job, parent_target)
+        if result is None:  # defensive
+            raise TypeError("stage.run() returned None, expected StageResult")
+    except Exception as exc:  # noqa: BLE001
+        result = StageResult(
+            stage=name,
+            ok=False,
+            error=f"{type(exc).__name__}: {exc}",
+        )
+    elapsed = loop.time() - started
+    result.metrics.setdefault("duration_s", round(elapsed, 3))
+    result.metrics.setdefault("members", len(members))
+    snap.stages.append(result)
+    # No cross-stage dedupe: composition findings are about member
+    # combinations, never echoes (the parent ran no other stages).
     snap.findings.extend(result.findings)
     for finding in result.findings:
         _emit(
