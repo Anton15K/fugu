@@ -458,38 +458,7 @@ async def run_composition_job(
 
     from fugu.verdict import aggregate_verdict
 
-    # Union view: the parent IS the audit of the whole set. Member findings
-    # join the parent's findings — each attributed with a member:<slug>
-    # evidence snippet AND re-emitted as parent-stream finding events so
-    # live and replay views agree — so totals, severity mix, the OWASP
-    # matrix and the verdict reflect everything found. A set whose members
-    # produced 21 findings must never render as "PASS · 0 findings".
-    # Child jobs remain the per-member drill-down.
-    member_by_slug: dict[str, Any] = {}
-    for m in members:
-        member_by_slug[getattr(m, "slug", _slugify(getattr(m, "label", "")))] = m
-    for m in members:
-        for finding in list(getattr(m, "findings", [])):
-            if finding in snap.findings:
-                continue
-            finding.evidence.append(
-                EvidenceSnippet(
-                    source=f"member:{m.slug}",
-                    excerpt=f"finding from member '{m.label}'",
-                    meta={"member": m.slug, "member_label": m.label},
-                )
-            )
-            snap.findings.append(finding)
-            _emit(
-                store,
-                job,
-                "finding",
-                {
-                    "stage": getattr(finding, "stage", "static"),
-                    "finding": finding_public(finding),
-                },
-            )
-
+    _merge_member_findings(job, snap, members, store)
     verdict = aggregate_verdict(snap.findings, snap.stages)
     _emit(
         store,
@@ -770,6 +739,7 @@ async def _compose_members(
 
     from fugu.verdict import aggregate_verdict
 
+    _merge_member_findings(job, snap, members, store)
     verdict = aggregate_verdict(snap.findings, snap.stages)
     _emit(
         store,
@@ -785,3 +755,41 @@ async def _compose_members(
     )
     job.status = JobStatus.done
     store.close(job.id)
+
+
+def _merge_member_findings(
+    job: AuditJob,
+    snap: Any,
+    members: list[Any],
+    store: JobStore,
+) -> None:
+    """Union view: the parent IS the audit of the whole set.
+
+    Member findings join the parent's findings — each attributed with a
+    member:<slug> evidence snippet AND re-emitted as parent-stream finding
+    events so live and replay views agree — so totals, severity mix, the
+    OWASP matrix and the verdict reflect everything found. A set whose
+    members produced 21 findings must never render as "PASS · 0 findings".
+    Child jobs remain the per-member drill-down.
+    """
+    for m in members:
+        for finding in list(getattr(m, "findings", [])):
+            if any(f is finding for f in snap.findings):
+                continue
+            finding.evidence.append(
+                EvidenceSnippet(
+                    source=f"member:{m.slug}",
+                    excerpt=f"finding from member '{m.label}'",
+                    meta={"member": m.slug, "member_label": m.label},
+                )
+            )
+            snap.findings.append(finding)
+            _emit(
+                store,
+                job,
+                "finding",
+                {
+                    "stage": getattr(finding, "stage", "static"),
+                    "finding": finding_public(finding),
+                },
+            )

@@ -792,3 +792,48 @@ def test_depth_standard_maps_to_full(tmp_path: Path) -> None:
 
         resp = client.post("/audits", json={"source": str(target), "depth": "bogus"})
         assert resp.status_code == 422
+
+
+def test_run_auto_job_union_view(tmp_path: Path) -> None:
+    """Regression: the AUTO fan-out parent must carry the union of member
+    findings (attributed + re-emitted), not composition findings only —
+    the live anthropics/skills run rendered PASS/0 with 21 member findings."""
+    from fugu.server.composition_jobs import run_auto_job
+    from fugu.types import EvidenceSnippet, Finding
+
+    class FindingStage:
+        name = "static"
+
+        async def run(self, job, target):
+            f = Finding(
+                owasp_ids=["MCP06"],
+                title=f"fabricated {target.name}",
+                detail="d",
+                severity="medium",
+                confidence="measured",
+                stage="static",
+                evidence=[
+                    EvidenceSnippet(source=f"file:{target.name}/x.py", excerpt="x")
+                ],
+            )
+            return StageResult(stage="static", ok=True, findings=[f], metrics={})
+
+    root = tmp_path / "repo"
+    for n in ("alpha", "beta"):
+        unit = root / n
+        unit.mkdir(parents=True)
+        (unit / "SKILL.md").write_text(f"# {n}\n")
+
+    store = JobStore()
+    parent = AuditJob(id="union-auto", source=str(root))
+    store.create(parent)
+    asyncio.run(run_auto_job(parent, str(root), [FindingStage()], store))
+
+    snap = store.get("union-auto")
+    assert parent.status is JobStatus.done
+    assert len(snap.findings) == 2
+    assert all(
+        any(e.source.startswith("member:") for e in f.evidence)
+        for f in snap.findings
+    )
+    assert len([e for e in snap.events if e.type == "finding"]) == 2
