@@ -18,10 +18,11 @@ const SET_AUDIT_PRESET = [
   "https://github.com/vapiai/skills",
 ].join(", ");
 
+/** Presets are git URLs ONLY for now: they must work from any machine and
+ * any deployment (local-path and mcp:// presets resolved only on a dev
+ * checkout next to the server). */
 const SOURCE_PRESETS: { label: string; value: string }[] = [
-  { label: "local skill", value: "./skills/pdf-table-extractor" },
   { label: "git url", value: "https://github.com/anthropics/skills" },
-  { label: "mcp config", value: "mcp://stdio:npx -y @modelcontextprotocol/server-github" },
   { label: "set audit", value: SET_AUDIT_PRESET },
 ];
 
