@@ -94,10 +94,11 @@ export function VerdictChip({
 
 /* ── Stage status dot ───────────────────────────────────────────── */
 
-export type StageDotState = "idle" | "running" | "done" | "error";
+export type StageDotState = "idle" | "running" | "done" | "error" | "skipped";
 
 const dotStyles: Record<StageDotState, string> = {
   idle: "border-zinc-700 bg-zinc-800",
+  skipped: "border-zinc-700 bg-transparent",
   running: "border-sky-500 bg-sky-400 animate-pulse-dot",
   done: "border-emerald-700 bg-emerald-500",
   error: "border-red-600 bg-red-500",

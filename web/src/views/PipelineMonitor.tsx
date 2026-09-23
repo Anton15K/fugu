@@ -9,7 +9,7 @@ import { MULTI_SOURCE_STAGE_ORDER, STAGE_META, STAGE_ORDER, parseMemberLog } fro
 import { cn } from "@/lib/utils";
 import type { StreamStatus } from "@/lib/api";
 
-export type StageStatus = "idle" | "running" | "done" | "error";
+export type StageStatus = "idle" | "running" | "done" | "error" | "skipped";
 
 export interface PipelineState {
   stages: Record<StageName, StageStatus>;
@@ -87,11 +87,13 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
       }
       break;
     case "verdict":
-      // Terminal: finish every stage that didn't explicitly fail or complete.
-      // (The backend runs 6 stages today; cards for planned-but-unbuilt
-      // stages must not stay "idle" forever after the verdict lands.)
+      // Terminal: stages that never ran settle to "skipped" (honest state —
+      // e.g. composition on single-source jobs, harness on standard-depth
+      // jobs), never fake-green. Stages that started but got no stage_done
+      // (interrupted run) still finish as "done" — the verdict is terminal.
       for (const s of ALL_STAGE_KEYS) {
-        if (next.stages[s] !== "error" && next.stages[s] !== "done") next.stages[s] = "done";
+        if (next.stages[s] === "done" || next.stages[s] === "error") continue;
+        next.stages[s] = next.currentStage === s || next.stages[s] === "running" ? "done" : "skipped";
       }
       next.stages.verdict = "done";
       next.finishedAt = safeTs;
@@ -178,7 +180,10 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
   const multiSource = state.multiSource;
   const stageCards = stageOrderFor(state);
   const doneCount = stageCards.filter(
-    (s) => state.stages[s] === "done" || state.stages[s] === "error",
+    (s) =>
+      state.stages[s] === "done" ||
+      state.stages[s] === "error" ||
+      state.stages[s] === "skipped",
   ).length;
   const progress = Math.round((doneCount / stageCards.length) * 100);
 
@@ -326,6 +331,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                   status === "running" && "border-sky-700/70 bg-sky-950/20",
                   status === "done" && "border-zinc-800",
                   status === "error" && "border-red-800/70 bg-red-950/20",
+                  status === "skipped" && "border-zinc-800/40 opacity-40",
                   status === "idle" && "border-zinc-800/60 opacity-60",
                 )}
               >
@@ -338,6 +344,11 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                     <span className="font-mono text-[10px] tabular-nums text-zinc-600">
                       S{meta.index}
                     </span>
+                    {status === "skipped" && (
+                      <span className="rounded border border-zinc-800 px-1 py-px font-mono text-[9px] uppercase tracking-wide text-zinc-500">
+                        skipped
+                      </span>
+                    )}
                     <span className="text-[13px] font-semibold text-zinc-200">{meta.label}</span>
                   </div>
                   {stageFindings > 0 && (

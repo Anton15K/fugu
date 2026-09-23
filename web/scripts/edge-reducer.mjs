@@ -52,7 +52,8 @@ const check = (name, cond) => { cond ? pass++ : fail++; console.log(`  ${cond ? 
   }
   s = applyEvent(s, ev("verdict", { status: "done", verdict: { status: "pass", severity_counts: { critical: 0 } } }));
   console.log("    stage states:", JSON.stringify(s.stages));
-  check("benign: all stages done", Object.values(s.stages).every((v) => v === "done"));
+  check("benign: run stages done", ["concealment","static","semantic","harness","reputation","detonation","verdict"].every((k) => s.stages[k] === "done"));
+  check("benign: composition skipped (single-source)", s.stages.composition === "skipped");
   check("benign: zero findings", s.findings.length === 0);
   check("benign: finishedAt set", s.finishedAt !== null);
 }

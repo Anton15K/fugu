@@ -201,12 +201,12 @@ export const OWASP_LABELS: Record<string, string> = {
 /** Display order of the pipeline stage cards (fixed; matches the backend).
  *
  * Cards mirror what the backend ACTUALLY runs (see build_stages()). A stage
- * that isn't implemented must never appear as a green card — that would be
- * fake coverage. `composition` is the exception: it runs ONLY on multi-source
- * jobs (contracts §6), so it lives in {@link MULTI_SOURCE_STAGE_ORDER} and is
- * spliced into the strip only when the job actually emitted composition
- * events (see {@link compositionPresent}). Single-source jobs render the
- * exact same 7 cards as before.
+ * that isn't run must never appear as a green card — that would be fake
+ * coverage. `composition` runs ONLY on multi-source jobs (contracts §6):
+ * on single-source jobs its card stays in the strip but settles into an
+ * honest terminal `skipped` state when the verdict lands (never green); on
+ * multi-source jobs the member strip + composition/verdict cards carry the
+ * progress role (see {@link MULTI_SOURCE_STAGE_ORDER}).
  */
 export const STAGE_ORDER: StageName[] = [
   "concealment",
@@ -215,6 +215,7 @@ export const STAGE_ORDER: StageName[] = [
   "detonation",
   "harness",
   "reputation",
+  "composition",
   "verdict",
 ];
 

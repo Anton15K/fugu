@@ -50,7 +50,7 @@ for (const e of events) counts[e.type] += 1;
 const stagesSeen = new Set(
   events.filter((e) => e.type === "stage_started").map((e) => e.data.stage),
 );
-const missing = STAGE_ORDER.filter((s) => !stagesSeen.has(s));
+const missing = STAGE_ORDER.filter((s) => !stagesSeen.has(s) && s !== "composition"); // composition legitimately skipped on single-source mock
 
 const findings = events.filter((e) => e.type === "finding");
 const critical = findings.filter((e) => e.data.finding?.severity === "critical");
