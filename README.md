@@ -43,7 +43,8 @@ Full methodology + raw JSON: [`bench/results/`](bench/results) · harness: `pyth
 
 | Evaluation | Result | Field context |
 |---|---|---|
-| **MCPTox attack detection** (field's benchmark, AAAI-26; n=160 stratified, strict severity contract) | **160/160 — 100%**, all 11 categories | no competing auditor publishes a number on this benchmark |
+| **MCPTox attack detection** (field's benchmark, AAAI-26; n=160 stratified, strict severity contract) | **160/160 — 100%**, all 11 categories | strictest published protocol on this benchmark |
+| **MCPTox head-to-head** (field's file: `pure_tool.json`, n=485; same file fuzzd & academic scanners publish against) | **484/485 — 99.8%** (100/99.5/100 by paradigm) | fuzzd v0.13: 90.7% · academic mcp-sec-audit: 74.7% — [`docs/head-to-head.md`](docs/head-to-head.md) |
 | Static-only on MCPTox (n=1,312, full corpus) | 9% — *by design*: paraphrase detection is the LLM tier's job; the 9%→100% delta is the cascade architecture quantified | |
 | **Real-world benign skills** (n=76, 4 public repos incl. Anthropic, obra/superpowers, community packs) | **0 static false positives**; semantic 3 flags → manually adjudicated: 1 true bug, 2 severity FPs (fixed) | field: 96.89% flagged / <50% true |
 | **Random registry draw** (skills.sh, seed 20260920, 25 of 2,862 skills) | 1 flag → adjudicated **true positive** | MCPZoo-comparable methodology, no ground truth |

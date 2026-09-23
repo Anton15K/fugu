@@ -1,6 +1,6 @@
 # MCPTox x Fugu - static-only detection (S0+S1)
 
-Generated: 2026-09-19 20:29 · `uv run --no-sync python -m bench.mcptox.run_static --n 200`
+Generated: 2026-09-22 21:47 · `uv run --no-sync python -m bench.mcptox.run_static --n 200`
 
 **Benchmark**: MCPTox (arXiv 2508.14925, AAAI-26) - real tool-poisoning attacks:
 poisoned tool descriptions on 45 real MCP servers. Dataset: pinned commit `f85189f` of github.com/zhiqiangwang4/MCPTox-Benchmark (sha256-verified), 1312 valid cases; deterministic stratified subset n=200 (per-category stride sampling, see run_static.stratified_subset).
