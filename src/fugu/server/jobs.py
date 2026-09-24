@@ -330,7 +330,49 @@ async def extract_source(
         raise ExtractionError("source must not be empty")
 
     if is_git_source(source):
+        from fugu.server.giturls import extract_git_parts
+
         loop = asyncio.get_running_loop()
+        parts = extract_git_parts(source)
+        if parts is not None:
+            # Pasted web-UI URL (tree/blob view): clone the REPO at the ref,
+            # then audit the subdirectory the URL pointed at.
+            base, ref, subpath = parts
+            attempts: list[tuple[str, str]] = [(ref, subpath)]
+            # Refs may contain slashes ("release/1.2"): if the single-segment
+            # ref misses, retry consuming one more segment into the ref.
+            if subpath and "/" in subpath:
+                head, _, tail = subpath.partition("/")
+                attempts.append((f"{ref}/{head}" if ref else head, tail))
+            last_err: ExtractionError | None = None
+            for clone_ref, clone_sub in attempts:
+                tmp = await loop.run_in_executor(
+                    None, lambda: tempfile.mkdtemp(prefix="fugu-git-")
+                )
+                root = Path(tmp) / "clone"
+                try:
+                    await _git_clone(base, root, branch=clone_ref or None)
+                    audit_dir = _resolve_audit_subdir(
+                        root, clone_sub, source_display=source
+                    )
+                    # Re-parent the audit dir to the tmp root so the caller's
+                    # single rmtree(target) contract keeps working.
+                    if audit_dir == root:
+                        return root
+                    final = Path(tmp) / "src"
+                    await loop.run_in_executor(
+                        None, shutil.move, str(audit_dir), str(final)
+                    )
+                    await loop.run_in_executor(
+                        None, shutil.rmtree, str(root), True
+                    )
+                    return final
+                except ExtractionError as exc:
+                    last_err = exc
+                    await loop.run_in_executor(None, shutil.rmtree, tmp, True)
+                    continue
+            raise last_err or ExtractionError(f"git clone failed: {source}")
+
         tmp = await loop.run_in_executor(
             None, lambda: tempfile.mkdtemp(prefix="fugu-git-")
         )
@@ -375,16 +417,15 @@ async def extract_source(
     return p
 
 
-async def _git_clone(source: str, target: Path) -> None:
-    """Clone `source` (depth 1) into `target` via asyncio subprocess."""
+async def _git_clone(source: str, target: Path, branch: str | None = None) -> None:
+    """Clone `source` (depth 1, optionally pinned to `branch`) into `target`."""
+    cmd = ["git", "clone", "--quiet"]
+    if branch:
+        # --branch also accepts tags & commit ids; --depth keeps it shallow.
+        cmd += ["--branch", branch]
+    cmd += ["--depth", "1", source, str(target)]
     proc = await asyncio.create_subprocess_exec(
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "--quiet",
-        source,
-        str(target),
+        *cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
@@ -394,6 +435,28 @@ async def _git_clone(source: str, target: Path) -> None:
         raise ExtractionError(
             f"git clone failed (exit {proc.returncode}): {detail[:500]}"
         )
+
+
+def _resolve_audit_subdir(root: Path, subpath: str, *, source_display: str) -> Path:
+    """Resolve the URL's subpath inside the freshly cloned repo.
+
+    Raises ExtractionError with an actionable message when the path doesn't
+    exist (e.g. the pasted URL's ref was misparsed) — the caller retries or
+    surfaces the error to the user.
+    """
+    sub = (subpath or "").strip().strip("/")
+    if not sub:
+        return root
+    cand = (root / sub).resolve()
+    if not cand.is_relative_to(root.resolve()):
+        raise ExtractionError(
+            f"git source subpath escapes the repository: {source_display}"
+        )
+    if not cand.exists():
+        raise ExtractionError(
+            f"cloned repository has no '{sub}' path (from {source_display})"
+        )
+    return cand
 
 
 # --- Runner ------------------------------------------------------------------------
