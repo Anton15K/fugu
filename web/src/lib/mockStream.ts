@@ -560,7 +560,11 @@ export function openMockAuditStream(
     const t = setTimeout(() => {
       timers.delete(t);
       if (!cancelled) {
-        onEvent(event);
+        // Re-stamp ts at delivery time: a real backend stamps when the event
+        // is emitted, so stage durations in the pipeline strip stay truthful
+        // under mock replay too (build-time stamps all collapse to t0 and
+        // fold every duration to 0.0s — found during the console-UX rework).
+        onEvent({ ...event, ts: new Date().toISOString() });
         run(i + 1);
       }
     }, Math.max(40, delayMs / speed));
