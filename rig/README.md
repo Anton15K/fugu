@@ -49,6 +49,21 @@ Probe loading with `codex -p fugu-rig-high mcp list` and
 `--strict-config` on `mcp list`. Profile parsing is separate from observing the
 effective live seat model/effort and authenticated orientation.
 
+## First-start hook review
+
+Codex may pause on inherited hooks before OpenRig can deliver orientation.
+Use the native hook review screen to inspect and trust only the four OpenRig
+activity-relay callbacks (SessionStart, UserPromptSubmit, Stop and
+PermissionRequest). The installed script is
+`/opt/homebrew/lib/node_modules/@openrig/cli/daemon/assets/plugins/openrig-core/hooks/scripts/activity-relay.cjs`.
+Leave unrelated hooks untrusted and use Escape to skip their review prompt.
+Do not use Trust all or bypass hook trust.
+
+After the terminal is interactive, OpenRig's startup view can continue pending
+fresh-context delivery without replacing the process. Check for authenticated
+`oriented: verified` on every seat, rather than treating `startupStatus: ready`
+as orientation proof. Inspect the exact installed recovery help before retrying.
+
 ## Assign an outcome
 
 ```sh
