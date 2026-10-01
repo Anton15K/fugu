@@ -2,8 +2,14 @@ from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
+import sys
 
 import pytest
+
+
+pytestmark = pytest.mark.skipif(
+    sys.version_info < (3, 11), reason="The administrative profile installer requires Python 3.11+"
+)
 
 
 @pytest.fixture
