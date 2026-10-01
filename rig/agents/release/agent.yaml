@@ -1,0 +1,25 @@
+name: fugu-release
+version: "1.0"
+description: Fugu release specialist with task-autonomous project guidance.
+defaults:
+  runtime: codex
+imports:
+  - ref: path:/opt/homebrew/lib/node_modules/@openrig/cli/daemon/specs/agents/shared
+profiles:
+  default:
+    uses:
+      skills: [shared:verification-before-completion, shared:context-builder, shared:exec-summary]
+      guidance: []
+      subagents: []
+      plugins: [shared:openrig-core]
+      runtime_resources: [shared:codex-default-config]
+resources:
+  guidance:
+    - id: role
+      path: guidance/role.md
+startup:
+  files:
+    - path: guidance/role.md
+      delivery_hint: send_text
+      required: true
+  actions: []
