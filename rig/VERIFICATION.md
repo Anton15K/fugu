@@ -17,6 +17,16 @@ Rig ID: `01M3WTN0J1ZA6T7X8QHJ9DZWFJ`.
   preservation/idempotence, conflicting destinations, malformed input and
   symlink refusal. Full suite after configuration: **353 passed, 2 skipped**,
   with one existing Starlette/AnyIO deprecation warning.
+- The origin/main-based delivery tree passes **340 tests, 2 skipped**, with
+  the same deprecation warning. Two pre-existing unpublished product commits
+  remain local and are not included in the setup PR; this explains the lower
+  test count than the live local checkout.
+- Fresh independent whole-change review found one Python 3.10 test-suite
+  compatibility issue. On a real isolated Python 3.10 interpreter, the four
+  installer tests failed on missing `tomllib` before the fix and correctly
+  skipped afterward. On Python 3.11, all installer tests and the full suite
+  pass. The application keeps its Python 3.10 minimum; only the administrative
+  installer requires 3.11. Review found no critical or minor issues.
 - Base user model and effort remain `gpt-6.1-sol` and `high`.
 
 ## Actual live seats
