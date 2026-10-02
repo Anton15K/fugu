@@ -1,0 +1,318 @@
+{
+  "measured_utc": "2026-10-02T12:19:34.926722+00:00",
+  "scope": "S0 concealment + S1 static on 44 selected files; no auditee execution",
+  "engine_hashes_verified": true,
+  "source_snapshot": "/tmp/fugu-wild-audit-engine-20261002/fugu",
+  "paid_model_calls": 0,
+  "rows": [
+    {
+      "repository": "modelcontextprotocol/servers",
+      "commit": "f46d9578190b476b3501923ea8977d899e8db2cb",
+      "input_sha256": {
+        "src/filesystem/README.md": "df276d57efc04b85fa1e8163fe1aa3d5b11d5b2a7de5ec51ba083e5cb04019cd",
+        "src/filesystem/index.ts": "bff21de612c59d64b351f70615f44563f0efe76666a75aa52450ebe6fae6584a",
+        "src/filesystem/lib.ts": "d67db7074d9823a306e83326a4362e477e0ff7492fb484e015a15abad761b495",
+        "src/filesystem/path-utils.ts": "d8254889f4e58493d52878afdb7ccfc516e2edca13dc0868c08a6c1576c274ce",
+        "src/filesystem/path-validation.ts": "20833254c044c3d4d0672616ad546d50f09dae8b704c8a3619b86310f2cec3ba",
+        "src/filesystem/roots-utils.ts": "bce7c15a73dc592c23339edcd68603d08fed8d7f3d0f371db29042703f93240d",
+        "src/fetch/README.md": "ebebd3486ab57c4e49960e3454b7318787baade4bb31c30839f636411840eeeb",
+        "src/fetch/src/mcp_server_fetch/server.py": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+        "SECURITY.md": "af37a4916838caa921aa62a14a778f77c5f15c74cac1163f9bdc93947d70ea27"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 9,
+            "files_scanned": 9,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.012
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 9,
+            "files_scanned": 9,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.015
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "repository": "microsoft/playwright-mcp",
+      "commit": "f183dad4a52965583e3cc1d59b88cdc279e2e57d",
+      "input_sha256": {
+        "README.md": "b33aa71a13d655e96e6b736d0c9de1e5ddea52f205916ca20b876387ff830e87",
+        "SECURITY.md": "7b6976eec43edfa68b79a459dd089c56b7a395916dbf1a01bd11e6d86e12128f",
+        "package.json": "624f0ba4d387028bbc734520142fbebb7075a88da8b623f4760adf76aa212f8b",
+        "cli.js": "70dab09ab9a5bc1943fb78e2655f00af7349f9931073833919f19c5d7d786ad6",
+        "index.js": "28c639173fb79f5cae1ed44519995cea0dd2aee2f4a48a2511f06f153802b946",
+        "src/README.md": "3d00272808ea1d6e079ae69638aa9f2b713309d0c082ee5d23aa6aa2d58587d5"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 6,
+            "files_scanned": 6,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0092
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 6,
+            "files_scanned": 6,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0094
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "repository": "microsoft/markitdown",
+      "commit": "2b61a335a4bec721144498fe425a61f23e9e3d6e",
+      "input_sha256": {
+        "README.md": "9f9dc0e582d066e8ac671a1f63b3a73c70a7be9909e8be51a7f5aeb5a7c04af2",
+        "SECURITY.md": "7b6976eec43edfa68b79a459dd089c56b7a395916dbf1a01bd11e6d86e12128f",
+        "packages/markitdown-mcp/README.md": "6967e98a8c7bc2215cfe26fc8b71e0b6938718f6f29c4a48d4e2bb97b6d88012",
+        "packages/markitdown-mcp/pyproject.toml": "d4ff54c7168abfff9deb210b5df213c5dacf2d7262e426887987c2176359e143",
+        "packages/markitdown-mcp/src/markitdown_mcp/__main__.py": "d4db28dfbe2aa7358f59591639a5296c1d20934a9c31c060addc88281dbd66fe",
+        "packages/markitdown/src/markitdown/_markitdown.py": "753481c59531db3a2d31cbb34db6c29fbde7f40481f945883b4ff25b9e130332"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 6,
+            "files_scanned": 6,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0085
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 6,
+            "files_scanned": 6,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0105
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "repository": "github/github-mcp-server",
+      "commit": "36e5c48f2e376f8f4ffa30fd718c38deedb7ae27",
+      "input_sha256": {
+        "README.md": "1a5eb00ada625290af9fc0ea1aa0ef517bbb3b93ab755d0ca0678c05fe353557",
+        "SECURITY.md": "c32e9763b5b5e4fcd85076f938fba3ec5fd555702fc1d8df0ddcbcc8592e7e45",
+        "docs/server-configuration.md": "528f8bf095e2a84fda928e1f5bbddb22e647113e9671f424c31f52e17c4a9d19",
+        "docs/policies-and-governance.md": "a530972b15e91c809acd34dbf4df06ba1566a37a6addec616b7d1e77d221e6ae",
+        "pkg/inventory/filters.go": "4f79e2980b8b2190631d0d07457798c6907dd220b5fa0e3654ff0b1009398492",
+        "pkg/inventory/server_tool.go": "9b1918b9d40ed2a3529fa53a82c3facc497fe84725474bd6c2cd5c991074b25a",
+        "pkg/github/lockdown.go": "61917fcef004d0f78ed7f06849145ada4f308c31ade461a5690d46914ae23f6d",
+        "pkg/github/server.go": "cdac9beec8e6f144c8846bfd7186d20a74e25b71e429e651d0d51c428b8d7efa"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 8,
+            "files_scanned": 8,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0225
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 8,
+            "files_scanned": 8,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0224
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "repository": "anthropics/skills",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "input_sha256": {
+        "README.md": "2fb9c4cc026366ea6e21c60cb23c908a4d27c62071819cc06beffaac102d0694",
+        "skills/mcp-builder/SKILL.md": "0f4592dcb53cf2b5d6b7febee6b4152018b565551a1c29e3c612f57b218ab295",
+        "skills/mcp-builder/scripts/evaluation.py": "49ed1d17cdce5da101b210197740713f49b935c29d4f339542a14b132658e6f7",
+        "skills/mcp-builder/scripts/connections.py": "9403668a2041568772082a8b334122c1f88daf0541fb393af4522d0094a47a6e",
+        "skills/docx/SKILL.md": "8017469ea95fb7d28225c62daf8e2f3492a7b516fc64c18c28977cbf8980b7fe",
+        "skills/docx/scripts/office/validate.py": "346a4c89d92fff55e610f11efda48c30228815b29bdb10b987e48f7af70acf1e",
+        "skills/docx/scripts/office/validators/base.py": "f818ea28c793ba42960fa4498265e2632a62c86f7b5d6aff6fa89dacc02d59ea",
+        "skills/docx/scripts/office/validators/docx.py": "93d3444c0ef3f043d21a2285c46d2cda478426b930dc33dcf3b11265935517b5"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 8,
+            "files_scanned": 8,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0122
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 8,
+            "files_scanned": 8,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0156
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "repository": "obra/superpowers",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "input_sha256": {
+        "README.md": "04fd40756d26d5f2132ddfbc5c3c35335b02bb456197308975f9d12eaa522382",
+        "skills/brainstorming/SKILL.md": "a32d2255354775aa124855aa7100cf276bea096fff4ebb3a0edf57be216e6c72",
+        "skills/brainstorming/visual-companion.md": "6ffcb038b53254bd31debaa15e12dcd4ff24bd63d690e0b644ac6396701cf2e2",
+        "skills/brainstorming/scripts/start-server.sh": "a4e5ae84275bcaacd2f84345afeabe59cf7b00ba080e123da7cc1fb226f12847",
+        "skills/brainstorming/scripts/server.cjs": "2d2961ea8d11f56c5f4c3a1a68d22709efa5d7601a2246d8c880774e7e9e8412",
+        "skills/brainstorming/scripts/helper.js": "43c6d69954a46ec34a2a262bcc62a9a7e83e839c739f199cb72646d397c686e3",
+        "hooks/session-start": "5e92229e49d7cff5e0355ab84b0bceb0d27d53c565b33210132ce6e413ee9665"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 7,
+            "files_scanned": 7,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0112
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 7,
+            "files_scanned": 7,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0131
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.185
+}

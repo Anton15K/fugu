@@ -105,3 +105,21 @@ uv run --no-sync pytest tests/ -q
 See `README.md` for assignment, stop and resume commands. The six resident seats
 wait for assigned work; orientation alone is not an end-to-end product delivery
 or deployment test.
+
+## Model change requested on 2026-10-02
+
+The user requested a simultaneous mapping: former Astra seats become
+`gpt-6.1-sol`; former Sol seats become `gpt-6-luna`; all use `max` effort.
+The six live native model selectors confirmed the new model and effort,
+using session-only choices without restarting or replacing occupants.
+Audited `rig seat set-model` calls also persisted the six future-launch
+models. Both dedicated installed profile files now set effort to `max`;
+all other parsed settings, hooks and permission selections were preserved.
+The legacy `high`/`medium` profile filenames remain for compatibility.
+
+`rig spec validate rig.yaml --json` is valid with zero errors;
+`uv run --no-sync pytest tests/test_rig_setup.py -q` passes all four tests.
+Both dedicated profiles loaded through `codex -p <profile> mcp list`.
+See [model-change evidence](../docs/rig-work/2026-10-02-reliability-and-wild-audit/model-change-evidence.json)
+and [the two-task intake](../docs/rig-work/2026-10-02-reliability-and-wild-audit/intake.md).
+The earlier startup observations above describe the previous settings.

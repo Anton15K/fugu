@@ -1,0 +1,62 @@
+{
+  "observed_at_utc": "2026-10-02T11:52:48.332514+00:00",
+  "rig": "fugu",
+  "rig_id": "01M3WTN0J1ZA6T7X8QHJ9DZWFJ",
+  "mapping_applied_once": true,
+  "seats": {
+    "control-lead@fugu": {
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "native_confirmation": [
+        "\u2022 Model changed to gpt-6.1-sol max for this session only",
+        "GPT-6.1-Sol max \u00b7 ~/dev/nebius_hack \u00b7 Confirm startup orientation"
+      ]
+    },
+    "research-security@fugu": {
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "native_confirmation": [
+        "\u2022 Model changed to gpt-6.1-sol max for this session only",
+        "GPT-6.1-Sol max \u00b7 ~/dev/nebius_hack \u00b7 Recover security session identity"
+      ]
+    },
+    "quality-reviewer@fugu": {
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "native_confirmation": [
+        "\u2022 Model changed to gpt-6.1-sol max for this session only",
+        "GPT-6.1-Sol max \u00b7 ~/dev/nebius_hack \u00b7 Review Fugu startup identity \u00b7 Main [de\u2026"
+      ]
+    },
+    "build-backend@fugu": {
+      "model": "gpt-6-luna",
+      "effort": "max",
+      "native_confirmation": [
+        "\u2022 Model changed to gpt-6-luna max for this session",
+        "GPT-6-Luna max \u00b7 ~/dev/nebius_hack \u00b7 OpenRig se\u2026"
+      ]
+    },
+    "build-frontend@fugu": {
+      "model": "gpt-6-luna",
+      "effort": "max",
+      "native_confirmation": [
+        "\u2022 Model changed to gpt-6-luna max for this",
+        "GPT-6-Luna max \u00b7 ~/dev/nebius_hack \u00b7 Build fro\u2026"
+      ]
+    },
+    "delivery-release@fugu": {
+      "model": "gpt-6-luna",
+      "effort": "max",
+      "native_confirmation": [
+        "\u2022 Model changed to gpt-6-luna max for this session only",
+        "GPT-6-Luna max \u00b7 ~/dev/nebius_hack \u00b7 Recover session identity"
+      ]
+    }
+  },
+  "validation": {
+    "rig_spec": "valid, zero errors",
+    "installer_tests": "4 passed",
+    "both_profile_parse_probes": "exit 0"
+  },
+  "mode": "native session-only changes plus audited persisted model and dedicated profile effort; no restarts"
+}

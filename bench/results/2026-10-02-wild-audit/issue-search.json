@@ -1,0 +1,1082 @@
+{
+  "retrieved_utc": "2026-10-02T11:59:30.351070+00:00",
+  "queries": [
+    {
+      "query": "repo:modelcontextprotocol/servers filesystem symlink",
+      "total_count": 76,
+      "incomplete_results": false,
+      "items": [
+        {
+          "number": 4915,
+          "title": "fix(filesystem): name a broken symlink instead of blaming its parent",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4915",
+          "created_at": "2026-09-30T09:35:28Z",
+          "updated_at": "2026-09-30T09:35:36Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4915",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4915",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4915.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4915.patch",
+            "merged_at": null
+          },
+          "body_sha256": "767e67bc7f2a4edc46de6ac624d84e3ea20b9a7aea98e94de3fec60620dbd7df"
+        },
+        {
+          "number": 3678,
+          "title": "feat(filesystem): add --follow-symlinks and --symlink-depth options",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/3678",
+          "created_at": "2026-03-22T21:54:36Z",
+          "updated_at": "2026-06-13T17:40:18Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/3678",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/3678",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/3678.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/3678.patch",
+            "merged_at": null
+          },
+          "body_sha256": "fc3eeca84d4e9c0b0fa5520740d156dbb778bfbdef63b97c54fd583fd2322b23"
+        },
+        {
+          "number": 4732,
+          "title": "fix(filesystem): do not follow symlinks when reporting sizes in list_directory_with_sizes",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4732",
+          "created_at": "2026-09-01T14:37:40Z",
+          "updated_at": "2026-09-01T14:37:40Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4732",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4732",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4732.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4732.patch",
+            "merged_at": null
+          },
+          "body_sha256": "9bd527179a88ee81ebea1db5ca0961c187d91a27db9dfcfff893c822edda86fb"
+        },
+        {
+          "number": 3457,
+          "title": "Filesystem MCP follow symlinks option",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/issues/3457",
+          "created_at": "2026-03-03T19:58:06Z",
+          "updated_at": "2026-03-22T21:27:10Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "94db64f41c7abc0a8eb36fed61dd3519e98f8fc3d43cec5b8b407023b75c750b"
+        },
+        {
+          "number": 4911,
+          "title": "fix(filesystem): let a list_directory_with_sizes stat failure reach the caller",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4911",
+          "created_at": "2026-09-29T13:45:12Z",
+          "updated_at": "2026-09-29T13:45:12Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4911",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4911",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4911.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4911.patch",
+            "merged_at": null
+          },
+          "body_sha256": "2ac9dd75f74c9040cecccb78c6d65516d485aa87fe0121f9011c537ef261450f"
+        },
+        {
+          "number": 4516,
+          "title": "fix(filesystem): write in place to preserve birthtime and file identity (#4512)",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4516",
+          "created_at": "2026-07-11T16:00:12Z",
+          "updated_at": "2026-09-18T18:51:24Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4516",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4516",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4516.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4516.patch",
+            "merged_at": null
+          },
+          "body_sha256": "41d5f240bf437f8da050c962fd60ee8e3110244de075720c4a58cd6d9a54e6e4"
+        },
+        {
+          "number": 4512,
+          "title": "filesystem: `write_file`/`edit_file` destroy file creation time (birthtime) and file identity due to atomic-rename write strategy",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/issues/4512",
+          "created_at": "2026-07-10T14:23:17Z",
+          "updated_at": "2026-09-24T15:40:02Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "cf84809b0266ed7efdfd3f6a5d0ef4749c15bbaa4a9e5b6b33a778a04e089119"
+        },
+        {
+          "number": 4684,
+          "title": "fix(filesystem): tolerate quoted, spaced, and 8.3 Windows paths in config args (#447)",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4684",
+          "created_at": "2026-08-22T06:26:40Z",
+          "updated_at": "2026-08-22T06:26:45Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4684",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4684",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4684.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4684.patch",
+            "merged_at": null
+          },
+          "body_sha256": "ce5347a43e0f9b012256615230aeb60296222e5a78d288888e3231424c1119a3"
+        },
+        {
+          "number": 3948,
+          "title": "fix(filesystem): tolerate Windows realpath ENOENT",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/3948",
+          "created_at": "2026-04-14T12:37:41Z",
+          "updated_at": "2026-06-13T17:38:20Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/3948",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/3948",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/3948.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/3948.patch",
+            "merged_at": null
+          },
+          "body_sha256": "bf167d29bd1925030155f1e2517a893daaff73d4c8f20b8cb4a379a8b61820e6"
+        },
+        {
+          "number": 4145,
+          "title": "fix(filesystem): preserve root aliases from MCP roots",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4145",
+          "created_at": "2026-05-12T13:59:49Z",
+          "updated_at": "2026-05-25T13:49:42Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4145",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4145",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4145.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4145.patch",
+            "merged_at": null
+          },
+          "body_sha256": "af25a7f5238d7b032d67a21cd57641fc01cd879af409281e47691fd69d181a73"
+        }
+      ]
+    },
+    {
+      "query": "repo:modelcontextprotocol/servers fetch SSRF",
+      "total_count": 25,
+      "incomplete_results": false,
+      "items": [
+        {
+          "number": 4773,
+          "title": "fix(fetch): harden URL fetching against SSRF",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4773",
+          "created_at": "2026-09-07T16:18:22Z",
+          "updated_at": "2026-09-10T23:00:46Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4773",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4773",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4773.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4773.patch",
+            "merged_at": null
+          },
+          "body_sha256": "3096b190e0ba0a9821a55a0eb0783e44be66fbef0b803a219f8d9e181a69c2b2"
+        },
+        {
+          "number": 4803,
+          "title": "Harden fetch SSRF protection and git repo_path restriction",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4803",
+          "created_at": "2026-09-13T18:21:40Z",
+          "updated_at": "2026-09-13T18:21:40Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4803",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4803",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4803.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4803.patch",
+            "merged_at": null
+          },
+          "body_sha256": "eb5ba62a3dc5ed9360f13451f993ceb0408403e805fa7df714c74d81c5ea9605"
+        },
+        {
+          "number": 4890,
+          "title": "fix(fetch): guard against private-IP and cloud metadata SSRF (#4838)",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4890",
+          "created_at": "2026-09-28T19:54:50Z",
+          "updated_at": "2026-09-29T06:09:30Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4890",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4890",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4890.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4890.patch",
+            "merged_at": null
+          },
+          "body_sha256": "6f2b87295e7a00c07a88de9ce8b60e75adf1f4fb0ee824aec77f85de7830772e"
+        },
+        {
+          "number": 4838,
+          "title": "`mcp-server-fetch` follows redirects with no private-IP / metadata SSRF guard |",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/issues/4838",
+          "created_at": "2026-09-22T19:06:52Z",
+          "updated_at": "2026-09-23T13:00:40Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "f15850e95cf841c7ae0df96348464eb5b069bee8a2edff71ae06e6fc6d3ee983"
+        },
+        {
+          "number": 3180,
+          "title": "feat(fetch): add SSRF protection and comprehensive security test suite",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/3180",
+          "created_at": "2026-01-05T09:41:02Z",
+          "updated_at": "2026-09-25T15:01:54Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/3180",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/3180",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/3180.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/3180.patch",
+            "merged_at": null
+          },
+          "body_sha256": "285848d75eac0c6eeb748366c2041668f47fd3c73dd77bc0c48db399ac8c6dc8"
+        },
+        {
+          "number": 4497,
+          "title": "fix(fetch): block SSRF to internal/metadata IPs by default",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4497",
+          "created_at": "2026-07-08T14:45:16Z",
+          "updated_at": "2026-08-13T02:14:16Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4497",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4497",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4497.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4497.patch",
+            "merged_at": null
+          },
+          "body_sha256": "b747e863056ae7f6734b297344e9b7604aa46a1af66ec61d085acc9c7de3bc7d"
+        },
+        {
+          "number": 3741,
+          "title": "Security Hardening Recommendations for Fetch Server (SSRF Prevention)",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/issues/3741",
+          "created_at": "2026-03-28T05:29:21Z",
+          "updated_at": "2026-06-21T00:25:39Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "28b9c4766d4e32dd2453a8de7cc21cadf10a7df89f72fddb52f3116f7266b456"
+        },
+        {
+          "number": 4226,
+          "title": "fix(fetch): block private network URL fetches",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/4226",
+          "created_at": "2026-05-22T02:33:26Z",
+          "updated_at": "2026-06-21T02:43:03Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/4226",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/4226",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/4226.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/4226.patch",
+            "merged_at": null
+          },
+          "body_sha256": "6fec72db323ae470a5269b8bcd4d28c2103700294d0f196fa1bfde2efed44607"
+        },
+        {
+          "number": 4492,
+          "title": "GHSAs",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/issues/4492",
+          "created_at": "2026-07-08T00:52:13Z",
+          "updated_at": "2026-09-04T04:37:35Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "fabdaa34daad2cc13ef0835347d51099ae2bef8ae59c4b269e668a7a46b8f439"
+        },
+        {
+          "number": 3179,
+          "title": "fix(fetch): add configurable SSL certificate verification",
+          "state": "open",
+          "html_url": "https://github.com/modelcontextprotocol/servers/pull/3179",
+          "created_at": "2026-01-05T09:28:34Z",
+          "updated_at": "2026-09-28T10:09:58Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/modelcontextprotocol/servers/pulls/3179",
+            "html_url": "https://github.com/modelcontextprotocol/servers/pull/3179",
+            "diff_url": "https://github.com/modelcontextprotocol/servers/pull/3179.diff",
+            "patch_url": "https://github.com/modelcontextprotocol/servers/pull/3179.patch",
+            "merged_at": null
+          },
+          "body_sha256": "ce9cbfb5fcdfb3fc1ba9a131f1b1b53fcd8a7a4333ac9c4a87e11b0aefde9ae6"
+        }
+      ]
+    },
+    {
+      "query": "repo:microsoft/playwright-mcp security",
+      "total_count": 130,
+      "incomplete_results": false,
+      "items": [
+        {
+          "number": 1777,
+          "title": "chore(deps-dev): bump fast-uri from 3.1.4 to 3.1.8",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/pull/1777",
+          "created_at": "2026-09-28T22:56:36Z",
+          "updated_at": "2026-09-28T23:01:32Z",
+          "closed_at": "2026-09-28T23:01:30Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/playwright-mcp/pulls/1777",
+            "html_url": "https://github.com/microsoft/playwright-mcp/pull/1777",
+            "diff_url": "https://github.com/microsoft/playwright-mcp/pull/1777.diff",
+            "patch_url": "https://github.com/microsoft/playwright-mcp/pull/1777.patch",
+            "merged_at": "2026-09-28T23:01:30Z"
+          },
+          "body_sha256": "0ae928fe1bbee6df82bab24f5a9299900e337ccae5b93e8fa6bdaeea2b2936f9"
+        },
+        {
+          "number": 1733,
+          "title": "chore(deps-dev): bump fast-uri from 3.1.4 to 3.1.7",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/pull/1733",
+          "created_at": "2026-09-02T21:01:17Z",
+          "updated_at": "2026-09-11T17:57:36Z",
+          "closed_at": "2026-09-11T17:57:26Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/playwright-mcp/pulls/1733",
+            "html_url": "https://github.com/microsoft/playwright-mcp/pull/1733",
+            "diff_url": "https://github.com/microsoft/playwright-mcp/pull/1733.diff",
+            "patch_url": "https://github.com/microsoft/playwright-mcp/pull/1733.patch",
+            "merged_at": null
+          },
+          "body_sha256": "229453a29bf9092f9afe9a33a309153de34fe445ad9245c631d057c019990c96"
+        },
+        {
+          "number": 1770,
+          "title": "Upstream issue draft \u2014 microsoft/playwright-mcp",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/issues/1770",
+          "created_at": "2026-09-24T21:58:13Z",
+          "updated_at": "2026-09-30T23:28:56Z",
+          "closed_at": "2026-09-30T23:28:56Z",
+          "pull_request": null,
+          "body_sha256": "a75709ec57069c9decedc4a72bb41134f337db6fbe2897e9ab4e4884a00d2100"
+        },
+        {
+          "number": 1699,
+          "title": "fix(security): require a bearer token instead of shipping an open server",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/pull/1699",
+          "created_at": "2026-07-29T22:47:20Z",
+          "updated_at": "2026-07-30T03:58:49Z",
+          "closed_at": "2026-07-29T22:47:29Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/playwright-mcp/pulls/1699",
+            "html_url": "https://github.com/microsoft/playwright-mcp/pull/1699",
+            "diff_url": "https://github.com/microsoft/playwright-mcp/pull/1699.diff",
+            "patch_url": "https://github.com/microsoft/playwright-mcp/pull/1699.patch",
+            "merged_at": null
+          },
+          "body_sha256": "b035c801b393d07d99efe2bd80c28315fcafb091bed364f62246c4ec5bff05fc"
+        },
+        {
+          "number": 1724,
+          "title": "Docs: show HOL Guard protection for a supported Playwright MCP client",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/issues/1724",
+          "created_at": "2026-08-24T22:47:09Z",
+          "updated_at": "2026-08-26T18:34:50Z",
+          "closed_at": "2026-08-26T18:34:50Z",
+          "pull_request": null,
+          "body_sha256": "4c2449dc2362c6fc075aa9663098dcc76828e60fe1a4652be07308ae99be86f2"
+        },
+        {
+          "number": 1758,
+          "title": "Allowed origins and granted permissions decide what the browser may touch. Who decides what the agent may?",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/issues/1758",
+          "created_at": "2026-09-18T13:43:09Z",
+          "updated_at": "2026-09-25T18:51:26Z",
+          "closed_at": "2026-09-25T18:51:26Z",
+          "pull_request": null,
+          "body_sha256": "ba4c351e4aa9a6fa0f690f8b28dddb99d9ffb7c161ea7a39bdb683952db729af"
+        },
+        {
+          "number": 1744,
+          "title": "chore(deps-dev): bump hono from 4.12.31 to 4.13.7",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/pull/1744",
+          "created_at": "2026-09-09T22:51:19Z",
+          "updated_at": "2026-09-11T17:56:57Z",
+          "closed_at": "2026-09-11T17:56:47Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/playwright-mcp/pulls/1744",
+            "html_url": "https://github.com/microsoft/playwright-mcp/pull/1744",
+            "diff_url": "https://github.com/microsoft/playwright-mcp/pull/1744.diff",
+            "patch_url": "https://github.com/microsoft/playwright-mcp/pull/1744.patch",
+            "merged_at": null
+          },
+          "body_sha256": "909ecc32bb656d1651d71b18dc2e0022dd428de3e9aabc5050701b3ff35c26d0"
+        },
+        {
+          "number": 1772,
+          "title": "[Feature] Server-side tool filtering (--include-tools / --exclude-tools)",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/issues/1772",
+          "created_at": "2026-09-25T20:31:50Z",
+          "updated_at": "2026-09-30T23:28:47Z",
+          "closed_at": "2026-09-30T23:28:47Z",
+          "pull_request": null,
+          "body_sha256": "96969f511d8aef21e0b99802e241765cfbc2378859632906842d3aedd96e09d6"
+        },
+        {
+          "number": 1717,
+          "title": "Pin GitHub Actions to full-length commit SHAs",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/pull/1717",
+          "created_at": "2026-08-19T13:21:44Z",
+          "updated_at": "2026-08-19T19:38:09Z",
+          "closed_at": "2026-08-19T19:38:09Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/playwright-mcp/pulls/1717",
+            "html_url": "https://github.com/microsoft/playwright-mcp/pull/1717",
+            "diff_url": "https://github.com/microsoft/playwright-mcp/pull/1717.diff",
+            "patch_url": "https://github.com/microsoft/playwright-mcp/pull/1717.patch",
+            "merged_at": "2026-08-19T19:38:09Z"
+          },
+          "body_sha256": "806da2c8adb7fb1c83599656654263e82fdf0799dd1823a39d2becdf06818b72"
+        },
+        {
+          "number": 1775,
+          "title": "chore(deps-dev): bump ip-address from 10.4.0 to 10.7.2",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/playwright-mcp/pull/1775",
+          "created_at": "2026-09-28T21:11:06Z",
+          "updated_at": "2026-09-28T23:01:10Z",
+          "closed_at": "2026-09-28T23:01:08Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/playwright-mcp/pulls/1775",
+            "html_url": "https://github.com/microsoft/playwright-mcp/pull/1775",
+            "diff_url": "https://github.com/microsoft/playwright-mcp/pull/1775.diff",
+            "patch_url": "https://github.com/microsoft/playwright-mcp/pull/1775.patch",
+            "merged_at": "2026-09-28T23:01:08Z"
+          },
+          "body_sha256": "27b0aa46bc52f93cdfd3a2adcad7138813e10809eed1d9db203018ccd5aee533"
+        }
+      ]
+    },
+    {
+      "query": "repo:microsoft/markitdown MCP security",
+      "total_count": 12,
+      "incomplete_results": false,
+      "items": [
+        {
+          "number": 2440,
+          "title": "markitdown-mcp: mandatory markitdown[all] breaks native Windows ARM64 installation",
+          "state": "open",
+          "html_url": "https://github.com/microsoft/markitdown/issues/2440",
+          "created_at": "2026-09-10T09:45:05Z",
+          "updated_at": "2026-09-11T17:08:18Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "c9d89f75cfe324a51050eae8b284c36325b19112c062819112bbd3506565d290"
+        },
+        {
+          "number": 1927,
+          "title": "fix(mcp): block file:// URIs by default to prevent local file read  (#1905)",
+          "state": "open",
+          "html_url": "https://github.com/microsoft/markitdown/pull/1927",
+          "created_at": "2026-05-30T01:55:08Z",
+          "updated_at": "2026-05-30T01:55:08Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/markitdown/pulls/1927",
+            "html_url": "https://github.com/microsoft/markitdown/pull/1927",
+            "diff_url": "https://github.com/microsoft/markitdown/pull/1927.diff",
+            "patch_url": "https://github.com/microsoft/markitdown/pull/1927.patch",
+            "merged_at": null
+          },
+          "body_sha256": "181ac1d5a945afe77ef9738467b4be3fb0dcc721da6ef803ad69290fc9fd1d39"
+        },
+        {
+          "number": 2077,
+          "title": "add Python 3.14 support and bump youtube-transcript-api for compatibility",
+          "state": "open",
+          "html_url": "https://github.com/microsoft/markitdown/pull/2077",
+          "created_at": "2026-06-05T07:20:08Z",
+          "updated_at": "2026-09-10T15:22:47Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/markitdown/pulls/2077",
+            "html_url": "https://github.com/microsoft/markitdown/pull/2077",
+            "diff_url": "https://github.com/microsoft/markitdown/pull/2077.diff",
+            "patch_url": "https://github.com/microsoft/markitdown/pull/2077.patch",
+            "merged_at": null
+          },
+          "body_sha256": "78aa15919942bb64a5587c4d392fac49118ad3ea93e4fc0e5248da3d85809001"
+        },
+        {
+          "number": 1905,
+          "title": "Local File Read via Unsafe File Path Resolution in convert_to_markdown Tool",
+          "state": "open",
+          "html_url": "https://github.com/microsoft/markitdown/issues/1905",
+          "created_at": "2026-05-22T11:07:47Z",
+          "updated_at": "2026-05-30T02:05:21Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "1e300995e73bd45859af7052f72bd216dad2f444435d877e63304fa61323f4e3"
+        },
+        {
+          "number": 1565,
+          "title": "Security: XXE vulnerability in DOCX pre-processor (ET.fromstring on untrusted input)",
+          "state": "open",
+          "html_url": "https://github.com/microsoft/markitdown/issues/1565",
+          "created_at": "2026-02-20T22:29:06Z",
+          "updated_at": "2026-03-25T14:56:30Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "0408812c707228390f62962b5c8eb213292b6fd81072da043f67bf971703d3ad"
+        },
+        {
+          "number": 2363,
+          "title": "fix(mcp): migrate to MCP SDK 2.x so 2026-07-28 clients can connect",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/markitdown/pull/2363",
+          "created_at": "2026-09-01T11:37:22Z",
+          "updated_at": "2026-09-14T21:09:27Z",
+          "closed_at": "2026-09-10T19:20:11Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/markitdown/pulls/2363",
+            "html_url": "https://github.com/microsoft/markitdown/pull/2363",
+            "diff_url": "https://github.com/microsoft/markitdown/pull/2363.diff",
+            "patch_url": "https://github.com/microsoft/markitdown/pull/2363.patch",
+            "merged_at": "2026-09-10T19:20:11Z"
+          },
+          "body_sha256": "2200041acdd94eae64f17090e01c2d87c2a219e7b65f260ce368134bc14f30e4"
+        },
+        {
+          "number": 2420,
+          "title": "Docker build fails: python:3.13-slim-bullseye base image is EOL",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/markitdown/issues/2420",
+          "created_at": "2026-09-08T13:11:26Z",
+          "updated_at": "2026-09-09T22:32:42Z",
+          "closed_at": "2026-09-09T22:32:42Z",
+          "pull_request": null,
+          "body_sha256": "c71a4c192033fe4eaef713c60c25e2e3dac5b8068494a09c6ff5d63658784314"
+        },
+        {
+          "number": 2452,
+          "title": "Reject UNC and Windows device paths (similar to how netlocks are alre\u2026",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/markitdown/pull/2452",
+          "created_at": "2026-09-10T21:59:02Z",
+          "updated_at": "2026-09-10T22:02:37Z",
+          "closed_at": "2026-09-10T22:02:35Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/markitdown/pulls/2452",
+            "html_url": "https://github.com/microsoft/markitdown/pull/2452",
+            "diff_url": "https://github.com/microsoft/markitdown/pull/2452.diff",
+            "patch_url": "https://github.com/microsoft/markitdown/pull/2452.patch",
+            "merged_at": "2026-09-10T22:02:35Z"
+          },
+          "body_sha256": "017fb26874815f6898f256781ddf1a277c0072604cbd0b5b789fe35cee8951e3"
+        },
+        {
+          "number": 1349,
+          "title": "Add MseeP.ai badge",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/markitdown/pull/1349",
+          "created_at": "2025-07-17T08:54:12Z",
+          "updated_at": "2026-09-06T00:07:09Z",
+          "closed_at": "2026-09-06T00:07:09Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/microsoft/markitdown/pulls/1349",
+            "html_url": "https://github.com/microsoft/markitdown/pull/1349",
+            "diff_url": "https://github.com/microsoft/markitdown/pull/1349.diff",
+            "patch_url": "https://github.com/microsoft/markitdown/pull/1349.patch",
+            "merged_at": null
+          },
+          "body_sha256": "8d2387dc515ca674b4f47bfcae8b2b80f1dddeff4e57540d30926db81f2a54a5"
+        },
+        {
+          "number": 1674,
+          "title": "Your MCP server earned an A security grade on Loaditout",
+          "state": "closed",
+          "html_url": "https://github.com/microsoft/markitdown/issues/1674",
+          "created_at": "2026-04-07T13:22:45Z",
+          "updated_at": "2026-06-26T22:54:35Z",
+          "closed_at": "2026-06-26T22:54:35Z",
+          "pull_request": null,
+          "body_sha256": "6ee9e7d9a7fe40889313cffde895b39f54901d5e92256253114f0ccf3f8e8cd9"
+        }
+      ]
+    },
+    {
+      "query": "repo:github/github-mcp-server read only bypass",
+      "total_count": 36,
+      "incomplete_results": false,
+      "items": [
+        {
+          "number": 3344,
+          "title": "feat: Support path-scoped mutation guardrails (--deny-paths) to protect .github/workflows and root configs",
+          "state": "open",
+          "html_url": "https://github.com/github/github-mcp-server/issues/3344",
+          "created_at": "2026-09-28T23:59:32Z",
+          "updated_at": "2026-09-30T12:54:05Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "8c05c422be744914e022f1972d0cd4f1f8ea4c5d0cdd35cf713e2eb04757e534"
+        },
+        {
+          "number": 3231,
+          "title": "Add a patch-safe file update tool for large files",
+          "state": "open",
+          "html_url": "https://github.com/github/github-mcp-server/issues/3231",
+          "created_at": "2026-09-06T17:17:25Z",
+          "updated_at": "2026-09-25T05:51:32Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "ca2da93e80fc100bfea1d46a3ad25191301e1a2814a9eeab56961db1de5a6feb"
+        },
+        {
+          "number": 3312,
+          "title": "create_or_update_file cannot represent true binary content \u2014 no encoding parameter, JSON string requires valid UTF-8",
+          "state": "open",
+          "html_url": "https://github.com/github/github-mcp-server/issues/3312",
+          "created_at": "2026-09-19T21:28:44Z",
+          "updated_at": "2026-09-26T14:28:27Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "5a957273b3897174b03c9c86e5e1cffda7f442ae45d3aa70332b31fdb1edd3a1"
+        },
+        {
+          "number": 2761,
+          "title": "Optional \"Receipt Required\" guard for destructive tools (delete_repo, permissions)",
+          "state": "open",
+          "html_url": "https://github.com/github/github-mcp-server/issues/2761",
+          "created_at": "2026-06-24T05:39:23Z",
+          "updated_at": "2026-08-23T20:25:35Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "2a281568d752f229ab9c64a4144d1a379a0ca0a4e8537ace9fa1ca56c404a8ac"
+        },
+        {
+          "number": 2136,
+          "title": "Security policy template for GitHub MCP server",
+          "state": "open",
+          "html_url": "https://github.com/github/github-mcp-server/issues/2136",
+          "created_at": "2026-03-04T18:22:47Z",
+          "updated_at": "2026-09-01T14:28:01Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "2625b5dbd29ab3a6cf7dc91ed82ff4482cb8ca16420037b3a8b374d4fbc77067"
+        },
+        {
+          "number": 3109,
+          "title": "fix(lockdown): harden pull_request_read get_commits handling",
+          "state": "closed",
+          "html_url": "https://github.com/github/github-mcp-server/pull/3109",
+          "created_at": "2026-08-19T12:16:47Z",
+          "updated_at": "2026-08-19T13:39:30Z",
+          "closed_at": "2026-08-19T12:41:46Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/github/github-mcp-server/pulls/3109",
+            "html_url": "https://github.com/github/github-mcp-server/pull/3109",
+            "diff_url": "https://github.com/github/github-mcp-server/pull/3109.diff",
+            "patch_url": "https://github.com/github/github-mcp-server/pull/3109.patch",
+            "merged_at": "2026-08-19T12:41:46Z"
+          },
+          "body_sha256": "9cd60ea546cc4af91f0741c3263038053cc5742f3285105066da174fd5f217cd"
+        },
+        {
+          "number": 2408,
+          "title": "fix(sanitize): preserve angle brackets inside code blocks and inline code",
+          "state": "open",
+          "html_url": "https://github.com/github/github-mcp-server/pull/2408",
+          "created_at": "2026-04-30T02:39:14Z",
+          "updated_at": "2026-06-01T00:36:05Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/github/github-mcp-server/pulls/2408",
+            "html_url": "https://github.com/github/github-mcp-server/pull/2408",
+            "diff_url": "https://github.com/github/github-mcp-server/pull/2408.diff",
+            "patch_url": "https://github.com/github/github-mcp-server/pull/2408.patch",
+            "merged_at": null
+          },
+          "body_sha256": "5c6d8ec61a51af75abf01df895c3fb3ee2b14fe1fea2a6ee33e701475f83b05b"
+        },
+        {
+          "number": 1048,
+          "title": "MCP Governance - Allow/Deny List for MCP for Organizations and Teams",
+          "state": "open",
+          "html_url": "https://github.com/github/github-mcp-server/issues/1048",
+          "created_at": "2025-09-04T20:42:40Z",
+          "updated_at": "2026-09-05T12:35:17Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "6a9a78de0133b961b8f25091ff11e7f8ef1fe15f935e322b1715f1b02add49ff"
+        },
+        {
+          "number": 3370,
+          "title": "build(deps): remediate npm alerts and refresh safe dependencies",
+          "state": "closed",
+          "html_url": "https://github.com/github/github-mcp-server/pull/3370",
+          "created_at": "2026-10-02T08:49:01Z",
+          "updated_at": "2026-10-02T09:09:37Z",
+          "closed_at": "2026-10-02T09:09:33Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/github/github-mcp-server/pulls/3370",
+            "html_url": "https://github.com/github/github-mcp-server/pull/3370",
+            "diff_url": "https://github.com/github/github-mcp-server/pull/3370.diff",
+            "patch_url": "https://github.com/github/github-mcp-server/pull/3370.patch",
+            "merged_at": "2026-10-02T09:09:33Z"
+          },
+          "body_sha256": "627fcf58d4e213fadb23a13ead20a1a434b12f5b9525ad2cb5ce35464d75b957"
+        },
+        {
+          "number": 3177,
+          "title": "fix(sanitize): preserve Markdown body fidelity on read surfaces",
+          "state": "closed",
+          "html_url": "https://github.com/github/github-mcp-server/pull/3177",
+          "created_at": "2026-08-28T11:45:42Z",
+          "updated_at": "2026-09-03T14:08:41Z",
+          "closed_at": "2026-09-03T13:24:01Z",
+          "pull_request": {
+            "url": "https://api.github.com/repos/github/github-mcp-server/pulls/3177",
+            "html_url": "https://github.com/github/github-mcp-server/pull/3177",
+            "diff_url": "https://github.com/github/github-mcp-server/pull/3177.diff",
+            "patch_url": "https://github.com/github/github-mcp-server/pull/3177.patch",
+            "merged_at": "2026-09-03T13:24:01Z"
+          },
+          "body_sha256": "3f06e518d572d3950739885f2fce0ea82bdd1fcc29d768a209325ec0f08f322e"
+        }
+      ]
+    },
+    {
+      "query": "repo:anthropics/skills security",
+      "total_count": 136,
+      "incomplete_results": false,
+      "items": [
+        {
+          "number": 1837,
+          "title": "security(mcp-builder): use defusedxml in evaluation.py",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1837",
+          "created_at": "2026-09-26T02:38:13Z",
+          "updated_at": "2026-09-27T13:55:43Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1837",
+            "html_url": "https://github.com/anthropics/skills/pull/1837",
+            "diff_url": "https://github.com/anthropics/skills/pull/1837.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1837.patch",
+            "merged_at": null
+          },
+          "body_sha256": "11cedb28296a94f42573d98b8d9957ef09f9fca11ede1faa17e9ee180eb16beb"
+        },
+        {
+          "number": 1614,
+          "title": "Add web-security-audit skill",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1614",
+          "created_at": "2026-08-20T02:00:10Z",
+          "updated_at": "2026-08-24T08:20:52Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1614",
+            "html_url": "https://github.com/anthropics/skills/pull/1614",
+            "diff_url": "https://github.com/anthropics/skills/pull/1614.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1614.patch",
+            "merged_at": null
+          },
+          "body_sha256": "63fad282450042ddf669f9c6e87d64f5fdfc4004c8528254e92130c0f6868a65"
+        },
+        {
+          "number": 1648,
+          "title": "feat: add HOL Guard security skill",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1648",
+          "created_at": "2026-08-25T10:36:58Z",
+          "updated_at": "2026-08-25T10:36:58Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1648",
+            "html_url": "https://github.com/anthropics/skills/pull/1648",
+            "diff_url": "https://github.com/anthropics/skills/pull/1648.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1648.patch",
+            "merged_at": null
+          },
+          "body_sha256": "6761ee29067d72bf279bd43f45cfaf3f52d173663656a7eaa1af4d523ea8e880"
+        },
+        {
+          "number": 1378,
+          "title": "Create SECURITY.md",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1378",
+          "created_at": "2026-07-01T21:03:21Z",
+          "updated_at": "2026-07-01T21:03:21Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1378",
+            "html_url": "https://github.com/anthropics/skills/pull/1378",
+            "diff_url": "https://github.com/anthropics/skills/pull/1378.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1378.patch",
+            "merged_at": null
+          },
+          "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "number": 1649,
+          "title": "fix(skills): comprehensive stability, validation, security, and documentation fixes across 20+ issues",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1649",
+          "created_at": "2026-08-25T12:18:56Z",
+          "updated_at": "2026-08-25T12:25:30Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1649",
+            "html_url": "https://github.com/anthropics/skills/pull/1649",
+            "diff_url": "https://github.com/anthropics/skills/pull/1649.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1649.patch",
+            "merged_at": null
+          },
+          "body_sha256": "db79fbe8526298af7eff880f0898db78c6a0bcca42b254ed0be42c2beea05596"
+        },
+        {
+          "number": 755,
+          "title": "Add kastell-server-security skill",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/755",
+          "created_at": "2026-03-24T13:13:07Z",
+          "updated_at": "2026-04-02T07:39:20Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/755",
+            "html_url": "https://github.com/anthropics/skills/pull/755",
+            "diff_url": "https://github.com/anthropics/skills/pull/755.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/755.patch",
+            "merged_at": null
+          },
+          "body_sha256": "ace8c2a68a72fe1b005bb76d62bef1956ff343bef1ea7aaaf26142a166c72742"
+        },
+        {
+          "number": 1346,
+          "title": "Add compuute-scan skill \u2014 MCP server security scanner",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1346",
+          "created_at": "2026-06-24T05:51:26Z",
+          "updated_at": "2026-06-24T05:51:26Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1346",
+            "html_url": "https://github.com/anthropics/skills/pull/1346",
+            "diff_url": "https://github.com/anthropics/skills/pull/1346.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1346.patch",
+            "merged_at": null
+          },
+          "body_sha256": "111bb582c26c9b632b412e892c04457f8708ea77845b52344219ad5703c74df9"
+        },
+        {
+          "number": 1421,
+          "title": "feat(skills): add auditx security and quality scanner skill",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1421",
+          "created_at": "2026-07-10T17:40:56Z",
+          "updated_at": "2026-07-10T17:40:56Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1421",
+            "html_url": "https://github.com/anthropics/skills/pull/1421",
+            "diff_url": "https://github.com/anthropics/skills/pull/1421.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1421.patch",
+            "merged_at": null
+          },
+          "body_sha256": "62c29424211b40b8dbe272b1316acaefe20c0aad04226a0cf0f626cfbb137060"
+        },
+        {
+          "number": 1257,
+          "title": "Add VIGIL: Onchain security scanner for DeFi on Base",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/1257",
+          "created_at": "2026-06-03T14:37:40Z",
+          "updated_at": "2026-06-03T14:37:40Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/1257",
+            "html_url": "https://github.com/anthropics/skills/pull/1257",
+            "diff_url": "https://github.com/anthropics/skills/pull/1257.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/1257.patch",
+            "merged_at": null
+          },
+          "body_sha256": "3969374a5f08f749f7b583d3e1631089a829e760ab9a8cfe4324b0de58d1b214"
+        },
+        {
+          "number": 347,
+          "title": "Add agentguard skill for AI agent security",
+          "state": "open",
+          "html_url": "https://github.com/anthropics/skills/pull/347",
+          "created_at": "2026-02-06T04:33:25Z",
+          "updated_at": "2026-02-06T04:33:25Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/anthropics/skills/pulls/347",
+            "html_url": "https://github.com/anthropics/skills/pull/347",
+            "diff_url": "https://github.com/anthropics/skills/pull/347.diff",
+            "patch_url": "https://github.com/anthropics/skills/pull/347.patch",
+            "merged_at": null
+          },
+          "body_sha256": "752ded3c11d082437216b1baca915bea59135771864289eac1e2cc93fec2a49f"
+        }
+      ]
+    },
+    {
+      "query": "repo:obra/superpowers security",
+      "total_count": 206,
+      "incomplete_results": false,
+      "items": [
+        {
+          "number": 1976,
+          "title": "Security: replace exec()/execSync with execFile/spawnSync",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/pull/1976",
+          "created_at": "2026-07-12T18:44:57Z",
+          "updated_at": "2026-09-20T23:07:53Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/obra/superpowers/pulls/1976",
+            "html_url": "https://github.com/obra/superpowers/pull/1976",
+            "diff_url": "https://github.com/obra/superpowers/pull/1976.diff",
+            "patch_url": "https://github.com/obra/superpowers/pull/1976.patch",
+            "merged_at": null
+          },
+          "body_sha256": "ff44638d95ef33ba6db85bd91efa90292b0e1321a8e1110d8cf31b68b9d16d5e"
+        },
+        {
+          "number": 2432,
+          "title": "writing-plans: verifying a security boundary needs adversarial probes (encoded paths, concurrency), not happy-path negatives",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/issues/2432",
+          "created_at": "2026-09-30T22:13:55Z",
+          "updated_at": "2026-09-30T22:13:55Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "737cb8f55e77baccaa34a9c07e54162a166bf0c63303c89ec1ad195841770c85"
+        },
+        {
+          "number": 2431,
+          "title": "subagent-driven-development: \"no second fix wave\" should not cover breakage the final fix wave itself introduced",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/issues/2431",
+          "created_at": "2026-09-30T22:13:53Z",
+          "updated_at": "2026-09-30T22:14:19Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "0d50abcde6cb0298a03ae32c14b12ec2e3d1d36429748757bcaf97d8743380cb"
+        },
+        {
+          "number": 2332,
+          "title": "Workflow has first-class specs/plans but no durable QA/acceptance artifact layer",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/issues/2332",
+          "created_at": "2026-09-18T19:38:04Z",
+          "updated_at": "2026-09-24T15:09:30Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "9c4d188cab0f9f55b3ce43b099b0b1b60d969cbcd68c0a58c6c9cac572ec37b7"
+        },
+        {
+          "number": 2181,
+          "title": "Hermes plugin installation gets blocked with a dangerous verdict",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/issues/2181",
+          "created_at": "2026-08-20T09:29:33Z",
+          "updated_at": "2026-09-03T21:25:34Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "4dc08a1c517bf75c8a9a70f4a62ae048499ba76acd254419e940c516f8e74d30"
+        },
+        {
+          "number": 2356,
+          "title": "Optional parallel tester role in subagent-driven-development's task review step",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/issues/2356",
+          "created_at": "2026-09-21T10:09:09Z",
+          "updated_at": "2026-09-21T17:28:44Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "e26679f5accd51a7b052c51f06cbb053c1d5e4607bcece1d0a803f1a96158308"
+        },
+        {
+          "number": 2041,
+          "title": "Require explicit acknowledgement for plaintext remote Brainstorm binds",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/pull/2041",
+          "created_at": "2026-07-26T02:13:59Z",
+          "updated_at": "2026-09-20T23:08:20Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/obra/superpowers/pulls/2041",
+            "html_url": "https://github.com/obra/superpowers/pull/2041",
+            "diff_url": "https://github.com/obra/superpowers/pull/2041.diff",
+            "patch_url": "https://github.com/obra/superpowers/pull/2041.patch",
+            "merged_at": null
+          },
+          "body_sha256": "d5dc0bc097c4c69c1297b9b2f1096e73a3596b42a1f5dab05dedc1886322eccb"
+        },
+        {
+          "number": 1957,
+          "title": "Harden the BRAINSTORM_OPEN launcher: use execFile instead of parsing the env var into argv",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/issues/1957",
+          "created_at": "2026-07-10T11:20:11Z",
+          "updated_at": "2026-09-20T23:07:47Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "7f18de03c91b74da28fdf4bcd1d211012b24c1bfbdb4b73d41f956d0e65ed13f"
+        },
+        {
+          "number": 1192,
+          "title": "Proposal: `maintaining-roadmap` skill for cross-session priority orchestration",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/issues/1192",
+          "created_at": "2026-04-16T07:44:16Z",
+          "updated_at": "2026-08-07T05:58:00Z",
+          "closed_at": null,
+          "pull_request": null,
+          "body_sha256": "6bcf51e2dd0c755c05ef9e2f2189f6a9f36697e68e6481530194c62ae8c10109"
+        },
+        {
+          "number": 1964,
+          "title": "fix(brainstorm): launch BRAINSTORM_OPEN_CMD without a shell",
+          "state": "open",
+          "html_url": "https://github.com/obra/superpowers/pull/1964",
+          "created_at": "2026-07-11T09:47:20Z",
+          "updated_at": "2026-09-20T23:07:49Z",
+          "closed_at": null,
+          "pull_request": {
+            "url": "https://api.github.com/repos/obra/superpowers/pulls/1964",
+            "html_url": "https://github.com/obra/superpowers/pull/1964",
+            "diff_url": "https://github.com/obra/superpowers/pull/1964.diff",
+            "patch_url": "https://github.com/obra/superpowers/pull/1964.patch",
+            "merged_at": null
+          },
+          "body_sha256": "3b83565f1ca74e26a03226e4a8b0e67a4ec8138b0a4716b3c6f2b8ce1f9e5ca1"
+        }
+      ]
+    }
+  ]
+}

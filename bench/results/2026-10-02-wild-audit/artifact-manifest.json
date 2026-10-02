@@ -1,0 +1,93 @@
+{
+  "files": [
+    {
+      "path": "bench/results/2026-10-02-wild-audit/acquire.py",
+      "sha256": "0e111f69b9c11f034378dd9578047f63ba1f3a2c80e62a2d13942159843c010f",
+      "bytes": 3059
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/acquisition.json",
+      "sha256": "1914ec0c5ad03a2b173c5cedf66ec33fb125893a3bfd210dcb661e4525dc189b",
+      "bytes": 203120
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/advisories.json",
+      "sha256": "bbaa866e822fd67c345467e7be4fe9cd68a2ca44c94759f45b96d9bece4bbf06",
+      "bytes": 7446
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/engine-manifest.json",
+      "sha256": "790669750ee1489f64251f21381300c5052b1842c23923dfe8ecd41aac7adedc",
+      "bytes": 4183
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/issue-search.json",
+      "sha256": "fb8b15f1b162d0ef78572b27cdf09afa5e6fd748f5d36b285cf48bf542c0e782",
+      "bytes": 52123
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/known-issues.json",
+      "sha256": "1bdae04e706b078d2e55b993de7717ae7d05ab3979e5a353ad45aff399a6bee2",
+      "bytes": 2301
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/limits-and-usage.json",
+      "sha256": "5e759be42ee9a336d737a9d3ab6a6d651204248ad2301adb035ff4b86ec6abc3",
+      "bytes": 1739
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/playwright-dependency.json",
+      "sha256": "801120a020cc532c69ffa59388a7134bc7e6af5c2fae2e3d5fcb1a63599493ec",
+      "bytes": 13276
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/scan_static.py",
+      "sha256": "ea058c9eb4f648bb90b5f574255ac82ac6fefb03636fe1d1b3ac8f2a3e6acfcb",
+      "bytes": 3275
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/scope.json",
+      "sha256": "37e64a81916d0186da72934c2b57971aaffa3abd37a0cdf95f608631478ebfd7",
+      "bytes": 2106
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/source-inventory.json",
+      "sha256": "2583ef4cd61922f7ed86489d9c8a398beaaba8fc4036ad68da64ca5f6f985fa6",
+      "bytes": 4164
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/static.json",
+      "sha256": "791d832f7788f7c2b16c73d7db9d4cdb1a65e19eb39c6350e4c30d8c62be328e",
+      "bytes": 11790
+    },
+    {
+      "path": "bench/results/2026-10-02-wild-audit/verify_evidence.py",
+      "sha256": "d7384480e29895cb47b5c93cafbfb7712f94a129970d60b51ba02e74e6b66072",
+      "bytes": 3091
+    },
+    {
+      "path": "docs/security/2026-10-02-maintained-extensions/report.md",
+      "sha256": "3bb84a9abc5951efa303db5954edf68b2c932035a0ba5c5706db95deb6ea62ac",
+      "bytes": 12455
+    },
+    {
+      "path": "docs/security/2026-10-02-maintained-extensions/reproduce.md",
+      "sha256": "75a13b9f12fb8b11256b9a63400f5444a23ec4014dbe52c9aeebe991df1eafbe",
+      "bytes": 3407
+    },
+    {
+      "path": "docs/security/2026-10-02-maintained-extensions/source-inventory.md",
+      "sha256": "b174682a44019815fc7d137184cdbe0ffb396ee5b7292cd7063d4efcd78f5101",
+      "bytes": 5464
+    }
+  ],
+  "excluded": [
+    "/tmp/fugu-wild-sources-20261002/**",
+    "/tmp/fugu-wild-audit-engine-20261002/**",
+    "/tmp/fugu-wild-known/**",
+    "/tmp/fugu-wild-issue-search-full.json",
+    "all __pycache__ and *.pyc"
+  ],
+  "issue_drafts": 0,
+  "confirmed_vulnerabilities": 0
+}

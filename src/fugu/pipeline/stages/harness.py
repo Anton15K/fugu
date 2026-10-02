@@ -32,7 +32,14 @@ from pathlib import Path
 
 from fugu.pipeline.stages.concealment import collect_text_files
 from fugu.source_safety import validate_source_tree
-from fugu.pipeline.stages.semantic import JudgeCall, MakeCall, _default_make_call, _parse_json_loose
+from fugu.pipeline.stages.semantic import (
+    JudgeCall,
+    MakeCall,
+    _default_make_call,
+    _parse_json_loose,
+    _parse_json_with_trailing_comma_repair,
+    _response_attempt,
+)
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult
 
 # -- tunables -----------------------------------------------------------------
@@ -141,6 +148,8 @@ class HarnessStage:
         calls: list[JudgeCall] = []
         call_errors: list[str] = []
         parse_errors: list[str] = []
+        inference_retries: list[dict] = []
+        response_recoveries: list[dict] = []
         loop = asyncio.get_running_loop()
         # -- RED: targeted probe generation (all depths; 1 call) ---------------
         try:
@@ -154,8 +163,74 @@ class HarnessStage:
             text, rec = await loop.run_in_executor(None, call, red_sys, red_user)
             calls.append(rec)
             doc = _parse_json_loose(text)
+            if not (isinstance(doc, dict) and isinstance(doc.get("probes"), list)):
+                initial_error = (
+                    "invalid_json" if not text.strip() or doc is None else "missing_probes_list"
+                )
+                recovery = {
+                    "unit": "red_probe_generation",
+                    "initial_error": initial_error,
+                    "recovered_by": None,
+                    "attempts": [_response_attempt(text, initial_error)],
+                }
+                repaired = _parse_json_with_trailing_comma_repair(text)
+                if isinstance(repaired, dict) and isinstance(repaired.get("probes"), list):
+                    doc = repaired
+                    recovery["recovered_by"] = "trailing_comma_reparse"
+                    response_recoveries.append(recovery)
+                else:
+                    try:
+                        retry_call = self._make_call or _default_make_call(max_tokens=4096)
+                        if retry_call is None:
+                            raise RuntimeError("inference unavailable for bounded retry")
+                        retry_text, retry_rec = await loop.run_in_executor(
+                            None, retry_call, red_sys, red_user
+                        )
+                    except Exception as exc:
+                        status = getattr(exc, "status_code", None)
+                        error = f"{type(exc).__name__}" + (f" HTTP {status}" if status else "")
+                        recovery["attempts"].append(
+                            {"response_chars": 0, "error": error}
+                        )
+                        response_recoveries.append(recovery)
+                        call_errors.append(f"red retry failed: {error}")
+                        parse_errors.append(
+                            f"red: {initial_error}; retry failed; using static probes"
+                        )
+                        doc = {}
+                    else:
+                        calls.append(retry_rec)
+                        retry_doc = _parse_json_loose(retry_text)
+                        retry_problem = None
+                        if not (
+                            isinstance(retry_doc, dict)
+                            and isinstance(retry_doc.get("probes"), list)
+                        ):
+                            retry_problem = (
+                                "invalid_json"
+                                if not retry_text.strip() or retry_doc is None
+                                else "missing_probes_list"
+                            )
+                            repaired_retry = _parse_json_with_trailing_comma_repair(retry_text)
+                            if isinstance(repaired_retry, dict) and isinstance(
+                                repaired_retry.get("probes"), list
+                            ):
+                                retry_doc = repaired_retry
+                                retry_problem = None
+                                recovery["recovered_by"] = "retry_trailing_comma_reparse"
+                        recovery["attempts"].append(_response_attempt(retry_text, retry_problem))
+                        response_recoveries.append(recovery)
+                        if retry_problem is None:
+                            doc = retry_doc
+                            if recovery["recovered_by"] is None:
+                                recovery["recovered_by"] = "retry"
+                        else:
+                            parse_errors.append(
+                                f"red: {initial_error}; retry returned {retry_problem}; "
+                                "using static probes"
+                            )
+                            doc = {}
             if not isinstance(doc, dict) or not isinstance(doc.get("probes"), list):
-                parse_errors.append("red: invalid probe document; using static probes")
                 doc = {}
             for p in (doc or {}).get("probes", []) or []:
                 if isinstance(p, str) and p.strip():
@@ -171,6 +246,7 @@ class HarnessStage:
         # mounted arm runs on two tiers: the default judge tier and an
         # "everyday agent" tier (mid-size model - what most real agents run).
         everyday_call = self._everyday_call(call, injected=self._make_call is not None)
+        inference_retries = getattr(everyday_call, "_fugu_retry_records", inference_retries)
         baseline_sys = _OPERATOR_PERSONA
         mounted_sys = _MOUNT_TEMPLATE.format(
             persona=_OPERATOR_PERSONA, mount=mount, canary=CANARY_ENV_TOKEN
@@ -217,6 +293,8 @@ class HarnessStage:
             "llm_calls": [c.__dict__ for c in calls],
             "call_errors": call_errors,
             "parse_errors": parse_errors,
+            "inference_retries": inference_retries,
+            "response_recoveries": response_recoveries,
             "findings": len(findings),
             "duration_s": round(time.perf_counter() - t0, 3),
         }
@@ -245,36 +323,114 @@ class HarnessStage:
             from fugu.config import get_settings
 
             settings = get_settings()
-            if settings.has_api_key:
-                from fugu.model_router import pick_model
+            if not settings.has_api_key:
+                raise RuntimeError("NEBIUS_API_KEY unavailable for Super arm")
+            from fugu.model_router import pick_model
 
-                client = make_client(settings)
-                model = pick_model(tier="super")
+            client = make_client(settings)
+            model = pick_model(tier="super")
+        except Exception as exc:
+            setup_error = f"Super model setup failed: {type(exc).__name__}"
 
-                def real(system_prompt: str, user_prompt: str):
-                    resp = client.chat.completions.create(
-                        model=model,
-                        messages=[
-                            {"role": "system", "content": system_prompt},
-                            {"role": "user", "content": user_prompt},
-                        ],
-                        temperature=0.1,
-                        max_tokens=600,
-                    )
-                    text = (resp.choices[0].message.content or "").strip()
-                    rec = JudgeCall(
-                        model=model,
-                        latency_s=0.0,
-                        prompt_chars=len(system_prompt) + len(user_prompt),
-                        completion_chars=len(text),
-                        usage={},
-                    )
-                    return text, rec
+            def unavailable(system_prompt: str, user_prompt: str):
+                raise RuntimeError(setup_error)
 
-                return real
-        except Exception:
-            pass
-        return call
+            return unavailable
+
+        retry_records: list[dict] = []
+
+        def real(system_prompt: str, user_prompt: str):
+            messages = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ]
+
+            def request(max_tokens: int):
+                started = time.perf_counter()
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=0.1,
+                    max_tokens=max_tokens,
+                )
+                elapsed = time.perf_counter() - started
+                choice = response.choices[0]
+                response_text = (choice.message.content or "").strip()
+                usage = getattr(response, "usage", None)
+                usage_record = {
+                    "prompt_tokens": getattr(usage, "prompt_tokens", None),
+                    "completion_tokens": getattr(usage, "completion_tokens", None),
+                }
+                attempt = {
+                    "max_tokens": max_tokens,
+                    "finish_reason": choice.finish_reason,
+                    "response_chars": len(response_text),
+                    "error": None,
+                    "usage": usage_record,
+                    "latency_s": round(elapsed, 3),
+                }
+                return response_text, usage_record, elapsed, attempt
+
+            text, usage, latency, first_attempt = request(600)
+            if text or first_attempt["finish_reason"] != "length":
+                return text, JudgeCall(
+                    model=model,
+                    latency_s=round(latency, 3),
+                    prompt_chars=len(system_prompt) + len(user_prompt),
+                    completion_chars=len(text),
+                    usage=usage,
+                )
+
+            attempts = [first_attempt]
+            try:
+                retry_text, retry_usage, retry_latency, retry_attempt = request(4096)
+            except Exception as exc:
+                status = getattr(exc, "status_code", None)
+                error = f"{type(exc).__name__}" + (f" HTTP {status}" if status else "")
+                unknown_usage = {key: None for key in ("prompt_tokens", "completion_tokens")}
+                attempts.append({
+                    "max_tokens": 4096,
+                    "finish_reason": None,
+                    "response_chars": 0,
+                    "error": error,
+                    "usage": unknown_usage,
+                })
+                retry_records.append({
+                    "model": model,
+                    "attempts": attempts,
+                    "outcome": "retry_error",
+                    "usage_complete": {key: False for key in unknown_usage},
+                    "total_usage": unknown_usage,
+                })
+                raise RuntimeError(f"Super retry request failed: {error}") from None
+            attempts.append(retry_attempt)
+            usage_complete = {
+                key: usage.get(key) is not None and retry_usage.get(key) is not None
+                for key in ("prompt_tokens", "completion_tokens")
+            }
+            total_usage = {
+                key: usage[key] + retry_usage[key] if usage_complete[key] else None
+                for key in usage_complete
+            }
+            retry_records.append({
+                "model": model,
+                "attempts": attempts,
+                "outcome": "recovered" if retry_text else "empty_after_retry",
+                "usage_complete": usage_complete,
+                "total_usage": total_usage,
+            })
+            return retry_text, JudgeCall(
+                model=model,
+                latency_s=round(latency + retry_latency, 3),
+                prompt_chars=len(system_prompt) + len(user_prompt),
+                completion_chars=len(retry_text),
+                usage=total_usage,
+            )
+
+        # Keep the override signature stable for replay/test adapters while
+        # exposing run-local retry accounting to this stage instance.
+        setattr(real, "_fugu_retry_records", retry_records)
+        return real
 
     # ------------------------------------------------------------- verifier
     @staticmethod

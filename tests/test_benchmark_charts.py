@@ -123,7 +123,7 @@ def test_partial_semantic_errors_retain_valid_findings_without_entering_complete
     def fake_call(*args):
         nonlocal calls
         calls += 1
-        if calls == 2:
+        if calls == 2 or (failure == 'parse' and calls == 3):
             if failure == 'call':
                 raise RuntimeError('fabricated call failure')
             if failure == 'parse':
@@ -141,6 +141,30 @@ def test_partial_semantic_errors_retain_valid_findings_without_entering_complete
     assert row['complete'] is False
     assert row['flagged'] is None
     assert aggregate([row])['completed'] == 0
+
+
+def test_recovered_semantic_response_enters_complete_denominator(tmp_path):
+    valid = {'title': 'Fabricated finding', 'severity': 'high', 'owasp_ids': ['LLM01'],
+             'excerpt': 'Fabricated ordinary note.', 'detail': 'Offline synthetic test.'}
+    prompts = []
+
+    def fake_call(system, user):
+        prompts.append((system, user))
+        if len(prompts) == 2:
+            return 'not JSON', fake_judge_record()
+        return json.dumps({'findings': [valid]}), fake_judge_record()
+
+    row = asyncio.run(audit(synthetic_sample(tmp_path, 2), True, fake_call))
+    semantic = row['stages'][-1]
+    assert len(prompts) == 3
+    assert prompts[1] == prompts[2]
+    assert semantic['metrics']['units_completed'] == 2
+    assert not semantic['metrics'].get('coverage_incomplete')
+    assert semantic['metrics']['response_recoveries'][0]['initial_error'] == 'invalid_json'
+    assert len(semantic['findings']) == 2
+    assert row['complete'] is True
+    assert row['flagged'] is True
+    assert aggregate([row])['completed'] == 1
 
 
 def test_input_copy_omissions_remain_incomplete_after_remaining_files_are_analyzed(tmp_path):
