@@ -328,8 +328,10 @@ async def extract_source(
     Local sources are used as-is after sanity checks (exists, is a dir,
     non-empty, under file/size caps). Git sources are cloned with
     ``--depth 1`` via an asyncio subprocess into a fresh temp dir which
-    the caller should rmtree when done (run_job does; keep_target is a
-    testing escape hatch so tmp_path fixtures survive).
+    the caller should rmtree when done. File views become owned directories
+    containing the original basename. keep_target transfers a successfully
+    extracted target's cleanup to the caller; failed extraction never retains
+    materialized content.
 
     Raises ExtractionError on any validation or clone failure.
     """
@@ -349,7 +351,9 @@ async def extract_source(
             attempts: list[tuple[str, str]] = [(ref, subpath)]
             # Refs may contain slashes ("release/1.2"): if the single-segment
             # ref misses, retry consuming one more segment into the ref.
-            if subpath and "/" in subpath:
+            if subpath and "/" in subpath and not any(
+                part in (".", "..") for part in subpath.split("/")
+            ):
                 head, _, tail = subpath.partition("/")
                 attempts.append((f"{ref}/{head}" if ref else head, tail))
             last_err: ExtractionError | None = None
@@ -364,36 +368,26 @@ async def extract_source(
                     audit_dir = _resolve_audit_subdir(
                         root, clone_sub, source_display=source
                     )
-                    # Re-parent the audit dir to the tmp root so the caller's
-                    # single rmtree(target) contract keeps working.
-                    if audit_dir == root:
-                        return root
-                    final = Path(tmp) / "src"
-                    await loop.run_in_executor(
-                        None, shutil.move, str(audit_dir), str(final)
-                    )
-                    await loop.run_in_executor(
-                        None, shutil.rmtree, str(root), True
-                    )
-                    return final
-                except ExtractionError as exc:
-                    last_err = exc
-                    await loop.run_in_executor(None, shutil.rmtree, tmp, True)
+                    return await loop.run_in_executor(None, _materialize_git_selection, audit_dir)
+                except (ExtractionError, OSError) as exc:
+                    last_err = exc if isinstance(exc, ExtractionError) else ExtractionError(f"source materialization failed: {exc}")
                     continue
+                finally:
+                    await loop.run_in_executor(None, shutil.rmtree, tmp, True)
             raise last_err or ExtractionError(f"git clone failed: {source}")
 
         tmp = await loop.run_in_executor(
             None, lambda: tempfile.mkdtemp(prefix="fugu-git-")
         )
-        target = Path(tmp)
+        root = Path(tmp) / "clone"
         try:
-            await _git_clone(source, target)
-            _validate_source(target)
-        except ExtractionError:
-            if not keep_target:
-                await loop.run_in_executor(None, shutil.rmtree, tmp, True)
-            raise
-        return target
+            await _git_clone(source, root)
+            _validate_source(root)
+            return await loop.run_in_executor(None, _materialize_git_selection, root)
+        except OSError as exc:
+            raise ExtractionError(f"source extraction failed: {exc}") from exc
+        finally:
+            await loop.run_in_executor(None, shutil.rmtree, tmp, True)
 
     # --- local path ------------------------------------------------------------
     p = Path(source).expanduser()
@@ -426,6 +420,24 @@ async def extract_source(
                 f"source is too large (> {max_bytes} bytes): {source}"
             )
     return p
+
+
+def _materialize_git_selection(selected: Path) -> Path:
+    """Give each selected file/tree one directory owned by the caller."""
+    target = Path(tempfile.mkdtemp(prefix="fugu-source-"))
+    try:
+        if selected.is_file():
+            shutil.move(str(selected), str(target / selected.name))
+        elif selected.is_dir():
+            target.rmdir()  # newly created empty directory; move preserves root layout
+            shutil.move(str(selected), str(target))
+        else:
+            raise ExtractionError("selected git source is not a regular file or directory")
+        _validate_source(target)
+        return target
+    except BaseException:
+        shutil.rmtree(target, ignore_errors=True)
+        raise
 
 
 async def _git_clone(source: str, target: Path, branch: str | None = None) -> None:
@@ -606,13 +618,16 @@ async def run_job(
         store.close(job.id)
         return
 
-    await run_stage_loop(job, snap, target, stages, store)
-
-    if cloned_dir is not None and not keep_target:
-        # keep_target=True: caller (e.g. run_composition_job harvesting tool
-        # names from the extracted tree) owns the clone's lifetime now.
-        loop = asyncio.get_running_loop()
-        await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
+    completed = False
+    try:
+        await run_stage_loop(job, snap, target, stages, store)
+        completed = True
+    finally:
+        if cloned_dir is not None and (not keep_target or not completed):
+            # Successful keep_target callers harvest then reclaim the target.
+            # A runner exception must not strand files even with keep_target.
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
 
 
 # --- Skill-unit discovery (auto fan-out) ---------------------------------------------
