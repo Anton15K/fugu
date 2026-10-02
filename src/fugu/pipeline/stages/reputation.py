@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from fugu.pipeline.stages.concealment import collect_text_files
+from fugu.source_safety import validate_source_tree
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult
 
 MAX_QUERIES = 4
@@ -114,6 +115,7 @@ _DEP_NAME = re.compile(r"[\"']([A-Za-z0-9_][A-Za-z0-9_.-]*)[!<>~=@;\[ ]")
 
 def extract_identifiers(target: Path, max_files: int = 200) -> dict[str, list[str]]:
     """Package names, dependencies and outbound domains worth searching."""
+    target = validate_source_tree(target)
     packages: list[str] = []
     domains: list[str] = []
     dep_versions: dict[str, str | None] = {}

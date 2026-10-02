@@ -1,0 +1,133 @@
+{
+  "exclude_from_staging": [
+    "bench/results/2026-10-02/sources/fuzzd-Cargo.toml",
+    "bench/results/2026-10-02/sources/fuzzd-README.md",
+    "bench/results/2026-10-02/sources/fuzzd-bench_README.md",
+    "bench/results/2026-10-02/sources/fuzzd-bench_clean_tools.json",
+    "bench/results/2026-10-02/sources/mcp-sec-audit-README.md",
+    "bench/results/2026-10-02/sources/mcp-sec-audit-detection_README.md",
+    "bench/results/2026-10-02/sources/mcp-sec-audit-detection_examples_benchmarks_README.md",
+    "bench/results/2026-10-02/sources/snyk-cli-reference.md",
+    "bench/results/2026-10-02/engine/",
+    "bench/real/fuzzd-cache/",
+    "all __pycache__/ and *.pyc"
+  ],
+  "third_party_policy": "References/hashes/extracted claims only; full acquired source docs and fixture remain local caches, not deliverables.",
+  "files": [
+    {
+      "path": "bench/benchmark_charts.py",
+      "sha256": "adbcf354b33945e715fca247c38ebe9b3967145f0c1cb10fadf4749dec0519a0",
+      "bytes": 12035
+    },
+    {
+      "path": "bench/fresh_benchmark.py",
+      "sha256": "2bf046c49d2ed07d0ecd795adb16aa6e18db075f4f2ce74a11c94711010cb06b",
+      "bytes": 15174
+    },
+    {
+      "path": "bench/mcptox/run_puretool.py",
+      "sha256": "f0fcc2a7eb818a6e32656030ee8f3d1f312b70dd459668a06ea7c867093f9d62",
+      "bytes": 6785
+    },
+    {
+      "path": "bench/results/2026-10-02/handoff.md",
+      "sha256": "0542263eb929fc58f65ebb0421c665ecf83597d66431f1401485a26e27b617b5",
+      "bytes": 3518
+    },
+    {
+      "path": "bench/results/2026-10-02/measured-runner.py",
+      "sha256": "d1f21c6ef1002d648990e327097f90eeb36bda2dba2d048ad4a2c49456c92cc8",
+      "bytes": 13618
+    },
+    {
+      "path": "bench/results/2026-10-02/pilot/NOTE.md",
+      "sha256": "1635e8f6672a68469a86062fb76bdc627e36e3577bc357237619a27d7fa8fce6",
+      "bytes": 514
+    },
+    {
+      "path": "bench/results/2026-10-02/pilot/runner.py",
+      "sha256": "5ab14f5e7806940ff071d05a64f8ede58113bf543e5a6be7b82f425b434df43e",
+      "bytes": 13742
+    },
+    {
+      "path": "bench/results/2026-10-02/pilot/semantic.json",
+      "sha256": "6daabd4cdb7178e8cfe36844c31a7e9c7a18e770ac2cf30d2de56dbe8f65fa95",
+      "bytes": 73899
+    },
+    {
+      "path": "bench/results/2026-10-02/pilot/static.json",
+      "sha256": "5537a2cb753df735c5860b1ba648fdc4bee4f2be83c6d80d02b1ac992ed5b379",
+      "bytes": 4305300
+    },
+    {
+      "path": "bench/results/2026-10-02/semantic.json",
+      "sha256": "56c4eb8c83579dd6b151b313aa503a36930ef5ffbd892b1d8e4eeca5a954caf2",
+      "bytes": 291586
+    },
+    {
+      "path": "bench/results/2026-10-02/source-hashes.json",
+      "sha256": "5635e11871b21af20fb091ed0585b4e99d0e721be261674987e9fa5855825a0e",
+      "bytes": 4249
+    },
+    {
+      "path": "bench/results/2026-10-02/sources/index.json",
+      "sha256": "4d08917dbe6fb993267875bcc45eb26cc038b888cb5a5f44a99b7c096f9cbb27",
+      "bytes": 6550
+    },
+    {
+      "path": "bench/results/2026-10-02/static.json",
+      "sha256": "52e79e82df0a0a77db1149d8e8655c32c5a1dfe99d3390dbadf1c60dcc460eea",
+      "bytes": 2996622
+    },
+    {
+      "path": "bench/results/2026-10-02/verification.json",
+      "sha256": "4eee01ed3e90a865eba7498d7d08495ba7bcd51782cf98574e7ae50e9d0b48cf",
+      "bytes": 2051
+    },
+    {
+      "path": "docs/benchmark-charts/comparison-data.csv",
+      "sha256": "59ed7c7760f5dd1a29c6771f5bf661231c9b13ab8462a4e8db640a332d3921a8",
+      "bytes": 3382
+    },
+    {
+      "path": "docs/benchmark-charts/comparison-data.json",
+      "sha256": "fb972ae0c6231b257daf4b6bd1e2186881a8717a463f622ad0acecd181f14127",
+      "bytes": 6755
+    },
+    {
+      "path": "docs/benchmark-charts/competitor-context.png",
+      "sha256": "1d713cd8976db95f5444226c8e28893e4fc2547ced3fa25dba421c3b42f335c3",
+      "bytes": 190708
+    },
+    {
+      "path": "docs/benchmark-charts/competitor-context.svg",
+      "sha256": "628f2a353a9cd29c22749ac1a4256a4a841eaab5a8451573916dae63dbeaed7c",
+      "bytes": 12005
+    },
+    {
+      "path": "docs/benchmark-charts/fresh-results.png",
+      "sha256": "8cb6d5641df842085d7840582c435a9570697bd8ff46af721156712f3b5e1b94",
+      "bytes": 218403
+    },
+    {
+      "path": "docs/benchmark-charts/fresh-results.svg",
+      "sha256": "c949161605e47750820032f0f1f646d8d21df4c0b0765d3fc7f78ce924addab1",
+      "bytes": 19686
+    },
+    {
+      "path": "docs/benchmark.md",
+      "sha256": "d6fcbe5b1574158f379843e966ed0e7121f1279e90f82ecf9b59974a8ae0822e",
+      "bytes": 12933
+    },
+    {
+      "path": "docs/head-to-head.md",
+      "sha256": "d233282b237e598f0848ac5a43687cf66134000dc677ec1469a64d4e0b0360dd",
+      "bytes": 6466
+    },
+    {
+      "path": "tests/test_benchmark_charts.py",
+      "sha256": "bce70f1c578772eddcb81c69ec113c234c36e2ac7990c4036edbd7eaf87c8e65",
+      "bytes": 6987
+    }
+  ]
+}

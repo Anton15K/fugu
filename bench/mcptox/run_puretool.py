@@ -1,27 +1,13 @@
-"""Head-to-head benchmark on the EXACT file comparators publish against.
+"""Legacy MCPTox adapter benchmark; retained for historical reproduction.
 
-``pure_tool.json`` (485 flattened cases) is the MCPTox subset used by third-party
-scanners' public numbers (e.g. fuzzd's bench README: 440/485 = 90.7% detection;
-NYIT-Vancouver mcp-tools-detection: 367/491 = 74.7%). This module adapts that
-file — NOT our response_all.json corpus — into fugu sample dirs so our numbers
-are directly comparable, same data, same denominator.
+WARNING: adapter-generated server.py contains ground-truth category/paradigm
+and poison labels; case.json is also visible to the semantic stage. This is
+not a blind evaluation. Its rates are not directly comparable to published
+competitor numbers. Use bench.fresh_benchmark for label-free description
+packets and docs/benchmark.md for the current evidence.
 
-Protocol notes for fairness:
-  * The 485 entries are all MALICIOUS (poisoned tool descriptions) — pure_tool
-    is the attack subset of MCPTox; benign-FP measurement stays in our
-    bench/real corpus (n=76) which comparators also do separately (fuzzd: 20
-    clean tools, 0% FP).
-  * Detection convention matches our existing harness: a case counts as
-    detected when fugu emits any finding >= medium severity.
-  * Category comes from entry['security risk'] (upstream label, same field
-    fuzzd reads); paradigm from entry['paradigm'].
-
-Usage:
-    uv run python -m bench.mcptox.run_puretool [--semantic] [--conc N]
-
-Static mode is free/offline; --semantic additionally runs the S2 Nemotron
-judge (Token Factory; ~650 prompt + ~270 completion tokens/case).
-Writes bench/results/mcptox-puretool.json + .md
+This legacy command overwrites historical output paths. Preserve existing
+results before an explicitly assigned rerun. Detonation/harness are disabled.
 """
 from __future__ import annotations
 
@@ -178,7 +164,7 @@ async def main_async(semantic: bool, conc: int) -> int:
     md = [
         f"# MCPTox pure_tool.json head-to-head subset",
         "",
-        f"n={n} (all malicious; the file fuzzd 90.7% / NYIT 74.7% publish against)"
+        f"n={n} (legacy label-bearing adapter; not a blind evaluation)"
         f" · mode: **{mode}** · {dt:.0f}s",
         "",
         f"**Detection (any finding >= medium): {det_med}/{n} "

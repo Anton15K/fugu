@@ -106,5 +106,47 @@ const check = (name, cond) => { cond ? pass++ : fail++; console.log(`  ${cond ? 
   check("duplicate stage_started: idempotent", s.stages.static === "done");
 }
 
+// Successful no-op stages are unavailable coverage, not completed checks.
+{
+  let s = initialPipelineState();
+  s = applyEvent(s, ev("stage_started", { stage: "semantic" }));
+  s = applyEvent(s, ev("stage_done", { stage: "semantic", ok: true, metrics: { skipped: "no API key" } }));
+  check("skip metrics: semantic is skipped", s.stages.semantic === "skipped");
+  s = applyEvent(s, ev("verdict", { verdict: { status: "pass" } }));
+  check("skip metrics: terminal preserves skipped status", s.stages.semantic === "skipped");
+}
+// A verdict cannot prove a running stage finished without a completion event.
+{
+  let s = initialPipelineState();
+  s = applyEvent(s, ev("stage_started", { stage: "detonation" }));
+  s = applyEvent(s, ev("verdict", { verdict: { status: "warn" } }));
+  check("interrupted stage: not marked completed", s.stages.detonation === "error");
+}
+
+// Reviewer R2: successful stages can still have explicitly partial coverage.
+// Stored SSE history must preserve the same status, reason and valid findings.
+for (const stage of ["semantic", "harness"]) {
+  const reason = "1/2 semantic units completed; synthetic fake call failure";
+  const finding = F("medium", "advisory", stage);
+  const events = [
+    ev("stage_started", { stage }),
+    ev("finding", { finding }),
+    ev("stage_done", { stage, ok: true, metrics: { coverage_incomplete: reason, units_completed: 1, units_total: 2 } }),
+    ev("verdict", { verdict: { status: "warn", reasons: ["coverage incomplete"] } }),
+  ];
+  let s = events.slice(0, -1).reduce(applyEvent, initialPipelineState());
+  check(`${stage} partial: not completed before verdict`, s.stages[stage] === "partial");
+  s = applyEvent(s, events.at(-1));
+  check(`${stage} partial: terminal preserves status and reason`, s.stages[stage] === "partial" && s.stageCoverageReasons?.[stage] === reason);
+  check(`${stage} partial: valid findings retained`, s.findings.length === 1 && s.findings[0] === finding);
+  const replay = JSON.parse(JSON.stringify(events)).reduce(applyEvent, initialPipelineState());
+  check(`${stage} partial: stored replay retains partial coverage`, replay.stages[stage] === "partial" && replay.stageCoverageReasons?.[stage] === reason && replay.findings.length === 1);
+}
+// A failed stage remains failed, even when it also reports incomplete coverage.
+{
+  const s = applyEvent(initialPipelineState(), ev("stage_done", { stage: "semantic", ok: false, metrics: { coverage_incomplete: "no completed units" } }));
+  check("partial metadata: failure takes precedence", s.stages.semantic === "error");
+}
+
 console.log(`\nedge cases: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

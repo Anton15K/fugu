@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from fugu.store.sqlite import SqliteJobStore
+from fugu.source_safety import SourceSafetyError, validate_source_tree
 from fugu.types import (
     AuditJob,
     EvidenceSnippet,
@@ -59,6 +60,13 @@ DEFAULT_MAX_FILES = 20_000                 # file-count cap
 
 class ExtractionError(Exception):
     """Source validation / extraction failed (maps to HTTP 422)."""
+
+
+def _validate_source(target: Path) -> None:
+    try:
+        validate_source_tree(target)
+    except (SourceSafetyError, OSError) as exc:
+        raise ExtractionError(str(exc)) from exc
 
 
 def is_git_source(source: str) -> bool:
@@ -320,8 +328,10 @@ async def extract_source(
     Local sources are used as-is after sanity checks (exists, is a dir,
     non-empty, under file/size caps). Git sources are cloned with
     ``--depth 1`` via an asyncio subprocess into a fresh temp dir which
-    the caller should rmtree when done (run_job does; keep_target is a
-    testing escape hatch so tmp_path fixtures survive).
+    the caller should rmtree when done. File views become owned directories
+    containing the original basename. keep_target transfers a successfully
+    extracted target's cleanup to the caller; failed extraction never retains
+    materialized content.
 
     Raises ExtractionError on any validation or clone failure.
     """
@@ -330,18 +340,54 @@ async def extract_source(
         raise ExtractionError("source must not be empty")
 
     if is_git_source(source):
+        from fugu.server.giturls import extract_git_parts
+
         loop = asyncio.get_running_loop()
+        parts = extract_git_parts(source)
+        if parts is not None:
+            # Pasted web-UI URL (tree/blob view): clone the REPO at the ref,
+            # then audit the subdirectory the URL pointed at.
+            base, ref, subpath = parts
+            attempts: list[tuple[str, str]] = [(ref, subpath)]
+            # Refs may contain slashes ("release/1.2"): if the single-segment
+            # ref misses, retry consuming one more segment into the ref.
+            if subpath and "/" in subpath and not any(
+                part in (".", "..") for part in subpath.split("/")
+            ):
+                head, _, tail = subpath.partition("/")
+                attempts.append((f"{ref}/{head}" if ref else head, tail))
+            last_err: ExtractionError | None = None
+            for clone_ref, clone_sub in attempts:
+                tmp = await loop.run_in_executor(
+                    None, lambda: tempfile.mkdtemp(prefix="fugu-git-")
+                )
+                root = Path(tmp) / "clone"
+                try:
+                    await _git_clone(base, root, branch=clone_ref or None)
+                    _validate_source(root)
+                    audit_dir = _resolve_audit_subdir(
+                        root, clone_sub, source_display=source
+                    )
+                    return await loop.run_in_executor(None, _materialize_git_selection, audit_dir)
+                except (ExtractionError, OSError) as exc:
+                    last_err = exc if isinstance(exc, ExtractionError) else ExtractionError(f"source materialization failed: {exc}")
+                    continue
+                finally:
+                    await loop.run_in_executor(None, shutil.rmtree, tmp, True)
+            raise last_err or ExtractionError(f"git clone failed: {source}")
+
         tmp = await loop.run_in_executor(
             None, lambda: tempfile.mkdtemp(prefix="fugu-git-")
         )
-        target = Path(tmp)
+        root = Path(tmp) / "clone"
         try:
-            await _git_clone(source, target)
-        except ExtractionError:
-            if not keep_target:
-                await loop.run_in_executor(None, shutil.rmtree, tmp, True)
-            raise
-        return target
+            await _git_clone(source, root)
+            _validate_source(root)
+            return await loop.run_in_executor(None, _materialize_git_selection, root)
+        except OSError as exc:
+            raise ExtractionError(f"source extraction failed: {exc}") from exc
+        finally:
+            await loop.run_in_executor(None, shutil.rmtree, tmp, True)
 
     # --- local path ------------------------------------------------------------
     p = Path(source).expanduser()
@@ -349,6 +395,7 @@ async def extract_source(
         raise ExtractionError(f"local source path does not exist: {source}")
     if not p.is_dir():
         raise ExtractionError(f"local source path is not a directory: {source}")
+    _validate_source(p)
     try:
         if not any(p.iterdir()):
             raise ExtractionError(f"local source directory is empty: {source}")
@@ -375,16 +422,33 @@ async def extract_source(
     return p
 
 
-async def _git_clone(source: str, target: Path) -> None:
-    """Clone `source` (depth 1) into `target` via asyncio subprocess."""
+def _materialize_git_selection(selected: Path) -> Path:
+    """Give each selected file/tree one directory owned by the caller."""
+    target = Path(tempfile.mkdtemp(prefix="fugu-source-"))
+    try:
+        if selected.is_file():
+            shutil.move(str(selected), str(target / selected.name))
+        elif selected.is_dir():
+            target.rmdir()  # newly created empty directory; move preserves root layout
+            shutil.move(str(selected), str(target))
+        else:
+            raise ExtractionError("selected git source is not a regular file or directory")
+        _validate_source(target)
+        return target
+    except BaseException:
+        shutil.rmtree(target, ignore_errors=True)
+        raise
+
+
+async def _git_clone(source: str, target: Path, branch: str | None = None) -> None:
+    """Clone `source` (depth 1, optionally pinned to `branch`) into `target`."""
+    cmd = ["git", "clone", "--quiet"]
+    if branch:
+        # --branch also accepts tags & commit ids; --depth keeps it shallow.
+        cmd += ["--branch", branch]
+    cmd += ["--depth", "1", source, str(target)]
     proc = await asyncio.create_subprocess_exec(
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "--quiet",
-        source,
-        str(target),
+        *cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
@@ -394,6 +458,28 @@ async def _git_clone(source: str, target: Path) -> None:
         raise ExtractionError(
             f"git clone failed (exit {proc.returncode}): {detail[:500]}"
         )
+
+
+def _resolve_audit_subdir(root: Path, subpath: str, *, source_display: str) -> Path:
+    """Resolve the URL's subpath inside the freshly cloned repo.
+
+    Raises ExtractionError with an actionable message when the path doesn't
+    exist (e.g. the pasted URL's ref was misparsed) — the caller retries or
+    surfaces the error to the user.
+    """
+    sub = (subpath or "").strip().strip("/")
+    if not sub:
+        return root
+    cand = (root / sub).resolve()
+    if not cand.is_relative_to(root.resolve()):
+        raise ExtractionError(
+            f"git source subpath escapes the repository: {source_display}"
+        )
+    if not cand.exists():
+        raise ExtractionError(
+            f"cloned repository has no '{sub}' path (from {source_display})"
+        )
+    return cand
 
 
 # --- Runner ------------------------------------------------------------------------
@@ -532,13 +618,16 @@ async def run_job(
         store.close(job.id)
         return
 
-    await run_stage_loop(job, snap, target, stages, store)
-
-    if cloned_dir is not None and not keep_target:
-        # keep_target=True: caller (e.g. run_composition_job harvesting tool
-        # names from the extracted tree) owns the clone's lifetime now.
-        loop = asyncio.get_running_loop()
-        await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
+    completed = False
+    try:
+        await run_stage_loop(job, snap, target, stages, store)
+        completed = True
+    finally:
+        if cloned_dir is not None and (not keep_target or not completed):
+            # Successful keep_target callers harvest then reclaim the target.
+            # A runner exception must not strand files even with keep_target.
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
 
 
 # --- Skill-unit discovery (auto fan-out) ---------------------------------------------

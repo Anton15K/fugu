@@ -44,6 +44,7 @@ import urllib.request
 from pathlib import Path
 
 from fugu.detonation.base import fresh_canary_env
+from fugu.source_safety import validate_source_tree
 from fugu.types import DetonationEvidence, DnsRecord, FlowRecord
 
 __all__ = ["ContreeDriver"]
@@ -337,6 +338,7 @@ def _wrap_trigger(trigger: str, canary_env: dict[str, str]) -> str:
 
 def _bootstrap_files_cmd(target_dir: Path) -> str:
     """Embed target files (bounded) into the command as base64 heredocs."""
+    target_dir = validate_source_tree(target_dir)
     parts: list[str] = ["mkdir -p /opt/target"]
     count = 0
     total = 0

@@ -1,138 +1,151 @@
-# 🐡 Fugu — the detonation chamber for AI-agent extensions
+# 🐡 Fugu — audit before install
 
-**Static scanners read the label. Fugu tastes the food.**
+**Know what you’re letting in.** Fugu helps developers review community skills,
+MCP servers and plugins before granting an AI agent access to files, credentials
+and tools. Submit an extension, inspect the evidence behind its verdict, and
+review the checks that completed before making an install decision.
 
-Fugu is an agentic security auditor for third-party AI-agent extensions — skills (SKILL.md), MCP servers, plugins. Before you install that shiny community skill, Fugu audits it four independent ways and hands you an OWASP-mapped, evidence-backed verdict. Not a score. Not vibes. Exhibits.
+A useful report points to decoded instructions, flagged source, or observed
+behavior and distinguishes direct evidence from a model’s judgment. **PASS is
+limited to the performed checks; it does not certify safety.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![tests](https://img.shields.io/badge/tests-184%20passed-brightgreen)]()
+Built for the [Nebius × NVIDIA Global AI Hackathon](https://nebiusglobalaihackathon.devpost.com/),
+Coding and Agentic Engineering track. [MIT license](LICENSE).
+A public hosted demo and public YouTube video have not been published. The
+repository is currently private; public judging access remains a submission task.
 
-> Built for the [Nebius × NVIDIA Global AI Hackathon](https://nebiusglobalaihackathon.devpost.com) · Track 1: Coding & Agentic Engineering
-> Demo: *(URL — coming with deploy)* · Video: *(≤3 min, coming)*
+## Run locally
 
----
+Requirements: Python 3.10+, [uv](https://docs.astral.sh/uv/), and Node
+20.19+ within the Node 20 series or Node 22.12+ for the current Vite build.
+Docker is optional for execution checks; without a working chamber, review the
+reported coverage limits. Cloning currently requires repository access.
 
-## The problem
-
-AI agents are installing third-party brains at scale — 10,000+ public MCP servers, ~427M monthly SDK downloads, thousands of community skills. The attack surface is real:
-
-- **Scanners cry wolf.** A 2026 ecosystem study ([MCPZoo, arXiv 2607.11086](https://arxiv.org/abs/2607.11086)) found existing security scanners flag **96.89% of MCP servers as risky** — and manual validation showed **fewer than half of those alerts are true positives**. A tool that flags everything trains you to ignore it.
-- **Agents don't refuse attacks.** [MCPTox (AAAI-26)](https://arxiv.org/abs/2508.14925) measured tool-poisoning attack success up to **72.8%** across 20 agents, with a best refusal rate of **<3%**.
-- **Static-only analysis misses behavior.** Descriptions that misrepresent code, payloads that only fire at runtime, instructions hidden from human eyes in Unicode.
-
-Fugu answers with the pattern antivirus learned 20 years ago: **detonate it and watch what it does** — plus the discipline the field lacks: published, provenance-split, manually-adjudicated numbers.
-
-## What Fugu does
-
-Drop a skill or MCP server in; Fugu runs four independent analysis engines and produces a tiered-confidence scorecard:
-
-| Stage | Engine | What it catches | Confidence tier |
-|---|---|---|---|
-| **S0 Concealment** | deterministic Unicode decoder | ASCII smuggling (U+E0000–7F), zero-width binary, bidi Trojan Source, variation-selector payloads — **decoded as evidence** | deterministic |
-| **S1 Static** | 18 rule families | secrets, env harvesting, curl→shell, credential-file access, typosquats, rug-pull phrasing, MCP annotation/smell checks | deterministic |
-| **S2 Semantic** | Nemotron Ultra LLM-judge via Token Factory | paraphrased injections, deceptive descriptions, intent-vs-text gaps — every finding localized with verbatim excerpt | advisory |
-| **S3 Detonation** | isolated chamber (Docker today, Nebius Sandboxes driver) | runtime exfiltration: the extension runs in a network-instrumented sandbox seeded with **canary credentials** (fake AWS keys, tokens); any canary byte leaving via HTTPS body, DNS label, or file write = **critical, with forensic evidence** | deterministic |
-| **S4 Harness** | red/blue/verifier A/B on two Nemotron tiers | does the extension actually **hijack an agent?** The same benign probes run against a baseline agent and an agent with the extension mounted; trajectory diff = measured behavioral poisoning | empirical |
-| **S5 Reputation** | Tavily | adverse web reputation for packages/domains, source-cited | advisory |
-
-Then one verdict policy: **FAIL** on critical or hard-evidence highs · **WARN** on advisory highs/mediums · **PASS** — and a static-only PASS says so explicitly.
-
-## Benchmark results
-
-Full methodology + raw JSON: [`bench/results/`](bench/results) · harness: `python -m bench.run_bench`
-
-| Evaluation | Result | Field context |
-|---|---|---|
-| **MCPTox attack detection** (field's benchmark, AAAI-26; n=160 stratified, strict severity contract) | **160/160 — 100%**, all 11 categories | strictest published protocol on this benchmark |
-| **MCPTox head-to-head** (field's file: `pure_tool.json`, n=485; same file fuzzd & academic scanners publish against) | **484/485 — 99.8%** (100/99.5/100 by paradigm) | fuzzd v0.13: 90.7% · academic mcp-sec-audit: 74.7% — [`docs/head-to-head.md`](docs/head-to-head.md) |
-| Static-only on MCPTox (n=1,312, full corpus) | 9% — *by design*: paraphrase detection is the LLM tier's job; the 9%→100% delta is the cascade architecture quantified | |
-| **Real-world benign skills** (n=76, 4 public repos incl. Anthropic, obra/superpowers, community packs) | **0 static false positives**; semantic 3 flags → manually adjudicated: 1 true bug, 2 severity FPs (fixed) | field: 96.89% flagged / <50% true |
-| **Random registry draw** (skills.sh, seed 20260920, 25 of 2,862 skills) | 1 flag → adjudicated **true positive** | MCPZoo-comparable methodology, no ground truth |
-| Crafted corpus (6 attacks / 4 benign) | 6/6 detected · 0/4 FPs | internal consistency |
-
-### Found in the wild
-
-- **A deceptive-behavior bug in Anthropic's production `docx` skill** (timeout reported as success in `accept_changes.py`) — found by the unsupervised LLM judge reading cold code during a benchmark run; independently corroborates defect #1 of [anthropics/skills#1770](https://github.com/anthropics/skills/issues/1770) (still open). Details: [`docs/wild-findings.md`](docs/wild-findings.md).
-- **A live `curl … | bash` install** in a randomly drawn registry skill — exactly the fetch-and-exec pattern an install-time auditor exists to catch.
-
-### Methodology (why you can trust the numbers)
-
-- **Provenance-split reporting** — crafted and real-world results are never pooled ([CASCADE, arXiv 2604.17125](https://arxiv.org/abs/2604.17125), shows synthetic corpora inflate recall).
-- **Explicit aggregation convention** — "detected" = any finding ≥ medium, stated up front.
-- **Manual adjudication** — every real-world flag was hand-verified; our first semantic run flagged 17% of benign skills, adjudication found the judge defect + our own harness bug, we fixed both and re-measured to 4%. The mistake and the fix are both committed.
-- **Reproducible draws** — seeded random sampling from a 2,862-skill catalog union; pinned, SHA-verified MCPTox source.
-
-## Quickstart
-
-Requires Python 3.10+, [uv](https://docs.astral.sh/uv/), Docker (for detonation). Node 20+ for the web UI.
-
-```bash
-git clone <repo-url> && cd fugu
+```sh
+git clone https://github.com/Anton15K/fugu.git
+cd fugu
 uv sync --extra dev
-cp .env.example .env        # add NEBIUS_API_KEY (Token Factory); TAVILY_API_KEY optional
+cp .env.example .env
 ```
 
-```bash
-# API server + web UI (SSE live pipeline, scorecard)
-uv run python -m fugu.server --port 8000 --db fugu.db   # persistence via SQLite
+Set `NEBIUS_API_KEY` in your local environment/configuration to enable NVIDIA
+inference on Nebius Token Factory. `TAVILY_API_KEY` is optional for reputation
+queries. Keep both outside source control. Missing model credentials skip hosted
+analysis rather than producing evidence that it ran.
 
-# web UI
-cd web && npm install && npm run dev    # http://localhost:5173 (proxies /api)
-# or serve built SPA from the server: npm run build  (dist/ auto-mounted at /)
+Build the browser UI, then start the API with a dedicated development database:
 
-# one-shot audit (CLI path shared with eval harness)
-uv run python -c "from fugu.pipeline import run_audit; \
-  [print(f.severity, f.owasp_ids, f.title) for f in run_audit('corpus/03-env-harvest-installer')]"
-
-# reproduce the benchmark (static, free, offline)
-uv run python -m bench.fetch_real          # clone public skill repos (gitignored)
-uv run python -m bench.run_bench           # writes docs/benchmark.md
-
-# tests (hermetic — no network, no keys)
-uv run pytest -q                           # 184 passed
+```sh
+cd web
+npm ci
+npm run build
+cd ..
+uv run --no-sync python -m fugu.server --port 8000 --db /tmp/fugu-dev.db
 ```
 
-Try the demo samples: `corpus/01-hidden-instructions-skill` (caught three independent ways), `corpus/03-env-harvest-installer` (canary exfiltration → critical), `corpus/07-clean-skill` (passes).
+Open **http://127.0.0.1:8000/?mock=0** for live analysis. For frontend development,
+run `npm run dev` from `web/` while the API runs; Vite proxies `/api` to port 8000.
+The `/tmp` database is disposable; choose a persistent path for history you need
+to retain. See [web instructions](web/README.md).
 
-## Nebius Token Factory + NVIDIA models
+1. Select a **bundled example** to fill the source, then choose **Start audit**.
+   Examples are crafted fixtures advertised by the API when available.
+   Alternatively enter one Git URL or one directory on the API server.
+2. Inspect the returned verdict, policy reasons and **Analysis coverage**.
+   Expand a finding to see its source/exhibits and confidence tier. The full
+   pipeline and event history are available below the report.
+3. Reopen the existing `/audit/<id>` URL or choose a run under **Continue an
+   audit**. With the same database, persisted events restore that run without
+   submitting another audit.
 
-All inference runs on **NVIDIA open-source Nemotron models** served by the [Nebius Token Factory](https://docs.tokenfactory.nebius.com/) (OpenAI-wire-compatible API):
+Open **http://127.0.0.1:8000/?mock=1** and choose **Play simulated audit** for a
+scripted walkthrough. Its findings, timing and verdict are labeled simulated;
+no extension is fetched or analyzed. It is not a recorded real audit or
+benchmark evidence. Live audit URLs reconnect to their actual server history.
 
-| Model | Role in Fugu |
+## Evidence, analysis and verdicts
+
+| Check | Purpose | Evidence boundary |
+|---|---|---|
+| Concealment | Decode hidden Unicode instructions | Local, deterministic |
+| Static | Identify concrete source patterns | Local, deterministic |
+| Semantic | Read supplied text for injection and deceptive intent | Hosted Nemotron judgment, advisory |
+| Detonation | Run derived triggers with fake canaries and collectors | Configured chamber; observations limited to executed triggers/collectors |
+| Harness | Compare baseline and extension-mounted responses | Hosted A/B stated-intent probes with deterministic signal checks; not a complete tool-execution loop |
+| Reputation | Check package/domain context | Source-cited Tavily/OSV lookups |
+| Composition | Analyze relationships in repository fan-out | Member findings and coverage; not proof every possible combination ran |
+
+The verdict policy returns FAIL for critical findings or deterministic/empirical
+highs; WARN for other high/medium findings, failed or partial analysis, or omitted
+skill units; otherwise PASS. Intentional skips can accompany PASS, so read
+coverage alongside severity. A target with no runnable trigger was **not
+executed**. No canary hit in a bounded run does not prove harmless behavior.
+
+## Nebius and NVIDIA integration; data flow
+
+The [client](src/fugu/client.py) uses the OpenAI-wire-compatible SDK against the
+configured Nebius Token Factory endpoint. [Configuration](src/fugu/config.py)
+defaults to its EU endpoint and supports `NEBIUS_BASE_URL` overrides.
+
+| NVIDIA model | Current role |
 |---|---|
-| `nvidia/Nemotron-3-Ultra-550b-a55b` | S2 security judge — deep reasoning over untrusted content, strict severity contract |
-| `nvidia/nemotron-3-super-120b-a12b` | S4 harness "everyday agent" arm + red probe generation (models what real deployed agents run) |
-| `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | bulk triage tier (router-ready) |
+| `nvidia/Nemotron-3-Ultra-550b-a55b` | Semantic judge; harness baseline, strong mounted arm and probe generation |
+| `nvidia/nemotron-3-super-120b-a12b` | Harness everyday-agent mounted arm |
+| `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | Available router tier; not established as an active pipeline stage |
 
-**Where Nebius accelerated the workflow:** one wire-compatible endpoint powers the whole LLM side — the judge, both harness arms, and the red probe generator — with per-call logging (model/latency/tokens) recorded into every audit's stage metrics (`llm_calls`). Detonation runs in an isolated chamber (Docker driver today; the Nebius Sandboxes driver is written against the same interface pending our beta access). Analysis is 100% local: nothing you audit leaves your machine — unlike cloud-scoring scanners.
+Token Factory provides runtime inference for the security reading and A/B
+comparisons through the same client interface. Call records retain model and
+usage where available; Super harness telemetry is incomplete, so universal
+per-call timing/token or monetary savings claims are not supported.
 
-Model routing: `src/fugu/model_router.py` (explicit nano/super/ultra tiers). A finding from our own harness: **Ultra-550b resists naive skill injections that hijack Super-120b** — susceptibility is a property of (model × framing), which is why S4 tests two tiers.
+Concealment and static analysis run locally. **Enabled semantic and harness
+stages send selected extension text and prompts to the configured inference
+provider.** Reputation sends identifiers/queries to Tavily and pinned package
+lookups to OSV; Git sources are fetched remotely. Docker is the default chamber.
+The optional Contree/Nebius Sandboxes driver sends target files to remote
+compute when selected; live sandbox behavior has not been verified here.
+Fugu is not an entirely local analysis system. Review these flows before
+submitting confidential content.
 
-## Repository layout
+## Fresh bounded evaluation
 
-```
-src/fugu/
-├── pipeline/stages/    # S0 concealment · S1 static · S2 semantic · S4 harness · S5 reputation
-├── detonation/         # canary env, mitm+DNS collectors, Docker driver, evidence→findings
-├── server/             # FastAPI + SSE job runner, JobStore (+ SQLite persistence)
-├── store/              # sqlite WAL persistence (jobs/events/findings)
-├── verdict.py          # tiered verdict policy (shared by server/CLI/eval)
-└── types.py            # contracts: Finding, evidence tiers, OWASP ids
-corpus/                 # 10 labeled samples (6 attacks / 4 benign)
-bench/                  # benchmark harness: MCPTox adapter, real-world fetch, random draw
-eval/                   # precision/recall harness, selfcheck
-web/                    # React+Vite+TS+Tailwind dashboard
-tests/                  # 184 hermetic tests
-docs/                   # strategy, methodology, wild-findings citation sheet
-```
+Frozen S0/S1/S2 engine, 2026-10-02; detection means any finding at least medium.
+The engine predates the subsequent source-boundary and coverage fixes.
 
-## Honest limitations
+| Separate cohort | Result | Completion limits |
+|---|---|---|
+| MCPTox name/description attack sample | **26/30 planned detections (86.7%)** | 28 completed: 26 detected, 2 missed; 2 JSON parse failures |
+| Constructed clean tool descriptions | 0/20 flagged | All completed; constructed examples |
+| Cached public-skill sample | 0/19 completed flagged | 20 planned; 1 JSON parse failure; benign labels provisional |
 
-- Detonation captures proxy-aware HTTP(S) + DNS; raw-socket egress is a documented residual risk (fail-closed hardening planned).
-- S4 harness is single-turn stated-intent (a tool-loop harness is next); results are framing-dependent — measured, not hidden.
-- The real-world set is skill-shaped; a server-heavy MCP corpus is the next expansion.
-- Reputation (S5) needs a `TAVILY_API_KEY` to activate; it no-ops cleanly without.
+These sets are not pooled. The results do not estimate ecosystem-wide accuracy
+or false-positive rate, measure S3/S4, or establish superiority over competitors.
+Comparator tools were not rerun locally and use different protocols.
+Historical headline runs used label-contaminated inputs; the preserved history
+is [explained here](docs/head-to-head.md#why-historical-fugu-484485-is-excluded).
 
-## License
+[Protocol, failures and reproduction](docs/benchmark.md) ·
+[Fresh chart](docs/benchmark-charts/fresh-results.svg) ·
+[Raw semantic outcomes](bench/results/2026-10-02/semantic.json) ·
+[Static outcomes](bench/results/2026-10-02/static.json) ·
+[Input references](bench/results/2026-10-02/sources/index.json) ·
+[Artifact inventory](bench/results/2026-10-02/artifact-manifest.json).
+Detector reruns require separately acquired, hash-checked input caches; retained
+chart regeneration is offline. Actual monetary cost and remaining quota are unknown.
 
-[MIT](LICENSE) © 2026 — built by a solo developer and a team of AI agents on Nebius Token Factory.
+## Verification and limits
+
+From the repository root: `uv run --no-sync python -m pytest -q`. From `web/`:
+`npm run build`, `npm run lint`, `npm run contract`, `npm run smoke`,
+`node scripts/audit-result.mjs`, and `node scripts/edge-reducer.mjs`.
+Current frontend checks pass with retained lint warnings; final integration and
+independent review status is recorded in the [assessment](docs/hackathon-assessment.md).
+
+Source preflight rejects descendant symlinks before host reads and remote payload
+construction. It is not race-proof isolation of a changing source tree. Execution
+coverage depends on chamber availability and trigger derivation; Docker was
+unavailable for current live verification. Public deployment safety is not
+established by local tests or these guards. No deployment target is assigned.
+
+[User story, advisory rubric and readiness](docs/hackathon-assessment.md) ·
+[Under-three-minute demo script](docs/demo-script.md).

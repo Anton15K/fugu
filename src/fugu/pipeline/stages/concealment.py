@@ -42,6 +42,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult, OWASP_IDS
+from fugu.source_safety import validate_source_tree
 
 # --- codepoint constants (built via chr() on purpose) ---------------------------
 ZWSP = chr(0x200B)    # zero width space          -> binary 0
@@ -263,6 +264,7 @@ def collect_text_files(
     Binaries (NUL byte in the first 4 KiB), oversized files and non-UTF-8
     (or non-UTF-16-with-BOM) files are skipped and counted.
     """
+    target = validate_source_tree(target)
     stats = {
         "files_seen": 0, "files_scanned": 0, "skipped_binary": 0,
         "skipped_large": 0, "skipped_undecodable": 0,

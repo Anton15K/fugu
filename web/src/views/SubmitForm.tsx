@@ -1,55 +1,11 @@
-import { Clock, FileArchive, GitBranch, Globe, HardDrive, Terminal } from "lucide-react";
-import { useMemo, useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import type { AuditDepth, AuditJob } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { ArrowRight, Clock, FileSearch, FlaskConical, GitBranch, ShieldCheck } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { API_BASE } from '@/lib/api';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import type { AuditDepth, AuditJob } from '@/lib/types';
 
-const SET_AUDIT_PRESET = [
-  "https://github.com/brooksy4503/rss-agent-viewer",
-  "https://github.com/rookie-ricardo/erduo-skills",
-  "https://github.com/vapiai/skills",
-].join(", ");
-
-/** Presets are git URLs ONLY for now: they must work from any machine and
- * any deployment (local-path and mcp:// presets resolved only on a dev
- * checkout next to the server). */
-const SOURCE_PRESETS: { label: string; value: string }[] = [
-  { label: "git url", value: "https://github.com/anthropics/skills" },
-  { label: "set audit", value: SET_AUDIT_PRESET },
-];
-
-function sourceIcon(source: string) {
-  if (source.startsWith("http")) {
-    return source.includes("github.com")
-      ? <GitBranch className="size-3.5 text-zinc-500" aria-hidden />
-      : <Globe className="size-3.5 text-zinc-500" aria-hidden />;
-  }
-  if (source.startsWith("mcp://")) {
-    return <Terminal className="size-3.5 text-zinc-500" aria-hidden />;
-  }
-  if (source.endsWith(".zip")) {
-    return <FileArchive className="size-3.5 text-zinc-500" aria-hidden />;
-  }
-  return <HardDrive className="size-3.5 text-zinc-500" aria-hidden />;
-}
-
-function relativeTime(iso: string): string {
-  const delta = Date.now() - new Date(iso).getTime();
-  const mins = Math.floor(delta / 60_000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return `${mins}m ago`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours}h ago`;
-  return `${Math.floor(hours / 24)}d ago`;
-}
+interface Sample { source: string; label: string; description: string }
 
 export interface SubmitFormProps {
   onSubmit: (source: string, depth: AuditDepth) => void;
@@ -61,135 +17,56 @@ export interface SubmitFormProps {
   mockMode: boolean;
 }
 
-export function SubmitForm({
-  onSubmit,
-  recent,
-  onSelectRecent,
-  onClearRecent,
-  busy = false,
-  error = null,
-  mockMode,
-}: SubmitFormProps) {
-  const [source, setSource] = useState("");
-
-  const trimmed = source.trim();
-  const valid = useMemo(() => trimmed.length >= 3, [trimmed]);
+export function SubmitForm({ onSubmit, recent, onSelectRecent, onClearRecent, busy = false, error = null, mockMode }: SubmitFormProps) {
+  const [source, setSource] = useState('');
+  const [samples, setSamples] = useState<Sample[]>([]);
+  useEffect(() => {
+    if (mockMode) return;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    fetch(`${API_BASE}/samples`, { signal: controller.signal })
+      .then(async response => response.ok ? response.json() : null)
+      .then(data => {
+        if (!controller.signal.aborted && Array.isArray(data?.samples)) {
+          setSamples(data.samples.filter((sample: Sample) => typeof sample?.source === 'string' && typeof sample?.label === 'string' && typeof sample?.description === 'string'));
+        }
+      }).catch(() => { /* Older or unavailable API: no assumed sample paths. */ })
+      .finally(() => clearTimeout(timeout));
+    return () => { controller.abort(); clearTimeout(timeout); };
+  }, [mockMode]);
+  const valid = source.trim().length >= 3;
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-5">
-      <Card className="grid-noise">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-base">
-            Submit extension for audit
-          </CardTitle>
-          <CardDescription>
-            Skills (SKILL.md) · MCP servers · plugins — local path, git URL, or
-            MCP config
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <form
-            className="flex flex-col gap-3"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (valid && !busy) onSubmit(trimmed, "full");
-            }}
-          >
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 font-mono text-sm text-zinc-600 select-none">
-                  fugu audit
-                </span>
-                <input
-                  value={source}
-                  onChange={(e) => setSource(e.target.value)}
-                  placeholder="./skills/my-skill  (or a, b, c — 2+ sources = set audit)"
-                  spellCheck={false}
-                  autoComplete="off"
-                  aria-label="Extension source"
-                  className="h-11 w-full rounded-md border border-zinc-700 bg-zinc-950/70 pl-[7rem] pr-3 font-mono text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-600"
-                />
-              </div>
-              <Button type="submit" disabled={!valid || busy} className="h-11 px-5 font-mono text-[13px]">
-                {busy ? "submitting…" : "audit →"}
-              </Button>
-            </div>
+    <div className="entry-layout">
+      <section className="entry-intro" aria-labelledby="entry-title">
+        <p className="eyebrow"><span className="signal-dot" /> SECURITY BEFORE INSTALL</p>
+        <h1 id="entry-title">Know what you’re<br />letting <span>in.</span></h1>
+        <p className="intro-copy">Your agent gets powerful tools. Its extensions deserve a closer look.</p>
+        <p className="intro-detail">Audit a community skill, MCP server, or plugin before giving it access to your files, credentials, and workflows.</p>
+        <div className="entry-principle"><ShieldCheck aria-hidden /><div><strong>Evidence you can inspect.</strong><p>Decoded instructions, flagged code, and observed behavior — with a confidence tier for every finding.</p></div></div>
+        <ol className="journey-steps" aria-label="How an audit works">
+          <li><span>01</span> Choose an extension</li><li><span>02</span> Watch the checks</li><li><span>03</span> Review before install</li>
+        </ol>
+      </section>
 
-            <div className="flex flex-wrap items-center gap-2">
-              {SOURCE_PRESETS.map((p) => (
-                <button
-                  key={p.value}
-                  type="button"
-                  onClick={() => setSource(p.value)}
-                  className="rounded border border-zinc-800 bg-zinc-900/50 px-2 py-1 font-mono text-[11px] text-zinc-500 transition-colors hover:border-zinc-600 hover:text-zinc-300"
-                >
-                  {p.label}
-                </button>
-              ))}
-            </div>
-
-            <p className="border-t border-zinc-800/70 pt-3 text-[11px] leading-tight text-zinc-500">
-              full-depth audit — all stages, incl. harness A/B probe battery.
-              Multi-skill repos fan out automatically into per-skill audits +
-              cross-extension composition.
-            </p>
-          </form>
-
-          {error && (
-            <Alert variant="destructive">
-              <AlertTitle>Submission failed</AlertTitle>
-              <AlertDescription className="font-mono">{error}</AlertDescription>
-            </Alert>
-          )}
-        </CardContent>
-      </Card>
-
-      {recent.length > 0 && (
-        <Card>
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-sm text-zinc-300">Recent audits</CardTitle>
-            <Button variant="ghost" size="sm" onClick={onClearRecent} className="h-6 px-2 text-[11px] text-zinc-500">
-              clear
-            </Button>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-1">
-            {recent.map((job) => (
-              <button
-                key={job.id}
-                onClick={() => onSelectRecent(job)}
-                className="group flex items-center gap-3 rounded-md border border-transparent px-2 py-1.5 text-left transition-colors hover:border-zinc-800 hover:bg-zinc-800/30"
-              >
-                {sourceIcon(job.source)}
-                <span className="min-w-0 flex-1 truncate font-mono text-xs text-zinc-300">
-                  {job.source}
-                </span>
-                <span className="font-mono text-[10px] text-zinc-600">{job.id.slice(0, 10)}</span>
-                <span
-                  className={cn(
-                    "rounded border px-1.5 py-px font-mono text-[10px] uppercase",
-                    job.status === "done" && "border-emerald-800 text-emerald-400",
-                    job.status === "failed" && "border-red-800 text-red-400",
-                    (job.status === "queued" || job.status === "running") &&
-                      "border-zinc-700 text-zinc-400",
-                  )}
-                >
-                  {job.status}
-                </span>
-                <span className="flex items-center gap-1 text-[10px] text-zinc-600">
-                  <Clock className="size-3" aria-hidden />
-                  {relativeTime(job.created_at)}
-                </span>
-              </button>
-            ))}
-          </CardContent>
-        </Card>
-      )}
-
-      {mockMode && (
-        <p className="text-center font-mono text-[11px] text-zinc-600">
-          mock mode — replaying a scripted audit (backend not connected)
-        </p>
-      )}
+      <section className="audit-entry" aria-labelledby="submit-title">
+        <div className="entry-card-header"><FileSearch aria-hidden /><p className="eyebrow">{mockMode ? 'SIMULATED WALKTHROUGH' : 'NEW AUDIT'}</p></div>
+        <h2 id="submit-title">{mockMode ? 'See the evidence unfold' : 'What should Fugu inspect?'}</h2>
+        <p className="entry-subtitle">{mockMode ? 'A scripted malicious-skill scenario. No source is fetched and no analysis runs.' : 'One extension or repository. Fugu inspects the source and reports what its checks found.'}</p>
+        <form onSubmit={event => { event.preventDefault(); if (!busy && (mockMode || valid)) onSubmit(mockMode ? 'Simulated malicious skill · pdf-table-extractor' : source.trim(), 'full'); }}>
+          {!mockMode && <>
+            <label htmlFor="extension-source">Extension source</label>
+            <div className="source-field"><GitBranch aria-hidden /><input id="extension-source" value={source} onChange={event => setSource(event.target.value)} placeholder="https://github.com/owner/extension" spellCheck={false} autoComplete="off" aria-describedby="source-help" required /></div>
+            <p id="source-help" className="field-help">Git URL or a directory on the API server. Start with a small extension; large repositories can take longer.</p>
+          </>}
+          <Button type="submit" disabled={busy || (!mockMode && !valid)} className="audit-submit">{busy ? 'Starting…' : mockMode ? 'Play simulated audit' : 'Start audit'}<ArrowRight aria-hidden /></Button>
+        </form>
+        {error && <Alert variant="destructive" role="alert"><AlertTitle>Couldn’t start the audit</AlertTitle><AlertDescription>{error} Check the source and server connection, then try again.</AlertDescription></Alert>}
+        {samples.length > 0 && !mockMode && <div className="sample-section"><p className="eyebrow">TRY A BUNDLED EXAMPLE</p><div className="sample-grid">{samples.map(sample => <button type="button" key={sample.source} disabled={busy} onClick={() => { setSource(sample.source); document.getElementById('extension-source')?.focus(); }} className="sample-choice"><span>{sample.label}<ArrowRight aria-hidden /></span><small>{sample.description}</small></button>)}</div><p className="field-help">Crafted examples available on this server. Selecting one fills the source; Start audit runs real checks.</p></div>}
+        <div className="analysis-note"><p className="eyebrow">{mockMode ? 'DEMO DATA ONLY' : 'FULL ANALYSIS · COVERAGE REPORTED'}</p><p>{mockMode ? 'The findings, timing, and verdict illustrate the interface. They are not measured results for a supplied extension.' : 'Static and concealment checks run locally. Semantic and harness stages send extension content and prompts to the configured model provider. Reputation queries use Tavily when configured. Runtime checks depend on sandbox availability.'}</p><p>{mockMode ? 'Switch to live analysis to audit your own source.' : 'Unavailable or failed checks are reported with the verdict. A PASS is limited to completed checks; it does not certify safety.'}</p></div>
+        <a className="replay-link" href={mockMode ? '/?mock=0' : '/?mock=1'}><FlaskConical aria-hidden />{mockMode ? 'Switch to live analysis' : 'Explore a simulated audit — no API calls'}<ArrowRight aria-hidden /></a>
+      </section>
+      {!mockMode && recent.length > 0 && <section className="recent-section" aria-labelledby="recent-title"><div className="flex items-center justify-between gap-3"><h2 id="recent-title">Continue an audit</h2><Button variant="ghost" onClick={onClearRecent}>Clear history</Button></div><p className="field-help">Saved on this browser. Opens the existing run without starting another audit.</p><div className="recent-list">{recent.map(job => <button key={job.id} onClick={() => onSelectRecent(job)}><Clock aria-hidden /><span><strong>{job.source}</strong><small>{new Date(job.created_at).toLocaleString()} · {job.id}</small></span><ArrowRight aria-hidden /></button>)}</div></section>}
     </div>
   );
 }

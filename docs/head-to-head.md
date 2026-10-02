@@ -1,73 +1,114 @@
-# Fugu vs. the field on MCPTox (arXiv 2508.14925, AAAI-26)
+# Fugu and published comparator results
 
-> The field's own benchmark, the field's own file. Third-party scanners publish
-> MCPTox detection numbers against the 485-case `pure_tool.json` flat subset of
-> the MCPTox-Benchmark repo. We ran Fugu on **that exact file** (same fetch
-> source, same denominator) so the numbers are directly comparable — and we
-> additionally publish the strictest protocol (n=160 stratified from the full
-> 1,312-case corpus) with a per-case severity contract.
+Updated 2026-10-02. **These measurements do not establish a ranking:** inputs,
+sample sizes, detection thresholds and execution dates differ. Competitor
+binaries were not rerun in this task.
 
-## Head-to-head: pure_tool.json (n=485, all malicious)
+![Published claims and fresh Fugu measurements](benchmark-charts/competitor-context.svg)
 
-Same file all three rows measured on. Comparator numbers are theirs, published
-(fuzzd v0.13 bench README; nyit-vancouver mcp-sec-audit detection README).
+## Fresh Fugu evidence
 
-| Tool | Overall | Unrelated Prereq (T1) | Fake Enabling (T2) | Argument Hijack (T3) | Method |
-|---|---|---|---|---|---|
-| **fuzzd v0.13** | 90.7% (440/485) | 84.4% | 84.6% | 97.7% | static only: 188 Aho-Corasick needles + heuristics |
-| **mcp-sec-audit** (NYIT-Vancouver) | 74.7% (367/491) | — | — | — | static capability indicators |
-| **Fugu static (S0+S1)** | 8.7% (42/485) | — | — | — | conservative static (see below) |
-| **Fugu cascade (S0+S1+S2)** | **99.8% (484/485)** | **100% (77/77)** | **99.5% (182/183)** | **100% (225/225)** | deterministic static + Nemotron-3-Ultra judge via Token Factory |
+The frozen S0+S1+S2 run produced **26 detections among 30 selected MCPTox attacks
+(86.7% of planned cases)**: 28 analyses completed, including two without a
+medium-or-higher finding; two had JSON parse failures. The secondary,
+completed-case rate is 26/28 (92.9%). Incomplete cases remain unknown, rather
+than being classified as clean.
 
-- Fugu beats both comparators overall **and on every paradigm they break out**.
-- The single non-detection (`Apify_2`, forced-redundant-calls DoS framed as a
-  "performance protocol") was re-run individually and **detected at high
-  severity** — a judge-variance floor on one borderline case, not a blind spot.
-  We report the measured 484, not the re-run 485.
-- Fairness check: 0/484 detections relied on the raw provenance copy
-  (`case.json`); 443 cite the adapted `server.py` tool description alone — the
-  same artifact class the comparators scan.
-- Cost: 485 Ultra-tier judge calls ≈ 15 min wall at conc=6, roughly 650 prompt
-  + 270 completion tokens per call — a few cents of Token Factory credit.
+All 20 constructed clean tool descriptions completed without medium-or-higher
+flags. Public skills are a separate cohort: 0/19 completed analyses flagged,
+with one incomplete analysis out of 20 planned. These are benign **flag rates**,
+not an independently established false-positive rate for the ecosystem.
 
-## Why our static-only row is low — and why that's the honest architecture
+These recorded completion counts cover submitted units in the frozen engine;
+large skills could exceed its eight-unit semantic cap. Current reruns mark
+omitted or partial coverage incomplete and preserve any findings. The retained
+measurements and charts have not been reclassified under that newer rule.
 
-MCPTox attacks are *paraphrased* prompt injections in tool descriptions. A
-static-only detector that catches most of them must match surface forms
-("MUST FIRST", "before using"), which is what fuzzd's needle list does — and
-it's the approach MCPZoo ('26) measured as flagging 96.89% of servers with
-<50% true-positive alerts: pattern breadth buys recall on this corpus and
-costs precision on real ecosystems. Fugu's static tier is deliberately
-conservative (8.7% here, **0 false positives on 76 real benign skills**), and
-the semantic tier closes the gap. The 8.7% → 99.8% delta is the cascade
-architecture quantified on the field's own file.
+[Full protocol, failures and usage](benchmark.md) ·
+[Per-case live evidence](../bench/results/2026-10-02/semantic.json) ·
+[Chart data CSV](benchmark-charts/comparison-data.csv)
 
-## Our headline numbers (stricter protocol)
+## What the primary comparator sources actually report
 
-- **MCPTox strict, n=160 stratified from the full 1,312-case corpus:
-  160/160 (100%)**, all 11 categories, per-case severity contract, every
-  finding localized with verbatim excerpt.
-  `bench/results/mcptox-semantic-confirm.json`
-- **Real-world benign skills n=76 (Anthropic, obra/superpowers, community):
-  0 static FPs**; semantic flags manually adjudicated (1 true bug — the
-  Anthropic docx defect — 2 severity FPs, fixed).
-- **Random registry draw (skills.sh, seed 20260920, n=25):** 1 flag,
-  adjudicated true positive (`curl|bash` installer in the wild).
+| Tool / source | Published claim | Protocol and limits |
+|---|---|---|
+| fuzzd v0.13 benchmark README | 440/485 = 90.72% | MCPTox-derived tool definitions; detection when a tool name appears in scanner output. Reports 0/20 on its own constructed clean tools. |
+| mcp-sec-audit detection README | 367/491 = 74.75% | Capability coverage. Also refers to 493 tools in surrounding prose. |
+| mcp-sec-audit root README, **same revision** | 94.7%, n=491 | Numerator is not supplied there. Conflicts with the detection README; unresolved. |
+| Snyk Agent Scan | No comparable measurement in this task | Current CLI documentation describes authenticated hosted analysis. No token or account was provisioned for this comparison. |
 
-## Protocol differences (stated, not hidden)
+Pinned primary sources:
 
-| | fuzzd | mcp-sec-audit | Fugu |
-|---|---|---|---|
-| Data | pure_tool.json (485) | pure_tool.json (they report 493→491) | pure_tool.json (485) + full-corpus strict n=160 |
-| Detection rule | tool name appears in scan output | capability indicator match | any finding ≥ medium severity |
-| FP measurement | 20 self-written clean tools | none published | 76 real public skills, 0 flags |
-| Beyond descriptions | — | — | canary detonation chamber (runtime exfil evidence), harness A/B, composition |
+- [fuzzd benchmark, revision f739e120](https://github.com/ksek87/fuzzd/blob/f739e120cd7dc253fead2a1f13668f9535e4d8a5/bench/README.md)
+- [mcp-sec-audit detection README, revision 457057a7](https://github.com/nyit-vancouver/mcp-sec-audit/blob/457057a7dfda6b81622a12ee68b74f76f3fbde85/detection/README.md)
+- [mcp-sec-audit root README, same revision](https://github.com/nyit-vancouver/mcp-sec-audit/blob/457057a7dfda6b81622a12ee68b74f76f3fbde85/README.md)
+- [Snyk CLI reference, revision 01071238](https://github.com/snyk/agent-scan/blob/010712387e91fe7628cf356aeb83e78b6c6fc035/docs/cli-reference.md)
 
-## Reproduce
+The delivered source index contains references, hashes and extracted numeric
+claims. Full third-party README/CLI/Cargo files and the clean-tool fixture are
+excluded from the tracked deliverable inventory. Detector reproduction uses
+the explicit [pinned fixture download and hash check](benchmark.md#clean-tool-fixture-prerequisite);
+offline chart generation needs only retained result JSON and the source index.
 
-```bash
-uv run python -m bench.mcptox.run_puretool              # static, free, offline, ~1s
-uv run python -m bench.mcptox.run_puretool --semantic   # + Nemotron judge, ~15 min
+The chart shows both mcp-sec-audit claims as an unresolved band. It is neither
+a confidence interval nor a new measurement. Snyk has no numeric bar; missing
+measurements are not zero. The Docker daemon was unavailable and Cargo was not
+installed, so a safely isolated local fuzzd run was not feasible. No shared
+dependencies were installed to force one.
+
+## Why historical Fugu 484/485 is excluded
+
+The retained [historical semantic artifact](../bench/results/mcptox-puretool-semantic.json)
+records 484/485 (99.79%), but its adapter placed the attack category, paradigm
+and an explicit description of the payload as poisoned inside `server.py`.
+It also wrote `case.json` beside that file. The semantic stage excluded benchmark
+manifests but did not exclude either of these label-bearing inputs.
+
+Consequently, citing `server.py` does not demonstrate a blind evaluation. The
+old result is preserved for traceability and must not support a clean detection
+headline or superiority claim. Other legacy runs using the same adapter, including
+the retained strict 160-case result, require the same qualification. This task
+does not quantify how much those labels changed the judge's answers.
+
+The fresh adapter presents only the original tool name and description. It
+does not add schemas, annotations, ground-truth labels, provenance comments or
+raw case files. Attack and constructed benign descriptions use the same wrapper.
+The public-skills cohort uses extension files and is reported separately.
+
+## Comparability boundaries
+
+- Fugu's fresh static description pass is 41/485 (8.45%); its semantic pass is a
+  balanced 30-case sample, not a fresh full-485 result.
+- Fugu detects any finding at least medium severity. fuzzd's published
+  name-in-output rule and mcp-sec-audit's capability coverage are different
+  decisions. Matching a denominator alone does not make them equivalent.
+- The 491/493 mcp-sec-audit denominator is not the 485-case Fugu/fuzzd subset.
+- MCPTox is an external research attack benchmark, not a random sample of
+  malicious extensions found in the wild. These data do not estimate deployment
+  prevalence, precision or overall accuracy.
+- The earlier few-cents claim was not supported by billing evidence and is
+  removed. Fresh API token counts are recorded; monetary cost and remaining
+  provider quota are unknown.
+- The old suggestion that broad static patterns necessarily explain a
+  competitor's ecosystem false-positive rate is unsupported by these runs.
+
+## Reproduce the charts
+
+One-time setup (downloads into an isolated environment; no project dependency changes):
+
+```sh
+UV_CACHE_DIR=/tmp/fugu-uv-cache uv venv /tmp/fugu-charts-venv
+UV_CACHE_DIR=/tmp/fugu-uv-cache uv pip install \
+  --python /tmp/fugu-charts-venv/bin/python matplotlib==3.11.2
 ```
 
-Raw per-case JSON: `bench/results/mcptox-puretool-{static,semantic}.json`.
+Then render offline:
+
+```sh
+MPLCONFIGDIR=/tmp/fugu-mpl XDG_CACHE_HOME=/tmp/fugu-font-cache \
+  /tmp/fugu-charts-venv/bin/python -m bench.benchmark_charts
+```
+
+This reads retained JSON and uses no network or model calls. The isolated
+plotting environment was provisioned by the lead; project dependency files
+were unchanged. See [benchmark.md](benchmark.md) for detector reproduction.

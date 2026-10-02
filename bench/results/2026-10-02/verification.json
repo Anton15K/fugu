@@ -1,0 +1,34 @@
+{
+  "scoped_tests": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python -m pytest tests/test_benchmark_charts.py -q",
+    "result": "8 passed after packaging correction"
+  },
+  "charts": {
+    "command": "MPLCONFIGDIR=/tmp/fugu-mpl XDG_CACHE_HOME=/tmp/fugu-font-cache /tmp/fugu-charts-venv/bin/python -m bench.benchmark_charts",
+    "exit_code": 0,
+    "matplotlib": "3.11.2",
+    "python": "3.11.16",
+    "visual_review": "Both PNGs inspected after planned-denominator correction; labels readable, zero-based axes, incomplete segments explicit."
+  },
+  "integrity": {
+    "final_static_cases": 1904,
+    "final_semantic_cases": 70,
+    "duplicate_ids": 0,
+    "source_hashes_unchanged": true,
+    "report_relative_links": "all resolve",
+    "pinned_source_hashes_checked_at_original_acquisition": 10
+  },
+  "execution_boundaries": "No corpus execution; S0/S1/S2 only; no shared dependencies, production code or Git mutated by research seat.",
+  "review_status": "Worker verification complete; independent review and integration belong to lead.",
+  "packaging": {
+    "assignment": "qitem-20261002071617-dc15cd58",
+    "third_party_distribution": "No full third-party docs/Cargo files or clean-tools fixture in deliverable inventory; pinned URLs and hashes retained",
+    "clean_fixture_cache": "bench/real/fuzzd-cache/clean_tools.json",
+    "cache_check": "20 tool entries verified against pinned SHA-256; missing and mismatch cases fail clearly in tests",
+    "offline_chart_check": "Two SVGs and two PNGs generated in temporary directory containing only static.json, semantic.json and sources/index.json; no third-party documents, fixture or engine present",
+    "measured_evidence": "static.json, semantic.json, pilot/static.json, pilot/semantic.json and source-hashes.json unchanged byte-for-byte from original artifact manifest",
+    "measured_runner": "measured-runner.py matches original recorded bench/fresh_benchmark.py hash",
+    "api_calls_or_detector_runs": 0,
+    "links": "All relative report links resolve"
+  }
+}

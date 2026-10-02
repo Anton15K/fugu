@@ -1,0 +1,129 @@
+[
+  {
+    "repo": "ksek87/fuzzd",
+    "commit": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "path": "bench/README.md",
+    "url": "https://raw.githubusercontent.com/ksek87/fuzzd/f739e120cd7dc253fead2a1f13668f9535e4d8a5/bench/README.md",
+    "sha256": "3eb64c70abdf4d72ebfae0d40aa25e8e8bf7f55ddc16ef064952cef5256410eb",
+    "local": "bench/results/2026-10-02/sources/fuzzd-bench_README.md",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables",
+    "extracted_claims": {
+      "version": "v0.13",
+      "detected": 440,
+      "attack_cases": 485,
+      "clean_flagged": 0,
+      "clean_cases": 20,
+      "detection_rule": "Tool name present in scan output; published result, not rerun here"
+    }
+  },
+  {
+    "repo": "ksek87/fuzzd",
+    "commit": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "path": "bench/clean_tools.json",
+    "url": "https://raw.githubusercontent.com/ksek87/fuzzd/f739e120cd7dc253fead2a1f13668f9535e4d8a5/bench/clean_tools.json",
+    "sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348",
+    "local": "bench/results/2026-10-02/sources/fuzzd-bench_clean_tools.json",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables",
+    "cache_path": "bench/real/fuzzd-cache/clean_tools.json",
+    "reproduction": "Explicit pinned download required for detector reruns; runner verifies SHA-256. Chart regeneration does not read this fixture."
+  },
+  {
+    "repo": "ksek87/fuzzd",
+    "commit": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "path": "Cargo.toml",
+    "url": "https://raw.githubusercontent.com/ksek87/fuzzd/f739e120cd7dc253fead2a1f13668f9535e4d8a5/Cargo.toml",
+    "sha256": "1e68943273cf4775d79dfd4bd76d9a2961493104264c16bd5a0ae17eb65f4266",
+    "local": "bench/results/2026-10-02/sources/fuzzd-Cargo.toml",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables"
+  },
+  {
+    "repo": "ksek87/fuzzd",
+    "commit": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/ksek87/fuzzd/f739e120cd7dc253fead2a1f13668f9535e4d8a5/README.md",
+    "sha256": "eb31a3839fd29e9833f17e72126d9e3cb07336e98e13f65edc5a38ce70a39a73",
+    "local": "bench/results/2026-10-02/sources/fuzzd-README.md",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables"
+  },
+  {
+    "repo": "nyit-vancouver/mcp-sec-audit",
+    "commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/nyit-vancouver/mcp-sec-audit/457057a7dfda6b81622a12ee68b74f76f3fbde85/README.md",
+    "sha256": "23c84011572ffb636e9b2b2735c0db7c1a906f6c145988d209b476353d2233dd",
+    "local": "bench/results/2026-10-02/sources/mcp-sec-audit-README.md",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables",
+    "extracted_claims": {
+      "numerator": null,
+      "cases": 491,
+      "reported_percent": 94.7,
+      "conflict": "Detection README in same revision reports367/491=74.7%"
+    }
+  },
+  {
+    "repo": "nyit-vancouver/mcp-sec-audit",
+    "commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+    "path": "detection/README.md",
+    "url": "https://raw.githubusercontent.com/nyit-vancouver/mcp-sec-audit/457057a7dfda6b81622a12ee68b74f76f3fbde85/detection/README.md",
+    "sha256": "4c4c8ea34d7edd5fa5641dbe2a0fe7fcb0754a1544b8c76fedb4279855b6b00d",
+    "local": "bench/results/2026-10-02/sources/mcp-sec-audit-detection_README.md",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables",
+    "extracted_claims": {
+      "detected": 367,
+      "cases": 491,
+      "reported_percent": 74.7,
+      "other_prose_cases": 493,
+      "conflict": "Root README in same revision instead reports 94.7% on491"
+    }
+  },
+  {
+    "repo": "nyit-vancouver/mcp-sec-audit",
+    "commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+    "path": "detection/examples/benchmarks/README.md",
+    "url": "https://raw.githubusercontent.com/nyit-vancouver/mcp-sec-audit/457057a7dfda6b81622a12ee68b74f76f3fbde85/detection/examples/benchmarks/README.md",
+    "sha256": "a152f1877e0a5a843b9042e428794ebd2ac392c7265d830a224e088855525847",
+    "local": "bench/results/2026-10-02/sources/mcp-sec-audit-detection_examples_benchmarks_README.md",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables"
+  },
+  {
+    "repo": "snyk/agent-scan",
+    "commit": "010712387e91fe7628cf356aeb83e78b6c6fc035",
+    "path": "docs/cli-reference.md",
+    "url": "https://raw.githubusercontent.com/snyk/agent-scan/010712387e91fe7628cf356aeb83e78b6c6fc035/docs/cli-reference.md",
+    "sha256": "46ed9e522dc73061216749a11c5a9da7a4fb797ffdde2466c67565c2a423e6af",
+    "local": "bench/results/2026-10-02/sources/snyk-cli-reference.md",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables",
+    "extracted_claims": {
+      "measured_here": false,
+      "note": "CLI docs describe authenticated hosted scan analysis; no comparable numeric measurement retained"
+    }
+  },
+  {
+    "repo": "zhiqiangwang4/MCPTox-Benchmark",
+    "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+    "path": "pure_tool.json",
+    "url": "https://raw.githubusercontent.com/zhiqiangwang4/MCPTox-Benchmark/f85189f9ad12504c197c7f920ab818a40657b1fa/pure_tool.json",
+    "sha256": "54b1eb0e9d7b2f18465266aa9d9dfda828cd558b1269b74731ec2c5d8579e617",
+    "local": "bench/mcptox/data/pure_tool.json",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables"
+  },
+  {
+    "repo": "zhiqiangwang4/MCPTox-Benchmark",
+    "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+    "path": "response_all.json",
+    "url": "https://raw.githubusercontent.com/zhiqiangwang4/MCPTox-Benchmark/f85189f9ad12504c197c7f920ab818a40657b1fa/response_all.json",
+    "sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03",
+    "local": "bench/mcptox/data/response_all.json",
+    "distributed": false,
+    "local_path_role": "Historical acquisition/execution cache; not included in repository deliverables"
+  }
+]

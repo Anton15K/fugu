@@ -31,6 +31,7 @@ import time
 from pathlib import Path
 
 from fugu.pipeline.stages.concealment import collect_text_files
+from fugu.source_safety import validate_source_tree
 from fugu.pipeline.stages.semantic import JudgeCall, MakeCall, _default_make_call, _parse_json_loose
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult
 
@@ -116,6 +117,10 @@ class HarnessStage:
 
     async def run(self, job: AuditJob, target: Path) -> StageResult:
         t0 = time.perf_counter()
+        try:
+            target = validate_source_tree(target)
+        except (ValueError, OSError) as exc:
+            return StageResult(stage=self.name, ok=False, error=str(exc))
         call = self._make_call or _default_make_call()
         if call is None:
             return StageResult(
@@ -135,6 +140,7 @@ class HarnessStage:
         probes = list(STATIC_PROBES[: FULL_DEPTH_PROBES if full else 3])
         calls: list[JudgeCall] = []
         call_errors: list[str] = []
+        parse_errors: list[str] = []
         loop = asyncio.get_running_loop()
         # -- RED: targeted probe generation (all depths; 1 call) ---------------
         try:
@@ -148,6 +154,9 @@ class HarnessStage:
             text, rec = await loop.run_in_executor(None, call, red_sys, red_user)
             calls.append(rec)
             doc = _parse_json_loose(text)
+            if not isinstance(doc, dict) or not isinstance(doc.get("probes"), list):
+                parse_errors.append("red: invalid probe document; using static probes")
+                doc = {}
             for p in (doc or {}).get("probes", []) or []:
                 if isinstance(p, str) and p.strip():
                     probes.append(p.strip()[:200])
@@ -173,6 +182,8 @@ class HarnessStage:
             try:
                 text, rec = await loop.run_in_executor(None, call, baseline_sys, f"User task: {probe}")
                 calls.append(rec)
+                if not isinstance(text, str) or not text.strip():
+                    raise ValueError("empty baseline response")
                 entry["baseline"] = text
             except Exception as exc:
                 call_errors.append(f"{probe[:30]}/baseline: {type(exc).__name__}: {exc}")
@@ -182,6 +193,8 @@ class HarnessStage:
                 try:
                     text, rec = await loop.run_in_executor(None, arm_call, mounted_sys, f"User task: {probe}")
                     calls.append(rec)
+                    if not isinstance(text, str) or not text.strip():
+                        raise ValueError("empty mounted response")
                     entry[arm] = text
                 except Exception as exc:
                     call_errors.append(f"{probe[:30]}/{arm}: {type(exc).__name__}: {exc}")
@@ -190,17 +203,32 @@ class HarnessStage:
 
         # -- VERIFIER ----------------------------------------------------------
         findings = self._verify(runs, mount)
+        comparisons = sum(
+            bool(r.get("baseline")) and bool(r.get(arm))
+            for r in runs for arm in ("mounted_strong", "mounted_everyday")
+        )
 
         stats = {
             "probes": len(probes),
             "runs": len(runs),
+            "comparisons_completed": comparisons,
+            "comparisons_expected": len(probes) * 2,
             "arms": 3,
             "llm_calls": [c.__dict__ for c in calls],
             "call_errors": call_errors,
+            "parse_errors": parse_errors,
             "findings": len(findings),
             "duration_s": round(time.perf_counter() - t0, 3),
         }
-        return StageResult(stage=self.name, ok=True, findings=findings, metrics=stats)
+        if comparisons < len(probes) * 2 or call_errors or parse_errors:
+            stats["coverage_incomplete"] = (
+                f"{comparisons}/{len(probes) * 2} A/B comparisons completed; "
+                "some inference responses unavailable or invalid"
+            )
+        return StageResult(
+            stage=self.name, ok=comparisons > 0, findings=findings, metrics=stats,
+            error="no valid baseline/mounted comparison completed" if not comparisons else None,
+        )
 
     @staticmethod
     def _everyday_call(call: MakeCall, *, injected: bool) -> MakeCall:
@@ -262,18 +290,26 @@ class HarnessStage:
             trips the check and the baseline does not."""
             rows: list[tuple[int, dict, str]] = []
             for i, r in enumerate(runs):
+                if not r.get("baseline", "").strip():
+                    continue
                 if check(r.get("baseline", "")):
                     continue
                 for a in arms:
+                    if not r.get(a, "").strip():
+                        continue
                     if check(r.get(a, "")):
                         rows.append((i, r, a))
             return rows
 
         canary_rows: list[tuple[int, dict, str]] = []
         for i, r in enumerate(runs):
+            if not r.get("baseline", "").strip():
+                continue
             if CANARY_ENV_TOKEN in r.get("baseline", ""):
                 continue
             for a in arms:
+                if not r.get(a, "").strip():
+                    continue
                 if CANARY_ENV_TOKEN in r.get(a, ""):
                     canary_rows.append((i, r, a))
         if canary_rows:
