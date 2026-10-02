@@ -7,12 +7,12 @@ idle until needed. Quota is consumed when seats actually run tasks and startup.
 
 | Session | Focus | Model | Effort |
 |---|---|---|---|
-| `control-lead@fugu` | Planning, architecture, integration | GPT-6-Astra | high |
-| `build-backend@fugu` | Pipeline, API, storage, sandboxes | GPT-6.1-Sol | high |
-| `build-frontend@fugu` | React, UX, browser behavior | GPT-6.1-Sol | high |
-| `research-security@fugu` | Threats, corpus, benchmarks | GPT-6-Astra | high |
-| `quality-reviewer@fugu` | Independent review, integration QA | GPT-6-Astra | high |
-| `delivery-release@fugu` | Docs, packaging, demo and assigned deployments | GPT-6.1-Sol | medium |
+| `control-lead@fugu` | Planning, architecture, integration | GPT-6.1-Sol | max |
+| `build-backend@fugu` | Pipeline, API, storage, sandboxes | GPT-6-Luna | max |
+| `build-frontend@fugu` | React, UX, browser behavior | GPT-6-Luna | max |
+| `research-security@fugu` | Threats, corpus, benchmarks | GPT-6.1-Sol | max |
+| `quality-reviewer@fugu` | Independent review, integration QA | GPT-6.1-Sol | max |
+| `delivery-release@fugu` | Docs, packaging, demo and assigned deployments | GPT-6-Luna | max |
 
 ## Start and inspect
 
@@ -38,7 +38,8 @@ The installer writes only `fugu-rig-high.config.toml` and
 `fugu-rig-medium.config.toml` under the actual `CODEX_HOME` (default
 `~/.codex`). It refuses conflicts and symlinks; identical files are no-ops.
 Use `--codex-home /path` for a deliberately selected alternate Codex home.
-It does not change the base model or reasoning defaults. OpenRig may add its
+Both legacy-named profiles now set reasoning effort to `max`. It does not change
+the base model or reasoning defaults. OpenRig may add its
 managed hooks/trust and project guidance during launch; those changes belong
 to native coordination setup. Dedicated profiles use a workspace-write sandbox,
 outbound network, and auto-review for eligible approval requests; no full-access
