@@ -1,10 +1,11 @@
 import json
 import hashlib
+import asyncio
 
 import pytest
 
 from bench.fresh_benchmark import aggregate, clean_tool_document, select_balanced
-from bench.fresh_benchmark import load_clean_tools
+from bench.fresh_benchmark import load_clean_tools, audit
 from bench.benchmark_charts import percentage, export_table, dataset, DEFAULT_RESULTS
 
 
@@ -83,3 +84,74 @@ def test_clean_fixture_loads_only_after_hash_verification(tmp_path, monkeypatch)
     path.write_bytes(content)
     monkeypatch.setattr(runner, 'CLEAN_TOOLS_SHA256', hashlib.sha256(content).hexdigest())
     assert load_clean_tools(path) == json.loads(content)
+
+
+def synthetic_sample(tmp_path, files):
+    for i in range(files):
+        (tmp_path / f'note-{i:02}.md').write_text('Fabricated ordinary note.')
+    return {'id': 'synthetic/coverage', 'set': 'synthetic', 'kind': 'benign',
+            'group': 'synthetic', 'path': str(tmp_path)}
+
+
+def fake_judge_record():
+    from fugu.pipeline.stages.semantic import JudgeCall
+    return JudgeCall('offline-test', 0, 0, 0, {})
+
+
+@pytest.mark.parametrize('files,completed,omitted', [(1, 1, 0), (12, 8, 4)])
+def test_semantic_unit_cap_does_not_count_omitted_content_as_complete(tmp_path, files, completed, omitted):
+    def fake_call(*args):
+        return '{"findings": []}', fake_judge_record()
+
+    row = asyncio.run(audit(synthetic_sample(tmp_path, files), True, fake_call))
+    metrics = row['stages'][-1]['metrics']
+    assert (metrics['units_total'], metrics['units_completed'], metrics['units_omitted']) == (files, completed, omitted)
+    assert len(metrics['llm_calls']) == completed
+    assert row['complete'] is (omitted == 0)
+    assert row['flagged'] is (None if omitted else False)
+    summary = aggregate([row])
+    assert summary['completed'] == (0 if omitted else 1)
+    assert summary['rate'] is None if omitted else summary['rate'] == 0
+
+
+@pytest.mark.parametrize('failure', ['call', 'parse', 'mixed_findings'])
+def test_partial_semantic_errors_retain_valid_findings_without_entering_complete_denominator(tmp_path, failure):
+    valid = {'title': 'Fabricated finding', 'severity': 'high', 'owasp_ids': ['LLM01'],
+             'excerpt': 'Fabricated ordinary note.', 'detail': 'Offline synthetic test.'}
+    calls = 0
+
+    def fake_call(*args):
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            if failure == 'call':
+                raise RuntimeError('fabricated call failure')
+            if failure == 'parse':
+                return 'not JSON', fake_judge_record()
+            return json.dumps({'findings': [valid, None]}), fake_judge_record()
+        return json.dumps({'findings': [valid]}), fake_judge_record()
+
+    row = asyncio.run(audit(synthetic_sample(tmp_path, 2), True, fake_call))
+    semantic = row['stages'][-1]
+    assert semantic['ok'] is True  # At least one unit remains usable.
+    assert semantic['metrics']['coverage_incomplete']
+    assert semantic['metrics']['units_completed'] == 1
+    assert len(semantic['findings']) == (2 if failure == 'mixed_findings' else 1)
+    assert semantic['findings'][0]['evidence'][0]['excerpt'] == valid['excerpt']
+    assert row['complete'] is False
+    assert row['flagged'] is None
+    assert aggregate([row])['completed'] == 0
+
+
+def test_input_copy_omissions_remain_incomplete_after_remaining_files_are_analyzed(tmp_path):
+    sample = synthetic_sample(tmp_path, 1)
+    (tmp_path / 'oversized.md').write_text('x' * 2_000_001)
+
+    def fake_call(*args):
+        return '{"findings": []}', fake_judge_record()
+
+    row = asyncio.run(audit(sample, True, fake_call))
+    assert row['complete'] is False
+    assert row['flagged'] is None
+    assert row['input_collection']['skipped_large'] == 1
+    assert row['stages'][-1]['metrics']['units_completed'] == 1

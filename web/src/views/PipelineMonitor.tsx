@@ -4,25 +4,22 @@
 //   header    job · connection chip (always visible) · elapsed clock
 //   progress  thin overall bar + stage/member counter
 //   strip     stage cells in STAGE_ORDER / MULTI_SOURCE_STAGE_ORDER with
-//             running-pulse / done(duration+findings) / error / skipped states
+//             running-pulse / done / partial / error / skipped states
 //   members   multi-source child audits (parsed from parent log events)
 //   ticker    findings-so-far: Σ count + severity tally + latest finding flash
 //   grid      evidence feed (findings, newest first) | stream log console
 //
-// Reducer contract (App.tsx depends on it): applyEvent + PipelineState keep
-// their exact legacy behavior — finding accumulation, stage settling, verdict
-// capture, startedAt/finishedAt bookkeeping are unchanged. The only additions
-// are `stageStartedAt` / `stageEndedAt`: additive, view-only per-stage timing
-// folded from the SAME server event timestamps (survives SSE history replay
-// exactly like startedAt/finishedAt). A/B fold-diff against the previous
-// reducer verified all legacy fields stay deep-equal on every event.
+// Reducer contract (App.tsx depends on it): findings and timing fold from
+// server events, so stored SSE history preserves the same evidence and
+// coverage states as a live run. Terminal settling never upgrades limited
+// coverage to a completed check.
 //
 // Harness note: scripts/edge-reducer.mjs + live-reducer.mjs transpile THIS
 // file standalone with stubbed imports — keep `@/lib/types` as the single
 // value import (first position) and never deref other modules at module
 // scope (icons/components are JSX-only).
 import { MULTI_SOURCE_STAGE_ORDER, SEVERITIES, STAGE_META, STAGE_ORDER, parseMemberLog } from "@/lib/types";
-import { Activity, CircleCheck, CircleMinus, CircleX, Radio, Terminal } from "lucide-react";
+import { Activity, CircleAlert, CircleCheck, CircleMinus, CircleX, Radio, Terminal } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { ConfidenceBadge, SeverityChip, StatusDot } from "@/components/badges";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,7 +29,7 @@ import type { Severity } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import type { StreamStatus } from "@/lib/api";
 
-export type StageStatus = "idle" | "running" | "done" | "error" | "skipped";
+export type StageStatus = "idle" | "running" | "done" | "partial" | "error" | "skipped";
 
 export interface PipelineState {
   stages: Record<StageName, StageStatus>;
@@ -53,6 +50,8 @@ export interface PipelineState {
    *  preserves true durations instead of restarting them near zero. */
   stageStartedAt: Partial<Record<StageName, number>>;
   stageEndedAt: Partial<Record<StageName, number>>;
+  /** Server-reported reasons for incomplete stage coverage, retained on replay. */
+  stageCoverageReasons: Partial<Record<StageName, string>>;
 }
 
 /** Every stage key the reducer tracks. `composition` is invisible on
@@ -75,6 +74,7 @@ export function initialPipelineState(): PipelineState {
     finishedAt: null,
     stageStartedAt: {},
     stageEndedAt: {},
+    stageCoverageReasons: {},
   };
 }
 
@@ -92,6 +92,7 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
     stages: { ...state.stages },
     stageStartedAt: { ...state.stageStartedAt },
     stageEndedAt: { ...state.stageEndedAt },
+    stageCoverageReasons: { ...state.stageCoverageReasons },
   };
   const stage = event.data.stage as StageName | undefined;
   // Server clock is the source of truth for elapsed time: resume/reload
@@ -121,7 +122,13 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
     case "stage_done":
       if (stage) {
         const metrics = event.data.metrics as Record<string, unknown> | undefined;
-        next.stages[stage] = event.data.ok === false ? "error" : metrics && "skipped" in metrics ? "skipped" : "done";
+        next.stages[stage] = event.data.ok === false ? "error"
+          : metrics && "skipped" in metrics ? "skipped"
+          : metrics?.coverage_incomplete ? "partial" : "done";
+        if (metrics?.coverage_incomplete) {
+          next.stageCoverageReasons[stage] = typeof metrics.coverage_incomplete === "string"
+            ? metrics.coverage_incomplete : "Only part of this check completed.";
+        }
         next.findings = state.findings; // count already included via finding events
         if (next.stageEndedAt[stage] === undefined) next.stageEndedAt[stage] = safeTs;
       }
@@ -132,7 +139,7 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
       // jobs), never fake-green. An interrupted stage has no completion
       // evidence and settles into error, even when a verdict is returned.
       for (const s of ALL_STAGE_KEYS) {
-        if (next.stages[s] === "done" || next.stages[s] === "error" || next.stages[s] === "skipped") continue;
+        if (next.stages[s] === "done" || next.stages[s] === "partial" || next.stages[s] === "error" || next.stages[s] === "skipped") continue;
         next.stages[s] = next.stages[s] === "running" ? "error" : "skipped";
       }
       next.stages.verdict = "done";
@@ -258,6 +265,9 @@ function StageGlyph({ status }: { status: StageStatus }) {
   if (status === "error") {
     return <CircleX className="size-3.5 shrink-0 text-red-400" aria-hidden />;
   }
+  if (status === "partial") {
+    return <CircleAlert className="size-3.5 shrink-0 text-amber-400" aria-hidden />;
+  }
   if (status === "skipped") {
     return <CircleMinus className="size-3.5 shrink-0 text-zinc-400" aria-hidden />;
   }
@@ -267,6 +277,7 @@ function StageGlyph({ status }: { status: StageStatus }) {
 function connectorClass(left: StageStatus): string {
   if (left === "done") return "bg-emerald-700/80";
   if (left === "error") return "bg-red-800";
+  if (left === "partial") return "bg-amber-700/80";
   if (left === "running") return "bg-sky-500";
   return "bg-zinc-800";
 }
@@ -346,10 +357,12 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
   const doneCount = stageCards.filter(
     (s) =>
       state.stages[s] === "done" ||
+      state.stages[s] === "partial" ||
       state.stages[s] === "error" ||
       state.stages[s] === "skipped",
   ).length;
   const completedChecks = stageCards.filter(stage => stage !== "verdict" && state.stages[stage] === "done").length;
+  const partialChecks = stageCards.filter(stage => stage !== "verdict" && state.stages[stage] === "partial").length;
   const unavailableChecks = stageCards.filter(stage => stage !== "verdict" && (state.stages[stage] === "error" || state.stages[stage] === "skipped")).length;
   const progress = Math.round((doneCount / stageCards.length) * 100);
   const finished = state.finishedAt !== null;
@@ -455,12 +468,12 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
         <Progress
           value={progress}
           className="h-1 flex-1"
-          indicatorClassName={finished ? "bg-emerald-500" : halted ? "bg-red-500" : "bg-sky-500"}
+          indicatorClassName={finished ? partialChecks > 0 || unavailableChecks > 0 ? "bg-amber-500" : "bg-emerald-500" : halted ? "bg-red-500" : "bg-sky-500"}
         />
         <span className="font-mono text-[11px] tabular-nums text-zinc-500">
           {multiSource
             ? `${membersDone}/${state.members.length} members audited`
-            : `${completedChecks}/${stageCards.length - 1} checks completed${unavailableChecks > 0 ? ` · ${unavailableChecks} unavailable` : ""}`}
+            : `${completedChecks}/${stageCards.length - 1} checks completed${partialChecks > 0 ? ` · ${partialChecks} partial` : ""}${unavailableChecks > 0 ? ` · ${unavailableChecks} unavailable` : ""}`}
         </span>
       </div>
 
@@ -501,12 +514,15 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
               )}
               <div
                 title={meta.blurb}
+                role="group"
+                aria-label={`${meta.label}: ${status}`}
                 className={cn(
                   "stage-cell relative min-w-0 overflow-hidden rounded-lg border px-2.5 py-2 transition-colors duration-150",
 
                   status === "running" && "border-sky-700/70 bg-sky-950/30",
                   status === "done" && "border-zinc-800 bg-zinc-900/40",
                   status === "error" && "border-red-800/70 bg-red-950/30",
+                  status === "partial" && "border-amber-800/70 bg-amber-950/30",
                   status === "skipped" && "border-zinc-800/50 bg-zinc-900/20 ",
                   status === "idle" && "border-zinc-800/60 bg-zinc-900/20 ",
                   stage === "verdict" && finished && status === "done" && "border-emerald-800/60 bg-emerald-950/20",
@@ -533,6 +549,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                   <span
                     className={cn(
                       status === "error" && "text-red-400",
+                      status === "partial" && "text-amber-300",
                       status === "running" && "text-sky-300",
                       status === "done" && "text-zinc-500",
                       (status === "idle" || status === "skipped") && "text-zinc-400",
@@ -540,6 +557,8 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                   >
                     {status === "skipped"
                       ? "skipped"
+                      : status === "partial"
+                        ? `partial${dur !== null ? ` · ${formatElapsed(dur)}` : ""}`
                       : status === "idle"
                         ? "—"
                         : dur !== null
@@ -556,6 +575,11 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                     </span>
                   )}
                 </div>
+                {status === "partial" && (
+                  <p className="mt-2 break-words text-[11px] leading-relaxed text-amber-200 [overflow-wrap:anywhere]">
+                    {state.stageCoverageReasons[stage] ?? "Only part of this check completed."}
+                  </p>
+                )}
               </div>
             </Fragment>
           );

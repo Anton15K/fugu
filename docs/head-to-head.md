@@ -19,6 +19,11 @@ flags. Public skills are a separate cohort: 0/19 completed analyses flagged,
 with one incomplete analysis out of 20 planned. These are benign **flag rates**,
 not an independently established false-positive rate for the ecosystem.
 
+These recorded completion counts cover submitted units in the frozen engine;
+large skills could exceed its eight-unit semantic cap. Current reruns mark
+omitted or partial coverage incomplete and preserve any findings. The retained
+measurements and charts have not been reclassified under that newer rule.
+
 [Full protocol, failures and usage](benchmark.md) ·
 [Per-case live evidence](../bench/results/2026-10-02/semantic.json) ·
 [Chart data CSV](benchmark-charts/comparison-data.csv)

@@ -190,6 +190,7 @@ async def audit(sample: dict, semantic: bool, judge: BudgetedJudge | None) -> di
         stages.append(SemanticStage(make_call=judge))
     row = {k: v for k, v in sample.items() if k != 'tool'}
     row['mode'] = 'S0+S1+S2' if semantic else 'S0+S1'
+    input_collection = {}
     with tempfile.TemporaryDirectory(prefix='fugu-benchmark-') as temp:
         target = Path(temp)
         if 'tool' in sample:
@@ -200,7 +201,7 @@ async def audit(sample: dict, semantic: bool, judge: BudgetedJudge | None) -> di
             original = ROOT / sample['path']
             if original.is_symlink() or any(p.is_symlink() for p in original.rglob('*')):
                 raise ValueError(f"Symlink rejected in curated input: {sample['id']}")
-            files, _ = collect_text_files(original, 2_000_000, 2000)
+            files, input_collection = collect_text_files(original, 2_000_000, 2000)
             for file in files:
                 if Path(file.rel).name.lower() in ('manifest.json', 'manifest.fugu.json', 'case.json'):
                     continue
@@ -209,11 +210,17 @@ async def audit(sample: dict, semantic: bool, judge: BudgetedJudge | None) -> di
                 out.write_text(file.text)
         inputs = {str(p.relative_to(target)): digest(p.read_bytes()) for p in sorted(target.rglob('*')) if p.is_file()}
         row['input_sha256'] = inputs
+        row['input_collection'] = input_collection
         job = AuditJob(id='fresh-benchmark', source=str(target), status=JobStatus.running)
         results = [await stage.run(job, target) for stage in stages]
         row['stages'] = [asdict(r) for r in results]
-        complete = bool(inputs) and all(r.ok and not r.metrics.get('skipped') and not r.metrics.get('call_errors')
-                                       and not r.metrics.get('parse_errors') for r in results)
+        # Copying only readable text must not hide omissions from the stages.
+        input_omitted = any(input_collection.get(key) for key in (
+            'skipped_large', 'skipped_undecodable', 'skipped_unreadable', 'skipped_max_files'))
+        complete = bool(inputs) and not input_omitted and all(
+            r.ok and not any(r.metrics.get(key) for key in (
+                'skipped', 'coverage_incomplete', 'call_errors', 'parse_errors'))
+            for r in results)
         if semantic:
             complete = complete and bool(results[-1].metrics.get('llm_calls'))
         row['complete'] = complete
@@ -246,7 +253,8 @@ async def run(args) -> int:
     judge = BudgetedJudge() if args.semantic else None
     source_before = source_hashes()
     result = {"started_utc": datetime.now(timezone.utc).isoformat(),
-              "protocol": "label-free-v1", "threshold": "any finding >= medium",
+              "protocol": "label-free-v1", "completion_scope": "all eligible text; no input or stage coverage omissions",
+              "threshold": "any finding >= medium",
               "seed": SEED, "datasets": datasets,
               "versions": {"python": platform.python_version(),
                            **{p: importlib.metadata.version(p) for p in ('openai', 'pydantic')}},

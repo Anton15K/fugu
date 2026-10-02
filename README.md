@@ -135,7 +135,7 @@ chart regeneration is offline. Actual monetary cost and remaining quota are unkn
 
 ## Verification and limits
 
-From the repository root: `uv run --no-sync pytest -q`. From `web/`:
+From the repository root: `uv run --no-sync python -m pytest -q`. From `web/`:
 `npm run build`, `npm run lint`, `npm run contract`, `npm run smoke`,
 `node scripts/audit-result.mjs`, and `node scripts/edge-reducer.mjs`.
 Current frontend checks pass with retained lint warnings; final integration and

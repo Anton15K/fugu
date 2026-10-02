@@ -14,8 +14,10 @@ server verdict. No detector or prompt was tuned on this evaluation.
 ## Results, separated by provenance
 
 Detection/flag rule: **any finding with severity medium, high or critical**.
-An analysis is complete only if every requested stage succeeds without skipped
-work, call errors or JSON parse errors. Incomplete cases retain `flagged: null`.
+In these frozen measurements, completion means every requested stage succeeded
+for its submitted inputs without a skipped stage, call errors or JSON parse
+errors. It does not establish full content coverage: the eight-unit semantic
+cap could omit content. Incomplete cases retain `flagged: null`.
 
 | Cohort | Mode | Planned / completed | Detections or benign flags | Incomplete |
 |---|---|---:|---:|---:|
@@ -144,7 +146,15 @@ local copy of the **same pinned bytes**. It fails clearly when the file is
 missing or its hash differs, and never downloads automatically. The earlier
 measured runner is retained as [a source snapshot](../bench/results/2026-10-02/measured-runner.py)
 to match its recorded hash. The current runner adds cache selection and hash
-verification; the measured result JSON and detector source are unchanged.
+verification, and uses a stricter completion rule with the current engine:
+input collection omissions or any stage's `coverage_incomplete` signal exclude
+the case from completed denominators. This includes semantic units omitted by
+the cap and units with only partially valid findings. Findings and stage metrics
+remain in the row; `flagged` stays null. Input collection counts are retained in
+`input_collection`, and new result files declare `completion_scope`. Binary files
+and deliberately excluded benchmark manifests remain outside the text scope.
+The frozen result JSON, charts and measured runner retain the earlier rule;
+their recorded counts have not been reclassified or rerun.
 
 ### Offline plotting and checks
 
@@ -174,8 +184,15 @@ UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python -m pytest \
 
 To reproduce the frozen detector, the lead can export `src/fugu` from the full
 baseline commit into a temporary `engine/fugu` directory and set
-`PYTHONPATH=<absolute-engine-directory>` before running the current benchmark
-module. Verify the relevant source hashes against `source-hashes.json` first;
+`PYTHONPATH=<absolute-engine-directory>` before running the historical protocol.
+In a separate reproduction tree, place the retained `measured-runner.py` at
+`bench/fresh_benchmark.py` (its root calculation depends on that location),
+alongside the required input caches. That snapshot expects the pinned clean
+fixture at its original local cache path,
+`bench/results/2026-10-02/sources/fuzzd-bench_clean_tools.json`.
+The current runner with the current engine uses the stricter completion rule
+above and is a new evaluation. Verify the relevant source hashes against
+`source-hashes.json` first;
 the unused `server/app.py` difference is expected. The original execution copy
 at `bench/results/2026-10-02/engine/` is local-only.
 
