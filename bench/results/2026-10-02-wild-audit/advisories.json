@@ -1,0 +1,209 @@
+{
+  "retrieved_utc": "2026-10-02T12:21:00.542516+00:00",
+  "repositories": [
+    {
+      "repository": "modelcontextprotocol/servers",
+      "status": "retrieved",
+      "page_limit": 100,
+      "page_count": 6,
+      "advisories": [
+        {
+          "ghsa_id": "GHSA-vjqx-cfc4-9h6v",
+          "cve_id": "CVE-2026-27735",
+          "summary": "Path traversal in git_add allows staging files outside repository boundaries in mcp-server-git",
+          "severity": "medium",
+          "html_url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-vjqx-cfc4-9h6v",
+          "published_at": "2026-02-25T23:21:57Z",
+          "updated_at": "2026-02-25T23:21:57Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "pip",
+                "name": "mcp-server-git"
+              },
+              "vulnerable_version_range": "< 2026.1.14",
+              "patched_versions": "2026.1.14",
+              "vulnerable_functions": []
+            }
+          ]
+        },
+        {
+          "ghsa_id": "GHSA-5cgr-j3jf-jw3v",
+          "cve_id": "CVE-2025-68143",
+          "summary": "Unrestricted git_init tool allows repository creation at arbitrary filesystem locations in mcp-server-git",
+          "severity": "medium",
+          "html_url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-5cgr-j3jf-jw3v",
+          "published_at": "2025-12-17T15:55:26Z",
+          "updated_at": "2025-12-17T15:55:26Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "pip",
+                "name": "mcp-server-git"
+              },
+              "vulnerable_version_range": "< 2025.9.25",
+              "patched_versions": "2025.9.25",
+              "vulnerable_functions": []
+            }
+          ]
+        },
+        {
+          "ghsa_id": "GHSA-9xwc-hfwc-8w59",
+          "cve_id": "CVE-2025-68144",
+          "summary": "Argument injection in git_diff and git_checkout functions for mcp-server-git allows overwriting local files",
+          "severity": "medium",
+          "html_url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-9xwc-hfwc-8w59",
+          "published_at": "2025-12-17T16:01:56Z",
+          "updated_at": "2025-12-18T16:34:24Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "pip",
+                "name": "mcp-server-git"
+              },
+              "vulnerable_version_range": "< 2025.12.18",
+              "patched_versions": "2025.12.18",
+              "vulnerable_functions": []
+            }
+          ]
+        },
+        {
+          "ghsa_id": "GHSA-j22h-9j4x-23w5",
+          "cve_id": "CVE-2025-68145",
+          "summary": "Missing path validation when using --repository flag in mcp-server-git",
+          "severity": "medium",
+          "html_url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-j22h-9j4x-23w5",
+          "published_at": "2025-12-17T16:04:43Z",
+          "updated_at": "2025-12-18T16:34:49Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "pip",
+                "name": "mcp-server-git"
+              },
+              "vulnerable_version_range": "< 2025.12.18",
+              "patched_versions": "2025.12.18",
+              "vulnerable_functions": []
+            }
+          ]
+        },
+        {
+          "ghsa_id": "GHSA-hc55-p739-j48w",
+          "cve_id": "CVE-2025-53110",
+          "summary": "Path validation bypass via colliding path prefix",
+          "severity": "high",
+          "html_url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-hc55-p739-j48w",
+          "published_at": "2025-07-01T18:39:04Z",
+          "updated_at": "2025-07-01T18:39:04Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "@modelcontextprotocol/server-filesystem"
+              },
+              "vulnerable_version_range": "< 0.6.3, < 2025.3.28",
+              "patched_versions": "0.6.3, 2025.7.01",
+              "vulnerable_functions": []
+            }
+          ]
+        },
+        {
+          "ghsa_id": "GHSA-q66q-fx2p-7w4m",
+          "cve_id": "CVE-2025-53109",
+          "summary": "Path validation bypass via symlink handling",
+          "severity": "high",
+          "html_url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-q66q-fx2p-7w4m",
+          "published_at": "2025-07-01T18:38:24Z",
+          "updated_at": "2025-07-01T18:38:24Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "@modelcontextprotocol/server-filesystem"
+              },
+              "vulnerable_version_range": "< 0.6.3, < 2025.3.28",
+              "patched_versions": "0.6.3, 2025.7.01",
+              "vulnerable_functions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "microsoft/playwright-mcp",
+      "status": "retrieved",
+      "page_limit": 100,
+      "page_count": 0,
+      "advisories": []
+    },
+    {
+      "repository": "microsoft/markitdown",
+      "status": "retrieved",
+      "page_limit": 100,
+      "page_count": 0,
+      "advisories": []
+    },
+    {
+      "repository": "github/github-mcp-server",
+      "status": "retrieved",
+      "page_limit": 100,
+      "page_count": 2,
+      "advisories": [
+        {
+          "ghsa_id": "GHSA-pjp5-fpmr-3349",
+          "cve_id": "CVE-2026-48529",
+          "summary": "Lockdown mode singleton in HTTP server causes cross-user GraphQL client confusion",
+          "severity": "medium",
+          "html_url": "https://github.com/github/github-mcp-server/security/advisories/GHSA-pjp5-fpmr-3349",
+          "published_at": "2026-06-09T09:15:58Z",
+          "updated_at": "2026-06-09T09:15:58Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "go",
+                "name": "github.com/github/github-mcp-server"
+              },
+              "vulnerable_version_range": ">= 0.22.0, < 1.1.2",
+              "patched_versions": "1.1.2",
+              "vulnerable_functions": []
+            }
+          ]
+        },
+        {
+          "ghsa_id": "GHSA-w4q6-qw23-4rg7",
+          "cve_id": "CVE-2026-47427",
+          "summary": "Nil Pointer Dereference DoS in completion/complete Handler",
+          "severity": "high",
+          "html_url": "https://github.com/github/github-mcp-server/security/advisories/GHSA-w4q6-qw23-4rg7",
+          "published_at": "2026-07-20T12:01:42Z",
+          "updated_at": "2026-07-20T12:01:42Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "go",
+                "name": "github.com/github/github-mcp-server"
+              },
+              "vulnerable_version_range": "<= 0.33.0 (also affects latest main)",
+              "patched_versions": "",
+              "vulnerable_functions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "anthropics/skills",
+      "status": "retrieved",
+      "page_limit": 100,
+      "page_count": 0,
+      "advisories": []
+    },
+    {
+      "repository": "obra/superpowers",
+      "status": "retrieved",
+      "page_limit": 100,
+      "page_count": 0,
+      "advisories": []
+    }
+  ]
+}

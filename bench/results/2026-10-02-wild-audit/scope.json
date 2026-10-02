@@ -1,0 +1,64 @@
+{
+  "selection": "Bounded security-contract and candidate implementation inspection; not whole-repository coverage",
+  "files": {
+    "modelcontextprotocol/servers": [
+      "src/filesystem/README.md",
+      "src/filesystem/index.ts",
+      "src/filesystem/lib.ts",
+      "src/filesystem/path-utils.ts",
+      "src/filesystem/path-validation.ts",
+      "src/filesystem/roots-utils.ts",
+      "src/fetch/README.md",
+      "src/fetch/src/mcp_server_fetch/server.py",
+      "SECURITY.md"
+    ],
+    "microsoft/playwright-mcp": [
+      "README.md",
+      "SECURITY.md",
+      "package.json",
+      "cli.js",
+      "index.js",
+      "src/README.md"
+    ],
+    "microsoft/markitdown": [
+      "README.md",
+      "SECURITY.md",
+      "packages/markitdown-mcp/README.md",
+      "packages/markitdown-mcp/pyproject.toml",
+      "packages/markitdown-mcp/src/markitdown_mcp/__main__.py",
+      "packages/markitdown/src/markitdown/_markitdown.py"
+    ],
+    "github/github-mcp-server": [
+      "README.md",
+      "SECURITY.md",
+      "docs/server-configuration.md",
+      "docs/policies-and-governance.md",
+      "pkg/inventory/filters.go",
+      "pkg/inventory/server_tool.go",
+      "pkg/github/lockdown.go",
+      "pkg/github/server.go"
+    ],
+    "anthropics/skills": [
+      "README.md",
+      "skills/mcp-builder/SKILL.md",
+      "skills/mcp-builder/scripts/evaluation.py",
+      "skills/mcp-builder/scripts/connections.py",
+      "skills/docx/SKILL.md",
+      "skills/docx/scripts/office/validate.py",
+      "skills/docx/scripts/office/validators/base.py",
+      "skills/docx/scripts/office/validators/docx.py"
+    ],
+    "obra/superpowers": [
+      "README.md",
+      "skills/brainstorming/SKILL.md",
+      "skills/brainstorming/visual-companion.md",
+      "skills/brainstorming/scripts/start-server.sh",
+      "skills/brainstorming/scripts/server.cjs",
+      "skills/brainstorming/scripts/helper.js",
+      "hooks/session-start"
+    ]
+  },
+  "semantic_attempt_limit_authorized": 36,
+  "semantic_attempts_actual": 0,
+  "execution": "unperformed; native runtime cybersecurity execution block reported by lead"
+}
