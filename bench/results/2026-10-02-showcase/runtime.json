@@ -1,0 +1,13 @@
+{
+  "python": "3.11.16",
+  "platform": "Darwin",
+  "packages": {
+    "openai": "3.16.2",
+    "python-dotenv": "1.2.3",
+    "pydantic": "2.13.5",
+    "pydantic-settings": "not installed",
+    "httpx": "not installed"
+  },
+  "command_policy": "uv run --no-sync; no shared dependency/lockfile changes",
+  "target_packages_installed": false
+}

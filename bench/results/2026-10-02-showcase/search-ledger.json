@@ -1,0 +1,27 @@
+{
+  "retrieval_date": "2026-10-02",
+  "focused_searches": [
+    {
+      "query": "mcp server filesystem stars:<1000 pushed:>2026-08-03",
+      "surface": "gh search repos",
+      "limit": 8
+    },
+    {
+      "query": "mcp server database stars:<1000 pushed:>2026-08-03",
+      "surface": "gh search repos",
+      "limit": 8
+    },
+    {
+      "query": "agent skill devops stars:<1000 pushed:>2026-08-03",
+      "surface": "gh search repos",
+      "limit": 8
+    }
+  ],
+  "seed_caches": [
+    "/tmp/fugu-showcase-mcp-seeds.json",
+    "/tmp/fugu-showcase-skill-seeds.json"
+  ],
+  "caveat": "Search-filter compliance was not trusted; shortlist exact metadata retrieved independently. Stale hits excluded, including mark3labs/mcp-filesystem-server, cyanheads/filesystem-mcp-server, executeautomation/mcp-database-server, TrainWithShubham/skills.",
+  "primary_metadata_queries_per_candidate": 4,
+  "shortlist_count": 8
+}

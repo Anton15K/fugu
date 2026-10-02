@@ -1,0 +1,128 @@
+[
+  {
+    "attempt": 1,
+    "artifact": "infrahub-query",
+    "unit_label": "File: README.md (part 1)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"README is clear, accurate, and complete for its purpose. It honestly describes the MCP server's capabilities (query, create, update, propose changes, arbitrary GraphQL), authentication requirements, transport modes, and branch-isolation safety model. No misleading claims, hidden instructions, or description-quality smells detected.\"}",
+    "response_sha256": "3633397329e22f3ea076e53079c9a966ab4927be2708314f447016751755879e"
+  },
+  {
+    "attempt": 2,
+    "artifact": "infrahub-query",
+    "unit_label": "File: src/infrahub_mcp/tools/gql.py (part 1)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, well-scoped read-only GraphQL tool. Properly validates AST to reject mutations, uses read_only_hint annotation, and provides clear parameter/return descriptions with helpful cross-references to schema resources and alternative typed tools. No security issues or description smells detected.\"}",
+    "response_sha256": "40c96807bcae2987dfaa92ab5e3c5e59733ef0630bb04bdd5cf39f74bd83c3a4"
+  },
+  {
+    "attempt": 3,
+    "artifact": "infrahub-query",
+    "unit_label": "File: src/infrahub_mcp/tools/session.py (part 1)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, well-documented read-only session introspection tool. No security issues detected in the provided code. Description is accurate, complete, and concise. The referenced `get_session_branch` utility is internal to the project and not shown, but that is expected for a partial file audit.\"}",
+    "response_sha256": "ccb22057a9344298819b1166da345f51901e155c05b5530db91a9c1799f444c3"
+  },
+  {
+    "attempt": 4,
+    "artifact": "rust-filesystem",
+    "unit_label": "File: README.md (part 1)",
+    "raw_response": "{\"findings\": [{\"title\": \"Fetch-and-run installation patterns in quick-start guide\", \"owasp_ids\": [\"MCP04\"], \"severity\": \"low\", \"detail\": \"The quick installation guide documents two fetch-and-run patterns: `curl ... | sh` and `powershell -c \\\"irm ... | iex\\\"`. While URLs are pinned to v0.4.5 and point to the official GitHub repository, executing remote scripts directly in the shell without local inspection is a supply-chain hygiene risk.\", \"element\": {\"kind\": \"readme\", \"line_hint\": 45, \"locator\": \"Shell script and PowerShell script installation blocks\"}, \"excerpt\": \"curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rust-mcp-stack/rust-mcp-filesystem/releases/download/v0.4.5/rust-mcp-filesystem-installer.sh | sh\"}, {\"title\": \"Fetch-and-run installation pattern (PowerShell)\", \"owasp_ids\": [\"MCP04\"], \"severity\": \"low\", \"detail\": \"PowerShell installation uses `irm ... | iex` (Invoke-RestMethod + Invoke-Expression) to download and execute a remote script in one pipeline, same hygiene concern as the shell variant.\", \"element\": {\"kind\": \"readme\", \"line_hint\": 50, \"locator\": \"PowerShell script installation block\"}, \"excerpt\": \"powershell -ExecutionPolicy Bypass -c \\\"irm https://github.com/rust-mcp-stack/rust-mcp-filesystem/releases/download/v0.4.5/rust-mcp-filesystem-installer.ps1 | iex\\\"\"}], \"quality_summary\": \"README is clear, accurate, and complete for a project overview. Features, installation methods, purpose, and provenance are well described. No misrepresentation or bloat detected. Tool-level descriptions/schemas are deferred to linked documentation, so description-quality audit at the tool level is not possible from this file alone.\"}",
+    "response_sha256": "fe908216c125355155e17916ca49dd01cebe5b803458bfb781e7fb93639ab4bd"
+  },
+  {
+    "attempt": 5,
+    "artifact": "rust-filesystem",
+    "unit_label": "File: src/fs_service/core.rs (part 1)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, well-documented capability-based filesystem confinement implementation. Uses cap-std Dir handles for confinement, handles Windows UNC paths with verbatim prefixes and symlink_metadata (no-follow) plus post-creation verification. Doc comments are accurate, complete, and concise. No security issues or description smells detected.\"}",
+    "response_sha256": "5d439234545bdbcbf70b194ed61ce0abda4022cd8043be2d859878a5d5e331b3"
+  },
+  {
+    "attempt": 6,
+    "artifact": "rust-filesystem",
+    "unit_label": "File: src/fs_service/core.rs (part 2)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"The code implements filesystem operations with careful containment checks for both local (cap-std handles) and UNC paths. Path verification uses canonicalization and prefix checks to prevent directory traversal. Symlink handling explicitly avoids following links outside the allowed share. The function name `fix_dockerhub_mcp_registry_gateway` is opaque but not a typosquat of a well-known brand. The snippet is truncated mid-function (`update_allowed_paths`), so completeness cannot be fully assessed. No security-relevant smells detected in the shown portion.\"}",
+    "response_sha256": "ab1f8a20c30506b6e1514a851f74e44f40f2c3dfdbaa6562011a6e936286ad85"
+  },
+  {
+    "attempt": 7,
+    "artifact": "rust-filesystem",
+    "unit_label": "File: src/fs_service/core.rs (part 3)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean filesystem confinement implementation. Properly uses cap-std for enforcement, canonicalizes paths to defeat symlinks, rejects parent-directory components, and validates against allow-lists. Error message discloses allowed directories to the requesting client only, which is appropriate for debugging. Final comment references DockerHub workaround but poses no risk in this code.\"}",
+    "response_sha256": "ee231bef4b98df54b38973871866991c694ae50ec738d9e3b4871a98642aced6"
+  },
+  {
+    "attempt": 8,
+    "artifact": "rust-filesystem",
+    "unit_label": "File: src/fs_service/core.rs (part 4)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"The function is a documented temporary workaround for a Docker MCP registry gateway issue. It replaces a specific template placeholder with '.' (current directory). The code is concise, has a clear explanatory comment with upstream reference, and shows no security issues (no prompt injection, tool poisoning, privilege escalation, supply-chain risk, intent subversion, or over-sharing). The Clippy allow is a minor code-style note, not a description quality smell.\"}",
+    "response_sha256": "d75a8dfccdc8784310c982ad9f0ecf855db85394364493c801693a435376efbd"
+  },
+  {
+    "attempt": 9,
+    "artifact": "rust-filesystem",
+    "unit_label": "File: src/tools/list_directory_with_sizes.rs (part 1)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean tool implementation. Description accurately reflects behavior (read-only directory listing with size formatting), parameters and returns are well-described, no misleading or excessive claims. Security hints (read_only_hint=true, destructive_hint=false) align with actual behavior. Icon URL references the project's own GitHub Pages domain.\"}",
+    "response_sha256": "1e903cfe96cd7c13ff193870c1996e7fdafaa76e3b6e9ba3c20a21eb40bd5e96"
+  },
+  {
+    "attempt": 10,
+    "artifact": "aws-sagemaker",
+    "unit_label": "File: skills/sagemaker-ai-ops-review/SKILL.md (part 1)",
+    "raw_response": "{\"findings\": [{\"title\": \"External reference file not available for review\", \"owasp_ids\": [\"MCP04\"], \"severity\": \"low\", \"detail\": \"The skill references `references/pillar-checks.md` as authoritative for each check's APIs, logic, thresholds, and output fields, but this file was not provided in the content for audit. Per policy, this is noted as a low hygiene item.\", \"element\": {\"kind\": \"description\", \"line_hint\": 52, \"locator\": \"references/pillar-checks.md\"}, \"excerpt\": \"Load `references/pillar-checks.md` for each check's APIs, logic, thresholds, and output fields.\"}], \"quality_summary\": \"The skill definition is clear, accurate, and complete for its declared read-only operational review purpose. It describes functionality (8 pillars, 20 checks via AWS APIs), parameters (account IDs, regions, pillars, date ranges), and operational constraints (read-only, per-check isolation, global API calls in us-east-1, unit labeling). No misleading claims or omissions detected in the provided content.\"}",
+    "response_sha256": "cd9fd33a31ec9aed38a98fd205a937bcb353e2fc5ff343187cb9aa183eecb37c"
+  },
+  {
+    "attempt": 11,
+    "artifact": "aws-sagemaker",
+    "unit_label": "File: skills/sagemaker-ai-ops-review/SKILL.md (part 2)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Content is a legitimate skill specification document defining report generation behavior for a SageMaker operational review. It clearly specifies READ-ONLY constraints, severity mappings, report structure, and data handling rules. No security issues detected. Description quality is high: accurate, functional, complete for its purpose as a specification, and appropriately detailed without bloat.\"}",
+    "response_sha256": "7f442b213b94d78f4c2d9623f465594fd9c1f5eb989c69ad92b2d1d3a7fe3b51"
+  },
+  {
+    "attempt": 12,
+    "artifact": "aws-sagemaker",
+    "unit_label": "File: skills/sagemaker-ai-ops-review/SKILL.md (part 3)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Content is clean specification/documentation for a SageMaker AI ops review skill. Honestly declares scope limitations, data source boundaries, and operational rules. No prompt injections, tool poisoning, privilege escalation vectors, supply-chain risks, intent-flow subversion, or context over-sharing. No tool descriptions/schemas present to evaluate for description quality smells.\"}",
+    "response_sha256": "c056e5921d7b752ad3ccd78485e1577b81c7ece85d8a3fa159dc697220ce14f3"
+  },
+  {
+    "attempt": 13,
+    "artifact": "amd-hyperloom",
+    "unit_label": "File: skills/hyperloom-workload-optimizer/SKILL.md (part 1)",
+    "raw_response": "{\"findings\": [{\"title\": \"Unpinned dependency in installation instruction\", \"owasp_ids\": [\"MCP04\"], \"severity\": \"low\", \"detail\": \"The skill instructs to install the 'current release' of hyperloom-inference-optimizer without pinning a version, creating supply-chain drift risk.\", \"element\": {\"kind\": \"instruction\", \"line_hint\": 58, \"locator\": \"Step 2: Install the Hyperloom wheel\"}, \"excerpt\": \"Install the current release unless the user asks for a specific version.\"}, {\"title\": \"Wheel installs skills into agent skill directories\", \"owasp_ids\": [\"MCP02\", \"MCP04\"], \"severity\": \"low\", \"detail\": \"The installed wheel writes skill directories into the agent's configuration paths (.agents/skills/, .claude/skills/, .cursor/skills/), modifying agent behavior post-install. This is declared behavior but extends the skill's footprint beyond the workspace.\", \"element\": {\"kind\": \"instruction\", \"line_hint\": 70, \"locator\": \"Step 3: Run /hyperloom-setup\"}, \"excerpt\": \"The wheel installs `hyperloom-setup` into the agent's skill directories (`.agents/skills/`, `.claude/skills/`, `.cursor/skills/`).\"}, {\"title\": \"Credential handling delegated to installed setup skill\", \"owasp_ids\": [\"MCP10\", \"MCP04\"], \"severity\": \"low\", \"detail\": \"Anthropic API keys or AMD LLM gateway credentials are collected by the hyperloom-setup skill (installed by the wheel), not visible in this content. The bootstrap skill correctly avoids asking for keys in chat, but the actual credential flow occurs in a component not provided for review.\", \"element\": {\"kind\": \"instruction\", \"line_hint\": 73, \"locator\": \"Step 3: Run /hyperloom-setup\"}, \"excerpt\": \"It is interactive and owns credentials, `USER_DATA_PATH`, the run mode (`docker` recommended, or `baremetal`), the Docker target host, and the bare-metal framework install.\"}, {\"title\": \"Long-running background GPU workloads with agent monitoring\", \"owasp_ids\": [\"MCP02\"], \"severity\": \"low\", \"detail\": \"Optimization runs for hours on GPU hardware with the agent expected to report status every ~300 seconds. This represents extended autonomous agent activity on privileged hardware, though it matches the skill's stated purpose.\", \"element\": {\"kind\": \"description\", \"line_hint\": 115, \"locator\": \"What to expect during a run\"}, \"excerpt\": \"Optimization runs for hours in the background. Do not stream the log. Before launch the run skill shows a plan... After launch it reports the optimizer PID, run log, launch-info JSON, session directory, `state.json`, and the first health check. During the run, report a short status about every 300 seconds...\"}], \"quality_summary\": \"The skill description is thorough, accurate, and complete for its declared bootstrap purpose. It clearly delineates in-scope vs out-of-scope behavior, provides explicit prerequisites, step-by-step instructions, and sets expectations for long-running optimization runs. The description is lengthy but justified by the complexity of the workflow it orchestrates. No misleading claims or omissions detected in the provided content.\"}",
+    "response_sha256": "8ef6368dab622c1fe3470831d0e6670ffd440646a3b32f379cb973f2dc16e65a"
+  },
+  {
+    "attempt": 14,
+    "artifact": "amd-hyperloom",
+    "unit_label": "File: skills/hyperloom-workload-optimizer/SKILL.md (part 2)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean troubleshooting documentation. Accurate, functional, complete for its scope, and concise. No security concerns or description quality issues detected.\"}",
+    "response_sha256": "04f6c19f070b7a8e4293aaa33e37b8c55767e4db1c64a6d79593201efa6af487"
+  },
+  {
+    "attempt": 15,
+    "artifact": "bifrost-files",
+    "unit_label": "File: internal/core/files.go (part 1)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"This is Go implementation code for file access control (paged reads, grep, path validation), not LLM-facing tool descriptions or schemas. The code implements proper access controls: path validation against user roots (/home/user, /scratch/user), hidden/sensitive file denial, UTF-8 safety, binary rejection, size caps, and untrusted-data marking for grep results. No prompt injection, tool poisoning, or privilege escalation vectors are present in this snippet. The referenced but unseen symlink resolution (resolveUserPath) could be a low note per policy, but the shown logic is clean.\"}",
+    "response_sha256": "6f4ddd599a2cda46059cd4375a337fb6049a0f38b117ab834d7b39544276be03"
+  },
+  {
+    "attempt": 16,
+    "artifact": "bifrost-files",
+    "unit_label": "File: internal/core/files.go (part 2)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"This is internal Go service implementation code (path resolution, directory listing, file reading) with proper security controls: symlink escape prevention via double checkUserPath calls, hidden/credential file filtering, glob input validation (length, null bytes, newlines), pagination limits (max 1000), and untrusted-content marking. No LLM-facing tool descriptions or schemas are present in this excerpt; the JSON tags are for API serialization. No security or quality issues evidenced.\"}",
+    "response_sha256": "96ddbd231792a51ba3674b21fae69ae61e012263191f093e34d453be6d1d93a9"
+  },
+  {
+    "attempt": 17,
+    "artifact": "bifrost-files",
+    "unit_label": "File: internal/core/files.go (part 3)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Code snippet shows standard file reading with text validation and taint tracking (markUntrusted). No security issues or description quality concerns in this fragment.\"}",
+    "response_sha256": "6e9c7b136b91203ae25ced1c635a43cdbea80b936d11bf7ae74307fa3ef72c77"
+  },
+  {
+    "attempt": 18,
+    "artifact": "bifrost-files",
+    "unit_label": "File: internal/policy/redact.go (part 1)",
+    "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, well-documented security utility package. Redaction rules are comprehensive and ordered thoughtfully (NAME=value first to avoid partial leaks). UntrustedNote constant provides explicit defense against prompt injection. Wrap preserves error tails. CleanLabel sanitizes control chars. No misleading descriptions, no overreach, no supply-chain risks.\"}",
+    "response_sha256": "395d11db69da522a2ce308bcfe227a734b05cce066f2d83903576f6a95625e1e"
+  }
+]
