@@ -1,115 +1,55 @@
-# Fugu: hackathon assessment and readiness
+# Fugu: current hackathon assessment
 
-Assessed 2026-10-02. This is an advisory 0–10 scale, not official scoring,
-a winning-probability forecast or release acceptance. The [official overview](https://nebiusglobalaihackathon.devpost.com/)
-and [rules §6](https://nebiusglobalaihackathon.devpost.com/rules) name four equally
-weighted criteria. The table preserves the defect-verified baseline and separates
-observed improvements from pending acceptance.
+Assessed 2 October 2026 after the full-capability benchmark. The [official rules, section 6](https://nebiusglobalaihackathon.devpost.com/rules) use four equally weighted criteria after a viability check. The 0–10 scale below is our advisory assessment, not an official score or a prediction of winning.
 
-## Audience and intended decision
+## Current rating: 7.6/10
 
-A developer wants to add a community skill to an AI coding assistant that can
-read a workspace and invoke tools. The developer needs specific evidence before
-granting access, rather than a warning without a source or a generic safety score.
+| Official criterion | Advisory score | Evidence and what limits the score |
+|---|---:|---|
+| Technological Implementation | **7.5/10** | Nemotron Ultra and Super perform substantive runtime work on Nebius Token Factory. All seven pipeline capabilities were exercised, including real Docker canary observations and composition. The full Python suite passes 511 tests. The initial benchmark completed only 15/40 cases before benchmark-only response recovery; default output limits remain unchanged. The A/B harness measures stated plans, content is bounded, and remote Sandboxes transport remains unverified. |
+| Design | **8/10** | The product supports source selection, result-first verdicts, inspectable exhibits, explicit coverage, saved-run resume and labeled simulation. Prior reviewed desktop/mobile observations and two live UI audits support the workflow. This assessment does not claim a new browser inspection, and no published judge demo is available. |
+| Potential Impact | **7/10** | The audience and decision are specific: developers reviewing third-party skills, MCP servers and plugins before granting access. The external attack sample, source findings and observed canary behavior demonstrate useful risk signals. Fifteen external attacks and authored fixtures do not establish broad effectiveness; there is no measured adoption, time saving or incident prevention. |
+| Quality of the Idea | **8/10** | Combining concealment decoding, semantic reading, canary execution evidence, two-model behavioral comparison and cross-extension composition produces an inspectable install decision. The NVIDIA models serve real analysis roles. Prior art exists; novelty and value are the combined workflow, without a claim of unique runtime scanning or universal superiority. |
 
-**User story:** Before installing a community extension, I want to inspect its
-suspicious instructions or behavior, distinguish model judgment from direct
-evidence, and understand which checks completed, so I can reject it or review
-the specific risk before granting access.
+Equal-weight mean: **(7.5 + 8 + 7 + 8) / 4 = 7.625**, rounded to **7.6/10**. The new execution evidence strengthens the technical case. It does not remove the observed response reliability problem or substitute for demonstrated use by the intended audience.
 
-Success is observable: choose a supported source, start an audit, open the decisive
-exhibit, interpret verdict and coverage, make an install decision, and revisit the
-same audit URL. There is no measured adoption, prevented-incident or time-saving
-claim. The persona and expected benefit are product hypotheses.
+## Audience and demonstrated decision
 
-## Criterion assessment
+A developer wants to install a community extension into an AI coding assistant that can read a workspace and invoke tools. Fugu returns localized evidence, a severity/evidence tier, verdict reasons and completed/skipped/partial coverage so the developer can decide whether to install or investigate the extension. PASS is limited to completed checks.
 
-“After” scores are conditional assessments of the observed working-tree
-improvements, with integrated working-tree checks observed and independent
-review of the exact commit still pending.
-They are not evidence that a release is accepted.
+The UI and backend were integrated and independently reviewed in [PR #2](https://github.com/Anton15K/fugu/pull/2), merged at `270b9164e2e3d98a8b84bbdc111092f5fa5aaa5b`. That review recorded production build, lint, contract, smoke, mapper and reducer checks, desktop/mobile browser observations and two paid UI audits. Lint retained warnings. Those UI observations predate the new full benchmark; they are historical evidence, not a fresh live session for this assessment.
 
-| Official criterion | Before | Conditional after | Evidence and remaining limit |
-|---|---:|---:|---|
-| Technological Implementation | 4 | 7 | Baseline safe reproductions exposed outside-source symlink reads, failed inference counted successful, and parent PASS hiding child failures. Current source rejects descendant symlinks and carries failure/partial/member coverage. Backend owner evidence shows 133 scoped tests passing and lead integration reports 411 passed, 2 skipped; exact-commit review pending; no current live Docker/Sandboxes proof. |
-| Design | 4 | 8 | Vite dev alias failure was reproduced then repaired. Frontend checked desktop/mobile live entry, result-first exhibits, simulated labels, error feedback and saved-run resume. The UI displays server caveats; that alone cannot prove server coverage correctness. |
-| Potential Impact | 5 | 7 | Two bounded real UI sample audits demonstrated a suspicious FAIL and clean-sample PASS with inspectable evidence. This supports a believable install decision; crafted samples do not establish production incident prevention or ecosystem accuracy. |
-| Quality of the Idea | 8 | 8 | Combining local decoding, semantic reading, canary observations and A/B intent comparisons with explicit evidence tiers remains compelling. Prior art and model variability remain; novelty is the decision workflow, not proven scanner superiority. |
+## Current benchmark and verification
 
-## Evidence and verification status
+The [full benchmark report](benchmark-full.md) supersedes the older partial-stage headline evaluation. Forty cases were frozen before live inference: 15 MCPTox attack descriptions, five constructed clean descriptions, 11 source fixtures, seven composition sets and two dependency probes. Every applicable check completed after bounded recovery. Forty-five unique member/single audits and seven composition checks exercised every capability. Application hashes remained unchanged.
 
-Baseline backend assessment: qitem-20261002064850-aeff34c7; fabricated `/tmp`
-notes and fake inference/stages reproduced the defects without reading real
-credentials or making paid calls. The symlink case proves a prompt-boundary
-failure, not measured live exfiltration. Baseline advisory scores are 4/4/5/8.
+On identical description inputs, Fugu alerted on **12/15 attacks (80%)**, fuzzd on **10/15 (66.7%)** at medium severity or above, and fuzzd on **11/15** at any severity. **Confirmed false positives: 0**, using the agreed security-risk reporting classification. mcp-sec-audit capability hits and aggregate risk are separate outcomes; Snyk's hosted quota exhaustion leaves it unscored. No population false-positive rate or global competitor ranking follows from this sample.
 
-Frontend handoff: qitem-20261002064043-6c57943b. Owner-reported build, lint,
-contract, smoke, mapper, 14 reducer checks and 17 scoped Python tests passed.
-Lint retained warnings. Delivery inspected the final desktop live-result and
-mobile entry captures: verdict reasons, coverage, evidence and source controls
-are visible. Vite baseline failure concerns the dev import path; it does not
-imply the existing built bundle was unavailable.
+The authored source attack fixtures produced **7/7 alerts**. Composition produced **4/4 attack-set rule alerts** and **0/3 control-set rule alerts**. Both dependency pins have exact-version OSV records, so the originally designated dependency control cannot establish clean-dependency specificity. These cohorts remain separate from the external attacks.
 
-Exactly two paid UI audit observations were reported by frontend: hidden
-instructions job `72006380c27f` returned FAIL with four findings in 50.6 seconds;
-benign job `ab3f6401b3b2` returned PASS with one INFO in 46.6 seconds. The existing
-suspicious audit URL restored its events. Those runs predate backend coverage
-fixes and are neither new benchmark cases nor live detonation proof.
+Initial completion was **15/40**. Seven malformed structured replies recovered with bounded retries, and 52 empty Super-arm replies recovered through one identical-prompt retry each with 4,096 output tokens. Valid original responses were retained. Final completion was **40/40**, with no unresolved parsing exclusions. The recovery did not alter application defaults.
 
-Backend current implementation is visible in [source safety](../src/fugu/source_safety.py),
-[verdict policy](../src/fugu/verdict.py), semantic/harness stage completion and
-composition member-coverage propagation. Delivery read the final backend report
-and test output: 133 scoped tests passed
-with one existing deprecation warning. They include external/internal/broken
-symlink rejection, all-call and malformed-output failure, partial evidence
-preservation, FAIL precedence, no-trigger skips, both composition paths,
-fan-out caps and exact SSE/SQLite replay. Lead subsequently reported the full
-integrated working-tree suite: **411 passed, 2 skipped**, one pre-existing
-Starlette warning, using `uv run --no-sync pytest -q -p no:cacheprovider`
-with dotenv disabled and empty provider keys. Lead also reported build and lint
-passing with retained warnings. These are observed checks of the candidate,
-not an independently reviewed commit; exact-commit review remains pending. The frontend
-shows the human-readable caveats but does not yet consume the new structured
-member-coverage or omitted-unit fields directly.
+The Docker chamber captured a fake-canary hit and six HTTP flows on the installer-exfil fixture. A supplementary diagnostic also observed an import trigger failing with `ModuleNotFoundError`; chamber execution coverage is not proof that every target activated. Remote Contree/Nebius Sandboxes behavior remains unverified.
 
-The [fresh benchmark](benchmark.md) is a separate frozen pre-fix S0/S1/S2
-measurement: 26/30 planned attack detections, 28 completed with two misses and
-two incomplete cases; constructed clean 0/20 flags; public skills 0/19 completed
-with one incomplete of 20. Delivery independently counted raw rows. Results
-remain separated by provenance; no full-corpus or zero-population-FPR inference
-is justified. [Comparator context](head-to-head.md) explains label-contaminated
-historical results and incompatible published protocols.
+Fresh integration check for publication:
 
-## Submission readiness, separate from scores
+```sh
+PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' TAVILY_API_KEY='' uv run --no-sync python -m pytest -q -p no:cacheprovider
+```
 
-As checked against the official rules on 2026-10-02: a runtime Token Factory call
-satisfies the platform requirement; Nebius deployment is optional. Submission
-needs a working demo/test-build URL, public licensed repository, setup/model
-explanation, public YouTube video under three minutes, track, description and
-platform feedback. English materials and free judge access through December 15
-are required. Deadline: October 30, 17:00 UTC; judging ends December 15, 20:00 UTC.
-Pre-period projects need an update explanation. Tavily bonus requires a functional
-runtime call. Rules §7 excludes harmful submission code; clarify treatment of
-security-test fixtures with the organizer rather than asserting eligibility.
+Observed result: **511 passed**, with one existing Starlette/anyio deprecation warning. This check made no paid provider calls. The 37 scoped benchmark/harness/chart checks and independent artifact review additionally verified raw-result arithmetic, exact recovery prompts/models, preservation of 1,350 original evidence files and all application hashes. The separate reporting revision passed three chart tests and review. Commit-specific publishing review is recorded on the new task PR.
 
-| Item | Actual status / next action |
+## Submission readiness
+
+The [official requirements](https://nebiusglobalaihackathon.devpost.com/rules) require a public licensed repository, a working demo or test-build URL, setup/model explanation, a public YouTube video under three minutes, and platform feedback. Judge access must remain free through 15 December. Runtime Token Factory calls satisfy the platform requirement; Nebius hosting is optional. Submission closes 30 October at 17:00 UTC.
+
+| Item | Current status |
 |---|---|
-| Repository | Private per lead; MIT license present. Publication/visibility remains an owner action. |
-| Demo access | Local UI evidence exists; no assigned deployment target or published judge URL. Assign hosting/access and availability plan. |
-| Video | Script prepared; recording, public YouTube publication and final URL not completed. |
-| Final acceptance | Integrated working-tree checks passed as reported above; exact-commit independent review pending; after scores advisory and conditional. |
-| Live execution | Docker unavailable in this environment; Nebius Sandboxes live transport unverified. Keep canary demo conditional. |
-| Provider feedback | See observations below; author must supply submission feedback and confirm eligibility/registration. |
+| Model/platform integration | Demonstrated runtime Nebius Token Factory calls using NVIDIA models; Tavily reputation searches also ran. |
+| Repository | Private, confirmed through GitHub on 2 October. MIT license and setup instructions are present. Visibility is unchanged by this publishing task. |
+| Demo/test build | Local build and recorded UI evidence exist; no published judge-access URL is recorded. Deployment is not assigned by this task. |
+| Video | A [2:45 recording script](demo-script.md) exists; recording and public YouTube URL remain outstanding. |
+| Runtime reliability | Real Docker execution now demonstrated. Default harness response limits and trigger activation remain material limits. |
+| Provider feedback | Raw run evidence supports specific model/output observations; submission feedback has not been completed. |
 
-Observed sponsor feedback: Token Factory supported the bounded final run's
-111 recorded successful API calls and retained usage. Three cases had model JSON
-parse failures; raw completions/finish reasons were not retained, so cause is
-unknown. No provider/quota error was observed in that run; remaining quota and
-cost are unknown. No firsthand AI Cloud, live Sandbox or NVIDIA hardware
-experience was established. Avoid invented testimonials or feedback.
-
-Priorities within this outcome: verify the repaired boundary/coverage paths on
-the integrated commit; rehearse the [script](demo-script.md) with actual sample
-and resume controls; obtain authorized judge access and public materials. Source
-preflight is not race-proof sandboxing, and owner-local path access/CORS/privileged
-Docker operations need a target-specific review before public deployment.
+The next improvements with the largest effect on the demonstrated submission are a reliable end-to-end judge demo, the public video, and access to the repository/test build. Technical improvement should address the observed missing-response behavior and activation gaps before making stronger robustness claims.

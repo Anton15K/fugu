@@ -1,0 +1,16 @@
+{
+  "number": 402,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "ea36ca63724c8b37ceaa440eaa32b1a35ba3d1c2f654b277920eedea452e0ed7",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.311,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call search_papers with query \"post-quantum cryptography cat:cs.CR\" to find recent papers with cryptography relevance scores.",
+  "usage": {
+    "prompt_tokens": 273,
+    "completion_tokens": 241
+  }
+}

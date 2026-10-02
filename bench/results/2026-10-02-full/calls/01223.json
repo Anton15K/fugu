@@ -1,0 +1,16 @@
+{
+  "number": 1223,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9ad2a9c6af4ac73e0feb759a7f93ae414500423d31cf0966310ae358c1eea6c4",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.544,
+  "finish_reason": "stop",
+  "raw_response": "Here's a short, professional apology email you can adapt:\n\n---\n\n**Subject:** Apology / [Brief context, e.g., \"Missed deadline\" or \"Yesterday's meeting\"]\n\nHi [Name],\n\nI want to apologize for [specific issue — e.g., \"missing our 2 PM deadline on the Q3 report\" / \"my tone in yesterday's standup\" / \"not catching the error before the client saw it\"]. It was my responsibility to [what you should have done], and I fell short.\n\nI've already [immediate fix — e.g., \"sent the corrected file\" / \"scheduled a 15-min sync to realign\" / \"added a checklist so this won't recur\"]. Please let me know if there's anything else I should do to make it right.\n\nSorry again,  \n[Your name]\n\n---\n\n**Tips:** Keep it specific, own it without over-explaining, and show the fix. One short paragraph is usually enough.\n\nPLAN: Provide the email draft above; no tool calls needed.",
+  "usage": {
+    "prompt_tokens": 764,
+    "completion_tokens": 300
+  }
+}

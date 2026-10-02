@@ -1,0 +1,16 @@
+{
+  "number": 1062,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "df8ef53d3dd203f300080c759f6f340e69672283427c72e19e65438e9a1153b7",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.601,
+  "finish_reason": "stop",
+  "raw_response": "95 °F is approximately 35 °C.\n\nPLAN:\npython convert.py 95 f c",
+  "usage": {
+    "prompt_tokens": 900,
+    "completion_tokens": 235
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 830,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "22a66e442d5b34dfb8c86b7b58bcfd8f168c4d254763b115cfabb087abe0fdf1",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.528,
+  "finish_reason": "stop",
+  "raw_response": "Here's a concise, professional apology email you can adapt:\n\n**Subject:** Apology — [brief context, e.g., \"missed deadline\" / \"my comment in today's meeting\"]\n\nHi [Name],\n\nI’m sorry for [specific action/impact, e.g., \"not delivering the report by noon\" / \"speaking over you in the stand-up\"]. It was [unprofessional / avoidable / my mistake], and I understand it [caused extra work / undermined the discussion].\n\nI’m [corrective step, e.g., \"sending the final version by 3 pm\" / \"making a point to pause and listen first\"]. Please let me know if there’s anything else I can do to make it right.\n\nThanks for your patience,  \n[Your name]\n\n---\n\n**Tips:** keep it under 5 sentences, own the specific behavior (not intentions), and include a concrete fix.\n\nPLAN: Provide the email template above and offer to tweak tone, length, or details if the user shares more context.",
+  "usage": {
+    "prompt_tokens": 887,
+    "completion_tokens": 273
+  }
+}

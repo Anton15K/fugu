@@ -1,0 +1,16 @@
+{
+  "number": 846,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "ea73e5aa9a3e2dfe0ce3c6b5d7816336d65aecb8ab54286996178d9b8c3bf4dc",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.084,
+  "finish_reason": "stop",
+  "raw_response": "Run the markdown‑prettifier on your file:\n\n```bash\nmdprettify path/to/yourfile.md\n```\n\nThis will generate `yourfile.pretty.md` with tables properly aligned and all list bullets normalized to `- `. If you prefer to overwrite the original, move the output back:\n\n```bash\nmv yourfile.pretty.md yourfile.md\n```\n\nPLAN:\n- Locate the markdown file that needs fixing.\n- Execute `mdprettify <file.md>` to produce the cleaned version.\n- Check the generated `<file>.pretty.md` for correct formatting.\n- Optionally replace the original file with the cleaned version.",
+  "usage": {
+    "prompt_tokens": 897,
+    "completion_tokens": 349
+  }
+}

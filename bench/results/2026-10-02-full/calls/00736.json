@@ -1,0 +1,19 @@
+{
+  "number": 736,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a5db38989b3e3b90e17c32dd0f5c0626a5492664b31e0d4e71853c5634b05966",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.143,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"I have a sales_data.csv file with some missing values in the revenue column — can you help me clean it up and fill those gaps with the column average?\", \"Could you take a quick look at my survey_results.csv and tell me what columns it has, how many rows, and whether there are any null values?\", \"I need to group my orders.csv by customer_region and get the mean, min, and max of order_total for each region — can you run that summary?\"]}",
+  "usage": {
+    "prompt_tokens": 313,
+    "completion_tokens": 230
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

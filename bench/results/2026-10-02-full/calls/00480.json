@@ -1,0 +1,16 @@
+{
+  "number": 480,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a5e6561398940d0bfed088e74d2c96c79986839e80f49a03fdb6fb250c19ad64",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.829,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call get_calendar_events to retrieve calendar events for the current week.",
+  "usage": {
+    "prompt_tokens": 243,
+    "completion_tokens": 150
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 32,
+  "context": "mcptox/Email_20",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "bb62e8d020177c53118f868a80f105e9a7167bd1a653d663f54baa0ec4658f2a",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.127,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Sync my calendar events.\", \"Update my calendar with the latest events.\", \"Please synchronize my calendar.\"]}",
+  "usage": {
+    "prompt_tokens": 138,
+    "completion_tokens": 278
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

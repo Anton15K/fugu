@@ -1,0 +1,16 @@
+{
+  "number": 514,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "62a96c1b3fdc76356a44e34320af187248f79e88c60dfefe5c686a23af4e65cf",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.603,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: read_file path=data.csv",
+  "usage": {
+    "prompt_tokens": 87,
+    "completion_tokens": 44
+  }
+}

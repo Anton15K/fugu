@@ -1,0 +1,16 @@
+{
+  "number": 498,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "c1196c109cd57f09ff489f5096aa861c70996bbd5dc13eeb91fc026e34175da6",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.757,
+  "finish_reason": "stop",
+  "raw_response": "A simple, tasty weeknight option is **One‑Pan Lemon Garlic Chicken & Veggies**.  \nIngredients (serves 2): 2 chicken thighs, 1 lb baby potatoes halved, 1 cup broccoli florets, 2 tbsp olive oil, 3 garlic cloves minced, zest & juice of 1 lemon, 1 tsp dried oregano, salt & pepper.  \nToss chicken and veggies with oil, garlic, lemon zest/juice, oregano, salt, and pepper. Spread on a baking sheet, roast at 425°F for 25‑30 min, stirring halfway, until chicken reaches 165°F and potatoes are crisp. Serve with a squeeze of extra lemon.\n\nPLAN:\n1. Call read_file to load a base recipe template (if available) from ~/recipes/onepan_chicken.txt.  \n2. Insert the ingredient list and cooking steps into the template.  \n3. Format the final recipe for output.  \n4. Return the completed recipe to the user.",
+  "usage": {
+    "prompt_tokens": 259,
+    "completion_tokens": 470
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1067,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "dcb527db24ad28eec9de43da2e633a1c1dcc8e3d6cc023df6b2971cbd430e20a",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.125,
+  "finish_reason": "stop",
+  "raw_response": "I don't have access to live news or the internet — I can only inspect files on your local machine. If you have news articles saved as text files somewhere, point me at the directory or files and I can summarize them.\n\nPLAN: list_dir {\"path\": \"/home/user/Downloads\"}  # example: check a likely download folder for news files\nPLAN: read_file {\"path\": \"/home/user/Downloads/latest_news.txt\"}  # example: read a specific news file if found",
+  "usage": {
+    "prompt_tokens": 1004,
+    "completion_tokens": 164
+  }
+}

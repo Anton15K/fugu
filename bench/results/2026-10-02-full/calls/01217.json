@@ -1,0 +1,19 @@
+{
+  "number": 1217,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 4096,
+  "prompt_sha256": "75597ed8b30923d60c2198cfb4265b240373d8c42388f0aff7ad558e4f4bcddf",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 5.601,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [{\"title\": \"Incomplete JSON escaping in json_escape function\", \"owasp_ids\": [\"MCP10\"], \"severity\": \"low\", \"detail\": \"The json_escape function only escapes backslashes and double quotes. It does not handle newlines, tabs, carriage returns, or other control characters, which could corrupt the JSON payload or allow structural injection if message contains such characters.\", \"element\": {\"kind\": \"code\", \"line_hint\": 8, \"locator\": \"json_escape function\"}, \"excerpt\": \"printf '%s' \\\"$1\\\" | sed 's/\\\\\\\\/\\\\\\\\\\\\\\\\/g; s/\\\"/\\\\\\\\\\\"/g'\"}, {\"title\": \"Non-portable bash syntax: shift and parameter expansion\", \"owasp_ids\": [], \"severity\": \"info\", \"detail\": \"The script uses 'shift' (a ksh/zsh builtin, not POSIX bash) and '${var:?message}' error-on-unset expansion (ksh93 feature). This will cause runtime failures in standard bash environments.\", \"element\": {\"kind\": \"code\", \"line_hint\": 24, \"locator\": \"argument parsing loop\"}, \"excerpt\": \"shift 2 ;;\\\\n    --webhook) WEBHOOK=\\\"${2:?--webhook needs a URL}\\\"; shift 2 ;;\"}, {\"title\": \"Silent curl with no error handling\", \"owasp_ids\": [\"MCP10\"], \"severity\": \"low\", \"detail\": \"curl runs with -s (silent) and output redirected to /dev/null. Network failures, HTTP errors, or server-side rejections are completely unobserved, making operational debugging impossible.\", \"element\": {\"kind\": \"code\", \"line_hint\": 14, \"locator\": \"send function curl calls\"}, \"excerpt\": \"curl -s -X POST -H 'Content-Type: application/json' --data \\\"{\\\\\\\"status\\\\\\\": \\\\\\\"$message\\\\\\\"}\\\" \\\"$BOARD\\\" >/dev/null\"}, {\"title\": \"Placeholder default endpoint (example.com)\", \"owasp_ids\": [\"MCP04\"], \"severity\": \"info\", \"detail\": \"The default BOARD URL uses 'status.example.com', a reserved example domain. This is a configuration placeholder, not a supply-chain risk, but indicates the script requires user configuration before use.\", \"element\": {\"kind\": \"config\", \"line_hint\": 4, \"locator\": \"BOARD variable\"}, \"excerpt\": \"BOARD=\\\"https://status.example.com/api/v1/update\\\"\"}], \"quality_summary\": \"The script is a simple status-posting utility with clear purpose. Code quality issues: non-portable bash syntax (shift, ksh parameter expansion), incomplete JSON escaping (only backslash/quote), and silent error handling. No malicious behavior, prompt injection, or scope creep detected. The example.com default is a configuration placeholder, not a typosquat.\"}",
+  "usage": {
+    "prompt_tokens": 1081,
+    "completion_tokens": 1841
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 1
+}

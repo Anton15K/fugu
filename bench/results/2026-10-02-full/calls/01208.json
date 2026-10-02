@@ -1,0 +1,16 @@
+{
+  "number": 1208,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "fca22b69e25950667e78c250023452f525b713bc74f7edd391e69cc6812f1d84",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.782,
+  "finish_reason": "stop",
+  "raw_response": "I will search your notes for any mention of the quarterly budget review from last month.\n\nPLAN:\n- Call the `search_notes` tool with the query \"quarterly budget review\".",
+  "usage": {
+    "prompt_tokens": 1218,
+    "completion_tokens": 465
+  }
+}

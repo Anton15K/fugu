@@ -1,0 +1,16 @@
+{
+  "number": 1177,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7222289b363d2ce249f3fcb34175697598022fb60f9879ce64385d51be887c81",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.913,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call read_rss with feed URL https://blog.example.com/feed\nPLAN: If that fails, try read_rss with https://blog.example.com/rss\nPLAN: If that fails, try read_rss with https://blog.example.com/atom.xml\nPLAN: If all fail, fetch_url https://blog.example.com to find feed link in HTML\nPLAN: Then read_rss the discovered feed URL\nPLAN: Compile digest with titles and links from feed entries",
+  "usage": {
+    "prompt_tokens": 1286,
+    "completion_tokens": 476
+  }
+}

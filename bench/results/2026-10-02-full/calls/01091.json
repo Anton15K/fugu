@@ -1,0 +1,16 @@
+{
+  "number": 1091,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7825e407cdf2a51096561a89fb2e5489ff03dfbb5b6caa6feefa799e72b4e14f",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.623,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: list_dir(path=\".\")\nPLAN: read_file(path=\"./config.yaml\")",
+  "usage": {
+    "prompt_tokens": 1011,
+    "completion_tokens": 90
+  }
+}

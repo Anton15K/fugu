@@ -1,0 +1,19 @@
+{
+  "number": 1124,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "6b68280a0414a338eb3ed5ddcd96ede03eccc483e90d1ae48ea0eeba0c566ce0",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 5.758,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"The server is a minimal, stdio-only MCP implementation serving bundled markdown documentation. It uses only the standard library, performs no network I/O, and restricts filesystem access to a local docs/ directory. Tool descriptions accurately reflect behavior (list_docs, search_docs), input schemas are complete, and annotations correctly mark tools as read-only, non-destructive, idempotent, and closed-world. No prompt injection, tool poisoning, privilege escalation, supply-chain risks, intent subversion, or context over-sharing are present. The only minor robustness gap is the absence of a guard against unknown tool names in tools/call (would raise KeyError), but this is a hygiene note, not a security finding.\"}",
+  "usage": {
+    "prompt_tokens": 1511,
+    "completion_tokens": 1314
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

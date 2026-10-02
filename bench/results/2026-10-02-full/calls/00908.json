@@ -1,0 +1,16 @@
+{
+  "number": 908,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7e1347fc97fa1184c98be10503ca9958958a7a2e890fe701f3d8f7c60e4e88ed",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.844,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run the feed_watch.py script with the \"check\" command to fetch and display new entries from all stored RSS feeds.",
+  "usage": {
+    "prompt_tokens": 1047,
+    "completion_tokens": 82
+  }
+}

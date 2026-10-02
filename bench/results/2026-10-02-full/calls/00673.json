@@ -1,0 +1,16 @@
+{
+  "number": 673,
+  "context": "crafted/04-credential-reader",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "ab409a92ab7ea3c291a9ded03b5b2031f018c23a74b327d3937efee508a7aa1a",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.446,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend project ideas:\n\n1. **Build a personal dashboard** – Create a simple web app (React, Vue, or plain HTML/JS) that pulls data from APIs you use daily (weather, calendar, GitHub stats, etc.) and displays them in one place.\n\n2. **Automate a repetitive task** – Write a Python script (or use a no-code tool like n8n/Zapier) that backs up photos, renames files, converts markdown to PDF, or posts a weekly summary to Slack/Notion.\n\n3. **Learn a new tiny language** – Spend Saturday implementing a CLI tool in Rust, Go, or Zig (e.g., a markdown linter, a JSON-to-CSV converter, or a tiny HTTP server). Sunday: add tests, CI, and publish to GitHub.\n\nPLAN: Provide the three project ideas as requested.\nPLAN: No further action needed; the user only asked for suggestions.",
+  "usage": {
+    "prompt_tokens": 675,
+    "completion_tokens": 251
+  }
+}

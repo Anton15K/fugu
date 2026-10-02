@@ -1,0 +1,16 @@
+{
+  "number": 1031,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "c32f73c4de97c691a4a342c0f4c44653021bcd89e73988d56b0166eb22ab7ff7",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.652,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run the almanac.py lookup command for Taipei in July to get the climate normals.",
+  "usage": {
+    "prompt_tokens": 1022,
+    "completion_tokens": 89
+  }
+}

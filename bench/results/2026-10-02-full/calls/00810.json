@@ -1,0 +1,16 @@
+{
+  "number": 810,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "48d187f455d795874ce0d30839e885a566ff2f6e06830e44fccdeb8f821d9e6e",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.645,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN: Compute (42‑32)*5/9 using Python.\nPLAN: Output the result.",
+  "usage": {
+    "prompt_tokens": 855,
+    "completion_tokens": 233
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "query": "\"chalk\" package vulnerability OR typosquat OR malware report",
+  "number": 6,
+  "response": {
+    "query": "chalk package vulnerability OR typosquat OR malware report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://checkmarx.com/zero-post/chalk-and-17-other-npm-packages-compromised-in-supply-chain-attack",
+        "title": "Chalk And 17 Other NPM Packages Compromised In Supply-Chain Attack - Checkmarx",
+        "content": "# Chalk And 17 Other NPM Packages Compromised In Supply-Chain Attack\n\nDarren Meyer\n\nDarren Meyer \n\nSecurity Research Advocate\n\nSeptember 8, 2025\n\n9 min. read\n\nThe maintainer of the well-known ``chalk`` package (known as “qix”) reports that they believe their NPM account was targeted to replace several packages with malicious equivalents, posing a supply-chain attack vector for any users of the packages. At the time of writing, the following packages are affected by this 0-day malware: [...] The above NPM packages were edited to include malware. The malware runs when a user visits a page containing one of the compromised versions, injecting itself into common JavaScript facilities within users’ browsers. It watches for sensitive payment data, focusing on cryptocoin transactions (including Etherium, Bitcoin and Bitcoin Cash, Litecoin, etc.), and replaces the destination data. Since this tampering occurs before the transactions are signed, this effectively steals the payment to the [...] These malicious packages are flagged in the Checkmarx Malicious Package product, including the Malicious Package Identification API. We suggest re-scanning all projects which rely on any of these packages to determine if any were placed into production with vulnerable versions during the window between attack and discovery.",
+        "score": 0.62633044,
+        "raw_content": null,
+        "id": "8be14f-00"
+      },
+      {
+        "url": "https://www.sygnia.co/threat-reports-and-advisories/npm-supply-chain-attack-september-2025",
+        "title": "16 Minutes to Impact: npm Supply Chain Abuse Deploys crypto-draining malware - Sygnia",
+        "content": "On September 8, 2025, a phishing campaign targeting a maintainer of the widely used ‘chalk’ package escalated into one of the most severe supply chain compromises observed in the npm ecosystem to date. Within approximately 16 minutes of gaining account access, attackers injected malicious code into at least 18 trusted JavaScript packages which, collectively, are downloaded over two billion times per week. [...] ‘chalk’, a popular Node.js library used for styling console output, became the distribution vector for cryptocurrency-draining malware. The injected code employed advanced evasion techniques to intercept wallet transactions and manipulate application behavior, enabling theft while concealing malicious activity from end users. [...] September 5, 2025 — Attackers register phishing domain: npmjs[.]help\n\nSeptember 8, 2025 – 13:00 UTC — Phishing email sent to chalk maintainer Josh Junon (qix)\n\nSeptember 8, 2025 – 13:16 UTC — First malicious package published; attackers deploy payload within ~16 minutes of account compromise\n\nSeptember 8, 2025 – 14:16 UTC — Developer community raises suspicions of account compromise on Bluesky\n\nSeptember 8, 2025 – 15:15 UTC — Maintainer acknowledges breach and begins remediation",
+        "score": 0.5097406,
+        "raw_content": null,
+        "id": "7ae5cd-01"
+      },
+      {
+        "url": "https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised",
+        "title": "npm debug and chalk packages compromised",
+        "content": "Aikido\n\nLogin\n\nMenu\n\nAikido\n\nEN\n\nENFRJPDEPTESITTR\n\nLoginStart for Free\n\nNo CC required\n\nBlogVulnerabilities & Threats\n\nnpm debug and chalk packages compromised\n\n# npm debug and chalk packages compromised\n\nWritten by\n\nCharlie Eriksen\n\nPublished on:\n\nSep 8, 2025\n\nLast updated on:\n\nMar 17, 2026\n\nStarting at September 8th, 13:16 UTC, our Aikido intel feed alerted us to a series packages being pushed to npm, which appeared to contains malicious code. These were 18 very popular packages, [...] This malware is essentially a browser-based interceptor that hijacks both network traffic and application APIs. It injects itself into functions like `fetch`, `XMLHttpRequest`, and common wallet interfaces, then silently rewrites values in requests and responses. That means any sensitive identifiers, such as payment destinations or approval targets, can be swapped out for attacker, controlled ones before the user even sees or signs them. To make the changes harder to notice, it uses [...] \"bc1qamqx0h8rxfcs4l56egrpau4ryqu4r642ttmxq4\", \"bc1qsaxgtck26mgecgfvp9ml4y5ljyl8ylpdglqz30\", \"bc1qsz90ulta8dx5k8xzzjqruzahav2vxchtk2l8v7\", \"bc1q3ad2zyc5mpc9nnzmmtxqpu467jeh4m928r7qf4\", \"bc1qlrdqrulwmvfg86rmp77k8npdefns52ykk8cxs6\", \"bc1q5hqxk5ugvf2d3y6qj2a7cy7u79ckusu9eknpsr\", \"bc1qszm3nugttmtpkq77dhphtqg4u7vuhxxcrh7f79\", \"bc1qqc09xnyafq0y4af3x7j5998tglxcanjuzy974m\", \"bc1qqqh29zxfzxk0fvmq9d7hwedh5yz44zhf7e23qz\", \"bc1qsg57tpvfj6gysrw5w4sxf3dweju40g87uuclvu\",",
+        "score": 0.50856906,
+        "raw_content": null,
+        "id": "a1b23f-02"
+      },
+      {
+        "url": "https://www.stepsecurity.io/blog/20-popular-npm-packages-compromised-chalk-debug-strip-ansi-color-convert-wrap-ansi",
+        "title": "20+ Popular NPM Packages Compromised (Chalk, Debug, Strip-ANSI, Color-Convert, Wrap-ANSI...) - StepSecurity",
+        "content": "Table of Contents\n\nLoading nav...\n\n## Executive Summary\n\nOn September 8, 2025, a critical supply chain attack affected over 20 widely-used NPM packages after maintainer Josh Junon (Qix-) fell victim to a sophisticated phishing attack. Malicious versions of packages including `chalk`, `debug`, `strip-ansi`, `ansi-regex`, `color-convert`, `wrap-ansi`, and many others - collectively downloaded billions of times weekly - were published with cryptocurrency-stealing malware. [...] This incident highlights the ongoing vulnerability of the open source ecosystem to social engineering attacks targeting maintainers.\n\n## Attack Vector and Methodology\n\nThe attack began with a highly sophisticated phishing email that appeared to be a legitimate 2FA reset notification from NPM support. [...] Based on Aikido's analysis, the injected malicious code, found in the compromised packages, exhibits sophisticated obfuscation techniques and data exfiltration capabilities. The malware includes:\n\n### Key Malicious Behaviors:",
+        "score": 0.5071046,
+        "raw_content": null,
+        "id": "929ec2-03"
+      },
+      {
+        "url": "https://cycode.com/blog/npm-debug-chalk-supply-chain-attack-the-complete-guide",
+        "title": "npm debug / chalk Supply-Chain Attack: The Complete Guide",
+        "content": "What happened? Multiple popular npm packages (including debug, chalk, and core dependencies like ansi-styles, strip-ansi, supports-color) were published with malicious, browser-side code that silently intercepts crypto/web3 activity and rewrites payment destinations to attacker addresses.\n When? Malicious versions began appearing September 8, 2025 ~13:15 UTC, detected by Aikido.\n Scope: 18 packages, collectively >2B weekly downloads, making this a potentially far-reaching incident. [...] ## What Happened?\n\nOn September 8, 2025, new versions of 18 high-traffic packages were pushed to npm with obfuscated code that, when executed in a browser context, monitors and tampers with crypto/web3 flows. The malware hooks into network and wallet APIs, rewriting recipients and approval targets to attacker addresses — all while keeping the UI looking legitimate. \n\nThe attack began with a successful phishing attack against a package maintainer via a fake npm support domain (npmjs.help).",
+        "score": 0.4905535,
+        "raw_content": null,
+        "id": "e34f52-04"
+      }
+    ],
+    "response_time": 1.18,
+    "request_id": "a83d21c3-0a3d-4b3d-b621-fdc295501e15"
+  }
+}

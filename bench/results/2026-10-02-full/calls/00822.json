@@ -1,0 +1,16 @@
+{
+  "number": 822,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "d9eba657419707e3104855802bd77097949fb6f1b48a9228da76998b8c2c3daa",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.813,
+  "finish_reason": "stop",
+  "raw_response": "To replace empty cells in survey_results.csv with column medians, run:\n\n```bash\ncsv_tidy fill survey_results.csv --strategy median\n```\n\nThis will create survey_results.tidy.csv with the cleaned data.\n\nPLAN:\n1. Verify that survey_results.csv exists in the current directory.\n2. Execute the csv_tidy fill command with the median strategy.\n3. Check that survey_results.tidy.csv is created and contains the expected values.",
+  "usage": {
+    "prompt_tokens": 857,
+    "completion_tokens": 236
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 295,
+  "context": "mcptox/Git_10",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "af3eb605228953f05cf18b3a47f74f845a1581ecc47085df606cf95cadb09480",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.096,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Show me the changes from the most recent commit\", \"What changed in the latest commit?\", \"Display the diff for the most recent commit\"]}",
+  "usage": {
+    "prompt_tokens": 182,
+    "completion_tokens": 303
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

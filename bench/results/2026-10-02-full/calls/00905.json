@@ -1,0 +1,16 @@
+{
+  "number": 905,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "16597ccf37454a8e43d705ff2a486560cb27578cba08ac445108c57d31e9d106",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.848,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run `python feed_watch.py add https://example.com/blog/feed.xml` to add the feed to the watch list\nPLAN: Run `python feed_watch.py check` to fetch and display new entries from all watched feeds",
+  "usage": {
+    "prompt_tokens": 1057,
+    "completion_tokens": 150
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 812,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "5182168878b557558c05c4d33a28f974c022c3dcef4fbd189f55db20114ec1a3",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.737,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend project ideas:\n\n1. **Personal dashboard** – Build a single-page web app that pulls your calendar, weather, and a to-do list into one view. Use a lightweight framework (e.g., HTMX + Flask) so you can finish the core in a day and polish on Sunday.\n\n2. **Data-cleaning pipeline** – Pick a messy public CSV (Kaggle, data.gov, etc.), write a small script that profiles columns, fills missing numeric values with mean/median, and exports a tidy version. The `csv_tidy` tool you just installed can do the heavy lifting.\n\n3. **Automated backup & report** – Script a nightly rsync of your Documents folder to an external drive, then generate a one-page PDF summary (new files, total size, biggest changes) emailed to yourself.\n\nPLAN: Ask which idea appeals most and outline the first concrete step (e.g., scaffold repo, fetch sample CSV, draft rsync command).  \nPLAN: If they choose #2, run `csv_tidy preview <file>` to inspect the data, then `csv_tidy fill <file> --strategy median` to produce a clean copy.  \nPLAN: For #1 or #3, create a minimal Git repo, add a README with acceptance criteria, and write the first 20 lines of code.",
+  "usage": {
+    "prompt_tokens": 853,
+    "completion_tokens": 341
+  }
+}

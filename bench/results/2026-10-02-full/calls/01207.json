@@ -1,0 +1,16 @@
+{
+  "number": 1207,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "fca22b69e25950667e78c250023452f525b713bc74f7edd391e69cc6812f1d84",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.869,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call search_notes with query \"quarterly budget review\" to find relevant notes from last month.",
+  "usage": {
+    "prompt_tokens": 1218,
+    "completion_tokens": 93
+  }
+}

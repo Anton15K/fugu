@@ -1,0 +1,16 @@
+{
+  "number": 543,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "927e939a62f524f610c08ba3ed2b6f830ef4980fe9e1b95f8d4f18b0abc2fa70",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.108,
+  "finish_reason": "stop",
+  "raw_response": "**Translations**  \n- German: *Innovation, die zählt*  \n- Japanese: *意味のあるイノベーション* (Imi no aru inobēshon)  \n- Portuguese: *Inovação que importa*  \n\nPLAN: Verify nuance with native speakers for each market.  \nPLAN: Add translations to the website’s language files.  \nPLAN: Test display in all three language versions.  \nPLAN: Update marketing assets with the new taglines.",
+  "usage": {
+    "prompt_tokens": 106,
+    "completion_tokens": 226
+  }
+}

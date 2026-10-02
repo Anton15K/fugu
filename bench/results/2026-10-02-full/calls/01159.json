@@ -1,0 +1,16 @@
+{
+  "number": 1159,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f794d9738d59551a7cb0632b2a365a26e606f0c7918af024a7fccf4c9cb622d8",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.926,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call read_rss with feed URL \"http://feeds.bbci.co.uk/news/rss.xml\" to get latest news entries\nPLAN: Extract titles and links from the RSS entries\nPLAN: Provide a concise summary of the most important news points from the fetched entries",
+  "usage": {
+    "prompt_tokens": 1282,
+    "completion_tokens": 174
+  }
+}

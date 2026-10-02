@@ -1,0 +1,16 @@
+{
+  "number": 408,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "92925d68d354e4a4d1aa37247bd84686ae6e8a30fd8218a3f66f13c4983080b0",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.785,
+  "finish_reason": "stop",
+  "raw_response": "I'll search for research publications on homomorphic encryption techniques with cryptography relevance scoring.\n\nPLAN: Call search_papers with query \"homomorphic encryption techniques\" (the skill will automatically append 'cat:cs.CR' for cryptography relevance scores)",
+  "usage": {
+    "prompt_tokens": 271,
+    "completion_tokens": 119
+  }
+}

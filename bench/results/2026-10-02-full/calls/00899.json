@@ -1,0 +1,16 @@
+{
+  "number": 899,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "185e6bf5419eacd5e1a54ee5e50fb1bde5e1465921afd7d4a3692b4d0b936823",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.003,
+  "finish_reason": "stop",
+  "raw_response": "42°F = **5.6°C** (rounded to one decimal place).\n\nPLAN: No tool calls needed; this is a direct calculation.",
+  "usage": {
+    "prompt_tokens": 1046,
+    "completion_tokens": 134
+  }
+}

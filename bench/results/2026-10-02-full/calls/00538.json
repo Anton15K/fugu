@@ -1,0 +1,16 @@
+{
+  "number": 538,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d027550313057fab20932b55117bc6ba9481c54f0556e7b3553a5a16ea0830dc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 4.067,
+  "finish_reason": "stop",
+  "raw_response": "Here is the translation to Spanish:\n\n**Estimado Carlos,  \nGracias por su propuesta. Nos gustaría avanzar con el proyecto a partir del próximo mes. Por favor, envíe el actualizado**\n\nPLAN: Call translate_text with source_text=\"Dear Carlos, Thank you for your proposal. We'd like to move forward with the project starting next month. Please send the updated\" and target_language=\"Spanish\"",
+  "usage": {
+    "prompt_tokens": 278,
+    "completion_tokens": 1272
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 1065,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "18647c7432fab7be812dfc03a9846f27a0a76b407c7b11a61dba388556ee9a01",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.121,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Can you check what's in the project's README.md file?\", \"List the contents of the /home/user/documents folder so I can see what files are there.\", \"Read the config.yaml file in the current directory and tell me what the database connection string is set to.\"]}",
+  "usage": {
+    "prompt_tokens": 707,
+    "completion_tokens": 197
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

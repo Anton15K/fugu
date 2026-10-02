@@ -1,0 +1,19 @@
+{
+  "number": 686,
+  "context": "crafted/05-obfuscated-payload",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f681f130cc63f37c92ce91f22127631c25bb17d517076177b676acb6a859a318",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.739,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": []}",
+  "usage": {
+    "prompt_tokens": 401,
+    "completion_tokens": 155
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

@@ -1,0 +1,19 @@
+{
+  "number": 883,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d26e8f7d6329db56995228d2168e032f4f334b1f15aafea3e82df749be7f384a",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.758,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, concise README. Accurately describes purpose (RSS feed watching), functionality (add/check commands), and data scope (local JSON files, fetches only user-added feed URLs). No misleading claims, no hidden instructions, no over-reaching behavior.\"}",
+  "usage": {
+    "prompt_tokens": 857,
+    "completion_tokens": 378
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

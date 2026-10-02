@@ -1,0 +1,16 @@
+{
+  "number": 1268,
+  "context": "reputation/requests-2.19.1",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "f98284fa8e482d6efa041ea13310fa30788a792a466a6f4baa288cfe250af178",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.37,
+  "finish_reason": "stop",
+  "raw_response": "The pyproject.toml lists a single dependency: `requests==2.19.1`. This version is several years old and contains known security issues (e.g., CVE‑2018‑18074, CVE‑2020‑26137). It also lacks a `python_requires` specifier, making compatibility unclear. Recommend updating to a recent, maintained release (e.g., `requests>=2.25.0` or the latest stable) and optionally adding a Python version constraint.\n\nPLAN:\n1. Verify the exact version requested (`requests==2.19.1`).\n2. Check vulnerability databases (e.g., OSV, PyPI advisory) for that version.\n3. Identify the latest stable requests version compatible with the project.\n4. Suggest updating the dependency line to a newer, secure version.\n5. Optionally add a `python_requires` field to clarify supported Python versions.",
+  "usage": {
+    "prompt_tokens": 236,
+    "completion_tokens": 428
+  }
+}

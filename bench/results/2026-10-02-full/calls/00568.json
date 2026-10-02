@@ -1,0 +1,16 @@
+{
+  "number": 568,
+  "context": "clean/create_notion_page",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "97659ba6e1b8624566ea0ada6217737f73d09b4f3cc526de3322f7ced7a514d0",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 0.981,
+  "finish_reason": "stop",
+  "raw_response": "I’ll create a new Notion page titled “Today’s Meeting Notes” in your default workspace.\n\nPLAN:\n- Call `create_notion_page` with appropriate title/content for today’s meeting notes.",
+  "usage": {
+    "prompt_tokens": 252,
+    "completion_tokens": 99
+  }
+}

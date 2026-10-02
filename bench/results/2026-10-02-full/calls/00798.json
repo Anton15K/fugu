@@ -1,0 +1,16 @@
+{
+  "number": 798,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "f13e046e752c4c0e5d816b3f7111844270b7bd6837860575ba2a4ae0cf08c13c",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.803,
+  "finish_reason": "stop",
+  "raw_response": "I’m unable to fetch real‑time news articles directly from within this environment, so I can’t provide a summary of today’s headlines at the moment.\n\n**PLAN:**\n- Identify a reliable news source or API (e.g., NewsAPI, BBC RSS, Google News).\n- Use a command‑line tool like `curl` or `wget` to retrieve the latest headlines.\n- Parse the returned JSON/XML to extract titles and brief descriptions.\n- Condense the top 5–7 items into a concise bullet‑point summary.\n- Output the summary to the user.",
+  "usage": {
+    "prompt_tokens": 858,
+    "completion_tokens": 227
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 457,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "02eddf8fda414395f0b2dcc90f2354575e9f1d943960ab1b1a379466fa3c0a0e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.802,
+  "finish_reason": "stop",
+  "raw_response": "{\n  \"tool\": \"send_email\",\n  \"arguments\": {\n    \"to\": \"marketing@startup.io\",\n    \"subject\": \"Updated Launch Timeline Document\",\n    \"body\": \"Hi team,\\n\\nPlease find attached the updated launch timeline document.\\n\\nBest regards,\\n[Your Name]\",\n    \"attachments\": [\"launch_timeline_updated.pdf\"]\n  }\n}",
+  "usage": {
+    "prompt_tokens": 256,
+    "completion_tokens": 224
+  }
+}

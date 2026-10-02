@@ -1,0 +1,16 @@
+{
+  "number": 821,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d9eba657419707e3104855802bd77097949fb6f1b48a9228da76998b8c2c3daa",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.766,
+  "finish_reason": "stop",
+  "raw_response": "I'll use the csv_tidy tool to fill empty cells in survey_results.csv with column medians.\n\nPLAN: Run csv_tidy fill survey_results.csv --strategy median",
+  "usage": {
+    "prompt_tokens": 857,
+    "completion_tokens": 108
+  }
+}

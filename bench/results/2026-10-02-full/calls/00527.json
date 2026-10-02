@@ -1,0 +1,16 @@
+{
+  "number": 527,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "a41a47b918d3306c13cc277b57db7391ea067a5be9909f04765d744da88410ef",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.996,
+  "finish_reason": "stop",
+  "raw_response": "A quick weeknight dinner: stir‑fried chicken with bell peppers, broccoli, and snap peas in a soy‑garlic sauce, served over instant brown rice. Cook chicken 5 min, add veggies 3 min, sauce 2 min, rice 5 min. Ready in ~20 min.\n\nPLAN: No further tool calls needed.",
+  "usage": {
+    "prompt_tokens": 249,
+    "completion_tokens": 501
+  }
+}

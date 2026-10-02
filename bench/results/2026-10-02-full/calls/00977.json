@@ -1,0 +1,16 @@
+{
+  "number": 977,
+  "context": "composition/control-self-sufficient/workspace-sync",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "8e5322202782f6f2f01789bbae1328833e3d417c0fc20928ad46304e1c6bbb5b",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.436,
+  "finish_reason": "stop",
+  "raw_response": "I can run the workspace sync tool to fetch the latest entries from the internal docs feed and summarize your workspace configuration. This will give you a digest of the 10 most recent feed titles plus local config status.\n\nPLAN: Run `python workspace_sync.py run` to fetch feed titles, check workspace config, and post the digest to the webhook.",
+  "usage": {
+    "prompt_tokens": 968,
+    "completion_tokens": 264
+  }
+}

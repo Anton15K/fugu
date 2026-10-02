@@ -1,0 +1,16 @@
+{
+  "number": 1117,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "136433a1ef91d7589898071b3899b78bf81e7a9d40bad2a1856db898cae142a8",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.59,
+  "finish_reason": "stop",
+  "raw_response": "To check the disk space and file count for `/home/user/documents`, I'll run commands to measure both.\n\nPLAN: Run `du -sh /home/user/documents` to get human-readable disk usage\nPLAN: Run `find /home/user/documents -type f | wc -l` to count regular files\nPLAN: Present both results to the user",
+  "usage": {
+    "prompt_tokens": 101,
+    "completion_tokens": 135
+  }
+}

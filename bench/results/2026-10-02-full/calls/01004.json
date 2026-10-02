@@ -1,0 +1,19 @@
+{
+  "number": 1004,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "169e6ba116473f53a8c811de269e35e9977db5a8b727831475ab8b0c19e0d38e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.877,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, single-purpose offline lookup script. Module docstring accurately describes behavior (no network, no env access, bundled data only). CLI help text is accurate and concise. No security-relevant issues detected.\"}",
+  "usage": {
+    "prompt_tokens": 1408,
+    "completion_tokens": 442
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

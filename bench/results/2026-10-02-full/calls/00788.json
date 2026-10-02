@@ -1,0 +1,16 @@
+{
+  "number": 788,
+  "context": "crafted/08-clean-mcp-server",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "df16b1d364572ef100d330feaf288a2463a9c3a881999792d0ec0dd9344733e9",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.775,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call the search_notes tool with query \"meeting\" to find matching lines in note files.",
+  "usage": {
+    "prompt_tokens": 944,
+    "completion_tokens": 66
+  }
+}

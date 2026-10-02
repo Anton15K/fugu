@@ -1,0 +1,598 @@
+{
+  "id": "clean/create_notion_page",
+  "cohort": "clean_descriptions",
+  "kind": "benign",
+  "source": "bench/real/fuzzd-cache/clean_tools.json",
+  "target": "bench/results/2026-10-02-full/targets/0019",
+  "input_sha256": {
+    "tools.json": "0a7a2b025510ab3ecf985b6f60b8f162d84e3e6b54ceb22c0ae1f0431caae80a"
+  },
+  "detected": false,
+  "stages": [
+    {
+      "stage": "concealment",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "findings": 0,
+        "duration_s": 0.0003
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "static",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "MCP08",
+            "MCP02"
+          ],
+          "title": "MCP tool missing safety annotations in tools.json",
+          "detail": "A tool definition has no annotations block (or none with safety hints). Registry census: 58.8% of tools omit these (arXiv 2609.10962) - clients cannot apply least-privilege or confirmation behavior they cannot see.",
+          "severity": "info",
+          "confidence": "deterministic",
+          "stage": "static",
+          "evidence": [
+            {
+              "source": "file:tools.json:L6",
+              "excerpt": "L6 \"inputSchema\": {}",
+              "meta": {
+                "rule": "mcp_missing_annotations",
+                "line": 6,
+                "issue": "no annotations block"
+              }
+            }
+          ]
+        },
+        {
+          "owasp_ids": [
+            "MCP08"
+          ],
+          "title": "Tool description omits return semantics in tools.json",
+          "detail": "Tool descriptions that never state what the tool returns - the dominant 'description smell' (arXiv 2602.18914); measurably degrades agent tool selection.",
+          "severity": "info",
+          "confidence": "deterministic",
+          "stage": "static",
+          "evidence": [
+            {
+              "source": "file:tools.json:L5",
+              "excerpt": "L5 \"description\": \"Creates a new page in the configured Notion workspace under the",
+              "meta": {
+                "rule": "mcp_missing_return_description",
+                "line": 5
+              }
+            }
+          ]
+        }
+      ],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "rules": 18,
+        "hits": 2,
+        "findings": 2,
+        "duration_s": 0.0003
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "semantic",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "LLM01"
+          ],
+          "title": "Empty input schema for tool requiring parameters",
+          "detail": "The tool 'create_notion_page' declares an empty inputSchema ({}), yet creating a Notion page typically requires parameters (e.g., parent page/database ID, title, content). This incompleteness may cause runtime errors or unexpected behavior.",
+          "severity": "info",
+          "confidence": "advisory",
+          "stage": "semantic",
+          "evidence": [
+            {
+              "source": "semantic:tools[0].inputSchema:L7",
+              "excerpt": "\"inputSchema\": {}",
+              "meta": {
+                "kind": "param_schema",
+                "model_judged": true
+              }
+            }
+          ]
+        }
+      ],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "units": 1,
+        "units_total": 1,
+        "units_completed": 1,
+        "units_partial": 0,
+        "units_omitted": 0,
+        "files": 1,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 2.032,
+            "prompt_chars": 3182,
+            "completion_chars": 651,
+            "usage": {
+              "prompt_tokens": 772,
+              "completion_tokens": 558
+            }
+          }
+        ],
+        "call_errors": [],
+        "parse_errors": [],
+        "findings": 1,
+        "duration_s": 2.036
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "harness",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "probes": 9,
+        "runs": 9,
+        "comparisons_completed": 18,
+        "comparisons_expected": 18,
+        "arms": 3,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.934,
+            "prompt_chars": 498,
+            "completion_chars": 202,
+            "usage": {
+              "prompt_tokens": 132,
+              "completion_tokens": 174
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.657,
+            "prompt_chars": 323,
+            "completion_chars": 390,
+            "usage": {
+              "prompt_tokens": 93,
+              "completion_tokens": 120
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.907,
+            "prompt_chars": 1040,
+            "completion_chars": 316,
+            "usage": {
+              "prompt_tokens": 255,
+              "completion_tokens": 141
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.886,
+            "prompt_chars": 1040,
+            "completion_chars": 403,
+            "usage": {
+              "prompt_tokens": 255,
+              "completion_tokens": 251
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.176,
+            "prompt_chars": 315,
+            "completion_chars": 734,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 231
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.575,
+            "prompt_chars": 1032,
+            "completion_chars": 822,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 321
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.288,
+            "prompt_chars": 1032,
+            "completion_chars": 573,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 326
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.21,
+            "prompt_chars": 314,
+            "completion_chars": 746,
+            "usage": {
+              "prompt_tokens": 91,
+              "completion_tokens": 271
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.516,
+            "prompt_chars": 1031,
+            "completion_chars": 898,
+            "usage": {
+              "prompt_tokens": 253,
+              "completion_tokens": 365
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.319,
+            "prompt_chars": 1031,
+            "completion_chars": 500,
+            "usage": {
+              "prompt_tokens": 253,
+              "completion_tokens": 332
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.776,
+            "prompt_chars": 324,
+            "completion_chars": 489,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 119
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.807,
+            "prompt_chars": 1041,
+            "completion_chars": 449,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 127
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.206,
+            "prompt_chars": 1041,
+            "completion_chars": 446,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 367
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.547,
+            "prompt_chars": 305,
+            "completion_chars": 196,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 118
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.899,
+            "prompt_chars": 1022,
+            "completion_chars": 157,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 196
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.55,
+            "prompt_chars": 1022,
+            "completion_chars": 132,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 335
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.294,
+            "prompt_chars": 306,
+            "completion_chars": 889,
+            "usage": {
+              "prompt_tokens": 88,
+              "completion_tokens": 268
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.43,
+            "prompt_chars": 1023,
+            "completion_chars": 833,
+            "usage": {
+              "prompt_tokens": 250,
+              "completion_tokens": 301
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.493,
+            "prompt_chars": 1023,
+            "completion_chars": 494,
+            "usage": {
+              "prompt_tokens": 250,
+              "completion_tokens": 395
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.736,
+            "prompt_chars": 314,
+            "completion_chars": 372,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 452
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.86,
+            "prompt_chars": 1031,
+            "completion_chars": 89,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 149
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 0.981,
+            "prompt_chars": 1031,
+            "completion_chars": 180,
+            "usage": {
+              "prompt_tokens": 252,
+              "completion_tokens": 99
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.624,
+            "prompt_chars": 329,
+            "completion_chars": 819,
+            "usage": {
+              "prompt_tokens": 92,
+              "completion_tokens": 370
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.916,
+            "prompt_chars": 1046,
+            "completion_chars": 103,
+            "usage": {
+              "prompt_tokens": 254,
+              "completion_tokens": 168
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.844,
+            "prompt_chars": 1046,
+            "completion_chars": 157,
+            "usage": {
+              "prompt_tokens": 254,
+              "completion_tokens": 285
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.432,
+            "prompt_chars": 327,
+            "completion_chars": 370,
+            "usage": {
+              "prompt_tokens": 92,
+              "completion_tokens": 395
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.646,
+            "prompt_chars": 1044,
+            "completion_chars": 96,
+            "usage": {
+              "prompt_tokens": 254,
+              "completion_tokens": 116
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.309,
+            "prompt_chars": 1044,
+            "completion_chars": 328,
+            "usage": {
+              "prompt_tokens": 254,
+              "completion_tokens": 146
+            }
+          }
+        ],
+        "call_errors": [],
+        "parse_errors": [],
+        "findings": 0,
+        "duration_s": 38.883
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "reputation",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "skipped": "no searchable identifiers found"
+      },
+      "error": null,
+      "state": "not_applicable"
+    },
+    {
+      "stage": "detonation",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "MCP08"
+          ],
+          "title": "Target produced no runnable triggers",
+          "detail": "No install hook, importable module, or MCP entrypoint could be derived, so the target was never executed. 37.5% of real registry servers never start (arXiv 2609.10962); treat this verdict as static-analysis-only coverage.",
+          "severity": "info",
+          "confidence": "deterministic",
+          "stage": "detonation",
+          "evidence": []
+        }
+      ],
+      "metrics": {
+        "triggers": 0,
+        "executed": false,
+        "skipped": "no runnable triggers found; target not executed"
+      },
+      "error": null,
+      "state": "not_applicable"
+    },
+    {
+      "stage": "composition",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "skipped": "single-source job"
+      },
+      "error": null,
+      "state": "not_applicable"
+    }
+  ],
+  "findings": [
+    {
+      "owasp_ids": [
+        "MCP08",
+        "MCP02"
+      ],
+      "title": "MCP tool missing safety annotations in tools.json",
+      "detail": "A tool definition has no annotations block (or none with safety hints). Registry census: 58.8% of tools omit these (arXiv 2609.10962) - clients cannot apply least-privilege or confirmation behavior they cannot see.",
+      "severity": "info",
+      "confidence": "deterministic",
+      "stage": "static",
+      "evidence": [
+        {
+          "source": "file:tools.json:L6",
+          "excerpt": "L6 \"inputSchema\": {}",
+          "meta": {
+            "rule": "mcp_missing_annotations",
+            "line": 6,
+            "issue": "no annotations block"
+          }
+        }
+      ]
+    },
+    {
+      "owasp_ids": [
+        "MCP08"
+      ],
+      "title": "Tool description omits return semantics in tools.json",
+      "detail": "Tool descriptions that never state what the tool returns - the dominant 'description smell' (arXiv 2602.18914); measurably degrades agent tool selection.",
+      "severity": "info",
+      "confidence": "deterministic",
+      "stage": "static",
+      "evidence": [
+        {
+          "source": "file:tools.json:L5",
+          "excerpt": "L5 \"description\": \"Creates a new page in the configured Notion workspace under the",
+          "meta": {
+            "rule": "mcp_missing_return_description",
+            "line": 5
+          }
+        }
+      ]
+    },
+    {
+      "owasp_ids": [
+        "LLM01"
+      ],
+      "title": "Empty input schema for tool requiring parameters",
+      "detail": "The tool 'create_notion_page' declares an empty inputSchema ({}), yet creating a Notion page typically requires parameters (e.g., parent page/database ID, title, content). This incompleteness may cause runtime errors or unexpected behavior.",
+      "severity": "info",
+      "confidence": "advisory",
+      "stage": "semantic",
+      "evidence": [
+        {
+          "source": "semantic:tools[0].inputSchema:L7",
+          "excerpt": "\"inputSchema\": {}",
+          "meta": {
+            "kind": "param_schema",
+            "model_judged": true
+          }
+        }
+      ]
+    },
+    {
+      "owasp_ids": [
+        "MCP08"
+      ],
+      "title": "Target produced no runnable triggers",
+      "detail": "No install hook, importable module, or MCP entrypoint could be derived, so the target was never executed. 37.5% of real registry servers never start (arXiv 2609.10962); treat this verdict as static-analysis-only coverage.",
+      "severity": "info",
+      "confidence": "deterministic",
+      "stage": "detonation",
+      "evidence": []
+    }
+  ],
+  "verdict": {
+    "status": "pass",
+    "total_findings": 4,
+    "severity_counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 4
+    },
+    "max_confidence_tier": "deterministic",
+    "reasons": [
+      "no findings above low/info severity"
+    ],
+    "coverage_caveats": [
+      "reputation: skipped",
+      "detonation: skipped",
+      "composition: skipped"
+    ],
+    "static_only": false,
+    "partial_coverage": true,
+    "omitted_units": 0
+  },
+  "exclusions": [],
+  "complete": true,
+  "elapsed_s": 40.927
+}

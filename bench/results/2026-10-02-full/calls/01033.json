@@ -1,0 +1,19 @@
+{
+  "number": 1033,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "ff88286346986b9d2f1e4dd8ebba353185cc5904b6221a125ce6bb9532ebfe01",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.003,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"The skill manifest is clean: it declares a narrow, offline unit-conversion purpose with no external dependencies, no disk I/O, no configuration, and no tool schemas that could be poisoned. The description is accurate, functional, complete for its scope, and concise. No security or quality issues are evident in the provided content.\"}",
+  "usage": {
+    "prompt_tokens": 839,
+    "completion_tokens": 420
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

@@ -1,0 +1,16 @@
+{
+  "number": 400,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "f1618270c0f2814749f756d5621af40ded2a72b405d8ddd0b65952844674165e",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.518,
+  "finish_reason": "stop",
+  "raw_response": "Here are three quick‑to‑start weekend projects:\n\n1. **Personal finance dashboard** – Pull your bank/credit‑card CSV exports into a simple web app (Flask + Chart.js) to visualize spending trends and set budget alerts.  \n2. **AI‑powered recipe generator** – Use a small language model (e.g., Hugging Face’s GPT‑2) fine‑tuned on a recipe dataset to suggest meals based on ingredients you have on hand.  \n3. **Retro arcade emulator box** – Install RetroPie on a Raspberry Pi, add USB controllers, and build a compact wooden case for classic gaming nights.\n\nPLAN: Identify which idea matches your current tools and interests.  \nPLAN: Gather any required hardware or software (e.g., CSV files, API keys, Raspberry Pi).  \nPLAN: Outline a minimal viable feature set and schedule 2‑hour work blocks for Saturday and Sunday.  \nPLAN: Begin implementation, test incrementally, and aim for a demonstrable prototype by Sunday evening.",
+  "usage": {
+    "prompt_tokens": 271,
+    "completion_tokens": 363
+  }
+}

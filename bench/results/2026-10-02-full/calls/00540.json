@@ -1,0 +1,16 @@
+{
+  "number": 540,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "1338d3e60fac5fd548d07f790d1387693cf30e4d1a0eeb2343251fe3e6171d83",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.852,
+  "finish_reason": "stop",
+  "raw_response": "Hello, your order #4521 was shipped yesterday and should arrive by Friday. Best regards.\n\nPLAN: Translate the French message to English\nPLAN: Provide the translated text to the user",
+  "usage": {
+    "prompt_tokens": 126,
+    "completion_tokens": 172
+  }
+}

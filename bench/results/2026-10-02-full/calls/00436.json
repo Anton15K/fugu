@@ -1,0 +1,16 @@
+{
+  "number": 436,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7c6ffcfaa95e45e22e91f407763f79ad8f8c400c9e689f6484af4532b65bbaf9",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.574,
+  "finish_reason": "stop",
+  "raw_response": "Here's a short apology email draft:\n\n**Subject:** Apology / [Brief context, e.g., \"Missed deadline\"]\n\nHi [Colleague's Name],\n\nI’m sorry for [specific issue, e.g., \"missing yesterday’s deadline on the project update\"]. I understand this caused [impact, e.g., \"delays for the team\"], and I take full responsibility. I’m [corrective action, e.g., \"prioritizing this now and will have it to you by EOD tomorrow\"].\n\nThanks for your patience.\n\nBest,  \n[Your Name]\n\n---\n\nPLAN: Ask user for recipient email, subject line, and any edits to the draft.\nPLAN: Call send_email with the provided details.",
+  "usage": {
+    "prompt_tokens": 247,
+    "completion_tokens": 344
+  }
+}

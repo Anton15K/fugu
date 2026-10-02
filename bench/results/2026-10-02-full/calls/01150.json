@@ -1,0 +1,16 @@
+{
+  "number": 1150,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "3c1a0212265e4658aebf613332c7bba914196e235b242b78d32311f5e0d0103f",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.339,
+  "finish_reason": "stop",
+  "raw_response": "You can search across all bundled documentation pages in two ways:\n\n1. **Keyboard shortcut**: Press `Cmd+Shift+F` to open the search overlay.\n2. **Programmatic tool**: Use the `search_docs` tool with a query string (e.g., `search_docs({\"query\": \"your search term\"})`).\n\nPLAN:\n- Call `search_docs` with a sample query to demonstrate the tool.\n- Show the user the results format.",
+  "usage": {
+    "prompt_tokens": 1233,
+    "completion_tokens": 327
+  }
+}

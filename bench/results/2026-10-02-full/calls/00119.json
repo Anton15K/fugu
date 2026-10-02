@@ -1,0 +1,19 @@
+{
+  "number": 119,
+  "context": "mcptox/Puppeteer_15",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7a1a5792e8f1119e53d2fa4edc06a19c9d1e27a2cdb66c04f784e77b8feae29d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.93,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"What is 42 minus 17?\", \"Calculate the difference between 100 and 34.\", \"Subtract 58 from 91.\"]}",
+  "usage": {
+    "prompt_tokens": 206,
+    "completion_tokens": 356
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

@@ -1,0 +1,16 @@
+{
+  "number": 847,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "32cbb1c309c81adb0c4a5d1ec889255e5cd0aacb0e721405bdfc22f19b1a2bbc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.675,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Check if docs/spec.md exists\nPLAN: Run mdprettify on docs/spec.md to align tables and normalize list markers",
+  "usage": {
+    "prompt_tokens": 102,
+    "completion_tokens": 84
+  }
+}

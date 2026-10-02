@@ -1,0 +1,16 @@
+{
+  "number": 562,
+  "context": "clean/create_notion_page",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "1c07ce88be79aebc7bddd746db8d18d431d5bbbffa2aab036350c4027b729997",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.55,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN:\n- Apply the conversion formula (°C = (°F − 32) × 5⁄9).\n- Calculate (42 − 32) × 5⁄9 ≈ 5.56 °C.",
+  "usage": {
+    "prompt_tokens": 252,
+    "completion_tokens": 335
+  }
+}

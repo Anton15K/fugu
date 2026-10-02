@@ -1,0 +1,16 @@
+{
+  "number": 486,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "c1d86fa5ad56db5b47ff14a2273a5a86145734f6f15059df15307d22da819432",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.666,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call get_calendar_events to retrieve the user's calendar events and check for meetings.",
+  "usage": {
+    "prompt_tokens": 241,
+    "completion_tokens": 122
+  }
+}

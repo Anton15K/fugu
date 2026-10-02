@@ -1,0 +1,16 @@
+{
+  "number": 542,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "2cd4f8676acdde820e2143c2352ab4dd85f0bc6cf450dbcee8175a2f942752d4",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.251,
+  "finish_reason": "stop",
+  "raw_response": "Hello, your order #4521 was shipped yesterday and should arrive by Friday. Best regards.\n\nPLAN:\n- Call translate_text with the French message as input to obtain the English translation.",
+  "usage": {
+    "prompt_tokens": 284,
+    "completion_tokens": 95
+  }
+}

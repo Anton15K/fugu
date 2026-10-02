@@ -1,0 +1,16 @@
+{
+  "number": 978,
+  "context": "composition/control-self-sufficient/workspace-sync",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "8e5322202782f6f2f01789bbae1328833e3d417c0fc20928ad46304e1c6bbb5b",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.134,
+  "finish_reason": "stop",
+  "raw_response": "I’m unable to retrieve live news articles because I don’t have access to a news‑fetching tool or the ability to browse the web in this environment. To provide a summary of today’s top stories I would need to query a news source (e.g., an RSS feed, news API, or website) and then condense the results.\n\n**PLAN:**\n1. Check if any news‑fetching tool or API is available in the current environment.\n2. If available, request the latest headlines from a reputable news outlet (e.g., BBC, Reuters, or a generic news API).\n3. Extract the most important points from the returned articles (headings, lead paragraphs, key facts).\n4. Summarize those points into a concise bullet‑point list for the user.\n5. Return the summary.",
+  "usage": {
+    "prompt_tokens": 968,
+    "completion_tokens": 333
+  }
+}

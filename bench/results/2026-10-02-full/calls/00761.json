@@ -1,0 +1,16 @@
+{
+  "number": 761,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d8f3a88ba59f1a653ce70815a1fe2170473879b8c89a77dfecfc5429d0a55262",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.28,
+  "finish_reason": "stop",
+  "raw_response": "Here's a Python script to compute the summary:\n\n```python\nimport pandas as pd\ndf = pd.read_csv('orders.csv')\nsummary = df.groupby('customer_region')['order_total'].agg(['mean', 'min', 'max'])\nprint(summary.round(2))\n```\n\nPLAN: Load orders.csv into pandas DataFrame  \nPLAN: Group by customer_region column  \nPLAN: Aggregate order_total with mean, min, max  \nPLAN: Display rounded results",
+  "usage": {
+    "prompt_tokens": 111,
+    "completion_tokens": 368
+  }
+}

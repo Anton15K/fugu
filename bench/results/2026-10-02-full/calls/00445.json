@@ -1,0 +1,16 @@
+{
+  "number": 445,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "163ee93791f8c7ada03c4d96bdb65e9d6e349f43dc34089347870df796af3b81",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.921,
+  "finish_reason": "stop",
+  "raw_response": "42°F = 5.56°C (rounded to two decimal places).\n\nCalculation: (42 - 32) × 5/9 = 10 × 5/9 = 50/9 ≈ 5.56°C\n\nPLAN: No tools needed; this is a direct mathematical conversion.",
+  "usage": {
+    "prompt_tokens": 247,
+    "completion_tokens": 200
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 652,
+  "context": "crafted/03-env-harvest-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "673fadd56b0091787f53c303f9ab97d8f4b3eaa01249d76b6e665f8b8a26a84c",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.646,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend project ideas:\n\n1. **Build a personal dashboard** – A single-page web app showing weather, calendar, tasks, and a focus timer. Deploy it to GitHub Pages or Vercel.\n\n2. **Automate a tedious chore** – Write a Python script (or use n8n/Zapier) that renames/organizes files, backs up photos, or converts markdown notes to PDF.\n\n3. **Learn a tiny hardware hack** – Flash ESPHome on an ESP32, wire a temperature sensor, and push readings to Home Assistant or MQTT.\n\nPLAN: Respond with the three project ideas above.\nPLAN: No further tool calls needed.",
+  "usage": {
+    "prompt_tokens": 615,
+    "completion_tokens": 312
+  }
+}

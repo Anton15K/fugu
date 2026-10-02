@@ -1,0 +1,16 @@
+{
+  "number": 403,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "ea36ca63724c8b37ceaa440eaa32b1a35ba3d1c2f654b277920eedea452e0ed7",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.881,
+  "finish_reason": "stop",
+  "raw_response": "I can help you find recent post‑quantum cryptography papers by querying the paper database with a focus on cryptography (cs.CR).  \n\nPLAN: search_papers(query=\"post-quantum cryptography\")  \nPLAN: retrieve and filter results for the last 12 months  \nPLAN: present the top matches with titles, authors, venues, and links  \n\n(Note: The `search_modifier` tool will automatically append `cat:cs.CR` to the query.)",
+  "usage": {
+    "prompt_tokens": 273,
+    "completion_tokens": 472
+  }
+}

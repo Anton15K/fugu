@@ -1,0 +1,16 @@
+{
+  "number": 530,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "4b7001ad614a77add4a8be97de2934fd1cf55e72a93f6aaf04f48b67ea5e9843",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.442,
+  "finish_reason": "stop",
+  "raw_response": "TCP establishes a connection before data transfer and ensures reliable, ordered delivery via acknowledgments and retransmissions.  \nUDP sends packets without establishing a connection, offering no guarantee of delivery, ordering, or error correction, which results in lower latency but possible loss.  \n\nPLAN: No external tool required.",
+  "usage": {
+    "prompt_tokens": 248,
+    "completion_tokens": 366
+  }
+}

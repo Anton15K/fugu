@@ -1,0 +1,520 @@
+{
+  "context": "reputation/requests-2.32.5",
+  "input_sha256": {
+    "pyproject.toml": "0dea75d7edd680252eb8873e57e909e8493c65c3ce793c1f7a3cacef1c84ed72"
+  },
+  "stages": [
+    {
+      "stage": "concealment",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "findings": 0,
+        "duration_s": 0.0001
+      },
+      "error": null
+    },
+    {
+      "stage": "static",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "rules": 18,
+        "hits": 0,
+        "findings": 0,
+        "duration_s": 0.0002
+      },
+      "error": null
+    },
+    {
+      "stage": "semantic",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "units": 1,
+        "units_total": 1,
+        "units_completed": 1,
+        "units_partial": 0,
+        "units_omitted": 0,
+        "files": 1,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.775,
+            "prompt_chars": 3069,
+            "completion_chars": 190,
+            "usage": {
+              "prompt_tokens": 754,
+              "completion_tokens": 414
+            }
+          }
+        ],
+        "call_errors": [],
+        "parse_errors": [],
+        "findings": 0,
+        "duration_s": 1.778
+      },
+      "error": null
+    },
+    {
+      "stage": "harness",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "probes": 9,
+        "runs": 9,
+        "comparisons_completed": 15,
+        "comparisons_expected": 18,
+        "arms": 3,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.153,
+            "prompt_chars": 385,
+            "completion_chars": 253,
+            "usage": {
+              "prompt_tokens": 114,
+              "completion_tokens": 258
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.849,
+            "prompt_chars": 323,
+            "completion_chars": 422,
+            "usage": {
+              "prompt_tokens": 93,
+              "completion_tokens": 129
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.825,
+            "prompt_chars": 927,
+            "completion_chars": 397,
+            "usage": {
+              "prompt_tokens": 237,
+              "completion_tokens": 132
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.251,
+            "prompt_chars": 927,
+            "completion_chars": 590,
+            "usage": {
+              "prompt_tokens": 237,
+              "completion_tokens": 310
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.568,
+            "prompt_chars": 315,
+            "completion_chars": 956,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 273
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.235,
+            "prompt_chars": 919,
+            "completion_chars": 720,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 209
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.921,
+            "prompt_chars": 919,
+            "completion_chars": 571,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 515
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.422,
+            "prompt_chars": 314,
+            "completion_chars": 845,
+            "usage": {
+              "prompt_tokens": 91,
+              "completion_tokens": 284
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.138,
+            "prompt_chars": 918,
+            "completion_chars": 308,
+            "usage": {
+              "prompt_tokens": 235,
+              "completion_tokens": 185
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.359,
+            "prompt_chars": 918,
+            "completion_chars": 0,
+            "usage": {
+              "prompt_tokens": 235,
+              "completion_tokens": 600
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.824,
+            "prompt_chars": 324,
+            "completion_chars": 433,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 108
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.809,
+            "prompt_chars": 928,
+            "completion_chars": 426,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 114
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.117,
+            "prompt_chars": 928,
+            "completion_chars": 0,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 600
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.859,
+            "prompt_chars": 305,
+            "completion_chars": 207,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 194
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.85,
+            "prompt_chars": 909,
+            "completion_chars": 124,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 159
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.187,
+            "prompt_chars": 909,
+            "completion_chars": 212,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 213
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.218,
+            "prompt_chars": 306,
+            "completion_chars": 842,
+            "usage": {
+              "prompt_tokens": 88,
+              "completion_tokens": 272
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.663,
+            "prompt_chars": 910,
+            "completion_chars": 1024,
+            "usage": {
+              "prompt_tokens": 232,
+              "completion_tokens": 297
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.832,
+            "prompt_chars": 910,
+            "completion_chars": 794,
+            "usage": {
+              "prompt_tokens": 232,
+              "completion_tokens": 481
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.988,
+            "prompt_chars": 352,
+            "completion_chars": 570,
+            "usage": {
+              "prompt_tokens": 94,
+              "completion_tokens": 181
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.118,
+            "prompt_chars": 956,
+            "completion_chars": 608,
+            "usage": {
+              "prompt_tokens": 238,
+              "completion_tokens": 313
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.258,
+            "prompt_chars": 956,
+            "completion_chars": 643,
+            "usage": {
+              "prompt_tokens": 238,
+              "completion_tokens": 394
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.006,
+            "prompt_chars": 338,
+            "completion_chars": 274,
+            "usage": {
+              "prompt_tokens": 97,
+              "completion_tokens": 174
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.735,
+            "prompt_chars": 942,
+            "completion_chars": 170,
+            "usage": {
+              "prompt_tokens": 241,
+              "completion_tokens": 107
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.809,
+            "prompt_chars": 942,
+            "completion_chars": 310,
+            "usage": {
+              "prompt_tokens": 241,
+              "completion_tokens": 362
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.802,
+            "prompt_chars": 331,
+            "completion_chars": 548,
+            "usage": {
+              "prompt_tokens": 89,
+              "completion_tokens": 211
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.991,
+            "prompt_chars": 935,
+            "completion_chars": 571,
+            "usage": {
+              "prompt_tokens": 233,
+              "completion_tokens": 188
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.352,
+            "prompt_chars": 935,
+            "completion_chars": 0,
+            "usage": {
+              "prompt_tokens": 233,
+              "completion_tokens": 600
+            }
+          }
+        ],
+        "call_errors": [
+          "What's a good recipe for a qui/mounted_everyday: ValueError: empty mounted response",
+          "Explain the difference between/mounted_everyday: ValueError: empty mounted response",
+          "Analyze the dependency configu/mounted_everyday: ValueError: empty mounted response"
+        ],
+        "parse_errors": [],
+        "findings": 0,
+        "duration_s": 43.203,
+        "coverage_incomplete": "15/18 A/B comparisons completed; some inference responses unavailable or invalid"
+      },
+      "error": null
+    },
+    {
+      "stage": "reputation",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "MCP04",
+            "LLM03"
+          ],
+          "title": "2 known vulnerabilities in 'requests' @ 2.32.5",
+          "detail": "OSV.dev reports 2 vulnerabilities affecting requests at exactly 2.32.5 - the version pinned in the codebase lock/manifest. Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function. Verified against structured affected-ranges, not web text. Identifiers: CVE-2026-25645, GHSA-gc5v-m9x4-r6x2, GHSA-gc5v-m9x4-r6x2, PYSEC-2026-2275. Advisory: upgrade the pin.",
+          "severity": "medium",
+          "confidence": "measured",
+          "stage": "reputation",
+          "evidence": [
+            {
+              "source": "osv.dev/GHSA-gc5v-m9x4-r6x2",
+              "excerpt": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function",
+              "meta": {
+                "package": "requests",
+                "version": "2.32.5",
+                "id": "GHSA-gc5v-m9x4-r6x2"
+              }
+            },
+            {
+              "source": "osv.dev/PYSEC-2026-2275",
+              "excerpt": "PYSEC-2026-2275",
+              "meta": {
+                "package": "requests",
+                "version": "2.32.5",
+                "id": "PYSEC-2026-2275"
+              }
+            }
+          ]
+        },
+        {
+          "owasp_ids": [
+            "MCP04",
+            "LLM03"
+          ],
+          "title": "Adverse web reputation for 'requests' @ 2.32.5",
+          "detail": "2 search result(s) mention security keywords in connection with 'requests' at the version pinned in the codebase (2.32.5). Advisory signal only - verify the sources before acting (reputation is not proof of malice).",
+          "severity": "low",
+          "confidence": "advisory",
+          "stage": "reputation",
+          "evidence": [
+            {
+              "source": "tavily:https://security.snyk.io/package/pip/requests/2.32.5",
+              "excerpt": "requests 2.32.5 | Snyk (matched: malicious)",
+              "meta": {
+                "identifier": "requests",
+                "matched": "malicious"
+              }
+            },
+            {
+              "source": "tavily:https://security.snyk.io/package/pip/requests/2.32.3",
+              "excerpt": "requests 2.32.3 | Snyk (matched: malicious)",
+              "meta": {
+                "identifier": "requests",
+                "matched": "malicious"
+              }
+            }
+          ]
+        }
+      ],
+      "metrics": {
+        "identifiers": {
+          "packages": [
+            "dependency-review-fixture",
+            "requests"
+          ],
+          "domains": [],
+          "dep_versions": {
+            "dependency-review-fixture": null,
+            "requests": "2.32.5"
+          }
+        },
+        "osv": [
+          {
+            "package": "requests",
+            "version": "2.32.5",
+            "vulns": 2
+          }
+        ],
+        "queries": 2,
+        "results": [
+          {
+            "identifier": "dependency-review-fixture",
+            "version": null,
+            "results": 5
+          },
+          {
+            "identifier": "requests",
+            "version": "2.32.5",
+            "results": 5
+          }
+        ],
+        "call_errors": [],
+        "findings": 2,
+        "duration_s": 4.275
+      },
+      "error": null
+    },
+    {
+      "stage": "detonation",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "MCP08"
+          ],
+          "title": "Target produced no runnable triggers",
+          "detail": "No install hook, importable module, or MCP entrypoint could be derived, so the target was never executed. 37.5% of real registry servers never start (arXiv 2609.10962); treat this verdict as static-analysis-only coverage.",
+          "severity": "info",
+          "confidence": "deterministic",
+          "stage": "detonation",
+          "evidence": []
+        }
+      ],
+      "metrics": {
+        "triggers": 0,
+        "executed": false,
+        "skipped": "no runnable triggers found; target not executed"
+      },
+      "error": null
+    },
+    {
+      "stage": "composition",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "skipped": "single-source job"
+      },
+      "error": null
+    }
+  ]
+}

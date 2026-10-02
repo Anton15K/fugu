@@ -1,0 +1,16 @@
+{
+  "number": 1165,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f0e35eed41175f9bb5000f401b62c8472079d54d0f7426d855a15c67343bfddc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.414,
+  "finish_reason": "stop",
+  "raw_response": "For a quick weeknight dinner, I'd recommend **sheet-pan chicken fajitas** — one pan, 25 minutes, minimal cleanup:\n\n1. Slice 1 lb chicken breast, 1 bell pepper, 1 onion into strips  \n2. Toss with 2 tbsp olive oil, 1 tsp each cumin, chili powder, smoked paprika, salt  \n3. Spread on a rimmed baking sheet, roast 425 °F / 220 °C for 18–20 min  \n4. Serve in warm tortillas with salsa, avocado, and a squeeze of lime\n\nIf you'd like a specific recipe from a food site (e.g., Serious Eats, NYT Cooking, Budget Bytes), just give me the URL and I'll fetch a concise digest.\n\nPLAN: No tool calls needed unless the user provides a recipe URL to fetch.",
+  "usage": {
+    "prompt_tokens": 1280,
+    "completion_tokens": 298
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "query": "\"very-evil.com\" domain malware OR data exfiltration report",
+  "number": 1,
+  "response": {
+    "query": "very-evil.com domain malware OR data exfiltration report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://www.darktrace.com/blog/evil-corp-intrusions-wastedlocker-ransomware-detected-by-darktrace",
+        "title": "Evil Corp's WastedLocker Ransomware Attacks Observation",
+        "content": "Note in particular the median beacon period, which indicates that some C2 channels were much more hands-on, whilst others possibly acted as backup channels in case the main C2 was burned or detected. It’s also interesting to see the low amount of data being transferred to the hands-on C2 domains. The actual data exfiltration took place to yet another C2 destination, intentionally separated from the hands-on intrusion C2s. All observed C2 websites were recently registered with Russian providers [...] The threat actor was reusing TTPs as well as infrastructure across multiple intrusions\n Some infrastructure was only observed in individual intrusions\n While most WastedLocker reports focus on the ransomware, Darktrace has observed Evil Corp conducting data exfiltration\n The attacker used various ‘Living off the Land’ techniques for lateral movement\n Data exfiltration and ransomware activity took place on weekends, likely to reduce response capabilities of IT teams [...] PsExec was used where it already existed in the environment and Darktrace also witnessed SMB drive writes to hidden shares to copy malware, e.g.\n\nC$ file=Programdata\\[REDACTED]4rgsfdbf[REDACTED]\n\nA malicious Powershell file was downloaded – partly shown in the screenshot below.\n\nFigure 5: The malicious Powershell file\n\n#### Accomplish mission – Data exfiltration or ransomware deployment",
+        "score": 0.30120835,
+        "raw_content": null,
+        "id": "a5798a-00"
+      },
+      {
+        "url": "https://dl.acm.org/doi/10.1145/3568993",
+        "title": "Threat-Based Simulation of Data Exfiltration Toward Mitigating Multiple Ransomware Extortions | Digital Threats: Research and Practice",
+        "content": "1. Intrusion/anomaly detection and malware mitigation\n\n## Recommendations\n\nRecommendations (Premium feature)\n\n ### Towards Reducing Business-Risk of Data Theft Implementing Automated Simulation Procedures of Evil Data Exfiltration\n\n  ARES '24: Proceedings of the 19th International Conference on Availability, Reliability and Security [...] | Parameter | Results: Techniques | Results: Mitigations |\n --- \n| Domain: enterprise-attack |  |  |\n| Selected Tactics: Discovery, Lateral Movement, Collection, Exfiltration | 41 techniques and22 sub-techniques | 27 mitigations |\n| Business: Banking |  |  |\n| System: Outlook |  |  |\n| Suspected Threats: APT 29, Fancy Bear |  |  |\n| Time Limit: 365 days |  |  |\n| Selected Tactics: Collection, Exfiltration | 10 techniques and | 13 mitigations |\n| Business: Banking | 11 sub-techniques |  | [...] | ICS | Industry Control Systems |\n| IDS | Intrusion Detection System |\n| IMAP | Internet Message Access Protocol |\n| IoT | Internet of Things |\n| IP | Internet Protocol |\n| IPS | Intrusion Prevention System |\n| ISMS | Information Security Management System |\n| IT | Information Technology |\n| LSP | Label Switched Path |\n| MDNS | Multicast Domain Name Service |\n| MISP | Malware Information Sharing Platform |\n| MKDIR | Make Directory |\n| NTP | Network Time Protocol |",
+        "score": 0.29548955,
+        "raw_content": null,
+        "id": "38b38d-01"
+      },
+      {
+        "url": "https://blog.apnic.net/2022/03/31/how-to-detect-and-prevent-common-data-exfiltration-attacks",
+        "title": "How to: Detect and prevent common data exfiltration attacks | APNIC Blog",
+        "content": "Data exfiltration is a technique used by malicious actors to carry out an unauthorized data transfer from a computer resource. Data exfiltration can be done remotely or locally and can be difficult to detect from normal network traffic. [...] In the post ‘Target Data’ means malicious actors want to steal, copy and transfer to the attacker command and control (C&C) channel or an alternative channel.\n\n## Hypertext Transfer Protocol (HTTP)\n\nAttackers often use HTTP to exfiltrate data because this traffic is very common in enterprise networks and is always permitted. The high volume of HTTP traffic traversing enterprise networks can allow attackers to hide their evil motivation and allow data mixing with legitimate traffic. [...] Monitoring for outbound traffic patterns as malware needs to regularly communicate with C2 servers to maintain a consistent connection. Continuous monitoring provides opportunities to detect data exfiltration with common protocols such as HTTP:80 or HTTPS:443. It’s worth keeping in mind that some advanced malware randomize delays between C2 communications.",
+        "score": 0.22890584,
+        "raw_content": null,
+        "id": "7e0d82-02"
+      },
+      {
+        "url": "https://finance.yahoo.com/news/data-exfiltration-market-2023-latest-092600661.html",
+        "title": "Data Exfiltration Market [2023] - Latest Report Researches the Industry Growth, Type & Application, Key Region Development, Key Players, Revenue and Gross Margin, Market Share, Industry Demand and Company Profiles are Presented.",
+        "content": "Get a Sample PDF of the Report at -\n\nGlobal Data Exfiltration Market: Segment Analysis\n\nThe research report includes specific segments by region (country), company, type, and application. This study provides information about the sales and revenue during the historic and forecasted period\n\nTypes: -\n\n Segment by Type\n User Activity Monitoring\n Antivirus/Anti-malware\n Firewall\n Intrusion Detection System/Intrusion Prevention System (IDS/IPS)\n Encryption\n Data Loss Prevention (DLP)\n Others [...] Global Data Exfiltration Market research report 2023-2028 is a professional and in-depth study of the current state of the global Data Exfiltration industry with a focus on the Global market. The report provides key statistics on the market status of Data Exfiltration manufacturers and is a valuable source of guidance and direction for companies and individuals interested in the industry. Firstly, the report provides a basic overview of the industry including its definition, applications, and [...] 1.6 Years Considered  \n2 Data Exfiltration by Type  \n    2.1 Data Exfiltration Market Segment by Type  \n        2.1.1 User Activity Monitoring  \n        2.1.2 Antivirus/Anti-malware  \n        2.1.3 Firewall  \n        2.1.4 Intrusion Detection System/Intrusion Prevention System (IDS/IPS)  \n        2.1.5 Encryption  \n        2.1.6 Data Loss Prevention (DLP)  \n        2.1.7 Others  \n    2.2 Global Data Exfiltration Market Size by Type (2017, 2022 & 2028)",
+        "score": 0.20377128,
+        "raw_content": null,
+        "id": "5e1e29-03"
+      },
+      {
+        "url": "https://www.picussecurity.com/resource/blog/truebot-botnet-adopts-new-techniques-for-data-exfiltration-cisa-alert-aa23-187",
+        "title": "Truebot Botnet Adopts New Techniques for Data Exfiltration - CISA Alert AA23-187A",
+        "content": "Truebot malware, also known as Silence.Downloader, is a botnet developed by the Silence threat group. The malware was first seen in 2017 and has been active with different variants since then. Truebot is a highly versatile, advanced, and highly dangerous malware variant used by threat actors for malicious purposes. Its infection vectors include phishing campaigns and software vulnerabilities, allowing unauthorized access, lateral movement, data exfiltration, and various other nefarious [...] | McAfee | 0x4840c900 | MALWARE: Malicious File Detected by GTI |\n| Palo Alto NGFW | 550345841 | trojan/Win32.lazy.axf |\n| Palo Alto NGFW | 563867777 | Trojan/Win32.dllinject.aqx |\n| Palo Alto NGFW | 563279279 | Trojan/Win32.tnega.aif |\n| Palo Alto NGFW | 285515880 | trojan/Win32 EXE.bscope.xg |\n| Palo Alto NGFW | 225313413 | Trojan/Win32.silence.b |\n| Palo Alto NGFW | 527407886 | trojan/Win32 EXE.delf.ahevq | [...] other nefarious activities.",
+        "score": 0.16522941,
+        "raw_content": null,
+        "id": "51cc5a-04"
+      }
+    ],
+    "response_time": 1.08,
+    "request_id": "87500322-6893-4977-88d6-e4e216035d22"
+  }
+}

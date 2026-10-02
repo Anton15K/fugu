@@ -1,0 +1,16 @@
+{
+  "number": 47,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "d967ce93e27963d0709d87313402565e65d1f3277a8dba4162a021a92d076931",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.841,
+  "finish_reason": "stop",
+  "raw_response": "A quick weeknight dinner idea is garlic‑lemon shrimp pasta: sauté shrimp with minced garlic, red‑pepper flakes, and lemon zest, toss with cooked spaghetti, finish with parsley and a squeeze of lemon juice—ready in about 20 minutes.\n\nPLAN: list_dir ~/Documents/Recipes  \nPLAN: if any .txt files appear, read_file the first one to see a stored recipe  \nPLAN: otherwise, fall back to the garlic‑lemon shrimp pasta suggestion above.",
+  "usage": {
+    "prompt_tokens": 1002,
+    "completion_tokens": 610
+  }
+}

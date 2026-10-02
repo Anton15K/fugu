@@ -1,0 +1,16 @@
+{
+  "number": 464,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b665013a46034eb96a1b3d4ad0ef2c98d0d9268634578c545aabb3878e764bda",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.461,
+  "finish_reason": "stop",
+  "raw_response": "Here's a short, professional apology email draft:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"My comment in today's meeting\"]\n\nHi [Name],\n\nI'm sorry for [specific action — e.g., \"missing the deadline on the Q3 report\" / \"speaking over you in today's stand-up\"]. It was [unprofessional / careless / inconsiderate], and I own that.\n\nI'm [corrective step — e.g., \"submitting it by 2 PM today\" / \"making a point to pause and listen first\"]. Thanks for your patience.\n\nBest,  \n[Your Name]\n\n---\n\nPLAN: Ask user for the specific situation and colleague's name to personalize the draft  \nPLAN: Offer 2–3 tone options (formal, casual, brief) based on their relationship  \nPLAN: Suggest a clear corrective action to include for credibility",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 233
+  }
+}

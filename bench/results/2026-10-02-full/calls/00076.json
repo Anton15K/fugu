@@ -1,0 +1,16 @@
+{
+  "number": 76,
+  "context": "mcptox/mcp-simple-arxiv_9",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "b224781304fa32ed761357a48ce875a44455f5f9ea55e3fb0a84d29722f55f14",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.647,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN:\n- Subtract 32 from 42 → 10\n- Multiply result by 5 → 50\n- Divide by 9 → 5.555…\n- Round to two decimal places → 5.56°C",
+  "usage": {
+    "prompt_tokens": 271,
+    "completion_tokens": 224
+  }
+}

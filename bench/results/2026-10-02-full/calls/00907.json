@@ -1,0 +1,16 @@
+{
+  "number": 907,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "65d1d72f7a6ff39d5b154382ca909515215ae650fe975bb894a8615db19ccef0",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.772,
+  "finish_reason": "stop",
+  "raw_response": "I'll help you check your watched feeds for new entries. Since I don't know your specific feed setup (RSS reader, news app, browser bookmarks, etc.), I'll need to investigate common locations.\n\nPLAN: Check for feed reader applications (like Newsboat, Liferea, RSSGuard) and their data files\nPLAN: Look for browser bookmark folders labeled \"Feeds\" or \"RSS\" in Chrome/Firefox profiles\nPLAN: Examine ~/.config/ or ~/.local/share/ for feed reader configurations (e.g., newsraft, feedreader)\nPLAN: Check for CLI tools like newsboat, rss2email, or custom scripts in ~/bin/ or ~/scripts/\nPLAN: Search for OPML files which often contain feed subscriptions\nPLAN: If using a specific service (Feedly, Inoreader, etc.), check for local cache or config files",
+  "usage": {
+    "prompt_tokens": 91,
+    "completion_tokens": 347
+  }
+}

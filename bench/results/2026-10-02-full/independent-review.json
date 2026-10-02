@@ -1,0 +1,40 @@
+{
+  "verdict": "ready for user delivery; no remaining material findings",
+  "reviewed_sha256": {
+    "bench/full_capabilities.py": "fe8747dc820fd5bbbd90807f9d68c12eddebadab45403a036b36152821dd1ba4",
+    "bench/recover_harness.py": "675779734c84043c49cb8b15c95d1977450865a78508ff6c1f9a481ff07a76ce",
+    "bench/full_charts.py": "fb6e8119ce160912c22129175a373373db45d3cfa03bb1c3218ef0e036ed2fef",
+    "docs/benchmark-full.md": "af28e855d775cfcb2115968e902e253d32434fac09c8bda913549585af6ae230",
+    "bench/results/2026-10-02-full/fugu-recovered.json": "46884042ac630ddf2c8662b6d7680996d72b6ab50c4bbeafbd6b16c280890bcf",
+    "bench/results/2026-10-02-full/charts/chart-data.json": "eb819fdd466738bc925edf7b99dd32de5206e09df7d6a34e3ccf2fee724d5bf9"
+  },
+  "independent_checks": {
+    "scoped_tests": "37 passed",
+    "original_files_hashchecked": 1350,
+    "originals_preserved": true,
+    "engine_matches_frozen": true,
+    "final_complete_cases": 40,
+    "initial_complete_cases": 15,
+    "retry_count": 52,
+    "retry_models_prompts_exact": true,
+    "retry_ids_unique": true,
+    "valid_original_answers_preserved": "Replay source guards plus immutable original evidence; no nonempty arms retried",
+    "chart_comparison_coverage_contribution_recomputed": true,
+    "final_pngs_visually_inspected": 5
+  },
+  "resolved_findings": [
+    "Report universal generated-probe claim corrected to42audits9probes and3audits6probes",
+    "Cohort chart legend overlap fixed; latest image inspected"
+  ],
+  "limits_retained": [
+    "bounded source coverage;4000char mount2500char generated probe context",
+    "harness stated plans not executed tools",
+    "Docker evidence not universal target activation",
+    "crafted and external cohorts separate",
+    "mcp-sec capability detection separate from maliciousness",
+    "Snyk unavailable and unsupported cohorts unscored",
+    "requests2.32.5 invalid clean control disclosed",
+    "clean read_file canary hallucination flag preserved",
+    "no universal competitor superiority claimed"
+  ]
+}

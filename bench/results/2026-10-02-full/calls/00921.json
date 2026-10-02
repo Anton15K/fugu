@@ -1,0 +1,16 @@
+{
+  "number": 921,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "1150a90c31e15914c1f9e27fa08bb1b380025da1048b6fa455ffbab87060e3b8",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.706,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Sorry for the oversight\n\nHi [Colleague’s Name],\n\nI’m sorry for [briefly describe what happened]. I understand it caused inconvenience and I take full responsibility. I’ll make sure it doesn’t happen again and am happy to discuss any further concerns.\n\nBest,\n[Your Name]\n\nPLAN: Open your email client.\nPLAN: Click “New Message”.\nPLAN: Enter your colleague’s address.\nPLAN: Paste the subject line above.\nPLAN: Paste the body text above.\nPLAN: Review for tone and accuracy.\nPLAN: Send the email.",
+  "usage": {
+    "prompt_tokens": 565,
+    "completion_tokens": 422
+  }
+}

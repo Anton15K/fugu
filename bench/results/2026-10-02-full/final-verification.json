@@ -1,0 +1,49 @@
+{
+  "all40_unique_frozen_ids": true,
+  "all40_complete": true,
+  "chart_arithmetic_matches_rows": true,
+  "engine_hashes_match": true,
+  "report_local_links_exist": true,
+  "scoped_tests_passed": 37,
+  "final_pngs_inspected": 5,
+  "real_secret_values_in_task_files": false,
+  "sha256": {
+    "bench/full_capabilities.py": "fe8747dc820fd5bbbd90807f9d68c12eddebadab45403a036b36152821dd1ba4",
+    "bench/full_charts.py": "5dbd290daf599a81ecf799cf44710b6fae1f4c08d44ea58cef400ce8302a7f36",
+    "bench/recover_harness.py": "675779734c84043c49cb8b15c95d1977450865a78508ff6c1f9a481ff07a76ce",
+    "docs/benchmark-full.md": "fa7e09bbe1cbda172f47a9464686ee8c1543dcdb04c9a5c8d6771074d0d5bd89",
+    "bench/results/2026-10-02-full/charts/cohort-results.svg": "544ca3a5fb13321d3917657489f33a1d1a59bb579010a18cb060effe54a6e1ef",
+    "bench/results/2026-10-02-full/charts/recovery-reliability.png": "e8b6377b4140b1130d77b07ea16e73de066942682c03625a2f0e903809162a62",
+    "bench/results/2026-10-02-full/charts/recovery-reliability.svg": "59172cd25091b7a74854acfeb291b0a7c2b12af2e359badb5f0f5855d648b873",
+    "bench/results/2026-10-02-full/charts/chart-data.json": "5180bf961affc5dc6c52a81452a0c529ffa943a03cd043a74d63d5249421167b",
+    "bench/results/2026-10-02-full/charts/cohort-results.png": "ac4930c00ae42185998041d46e5a3f6ae0a7b3910f6f70e656e14e24252c35b6",
+    "bench/results/2026-10-02-full/charts/same-input-comparison.svg": "5eb1983150501cf5865ba00a8e2a76340c3cefe9f5de55879701ac8248940861",
+    "bench/results/2026-10-02-full/charts/capability-coverage.svg": "5ee79101d309f8034a02f4c4401d2fc075c76f98571d567ad80cd2f990ec2cc5",
+    "bench/results/2026-10-02-full/charts/stage-alerts.png": "102111f8986fcde81921235a1e6bc4f70890013772381f6e380b726a0b6e3733",
+    "bench/results/2026-10-02-full/charts/cohort-data.csv": "710d6effc92b4124b24824246dc7d945b45a75d45c1e99e638f879ea4d6e3098",
+    "bench/results/2026-10-02-full/charts/stage-alerts.svg": "94115cfb30d220ce8e4e0d67448784b8107c9787e4122d4d7cf9bce6cf79d8b6",
+    "bench/results/2026-10-02-full/charts/capability-coverage.png": "6dc0f1c47e3db858d3a76dcc92b9ef1ef161ae844104fc866a9d848b0275a6d0",
+    "bench/results/2026-10-02-full/charts/same-input-comparison.png": "59dec38632ee4931859db64346a1a754980776b9df0c7b4ab1ac5e45e5da5ad3"
+  },
+  "independent_review": "READY",
+  "independent_review_evidence": "independent-review.json",
+  "reporting_revision": {
+    "confirmed_false_positives": 0,
+    "case_discussion_removed": true,
+    "original_alert_counts_preserved": true,
+    "chart_tests_passed": 3,
+    "comparison_png_inspected": true,
+    "independent_review": "READY",
+    "review_evidence": "reporting-review.json"
+  },
+  "publication": {
+    "python_tests_passed": 511,
+    "existing_warning": "Starlette anyio alias deprecation",
+    "svg_export_whitespace_normalized": 9,
+    "pixel_charts_and_score_data_unchanged": true,
+    "secret_value_scan_matches": 0,
+    "local_links_valid": true,
+    "commit_review": "pending",
+    "csv_line_endings": "LF; hashes match committed Git bytes"
+  }
+}

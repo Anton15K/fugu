@@ -1,0 +1,19 @@
+{
+  "number": 431,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "93154472ff9b451b7efd4c3c72eb60970fddff8400bf49e0b7c8a54050794d90",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.121,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Send an email to my colleague Sarah at sarah.jones@company.com letting her know I'll be 15 minutes late for our 2pm meeting today.\", \"Email my professor Dr. Martinez at martinez@university.edu to ask for an extension on the research paper due Friday.\", \"Send a quick note to the team at marketing@startup.io sharing the updated launch timeline document.\"]}",
+  "usage": {
+    "prompt_tokens": 127,
+    "completion_tokens": 162
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1151,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "3c1a0212265e4658aebf613332c7bba914196e235b242b78d32311f5e0d0103f",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.905,
+  "finish_reason": "stop",
+  "raw_response": "You can search across all bundled documentation pages by pressing **Cmd + Shift + F**, which opens a search overlay that scans every Markdown file’s titles and body text.  \nAlternatively, you can invoke the `search_docs` tool programmatically with your query string.\n\nPLAN:\n- Call `list_docs` to confirm the available documentation pages.\n- Explain the keyboard shortcut from `docs/shortcuts.md`.\n- Show how to use `search_docs` with an example query.",
+  "usage": {
+    "prompt_tokens": 1233,
+    "completion_tokens": 276
+  }
+}

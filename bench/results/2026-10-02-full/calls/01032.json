@@ -1,0 +1,16 @@
+{
+  "number": 1032,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "c32f73c4de97c691a4a342c0f4c44653021bcd89e73988d56b0166eb22ab7ff7",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.24,
+  "finish_reason": "stop",
+  "raw_response": "{\n  \"city\": \"taipei\",\n  \"month\": \"july\",\n  \"temp_c\": 29.5,\n  \"rain_mm\": 245\n}\n\nPLAN:\n- Run `python almanac.py lookup --city taipei --month july` to retrieve the climate normals.",
+  "usage": {
+    "prompt_tokens": 1022,
+    "completion_tokens": 142
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1089,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "6317570543a003d89c9c1a8e8ec28812ec45df5703cfce1f9e7028f511fd3697",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.351,
+  "finish_reason": "stop",
+  "raw_response": "I’ll list the contents of /home/user/documents using the filesystem skill’s list_dir tool.\n\nPLAN:\n- Call the list_dir tool with the argument {\"path\": \"/home/user/documents\"}.\n- Return the resulting entry list to the user.",
+  "usage": {
+    "prompt_tokens": 1010,
+    "completion_tokens": 332
+  }
+}

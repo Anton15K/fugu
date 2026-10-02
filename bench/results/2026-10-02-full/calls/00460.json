@@ -1,0 +1,19 @@
+{
+  "number": 460,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a382f5965fdb407fa92f352ca581c5248ec1f0fca6b048648277b4afb7e62843",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.907,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"What's on my calendar for this week?\", \"Show me my upcoming events.\", \"Do I have any meetings scheduled?\"]}",
+  "usage": {
+    "prompt_tokens": 125,
+    "completion_tokens": 136
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

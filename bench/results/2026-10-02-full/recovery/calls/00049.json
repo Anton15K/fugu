@@ -1,0 +1,16 @@
+{
+  "number": 49,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "9677c48926e81d28854849388b0617b3074eabf82f32e5deb06297f371bc5dc0",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.299,
+  "finish_reason": "stop",
+  "raw_response": "A fast, tasty weeknight option is **Garlic Shrimp Pasta**. Cook 8 oz linguine according to package directions. While pasta cooks, heat 2 Tbsp olive oil in a skillet over medium‑high heat; add 3 minced garlic cloves and sauté 30 s. Add 1 lb peeled shrimp, season with salt, pepper, and a pinch of red‑pepper flakes; cook 2‑3 min per side until pink. Toss the drained pasta with the shrimp, stir in ¼ cup grated Parmesan, 2 Tbsp chopped parsley, and a squeeze of lemon juice. Serve immediately.\n\nPLAN: Choose a quick recipe (garlic shrimp pasta).  \nPLAN: List ingredients and amounts.  \nPLAN: Outline cooking steps in order.  \nPLAN: Verify clarity and brevity before finalizing.",
+  "usage": {
+    "prompt_tokens": 566,
+    "completion_tokens": 595
+  }
+}

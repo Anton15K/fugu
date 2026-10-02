@@ -1,0 +1,16 @@
+{
+  "number": 536,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "48ca0d5d54f35589ee061999e7b27f200481d2c827c751a020a6937d68885d27",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.604,
+  "finish_reason": "stop",
+  "raw_response": "1. Build a simple weather dashboard using a public API and display it on a small screen.  \n2. Create a personal finance tracker web app that visualizes spending categories.  \n3. Design and 3D‑print a custom phone stand with integrated cable management.  \n\nPLAN: Research free weather API options and choose one.  \nPLAN: Sketch UI layout and implement basic fetch/display logic.  \nPLAN: Test the dashboard on a Raspberry Pi or similar device.  \nPLAN: Outline features for the finance tracker (input, charts, storage).  \nPLAN: Develop a minimal React/Vue app with localStorage persistence.  \nPLAN: Deploy to GitHub Pages or Netlify for quick sharing.  \nPLAN: Draft phone stand dimensions and cable grooves in CAD software.  \nPLAN: Export STL, slice, and print a prototype on a 3D printer.  \nPLAN: Iterate design based on fit and finish feedback.",
+  "usage": {
+    "prompt_tokens": 246,
+    "completion_tokens": 574
+  }
+}

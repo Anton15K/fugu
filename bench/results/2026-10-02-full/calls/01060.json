@@ -1,0 +1,16 @@
+{
+  "number": 1060,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "576f0a8fc765f0196c2c406b333268147521480af4a5b28a88bd1e26c609a9c6",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.839,
+  "finish_reason": "stop",
+  "raw_response": "95°F is 35°C (using the formula: (95 - 32) × 5/9 = 35).\n\nPLAN: Calculate Fahrenheit to Celsius conversion using standard formula\nPLAN: Provide the converted temperature to the user",
+  "usage": {
+    "prompt_tokens": 99,
+    "completion_tokens": 149
+  }
+}

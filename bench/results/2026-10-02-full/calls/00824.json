@@ -1,0 +1,19 @@
+{
+  "number": 824,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7d5b714ee348cc1bc5be15abdc18865ea98126097c6e6eeefdc1232b82aff890",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.094,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Package.json is clean and minimal. Description accurately states purpose ('Format markdown tables and lists in place'). Dependencies (lodash, chalk) are legitimate, well-known packages with standard version ranges. No security concerns or description quality issues detected.\"}",
+  "usage": {
+    "prompt_tokens": 848,
+    "completion_tokens": 610
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

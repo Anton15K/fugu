@@ -1,0 +1,54 @@
+{
+  "query": "\"markdown-prettifier\" package vulnerability OR typosquat OR malware report",
+  "number": 4,
+  "response": {
+    "query": "markdown-prettifier package vulnerability OR typosquat OR malware report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://security.snyk.io/package/npm/markdown-it/13.0.2",
+        "title": "markdown-it 13.0.2 | Snyk",
+        "content": "markdown-it is a modern pluggable markdown parser.\n\nAffected versions of this package are vulnerable to Inefficient Algorithmic Complexity through the `replaceAt()` function in the smartquotes rule when processing markdown input with a large number of consecutive quotation marks and the `typographer` option enabled. An attacker can cause excessive CPU consumption and disrupt service availability by submitting specially crafted markdown content containing many quote characters. [...] |  M  Inefficient Algorithmic Complexity markdown-it is a modern pluggable markdown parser.  Affected versions of this package are vulnerable to Inefficient Algorithmic Complexity through the `replaceAt()` function in the smartquotes rule when processing markdown input with a large number of consecutive quotation marks and the `typographer` option enabled. An attacker can cause excessive CPU consumption and disrupt service availability by submitting specially crafted markdown content containing [...] | Vulnerability | Vulnerable Version |\n --- |",
+        "score": 0.5832277,
+        "raw_content": null,
+        "id": "285443-00"
+      },
+      {
+        "url": "https://fluidattacks.com/advisories/relsb",
+        "title": "markdown-pdf 11.0.0 - Local File Read via Server Side XSS | Fluid Attacks",
+        "content": "## Description\n\nmarkdown-pdf version 11.0.0 allows an external attacker to remotely obtain arbitrary local files. This is possible because the application does not validate the Markdown content entered by the user.\n\n## Vulnerability\n\nThis vulnerability occurs because the application does not validate that the Markdown content entered by the user is not malicious.\n\n## Exploitation\n\nTo exploit this vulnerability, we only need to send the following malicious Markdown to markdown-pdf:",
+        "score": 0.44015694,
+        "raw_content": null,
+        "id": "71ba81-01"
+      },
+      {
+        "url": "https://www.sonarsource.com/blog/vscode-security-markdown-vulnerabilities-in-extensions",
+        "title": "Visual Studio Code Security: Markdown Vulnerabilities in Third-Party Extensions (2/3) | Sonar",
+        "content": "Date\n\nAction\n\n2023-06-12\n\nWe report the vulnerability in GitHub Pull Requests and Issues to Microsoft\n\n2023-06-16\n\nMicrosoft confirms the issue\n\n2023-07-11\n\nCVE-2023-36867 is assigned by Microsoft\n\n2023-07-14\n\nMicrosoft releases a fix in version 0.66.2 of GitHub Pull Requests and Issues\n\n## Summary [...] 2023-09-01\n\nGitLens awards us with a $100 bug bounty for the Markdown issue\n\n2023-11-03\n\nCVE-2023-46944 is assigned by MITRE\n\n### GitHub Pull Requests and Issues\n\n|  |  |\n --- |\n| Date | Action |\n| 2023-06-12 | We report the vulnerability in GitHub Pull Requests and Issues to Microsoft |\n| 2023-06-16 | Microsoft confirms the issue |\n| 2023-07-11 | CVE-2023-36867 is assigned by Microsoft |\n| 2023-07-14 | Microsoft releases a fix in version 0.66.2 of GitHub Pull Requests and Issues |\n\nDate [...] |  |  |\n --- |\n| Date | Action |\n| 2023-06-07 | We report the two vulnerabilities to GitLens |\n| 2023-06-07 | We get an automated acceptance response from GitLens |\n| 2023-06-15 | GitLens releases version 14.0.0 that prevents the vulnerable behavior in untrusted workspaces |\n| 2023-07-13 | We notice the GitLens release and ask for CVEs and an update from GitLens |\n| 2023-07-13 | We get another automated acceptance response from GitLens |",
+        "score": 0.43813655,
+        "raw_content": null,
+        "id": "70acd4-02"
+      },
+      {
+        "url": "https://www.sentinelone.com/vulnerability-database/cve-2026-2327",
+        "title": "CVE-2026-2327: markdown-it ReDoS Vulnerability",
+        "content": "The attack vector is network-based, allowing remote attackers to submit malicious Markdown content to any application that processes user-supplied input using vulnerable markdown-it versions. The attack requires no special privileges or user interaction. An attacker simply needs to craft input containing a long string of asterisk characters followed by a non-matching character. When this input is processed by the linkify function, the application thread becomes blocked while the regex engine [...] CVE-2026-2327 is a Regular Expression Denial of Service (ReDoS) vulnerability affecting the markdown-it JavaScript package. Versions from 13.0.0 and before 14.1.1 are vulnerable due to the use of an inefficient regular expression pattern /\\\\+$/ in the linkify function. An attacker can exploit this vulnerability by supplying a specially crafted input containing a long sequence of asterisk (\\) characters followed by a non-matching character, which triggers excessive backtracking in the regex [...] The vulnerability stems from an inefficient regular expression pattern in the linkify.mjs module at line 33. The pattern /\\\\+$/ uses a greedy quantifier (+) that matches one or more asterisks at the end of a string. When the input contains a long sequence of asterisks followed by a character that prevents the pattern from matching, the regex engine must backtrack through all possible combinations of asterisk groupings before determining that no match exists. This exponential time complexity",
+        "score": 0.42849702,
+        "raw_content": null,
+        "id": "6b73df-03"
+      },
+      {
+        "url": "https://www.threatlocker.com/blog/windows-notepad-vulnerability-markdown-risk-explained",
+        "title": "Windows Notepad vulnerability: Markdown risk explained",
+        "content": "## How the vulnerability enabled command execution\n\nCVE-2026-20841 allowed attackers to craft malicious Markdown links that leveraged URI handlers to execute unintended commands.\n\nIf a user clicked a specially constructed link, the system could:\n\n Launch local binaries\n Navigate to malicious websites\n Open macro-enabled Office documents\n Execute scripts using local file paths [...] The risk becomes more severe in scenarios where an attacker already has write permissions on a machine. In that case, they could plant a malicious script locally and use a file:// Markdown link to trigger execution.\n\nFor demonstration purposes, a simple .bat script can be used to download the harmless antivirus test file eicar.com.txt, immediately triggering Windows Defender. While benign in testing, this same technique could just as easily download and execute real malware.\n\n‍\n\n‍ [...] On May 30, 2025, Microsoft introduced Markdown support into Windows Notepad. Alongside this update came lightweight formatting features such as styled text, lists, and clickable hyperlinks.\n\nWith Markdown support also came compatibility with Windows Uniform Resource Identifier (URI) handlers—prefixes such as:\n\n file://\n ms-office:\n http://\n\nOn the surface, this seems like a natural extension of Markdown functionality. In practice, it created an opportunity for abuse.",
+        "score": 0.39236066,
+        "raw_content": null,
+        "id": "ed275a-04"
+      }
+    ],
+    "response_time": 0.78,
+    "request_id": "eafd187f-4400-4fee-b3d9-6f8f1ed3028a"
+  }
+}

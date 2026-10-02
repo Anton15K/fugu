@@ -26,10 +26,10 @@ that recording or publication has happened.
    explicitly labeled **SIMULATED**, not recorded measurements. They make no
    source/model analysis call and do not validate the submitted extension.
 
-Docker was unavailable for current live verification. Do not press **Detonate**
-or promise a canary result in the main recording. Only include a canary segment
-if the lead assigns and verifies a live chamber run on the target; show its actual
-fake-canary evidence and coverage. No hit is not proof of safety.
+The full-capability benchmark now includes verified Docker canary evidence.
+A recording must still rehearse the chamber on its actual source/build and show
+that run’s fake-canary evidence and coverage. Remote Nebius Sandboxes transport
+remains unverified. No hit is not proof of safety.
 
 ## Storyboard and narration
 
@@ -61,11 +61,13 @@ not an established active analysis stage. Optional cloud sandbox code is not
 proof of live Nebius Sandbox deployment. Tavily/OSV reputation lookups cross
 the local boundary when active.
 
-Keep benchmarks off the core story. If shown, use the [fresh report](benchmark.md):
-26 detections among 30 planned attacks, with two completed misses and two parse
-failures among the remaining cases; constructed clean 0/20 and public skills 0/19 completed with one
-incomplete of 20 stay separate. No superiority, zero-FPR, adoption, cost-saving
-or full local-only claim. Historical label-contaminated headlines are excluded.
+Keep benchmarks brief. If shown, use the [full-capability report](benchmark-full.md):
+40 frozen cases completed after bounded recovery, with Fugu detecting 12/15
+shared attack descriptions versus fuzzd’s 10/15 at medium severity or above.
+Confirmed false positives: 0. Authored source/composition/dependency cohorts
+remain separate. Show the final comparison chart with its task distinctions and
+unavailable Snyk result. Avoid population accuracy, universal superiority,
+adoption, monetary savings or entirely local-analysis claims.
 
 Before publication, confirm the exact reviewed commit, public repo/demo access,
 video duration and permissions for recorded material. Deployment and public video

@@ -1,0 +1,16 @@
+{
+  "number": 1180,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "8274681b1c50c3412b4401b3066857415d0d9511bb603725c580442bc158908c",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.07,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call read_rss with feed URL https://news.example.com/feed.xml to fetch latest entries\nPLAN: Summarize the returned article titles and links in a concise digest",
+  "usage": {
+    "prompt_tokens": 1286,
+    "completion_tokens": 115
+  }
+}

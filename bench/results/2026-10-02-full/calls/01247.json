@@ -1,0 +1,19 @@
+{
+  "number": 1247,
+  "context": "reputation/requests-2.19.1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "03b8c0dd524c3cb24f9b8b1a14336840cbedbd36e9051bb8fe6e750e63afb83e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.226,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Review the dependencies in this pyproject.toml file for any issues\", \"Check if requests==2.19.1 has any known vulnerabilities or updates available\", \"Analyze this project's dependencies and suggest any improvements\"]}",
+  "usage": {
+    "prompt_tokens": 114,
+    "completion_tokens": 271
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

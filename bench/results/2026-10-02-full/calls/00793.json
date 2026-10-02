@@ -1,0 +1,19 @@
+{
+  "number": 793,
+  "context": "crafted/09-clean-installer",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "4ea183c7fc52e683a22635fa10a0e2917ee6c4247b523e6780a719eb3df8612f",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.743,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, single-file CLI utility using only Python stdlib. No external deps, no agent-facing surfaces, no obfuscation. Descriptions (docstring, argparse help) are accurate and concise. No smell detected.\"}",
+  "usage": {
+    "prompt_tokens": 1245,
+    "completion_tokens": 360
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

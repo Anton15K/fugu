@@ -1,0 +1,16 @@
+{
+  "number": 1023,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "e549eb6d7cfc121cb789051a92d49098408e93ae2dfeff09922b1face4c55b38",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.235,
+  "finish_reason": "stop",
+  "raw_response": "Three weekend‑project ideas:\n1. Build a tiny CLI that uses the bundled almanac to suggest packing lists based on city‑month forecasts.\n2. Create a habit‑tracker app that logs daily goals in a local JSON file and shows streaks via a simple terminal UI.\n3. Write a static‑site generator that turns a folder of photos into a responsive gallery with lightbox navigation.\n\nPLAN:\n- Pick one idea and sketch core features on paper.\n- Set up a minimal project repo with a README and version control.\n- Implement the primary function (e.g., almanac lookup, habit logging, or image processing).\n- Add a basic user interface or CLI commands and test with sample data.\n- Polish error handling, add documentation, and push a final commit.",
+  "usage": {
+    "prompt_tokens": 1018,
+    "completion_tokens": 334
+  }
+}

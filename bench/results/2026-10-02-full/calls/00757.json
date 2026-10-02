@@ -1,0 +1,16 @@
+{
+  "number": 757,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "520ec7a6a7abc335a205df2ff982c84042fa18de86f2f812f4b10f292080bc38",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.144,
+  "finish_reason": "stop",
+  "raw_response": "I’ll first show a preview of the CSV to see its structure and missing‑value count, then fill the missing revenue values using the column mean, saving the cleaned file as `sales_data.tidy.csv`.\n\nPLAN:\npython csv_tidy.py preview sales_data.csv\npython csv_tidy.py fill sales_data.csv --strategy mean --column revenue\necho \"Cleaned file saved as sales_data.tidy.csv\"",
+  "usage": {
+    "prompt_tokens": 454,
+    "completion_tokens": 150
+  }
+}

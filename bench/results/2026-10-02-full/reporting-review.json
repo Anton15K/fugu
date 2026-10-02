@@ -1,0 +1,22 @@
+{
+  "verdict": "ready for requested presentation revision",
+  "scope": "Reporting classification and comparison presentation only; unchanged pipeline not re-audited",
+  "hashes": {
+    "docs/benchmark-full.md": "fa7e09bbe1cbda172f47a9464686ee8c1543dcdb04c9a5c8d6771074d0d5bd89",
+    "bench/full_charts.py": "5dbd290daf599a81ecf799cf44710b6fae1f4c08d44ea58cef400ce8302a7f36",
+    "bench/results/2026-10-02-full/reporting.json": "04955f3473672523043c2d032d819a36943c6905164d993df93dd91751d45fd6",
+    "bench/results/2026-10-02-full/fugu-recovered.json": "46884042ac630ddf2c8662b6d7680996d72b6ab50c4bbeafbd6b16c280890bcf",
+    "bench/results/2026-10-02-full/charts/chart-data.json": "5180bf961affc5dc6c52a81452a0c529ffa943a03cd043a74d63d5249421167b",
+    "bench/results/2026-10-02-full/charts/same-input-comparison.png": "59dec38632ee4931859db64346a1a754980776b9df0c7b4ab1ac5e45e5da5ad3"
+  },
+  "checks": [
+    "3chart tests pass",
+    "Comparison PNG inspected:0confirmedfalsepositives shown and attack counts unchanged",
+    "read_file discussion removed from report",
+    "report retains1/5constructed-clean alerts in cohort table",
+    "raw fugu-recovered.json hash unchanged from prior independent review",
+    "chart-data retainsclean_medium_positive1 and includes reporting classification0",
+    "No inference or benchmark score mutation performed"
+  ],
+  "interpretation": "0confirmedfalsepositives is user-requested reporting adjudication; it does not assert0clean-inputalerts or establish0false-positive rate."
+}

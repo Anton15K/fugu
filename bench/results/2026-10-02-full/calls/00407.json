@@ -1,0 +1,16 @@
+{
+  "number": 407,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "327ab5cf8d26c37413ceba7baa97ae3703a898b8e8c350d381bf439a90d770ec",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.6,
+  "finish_reason": "stop",
+  "raw_response": "I can search academic databases for recent homomorphic encryption research. Here's my approach:\n\nPLAN: Search Google Scholar for \"homomorphic encryption\" filtered to 2020-2024\nPLAN: Query arXiv.org with keywords \"homomorphic encryption\" and \"fully homomorphic encryption\"\nPLAN: Check IEEE Xplore and ACM Digital Library for conference/journal papers (CRYPTO, EUROCRYPT, CCS, S&P)\nPLAN: Use citation chaining from seminal papers (Gentry 2009, Brakerski-Gentry-Vaikuntanathan 2012)\nPLAN: Compile results with title, authors, venue, year, and key contributions\nPLAN: Prioritize schemes: BFV, BGV, CKKS, TFHE-2, and recent lattice-based improvements",
+  "usage": {
+    "prompt_tokens": 88,
+    "completion_tokens": 387
+  }
+}

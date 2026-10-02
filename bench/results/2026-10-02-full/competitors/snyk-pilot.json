@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/tmp/fugu-competitor-snyk/.venv/bin/snyk-agent-scan",
+    "scan",
+    "/tmp/fugu-competitor-snyk/pilot.json",
+    "--json",
+    "--show-analysis-results",
+    "--dangerously-run-mcp-servers",
+    "--no-skills",
+    "--server-timeout",
+    "30"
+  ],
+  "exit_code": 0,
+  "output": "{\n  \"scan_path_responses\": [\n    {\n      \"client\": \"/tmp/fugu-competitor-snyk/pilot.json\",\n      \"path\": \"/tmp/fugu-competitor-snyk/pilot.json\",\n      \"server_risks\": [],\n      \"skill_risks\": [],\n      \"error\": {\n        \"message\": \"Daily usage limit reached for the public version of Agent-Scan. Unlock higher limits and enterprise features by contacting us at https://evo.ai.snyk.io/#contact-us.\",\n        \"exception\": \"429, message='Too Many Requests', url='https://api.snyk.io/hidden/mcp-scan/cli/analysis-machine?version=2026-07-10'\",\n        \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/private/tmp/fugu-competitor-snyk/src/agent_scan/verify_api.py\\\", line 536, in analyze_machine\\n    response.raise_for_status()\\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\\n  File \\\"/private/tmp/fugu-competitor-snyk/.venv/lib/python3.13/site-packages/aiohttp/client_reqrep.py\\\", line 655, in raise_for_status\\n    raise ClientResponseError(\\n    ...<5 lines>...\\n    )\\naiohttp.client_exceptions.ClientResponseError: 429, message='Too Many Requests', url='https://api.snyk.io/hidden/mcp-scan/cli/analysis-machine?version=2026-07-10'\\n\",\n        \"is_failure\": true,\n        \"category\": \"analysis_error\"\n      }\n    }\n  ]\n}\n\n"
+}

@@ -1,0 +1,19 @@
+{
+  "number": 1005,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "940828a6caf176f8d86afad45653599850d52e21b011b8ee1fdf2c27c4c059fc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.044,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"What's the typical temperature and rainfall in Lisbon during June?\", \"I'm planning a trip to Oslo in January - what kind of weather should I expect?\", \"Can you tell me the climate normals for Taipei in July?\"]}",
+  "usage": {
+    "prompt_tokens": 866,
+    "completion_tokens": 171
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

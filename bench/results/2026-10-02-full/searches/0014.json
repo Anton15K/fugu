@@ -1,0 +1,54 @@
+{
+  "query": "\"requests\" 2.19.1 vulnerability CVE",
+  "number": 14,
+  "response": {
+    "query": "requests 2.19.1 vulnerability CVE",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://pulse.latio.tech/p/do-you-need-sca-and-container-scanning",
+        "title": "Do you need Container Vulnerability Scanning and SCA Scanning?",
+        "content": "```\n│ react-admin (package.json)│ CVE-2023-25572 │ MEDIUM │ │ 3.19.10│ 3.19.12, 4.7.6│ | node-fetch (package.json) | CVE-2020-15168 │ LOW │ 2.6.1, 3.0.0-beta.9 \n```\n\nLet’s see if this holds true for a Python example:\n\n## Python Dependency Example\n\nDependency:\n\nrequests == 2.19.1\n\nSnyk finds CVE-2018-18074, as well as transitive dependencies in urllib such as CVE-2019-11236: [...] Upgrade requests@2.19.1 to requests@2.31.0 to fix ✗ Information Exposure [Medium Severity][ in requests@2.19.1 introduced by requests@2.19.1 ✗ Information Exposure [Critical Severity][ in requests@2.19.1 introduced by requests@2.19.1 Pin urllib3@1.23 to urllib3@1.26.18 to fix ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][ in urllib3@1.23 introduced by requests@2.19.1 > urllib3@1.23 ✗ Information Exposure Through Sent Data [Medium Severity][ in urllib3@1.23 introduced by [...] introduced by requests@2.19.1 > urllib3@1.23 ✗ Information Exposure Through Sent Data [Medium Severity][ in urllib3@1.23 introduced by requests@2.19.1 > urllib3@1.23 ✗ HTTP Header Injection [High Severity][ in urllib3@1.23 introduced by requests@2.19.1 > urllib3@1.23 ✗ CRLF injection [High Severity][ in urllib3@1.23 introduced by requests@2.19.1 > urllib3@1.23 ✗ Improper Certificate Validation [High Severity][ in urllib3@1.23 introduced by requests@2.19.1 > urllib3@1.23 ✗ Information Exposure",
+        "score": 0.70847535,
+        "raw_content": null,
+        "id": "d84349-00"
+      },
+      {
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25645",
+        "title": "NVD-CVE-2026-25645",
+        "content": "Requests is a HTTP library. Prior to version 2.33.0, the `requests.utils.extract_zipped_paths()` utility function uses a predictable filename when extracting files from zip archives into the system temporary directory. If the target file already exists, it is reused without validation. A local attacker with write access to the temp directory could pre-create a malicious file that would be loaded in place of the legitimate one. Standard usage of the Requests library is not affected by this",
+        "score": 0.6164054,
+        "raw_content": null,
+        "id": "285d76-01"
+      },
+      {
+        "url": "https://www.versioneye.com/Python/requests/2.16.0",
+        "title": "VersionEye 2.0",
+        "content": "The Requests package through 2.19.1 before 2018-09-14 for Python sends an HTTP Authorization header to an http URI upon receiving a same-hostname https-to-http redirect, which makes it easier for remote attackers to discover credentials by sniffing the network. [...] VersionEye Icon VersionEye   Sign in Sign up\n\n# Python/requests/2.16.0\n\nPython HTTP for Humans.\n\n   \n  Apache-2.0\n\n## 5 Security Vulnerabilities\n\nRequests vulnerable to .netrc credentials leak via malicious URLs\n\nPublished date: 2025-06-09T19:06:08Z\n\nCVE: CVE-2024-47081\n\nLinks:\n\n \n \n \n \n \n \n \n \n \n \n \n \n\n### Impact\n\nDue to a URL parsing issue, Requests releases prior to 2.32.4 may leak .netrc credentials to third parties for specific maliciously-crafted URLs.\n\n### Workarounds [...] Standard usage of the Requests library is not affected by this vulnerability. Only applications that call `extract_zipped_paths()` directly are impacted.\n\n### Remediation\n\nUpgrade to at least Requests 2.33.0, where the library now extracts files to a non-deterministic location.\n\nIf developers are unable to upgrade, they can set `TMPDIR` in their environment to a directory with restricted write access.",
+        "score": 0.59796065,
+        "raw_content": null,
+        "id": "7f559f-02"
+      },
+      {
+        "url": "https://www.sentinelone.com/vulnerability-database/cve-2023-32681",
+        "title": "CVE-2023-32681: Python Requests Info Disclosure Flaw",
+        "content": "This vulnerability stems from how the Python Requests library handles the Proxy-Authorization header during HTTP redirects. The issue lies in the rebuild\\_proxies function within requests/sessions.py, which incorrectly reattaches proxy credentials to requests even when being redirected to HTTPS endpoints. [...] ### Attack Vector\n\nAn attacker can exploit this vulnerability by controlling or compromising a destination server that receives redirected HTTPS requests. The attack requires:\n\n1. A victim application using a vulnerable version of Requests configured with proxy authentication\n2. A malicious or compromised server that can trigger a redirect or is the target of a proxied HTTPS request\n3. Network positioning to receive the leaked credentials [...] CVE-2023-32681 is an information disclosure vulnerability in the Python Requests HTTP library that allows proxy credentials to leak to destination servers during HTTPS redirects. Since version 2.3.0, Requests has been unintentionally forwarding Proxy-Authorization headers to destination servers when a request is redirected to an HTTPS endpoint, potentially allowing malicious actors to exfiltrate sensitive proxy authentication credentials.",
+        "score": 0.5948579,
+        "raw_content": null,
+        "id": "b3fa6b-03"
+      },
+      {
+        "url": "https://3.python-requests.org/community/updates",
+        "title": "Community Updates — Requests 2.21.0 documentation",
+        "content": "## 2.19.1 (2018-06-14)¶\n\nBugfixes\n\n Fixed issue where status\\_codes.py’s init function failed trying to append to a \\_\\_doc\\_\\_ value of None.\n\n## 2.19.0 (2018-06-12)¶ [...] Community Updates\n  + GitHub\n  + Twitter\n Release and Version History\n Release History\n  + dev\n  + 2.21.0 (2018-12-10)\n  + 2.20.1 (2018-11-08)\n  + 2.20.0 (2018-10-18)\n  + 2.19.1 (2018-06-14)\n  + 2.19.0 (2018-06-12)\n  + 2.18.4 (2017-08-15)\n  + 2.18.3 (2017-08-02)\n  + 2.18.2 (2017-07-25)\n  + 2.18.1 (2017-06-14)\n  + 2.18.0 (2017-06-14)\n  + 2.17.3 (2017-05-29)\n  + 2.17.2 (2017-05-29)\n  + 2.17.1 (2017-05-29)\n  + 2.17.0 (2017-05-29)\n  + 2.16.5 (2017-05-28)\n  + 2.16.4 (2017-05-27) [...] Bugfixes\n\n Content-Type header parsing is now case-insensitive (e.g. charset=utf8 v Charset=utf8).\n Fixed exception leak where certain redirect urls would raise uncaught urllib3 exceptions.\n Requests removes Authorization header from requests redirected from https to http on the same hostname. (CVE-2018-18074)\n should\\_bypass\\_proxies now handles URIs without hostnames (e.g. files).\n\nDependencies\n\n Requests now supports urllib3 v1.24.\n\n Requests has officially stopped support for Python 2.6.",
+        "score": 0.49113917,
+        "raw_content": null,
+        "id": "73fb79-04"
+      }
+    ],
+    "response_time": 1.37,
+    "request_id": "75c815f4-0d90-42d8-b8c7-4cf911997b5f"
+  }
+}

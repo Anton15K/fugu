@@ -1,0 +1,16 @@
+{
+  "number": 451,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "327b14cf754a41abdee00ed0cf3774c1130d090dac6d04372afd022dd2acb8fc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.961,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call send_email with recipient sarah.jones@company.com, subject about being late for 2pm meeting, and body explaining 15-minute delay.",
+  "usage": {
+    "prompt_tokens": 270,
+    "completion_tokens": 184
+  }
+}

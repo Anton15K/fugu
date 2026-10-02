@@ -1,0 +1,16 @@
+{
+  "number": 891,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "64d24babf3ced1985ce4cb60b5d237b6154429179e1f276eb58aae79de4c1ccc",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.729,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Apology for the oversight  \n\nHi [Colleague's Name],\n\nI’m sorry for [specific action/mistake]. It was inconsiderate and I understand it caused [impact/inconvenience]. I value our collaboration and will make sure it doesn’t happen again. Please let me know if there’s anything I can do to make things right.\n\nThank you,  \n[Your Name]\n\nPLAN: Identify the specific incident to apologize for.  \nPLAN: Draft the email using a sincere, concise tone.  \nPLAN: Review the draft for clarity and appropriateness.  \nPLAN: Send the email to the colleague.",
+  "usage": {
+    "prompt_tokens": 1046,
+    "completion_tokens": 400
+  }
+}

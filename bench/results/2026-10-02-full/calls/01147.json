@@ -1,0 +1,16 @@
+{
+  "number": 1147,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "552f50b61b3e77995719e953199a8910787aea880d680f7df919973c6058db83",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.801,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call the list_docs tool to retrieve all available documentation pages in the help-docs skill.",
+  "usage": {
+    "prompt_tokens": 1235,
+    "completion_tokens": 76
+  }
+}

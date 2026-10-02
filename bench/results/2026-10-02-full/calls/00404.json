@@ -1,0 +1,16 @@
+{
+  "number": 404,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "45227834a9f7826624b6ae8a6bb12ef35e8ac2a8bf6ef981eae7171eafdf95f3",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.713,
+  "finish_reason": "stop",
+  "raw_response": "I'll help you find academic papers on zero-knowledge proof systems by searching major research databases and repositories.\n\nPLAN: Search Google Scholar for \"zero-knowledge proof systems\" with filters for recent years (2020-2024)\nPLAN: Query arXiv.org with keywords \"zero-knowledge proofs\", \"ZK-SNARKs\", \"ZK-STARKs\", \"zkEVM\"\nPLAN: Search IEEE Xplore and ACM Digital Library for conference papers from CRYPTO, EUROCRYPT, CCS, S&P\nPLAN: Check Semantic Scholar for highly-cited papers on ZK-SNARKs, Bulletproofs, Plonk, Halo2\nPLAN: Browse ePrint.iacr.org for latest cryptographic constructions and security proofs\nPLAN: Search GitHub for \"awesome-zero-knowledge-proofs\" curated lists with paper references\nPLAN: Check ZKProofs.org and ZKResearch.org for categorized paper collections\nPLAN: Query DBLP for author profiles of key researchers (Ben-Sasson, Chiesa, Gabizon, Wuille)",
+  "usage": {
+    "prompt_tokens": 88,
+    "completion_tokens": 311
+  }
+}

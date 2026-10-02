@@ -1,0 +1,16 @@
+{
+  "number": 1090,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "64b19bd145ff68c0287453f6ad347371cf860e81c1e087ae353c15fcd1546680",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.663,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Read the config.yaml file in the current directory\nPLAN: Parse the YAML content to find the database connection string\nPLAN: Report the connection string value to the user",
+  "usage": {
+    "prompt_tokens": 100,
+    "completion_tokens": 93
+  }
+}

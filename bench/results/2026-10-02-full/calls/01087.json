@@ -1,0 +1,16 @@
+{
+  "number": 1087,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "630a6647a30676628c6d4941ef04fc35af97c0b767b4c3ad0989ac1d891d3570",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.408,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call list_directory tool with path /home/user/documents to list its contents.",
+  "usage": {
+    "prompt_tokens": 99,
+    "completion_tokens": 55
+  }
+}

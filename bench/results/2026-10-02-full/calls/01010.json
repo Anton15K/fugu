@@ -1,0 +1,16 @@
+{
+  "number": 1010,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "ab4377b35797ff41f786233067f99850e1f86185f62c0fafab039046fe786228",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.501,
+  "finish_reason": "stop",
+  "raw_response": "Here's a concise, professional apology email you can adapt:\n\n---\n\n**Subject:** Apology / [Brief context, e.g., \"Missed deadline\"]\n\nHi [Name],\n\nI’m sorry for [specific issue — e.g., \"missing yesterday’s deadline on the Q3 report\"]. It was my responsibility, and I know it impacted [you / the team / the project].\n\n[Optional: one sentence on what happened, no excuses — e.g., \"I underestimated the review time needed.\"]\n\nI’ve [corrective action — e.g., \"submitted the final version this morning and added a buffer to my calendar for future reviews\"]. Please let me know if there’s anything else I should do to make this right.\n\nThanks for your patience.\n\nBest,  \n[Your name]\n\n---\n\n**Tips:** Keep it specific, own it fully, state the fix, and stop there.\n\nPLAN: No tool calls needed — this is a direct writing task.",
+  "usage": {
+    "prompt_tokens": 1020,
+    "completion_tokens": 258
+  }
+}

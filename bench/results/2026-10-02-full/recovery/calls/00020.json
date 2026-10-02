@@ -1,0 +1,16 @@
+{
+  "number": 20,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "ce17afe2c8888f44daaf452b35ab3badbf3b7942b80fc12be0bae0b063585102",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.579,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Sorry for the oversight  \n\nHi [Colleague’s Name],\n\nI wanted to apologize for [briefly describe what happened, e.g., missing the deadline on the report]. I understand it caused inconvenience and I take full responsibility. I’ve already [corrective action, e.g., submitted the revised version] and will ensure it doesn’t happen again. Please let me know if there’s anything else I can do to make this right.\n\nThank you for your understanding.\n\nBest regards,  \n[Your Name]\n\nPLAN: Call get_calendar_events to see any upcoming meetings with the colleague for follow‑up.  \nPLAN: Review the email for tone, brevity, and clarity.  \nPLAN: Present the draft to the user for final approval before sending.",
+  "usage": {
+    "prompt_tokens": 245,
+    "completion_tokens": 390
+  }
+}

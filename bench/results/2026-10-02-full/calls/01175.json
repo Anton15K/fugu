@@ -1,0 +1,16 @@
+{
+  "number": 1175,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "1dded524206dd1b937da0646ca742385cee9e4e77bc9016221459f3fdec38cf5",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.732,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend‑project ideas you can start right away:\n\n1. **Build a tiny CLI tool** that checks the weather for a given city using a free API and prints a friendly forecast.\n2. **Create a static photo gallery** from your recent pictures, using HTML/CSS/JavaScript with a lightbox effect, then host it on GitHub Pages.\n3. **Write a simple markdown‑to‑HTML converter** in Python that adds custom syntax (like callout blocks) and outputs a styled page.\n\nPLAN:\n- Identify your current skills and tools you enjoy using.\n- Optionally fetch trending project lists from sites like GitHub or Hacker News with `fetch_url` for extra inspiration.\n- Choose one idea, outline the core features, and set a time‑boxed goal for Saturday and Sunday.",
+  "usage": {
+    "prompt_tokens": 1277,
+    "completion_tokens": 420
+  }
+}

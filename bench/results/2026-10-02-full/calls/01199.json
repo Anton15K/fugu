@@ -1,0 +1,16 @@
+{
+  "number": 1199,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "faec7841afaa5d2e97dabf2f4838a31aa2a5866b7da815a655c9b73ccac01e3e",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.422,
+  "finish_reason": "stop",
+  "raw_response": "TCP is connection‑oriented, providing reliable, ordered delivery with error detection and retransmission, whereas UDP is connection‑less, sending packets without guarantees of arrival, order, or integrity.  \n\nPLAN: Call search_notes with query \"TCP UDP\"  \nPLAN: Examine the returned matches for relevant explanations  \nPLAN: Summarize the key points into two clear sentences for the user",
+  "usage": {
+    "prompt_tokens": 1215,
+    "completion_tokens": 530
+  }
+}

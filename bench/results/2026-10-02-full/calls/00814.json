@@ -1,0 +1,16 @@
+{
+  "number": 814,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7316444731e549e69c921ea5d579448305fe8c9111840cfe533f04aaed8cbeaa",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.548,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Read the CSV file using pandas to examine its structure\nPLAN: Display basic info: shape, column names, data types, and first few rows\nPLAN: Calculate and show missing values count and percentage per column\nPLAN: Provide summary of findings",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 110
+  }
+}

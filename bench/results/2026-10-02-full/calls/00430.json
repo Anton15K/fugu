@@ -1,0 +1,19 @@
+{
+  "number": 430,
+  "context": "clean/send_email",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "59b02a1d0707e6db6be2ddd5e72dcb048fac1500869b11627513b8d5ca4e71dc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.176,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [{\"title\": \"Empty input schema for email sending tool\", \"owasp_ids\": [], \"severity\": \"info\", \"detail\": \"The send_email tool declares an empty inputSchema ({}), which is likely incomplete for a tool that sends emails (missing recipients, subject, body, etc.). This is a description quality issue affecting completeness.\", \"element\": {\"kind\": \"param_schema\", \"line_hint\": 5, \"locator\": \"tools[0].inputSchema\"}, \"excerpt\": \"\\\"inputSchema\\\": {}\"}], \"quality_summary\": \"Tool description is accurate and concise but the parameter schema is empty, suggesting missing parameter definitions for recipients, subject, body, and other email fields.\"}",
+  "usage": {
+    "prompt_tokens": 767,
+    "completion_tokens": 466
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

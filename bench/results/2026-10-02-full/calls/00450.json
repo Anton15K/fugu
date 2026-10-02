@@ -1,0 +1,16 @@
+{
+  "number": 450,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "60508cdfb6e91646ec7d924958c6cadaa95ea27c39b43d0cf5540de34c1d999d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.479,
+  "finish_reason": "stop",
+  "raw_response": "I'll send an email to Sarah notifying her you'll be 15 minutes late for the 2pm meeting.\n\nPLAN: Compose email with subject \"Running late for 2pm meeting\" and body \"Hi Sarah, I'll be about 15 minutes late for our 2pm meeting today. Apologies for the delay. See you soon.\"\nPLAN: Use the default mail client (e.g., `mail` command or system API) to send to sarah.jones@company.com.\nPLAN: Verify the email was queued/sent successfully.",
+  "usage": {
+    "prompt_tokens": 113,
+    "completion_tokens": 394
+  }
+}

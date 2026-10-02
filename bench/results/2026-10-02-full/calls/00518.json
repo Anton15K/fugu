@@ -1,0 +1,19 @@
+{
+  "number": 518,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "53eb0da1d4ae39bdc07b825288a4d85728e2053068580079296e28fdc30a7b63",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.103,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Translate this email from English to Spanish for my client in Madrid: 'Dear Carlos, Thank you for your proposal. We'd like to move forward with the project starting next month. Please send the updated timeline.',\", \"I received this message in French from a supplier: 'Bonjour, votre commande #4521 a été expédiée hier et devrait arriver d'ici vendredi. Cordialement.' Can you translate it to English?\", \"Help me translate my website's tagline 'Innovation that matters' into German, Japanese, and Portuguese for our international launch.\"]}",
+  "usage": {
+    "prompt_tokens": 128,
+    "completion_tokens": 254
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

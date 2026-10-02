@@ -1,0 +1,54 @@
+{
+  "query": "\"stats.example.net\" domain malware OR data exfiltration report",
+  "number": 3,
+  "response": {
+    "query": "stats.example.net domain malware OR data exfiltration report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://www.blackfog.com/what-you-need-to-know-about-data-exfiltration",
+        "title": "Data Exfiltration - What you Need to Know",
+        "content": "For example, some of the biggest data exfiltration attacks of 2022, according to our State of Ransomware report, included attacks on auto part manufacturer Denso that compromised 1.1 terabytes (TB) of data, insurer Kingfisher Insurance (1.4 TB), the local government of Suffolk County, NY (4TB) and Canadian College Montmorency, which was alleged to have lost 8TB. [...] Exfiltration is a growing problem for businesses, and is now a common factor of many ransomware attacks. According to BlackFog’s State of Ransomware report for 2022, almost nine out of ten reported ransomware incidents (89 percent) use data exfiltration, up from around 80 percent the previous year.\n\nWith the average ransomware payment reaching $258,143 towards the end of the year – a 13.2 percent increase from Q2 of 2022 – this is a serious threat to any firm’s future. [...] Data exfiltration is the unauthorized copying, transfer or retrieval of valuable data from a computer, server or other device. It occurs when malware and/or a malicious actor carries out an unauthorized data transfer from a computer. Data exfiltration is considered to be a form of data theft.",
+        "score": 0.46366343,
+        "raw_content": null,
+        "id": "3f371b-00"
+      },
+      {
+        "url": "https://www.vectra.ai/topics/exfiltration",
+        "title": "What Is Data Exfiltration? Detection, Prevention & Examples",
+        "content": "The Unit 42 Incident Response Report documents that dwell time has decreased to seven days in 2024, down from 13 days in 2023. More critically, Help Net Security reports that data exfiltration specifically occurs within a median of two days — and in one of five cases, within the first hour of compromise. [...] Ransomware operators have made data exfiltration standard practice. BlackFog reports that 96% of ransomware attacks in Q3 2025 involved exfiltration — the highest rate ever recorded — with an average exfiltration volume of 527.65 GB per victim.\n\n### Insider threat exfiltration\n\nInsider threats present unique detection challenges because insiders have legitimate access to systems and data. [...] Effective detection requires a layered approach that combines multiple technologies. No single solution catches all exfiltration attempts — attackers deliberately use legitimate tools and encrypted channels to evade detection.\n\nThe Blue Report 2025 published by BleepingComputer found that organizations prevented only 3% of exfiltration attempts in Q3 2025 — the lowest prevention rate ever recorded. This statistic underscores the critical importance of detection investments.",
+        "score": 0.39033696,
+        "raw_content": null,
+        "id": "93a9bf-01"
+      },
+      {
+        "url": "https://pureadmin.qub.ac.uk/ws/files/161785678/1570493592_CameraReady.pdf",
+        "title": "DNSxD: Detecting Data Exfiltration over DNS",
+        "content": "to a 2017 SANS report, 1 in 20 organ-isations fall victim to data exﬁltration. Data exﬁltration, often the ﬁnal stage of a cyber attack has damaging consequences for the victim organisation. The use of the Domain Name System (DNS) protocol for data exﬁltration was ﬁrst discussed in 1998. Twenty years on, this covert transmission method has become more sophisticated as malicious actors adapt to evade detection techniques. The popularity of DNS for data exﬁltration is due to the essential nature [...] According to a 2016 Cisco security report , 91% of malware used DNS in attacks and 68% of organisations failed to monitor DNS trafﬁc as a method of attack. According to , the ﬁrst discussion of the DNS protocol being used as an exﬁltration method occurred in 1998. Since then, the attack has grown in notoriety, mainly due to its role in malware attacks. However, mitigation has not kept pace with the growth in the attack vector with the majority of networks still vulnerable to even fundamental [...] DNSxD then outputs the distribution of values for each remaining feature to distinguish how malicious and benign TABLE III: Selected Features & Threshold Values Threshold Suspicious Record type Null Not A or AAAA Query length 55B 40-50B Name entropy 4 3-4 Volume 1500B 300-1500B Frequency per domain 100pkts 20-100pkts Keep-alive N/A N/A Time interval N/A N/A (a) Volume per Domain (b) Frequency per Domain (c) Query Lengths (d) Query Entropy Fig. 2: Statistical Analysis of Features trafﬁc patterns",
+        "score": 0.3309905,
+        "raw_content": null,
+        "id": "f160b3-02"
+      },
+      {
+        "url": "https://www.teramind.co/blog/data-exfiltration-examples",
+        "title": "20 Data Exfiltration Examples Every Business Should Know",
+        "content": "Exploitation of Application Vulnerabilities. Malicious insiders or malware can exploit weaknesses in applications to extract sensitive information.\n Exfiltration via Physical Devices. Theft of physical devices, such as laptops, smartphones, or external drives, can lead to unauthorized access to sensitive data stored on them. [...] Data Exfiltration refers to the unauthorized transfer or removal of sensitive information from a computer system or network to an external destination. Essentially, it is a form of data theft where confidential or proprietary data is copied, transferred, or accessed without proper authorization. This activity can be conducted by malicious insiders within an organization or by external attackers who gain unauthorized access. [...] Data Exfiltration. This is the intentional and unauthorized transfer of data from a system or network, typically carried out by malicious actors or insiders with intent to steal sensitive information. Think of it like a burglar sneaking valuables out of your home.\n Data Leakage. This is the unintentional exposure of sensitive information due to security oversights, misconfigurations, or human error. Imagine forgetting to lock your front door and leaving your valuables accessible to anyone.",
+        "score": 0.3059155,
+        "raw_content": null,
+        "id": "aa218b-03"
+      },
+      {
+        "url": "https://www.ibm.com/think/topics/data-exfiltration",
+        "title": "What is Data Exfiltration? | IBM",
+        "content": "# What is data exfiltration?\n\n## What is data exfiltration?\n\nData exfiltration—also known as data extrusion or data exportation—is data theft: the intentional, unauthorized, covert transfer of data from a computer or other device. Data exfiltration can be conducted manually, or automated using malware. [...] Data exfiltration is the discrete act of stealing the data. All data exfiltration requires a data leak or a data breach, but not all data leaks or data breaches lead to data exfiltration. For example, a threat actor can choose instead to encrypt the data as part of a ransomware attack or use it to hijack an executive’s email account. It’s not data exfiltration until the data is copied or moved to some other storage device under the attacker’s control.",
+        "score": 0.29381514,
+        "raw_content": null,
+        "id": "b0f3a9-04"
+      }
+    ],
+    "response_time": 1.03,
+    "request_id": "d29a61cc-5d37-4575-86fc-c845792317b6"
+  }
+}

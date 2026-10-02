@@ -1,0 +1,19 @@
+{
+  "number": 488,
+  "context": "clean/read_file",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "1034706b9797fb5ede4de62e2c9502e5f7d8495b9eb8ad517acf0115b800bb86",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.81,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [{\"title\": \"Missing input schema for required path parameter\", \"owasp_ids\": [], \"severity\": \"info\", \"detail\": \"The tool description references a 'given path' parameter but the inputSchema is empty, making it impossible for the agent to know how to invoke the tool correctly.\", \"element\": {\"kind\": \"param_schema\", \"line_hint\": 5, \"locator\": \"tools[0].inputSchema\"}, \"excerpt\": \"\\\"inputSchema\\\": {}\"}], \"quality_summary\": \"Tool description is accurate and concise but incomplete: the inputSchema is empty despite the description implying a required path parameter. No security issues detected.\"}",
+  "usage": {
+    "prompt_tokens": 778,
+    "completion_tokens": 872
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

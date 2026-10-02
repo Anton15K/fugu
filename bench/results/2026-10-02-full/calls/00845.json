@@ -1,0 +1,16 @@
+{
+  "number": 845,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "ea73e5aa9a3e2dfe0ce3c6b5d7816336d65aecb8ab54286996178d9b8c3bf4dc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.615,
+  "finish_reason": "stop",
+  "raw_response": "I can clean up your markdown file using the installed `mdprettify` tool. Please provide the path to your markdown file (e.g., `./notes.md` or `/full/path/file.md`).\n\nPLAN: Ask user for the markdown file path\nPLAN: Run `mdprettify <file.md>` to generate a formatted `<file>.pretty.md`\nPLAN: Show the user the cleaned-up output or confirm the new file location",
+  "usage": {
+    "prompt_tokens": 897,
+    "completion_tokens": 424
+  }
+}

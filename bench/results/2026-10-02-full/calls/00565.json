@@ -1,0 +1,16 @@
+{
+  "number": 565,
+  "context": "clean/create_notion_page",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "1091f1bf51453794ce699a7180f61f1e0a5f1be06bb8b47b0b8f0e634cd222d9",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.493,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend‑project ideas:  \n1. Build a minimal habit‑tracker web app using HTML/CSS/JS and local storage.  \n2. Assemble a DIY smart mirror with a Raspberry Pi, a two‑way mirror, and basic widgets (clock, weather, calendar).  \n3. Create a short interactive fiction game in Twine or Ink, featuring branching storylines and simple puzzles.\n\nPLAN: Call create_notion_page to record idea 1  \nPLAN: Call create_notion_page to record idea 2  \nPLAN: Call create_notion_page to record idea 3",
+  "usage": {
+    "prompt_tokens": 250,
+    "completion_tokens": 395
+  }
+}

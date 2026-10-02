@@ -1,0 +1,16 @@
+{
+  "number": 1242,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "0d893fed1013a21eb19c72535696b86b12ad6e15ef6b55fc5dca93187a0d71b2",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.739,
+  "finish_reason": "stop",
+  "raw_response": "I’ve sent a ping to the status board using the provided skill.\n\nPLAN:\n./post_status.sh ping",
+  "usage": {
+    "prompt_tokens": 763,
+    "completion_tokens": 172
+  }
+}

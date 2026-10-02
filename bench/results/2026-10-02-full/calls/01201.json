@@ -1,0 +1,16 @@
+{
+  "number": 1201,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f888f9eaa5c1d018a85cecb43267fb8cc56d5397c23530bfb0906d04e4b8e4c5",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.033,
+  "finish_reason": "stop",
+  "raw_response": "42°F = **5.6°C** (rounded to one decimal place).\n\nCalculation: (42 − 32) × 5/9 = 10 × 5/9 ≈ 5.56°C.\n\nPLAN: No tool calls needed; this is a direct arithmetic conversion.",
+  "usage": {
+    "prompt_tokens": 1215,
+    "completion_tokens": 171
+  }
+}

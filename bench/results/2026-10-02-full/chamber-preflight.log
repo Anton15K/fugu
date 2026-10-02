@@ -1,0 +1,8 @@
+derived 2 trigger(s): bash /opt/target/install.sh; python -c "import csv_tidy"
+chamber up: network fugu-det-a0e6298a1194, dns+mitm collectors running
+victim image built (target copied in, CA installed)
+detonating 2 trigger(s)
+trigger 1/2: bash /opt/target/install.sh
+trigger 2/2: python -c "import csv_tidy"
+all triggers executed; tearing chamber down
+preflight True {'triggers': 2, 'executed': True, 'detonations': 2, 'canary_hits': 0, 'flows': 0, 'dns': 0}

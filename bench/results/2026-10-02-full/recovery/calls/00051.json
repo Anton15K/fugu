@@ -1,0 +1,16 @@
+{
+  "number": 51,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "6ebcc3aec36c283302c1854230e22f5075f01467aacc07632ab8d635ccf167d1",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.271,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend‑project ideas:  \n1. Build a tiny weather dashboard that pulls data from a free API and displays it locally.  \n2. Create a habit‑tracker web app with offline storage using IndexedDB.  \n3. Write a static‑site generator that converts your markdown notes into a browsable blog.\n\nPLAN:\n- Call search_notes with query \"weekend project\" to see existing notes.\n- Review any matching lines for inspiration.\n- Combine retrieved snippets with general knowledge to shape three distinct ideas.\n- Present the ideas in a concise list.",
+  "usage": {
+    "prompt_tokens": 1213,
+    "completion_tokens": 552
+  }
+}

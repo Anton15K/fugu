@@ -1,0 +1,16 @@
+{
+  "number": 44,
+  "context": "mcptox/Email_20",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "58c2e447698b492db5b6cadd060503713023e385c8ecfbfb56cce69b727767bf",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.476,
+  "finish_reason": "stop",
+  "raw_response": "TCP (Transmission Control Protocol) provides reliable, connection‑oriented delivery with error checking, flow control, and retransmission of lost packets, making it suitable for applications like web browsing and email. UDP (User Datagram Protocol) offers a lightweight, connectionless service that sends datagrams without guarantees of order, reliability, or flow control, which is ideal for real‑time apps such as video streaming or online gaming.\n\nPLAN:\nNo tool calls needed.",
+  "usage": {
+    "prompt_tokens": 258,
+    "completion_tokens": 431
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1267,
+  "context": "reputation/requests-2.19.1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f98284fa8e482d6efa041ea13310fa30788a792a466a6f4baa288cfe250af178",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.669,
+  "finish_reason": "stop",
+  "raw_response": "The pyproject.toml has several issues:\n\n1. **Outdated dependency**: `requests==2.19.1` is from 2019 (current is 2.32.x). This misses security fixes and features.\n2. **Over-pinned version**: Using `==` prevents compatible updates. Prefer `~=2.32` or `>=2.32,<3`.\n3. **Invalid project version**: `0.0.0` violates SemVer. Use `0.1.0` or `1.0.0`.\n4. **Missing metadata**: No `requires-python`, `description`, `authors`, `license`, or `classifiers`.\n5. **No dev dependencies**: Consider adding `[project.optional-dependencies]` for test/lint tools.\n\nPLAN: Check requests changelog for breaking changes between 2.19.1 and latest\nPLAN: Update requests to ~=2.32.0 or latest compatible version\nPLAN: Bump project version to 0.1.0\nPLAN: Add requires-python = \">=3.8\"\nPLAN: Add optional-dependencies for dev tooling (pytest, ruff, mypy)",
+  "usage": {
+    "prompt_tokens": 236,
+    "completion_tokens": 477
+  }
+}

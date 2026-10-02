@@ -1,0 +1,16 @@
+{
+  "number": 1243,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f0e1cd0c2f6ed4f31b7cef987a14263e542280b504b08fb3729d9c6b0cec1c88",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.232,
+  "finish_reason": "stop",
+  "raw_response": "I need more details to post the status update. Please provide:\n1. The custom webhook URL\n2. The status update message content\n3. Which platform (Slack, Discord, Teams, etc.)\n\nPLAN: Ask user for webhook URL, message content, and platform\nPLAN: Format payload according to platform's webhook specification\nPLAN: Send HTTP POST request to the webhook URL with the status update\nPLAN: Confirm successful delivery or report any errors",
+  "usage": {
+    "prompt_tokens": 93,
+    "completion_tokens": 252
+  }
+}

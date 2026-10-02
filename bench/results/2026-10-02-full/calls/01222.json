@@ -1,0 +1,16 @@
+{
+  "number": 1222,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b665013a46034eb96a1b3d4ad0ef2c98d0d9268634578c545aabb3878e764bda",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.2,
+  "finish_reason": "stop",
+  "raw_response": "Here's a short, professional apology email draft:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"Meeting conflict\"]\n\nHi [Name],\n\nI'm sorry for [specific issue — e.g., \"missing yesterday's deadline on the Q3 report\" / \"not being able to attend today's sync\"]. I understand this [impact — e.g., \"delayed your review\" / \"left a gap in the discussion\"], and I appreciate your patience.\n\n[Optional: brief reason, one sentence max — e.g., \"An urgent client issue pulled me away unexpectedly.\"]\n\nGoing forward, I'll [corrective action — e.g., \"send the draft by 10am tomorrow\" / \"share my notes by EOD\"].\n\nThanks for understanding,\n[Your name]\n\n---\n\nPLAN: Ask user for the specific situation and colleague's name to personalize the draft\nPLAN: Offer 2-3 tone variations (formal, casual, brief) based on their relationship\nPLAN: Review and refine based on user feedback before finalizing",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 260
+  }
+}

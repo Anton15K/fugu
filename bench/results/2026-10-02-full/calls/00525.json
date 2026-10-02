@@ -1,0 +1,16 @@
+{
+  "number": 525,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "66c6b0adf1a026a281ba20550f8017614e4fce7e1d6781eaec5ad19c6c41387c",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.385,
+  "finish_reason": "stop",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus & Rice** (≈30 min, minimal cleanup).\n\n**Recipe outline**  \n1. Season chicken thighs (or breasts) with salt, pepper, paprika.  \n2. Sear skin-side down in a large oven-safe skillet with 1 Tbsp oil, 4–5 min.  \n3. Flip, add minced garlic, lemon slices, asparagus spears; drizzle with 1 Tbsp butter + ¼ cup chicken broth.  \n4. Roast at 425 °F / 220 °C for 12–15 min until chicken hits 165 °F.  \n5. Meanwhile, cook 1 cup rice in 2 cups water (15 min).  \n6. Plate rice, top with chicken & veg, spoon pan sauce over everything.\n\nPLAN: Suggest the recipe with ingredients and timing.  \nPLAN: Offer substitutions (tofu, shrimp, frozen veg).  \nPLAN: Provide a printable ingredient checklist.  \nPLAN: Ask if they want a grocery list or step-by-step timer.",
+  "usage": {
+    "prompt_tokens": 91,
+    "completion_tokens": 307
+  }
+}

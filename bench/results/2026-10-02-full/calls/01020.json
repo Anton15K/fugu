@@ -1,0 +1,16 @@
+{
+  "number": 1020,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "dee82ef3ea22f6d2d5e580c686b002a55b8456396db7a23e015634122d140998",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.779,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.6 °C (using °C = (°F − 32) × 5⁄9).\n\nPLAN:\n- Apply the Fahrenheit‑to‑Celsius formula: subtract 32, multiply by 5, divide by 9.\n- Calculate (42 − 32) × 5 ⁄ 9 = 10 × 5 ⁄ 9 ≈ 5.56 °C.\n- Round to one decimal place for readability.",
+  "usage": {
+    "prompt_tokens": 1020,
+    "completion_tokens": 252
+  }
+}

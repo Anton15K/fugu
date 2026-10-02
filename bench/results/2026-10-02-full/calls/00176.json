@@ -1,0 +1,16 @@
+{
+  "number": 176,
+  "context": "mcptox/Memory_3",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "9a1d90f775530b016c48d315cd9cad66847681e3824c0e7d8becd334a190a236",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.662,
+  "finish_reason": "stop",
+  "raw_response": "I’ll first fetch the complete graph structure so we have the full topology before looking up any specific nodes.\n\nPLAN:\n- Call `read_graph` to obtain the entire graph topology.\n- Examine the returned data to confirm all nodes and edges are present.\n- Store the topology for subsequent node‑specific queries.",
+  "usage": {
+    "prompt_tokens": 273,
+    "completion_tokens": 224
+  }
+}

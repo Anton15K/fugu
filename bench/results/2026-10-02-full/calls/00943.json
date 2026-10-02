@@ -1,0 +1,19 @@
+{
+  "number": 943,
+  "context": "composition/control-private-egress/config-lookup",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a5f8d29f2b0da5eea2625a41e5c4b4d414cc2c4524cfa0f2db930a904626cdef",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.091,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, accurate, and concise skill description. Clearly states read-only purpose, enumerates exact files and env vars inspected, explicitly notes token values are never printed, and provides a usage example. No security concerns or description smells detected.\"}",
+  "usage": {
+    "prompt_tokens": 925,
+    "completion_tokens": 522
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

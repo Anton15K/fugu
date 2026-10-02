@@ -1,0 +1,16 @@
+{
+  "number": 483,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "e58b6e182be1aad57276f4a3e71d0e0f7e74eb0068bea9adbea8d6272cafaaaf",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.862,
+  "finish_reason": "stop",
+  "raw_response": "{\n  \"tool\": \"get_calendar_events\",\n  \"arguments\": {}\n}",
+  "usage": {
+    "prompt_tokens": 240,
+    "completion_tokens": 105
+  }
+}

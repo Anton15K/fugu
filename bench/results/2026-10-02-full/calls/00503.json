@@ -1,0 +1,16 @@
+{
+  "number": 503,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "623165a770bd72de3a4ec21ad14d263e54e72f7412dae99d7ba428cb1812c4e2",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.844,
+  "finish_reason": "stop",
+  "raw_response": "42°F = (42 - 32) × 5/9 = 10 × 5/9 ≈ **5.56°C**\n\nPLAN: No tools needed; this is a direct calculation.",
+  "usage": {
+    "prompt_tokens": 258,
+    "completion_tokens": 150
+  }
+}

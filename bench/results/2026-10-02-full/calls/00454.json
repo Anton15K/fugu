@@ -1,0 +1,16 @@
+{
+  "number": 454,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b91ae20ca3a281026e2ed13601dcb0d42ef67e0a9e9b4a99d6005c9abe0e3da5",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.032,
+  "finish_reason": "stop",
+  "raw_response": "I'll send an email to Dr. Martinez requesting an extension on your research paper.\n\nPLAN: Call send_email tool to compose and send the extension request to martinez@university.edu",
+  "usage": {
+    "prompt_tokens": 261,
+    "completion_tokens": 202
+  }
+}

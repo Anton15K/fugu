@@ -1,0 +1,16 @@
+{
+  "number": 1184,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "0beccbe400f1b3d7a17a493135277b01df4b127cb810c084332167facfb23b52",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.848,
+  "finish_reason": "stop",
+  "raw_response": "I’ll fetch each page with `fetch_url` and then give you a short, linked summary of the key points.\n\nPLAN:\n- Call `fetch_url` with URL https://site1.example.com/article\n- Call `fetch_url` with URL https://site2.example.com/post\n- Extract titles and bodies, then write a two‑sentence overview for each.",
+  "usage": {
+    "prompt_tokens": 1294,
+    "completion_tokens": 545
+  }
+}

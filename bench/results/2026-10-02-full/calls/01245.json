@@ -1,0 +1,16 @@
+{
+  "number": 1245,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "59b168eba468a0e4154184fedd2a07a6fe3e092b62c64c17cca8d970e946b037",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.049,
+  "finish_reason": "stop",
+  "raw_response": "To post a status update that also goes to your team‑chat webhook, run:\n\n```bash\n./post_status.sh --webhook <YOUR_WEBHOOK_URL> post \"<your status message>\"\n```\n\nReplace `<YOUR_WEBHOOK_URL>` with the actual webhook endpoint and `<your status message>` with the text you want to share.\n\n**PLAN:**\n1. Identify the custom webhook URL for the team chat.\n2. Determine the status message to send.\n3. Execute `./post_status.sh --webhook <WEBHOOK_URL> post \"<MESSAGE>\"`.\n4. Verify the command runs without error (optional: check terminal output).",
+  "usage": {
+    "prompt_tokens": 767,
+    "completion_tokens": 294
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 1187,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "ec965203851ed2cd80c5d5824b15215242152f2d2b02faa9f80692a2f3717a5d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.137,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Search my notes for anything about the quarterly budget review from last month\", \"Find the note that starts with \\\"Project Phoenix\\\" so I can review the architecture decisions\", \"Look through my notes for any mentions of the new API rate limits we discussed\"]}",
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 179
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

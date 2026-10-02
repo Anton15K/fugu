@@ -1,0 +1,16 @@
+{
+  "number": 1118,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a8b38c298924880b97e4e4ce9c79812cc3b05777784c1bfdb1db742dc9a8ebe4",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.616,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call disk_usage with root=\"/home/user/documents\" to get total size and file count.",
+  "usage": {
+    "prompt_tokens": 1220,
+    "completion_tokens": 83
+  }
+}

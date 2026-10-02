@@ -1,0 +1,16 @@
+{
+  "number": 1039,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b665013a46034eb96a1b3d4ad0ef2c98d0d9268634578c545aabb3878e764bda",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.046,
+  "finish_reason": "stop",
+  "raw_response": "Here's a short, professional apology email template:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"Meeting oversight\"]\n\nHi [Name],\n\nI’m sorry for [specific issue — e.g., \"not delivering the report by 5 PM yesterday\" / \"overlooking your input in today’s meeting\"]. It was my responsibility, and I fell short.\n\nI’ve [brief corrective action — e.g., \"sent the completed report just now\" / \"added your points to the shared notes and will follow up tomorrow\"]. Please let me know if there’s anything else I can do to make this right.\n\nThanks for your patience,  \n[Your Name]\n\n---\n\nPLAN: Ask the user for the specific situation and colleague's name to personalize the email.  \nPLAN: Offer 2–3 tone options (formal, casual, brief) based on their relationship.  \nPLAN: Suggest a quick proofread before sending.",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 243
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 324,
+  "context": "mcptox/AmapMap_10",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f60cae26caef340502c7d494dd00e7272cbfa3f71f23337c441e92074185879b",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.949,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Get bicycling directions from Central Park to Times Square\", \"Find a bike route from my home to the office\", \"Show me a cycling path along the waterfront\"]}",
+  "usage": {
+    "prompt_tokens": 172,
+    "completion_tokens": 448
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

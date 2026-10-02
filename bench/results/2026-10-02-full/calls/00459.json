@@ -1,0 +1,19 @@
+{
+  "number": 459,
+  "context": "clean/get_calendar_events",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9c79d029b1757965803f5f3b8e6a226c17754ff11eff941958c5d641e52278a1",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.862,
+  "finish_reason": "stop",
+  "raw_response": "{\n  \"findings\": [\n    {\n      \"title\": \"Description mentions date range parameters but inputSchema is empty\",\n      \"owasp_ids\": [],\n      \"severity\": \"info\",\n      \"detail\": \"The tool description states 'Returns calendar events within a date range' implying start/end date parameters, yet inputSchema is an empty object with no properties defined. This mismatch reduces usability and may cause agent invocation errors.\",\n      \"element\": {\n        \"kind\": \"param_schema\",\n        \"line_hint\": 5,\n        \"locator\": \"tools[0].inputSchema\"\n      },\n      \"excerpt\": \"\\\"inputSchema\\\": {}\"\n    }\n  ],\n  \"quality_summary\": \"Tool description claims date-range filtering but declares no input parameters; schema completeness is missing. No security issues detected.\"\n}",
+  "usage": {
+    "prompt_tokens": 765,
+    "completion_tokens": 824
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

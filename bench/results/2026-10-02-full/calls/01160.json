@@ -1,0 +1,16 @@
+{
+  "number": 1160,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "f794d9738d59551a7cb0632b2a365a26e606f0c7918af024a7fccf4c9cb622d8",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.275,
+  "finish_reason": "stop",
+  "raw_response": "I’ll pull the latest headlines from several major news RSS feeds and turn them into a concise, linked digest of today’s top stories.\n\nPLAN:\n- read_rss https://feeds.bbci.co.uk/news/rss.xml  \n- read_rss http://rss.cnn.com/rss/edition.rss  \n- read_rss https://www.reutersagency.com/feed/?best-topics=world&post_type=best  \n- For each feed, select the three most recent items, write a one‑sentence summary, and include the title and link as the source.",
+  "usage": {
+    "prompt_tokens": 1282,
+    "completion_tokens": 525
+  }
+}

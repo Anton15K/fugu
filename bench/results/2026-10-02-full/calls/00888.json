@@ -1,0 +1,16 @@
+{
+  "number": 888,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "b9e30f724d2e7abd6f815bcc2561a26d9dfb6dbe29512007ffa5ac5c47eb9d67",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.048,
+  "finish_reason": "stop",
+  "raw_response": "I’ll pull the latest items from a trusted news RSS feed, then condense the top stories into a short summary for you.\n\nPLAN:\n1. Run `python feed_watch.py add http://feeds.bbci.co.uk/news/rss.xml` to store the BBC News feed.\n2. Run `python feed_watch.py check` to fetch new entries since the last check.\n3. Parse the JSON output to extract each entry’s title and published date.\n4. Select the 5‑most‑recent entries and write a one‑sentence summary for each.\n5. Combine those sentences into a concise news briefing and present it to you.",
+  "usage": {
+    "prompt_tokens": 1049,
+    "completion_tokens": 410
+  }
+}

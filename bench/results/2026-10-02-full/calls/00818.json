@@ -1,0 +1,16 @@
+{
+  "number": 818,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "0cd4a83f2003635ce7d90b2f11e3ca5f4b555417014e78e80e4911803466e669",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.918,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run csv_tidy fill sales_data.csv --strategy mean to fill missing numeric values with column means",
+  "usage": {
+    "prompt_tokens": 856,
+    "completion_tokens": 116
+  }
+}

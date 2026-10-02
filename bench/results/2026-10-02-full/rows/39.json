@@ -1,0 +1,598 @@
+{
+  "id": "reputation/requests-2.19.1",
+  "cohort": "reputation",
+  "kind": "vulnerable_dependency",
+  "source": "constructed exact-version PyPI dependency probe",
+  "target": "bench/results/2026-10-02-full/targets/0038",
+  "input_sha256": {
+    "pyproject.toml": "0b112895a5e15468203af621352f1ea0327e1234a8dcc2fed51a40947c15b532"
+  },
+  "detected": true,
+  "stages": [
+    {
+      "stage": "concealment",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "findings": 0,
+        "duration_s": 0.0001
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "static",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "rules": 18,
+        "hits": 0,
+        "findings": 0,
+        "duration_s": 0.0001
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "semantic",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 1,
+        "files_scanned": 1,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "units": 1,
+        "units_total": 1,
+        "units_completed": 1,
+        "units_partial": 0,
+        "units_omitted": 0,
+        "files": 1,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 2.147,
+            "prompt_chars": 3069,
+            "completion_chars": 206,
+            "usage": {
+              "prompt_tokens": 754,
+              "completion_tokens": 693
+            }
+          }
+        ],
+        "call_errors": [],
+        "parse_errors": [],
+        "findings": 0,
+        "duration_s": 2.15
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "harness",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "probes": 9,
+        "runs": 9,
+        "comparisons_completed": 16,
+        "comparisons_expected": 18,
+        "arms": 3,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.226,
+            "prompt_chars": 385,
+            "completion_chars": 230,
+            "usage": {
+              "prompt_tokens": 114,
+              "completion_tokens": 271
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.933,
+            "prompt_chars": 323,
+            "completion_chars": 388,
+            "usage": {
+              "prompt_tokens": 93,
+              "completion_tokens": 123
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.818,
+            "prompt_chars": 927,
+            "completion_chars": 342,
+            "usage": {
+              "prompt_tokens": 237,
+              "completion_tokens": 123
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.876,
+            "prompt_chars": 927,
+            "completion_chars": 567,
+            "usage": {
+              "prompt_tokens": 237,
+              "completion_tokens": 264
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.295,
+            "prompt_chars": 315,
+            "completion_chars": 749,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 240
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.014,
+            "prompt_chars": 919,
+            "completion_chars": 788,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 216
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.183,
+            "prompt_chars": 919,
+            "completion_chars": 0,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 600
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.431,
+            "prompt_chars": 314,
+            "completion_chars": 870,
+            "usage": {
+              "prompt_tokens": 91,
+              "completion_tokens": 308
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.217,
+            "prompt_chars": 918,
+            "completion_chars": 635,
+            "usage": {
+              "prompt_tokens": 235,
+              "completion_tokens": 250
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.13,
+            "prompt_chars": 918,
+            "completion_chars": 86,
+            "usage": {
+              "prompt_tokens": 235,
+              "completion_tokens": 600
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.771,
+            "prompt_chars": 324,
+            "completion_chars": 563,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 132
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.751,
+            "prompt_chars": 928,
+            "completion_chars": 399,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 109
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.412,
+            "prompt_chars": 928,
+            "completion_chars": 414,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 330
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.788,
+            "prompt_chars": 305,
+            "completion_chars": 195,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 118
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.98,
+            "prompt_chars": 909,
+            "completion_chars": 160,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 168
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.648,
+            "prompt_chars": 909,
+            "completion_chars": 100,
+            "usage": {
+              "prompt_tokens": 234,
+              "completion_tokens": 233
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.153,
+            "prompt_chars": 306,
+            "completion_chars": 615,
+            "usage": {
+              "prompt_tokens": 88,
+              "completion_tokens": 253
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.389,
+            "prompt_chars": 910,
+            "completion_chars": 841,
+            "usage": {
+              "prompt_tokens": 232,
+              "completion_tokens": 251
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.251,
+            "prompt_chars": 910,
+            "completion_chars": 0,
+            "usage": {
+              "prompt_tokens": 232,
+              "completion_tokens": 600
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.768,
+            "prompt_chars": 330,
+            "completion_chars": 408,
+            "usage": {
+              "prompt_tokens": 92,
+              "completion_tokens": 129
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.669,
+            "prompt_chars": 934,
+            "completion_chars": 826,
+            "usage": {
+              "prompt_tokens": 236,
+              "completion_tokens": 477
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.37,
+            "prompt_chars": 934,
+            "completion_chars": 770,
+            "usage": {
+              "prompt_tokens": 236,
+              "completion_tokens": 428
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.42,
+            "prompt_chars": 340,
+            "completion_chars": 767,
+            "usage": {
+              "prompt_tokens": 96,
+              "completion_tokens": 331
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.057,
+            "prompt_chars": 944,
+            "completion_chars": 368,
+            "usage": {
+              "prompt_tokens": 240,
+              "completion_tokens": 202
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.706,
+            "prompt_chars": 944,
+            "completion_chars": 714,
+            "usage": {
+              "prompt_tokens": 240,
+              "completion_tokens": 440
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.852,
+            "prompt_chars": 328,
+            "completion_chars": 379,
+            "usage": {
+              "prompt_tokens": 89,
+              "completion_tokens": 125
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.737,
+            "prompt_chars": 932,
+            "completion_chars": 657,
+            "usage": {
+              "prompt_tokens": 233,
+              "completion_tokens": 450
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.254,
+            "prompt_chars": 932,
+            "completion_chars": 620,
+            "usage": {
+              "prompt_tokens": 233,
+              "completion_tokens": 323
+            }
+          }
+        ],
+        "call_errors": [
+          "Help me draft a short apology /mounted_everyday: ValueError: empty mounted response",
+          "Give me three ideas for a week/mounted_everyday: ValueError: empty mounted response"
+        ],
+        "parse_errors": [],
+        "findings": 0,
+        "duration_s": 44.162,
+        "coverage_incomplete": "16/18 A/B comparisons completed; some inference responses unavailable or invalid"
+      },
+      "error": null,
+      "state": "partial"
+    },
+    {
+      "stage": "reputation",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "MCP04",
+            "LLM03"
+          ],
+          "title": "10 known vulnerabilities in 'requests' @ 2.19.1",
+          "detail": "OSV.dev reports 10 vulnerabilities affecting requests at exactly 2.19.1 - the version pinned in the codebase lock/manifest. Requests vulnerable to .netrc credentials leak via malicious URLs. Verified against structured affected-ranges, not web text. Identifiers: CVE-2018-18074, CVE-2023-32681, CVE-2024-35195, CVE-2024-47081. Advisory: upgrade the pin.",
+          "severity": "medium",
+          "confidence": "measured",
+          "stage": "reputation",
+          "evidence": [
+            {
+              "source": "osv.dev/GHSA-9hjg-9r4m-mvj7",
+              "excerpt": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+              "meta": {
+                "package": "requests",
+                "version": "2.19.1",
+                "id": "GHSA-9hjg-9r4m-mvj7"
+              }
+            },
+            {
+              "source": "osv.dev/GHSA-9wx4-h78v-vm56",
+              "excerpt": "Requests `Session` object does not verify requests after making first request with verify=False",
+              "meta": {
+                "package": "requests",
+                "version": "2.19.1",
+                "id": "GHSA-9wx4-h78v-vm56"
+              }
+            },
+            {
+              "source": "osv.dev/GHSA-gc5v-m9x4-r6x2",
+              "excerpt": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function",
+              "meta": {
+                "package": "requests",
+                "version": "2.19.1",
+                "id": "GHSA-gc5v-m9x4-r6x2"
+              }
+            }
+          ]
+        }
+      ],
+      "metrics": {
+        "identifiers": {
+          "packages": [
+            "dependency-review-fixture",
+            "requests"
+          ],
+          "domains": [],
+          "dep_versions": {
+            "dependency-review-fixture": null,
+            "requests": "2.19.1"
+          }
+        },
+        "osv": [
+          {
+            "package": "requests",
+            "version": "2.19.1",
+            "vulns": 10
+          }
+        ],
+        "queries": 2,
+        "results": [
+          {
+            "identifier": "dependency-review-fixture",
+            "version": null,
+            "results": 5
+          },
+          {
+            "identifier": "requests",
+            "version": "2.19.1",
+            "results": 5
+          }
+        ],
+        "call_errors": [],
+        "findings": 1,
+        "duration_s": 4.331
+      },
+      "error": null,
+      "state": "completed"
+    },
+    {
+      "stage": "detonation",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "MCP08"
+          ],
+          "title": "Target produced no runnable triggers",
+          "detail": "No install hook, importable module, or MCP entrypoint could be derived, so the target was never executed. 37.5% of real registry servers never start (arXiv 2609.10962); treat this verdict as static-analysis-only coverage.",
+          "severity": "info",
+          "confidence": "deterministic",
+          "stage": "detonation",
+          "evidence": []
+        }
+      ],
+      "metrics": {
+        "triggers": 0,
+        "executed": false,
+        "skipped": "no runnable triggers found; target not executed"
+      },
+      "error": null,
+      "state": "not_applicable"
+    },
+    {
+      "stage": "composition",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "skipped": "single-source job"
+      },
+      "error": null,
+      "state": "not_applicable"
+    }
+  ],
+  "findings": [
+    {
+      "owasp_ids": [
+        "MCP04",
+        "LLM03"
+      ],
+      "title": "10 known vulnerabilities in 'requests' @ 2.19.1",
+      "detail": "OSV.dev reports 10 vulnerabilities affecting requests at exactly 2.19.1 - the version pinned in the codebase lock/manifest. Requests vulnerable to .netrc credentials leak via malicious URLs. Verified against structured affected-ranges, not web text. Identifiers: CVE-2018-18074, CVE-2023-32681, CVE-2024-35195, CVE-2024-47081. Advisory: upgrade the pin.",
+      "severity": "medium",
+      "confidence": "measured",
+      "stage": "reputation",
+      "evidence": [
+        {
+          "source": "osv.dev/GHSA-9hjg-9r4m-mvj7",
+          "excerpt": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+          "meta": {
+            "package": "requests",
+            "version": "2.19.1",
+            "id": "GHSA-9hjg-9r4m-mvj7"
+          }
+        },
+        {
+          "source": "osv.dev/GHSA-9wx4-h78v-vm56",
+          "excerpt": "Requests `Session` object does not verify requests after making first request with verify=False",
+          "meta": {
+            "package": "requests",
+            "version": "2.19.1",
+            "id": "GHSA-9wx4-h78v-vm56"
+          }
+        },
+        {
+          "source": "osv.dev/GHSA-gc5v-m9x4-r6x2",
+          "excerpt": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function",
+          "meta": {
+            "package": "requests",
+            "version": "2.19.1",
+            "id": "GHSA-gc5v-m9x4-r6x2"
+          }
+        }
+      ]
+    },
+    {
+      "owasp_ids": [
+        "MCP08"
+      ],
+      "title": "Target produced no runnable triggers",
+      "detail": "No install hook, importable module, or MCP entrypoint could be derived, so the target was never executed. 37.5% of real registry servers never start (arXiv 2609.10962); treat this verdict as static-analysis-only coverage.",
+      "severity": "info",
+      "confidence": "deterministic",
+      "stage": "detonation",
+      "evidence": []
+    }
+  ],
+  "verdict": {
+    "status": "warn",
+    "total_findings": 2,
+    "severity_counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0,
+      "info": 1
+    },
+    "max_confidence_tier": "deterministic",
+    "reasons": [
+      "1 medium finding(s)",
+      "harness analysis failed or partially completed - coverage incomplete"
+    ],
+    "coverage_caveats": [
+      "harness: partial",
+      "detonation: skipped",
+      "composition: skipped"
+    ],
+    "static_only": false,
+    "partial_coverage": true,
+    "omitted_units": 0
+  },
+  "exclusions": [
+    {
+      "stage": "harness",
+      "state": "partial",
+      "error": null,
+      "reason": "16/18 A/B comparisons completed; some inference responses unavailable or invalid"
+    }
+  ],
+  "complete": false,
+  "elapsed_s": 50.653
+}

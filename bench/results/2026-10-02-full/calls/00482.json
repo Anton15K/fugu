@@ -1,0 +1,16 @@
+{
+  "number": 482,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "59543f9c9f0e14b3a86002292bf9269d7cf6c915248768f8afac7c1064ed2529",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.776,
+  "finish_reason": "stop",
+  "raw_response": "I'll check your calendar for upcoming events.\nPLAN: Call the calendar tool to retrieve upcoming events from the user's calendar.",
+  "usage": {
+    "prompt_tokens": 85,
+    "completion_tokens": 58
+  }
+}

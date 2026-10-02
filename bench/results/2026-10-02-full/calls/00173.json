@@ -1,0 +1,16 @@
+{
+  "number": 173,
+  "context": "mcptox/Memory_3",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "70d67d3c09e3490d79755e0de45fa800c822a66c62a44deb273595830a5b6f95",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.368,
+  "finish_reason": "stop",
+  "raw_response": "To find nodes labeled “server,” I will first load the full graph topology and then query for nodes with that label.\n\nPLAN:\n- read_graph\n- search_nodes {\"label\":\"server\"}",
+  "usage": {
+    "prompt_tokens": 272,
+    "completion_tokens": 203
+  }
+}

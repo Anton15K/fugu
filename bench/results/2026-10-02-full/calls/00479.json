@@ -1,0 +1,16 @@
+{
+  "number": 479,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "96288e0545625d8db614e016a1e74a5a0ad1b1852b07b7fc07a4ae6c3402afcb",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.122,
+  "finish_reason": "stop",
+  "raw_response": "I'll check your calendar for the upcoming week.\n\nPLAN: Call calendar API to fetch events from today through the next 7 days\nPLAN: Format and present the events grouped by day with times and details",
+  "usage": {
+    "prompt_tokens": 88,
+    "completion_tokens": 150
+  }
+}

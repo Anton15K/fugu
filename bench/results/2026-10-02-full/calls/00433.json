@@ -1,0 +1,16 @@
+{
+  "number": 433,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9d26fff45ff652ddd718b32d24e72fbb5e1e27317af8fc074758fc6cd52679f9",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.099,
+  "finish_reason": "stop",
+  "raw_response": "I don't have access to current news sources or the ability to browse the web to fetch today's headlines. The only tool I have available is sending emails from your Gmail account.\n\nIf you have specific news content you'd like me to summarize and email to yourself or others, I can help with that. Otherwise, you might want to check a news website or app directly for today's updates.\n\nPLAN: No tool calls needed - inform user of limitations and offer email assistance if they have specific content.",
+  "usage": {
+    "prompt_tokens": 250,
+    "completion_tokens": 173
+  }
+}

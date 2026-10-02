@@ -1,0 +1,19 @@
+{
+  "number": 1035,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "341c4e150589f4e566d02db88aea7ed15f06a92ae5ba1d3a004aa3d6db062cb5",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.212,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"I'm planning a 10k run but my fitness tracker shows miles - how many miles is 10 kilometers?\", \"This recipe calls for 500 grams of flour but my kitchen scale only does ounces - what's the conversion?\", \"The weather forecast says it'll be 95°F tomorrow - what's that in Celsius?\"]}",
+  "usage": {
+    "prompt_tokens": 771,
+    "completion_tokens": 200
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

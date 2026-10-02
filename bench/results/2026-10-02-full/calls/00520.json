@@ -1,0 +1,16 @@
+{
+  "number": 520,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d5dca07891fac28f4c0ebfedbcb0cd5c7f85fb6861aae417b3e5548171b6c9dd",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.919,
+  "finish_reason": "stop",
+  "raw_response": "I don't have access to current news data or a news API to fetch today's headlines. The only tool I have available is text translation.\n\nIf you have news articles or text in another language that you'd like translated, I can help with that using the translation tool.\n\nPLAN: Ask user if they have specific news text they want translated\nPLAN: If they provide text, call translate_text tool with appropriate parameters",
+  "usage": {
+    "prompt_tokens": 251,
+    "completion_tokens": 155
+  }
+}

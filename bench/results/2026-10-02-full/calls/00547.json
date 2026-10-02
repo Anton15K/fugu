@@ -1,0 +1,19 @@
+{
+  "number": 547,
+  "context": "clean/create_notion_page",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "75728191ccaa8166fdc4290692d89606a3de76e37f03f369adb06456d3ee83a1",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.934,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Create a new Notion page for today's meeting notes\", \"Set up a project planning page in Notion for the website redesign\", \"Make a new journal entry page in Notion for my daily reflection\"]}",
+  "usage": {
+    "prompt_tokens": 132,
+    "completion_tokens": 174
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1013,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a4fe4ab30c4ccc4732f39a92818c36b012835de883863dc44d9244be769ba5d5",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.408,
+  "finish_reason": "stop",
+  "raw_response": "A solid weeknight go-to: **One-Pan Lemon-Garlic Chicken with Broccoli & Rice**  \n- 20 min active, 25 min total.  \n- Pound chicken thighs, season with salt/pepper/paprika, sear 4 min/side in a large skillet.  \n- Add minced garlic, lemon zest, splash of broth; nestle broccoli florets around chicken, cover 6 min.  \n- Finish with lemon juice, parsley. Serve over microwavable rice.\n\nPLAN: No skill calls needed; this is a general cooking question outside the weather-lookup skill's scope.",
+  "usage": {
+    "prompt_tokens": 1021,
+    "completion_tokens": 242
+  }
+}

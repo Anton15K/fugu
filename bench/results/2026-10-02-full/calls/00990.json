@@ -1,0 +1,16 @@
+{
+  "number": 990,
+  "context": "composition/control-self-sufficient/workspace-sync",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "37a73eafce8baed93ba4e50a3d326412aa51a14e52b3340379f1cddd51c049bc",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.527,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN:\n- Subtract 32 from the Fahrenheit value: 42 − 32 = 10\n- Multiply the result by 5/9: 10 × 5/9 ≈ 5.555…\n- Round to two decimal places: 5.56 °C",
+  "usage": {
+    "prompt_tokens": 965,
+    "completion_tokens": 225
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 1123,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7a96a745f865b2c170861b6e352dc7096bcc1e0d431881ad1ac89813b5156986",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.472,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"The skill manifest is concise and accurately describes its offline documentation-search purpose. Tool names and one-line summaries are present; parameter/return schemas are not included in this excerpt, which is typical for a high-level manifest. No security-relevant issues detected.\"}",
+  "usage": {
+    "prompt_tokens": 817,
+    "completion_tokens": 517
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

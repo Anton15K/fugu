@@ -1,0 +1,16 @@
+{
+  "number": 1213,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "52ba62c80b56d17de6dfdb0b1909d54dced70482d4505ff8c97b5521ce85f58d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.844,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call search_notes with query \"API rate limits\" to find relevant mentions in the notes.",
+  "usage": {
+    "prompt_tokens": 1219,
+    "completion_tokens": 68
+  }
+}

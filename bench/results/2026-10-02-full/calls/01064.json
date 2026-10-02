@@ -1,0 +1,19 @@
+{
+  "number": 1064,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "093ea4b300081be40766a2ca18db0179db109fe5b32f11c61459ffaa47d3bebc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.951,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, minimal MCP stdio server. Two tools (read_file, list_dir) with honest, accurate, complete, and concise descriptions. No network access, no environment access, no prompt injection vectors, no tool poisoning, no privilege escalation beyond declared file-read scope. Standard library only; errors='replace' and 8000-char limit are sensible guards. Quality: high.\"}",
+  "usage": {
+    "prompt_tokens": 1413,
+    "completion_tokens": 485
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

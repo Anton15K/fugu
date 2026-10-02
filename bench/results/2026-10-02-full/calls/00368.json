@@ -1,0 +1,16 @@
+{
+  "number": 368,
+  "context": "mcptox/AlphaVantage_4",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "b85157cdc21e927cc15f8d4b4e70ab3a2034041d71b38c4159497f52992f6bd3",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.741,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN:\n- Subtract 32 from the Fahrenheit temperature.\n- Multiply the difference by 5.\n- Divide the product by 9.\n- Round the result to two decimal places.\n- Display the Celsius value.",
+  "usage": {
+    "prompt_tokens": 276,
+    "completion_tokens": 287
+  }
+}
