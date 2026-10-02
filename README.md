@@ -94,9 +94,9 @@ defaults to its EU endpoint and supports `NEBIUS_BASE_URL` overrides.
 | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | Available router tier; not established as an active pipeline stage |
 
 Token Factory provides runtime inference for the security reading and A/B
-comparisons through the same client interface. Call records retain model and
-usage where available; Super harness telemetry is incomplete, so universal
-per-call timing/token or monetary savings claims are not supported.
+comparisons through the same client interface. The full benchmark retains raw
+responses, model names and token usage. Dollar cost, remaining quota and monetary
+savings were not measured.
 
 Concealment and static analysis run locally. **Enabled semantic and harness
 stages send selected extension text and prompts to the configured inference
@@ -107,44 +107,79 @@ compute when selected; live sandbox behavior has not been verified here.
 Fugu is not an entirely local analysis system. Review these flows before
 submitting confidential content.
 
-## Fresh bounded evaluation
+## Full-capability benchmark
 
-Frozen S0/S1/S2 engine, 2026-10-02; detection means any finding at least medium.
-The engine predates the subsequent source-boundary and coverage fixes.
+**40 frozen cases, 40 completed after bounded response recovery**, measured on
+2 October 2026. Every applicable capability ran: concealment, static, semantic,
+Docker detonation, A/B harness, reputation and composition. Detection means a
+medium-or-higher finding; composition scores its cross-extension rules separately.
 
-| Separate cohort | Result | Completion limits |
-|---|---|---|
-| MCPTox name/description attack sample | **26/30 planned detections (86.7%)** | 28 completed: 26 detected, 2 missed; 2 JSON parse failures |
-| Constructed clean tool descriptions | 0/20 flagged | All completed; constructed examples |
-| Cached public-skill sample | 0/19 completed flagged | 20 planned; 1 JSON parse failure; benign labels provisional |
+Fugu and the local competitors received the same **15 MCPTox attack descriptions
+and five constructed clean descriptions**. Source fixtures, composition and
+dependency probes are separate cohorts rather than extra competitor misses.
 
-These sets are not pooled. The results do not estimate ecosystem-wide accuracy
-or false-positive rate, measure S3/S4, or establish superiority over competitors.
-Comparator tools were not rerun locally and use different protocols.
-Historical headline runs used label-contaminated inputs; the preserved history
-is [explained here](docs/head-to-head.md#why-historical-fugu-484485-is-excluded).
+| Tool / measured outcome | Attack descriptions flagged | Confirmed false positives |
+|---|---:|---:|
+| **Fugu — medium+ security finding** | **12/15 (80%)** | **0** |
+| fuzzd 0.13.0 — medium+ finding | 10/15 (66.7%) | 0 |
+| fuzzd — any finding | 11/15 (73.3%) | 0 |
+| mcp-sec-audit 0.1.0 — capability hit | 12/15 (80%) | 0 |
+| mcp-sec-audit — aggregate medium+ risk | 0/15 | 0 |
+| Snyk Agent Scan 0.6.8 | Unavailable: hosted daily quota exhausted | Unscored |
 
-[Protocol, failures and reproduction](docs/benchmark.md) ·
-[Fresh chart](docs/benchmark-charts/fresh-results.svg) ·
-[Raw semantic outcomes](bench/results/2026-10-02/semantic.json) ·
-[Static outcomes](bench/results/2026-10-02/static.json) ·
-[Input references](bench/results/2026-10-02/sources/index.json) ·
-[Artifact inventory](bench/results/2026-10-02/artifact-manifest.json).
-Detector reruns require separately acquired, hash-checked input caches; retained
-chart regeneration is offline. Actual monetary cost and remaining quota are unknown.
+Capability hits and aggregate risk are different tasks from malicious-instruction
+detection. Severity labels also differ across tools. These fresh measurements
+show how the pinned tools behaved on this sample; they do not establish a
+universal ranking or population false-positive rate.
+
+![Fresh comparison on identical descriptions](bench/results/2026-10-02-full/charts/same-input-comparison.png)
+
+| Other Fugu cohorts | Measured result |
+|---|---|
+| Authored source attacks | 7/7 alerted |
+| Authored composition attacks | 4/4 rule alerts |
+| Authored composition controls | 0/3 rule alerts |
+| Exact-version dependency probes | 2/2 alerted; both pins have OSV vulnerability records |
+
+Authored fixtures are regression evidence, separate from external attacks.
+The full case breakdown is retained in the report and raw results.
+
+![Actual capability coverage](bench/results/2026-10-02-full/charts/capability-coverage.png)
+
+The 40 cases include shared composition members, producing 45 unique audits and
+seven set checks. A completed stage means its bounded checks finished. The A/B
+harness measures stated plans and replies, with up to 4,000 mounted content
+characters; Docker observations depend on which triggers actually execute.
+
+The initial run completed 15/40 cases. Seven malformed structured replies and
+52 missing A/B replies recovered through bounded, identical-prompt retries.
+Every valid original reply was preserved; no unresolved parsing exclusions
+remain. Recovery improved this evaluation's completion without changing the
+application's default output limits.
+
+[Full protocol and results](docs/benchmark-full.md) ·
+[Cohort chart](bench/results/2026-10-02-full/charts/cohort-results.svg) ·
+[Stage contribution chart](bench/results/2026-10-02-full/charts/stage-alerts.svg) ·
+[Recovery chart](bench/results/2026-10-02-full/charts/recovery-reliability.svg) ·
+[Final raw results](bench/results/2026-10-02-full/fugu-recovered.json) ·
+[Frozen cases](bench/results/2026-10-02-full/cases.json) ·
+[Competitor versions and results](bench/results/2026-10-02-full/competitors/summary.json).
 
 ## Verification and limits
 
 From the repository root: `uv run --no-sync python -m pytest -q`. From `web/`:
 `npm run build`, `npm run lint`, `npm run contract`, `npm run smoke`,
 `node scripts/audit-result.mjs`, and `node scripts/edge-reducer.mjs`.
-Current frontend checks pass with retained lint warnings; final integration and
-independent review status is recorded in the [assessment](docs/hackathon-assessment.md).
+The benchmark's scoped checks passed **37 tests** and independent review verified
+the chart arithmetic, original evidence preservation and application hashes.
+Verification history and the advisory judging score are in the
+[assessment](docs/hackathon-assessment.md).
 
 Source preflight rejects descendant symlinks before host reads and remote payload
 construction. It is not race-proof isolation of a changing source tree. Execution
-coverage depends on chamber availability and trigger derivation; Docker was
-unavailable for current live verification. Public deployment safety is not
+coverage depends on chamber availability and trigger derivation. The new
+benchmark exercised the Docker chamber; remote Nebius Sandboxes transport remains
+unverified. Public deployment safety is not
 established by local tests or these guards. No deployment target is assigned.
 
 [User story, advisory rubric and readiness](docs/hackathon-assessment.md) ·
