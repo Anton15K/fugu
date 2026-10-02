@@ -18,9 +18,16 @@ from fugu.config import Settings, get_settings
 
 
 def make_client(settings: Settings | None = None) -> OpenAI:
-    """Return an OpenAI SDK client pointed at Nebius Token Factory."""
+    """Return a bounded, single-request client pointed at Nebius Token Factory.
+
+    Pipeline stages own response-level retry decisions so failed calls stay
+    visible in coverage metrics. Disable implicit SDK retries and bound each
+    request to the same 90-second timeout used by the full-capability runner.
+    """
     settings = settings or get_settings()
     return OpenAI(
         base_url=settings.base_url,
         api_key=settings.api_key,
+        max_retries=0,
+        timeout=90,
     )

@@ -23,6 +23,7 @@ metrics) so local/CI runs stay free and deterministic.
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import re
 import time
@@ -91,7 +92,7 @@ MakeCall = Callable[[str, str], tuple[str, JudgeCall]]
 """system_prompt, user_prompt -> (raw_completion_text, call_record)"""
 
 
-def _default_make_call() -> MakeCall | None:
+def _default_make_call(max_tokens: int = 1600) -> MakeCall | None:
     """Build the real Token Factory caller (None when offline)."""
     from fugu.config import get_settings
 
@@ -113,7 +114,7 @@ def _default_make_call() -> MakeCall | None:
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.1,
-            max_tokens=1600,
+            max_tokens=max_tokens,
         )
         latency = time.perf_counter() - t0
         text = (resp.choices[0].message.content or "").strip()
@@ -153,6 +154,67 @@ def _parse_json_loose(text: str) -> dict[str, Any] | None:
         return None
 
 
+def _parse_json_with_trailing_comma_repair(text: str) -> dict[str, Any] | None:
+    """Conservatively remove trailing commas outside JSON strings.
+
+    This repairs only a common serialization defect. It does not invent
+    missing keys, close truncated documents, or coerce values.
+    """
+    start, end = text.find("{"), text.rfind("}")
+    if start < 0 or end <= start:
+        return None
+    candidate = text[start : end + 1]
+    output: list[str] = []
+    in_string = False
+    escaped = False
+    index = 0
+    while index < len(candidate):
+        char = candidate[index]
+        if in_string:
+            output.append(char)
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+        elif char == '"':
+            in_string = True
+            output.append(char)
+        elif char == ",":
+            lookahead = index + 1
+            while lookahead < len(candidate) and candidate[lookahead].isspace():
+                lookahead += 1
+            if lookahead == len(candidate) or candidate[lookahead] not in "}]":
+                output.append(char)
+        else:
+            output.append(char)
+        index += 1
+    try:
+        parsed = json.loads("".join(output))
+    except ValueError:
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def _has_findings_list(document: dict[str, Any] | None) -> bool:
+    return isinstance(document, dict) and isinstance(document.get("findings"), list)
+
+
+def _response_problem(text: str, document: dict[str, Any] | None) -> str | None:
+    if _has_findings_list(document):
+        return None
+    if not text.strip() or document is None:
+        return "invalid_json"
+    return "missing_findings_list"
+
+
+def _response_attempt(text: str, error: str | None) -> dict[str, Any]:
+    return {
+        "response_chars": len(text),
+        "response_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+        "error": error,
+    }
 def _chunks(text: str) -> list[str]:
     lines = text.splitlines()
     if len(text) <= MAX_CHARS_PER_UNIT:
@@ -226,6 +288,7 @@ class SemanticStage:
         calls: list[JudgeCall] = []
         call_errors: list[str] = []
         parse_errors: list[str] = []
+        response_recoveries: list[dict[str, Any]] = []
         completed = 0
         partial = 0
         loop = asyncio.get_running_loop()
@@ -242,12 +305,59 @@ class SemanticStage:
                 continue
             calls.append(rec)
             doc = _parse_json_loose(text)
-            if (
-                not isinstance(doc, dict)
-                or not isinstance(doc.get("findings"), list)
-            ):
-                parse_errors.append(f"{rel}:{i}")
-                continue
+            problem = _response_problem(text, doc)
+            if problem is not None:
+                repaired = _parse_json_with_trailing_comma_repair(text)
+                recovery = {
+                    "unit": f"{rel}:{i}",
+                    "initial_error": problem,
+                    "recovered_by": None,
+                    "attempts": [_response_attempt(text, problem)],
+                }
+                if _has_findings_list(repaired):
+                    doc = repaired
+                    recovery["recovered_by"] = "trailing_comma_reparse"
+                    response_recoveries.append(recovery)
+                else:
+                    try:
+                        retry_call = self._make_call or _default_make_call(max_tokens=4096)
+                        if retry_call is None:
+                            raise RuntimeError("inference unavailable for bounded retry")
+                        retry_text, retry_rec = await loop.run_in_executor(
+                            None, retry_call, _JUDGE_SYSTEM, user_prompt
+                        )
+                    except Exception as exc:  # preserve initial and retry errors
+                        status = getattr(exc, "status_code", None)
+                        error = f"{type(exc).__name__}" + (f" HTTP {status}" if status else "")
+                        recovery["attempts"].append({"response_chars": 0, "error": error})
+                        response_recoveries.append(recovery)
+                        call_errors.append(f"{rel}:{i}: retry failed: {error}")
+                        parse_errors.append(f"{rel}:{i}")
+                        continue
+
+                    calls.append(retry_rec)
+                    retry_doc = _parse_json_loose(retry_text)
+                    retry_problem = _response_problem(retry_text, retry_doc)
+                    if retry_problem is not None:
+                        repaired_retry = _parse_json_with_trailing_comma_repair(retry_text)
+                        if _has_findings_list(repaired_retry):
+                            retry_doc = repaired_retry
+                            retry_problem = None
+                            recovery["recovered_by"] = "retry_trailing_comma_reparse"
+                    recovery["attempts"].append(_response_attempt(retry_text, retry_problem))
+                    if retry_problem is not None:
+                        response_recoveries.append(recovery)
+                        parse_errors.append(f"{rel}:{i}")
+                        continue
+                    doc = retry_doc
+                    if recovery["recovered_by"] is None:
+                        recovery["recovered_by"] = "retry"
+                    response_recoveries.append(recovery)
+
+            # Only a whole unusable response is retried. Once the top-level
+            # findings list is usable, keep any valid items and mark malformed
+            # siblings partial below without asking for a cleaner rewrite.
+            assert _has_findings_list(doc)
             unit_findings: list[Finding] = []
             invalid = False
             for raw in doc["findings"]:
@@ -277,6 +387,7 @@ class SemanticStage:
                 "llm_calls": [c.__dict__ for c in calls],
                 "call_errors": call_errors,
                 "parse_errors": parse_errors,
+                "response_recoveries": response_recoveries,
                 "findings": len(findings),
                 "duration_s": round(time.perf_counter() - t0, 3),
             }
