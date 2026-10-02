@@ -2,8 +2,9 @@
 
 Detects the *lethal trifecta* across an installed SET of extensions
 (untrusted-content ingress + private-data access + egress channel, split
-across >= 2 individually-clean extensions) and cross-extension tool
-shadowing.  The insight (Willison's "lethal trifecta", CompoSkill arXiv
+across >= 2 individually-clean extensions) and cross-extension tool-name
+overlaps. Name overlap is only a review hint without runtime namespace and
+resolution evidence. The insight (Willison's "lethal trifecta", CompoSkill arXiv
 2608.16246): the risk is a PATH-level property of the installed portfolio,
 invisible to any single-extension audit.
 
@@ -22,7 +23,8 @@ Three layers, all deterministic (no LLM):
     redundant member pruned; ranked by leg-strength sum (+3 when an
     ingress-providing member is a carrier/influence node); emits <= 5.
 3.  :func:`detect_shadowing` - normalized tool-name index across members;
-    one finding per collision group (>= 2 distinct members).
+    one informational note per overlap group (>= 2 distinct members), with
+    no claim that a client actually shadows or routes either definition.
 
 Signal -> capability mapping (docs/s6-contracts.md section 2; rule ids
 verified against ``static_scan.py`` STATIC_RULES and the finding titles in
@@ -70,6 +72,7 @@ contract ``stage._member_results: list[MemberResult]`` before ``run``.
 """
 from __future__ import annotations
 
+import ast
 import re
 import time
 from dataclasses import dataclass, field
@@ -178,6 +181,180 @@ _PY_FETCH_RE = re.compile(
 _PY_REQUEST_DATA_RE = re.compile(r"urllib\.request\.Request[\s\S]{0,400}?data\s*=")
 _SHELL_CURL_RE = re.compile(r"\bcurl\b")
 _SHELL_POST_FLAGS_RE = re.compile(r"-X\s*POST|--data\b|--data-|-d\s+|--json\b|-F\s+|-T\s+")
+_PY_HTTP_CLIENTS = frozenset({"requests", "httpx", "aiohttp"})
+_PY_HTTP_ALIAS_IMPORT_RE = re.compile(
+    r"(?m)^\s*(?:import\s+(?:requests|httpx|aiohttp)\s+as\s+\w+|"
+    r"from\s+(?:requests|httpx|aiohttp)\s+import\b)"
+)
+
+
+def _aliased_python_post(text: str) -> str | None:
+    """Return a source excerpt for POST calls reached through import aliases.
+
+    This parser reads syntax only. It never imports or executes scanned code;
+    malformed or ambiguous bindings fall back to the existing bounded literal
+    patterns. Alias resolution is limited to direct module/function scopes.
+    """
+    try:
+        module = ast.parse(text)
+    except (SyntaxError, ValueError):
+        return None
+
+    class ScopeBindings(ast.NodeVisitor):
+        """Track only direct imports and bindings within one lexical scope."""
+
+        def __init__(self, direct_statements: set[int]) -> None:
+            self.direct_statements = direct_statements
+            self.blocked: set[str] = set()
+            self.import_names: set[str] = set()
+            self.alias_kinds: dict[str, set[str]] = {}
+            self.alias_positions: dict[str, list[tuple[int, int]]] = {}
+            self.child_functions: list[ast.FunctionDef | ast.AsyncFunctionDef] = []
+            self.has_star_import = False
+
+        def _record_import(self, name: str, kind: str | None, node: ast.AST) -> None:
+            self.import_names.add(name)
+            if id(node) not in self.direct_statements or kind is None:
+                self.blocked.add(name)
+                return
+            self.alias_kinds.setdefault(name, set()).add(kind)
+            self.alias_positions.setdefault(name, []).append(
+                (getattr(node, "lineno", 0), getattr(node, "col_offset", 0))
+            )
+
+        def visit_Name(self, node: ast.Name) -> None:
+            if isinstance(node.ctx, (ast.Store, ast.Del)):
+                self.blocked.add(node.id)
+
+        def visit_Import(self, node: ast.Import) -> None:
+            for alias in node.names:
+                package = alias.name.split(".", 1)[0]
+                bound_name = alias.asname or package
+                kind = "module" if package in _PY_HTTP_CLIENTS else None
+                self._record_import(bound_name, kind, node)
+
+        def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
+            package = (node.module or "").split(".", 1)[0]
+            for alias in node.names:
+                if alias.name == "*":
+                    self.has_star_import = True
+                    continue
+                bound_name = alias.asname or alias.name
+                kind = (
+                    "function"
+                    if package in _PY_HTTP_CLIENTS and alias.name == "post"
+                    else None
+                )
+                self._record_import(bound_name, kind, node)
+
+        def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+            self.blocked.add(node.name)
+            self.child_functions.append(node)
+
+        def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
+            self.blocked.add(node.name)
+            self.child_functions.append(node)
+
+        def visit_ClassDef(self, node: ast.ClassDef) -> None:
+            self.blocked.add(node.name)
+
+        def visit_Lambda(self, node: ast.Lambda) -> None:
+            # Lambda bodies are a separate scope and remain outside this
+            # intentionally small alias inventory.
+            return
+
+        def visit_ExceptHandler(self, node: ast.ExceptHandler) -> None:
+            if node.name:
+                self.blocked.add(node.name)
+            self.generic_visit(node)
+
+        def visit_Global(self, node: ast.Global) -> None:
+            self.blocked.update(node.names)
+
+        def visit_Nonlocal(self, node: ast.Nonlocal) -> None:
+            self.blocked.update(node.names)
+
+    class ScopeCalls(ast.NodeVisitor):
+        def __init__(self) -> None:
+            self.calls: list[ast.Call] = []
+
+        def visit_Call(self, node: ast.Call) -> None:
+            self.calls.append(node)
+            self.generic_visit(node)
+
+        def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+            return
+
+        def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
+            return
+
+        def visit_ClassDef(self, node: ast.ClassDef) -> None:
+            return
+
+        def visit_Lambda(self, node: ast.Lambda) -> None:
+            return
+
+    matches: list[tuple[int, int, str]] = []
+
+    def inspect_scope(
+        scope: ast.Module | ast.FunctionDef | ast.AsyncFunctionDef,
+        inherited: dict[str, tuple[str, tuple[int, int]]],
+    ) -> None:
+        body = scope.body
+        bindings = ScopeBindings({id(statement) for statement in body})
+        for statement in body:
+            bindings.visit(statement)
+
+        if isinstance(scope, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            args = scope.args
+            parameters = [*args.posonlyargs, *args.args, *args.kwonlyargs]
+            if args.vararg is not None:
+                parameters.append(args.vararg)
+            if args.kwarg is not None:
+                parameters.append(args.kwarg)
+            bindings.blocked.update(argument.arg for argument in parameters)
+
+        aliases = dict(inherited)
+        for name in bindings.blocked | bindings.import_names | set(bindings.alias_kinds):
+            aliases.pop(name, None)
+        if bindings.has_star_import:
+            aliases.clear()
+        for name, kinds in bindings.alias_kinds.items():
+            if name in bindings.blocked or len(kinds) != 1:
+                continue
+            aliases[name] = (next(iter(kinds)), min(bindings.alias_positions[name]))
+
+        calls = ScopeCalls()
+        for statement in body:
+            calls.visit(statement)
+        for call in calls.calls:
+            function = call.func
+            if (
+                isinstance(function, ast.Attribute)
+                and function.attr == "post"
+                and isinstance(function.value, ast.Name)
+            ):
+                binding = aliases.get(function.value.id)
+                expected_kind = "module"
+            elif isinstance(function, ast.Name):
+                binding = aliases.get(function.id)
+                expected_kind = "function"
+            else:
+                binding = None
+                expected_kind = ""
+            call_position = (call.lineno, call.col_offset)
+            if binding is None or binding[0] != expected_kind or call_position <= binding[1]:
+                continue
+            excerpt = ast.get_source_segment(text, call) or ast.unparse(call)
+            matches.append((call.lineno, call.col_offset, excerpt))
+
+        for child in bindings.child_functions:
+            inspect_scope(child, aliases)
+
+    inspect_scope(module, {})
+    if not matches:
+        return None
+    return min(matches)[2]
 
 
 # --- data model (lives HERE, not in types.py - frozen contract section 1) ------
@@ -412,18 +589,20 @@ def _capabilities_from_code_scan(
                         "",
                     ),
                 ))
-            post = bool(_PY_POST_RE.search(text) or _PY_REQUEST_DATA_RE.search(text))
+            post_match = _PY_POST_RE.search(text) or _PY_REQUEST_DATA_RE.search(text)
+            aliased_post = (
+                _aliased_python_post(text)
+                if post_match is None and _PY_HTTP_ALIAS_IMPORT_RE.search(text)
+                else None
+            )
+            post = bool(post_match or aliased_post)
             if post:
+                excerpt = post_match.group(0) if post_match else aliased_post or ""
                 caps.append(cap(
                     "EGRESS",
                     f"outbound HTTP POST in code ({rel})",
                     f"file:{rel}",
-                    next(
-                        (m.group(0) for m in [
-                            _PY_POST_RE.search(text), _PY_REQUEST_DATA_RE.search(text)
-                        ] if m),
-                        "",
-                    ),
+                    excerpt,
                 ))
             elif _PY_FETCH_RE.search(text):
                 caps.append(cap(
@@ -711,14 +890,13 @@ def _trifecta_finding(combo: tuple[ExtensionNode, ...]) -> Finding | None:
 
 # --- shadowing detector (pure) -------------------------------------------------------
 def detect_shadowing(nodes: list[ExtensionNode]) -> list[Finding]:
-    """Cross-extension normalized tool-name collisions (pure).
+    """Report normalized name overlaps without asserting runtime shadowing.
 
-    One finding per collision group (same normalized name defined by >= 2
-    DISTINCT members).  Collisions within a single member are S1's
-    ``mcp_duplicate_tool_names`` territory, not composition.  Severity
-    medium; high when any colliding member is an INJECTION-CARRIER (in a
-    collision group without install order, a carrier member is exactly
-    the tool-poisoning shape OWASP MCP03 describes).
+    Separate member manifests do not prove a shared client namespace or
+    resolution order. The source inventory can identify normalized name
+    overlaps, but without mount/client evidence that fact is only an
+    informational review note, never an MCP03 finding. Duplicate names
+    within one member remain S1's ``mcp_duplicate_tool_names`` territory.
     """
     index: dict[str, dict[str, tuple[str, str]]] = {}  # norm -> slug -> (label, raw name)
     for node in nodes:
@@ -738,8 +916,6 @@ def detect_shadowing(nodes: list[ExtensionNode]) -> list[Finding]:
         members = index[norm]
         by_node = {n.slug: n for n in nodes}
         ordered = [by_node[slug] for slug in members if slug in by_node]
-        carrier = [n for n in ordered if _has_modifier(n, ("INJECTION-CARRIER",))]
-        severity = "high" if carrier else "medium"
         labels = [members[n.slug][0] for n in ordered]
         names = [members[n.slug][1] for n in ordered]
         evidence = [
@@ -747,32 +923,26 @@ def detect_shadowing(nodes: list[ExtensionNode]) -> list[Finding]:
                 source=f"tools:{members[n.slug][1]}",
                 excerpt=(
                     f"tool {members[n.slug][1]!r} in member {members[n.slug][0]!r} "
-                    f"normalizes to {norm!r}"
+                    f"normalizes to {norm!r}; runtime namespace and resolution are unknown"
                 )[:500],
-                meta={"normalized": norm, "member": n.slug, "raw": members[n.slug][1]},
+                meta={"normalized": norm, "member": n.slug, "raw": members[n.slug][1],
+                      "interpretation": "name-overlap-only"},
             )
             for n in ordered
         ]
-        carrier_note = (
-            f" Member '{carrier[0].label}' is an injection carrier, so the collision "
-            "is a plausible tool-poisoning setup rather than an accident."
-            if carrier
-            else " No colliding member is an injection carrier."
-        )
         findings.append(
             Finding(
-                owasp_ids=["MCP03"],
-                title=f"Cross-extension tool shadowing: '{norm}' defined by {len(ordered)} members",
+                owasp_ids=[],
+                title=f"Potential cross-extension tool-name overlap: '{norm}' in {len(ordered)} members",
                 detail=(
                     f"Tool names {', '.join(repr(n) for n in names)} (members "
-                    f"{', '.join(labels)}) all normalize to '{norm}'. A client that "
-                    "mounts both extensions resolves the same tool name ambiguously - "
-                    "the later-mounted definition silently shadows the other, and the "
-                    "calling agent cannot tell which implementation it reached."
-                    f"{carrier_note}"
+                    f"{', '.join(labels)}) normalize to '{norm}'. This source inventory "
+                    "does not establish that a client mounts them in one namespace, "
+                    "which definition it resolves, or any security impact. Review the "
+                    "actual integration before treating the overlap as shadowing."
                 ),
-                severity=severity,  # type: ignore[arg-type]
-                confidence="deterministic",
+                severity="info",
+                confidence="advisory",
                 stage="composition",
                 evidence=evidence,
             )
@@ -825,6 +995,10 @@ class CompositionStage:
                 "capabilities": cap_counts,
                 "trifectas": sum(1 for f in findings if "MCP06" in f.owasp_ids),
                 "shadowing": sum(1 for f in findings if f.owasp_ids == ["MCP03"]),
+                "tool_name_overlaps": sum(
+                    1 for f in findings
+                    if f.title.startswith("Potential cross-extension tool-name overlap:")
+                ),
                 "duration_s": round(time.perf_counter() - t0, 4),
             },
         )

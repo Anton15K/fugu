@@ -1,0 +1,19 @@
+{
+  "name": "v2-shell-curl-two-member",
+  "kind": "attack",
+  "description": "Shell GET and a private environment read occur in one member; a separate curl form POST supplies egress.",
+  "members": [
+    {
+      "dir": "reader-vault",
+      "label": "reader-vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

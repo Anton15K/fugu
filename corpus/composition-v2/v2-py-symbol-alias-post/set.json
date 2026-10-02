@@ -1,0 +1,23 @@
+{
+  "name": "v2-py-symbol-alias-post",
+  "kind": "attack",
+  "description": "HTTP POST is imported as a local symbol; remote read and private-data evidence remain direct.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "vault",
+      "label": "vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

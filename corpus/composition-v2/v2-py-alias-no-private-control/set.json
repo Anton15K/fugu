@@ -1,0 +1,19 @@
+{
+  "name": "v2-py-alias-no-private-control",
+  "kind": "control",
+  "description": "Aliased HTTP POST and remote read appear without a private-data leg.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

@@ -6,17 +6,17 @@ On the identical 20-description comparison, Fugu raised medium-or-higher alerts 
 
 ## New charts
 
-All five charts are available as PNG and editable SVG in [the final chart directory](../bench/results/2026-10-02-full/charts/). The data behind them is [chart-data.json](../bench/results/2026-10-02-full/charts/chart-data.json) and [cohort-data.csv](../bench/results/2026-10-02-full/charts/cohort-data.csv).
+All five charts are available as PNG and editable SVG in [the regenerated chart directory](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/). The data behind them is [chart-data.json](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/chart-data.json) and [cohort-data.csv](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/cohort-data.csv). The frozen original chart and raw result files remain unchanged.
 
-![Fresh comparison on identical descriptions](../bench/results/2026-10-02-full/charts/same-input-comparison.png)
+![Fresh comparison on identical descriptions](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/same-input-comparison.png)
 
-![Actual capability coverage](../bench/results/2026-10-02-full/charts/capability-coverage.png)
+![Actual capability coverage](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/capability-coverage.png)
 
-![Separate benchmark cohorts](../bench/results/2026-10-02-full/charts/cohort-results.png)
+![Separate benchmark cohorts](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/cohort-results.png)
 
-![Alerts contributed by each check](../bench/results/2026-10-02-full/charts/stage-alerts.png)
+![Alerts contributed by each check](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/stage-alerts.png)
 
-![Initial completion and bounded recovery](../bench/results/2026-10-02-full/charts/recovery-reliability.png)
+![Initial completion and bounded recovery](../bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/recovery-reliability.png)
 
 ## Frozen setup
 
@@ -83,8 +83,8 @@ All 20 shared cases completed after recovery, so the final comparison has **zero
 | Constructed clean descriptions | 5/5 | 1/5 |
 | Authored source attacks | 7/7 | 7/7 |
 | Authored clean-intent source fixtures | 4/4 | 1/4 |
-| Composition attacks, rule flags | 4/4 | 4/4 |
-| Composition controls, rule flags | 3/3 | 0/3 |
+| Historical composition attacks, rule flags | 4/4 | 4/4 |
+| Historical composition controls, correctly unflagged (raw rule alerts) | 3/3 (0/3) | 0/3 |
 | Vulnerable dependency probe | 1/1 | 1/1 |
 | Originally designated dependency control | 1/1 | 1/1 |
 
@@ -94,7 +94,9 @@ The clean-intent Node fixture received a medium reputation flag for lodash. This
 
 Both requests probes returned exact-version vulnerability records: ten for 2.19.1 and two for 2.32.5. The latter records alias the same insecure temporary-file vulnerability, [GHSA-gc5v-m9x4-r6x2 / CVE-2026-25645](https://osv.dev/vulnerability/GHSA-gc5v-m9x4-r6x2). **2.32.5 was not a valid clean dependency control.** The frozen designation remains visible; it is not used to estimate a dependency false-positive rate, and we neither relabel nor replace it to improve the score. This suite exercises reputation but does not establish its specificity against verified clean exact pins.
 
-Composition attack verdicts were WARN (medium rule findings), and all three composition control verdicts were PASS. Those policy verdicts are distinct from benchmark rule detection.
+The historical composition outcomes above come from the frozen pre-clarification engine. Its four attack alerts include the `shadow-pair` set, which matched normalized tool names but had no evidence of a shared client namespace or resolution order. The three controls had zero rule alerts and were correctly unflagged. These raw results and labels remain unchanged; the revised chart makes the control interpretation explicit. Composition attack verdicts were WARN (medium rule findings), and all three control verdicts were PASS in that historical run. Those policy verdicts are distinct from benchmark rule detection.
+
+The [new 24-case composition-v2 report](composition-coverage.md) uses the frozen engine for a baseline and the revised composition behavior for an after run. It covers eight source families, keeps 16 development and 8 author-known reserved cases, and reports misses, false positives and incomplete rows separately. The reserved split is not blinded. Its results do not relabel the historical 40-case benchmark.
 
 ## Parsing, recovery and reliability
 

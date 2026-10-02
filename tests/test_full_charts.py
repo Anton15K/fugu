@@ -1,4 +1,24 @@
-from bench.full_charts import comparison_data, contribution_data
+from bench.full_charts import (
+    DEFAULT_OUTPUT,
+    DEFAULT_SOURCE,
+    cohort_annotation,
+    comparison_data,
+    contribution_data,
+)
+
+
+def test_composition_chart_labels_detection_and_correctly_unflagged_controls():
+    attack = {"cohort": "composition", "kind": "malicious", "flagged": 4, "completed": 4,
+              "completed_rate": 1.0}
+    control = {"cohort": "composition", "kind": "benign", "flagged": 0, "completed": 3,
+               "completed_rate": 0.0}
+    assert cohort_annotation(attack) == "4/4 detected"
+    assert cohort_annotation(control) == "3/3 correctly unflagged · raw alerts 0/3"
+
+
+def test_full_chart_default_output_is_separate_from_frozen_input():
+    assert DEFAULT_OUTPUT != DEFAULT_SOURCE
+    assert "2026-10-02-composition-v2" in str(DEFAULT_OUTPUT)
 
 
 def test_paired_comparison_excludes_same_failed_cases_for_every_tool():

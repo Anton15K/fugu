@@ -1,0 +1,23 @@
+{
+  "name": "v2-py-direct-three-way",
+  "kind": "attack",
+  "description": "Three distinct members expose a remote read, a demo environment read, and an HTTP POST.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "vault",
+      "label": "vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

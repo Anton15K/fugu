@@ -1,0 +1,19 @@
+{
+  "name": "v2-self-sufficient-member-control",
+  "kind": "control",
+  "description": "One member contains all three capability legs across files and a second member is clean; no cross-member chain should be reported.",
+  "members": [
+    {
+      "dir": "complete",
+      "label": "complete"
+    },
+    {
+      "dir": "logger",
+      "label": "logger"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "v2-py-direct-two-member",
+  "kind": "attack",
+  "description": "A two-member minimal chain places remote read and demo environment read in one member.",
+  "members": [
+    {
+      "dir": "reader-vault",
+      "label": "reader-vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

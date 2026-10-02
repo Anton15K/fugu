@@ -137,14 +137,23 @@ universal ranking or population false-positive rate.
 | Other Fugu cohorts | Measured result |
 |---|---|
 | Authored source attacks | 7/7 alerted |
-| Authored composition attacks | 4/4 rule alerts |
-| Authored composition controls | 0/3 rule alerts |
+| Historical composition attacks | 4/4 rule alerts |
+| Historical composition controls | 3/3 correctly unflagged (raw alerts: 0/3) |
 | Exact-version dependency probes | 2/2 alerted; both pins have OSV vulnerability records |
 
 Authored fixtures are regression evidence, separate from external attacks.
-The full case breakdown is retained in the report and raw results.
+These composition counts are preserved from the frozen pre-clarification engine;
+the historical shadow-pair alert came from normalized names without evidence
+of a shared runtime namespace. Current name-only overlaps are informational.
+The expanded [composition coverage report](docs/composition-coverage.md)
+contains new baseline and after results, including development and author-known
+reserved cases. The full historical case breakdown remains in the original
+report and raw results.
 
-![Actual capability coverage](bench/results/2026-10-02-full/charts/capability-coverage.png)
+For pinned active projects and three reproducible source-analysis demos, see
+the [active-repository showcase](docs/showcase/2026-10-02-active-repos/README.md).
+
+![Actual capability coverage](bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/capability-coverage.png)
 
 The 40 cases include shared composition members, producing 45 unique audits and
 seven set checks. A completed stage means its bounded checks finished. The A/B

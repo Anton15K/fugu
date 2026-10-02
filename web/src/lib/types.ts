@@ -262,7 +262,7 @@ export const STAGE_META: Record<StageName, { index: number; label: string; blurb
   composition: {
     index: 6,
     label: "Composition",
-    blurb: "Cross-extension trifecta · tool shadowing",
+    blurb: "Cross-extension capability chains · reported tool-name overlaps",
   },
   verdict: {
     index: 7,

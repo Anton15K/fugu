@@ -1,0 +1,19 @@
+{
+  "name": "v2-member-files-private-egress-control",
+  "kind": "control",
+  "description": "A multi-file member contains private-data and POST evidence, but no remote-read source or read tool.",
+  "members": [
+    {
+      "dir": "sender",
+      "label": "sender"
+    },
+    {
+      "dir": "logger",
+      "label": "logger"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

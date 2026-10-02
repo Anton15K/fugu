@@ -1,8 +1,18 @@
-# S6 Composition — wave contracts (lead-authored, FROZEN for bots)
+# S6 Composition — current contracts
 
-Shared interfaces for the S6 build wave. Implement against these exactly;
+Shared interfaces and policy for S6 composition. Implement against these exactly;
 `src/fugu/types.py` and `src/fugu/pipeline/base.py` stay UNTOUCHED (change
 requests go in your summary). No new dependencies anywhere (stdlib + existing).
+
+## 2026-10-02 policy clarification
+
+A normalized tool-name overlap across separate member manifests is not, by
+itself, evidence of a shared runtime namespace, resolution order, tool
+shadowing, or an OWASP vulnerability. Composition may retain one informational,
+advisory name-overlap note with no OWASP id. Report actual shadowing only when
+the audited integration supplies evidence of the common namespace and the
+client's resolution behavior. An independently observed injection finding
+remains evidence in its own right, but it does not raise the name-overlap note.
 
 ## 1. Capability taxonomy (plain strings — no enum added to types.py)
 
@@ -27,6 +37,8 @@ Dataclasses live in `src/fugu/pipeline/stages/composition.py` (NOT types.py):
   `map_capabilities(findings, tool_names) -> list[Capability]`, then calls pure
   `detect_trifecta(nodes) -> list[Finding]` and `detect_shadowing(nodes) -> list[Finding]`.
   Pure functions must be importable and unit-testable with zero stage machinery.
+  From member manifests alone, `detect_shadowing` can emit only an informational
+  name-overlap note; it cannot establish runtime resolution.
 - Signal → capability mapping (from docs/s6-plan.md §1a): static findings whose
   rule ids/titles indicate env harvest / sensitive-path access → PRIVATE-DATA;
   curl-to-raw-IP / curl-pipe-shell / install-script fetches → EGRESS (+EXEC);
@@ -44,15 +56,21 @@ Dataclasses live in `src/fugu/pipeline/stages/composition.py` (NOT types.py):
   confidence advisory (hygiene note). All-advisory legs → severity at most
   medium and the finding must read as WARN-level, never FAIL-level.
 - Severity policy: trifecta with ≥1 strong leg → high (confidence from the
-  strongest contributing tier, at most `measured`); otherwise medium. Shadowing
-  → medium, high if the shadowING extension has INJECTION-CARRIER.
+  strongest contributing tier, at most `measured`); otherwise medium. A
+  normalized name overlap without runtime namespace and resolution evidence is
+  `info` / `advisory`; an unrelated carrier finding does not escalate it.
 - OWASP ids: trifecta → MCP03 + MCP06 + LLM02 (+MCP07/MCP10 where the evidence
-  says so); shadowing → MCP03 (NOT MCP09).
+  says so). A name-overlap note has no OWASP id. Use MCP03 for shadowing only
+  when actual integration evidence establishes the behavior; MCP09 remains a
+  different issue class.
 - Findings are ordinary `Finding(stage="composition")`; one EvidenceSnippet per
-  leg, source string format `member:<slug>:<finding-title>`; shadowing evidence
-  source `tools:<name>`.
-- Tool-name normalization: lowercase, strip `mcp__server__` style prefixes,
-  collapse non-alphanumerics.
+  trifecta leg, source string format `member:<slug>:<finding-title>`. Informational
+  name-overlap evidence uses source `tools:<name>` and meta
+  `interpretation="name-overlap-only"`.
+- Tool-name normalization is a lexical grouping aid only: lowercase, strip
+  `mcp__server__` style prefixes, and collapse non-alphanumerics. It does not
+  identify a client's effective namespace or prove that two tools collide at
+  runtime.
 
 ## 3. Multi-source server plumbing (workstream W3)
 
@@ -106,8 +124,11 @@ Dataclasses live in `src/fugu/pipeline/stages/composition.py` (NOT types.py):
   (`run_audit(..., include_detonation=False, include_semantic=False,
   include_harness=False, include_reputation=False)`) yields NO high/critical
   finding for any member alone. Loader + corpus tests enforce this precondition.
-- Attack shadowing sets: colliding normalized tool names across members,
-  individually clean otherwise.
+- Name-overlap cases: repeated normalized tool names across members, individually
+  clean otherwise. These exercise the informational overlap note only. A
+  source-only set must not expect runtime shadowing or MCP03 from names alone;
+  that claim requires separate evidence of a common client namespace and its
+  resolution behavior.
 - Controls (kind "control"): benign unions — ingress+egress with NO private-data;
   private+egress with no ingress; single self-sufficient extension + clean
   neighbors (must NOT be reported as cross-extension).
@@ -139,7 +160,9 @@ Dataclasses live in `src/fugu/pipeline/stages/composition.py` (NOT types.py):
   `child_job_id` into a compact member list (label + status + findings count).
 - Scorecard "Combination" section, rendered only when composition findings exist:
   chain view INGRESS → PRIVATE-DATA → EGRESS, nodes labeled with member labels,
-  red chain when a trifecta finding fired; shadowing shown as colliding tool names.
+  red chain when a trifecta finding fired; normalized name overlaps shown as
+  informational review notes. Show runtime shadowing only when integration
+  evidence establishes a common client namespace and resolution behavior.
 - Match the existing Tailwind/shadcn style; `npm run build` + `npx tsc --noEmit` clean.
 - Build against `web/src/lib/mockStream.ts` extended with a mock composition job.
 

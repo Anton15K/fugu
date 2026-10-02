@@ -1,0 +1,19 @@
+{
+  "name": "v2-schema-ingress-no-egress-control",
+  "kind": "control",
+  "description": "A harvested read tool and a private-data read appear without an egress member.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "vault",
+      "label": "vault"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}
