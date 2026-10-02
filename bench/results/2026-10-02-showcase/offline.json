@@ -1,0 +1,353 @@
+{
+  "started_utc": "2026-10-02T19:51:56.434939+00:00",
+  "engine_hashes_before": {
+    "src/fugu/config.py": "efc071cbe2b1fc25a8a5769c46a68232efc4261a95768ff4b8090c2fbcc83c4b",
+    "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+    "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+    "src/fugu/client.py": "7d5b31777743afb71dfdce9cd365a47cb7c0b19d119843aae9a305189465a2d3",
+    "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+    "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+    "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+    "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+    "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6",
+    "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+    "src/fugu/pipeline/assemble.py": "47c1dfb6979d179d8160b6c9263431fc600477b4210e5b73f83670fd56eb69e6",
+    "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+    "src/fugu/pipeline/stages/harness.py": "e5212e2d1b55326293636d4e5951144d4ac1d889f4b61461e65f793eadc0ec92",
+    "src/fugu/pipeline/stages/semantic.py": "daf3db8f9ad559ceec973d22c8f66485aa30ffaa9e99e64f9593d68af347689a",
+    "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+    "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+    "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+    "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+    "src/fugu/pipeline/stages/composition.py": "2a1e8437aa65f3336b590b692ee79cd378d0d4285521c55d565c62837a800d60",
+    "src/fugu/pipeline/stages/static_scan.py": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9",
+    "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+    "src/fugu/detonation/docker_driver.py": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193",
+    "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+    "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+    "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+    "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+    "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+    "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+    "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+    "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+    "src/fugu/server/jobs.py": "f84f071c8e7ed963c9b0a96750a67c9f6d67c7e65035d3118fd574f36176a03f",
+    "src/fugu/server/composition_jobs.py": "731ed10e950e4bfd08cafcb2ac07e91dc2b2d3c675e3fc4fcff40b1d1952ba13",
+    "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+    "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+    "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+    "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+    "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb"
+  },
+  "plan_sha256": "90927bc6ac97896e9cd353c39712892d1b0a7e12ebff6d7bc6df77fa52725e69",
+  "mode": "S0/S1 plus optional S2; source text only",
+  "target_executions": 0,
+  "rows": [
+    {
+      "id": "infrahub-query",
+      "repository": "opsmill/infrahub-mcp",
+      "commit": "1da6efc2d8161522573ee77efadb2e28d17a3a00",
+      "input_sha256": {
+        "README.md": "475ddd0e9e2c6a21d8af9fe3098ece973ed6db379b389946828c112346d91bf2",
+        "src/infrahub_mcp/tools/gql.py": "81638de1b9a684542133d4b130c775c0002e7301ec19e4143272c197c6e5ef07",
+        "src/infrahub_mcp/tools/session.py": "66f8891fc4ec6013abde1ca265e494c429fdbc461fafe6d35b43d14fe39a6a75"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0012
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0015
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "rust-filesystem",
+      "repository": "rust-mcp-stack/rust-mcp-filesystem",
+      "commit": "ef4797360ea03eec5375e03a6f10d092dfc6a5e0",
+      "input_sha256": {
+        "README.md": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+        "src/fs_service/core.rs": "c08391e57ad65119315d9ba1d39dcd0c701d9e71ae6e43fdd07f38083ac0bd48",
+        "src/tools/list_directory_with_sizes.rs": "2a380bf7ff30d4f0cb63f1db2f643c0e4971b5ff7d4d4dae20a44ebcb3f216dd"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0036
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [
+            {
+              "owasp_ids": [
+                "MCP04",
+                "LLM03"
+              ],
+              "title": "Remote install script fetched and executed in README.md",
+              "detail": "curl/wget fetches an install/bootstrap shell script - arbitrary code runs at install time.",
+              "severity": "high",
+              "confidence": "deterministic",
+              "stage": "static",
+              "evidence": [
+                {
+                  "source": "file:README.md:L37",
+                  "excerpt": "L37 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rust-mcp-stack/rust-mcp-filesystem/releases/download/v0.4.5/rust-mcp-filesystem-installer.sh | sh",
+                  "meta": {
+                    "rule": "install_script_fetch",
+                    "line": 37
+                  }
+                }
+              ]
+            }
+          ],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 1,
+            "findings": 1,
+            "duration_s": 0.0037
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "aws-sagemaker",
+      "repository": "aws/tools-for-devops-agent",
+      "commit": "8b498ab9ba3b740a4c734fb765ea5a3119dc10e5",
+      "input_sha256": {
+        "skills/sagemaker-ai-ops-review/SKILL.md": "5018d9a649955eb71c00db5160d421028929dbecd01df43188d46cb95a5940a5"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0021
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0021
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "amd-hyperloom",
+      "repository": "amd/skills",
+      "commit": "de0d03ae90b37a4f5ef38e0cf26ef6e3d3af7e94",
+      "input_sha256": {
+        "skills/hyperloom-workload-optimizer/SKILL.md": "baf471f98d4339b735613586ca6c37e7b73ef42e58f35f1b2990f97b407c0f96"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.001
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.001
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "bifrost-files",
+      "repository": "UCR-Research-Computing/ursa-bifrost",
+      "commit": "35fe9ee7b161ae4b9c63be11de982a9c1870beb7",
+      "input_sha256": {
+        "internal/core/files.go": "07005660b1a0dbbd4b259b356901f94ad7b1a60e62bb3f435a78704ab7e8b537",
+        "internal/policy/redact.go": "f91293c254cc3ad6532c426d1135032d0ef048d311d57519d68359678cd91dc1"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 2,
+            "files_scanned": 2,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0023
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 2,
+            "files_scanned": 2,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0024
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "unmeasured_semantic_artifacts": [
+    "infrahub-query",
+    "rust-filesystem",
+    "aws-sagemaker",
+    "amd-hyperloom",
+    "bifrost-files"
+  ],
+  "inference_unavailable": "No inference credential configured; no paid requests made",
+  "engine_hashes_after": {
+    "src/fugu/config.py": "efc071cbe2b1fc25a8a5769c46a68232efc4261a95768ff4b8090c2fbcc83c4b",
+    "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+    "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+    "src/fugu/client.py": "7d5b31777743afb71dfdce9cd365a47cb7c0b19d119843aae9a305189465a2d3",
+    "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+    "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+    "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+    "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+    "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6",
+    "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+    "src/fugu/pipeline/assemble.py": "47c1dfb6979d179d8160b6c9263431fc600477b4210e5b73f83670fd56eb69e6",
+    "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+    "src/fugu/pipeline/stages/harness.py": "e5212e2d1b55326293636d4e5951144d4ac1d889f4b61461e65f793eadc0ec92",
+    "src/fugu/pipeline/stages/semantic.py": "daf3db8f9ad559ceec973d22c8f66485aa30ffaa9e99e64f9593d68af347689a",
+    "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+    "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+    "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+    "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+    "src/fugu/pipeline/stages/composition.py": "2a1e8437aa65f3336b590b692ee79cd378d0d4285521c55d565c62837a800d60",
+    "src/fugu/pipeline/stages/static_scan.py": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9",
+    "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+    "src/fugu/detonation/docker_driver.py": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193",
+    "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+    "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+    "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+    "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+    "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+    "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+    "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+    "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+    "src/fugu/server/jobs.py": "f84f071c8e7ed963c9b0a96750a67c9f6d67c7e65035d3118fd574f36176a03f",
+    "src/fugu/server/composition_jobs.py": "731ed10e950e4bfd08cafcb2ac07e91dc2b2d3c675e3fc4fcff40b1d1952ba13",
+    "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+    "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+    "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+    "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+    "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb"
+  },
+  "engine_changed": false,
+  "finished_utc": "2026-10-02T19:51:56.684509+00:00"
+}

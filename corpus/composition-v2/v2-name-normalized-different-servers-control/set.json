@@ -1,0 +1,19 @@
+{
+  "name": "v2-name-normalized-different-servers-control",
+  "kind": "control",
+  "description": "Two independent server manifests use punctuation variants that normalize alike; no client namespace contract or resolution evidence is supplied.",
+  "members": [
+    {
+      "dir": "server-alpha",
+      "label": "server-alpha"
+    },
+    {
+      "dir": "server-beta",
+      "label": "server-beta"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "v2-py-urllib-request-body",
+  "kind": "attack",
+  "description": "Standard-library urlopen retrieval, a sensitive-path reference, and a body-bearing Request span members.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "vault",
+      "label": "vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

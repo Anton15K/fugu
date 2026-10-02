@@ -1,0 +1,19 @@
+{
+  "name": "v2-schema-neutral-name-control",
+  "kind": "control",
+  "description": "A neutral compute tool name, private-data read, and HTTP POST do not provide ingress.",
+  "members": [
+    {
+      "dir": "processor",
+      "label": "processor"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

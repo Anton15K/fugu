@@ -1,0 +1,1215 @@
+{
+  "started_utc": "2026-10-02T19:53:00.687236+00:00",
+  "engine_hashes_before": {
+    "src/fugu/config.py": "efc071cbe2b1fc25a8a5769c46a68232efc4261a95768ff4b8090c2fbcc83c4b",
+    "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+    "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+    "src/fugu/client.py": "7d5b31777743afb71dfdce9cd365a47cb7c0b19d119843aae9a305189465a2d3",
+    "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+    "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+    "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+    "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+    "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6",
+    "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+    "src/fugu/pipeline/assemble.py": "47c1dfb6979d179d8160b6c9263431fc600477b4210e5b73f83670fd56eb69e6",
+    "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+    "src/fugu/pipeline/stages/harness.py": "e5212e2d1b55326293636d4e5951144d4ac1d889f4b61461e65f793eadc0ec92",
+    "src/fugu/pipeline/stages/semantic.py": "daf3db8f9ad559ceec973d22c8f66485aa30ffaa9e99e64f9593d68af347689a",
+    "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+    "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+    "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+    "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+    "src/fugu/pipeline/stages/composition.py": "2a1e8437aa65f3336b590b692ee79cd378d0d4285521c55d565c62837a800d60",
+    "src/fugu/pipeline/stages/static_scan.py": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9",
+    "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+    "src/fugu/detonation/docker_driver.py": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193",
+    "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+    "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+    "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+    "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+    "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+    "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+    "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+    "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+    "src/fugu/server/jobs.py": "f84f071c8e7ed963c9b0a96750a67c9f6d67c7e65035d3118fd574f36176a03f",
+    "src/fugu/server/composition_jobs.py": "731ed10e950e4bfd08cafcb2ac07e91dc2b2d3c675e3fc4fcff40b1d1952ba13",
+    "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+    "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+    "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+    "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+    "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb"
+  },
+  "plan_sha256": "90927bc6ac97896e9cd353c39712892d1b0a7e12ebff6d7bc6df77fa52725e69",
+  "mode": "S0/S1 plus optional S2; source text only",
+  "target_executions": 0,
+  "rows": [
+    {
+      "id": "infrahub-query",
+      "repository": "opsmill/infrahub-mcp",
+      "commit": "1da6efc2d8161522573ee77efadb2e28d17a3a00",
+      "input_sha256": {
+        "README.md": "475ddd0e9e2c6a21d8af9fe3098ece973ed6db379b389946828c112346d91bf2",
+        "src/infrahub_mcp/tools/gql.py": "81638de1b9a684542133d4b130c775c0002e7301ec19e4143272c197c6e5ef07",
+        "src/infrahub_mcp/tools/session.py": "66f8891fc4ec6013abde1ca265e494c429fdbc461fafe6d35b43d14fe39a6a75"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0012
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0014
+          },
+          "error": null
+        },
+        {
+          "stage": "semantic",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 3,
+            "units_total": 3,
+            "units_completed": 3,
+            "units_partial": 0,
+            "units_omitted": 0,
+            "files": 3,
+            "llm_calls": [
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.904,
+                "prompt_chars": 6184,
+                "completion_chars": 372,
+                "usage": {
+                  "prompt_tokens": 1485,
+                  "completion_tokens": 743
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.047,
+                "prompt_chars": 5748,
+                "completion_chars": 336,
+                "usage": {
+                  "prompt_tokens": 1370,
+                  "completion_tokens": 486
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.433,
+                "prompt_chars": 4490,
+                "completion_chars": 330,
+                "usage": {
+                  "prompt_tokens": 1091,
+                  "completion_tokens": 635
+                }
+              }
+            ],
+            "call_errors": [],
+            "parse_errors": [],
+            "response_recoveries": [],
+            "findings": 0,
+            "duration_s": 7.389
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "rust-filesystem",
+      "repository": "rust-mcp-stack/rust-mcp-filesystem",
+      "commit": "ef4797360ea03eec5375e03a6f10d092dfc6a5e0",
+      "input_sha256": {
+        "README.md": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+        "src/fs_service/core.rs": "c08391e57ad65119315d9ba1d39dcd0c701d9e71ae6e43fdd07f38083ac0bd48",
+        "src/tools/list_directory_with_sizes.rs": "2a380bf7ff30d4f0cb63f1db2f643c0e4971b5ff7d4d4dae20a44ebcb3f216dd"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0082
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [
+            {
+              "owasp_ids": [
+                "MCP04",
+                "LLM03"
+              ],
+              "title": "Remote install script fetched and executed in README.md",
+              "detail": "curl/wget fetches an install/bootstrap shell script - arbitrary code runs at install time.",
+              "severity": "high",
+              "confidence": "deterministic",
+              "stage": "static",
+              "evidence": [
+                {
+                  "source": "file:README.md:L37",
+                  "excerpt": "L37 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rust-mcp-stack/rust-mcp-filesystem/releases/download/v0.4.5/rust-mcp-filesystem-installer.sh | sh",
+                  "meta": {
+                    "rule": "install_script_fetch",
+                    "line": 37
+                  }
+                }
+              ]
+            }
+          ],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 1,
+            "findings": 1,
+            "duration_s": 0.0071
+          },
+          "error": null
+        },
+        {
+          "stage": "semantic",
+          "ok": true,
+          "findings": [
+            {
+              "owasp_ids": [
+                "MCP04"
+              ],
+              "title": "Fetch-and-run installation patterns in quick-start guide",
+              "detail": "The quick installation guide documents two fetch-and-run patterns: `curl ... | sh` and `powershell -c \"irm ... | iex\"`. While URLs are pinned to v0.4.5 and point to the official GitHub repository, executing remote scripts directly in the shell without local inspection is a supply-chain hygiene risk.",
+              "severity": "low",
+              "confidence": "advisory",
+              "stage": "semantic",
+              "evidence": [
+                {
+                  "source": "semantic:Shell script and PowerShell script installation blocks:L45",
+                  "excerpt": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/rust-mcp-stack/rust-mcp-filesystem/releases/download/v0.4.5/rust-mcp-filesystem-installer.sh | sh",
+                  "meta": {
+                    "kind": "readme",
+                    "model_judged": true
+                  }
+                }
+              ]
+            },
+            {
+              "owasp_ids": [
+                "MCP04"
+              ],
+              "title": "Fetch-and-run installation pattern (PowerShell)",
+              "detail": "PowerShell installation uses `irm ... | iex` (Invoke-RestMethod + Invoke-Expression) to download and execute a remote script in one pipeline, same hygiene concern as the shell variant.",
+              "severity": "low",
+              "confidence": "advisory",
+              "stage": "semantic",
+              "evidence": [
+                {
+                  "source": "semantic:PowerShell script installation block:L50",
+                  "excerpt": "powershell -ExecutionPolicy Bypass -c \"irm https://github.com/rust-mcp-stack/rust-mcp-filesystem/releases/download/v0.4.5/rust-mcp-filesystem-installer.ps1 | iex\"",
+                  "meta": {
+                    "kind": "readme",
+                    "model_judged": true
+                  }
+                }
+              ]
+            }
+          ],
+          "metrics": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 6,
+            "units_total": 6,
+            "units_completed": 6,
+            "units_partial": 0,
+            "units_omitted": 0,
+            "files": 3,
+            "llm_calls": [
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 5.029,
+                "prompt_chars": 7319,
+                "completion_chars": 1668,
+                "usage": {
+                  "prompt_tokens": 1761,
+                  "completion_tokens": 1267
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 3.239,
+                "prompt_chars": 8916,
+                "completion_chars": 375,
+                "usage": {
+                  "prompt_tokens": 2207,
+                  "completion_tokens": 859
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 5.471,
+                "prompt_chars": 8972,
+                "completion_chars": 601,
+                "usage": {
+                  "prompt_tokens": 2121,
+                  "completion_tokens": 1746
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.982,
+                "prompt_chars": 8943,
+                "completion_chars": 423,
+                "usage": {
+                  "prompt_tokens": 1923,
+                  "completion_tokens": 682
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.832,
+                "prompt_chars": 3391,
+                "completion_chars": 504,
+                "usage": {
+                  "prompt_tokens": 864,
+                  "completion_tokens": 750
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.269,
+                "prompt_chars": 6344,
+                "completion_chars": 384,
+                "usage": {
+                  "prompt_tokens": 1533,
+                  "completion_tokens": 597
+                }
+              }
+            ],
+            "call_errors": [],
+            "parse_errors": [],
+            "response_recoveries": [],
+            "findings": 2,
+            "duration_s": 21.836
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "aws-sagemaker",
+      "repository": "aws/tools-for-devops-agent",
+      "commit": "8b498ab9ba3b740a4c734fb765ea5a3119dc10e5",
+      "input_sha256": {
+        "skills/sagemaker-ai-ops-review/SKILL.md": "5018d9a649955eb71c00db5160d421028929dbecd01df43188d46cb95a5940a5"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0067
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0063
+          },
+          "error": null
+        },
+        {
+          "stage": "semantic",
+          "ok": true,
+          "findings": [
+            {
+              "owasp_ids": [
+                "MCP04"
+              ],
+              "title": "External reference file not available for review",
+              "detail": "The skill references `references/pillar-checks.md` as authoritative for each check's APIs, logic, thresholds, and output fields, but this file was not provided in the content for audit. Per policy, this is noted as a low hygiene item.",
+              "severity": "low",
+              "confidence": "advisory",
+              "stage": "semantic",
+              "evidence": [
+                {
+                  "source": "semantic:references/pillar-checks.md:L52",
+                  "excerpt": "Load `references/pillar-checks.md` for each check's APIs, logic, thresholds, and output fields.",
+                  "meta": {
+                    "kind": "description",
+                    "model_judged": true
+                  }
+                }
+              ]
+            }
+          ],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 3,
+            "units_total": 3,
+            "units_completed": 3,
+            "units_partial": 0,
+            "units_omitted": 0,
+            "files": 1,
+            "llm_calls": [
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 3.502,
+                "prompt_chars": 8944,
+                "completion_chars": 1001,
+                "usage": {
+                  "prompt_tokens": 2185,
+                  "completion_tokens": 1020
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.493,
+                "prompt_chars": 8987,
+                "completion_chars": 436,
+                "usage": {
+                  "prompt_tokens": 2113,
+                  "completion_tokens": 596
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 1.69,
+                "prompt_chars": 6714,
+                "completion_chars": 422,
+                "usage": {
+                  "prompt_tokens": 1606,
+                  "completion_tokens": 430
+                }
+              }
+            ],
+            "call_errors": [],
+            "parse_errors": [],
+            "response_recoveries": [],
+            "findings": 1,
+            "duration_s": 7.69
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "amd-hyperloom",
+      "repository": "amd/skills",
+      "commit": "de0d03ae90b37a4f5ef38e0cf26ef6e3d3af7e94",
+      "input_sha256": {
+        "skills/hyperloom-workload-optimizer/SKILL.md": "baf471f98d4339b735613586ca6c37e7b73ef42e58f35f1b2990f97b407c0f96"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0033
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0028
+          },
+          "error": null
+        },
+        {
+          "stage": "semantic",
+          "ok": true,
+          "findings": [
+            {
+              "owasp_ids": [
+                "MCP04"
+              ],
+              "title": "Unpinned dependency in installation instruction",
+              "detail": "The skill instructs to install the 'current release' of hyperloom-inference-optimizer without pinning a version, creating supply-chain drift risk.",
+              "severity": "low",
+              "confidence": "advisory",
+              "stage": "semantic",
+              "evidence": [
+                {
+                  "source": "semantic:Step 2: Install the Hyperloom wheel:L58",
+                  "excerpt": "Install the current release unless the user asks for a specific version.",
+                  "meta": {
+                    "kind": "instruction",
+                    "model_judged": true
+                  }
+                }
+              ]
+            },
+            {
+              "owasp_ids": [
+                "MCP02",
+                "MCP04"
+              ],
+              "title": "Wheel installs skills into agent skill directories",
+              "detail": "The installed wheel writes skill directories into the agent's configuration paths (.agents/skills/, .claude/skills/, .cursor/skills/), modifying agent behavior post-install. This is declared behavior but extends the skill's footprint beyond the workspace.",
+              "severity": "low",
+              "confidence": "advisory",
+              "stage": "semantic",
+              "evidence": [
+                {
+                  "source": "semantic:Step 3: Run /hyperloom-setup:L70",
+                  "excerpt": "The wheel installs `hyperloom-setup` into the agent's skill directories (`.agents/skills/`, `.claude/skills/`, `.cursor/skills/`).",
+                  "meta": {
+                    "kind": "instruction",
+                    "model_judged": true
+                  }
+                }
+              ]
+            },
+            {
+              "owasp_ids": [
+                "MCP10",
+                "MCP04"
+              ],
+              "title": "Credential handling delegated to installed setup skill",
+              "detail": "Anthropic API keys or AMD LLM gateway credentials are collected by the hyperloom-setup skill (installed by the wheel), not visible in this content. The bootstrap skill correctly avoids asking for keys in chat, but the actual credential flow occurs in a component not provided for review.",
+              "severity": "low",
+              "confidence": "advisory",
+              "stage": "semantic",
+              "evidence": [
+                {
+                  "source": "semantic:Step 3: Run /hyperloom-setup:L73",
+                  "excerpt": "It is interactive and owns credentials, `USER_DATA_PATH`, the run mode (`docker` recommended, or `baremetal`), the Docker target host, and the bare-metal framework install.",
+                  "meta": {
+                    "kind": "instruction",
+                    "model_judged": true
+                  }
+                }
+              ]
+            },
+            {
+              "owasp_ids": [
+                "MCP02"
+              ],
+              "title": "Long-running background GPU workloads with agent monitoring",
+              "detail": "Optimization runs for hours on GPU hardware with the agent expected to report status every ~300 seconds. This represents extended autonomous agent activity on privileged hardware, though it matches the skill's stated purpose.",
+              "severity": "low",
+              "confidence": "advisory",
+              "stage": "semantic",
+              "evidence": [
+                {
+                  "source": "semantic:What to expect during a run:L115",
+                  "excerpt": "Optimization runs for hours in the background. Do not stream the log. Before launch the run skill shows a plan... After launch it reports the optimizer PID, run log, launch-info JSON, session director",
+                  "meta": {
+                    "kind": "description",
+                    "model_judged": true
+                  }
+                }
+              ]
+            }
+          ],
+          "metrics": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 2,
+            "units_total": 2,
+            "units_completed": 2,
+            "units_partial": 0,
+            "units_omitted": 0,
+            "files": 1,
+            "llm_calls": [
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 5.968,
+                "prompt_chars": 8998,
+                "completion_chars": 3028,
+                "usage": {
+                  "prompt_tokens": 2256,
+                  "completion_tokens": 1917
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 1.288,
+                "prompt_chars": 3755,
+                "completion_chars": 195,
+                "usage": {
+                  "prompt_tokens": 932,
+                  "completion_tokens": 317
+                }
+              }
+            ],
+            "call_errors": [],
+            "parse_errors": [],
+            "response_recoveries": [],
+            "findings": 4,
+            "duration_s": 7.26
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "bifrost-files",
+      "repository": "UCR-Research-Computing/ursa-bifrost",
+      "commit": "35fe9ee7b161ae4b9c63be11de982a9c1870beb7",
+      "input_sha256": {
+        "internal/core/files.go": "07005660b1a0dbbd4b259b356901f94ad7b1a60e62bb3f435a78704ab7e8b537",
+        "internal/policy/redact.go": "f91293c254cc3ad6532c426d1135032d0ef048d311d57519d68359678cd91dc1"
+      },
+      "stages": [
+        {
+          "stage": "concealment",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 2,
+            "files_scanned": 2,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0,
+            "duration_s": 0.0068
+          },
+          "error": null
+        },
+        {
+          "stage": "static",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 2,
+            "files_scanned": 2,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "hits": 0,
+            "findings": 0,
+            "duration_s": 0.0061
+          },
+          "error": null
+        },
+        {
+          "stage": "semantic",
+          "ok": true,
+          "findings": [],
+          "metrics": {
+            "files_seen": 2,
+            "files_scanned": 2,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 4,
+            "units_total": 4,
+            "units_completed": 4,
+            "units_partial": 0,
+            "units_omitted": 0,
+            "files": 2,
+            "llm_calls": [
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 4.976,
+                "prompt_chars": 8899,
+                "completion_chars": 625,
+                "usage": {
+                  "prompt_tokens": 2558,
+                  "completion_tokens": 1510
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 3.419,
+                "prompt_chars": 8946,
+                "completion_chars": 529,
+                "usage": {
+                  "prompt_tokens": 2537,
+                  "completion_tokens": 924
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 1.67,
+                "prompt_chars": 3154,
+                "completion_chars": 205,
+                "usage": {
+                  "prompt_tokens": 782,
+                  "completion_tokens": 408
+                }
+              },
+              {
+                "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+                "latency_s": 2.568,
+                "prompt_chars": 6635,
+                "completion_chars": 393,
+                "usage": {
+                  "prompt_tokens": 2005,
+                  "completion_tokens": 543
+                }
+              }
+            ],
+            "call_errors": [],
+            "parse_errors": [],
+            "response_recoveries": [],
+            "findings": 0,
+            "duration_s": 12.641
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "unmeasured_semantic_artifacts": [],
+  "engine_hashes_after": {
+    "src/fugu/config.py": "efc071cbe2b1fc25a8a5769c46a68232efc4261a95768ff4b8090c2fbcc83c4b",
+    "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+    "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+    "src/fugu/client.py": "7d5b31777743afb71dfdce9cd365a47cb7c0b19d119843aae9a305189465a2d3",
+    "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+    "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+    "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+    "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+    "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6",
+    "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+    "src/fugu/pipeline/assemble.py": "47c1dfb6979d179d8160b6c9263431fc600477b4210e5b73f83670fd56eb69e6",
+    "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+    "src/fugu/pipeline/stages/harness.py": "e5212e2d1b55326293636d4e5951144d4ac1d889f4b61461e65f793eadc0ec92",
+    "src/fugu/pipeline/stages/semantic.py": "daf3db8f9ad559ceec973d22c8f66485aa30ffaa9e99e64f9593d68af347689a",
+    "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+    "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+    "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+    "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+    "src/fugu/pipeline/stages/composition.py": "2a1e8437aa65f3336b590b692ee79cd378d0d4285521c55d565c62837a800d60",
+    "src/fugu/pipeline/stages/static_scan.py": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9",
+    "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+    "src/fugu/detonation/docker_driver.py": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193",
+    "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+    "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+    "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+    "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+    "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+    "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+    "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+    "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+    "src/fugu/server/jobs.py": "f84f071c8e7ed963c9b0a96750a67c9f6d67c7e65035d3118fd574f36176a03f",
+    "src/fugu/server/composition_jobs.py": "731ed10e950e4bfd08cafcb2ac07e91dc2b2d3c675e3fc4fcff40b1d1952ba13",
+    "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+    "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+    "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+    "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+    "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb"
+  },
+  "engine_changed": false,
+  "live": {
+    "attempts": 18,
+    "limit": 24,
+    "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+    "stop_reason": null,
+    "calls": [
+      {
+        "attempt": 1,
+        "artifact": "infrahub-query",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 3325,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "9f8a689b12cf05f57820c82826acef4b3406642adb2135d3671df2cf39c56aff",
+        "unit_label": "File: README.md (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 372,
+        "response_sha256": "3633397329e22f3ea076e53079c9a966ab4927be2708314f447016751755879e",
+        "usage": {
+          "prompt_tokens": 1485,
+          "completion_tokens": 743
+        },
+        "state": "response_received",
+        "latency_s": 2.904
+      },
+      {
+        "attempt": 2,
+        "artifact": "infrahub-query",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 2889,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "2659251456c94011aec65c9bc5ee2e1c031641da9d0843d92f9a8fd2a1f497ce",
+        "unit_label": "File: src/infrahub_mcp/tools/gql.py (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 336,
+        "response_sha256": "40c96807bcae2987dfaa92ab5e3c5e59733ef0630bb04bdd5cf39f74bd83c3a4",
+        "usage": {
+          "prompt_tokens": 1370,
+          "completion_tokens": 486
+        },
+        "state": "response_received",
+        "latency_s": 2.047
+      },
+      {
+        "attempt": 3,
+        "artifact": "infrahub-query",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 1631,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "9f40a44fb5039c9bf31963bcf85075708f97ebf7b2eb4e17cd89b04eae1b1ec5",
+        "unit_label": "File: src/infrahub_mcp/tools/session.py (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 330,
+        "response_sha256": "ccb22057a9344298819b1166da345f51901e155c05b5530db91a9c1799f444c3",
+        "usage": {
+          "prompt_tokens": 1091,
+          "completion_tokens": 635
+        },
+        "state": "response_received",
+        "latency_s": 2.433
+      },
+      {
+        "attempt": 4,
+        "artifact": "rust-filesystem",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 4460,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "1398e6ca6952334a09fc45e26946b6cce75267780ac5b919c9e918144d7c1700",
+        "unit_label": "File: README.md (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 1668,
+        "response_sha256": "fe908216c125355155e17916ca49dd01cebe5b803458bfb781e7fb93639ab4bd",
+        "usage": {
+          "prompt_tokens": 1761,
+          "completion_tokens": 1267
+        },
+        "state": "response_received",
+        "latency_s": 5.029
+      },
+      {
+        "attempt": 5,
+        "artifact": "rust-filesystem",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6057,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "e43b078cca5aa77f23453860c3b0fa5404c523849027715d1a0626958a519503",
+        "unit_label": "File: src/fs_service/core.rs (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 375,
+        "response_sha256": "5d439234545bdbcbf70b194ed61ce0abda4022cd8043be2d859878a5d5e331b3",
+        "usage": {
+          "prompt_tokens": 2207,
+          "completion_tokens": 859
+        },
+        "state": "response_received",
+        "latency_s": 3.239
+      },
+      {
+        "attempt": 6,
+        "artifact": "rust-filesystem",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6113,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "4bb868339d028af9f0f794e40abd110abe9a265b7f62948467c45ab502dbb6bf",
+        "unit_label": "File: src/fs_service/core.rs (part 2)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 601,
+        "response_sha256": "ab1f8a20c30506b6e1514a851f74e44f40f2c3dfdbaa6562011a6e936286ad85",
+        "usage": {
+          "prompt_tokens": 2121,
+          "completion_tokens": 1746
+        },
+        "state": "response_received",
+        "latency_s": 5.471
+      },
+      {
+        "attempt": 7,
+        "artifact": "rust-filesystem",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6084,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "8bc206964f4d651a8550aa7e6fc038176c628c1bf828363fb93f1139c9bab6be",
+        "unit_label": "File: src/fs_service/core.rs (part 3)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 423,
+        "response_sha256": "ee231bef4b98df54b38973871866991c694ae50ec738d9e3b4871a98642aced6",
+        "usage": {
+          "prompt_tokens": 1923,
+          "completion_tokens": 682
+        },
+        "state": "response_received",
+        "latency_s": 2.982
+      },
+      {
+        "attempt": 8,
+        "artifact": "rust-filesystem",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 532,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "23c0b508bc04c38d7629fac03d4ecb286f202a1bf2aed16afb40c24e5de749bf",
+        "unit_label": "File: src/fs_service/core.rs (part 4)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 504,
+        "response_sha256": "d75a8dfccdc8784310c982ad9f0ecf855db85394364493c801693a435376efbd",
+        "usage": {
+          "prompt_tokens": 864,
+          "completion_tokens": 750
+        },
+        "state": "response_received",
+        "latency_s": 2.832
+      },
+      {
+        "attempt": 9,
+        "artifact": "rust-filesystem",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 3485,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "1ee80c351d949b96d88ea084a6f47c4e8e867bde81bae5e102d6473b1e11ddeb",
+        "unit_label": "File: src/tools/list_directory_with_sizes.rs (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 384,
+        "response_sha256": "1e903cfe96cd7c13ff193870c1996e7fdafaa76e3b6e9ba3c20a21eb40bd5e96",
+        "usage": {
+          "prompt_tokens": 1533,
+          "completion_tokens": 597
+        },
+        "state": "response_received",
+        "latency_s": 2.269
+      },
+      {
+        "attempt": 10,
+        "artifact": "aws-sagemaker",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6085,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "a7ce23656e17be9034a21b501512c939eb22e7d9b102d65a9cc0fe6a89fcf2dd",
+        "unit_label": "File: skills/sagemaker-ai-ops-review/SKILL.md (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 1001,
+        "response_sha256": "cd9fd33a31ec9aed38a98fd205a937bcb353e2fc5ff343187cb9aa183eecb37c",
+        "usage": {
+          "prompt_tokens": 2185,
+          "completion_tokens": 1020
+        },
+        "state": "response_received",
+        "latency_s": 3.502
+      },
+      {
+        "attempt": 11,
+        "artifact": "aws-sagemaker",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6128,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "60098bb86816764ec080b0efc5320e5715cef5408c2b5bd4594f5daad4812b4d",
+        "unit_label": "File: skills/sagemaker-ai-ops-review/SKILL.md (part 2)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 436,
+        "response_sha256": "7f442b213b94d78f4c2d9623f465594fd9c1f5eb989c69ad92b2d1d3a7fe3b51",
+        "usage": {
+          "prompt_tokens": 2113,
+          "completion_tokens": 596
+        },
+        "state": "response_received",
+        "latency_s": 2.493
+      },
+      {
+        "attempt": 12,
+        "artifact": "aws-sagemaker",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 3855,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "43adc7b73af8d41648cad8db19fd5a6897b585d61d4a109b2965ed72415ed8c4",
+        "unit_label": "File: skills/sagemaker-ai-ops-review/SKILL.md (part 3)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 422,
+        "response_sha256": "c056e5921d7b752ad3ccd78485e1577b81c7ece85d8a3fa159dc697220ce14f3",
+        "usage": {
+          "prompt_tokens": 1606,
+          "completion_tokens": 430
+        },
+        "state": "response_received",
+        "latency_s": 1.69
+      },
+      {
+        "attempt": 13,
+        "artifact": "amd-hyperloom",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6139,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "d53ac9e3d605d0799fc49f6de56b1323061b5a7a17ebf766656167cce5abe9b5",
+        "unit_label": "File: skills/hyperloom-workload-optimizer/SKILL.md (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 3028,
+        "response_sha256": "8ef6368dab622c1fe3470831d0e6670ffd440646a3b32f379cb973f2dc16e65a",
+        "usage": {
+          "prompt_tokens": 2256,
+          "completion_tokens": 1917
+        },
+        "state": "response_received",
+        "latency_s": 5.968
+      },
+      {
+        "attempt": 14,
+        "artifact": "amd-hyperloom",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 896,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "486eaa462650b2d37ef73d8a046e3c73cff986ae5a1cbf2f98e02b353713ed6d",
+        "unit_label": "File: skills/hyperloom-workload-optimizer/SKILL.md (part 2)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 195,
+        "response_sha256": "04f6c19f070b7a8e4293aaa33e37b8c55767e4db1c64a6d79593201efa6af487",
+        "usage": {
+          "prompt_tokens": 932,
+          "completion_tokens": 317
+        },
+        "state": "response_received",
+        "latency_s": 1.288
+      },
+      {
+        "attempt": 15,
+        "artifact": "bifrost-files",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6040,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "269e29967b0bcc48423229a3a065ee4bd6266be25f7d7ccc92777c2d14483816",
+        "unit_label": "File: internal/core/files.go (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 625,
+        "response_sha256": "6f4ddd599a2cda46059cd4375a337fb6049a0f38b117ab834d7b39544276be03",
+        "usage": {
+          "prompt_tokens": 2558,
+          "completion_tokens": 1510
+        },
+        "state": "response_received",
+        "latency_s": 4.976
+      },
+      {
+        "attempt": 16,
+        "artifact": "bifrost-files",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 6087,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "9e453a8257d689d6109b69eb0e4fb4c529d8143a010b74bcfc3d1b9a24939585",
+        "unit_label": "File: internal/core/files.go (part 2)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 529,
+        "response_sha256": "96ddbd231792a51ba3674b21fae69ae61e012263191f093e34d453be6d1d93a9",
+        "usage": {
+          "prompt_tokens": 2537,
+          "completion_tokens": 924
+        },
+        "state": "response_received",
+        "latency_s": 3.419
+      },
+      {
+        "attempt": 17,
+        "artifact": "bifrost-files",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 295,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "e345e5e1ca2758cf592e1637679dda24d54b525fbfccad1beacac50cee3aa637",
+        "unit_label": "File: internal/core/files.go (part 3)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 205,
+        "response_sha256": "6e9c7b136b91203ae25ced1c635a43cdbea80b936d11bf7ae74307fa3ef72c77",
+        "usage": {
+          "prompt_tokens": 782,
+          "completion_tokens": 408
+        },
+        "state": "response_received",
+        "latency_s": 1.67
+      },
+      {
+        "attempt": 18,
+        "artifact": "bifrost-files",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "system_chars": 2859,
+        "user_chars": 3776,
+        "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+        "user_sha256": "306e69b7a76f322b46b6ffd62ac6a5b9acd2c96ba08c507f20375745039d2087",
+        "unit_label": "File: internal/policy/redact.go (part 1)",
+        "max_completion_tokens": 4096,
+        "timeout_s": 90,
+        "sdk_retries": 0,
+        "finish_reason": "stop",
+        "response_chars": 393,
+        "response_sha256": "395d11db69da522a2ce308bcfe227a734b05cce066f2d83903576f6a95625e1e",
+        "usage": {
+          "prompt_tokens": 2005,
+          "completion_tokens": 543
+        },
+        "state": "response_received",
+        "latency_s": 2.568
+      }
+    ]
+  },
+  "finished_utc": "2026-10-02T19:53:57.804943+00:00"
+}

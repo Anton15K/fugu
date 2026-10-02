@@ -1,0 +1,23 @@
+{
+  "name": "v2-shell-curl-post",
+  "kind": "attack",
+  "description": "Shell GET, a sensitive credential-path reference, and shell POST are distributed across three members.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "vault",
+      "label": "vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

@@ -1,0 +1,328 @@
+{
+  "retrieved_utc": "2026-10-02T19:48:26.500645+00:00",
+  "repositories": [
+    {
+      "repository": "opsmill/infrahub-mcp",
+      "issue_query": "repo:opsmill/infrahub-mcp security",
+      "search_total": 94,
+      "issues": [
+        {
+          "number": 166,
+          "title": "chore(deps): bump anyio from 4.14.0 to 4.14.2",
+          "html_url": "https://github.com/opsmill/infrahub-mcp/pull/166",
+          "state": "open",
+          "updated_at": "2026-10-01T22:35:36Z"
+        },
+        {
+          "number": 176,
+          "title": "chore(deps): bump urllib3 from 2.7.0 to 2.8.0",
+          "html_url": "https://github.com/opsmill/infrahub-mcp/pull/176",
+          "state": "closed",
+          "updated_at": "2026-09-30T19:00:42Z"
+        },
+        {
+          "number": 175,
+          "title": "chore(deps): bump pyjwt from 2.13.0 to 2.15.0",
+          "html_url": "https://github.com/opsmill/infrahub-mcp/pull/175",
+          "state": "closed",
+          "updated_at": "2026-09-30T19:01:23Z"
+        },
+        {
+          "number": 184,
+          "title": "chore(deps): bump virtualenv from 21.7.1 to 21.7.13",
+          "html_url": "https://github.com/opsmill/infrahub-mcp/pull/184",
+          "state": "open",
+          "updated_at": "2026-10-01T22:40:26Z"
+        },
+        {
+          "number": 134,
+          "title": "chore(deps): resolve npm security alerts in /docs",
+          "html_url": "https://github.com/opsmill/infrahub-mcp/pull/134",
+          "state": "closed",
+          "updated_at": "2026-06-25T11:12:20Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": []
+    },
+    {
+      "repository": "UCR-Research-Computing/ursa-bifrost",
+      "issue_query": "repo:UCR-Research-Computing/ursa-bifrost security",
+      "search_total": 1,
+      "issues": [
+        {
+          "number": 24,
+          "title": "docs: README rewrite, docs/CLIENTS.md for every client, examples/mcp_client.py, community files, release binaries, get.sh installer",
+          "html_url": "https://github.com/UCR-Research-Computing/ursa-bifrost/pull/24",
+          "state": "closed",
+          "updated_at": "2026-10-02T19:29:57Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": []
+    },
+    {
+      "repository": "rust-mcp-stack/rust-mcp-filesystem",
+      "issue_query": "repo:rust-mcp-stack/rust-mcp-filesystem security",
+      "search_total": 4,
+      "issues": [
+        {
+          "number": 91,
+          "title": "fix: prevent path-traversal sandbox escape in filesystem operations",
+          "html_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/pull/91",
+          "state": "closed",
+          "updated_at": "2026-07-26T21:15:53Z"
+        },
+        {
+          "number": 71,
+          "title": "Docker MCP Gateway: paths config not passed as command arguments",
+          "html_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/issues/71",
+          "state": "closed",
+          "updated_at": "2026-03-15T19:36:44Z"
+        },
+        {
+          "number": 57,
+          "title": "fix: update docker image",
+          "html_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/pull/57",
+          "state": "closed",
+          "updated_at": "2025-10-15T21:44:32Z"
+        },
+        {
+          "number": 34,
+          "title": "Add Roots protocol support",
+          "html_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/issues/34",
+          "state": "closed",
+          "updated_at": "2025-09-21T16:41:38Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": [
+        {
+          "ghsa_id": "GHSA-58gp-g6r5-8p6w",
+          "summary": "Path traversal allows sandbox escape via unnormalized `..` components in write/create/move/edit operations",
+          "severity": "high",
+          "html_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/security/advisories/GHSA-58gp-g6r5-8p6w",
+          "published_at": "2026-08-28T12:07:02Z",
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "rust",
+                "name": "rust-mcp-filesystem"
+              },
+              "vulnerable_version_range": "<0.4.3",
+              "patched_versions": "0.4.4",
+              "vulnerable_functions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "neondatabase/mcp-server-neon",
+      "issue_query": "repo:neondatabase/mcp-server-neon security",
+      "search_total": 105,
+      "issues": [
+        {
+          "number": 347,
+          "title": "Allow run_sql / run_sql_transaction to execute as a specified PostgreSQL role without exposing credentials",
+          "html_url": "https://github.com/neondatabase/mcp-server-neon/issues/347",
+          "state": "open",
+          "updated_at": "2026-09-24T15:05:42Z"
+        },
+        {
+          "number": 251,
+          "title": "chore(deps): bump next from 16.1.1 to 16.2.6 in /landing",
+          "html_url": "https://github.com/neondatabase/mcp-server-neon/pull/251",
+          "state": "open",
+          "updated_at": "2026-07-03T04:33:36Z"
+        },
+        {
+          "number": 275,
+          "title": "feat(oauth): rich Next.js consent UI with category & project narrowing",
+          "html_url": "https://github.com/neondatabase/mcp-server-neon/pull/275",
+          "state": "open",
+          "updated_at": "2026-07-27T17:04:05Z"
+        },
+        {
+          "number": 139,
+          "title": "chore(deps-dev): bump js-yaml from 4.1.0 to 4.1.1 in /landing",
+          "html_url": "https://github.com/neondatabase/mcp-server-neon/pull/139",
+          "state": "open",
+          "updated_at": "2026-06-24T17:39:37Z"
+        },
+        {
+          "number": 348,
+          "title": "chore(deps): bump next from 16.1.1 to 16.3.3",
+          "html_url": "https://github.com/neondatabase/mcp-server-neon/pull/348",
+          "state": "open",
+          "updated_at": "2026-09-15T00:33:35Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": []
+    },
+    {
+      "repository": "aws/tools-for-devops-agent",
+      "issue_query": "repo:aws/tools-for-devops-agent security",
+      "search_total": 48,
+      "issues": [
+        {
+          "number": 115,
+          "title": "[security]-unified-security-cost-optimizer agent and associated skills",
+          "html_url": "https://github.com/aws/tools-for-devops-agent/pull/115",
+          "state": "open",
+          "updated_at": "2026-10-01T20:31:49Z"
+        },
+        {
+          "number": 98,
+          "title": "feat: add aiml-sagemaker-security-assessment skill",
+          "html_url": "https://github.com/aws/tools-for-devops-agent/pull/98",
+          "state": "open",
+          "updated_at": "2026-09-23T21:37:50Z"
+        },
+        {
+          "number": 99,
+          "title": "feat: add aiml-agentcore-security-assessment skill",
+          "html_url": "https://github.com/aws/tools-for-devops-agent/pull/99",
+          "state": "open",
+          "updated_at": "2026-09-22T16:58:26Z"
+        },
+        {
+          "number": 78,
+          "title": "feat: add aiml-bedrock-security-assessment skill",
+          "html_url": "https://github.com/aws/tools-for-devops-agent/pull/78",
+          "state": "open",
+          "updated_at": "2026-09-21T16:49:36Z"
+        },
+        {
+          "number": 54,
+          "title": "feat: Add database-rds-resilience and database-rds-security skills",
+          "html_url": "https://github.com/aws/tools-for-devops-agent/pull/54",
+          "state": "open",
+          "updated_at": "2026-09-21T21:39:58Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": []
+    },
+    {
+      "repository": "amd/skills",
+      "issue_query": "repo:amd/skills security",
+      "search_total": 7,
+      "issues": [
+        {
+          "number": 182,
+          "title": "Harden GitHub Runner Security",
+          "html_url": "https://github.com/amd/skills/issues/182",
+          "state": "open",
+          "updated_at": "2026-08-27T22:11:53Z"
+        },
+        {
+          "number": 246,
+          "title": "Federation bump pull requests stall because their checks need manual approval",
+          "html_url": "https://github.com/amd/skills/issues/246",
+          "state": "open",
+          "updated_at": "2026-09-28T13:53:24Z"
+        },
+        {
+          "number": 51,
+          "title": "Ensure skills catalog passes on all major marketplace security scans",
+          "html_url": "https://github.com/amd/skills/issues/51",
+          "state": "open",
+          "updated_at": "2026-06-08T21:43:33Z"
+        },
+        {
+          "number": 52,
+          "title": "Address SMALL/MEDIUM issues and change acceptance mechanism of SkillSpector tests",
+          "html_url": "https://github.com/amd/skills/issues/52",
+          "state": "open",
+          "updated_at": "2026-06-08T21:49:49Z"
+        },
+        {
+          "number": 104,
+          "title": "Add minimal SECURITY.md to point to PSIRT disclosure program",
+          "html_url": "https://github.com/amd/skills/pull/104",
+          "state": "closed",
+          "updated_at": "2026-07-17T21:59:50Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": []
+    },
+    {
+      "repository": "Chemaclass/agnostic-ai",
+      "issue_query": "repo:Chemaclass/agnostic-ai security",
+      "search_total": 19,
+      "issues": [
+        {
+          "number": 1416,
+          "title": "docs(security): state what agnostic-ai runs, reaches, and writes",
+          "html_url": "https://github.com/Chemaclass/agnostic-ai/pull/1416",
+          "state": "closed",
+          "updated_at": "2026-09-29T12:41:47Z"
+        },
+        {
+          "number": 1417,
+          "title": "chore(security): raise the OpenSSF Scorecard checks that code can fix",
+          "html_url": "https://github.com/Chemaclass/agnostic-ai/pull/1417",
+          "state": "closed",
+          "updated_at": "2026-09-29T12:58:15Z"
+        },
+        {
+          "number": 826,
+          "title": "Design: express per-agent approval policy",
+          "html_url": "https://github.com/Chemaclass/agnostic-ai/issues/826",
+          "state": "closed",
+          "updated_at": "2026-09-18T14:17:52Z"
+        },
+        {
+          "number": 1378,
+          "title": "chore(target-audit): record the 2026-09-28 audit and document the Jev triage",
+          "html_url": "https://github.com/Chemaclass/agnostic-ai/pull/1378",
+          "state": "closed",
+          "updated_at": "2026-09-28T19:53:30Z"
+        },
+        {
+          "number": 1414,
+          "title": "feat(release): sign build provenance and SBOMs, and fail closed in the installers",
+          "html_url": "https://github.com/Chemaclass/agnostic-ai/pull/1414",
+          "state": "closed",
+          "updated_at": "2026-09-29T12:22:01Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": []
+    },
+    {
+      "repository": "sanjay3290/ai-skills",
+      "issue_query": "repo:sanjay3290/ai-skills security",
+      "search_total": 3,
+      "issues": [
+        {
+          "number": 15,
+          "title": "feat(apple-container): add skill for Apple's container CLI",
+          "html_url": "https://github.com/sanjay3290/ai-skills/pull/15",
+          "state": "closed",
+          "updated_at": "2026-07-06T20:49:25Z"
+        },
+        {
+          "number": 16,
+          "title": "Add telegram skill (bot messaging, files, ask-and-wait approvals)",
+          "html_url": "https://github.com/sanjay3290/ai-skills/pull/16",
+          "state": "closed",
+          "updated_at": "2026-07-09T14:18:54Z"
+        },
+        {
+          "number": 6,
+          "title": "Security: Google Workspace skills send OAuth refresh tokens to external cloud function (geminicli.com)",
+          "html_url": "https://github.com/sanjay3290/ai-skills/issues/6",
+          "state": "closed",
+          "updated_at": "2026-02-27T14:11:34Z"
+        }
+      ],
+      "advisory_status": "retrieved",
+      "advisories": []
+    }
+  ],
+  "limits": "Five search hits and twenty advisory records per repository; absence does not prove none exist"
+}

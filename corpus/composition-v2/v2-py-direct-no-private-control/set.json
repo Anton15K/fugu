@@ -1,0 +1,19 @@
+{
+  "name": "v2-py-direct-no-private-control",
+  "kind": "control",
+  "description": "Remote read and HTTP POST are present, but no private-data capability is represented.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

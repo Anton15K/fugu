@@ -1,0 +1,19 @@
+{
+  "name": "v2-member-files-get-post-no-private-control",
+  "kind": "control",
+  "description": "Separate GET and POST files are present, but no private-data signal exists anywhere in the set.",
+  "members": [
+    {
+      "dir": "bridge",
+      "label": "bridge"
+    },
+    {
+      "dir": "logger",
+      "label": "logger"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

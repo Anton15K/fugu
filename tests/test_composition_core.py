@@ -1,7 +1,7 @@
-"""Unit tests for the S6 composition core (W1).
+"""Unit tests for the S6 composition core.
 
 Hermetic: pure functions + the stage with attribute-injected members; no
-server, no LLM, no docker.  Asserts the frozen contract in
+server, no LLM, no docker. Asserts capability and verdict boundaries from
 docs/s6-contracts.md sections 1-2:
 
 * mapper per producer (static rule ids verified against the real
@@ -12,8 +12,9 @@ docs/s6-contracts.md sections 1-2:
 * honesty rules (weak co-existence -> low/advisory; all-advisory legs ->
   at most medium, WARN wording),
 * severity policy + OWASP ids (MCP03+MCP06+LLM02, +MCP07 from leg
-  evidence; shadowing MCP03 NOT MCP09),
-* shadowing: normalization, grouping, carrier escalation,
+  evidence),
+* tool-name overlap notes: normalization, grouping, and no unsupported
+  claim of runtime namespace or client resolution,
 * stage protocol: skip path, member injection, never raises,
 * evidence source formats ``member:<slug>:<title>`` / ``tools:<name>``,
 * 50-node performance sanity (< 1s).
@@ -489,7 +490,7 @@ def test_normalize_tool_name() -> None:
     assert normalize_tool_name("") == ""
 
 
-def test_shadowing_basic_grouping() -> None:
+def test_name_overlap_basic_grouping_is_informational() -> None:
     nodes = [
         node("fs", tools=["read_file", "list_dir"]),
         node("fs-enhanced", tools=["mcp__fs__Read-File", "stat"]),
@@ -498,12 +499,14 @@ def test_shadowing_basic_grouping() -> None:
     findings = detect_shadowing(nodes)
     assert len(findings) == 1
     f = findings[0]
-    assert f.owasp_ids == ["MCP03"]          # NOT MCP09
-    assert "MCP09" not in f.owasp_ids
-    assert f.severity == "medium"
-    assert f.confidence == "deterministic"
+    assert f.owasp_ids == []
+    assert f.severity == "info"
+    assert f.confidence == "advisory"
+    assert "does not establish" in f.detail
+    assert "actual integration" in f.detail
     assert len(f.evidence) == 2
     assert all(e.source.startswith("tools:") for e in f.evidence)
+    assert all(e.meta["interpretation"] == "name-overlap-only" for e in f.evidence)
 
 
 def test_shadowing_within_one_member_is_not_composition() -> None:
@@ -511,15 +514,18 @@ def test_shadowing_within_one_member_is_not_composition() -> None:
     assert detect_shadowing(nodes) == []
 
 
-def test_shadowing_high_when_shadowing_member_is_carrier() -> None:
+def test_name_overlap_does_not_escalate_from_unresolved_carrier_context() -> None:
     carrier = build_node(member("evil", [
         static_finding("IJ in a.md", "skill_injection_phrase")
     ], ["read_file"]))
     clean = node("clean", tools=["read_file"])
     findings = detect_shadowing([carrier, clean])
     assert len(findings) == 1
-    assert findings[0].severity == "high"
-    assert "injection carrier" in findings[0].detail
+    assert findings[0].severity == "info"
+    assert findings[0].confidence == "advisory"
+    assert findings[0].owasp_ids == []
+    assert "security impact" in findings[0].detail
+    assert any(cap.kind == "INJECTION-CARRIER" for cap in carrier.capabilities)
 
 
 def test_shadowing_no_collisions_no_findings() -> None:
@@ -537,10 +543,104 @@ def test_shadowing_one_finding_per_collision_group_deterministic_order() -> None
         node("c", tools=["z-tool"]),
     ]
     findings = detect_shadowing(nodes)
-    assert [f.title for f in findings] == [f.title for f in findings]
     assert len(findings) == 2
     norms = [f.title.split("'")[1] for f in findings]
     assert norms == sorted(norms)  # btool before ztool
+
+
+def test_import_alias_post_forms_map_to_measured_egress(tmp_path: Path) -> None:
+    cases = [
+        ("import requests as client\nclient.post('https://example.test', json={})\n", "client.post"),
+        ("from httpx import post as publish\npublish('https://example.test', json={})\n", "publish("),
+    ]
+    for index, (source, marker) in enumerate(cases):
+        target = tmp_path / str(index)
+        target.mkdir()
+        (target / "sender.py").write_text(source, encoding="utf-8")
+        caps = map_capabilities([], [], target_dir=target)
+        egress = [cap for cap in caps if cap.kind == "EGRESS"]
+        assert len(egress) == 1
+        assert egress[0].strength == "medium"
+        assert marker in egress[0].evidence.excerpt
+
+
+def test_malformed_python_alias_source_is_not_executed_or_guessed(tmp_path: Path) -> None:
+    target = tmp_path / "bad"
+    target.mkdir()
+    (target / "sender.py").write_text(
+        "import requests as client\nclient.post(\n", encoding="utf-8"
+    )
+    assert [cap for cap in map_capabilities([], [], target_dir=target) if cap.kind == "EGRESS"] == []
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        "def configure():\n    import requests as transport\n"
+        "def report(transport):\n    transport.post('local-category', {})\n",
+        "import requests as transport\n"
+        "def report(transport):\n    transport.post('local-category', {})\n",
+        "import requests as transport\n"
+        "transport = make_local_transport()\n"
+        "transport.post('local-category', {})\n",
+    ],
+    ids=["import-does-not-leak-between-functions", "parameter-shadows-module-import", "module-alias-reassigned"],
+)
+def test_shadowed_or_rebound_names_are_not_guessed_as_http_aliases(
+    tmp_path: Path, source: str
+) -> None:
+    target = tmp_path / "shadowed"
+    target.mkdir()
+    (target / "sender.py").write_text(source, encoding="utf-8")
+
+    caps = map_capabilities([], [], target_dir=target)
+
+    assert not any(cap.kind == "EGRESS" for cap in caps)
+
+
+@pytest.mark.parametrize(
+    "pattern",
+    [
+        "case {'writer': client}:",
+        "case [*client]:",
+        "case {'writer': value, **client}:",
+    ],
+    ids=["match-as", "match-star", "match-mapping-rest"],
+)
+def test_match_pattern_capture_invalidates_inherited_http_alias(
+    tmp_path: Path, pattern: str
+) -> None:
+    target = tmp_path / "pattern-capture"
+    target.mkdir()
+    (target / "sender.py").write_text(
+        "import requests as client\n"
+        "def save(payload):\n"
+        "    match payload:\n"
+        f"        {pattern}\n"
+        "            client.post('ordinary')\n",
+        encoding="utf-8",
+    )
+
+    caps = map_capabilities([], [], target_dir=target)
+
+    assert not any(cap.kind == "EGRESS" for cap in caps)
+
+
+def test_relative_post_import_is_not_attributed_to_external_http_client(
+    tmp_path: Path,
+) -> None:
+    target = tmp_path / "relative-import"
+    target.mkdir()
+    (target / "sender.py").write_text(
+        "import httpx as unused_client\n"
+        "from .requests import post as store_locally\n"
+        "store_locally('ordinary')\n",
+        encoding="utf-8",
+    )
+
+    caps = map_capabilities([], [], target_dir=target)
+
+    assert not any(cap.kind == "EGRESS" for cap in caps)
 
 
 # --- stage ------------------------------------------------------------------------------
@@ -584,6 +684,20 @@ def test_stage_via_attribute_injection() -> None:
     assert m["trifectas"] == 1
     assert m["capabilities"]["INGRESS"] >= 1
     assert m["capabilities"]["PRIVATE-DATA"] >= 1
+
+
+def test_stage_reports_name_overlap_as_metric_not_shadowing() -> None:
+    stage = CompositionStage()
+    stage._member_results = [
+        member("one", tools=["fetch_record"]),
+        member("two", tools=["fetch_record"]),
+    ]
+    result = _run_stage(stage)
+    assert result.metrics["tool_name_overlaps"] == 1  # type: ignore[attr-defined]
+    assert result.metrics["shadowing"] == 0  # type: ignore[attr-defined]
+    assert len(result.findings) == 1  # type: ignore[attr-defined]
+    assert result.findings[0].severity == "info"  # type: ignore[attr-defined]
+    assert result.findings[0].owasp_ids == []  # type: ignore[attr-defined]
 
 
 def test_stage_class_default_not_shared_mutable() -> None:

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "provenance": "real-world pinned public source packets; purposive showcase selection, not a detection benchmark",
+  "candidate_repositories": 8,
+  "measured_artifacts": 5,
+  "input_files": 10,
+  "planned_units": 18,
+  "completed_units": 18,
+  "partial_units": 0,
+  "omitted_units": 0,
+  "hosted_requests": 18,
+  "request_limit": 24,
+  "repair_requests": 0,
+  "provider_errors": 0,
+  "parse_errors": 0,
+  "target_executions": 0,
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "prompt_tokens": 31329,
+  "completion_tokens": 15430,
+  "sum_request_latency_s": 56.78,
+  "prompt_chars": 125339,
+  "system_chars_per_call": 2859,
+  "finish_reasons": {
+    "stop": 18
+  },
+  "raw_alerts": {
+    "concealment": 0,
+    "static": 1,
+    "semantic": 7
+  },
+  "confirmed_vulnerabilities": 0,
+  "confirmation_scope": "Owner source adjudication only; no unauthorized runtime behavior demonstrated; independent review pending",
+  "budget_exhausted": false,
+  "remaining_provider_quota": "not queried; unknown",
+  "cost": "not measured",
+  "preflight": "One credential-lookup preflight produced only S0/S1 and made zero hosted requests. Loading the authorized project config resolved the frozen /tmp engine lookup.",
+  "model_identity_limit": "Model field is the identifier sent in every request; response-resolved model identity was not retained or independently verified."
+}

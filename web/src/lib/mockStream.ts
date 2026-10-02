@@ -368,7 +368,7 @@ function buildTimeline(jobId: string, depth: AuditDepth): ScriptedEvent[] {
  * Composition (multi-source) scenario: a 2-source parent whose members are
  * individually unremarkable but compose the lethal trifecta (web-digest
  * provides INGRESS + PRIVATE-DATA, keychain-probe provides EGRESS), plus a
- * cross-extension tool-shadowing collision. Mirrors the parent event
+ * normalized tool-name overlap in the source inventory. Mirrors the parent event
  * sequence emitted by composition_jobs.py: initial log, one member log per
  * finished child (child_job_id discriminator), stage_started/stage_done for
  * the composition stage, composition findings, verdict.
@@ -404,24 +404,24 @@ function buildCompositionTimeline(jobId: string, _depth: AuditDepth): ScriptedEv
     ],
   };
 
-  const shadowing: Finding = {
-    owasp_ids: ["MCP03"],
-    title: "Cross-extension tool shadowing: 'fetchpage' defined by 2 members",
+  const nameOverlap: Finding = {
+    owasp_ids: [],
+    title: "Potential cross-extension tool-name overlap: 'fetchpage' in 2 members",
     detail:
-      "Tool names 'fetchPage' (members web-digest) and 'mcp__helper__fetch_page' (members keychain-probe) all normalize to 'fetchpage'. A client that mounts both extensions resolves the same tool name ambiguously - the later-mounted definition silently shadows the other, and the calling agent cannot tell which implementation it reached. No colliding member is an injection carrier.",
-    severity: "medium",
-    confidence: "deterministic",
+      "Tool names 'fetchPage' and 'mcp__helper__fetch_page' (members web-digest, keychain-probe) normalize to 'fetchpage'. This source inventory does not establish that a client mounts them in one namespace, which definition it resolves, or any security impact. Review the actual integration before treating the overlap as shadowing.",
+    severity: "info",
+    confidence: "advisory",
     stage: "composition",
     evidence: [
       {
         source: "tools:fetchPage",
-        excerpt: "tool 'fetchPage' in member 'web-digest' normalizes to 'fetchpage'",
-        meta: { normalized: "fetchpage", member: "web-digest", raw: "fetchPage" },
+        excerpt: "tool 'fetchPage' in member 'web-digest' normalizes to 'fetchpage'; runtime namespace and resolution are unknown",
+        meta: { normalized: "fetchpage", member: "web-digest", raw: "fetchPage", interpretation: "name-overlap-only" },
       },
       {
         source: "tools:mcp__helper__fetch_page",
-        excerpt: "tool 'mcp__helper__fetch_page' in member 'keychain-probe' normalizes to 'fetchpage'",
-        meta: { normalized: "fetchpage", member: "keychain-probe", raw: "mcp__helper__fetch_page" },
+        excerpt: "tool 'mcp__helper__fetch_page' in member 'keychain-probe' normalizes to 'fetchpage'; runtime namespace and resolution are unknown",
+        meta: { normalized: "fetchpage", member: "keychain-probe", raw: "mcp__helper__fetch_page", interpretation: "name-overlap-only" },
       },
     ],
   };
@@ -454,34 +454,34 @@ function buildCompositionTimeline(jobId: string, _depth: AuditDepth): ScriptedEv
   push(700, ev(jobId, "stage_started", { stage: "composition", depth: "standard" }));
   push(500, ev(jobId, "log", {
     stage: "composition",
-    message: "mapping 2 members → capabilities · trifecta + shadowing detectors",
+    message: "mapping 2 members → capabilities · trifecta and tool-name overlap inventory",
   }));
   push(1100, ev(jobId, "finding", { stage: "composition", finding: trifecta }));
-  push(900, ev(jobId, "finding", { stage: "composition", finding: shadowing }));
+  push(900, ev(jobId, "finding", { stage: "composition", finding: nameOverlap }));
   push(700, ev(jobId, "stage_done", {
     stage: "composition",
     ok: true,
     findings_count: 2,
-    metrics: { duration_s: 1.7, members: 2 },
+    metrics: { duration_s: 1.7, members: 2, trifectas: 1, shadowing: 0, tool_name_overlaps: 1 },
   }));
 
   // Verdict (aggregate_verdict semantics: medium findings → warn; a high with
-  // deterministic/empirical confidence → fail. Shadowing here is medium +
-  // deterministic and trifecta is high + measured ⇒ warn).
+  // deterministic/empirical confidence → fail. The measured trifecta remains
+  // high + measured, while the inventory overlap is info + advisory ⇒ warn).
   push(900, ev(jobId, "verdict", {
     status: "done",
     verdict: {
       status: "warn",
-      severity_counts: { high: 1, medium: 1 },
+      severity_counts: { high: 1, info: 1 },
       total_findings: 2,
-      max_confidence_tier: "deterministic",
+      max_confidence_tier: "measured",
       reasons: [
-        "1 high-severity finding(s) with advisory/measured evidence",
-        "1 medium finding(s)",
+        "1 high-severity finding(s) with measured evidence",
+        "1 info finding(s)",
       ],
     },
     total_findings: 2,
-    severity_counts: { high: 1, medium: 1 },
+    severity_counts: { high: 1, info: 1 },
     stages: [
       { stage: "composition", ok: true, findings_count: 2 },
     ],

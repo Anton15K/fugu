@@ -1,0 +1,19 @@
+{
+  "name": "v2-js-single-env-and-get-control",
+  "kind": "control",
+  "description": "A single NODE_ENV read and a shell GET do not establish private-data plus egress.",
+  "members": [
+    {
+      "dir": "js-reader",
+      "label": "js-reader"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

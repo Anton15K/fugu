@@ -1,0 +1,500 @@
+{
+  "comparison": {
+    "paired_attack_ids": [
+      "mcptox/Email_14",
+      "mcptox/Email_20",
+      "mcptox/mcp-simple-arxiv_9",
+      "mcptox/Email_15",
+      "mcptox/Puppeteer_15",
+      "mcptox/Memory_3",
+      "mcptox/Memory_11",
+      "mcptox/mcp-simple-arxiv_15",
+      "mcptox/Email_11",
+      "mcptox/ClickHouse_14",
+      "mcptox/Git_10",
+      "mcptox/AmapMap_10",
+      "mcptox/AlphaVantage_4",
+      "mcptox/mcp-simple-arxiv_1",
+      "mcptox/AmapMap_1"
+    ],
+    "paired_clean_ids": [
+      "clean/send_email",
+      "clean/get_calendar_events",
+      "clean/read_file",
+      "clean/translate_text",
+      "clean/create_notion_page"
+    ],
+    "excluded_ids": [],
+    "threshold_note": "Fugu/fuzzd medium+ findings; mcp-sec aggregate medium risk and native capability hits are different tasks",
+    "paired": {
+      "fugu": {
+        "attack_n": 15,
+        "clean_n": 5,
+        "attack_medium_positive": 12,
+        "attack_native_positive": 12,
+        "clean_medium_positive": 1,
+        "clean_native_positive": 1,
+        "attack_medium_rate": 0.8,
+        "attack_native_rate": 0.8,
+        "clean_medium_rate": 0.2
+      },
+      "fuzzd": {
+        "attack_n": 15,
+        "clean_n": 5,
+        "attack_medium_positive": 10,
+        "attack_native_positive": 11,
+        "clean_medium_positive": 0,
+        "clean_native_positive": 0,
+        "attack_medium_rate": 0.6666666666666666,
+        "attack_native_rate": 0.7333333333333333,
+        "clean_medium_rate": 0.0
+      },
+      "mcp-sec-audit": {
+        "attack_n": 15,
+        "clean_n": 5,
+        "attack_medium_positive": 0,
+        "attack_native_positive": 12,
+        "clean_medium_positive": 0,
+        "clean_native_positive": 0,
+        "attack_medium_rate": 0.0,
+        "attack_native_rate": 0.8,
+        "clean_medium_rate": 0.0
+      }
+    }
+  },
+  "coverage": {
+    "unique_audits": 45,
+    "states": {
+      "concealment": {
+        "completed": 45
+      },
+      "static": {
+        "completed": 45
+      },
+      "semantic": {
+        "completed": 45
+      },
+      "harness": {
+        "completed": 45
+      },
+      "reputation": {
+        "not_applicable": 35,
+        "completed": 10
+      },
+      "detonation": {
+        "not_applicable": 28,
+        "completed": 17
+      },
+      "composition": {
+        "not_applicable": 45
+      },
+      "composition_sets": {
+        "completed": 7
+      }
+    },
+    "medium_plus_audits": {
+      "concealment": 1,
+      "static": 6,
+      "semantic": 18,
+      "harness": 7,
+      "reputation": 3,
+      "detonation": 2,
+      "composition": 0,
+      "composition_sets": 4
+    }
+  },
+  "cohorts": [
+    {
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "attempted": 15,
+      "completed": 15,
+      "excluded": 0,
+      "flagged": 12,
+      "completed_rate": 0.8,
+      "attempted_yield": 0.8
+    },
+    {
+      "cohort": "clean_descriptions",
+      "kind": "benign",
+      "attempted": 5,
+      "completed": 5,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 0.2,
+      "attempted_yield": 0.2
+    },
+    {
+      "cohort": "crafted",
+      "kind": "malicious",
+      "attempted": 7,
+      "completed": 7,
+      "excluded": 0,
+      "flagged": 7,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0
+    },
+    {
+      "cohort": "crafted",
+      "kind": "benign",
+      "attempted": 4,
+      "completed": 4,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 0.25,
+      "attempted_yield": 0.25
+    },
+    {
+      "cohort": "composition",
+      "kind": "malicious",
+      "attempted": 4,
+      "completed": 4,
+      "excluded": 0,
+      "flagged": 4,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0,
+      "raw_rule_alerts": 4,
+      "correctly_unflagged": null
+    },
+    {
+      "cohort": "composition",
+      "kind": "benign",
+      "attempted": 3,
+      "completed": 3,
+      "excluded": 0,
+      "flagged": 0,
+      "completed_rate": 0.0,
+      "attempted_yield": 0.0,
+      "raw_rule_alerts": 0,
+      "correctly_unflagged": 3
+    },
+    {
+      "cohort": "reputation",
+      "kind": "vulnerable_dependency",
+      "attempted": 1,
+      "completed": 1,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0
+    },
+    {
+      "cohort": "reputation",
+      "kind": "dependency_control",
+      "attempted": 1,
+      "completed": 1,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0
+    }
+  ],
+  "stage_contribution": {
+    "mcptox/malicious": {
+      "concealment": {
+        "completed": 15,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "static": {
+        "completed": 15,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "semantic": {
+        "completed": 15,
+        "flagged": 11,
+        "rate": 0.7333333333333333
+      },
+      "harness": {
+        "completed": 15,
+        "flagged": 2,
+        "rate": 0.13333333333333333
+      },
+      "reputation": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "detonation": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      },
+      "composition": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      }
+    },
+    "clean_descriptions/benign": {
+      "concealment": {
+        "completed": 5,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "static": {
+        "completed": 5,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "semantic": {
+        "completed": 5,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "harness": {
+        "completed": 5,
+        "flagged": 1,
+        "rate": 0.2
+      },
+      "reputation": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      },
+      "detonation": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      },
+      "composition": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      }
+    },
+    "crafted/malicious": {
+      "concealment": {
+        "completed": 7,
+        "flagged": 1,
+        "rate": 0.14285714285714285
+      },
+      "static": {
+        "completed": 7,
+        "flagged": 6,
+        "rate": 0.8571428571428571
+      },
+      "semantic": {
+        "completed": 7,
+        "flagged": 7,
+        "rate": 1.0
+      },
+      "harness": {
+        "completed": 7,
+        "flagged": 4,
+        "rate": 0.5714285714285714
+      },
+      "reputation": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "detonation": {
+        "completed": 4,
+        "flagged": 2,
+        "rate": 0.5
+      },
+      "composition": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      }
+    },
+    "crafted/benign": {
+      "concealment": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "static": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "semantic": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "harness": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "reputation": {
+        "completed": 1,
+        "flagged": 1,
+        "rate": 1.0
+      },
+      "detonation": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "composition": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      }
+    },
+    "composition/benign": {
+      "concealment": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "static": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "semantic": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "harness": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "reputation": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "detonation": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "composition": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      }
+    },
+    "composition/malicious": {
+      "concealment": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "static": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "semantic": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "harness": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "reputation": {
+        "completed": 3,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "detonation": {
+        "completed": 4,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "composition": {
+        "completed": 4,
+        "flagged": 4,
+        "rate": 1.0
+      }
+    },
+    "reputation/vulnerable_dependency": {
+      "concealment": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "static": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "semantic": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "harness": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "reputation": {
+        "completed": 1,
+        "flagged": 1,
+        "rate": 1.0
+      },
+      "detonation": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      },
+      "composition": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      }
+    },
+    "reputation/dependency_control": {
+      "concealment": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "static": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "semantic": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "harness": {
+        "completed": 1,
+        "flagged": 0,
+        "rate": 0.0
+      },
+      "reputation": {
+        "completed": 1,
+        "flagged": 1,
+        "rate": 1.0
+      },
+      "detonation": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      },
+      "composition": {
+        "completed": 0,
+        "flagged": 0,
+        "rate": null
+      }
+    }
+  },
+  "reporting": {
+    "scope": "shared description cohort",
+    "confirmed_false_positives": {
+      "fugu": 0,
+      "fuzzd": 0,
+      "mcp-sec-audit": 0
+    },
+    "classification": "Security signals on clean inputs are not automatically false positives; recorded alerts remain unchanged.",
+    "requested_by": "user"
+  }
+}

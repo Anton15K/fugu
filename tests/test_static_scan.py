@@ -34,7 +34,10 @@ CORPUS = _PROJECT_ROOT / "corpus"
 def _manifests() -> list[tuple[str, dict]]:
     out = []
     for mf in sorted(CORPUS.glob("*/manifest.json")):
-        out.append((mf.parent.name, json.loads(mf.read_text(encoding="utf-8"))))
+        manifest = json.loads(mf.read_text(encoding="utf-8"))
+        if manifest.get("schema") == "fugu-composition-v2-freeze-v1":
+            continue  # Dataset inventory, not an individually labeled sample.
+        out.append((mf.parent.name, manifest))
     assert len(out) >= 10, f"expected >=10 corpus samples, found {len(out)}"
     return out
 

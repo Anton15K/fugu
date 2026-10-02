@@ -1,0 +1,19 @@
+{
+  "name": "v2-shell-no-private-control",
+  "kind": "control",
+  "description": "Shell GET and POST occur without any private-data access signal.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

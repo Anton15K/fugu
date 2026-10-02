@@ -1,0 +1,19 @@
+{
+  "name": "v2-py-urllib-no-egress-control",
+  "kind": "control",
+  "description": "Standard-library remote read and demo environment read appear without a body-bearing request.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "logger",
+      "label": "logger"
+    }
+  ],
+  "expected": {
+    "trifecta": false,
+    "shadowing": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "v2-schema-derived-ingress",
+  "kind": "attack",
+  "description": "A fetched tool name harvested from server.json combines with direct Python private-data and egress evidence.",
+  "members": [
+    {
+      "dir": "reader",
+      "label": "reader"
+    },
+    {
+      "dir": "vault",
+      "label": "vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

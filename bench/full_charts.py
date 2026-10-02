@@ -11,7 +11,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT = ROOT / 'bench/results/2026-10-02-full'
+DEFAULT_SOURCE = ROOT / 'bench/results/2026-10-02-full'
+DEFAULT_OUTPUT = ROOT / 'bench/results/2026-10-02-composition-v2/full-benchmark-charts'
 
 
 def contribution_data(rows: list[dict]) -> dict:
@@ -59,24 +60,24 @@ def comparison_data(fugu: dict, manifest: dict, competitors: dict) -> dict:
     return output
 
 
-def coverage_data(out: Path, *, recovered: bool = False) -> dict:
+def coverage_data(source: Path, *, recovered: bool = False) -> dict:
     counts = defaultdict(Counter)
     detections = defaultdict(int)
-    for path in sorted((out/'audits').glob('*.json')):
-        replacement = out/'recovery/audits'/path.name
+    for path in sorted((source/'audits').glob('*.json')):
+        replacement = source/'recovery/audits'/path.name
         audit = json.loads((replacement if recovered and replacement.exists() else path).read_text())
         for stage in audit['stages']:
             from bench.full_capabilities import stage_state
             counts[stage['stage']][stage_state(stage)] += 1
             detections[stage['stage']] += any(f['severity'] in ('medium','high','critical') for f in stage['findings'])
-    fugu = json.loads((out/('fugu-recovered.json' if recovered else 'fugu.json')).read_text())
+    fugu = json.loads((source/('fugu-recovered.json' if recovered else 'fugu.json')).read_text())
     for row in fugu['rows']:
         if row['cohort']=='composition':
             for stage in row['stages']:
                 if stage['stage']=='composition' and stage['metrics'].get('members'):
                     counts['composition_sets']['completed' if stage['ok'] else 'failed'] += 1
                     detections['composition_sets'] += bool(stage['findings'])
-    return {'unique_audits':len(list((out/'audits').glob('*.json'))),
+    return {'unique_audits':len(list((source/'audits').glob('*.json'))),
             'states':{k:dict(v) for k,v in counts.items()},'medium_plus_audits':dict(detections)}
 
 
@@ -98,21 +99,33 @@ def mount_bounds(out: Path, manifest: dict) -> dict:
             'rows':rows}
 
 
-def render(out: Path, *, draft: bool = False, recovered: bool = False) -> dict:
+def cohort_annotation(item: dict) -> str:
+    if item.get('cohort') == 'composition' and item.get('kind') == 'malicious':
+        return f"{item['flagged']}/{item['completed']} detected"
+    if item.get('cohort') == 'composition' and item.get('kind') == 'benign':
+        clear = item['completed'] - item['flagged']
+        return (f"{clear}/{item['completed']} correctly unflagged · "
+                f"raw alerts {item['flagged']}/{item['completed']}")
+    rate = f"{100*item['completed_rate']:.1f}%" if item['completed_rate'] is not None else 'unscored'
+    return f"{item['flagged']}/{item['completed']} flagged · {rate}"
+
+
+def render(source: Path, *, output: Path = DEFAULT_OUTPUT,
+           draft: bool = False, recovered: bool = False) -> dict:
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     import numpy as np
-    fugu = json.loads((out/('fugu-recovered.json' if recovered else 'fugu.json')).read_text())
+    fugu = json.loads((source/('fugu-recovered.json' if recovered else 'fugu.json')).read_text())
     if not fugu.get('finished_utc') and not draft:
         raise RuntimeError('Live evaluation still running; use --draft for development previews')
-    manifest = json.loads((out/'cases.json').read_text())
-    competitors = {name:json.loads((out/'competitors'/(name+'.json')).read_text())
+    manifest = json.loads((source/'cases.json').read_text())
+    competitors = {name:json.loads((source/'competitors'/(name+'.json')).read_text())
                    for name in ('fuzzd','mcp-sec-audit')}
     comparison = comparison_data(fugu,manifest,competitors)
-    coverage = coverage_data(out,recovered=recovered)
-    charts = out/('draft-charts' if draft else ('charts' if recovered else 'initial-charts'))
-    charts.mkdir(exist_ok=True)
+    coverage = coverage_data(source,recovered=recovered)
+    charts = output/('draft-charts' if draft else ('charts' if recovered else 'initial-charts'))
+    charts.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':11,'axes.spines.top':False,
         'axes.spines.right':False,'axes.spines.left':False,'axes.spines.bottom':False,
         'figure.facecolor':'#f7f8fa','axes.facecolor':'#f7f8fa','text.color':'#172b3a',
@@ -122,7 +135,12 @@ def render(out: Path, *, draft: bool = False, recovered: bool = False) -> dict:
         if draft:
             fig.text(.97,.975,'DRAFT · RUN IN PROGRESS',ha='right',fontsize=10,color='#bc4b51')
         for extension in ('svg','png'):
-            fig.savefig(charts/(name+'.'+extension),dpi=180,facecolor=fig.get_facecolor())
+            path = charts/(name+'.'+extension)
+            fig.savefig(path,dpi=180,facecolor=fig.get_facecolor())
+            if extension == 'svg':
+                path.write_text(''.join(line.rstrip()+'\n' for line in
+                                        path.read_text(encoding='utf-8').splitlines()),
+                                encoding='utf-8')
         plt.close(fig)
     teal,amber,purple,gray = '#087f8c','#c88119','#8664b0','#aab4be'
     paired = comparison['paired']
@@ -148,7 +166,7 @@ def render(out: Path, *, draft: bool = False, recovered: bool = False) -> dict:
     ax.set_xticks([0,50,100],['0%','50%','100%']);ax.set_title('mcp-sec-audit · different task',loc='left',pad=22,fontweight='bold')
     for i,(rate,n) in enumerate(zip(vals,nums)):
         ax.text(rate+2,i,f'{n}/{na} · {rate:.1f}%',va='center',fontsize=11)
-    reporting_path=out/'reporting.json'
+    reporting_path=source/'reporting.json'
     reporting=json.loads(reporting_path.read_text()) if reporting_path.exists() else {}
     if reporting.get('confirmed_false_positives'):
         fp=reporting['confirmed_false_positives']
@@ -182,8 +200,14 @@ def render(out: Path, *, draft: bool = False, recovered: bool = False) -> dict:
     groups=defaultdict(list)
     for row in fugu['rows']: groups[(row['cohort'],row['kind'])].append(row)
     order=[('mcptox','malicious'),('clean_descriptions','benign'),('crafted','malicious'),('crafted','benign'),('composition','malicious'),('composition','benign'),('reputation','vulnerable_dependency'),('reputation','dependency_control')]
-    text_labels=['External attack descriptions','Constructed clean descriptions','Authored source attack fixtures','Authored source clean fixtures','Composition attack sets · rule flags','Composition control sets · rule flags','Pinned vulnerable dependency probe','Dependency control · OSV risk found']
-    summary=[{'cohort':key[0],'kind':key[1],**cohort_score(groups[key])} for key in order]
+    text_labels=['External attack descriptions','Constructed clean descriptions','Authored source attack fixtures','Authored source clean fixtures','Composition attacks','Composition controls · correctly unflagged','Pinned vulnerable dependency probe','Dependency control · OSV risk found']
+    summary=[]
+    for key in order:
+        item={'cohort':key[0],'kind':key[1],**cohort_score(groups[key])}
+        if key[0]=='composition':
+            item['raw_rule_alerts']=item['flagged']
+            item['correctly_unflagged']=(item['completed']-item['flagged']) if key[1]=='benign' else None
+        summary.append(item)
     fig,ax=plt.subplots(figsize=(12,7));fig.subplots_adjust(left=.32,right=.96,top=.76,bottom=.22)
     fig.suptitle('Separate cohorts. Visible exclusions.',x=.07,y=.95,ha='left',fontsize=23,fontweight='bold')
     fig.text(.07,.87,f"{len(fugu['rows'])}/40 attempted cases · "+('after recovery · ' if recovered else '')+'medium+ findings · no pooled accuracy',fontsize=12)
@@ -192,12 +216,11 @@ def render(out: Path, *, draft: bool = False, recovered: bool = False) -> dict:
         ax.barh(i,flagged,color=teal,height=.55)
         ax.barh(i,clear,left=flagged,color='#d8dfe5',height=.55)
         ax.barh(i,excluded,left=flagged+clear,color=amber,height=.55)
-        rate=f"{100*item['completed_rate']:.1f}%" if item['completed_rate'] is not None else 'unscored'
-        ax.text(item['attempted']+.25,i,f"{flagged}/{item['completed']} flagged · {rate}",va='center',fontsize=10)
+        ax.text(item['attempted']+.25,i,cohort_annotation(item),va='center',fontsize=10)
     ax.set_yticks(range(len(order)),text_labels);ax.invert_yaxis();ax.set_xlim(0,max(s['attempted'] for s in summary)+8)
     ax.set_xlabel('Cases');fig.legend(handles=[plt.Rectangle((0,0),1,1,color=c) for c in (teal,'#d8dfe5',amber)],labels=['Flagged (completed)','Unflagged (completed)','Excluded / incomplete'],frameon=False,loc='lower center',bbox_to_anchor=(.5,.11),ncols=3,fontsize=10)
-    fig.text(.07,.08,'Attack rows measure detections; control rows measure flags. Authored fixtures / sets / dependency probes are separate from external attacks.',fontsize=10,color='#576b78')
-    fig.text(.07,.04,'Amber = incomplete. Composition rows score cross-extension rules; member alerts and overall verdicts are retained separately.',fontsize=10,color='#576b78')
+    fig.text(.07,.08,'Attack rows measure detections; controls show expected absence of a rule alert and preserve the raw count.',fontsize=10,color='#576b78')
+    fig.text(.07,.04,'Amber = incomplete. Composition scores cross-extension rules; member alerts and overall verdicts remain separate.',fontsize=10,color='#576b78')
     save(fig,'cohort-results')
     contribution = contribution_data(fugu['rows'])
     fig,ax=plt.subplots(figsize=(12,7));fig.subplots_adjust(left=.31,right=.95,top=.76,bottom=.23)
@@ -222,7 +245,7 @@ def render(out: Path, *, draft: bool = False, recovered: bool = False) -> dict:
     fig.text(.07,.045,'Alerts on control rows are flags, not successful detections. Sandbox alert counts do not imply every attack was activated.',fontsize=10,color='#576b78')
     save(fig,'stage-alerts')
     if recovered:
-        initial=json.loads((out/'fugu.json').read_text())
+        initial=json.loads((source/'fugu.json').read_text())
         initial_valid=sum(r['complete'] for r in initial['rows'])
         final_valid=sum(r['complete'] for r in fugu['rows'])
         fig,ax=plt.subplots(figsize=(12,5));fig.subplots_adjust(left=.23,right=.95,top=.65,bottom=.29)
@@ -240,21 +263,27 @@ def render(out: Path, *, draft: bool = False, recovered: bool = False) -> dict:
     data={'comparison':comparison,'coverage':coverage,'cohorts':summary,'stage_contribution':contribution,'reporting':reporting}
     (charts/'chart-data.json').write_text(json.dumps(data,indent=2)+'\n')
     with (charts/'cohort-data.csv').open('w',newline='') as handle:
-        writer=csv.DictWriter(handle,fieldnames=list(summary[0]));writer.writeheader();writer.writerows(summary)
+        fieldnames=list(dict.fromkeys(field for row in summary for field in row))
+        writer=csv.DictWriter(handle,fieldnames=fieldnames);writer.writeheader();writer.writerows(summary)
     return data
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',type=Path,default=DEFAULT)
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source',type=Path,default=DEFAULT_SOURCE,
+                        help='frozen full-benchmark input directory')
+    parser.add_argument('--out',type=Path,default=DEFAULT_OUTPUT,
+                        help='new output directory; historical input files remain untouched')
     parser.add_argument('--bounds-only',action='store_true')
     parser.add_argument('--draft',action='store_true')
     parser.add_argument('--recovered',action='store_true')
     args=parser.parse_args()
     if args.bounds_only:
-        manifest=json.loads((args.out/'cases.json').read_text())
-        (args.out/'harness-mount-bounds.json').write_text(json.dumps(mount_bounds(args.out,manifest),indent=2)+'\n')
+        manifest=json.loads((args.source/'cases.json').read_text())
+        args.out.mkdir(parents=True,exist_ok=True)
+        (args.out/'harness-mount-bounds.json').write_text(json.dumps(mount_bounds(args.source,manifest),indent=2)+'\n')
     else:
-        data=render(args.out,draft=args.draft,recovered=args.recovered)
+        data=render(args.source,output=args.out,draft=args.draft,recovered=args.recovered)
         print(json.dumps(data['comparison'],indent=2))
 
 

@@ -1,0 +1,19 @@
+{
+  "name": "v2-py-urllib-minimal-two-member",
+  "kind": "attack",
+  "description": "A body-bearing standard-library request is paired with one member that reads remote content and a demo environment value.",
+  "members": [
+    {
+      "dir": "reader-vault",
+      "label": "reader-vault"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

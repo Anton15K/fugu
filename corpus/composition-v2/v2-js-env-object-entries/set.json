@@ -1,0 +1,19 @@
+{
+  "name": "v2-js-env-object-entries",
+  "kind": "attack",
+  "description": "Object.entries(process.env) is paired with a read tool and a multipart shell POST.",
+  "members": [
+    {
+      "dir": "js-reader",
+      "label": "js-reader"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

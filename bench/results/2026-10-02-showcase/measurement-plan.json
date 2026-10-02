@@ -1,0 +1,213 @@
+{
+  "created_utc": "2026-10-02T19:50:20.280834+00:00",
+  "artifacts": [
+    {
+      "id": "infrahub-query",
+      "repository": "opsmill/infrahub-mcp",
+      "commit": "1da6efc2d8161522573ee77efadb2e28d17a3a00",
+      "files": [
+        "README.md",
+        "src/infrahub_mcp/tools/gql.py",
+        "src/infrahub_mcp/tools/session.py"
+      ],
+      "input_sha256": {
+        "README.md": "475ddd0e9e2c6a21d8af9fe3098ece973ed6db379b389946828c112346d91bf2",
+        "src/infrahub_mcp/tools/gql.py": "81638de1b9a684542133d4b130c775c0002e7301ec19e4143272c197c6e5ef07",
+        "src/infrahub_mcp/tools/session.py": "66f8891fc4ec6013abde1ca265e494c429fdbc461fafe6d35b43d14fe39a6a75"
+      },
+      "units": [
+        {
+          "file": "README.md",
+          "part": 1,
+          "content_chars": 3219,
+          "content_sha256": "475ddd0e9e2c6a21d8af9fe3098ece973ed6db379b389946828c112346d91bf2"
+        },
+        {
+          "file": "src/infrahub_mcp/tools/gql.py",
+          "part": 1,
+          "content_chars": 2763,
+          "content_sha256": "81638de1b9a684542133d4b130c775c0002e7301ec19e4143272c197c6e5ef07"
+        },
+        {
+          "file": "src/infrahub_mcp/tools/session.py",
+          "part": 1,
+          "content_chars": 1501,
+          "content_sha256": "66f8891fc4ec6013abde1ca265e494c429fdbc461fafe6d35b43d14fe39a6a75"
+        }
+      ],
+      "primary_requests": 3,
+      "scope": "Only selected exact source files; excludes whole-repository/runtime behavior"
+    },
+    {
+      "id": "rust-filesystem",
+      "repository": "rust-mcp-stack/rust-mcp-filesystem",
+      "commit": "ef4797360ea03eec5375e03a6f10d092dfc6a5e0",
+      "files": [
+        "README.md",
+        "src/fs_service/core.rs",
+        "src/tools/list_directory_with_sizes.rs"
+      ],
+      "input_sha256": {
+        "README.md": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+        "src/fs_service/core.rs": "c08391e57ad65119315d9ba1d39dcd0c701d9e71ae6e43fdd07f38083ac0bd48",
+        "src/tools/list_directory_with_sizes.rs": "2a380bf7ff30d4f0cb63f1db2f643c0e4971b5ff7d4d4dae20a44ebcb3f216dd"
+      },
+      "units": [
+        {
+          "file": "README.md",
+          "part": 1,
+          "content_chars": 4354,
+          "content_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea"
+        },
+        {
+          "file": "src/fs_service/core.rs",
+          "part": 1,
+          "content_chars": 5938,
+          "content_sha256": "7b65557391b228e31339acd1ac77eb957cee16cf4fa7ebad20e0ef4891240e15"
+        },
+        {
+          "file": "src/fs_service/core.rs",
+          "part": 2,
+          "content_chars": 5994,
+          "content_sha256": "aa404ba3c9946e06aa61c4e8919b68388a9f7dcc57af6c5add82314627699121"
+        },
+        {
+          "file": "src/fs_service/core.rs",
+          "part": 3,
+          "content_chars": 5965,
+          "content_sha256": "735201ab3e07b71547396f40a78a537a7917478c7ca97810db5e9f3711262462"
+        },
+        {
+          "file": "src/fs_service/core.rs",
+          "part": 4,
+          "content_chars": 413,
+          "content_sha256": "718ad50e63c48e84ae475d38e4527b178e962e4da1de7d3622886aa136033f6f"
+        },
+        {
+          "file": "src/tools/list_directory_with_sizes.rs",
+          "part": 1,
+          "content_chars": 3350,
+          "content_sha256": "2a380bf7ff30d4f0cb63f1db2f643c0e4971b5ff7d4d4dae20a44ebcb3f216dd"
+        }
+      ],
+      "primary_requests": 6,
+      "scope": "Only selected exact source files; excludes whole-repository/runtime behavior"
+    },
+    {
+      "id": "aws-sagemaker",
+      "repository": "aws/tools-for-devops-agent",
+      "commit": "8b498ab9ba3b740a4c734fb765ea5a3119dc10e5",
+      "files": [
+        "skills/sagemaker-ai-ops-review/SKILL.md"
+      ],
+      "input_sha256": {
+        "skills/sagemaker-ai-ops-review/SKILL.md": "5018d9a649955eb71c00db5160d421028929dbecd01df43188d46cb95a5940a5"
+      },
+      "units": [
+        {
+          "file": "skills/sagemaker-ai-ops-review/SKILL.md",
+          "part": 1,
+          "content_chars": 5949,
+          "content_sha256": "0a07efd6d06fd7c03ce9da41969446b565532b2295f98b1c67fc28a3cac8faa0"
+        },
+        {
+          "file": "skills/sagemaker-ai-ops-review/SKILL.md",
+          "part": 2,
+          "content_chars": 5992,
+          "content_sha256": "b36ddc9ef47692e0c3ecb9d5de38afb31f8105ebc0a8869da29395a856561344"
+        },
+        {
+          "file": "skills/sagemaker-ai-ops-review/SKILL.md",
+          "part": 3,
+          "content_chars": 3719,
+          "content_sha256": "70bd75becdb9dacc306985bb29d2807760a58f6d36e882fc9be28c4166ef056b"
+        }
+      ],
+      "primary_requests": 3,
+      "scope": "Only selected exact source files; excludes whole-repository/runtime behavior"
+    },
+    {
+      "id": "amd-hyperloom",
+      "repository": "amd/skills",
+      "commit": "de0d03ae90b37a4f5ef38e0cf26ef6e3d3af7e94",
+      "files": [
+        "skills/hyperloom-workload-optimizer/SKILL.md"
+      ],
+      "input_sha256": {
+        "skills/hyperloom-workload-optimizer/SKILL.md": "baf471f98d4339b735613586ca6c37e7b73ef42e58f35f1b2990f97b407c0f96"
+      },
+      "units": [
+        {
+          "file": "skills/hyperloom-workload-optimizer/SKILL.md",
+          "part": 1,
+          "content_chars": 5998,
+          "content_sha256": "fedeafdbaf7ed283263890cd1ea4b34ef3039dc486bfb27b2114c73ad520bd55"
+        },
+        {
+          "file": "skills/hyperloom-workload-optimizer/SKILL.md",
+          "part": 2,
+          "content_chars": 755,
+          "content_sha256": "710e8ef9b6142b3baded540062356efa44fd92f3f6b7e1539069d3ea0fd458a9"
+        }
+      ],
+      "primary_requests": 2,
+      "scope": "Only selected exact source files; excludes whole-repository/runtime behavior"
+    },
+    {
+      "id": "bifrost-files",
+      "repository": "UCR-Research-Computing/ursa-bifrost",
+      "commit": "35fe9ee7b161ae4b9c63be11de982a9c1870beb7",
+      "files": [
+        "internal/core/files.go",
+        "internal/policy/redact.go"
+      ],
+      "input_sha256": {
+        "internal/core/files.go": "07005660b1a0dbbd4b259b356901f94ad7b1a60e62bb3f435a78704ab7e8b537",
+        "internal/policy/redact.go": "f91293c254cc3ad6532c426d1135032d0ef048d311d57519d68359678cd91dc1"
+      },
+      "units": [
+        {
+          "file": "internal/core/files.go",
+          "part": 1,
+          "content_chars": 5921,
+          "content_sha256": "29df519d5d49771b018c96079895f46bf56f2287d6b9a0369b2b829c69e0b6c3"
+        },
+        {
+          "file": "internal/core/files.go",
+          "part": 2,
+          "content_chars": 5968,
+          "content_sha256": "2f8579fa63f4a92b25348e63bd3b90e21cbfa8d2c559388333c9dea6c86a0dcc"
+        },
+        {
+          "file": "internal/core/files.go",
+          "part": 3,
+          "content_chars": 176,
+          "content_sha256": "58ae30dd129ed90cf6f5fb799a03b81a08e5e02a046cb8c315c26d92127c1d26"
+        },
+        {
+          "file": "internal/policy/redact.go",
+          "part": 1,
+          "content_chars": 3654,
+          "content_sha256": "f91293c254cc3ad6532c426d1135032d0ef048d311d57519d68359678cd91dc1"
+        }
+      ],
+      "primary_requests": 4,
+      "scope": "Only selected exact source files; excludes whole-repository/runtime behavior"
+    }
+  ],
+  "engine_manifest": "engine-manifest.json",
+  "calls_limit_total": 24,
+  "planned_primary_requests": 18,
+  "completion_tokens_per_request": 4096,
+  "timeout_s": 90,
+  "sdk_retries": 0,
+  "response_recovery": "Frozen S2 allows one retry for unusable JSON; every request counted globally; no retry of valid unflagged results",
+  "stop_rules": [
+    "Hard24 before any network request",
+    "Stop network calls on exhaustion or auth error; remaining units/artifacts incomplete",
+    "No quota purchase or Snyk calls",
+    "S3/S4 and target execution excluded"
+  ],
+  "system_prompt_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+  "system_prompt_chars": 2859
+}

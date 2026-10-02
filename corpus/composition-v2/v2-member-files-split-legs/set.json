@@ -1,0 +1,19 @@
+{
+  "name": "v2-member-files-split-legs",
+  "kind": "attack",
+  "description": "Remote GET and POST live in different files of one member, while private-data evidence belongs to another member.",
+  "members": [
+    {
+      "dir": "bridge",
+      "label": "bridge"
+    },
+    {
+      "dir": "vault",
+      "label": "vault"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

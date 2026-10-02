@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "reviewer": "research.security",
+  "review_type": "manual source adjudication; independent review pending",
+  "created_utc": "2026-10-02T20:02:55.952024+00:00",
+  "alerts": [
+    {
+      "artifact": "rust-filesystem",
+      "stage": "static",
+      "finding_index": 0,
+      "finding_title": "Remote install script fetched and executed in README.md",
+      "finding_sha256": "d4a5a880d0f593cfff16f0a649a58c940657b35c32b2777bc66650a43a1a34cf",
+      "original_severity": "high",
+      "original_confidence": "deterministic",
+      "classification": "documented_install_hygiene",
+      "confirmed_vulnerability": false,
+      "assessment": "The rule deterministically matches a documented official v0.4.5 installer piped into a shell. This is an install-time execution capability and inspection/integrity concern; no malicious payload or unauthorized behavior was demonstrated. The HIGH rule label is preserved, not adopted as a vulnerability severity.",
+      "source_path": "README.md",
+      "source_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+      "manual_source_lines": [
+        37,
+        37
+      ],
+      "primary_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/blob/ef4797360ea03eec5375e03a6f10d092dfc6a5e0/README.md#L37-L37",
+      "model_excerpt_literal_match": null,
+      "model_excerpt_whitespace_normalized_match": null,
+      "locator_note": "Static evidence includes its L37 prefix; the source command is at line37."
+    },
+    {
+      "artifact": "rust-filesystem",
+      "stage": "semantic",
+      "finding_index": 0,
+      "finding_title": "Fetch-and-run installation patterns in quick-start guide",
+      "finding_sha256": "ef4267a38d62800538aa099b7d9e87ad2cb9c92ebc50a201501498fcf90ffe74",
+      "original_severity": "low",
+      "original_confidence": "advisory",
+      "classification": "documented_install_hygiene",
+      "confirmed_vulnerability": false,
+      "assessment": "Same shell installer pattern as the static alert; the model also mentions PowerShell. Versioned official URLs are present. This overlaps the deterministic alert and is not a separate confirmed vulnerability.",
+      "source_path": "README.md",
+      "source_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+      "manual_source_lines": [
+        37,
+        42
+      ],
+      "primary_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/blob/ef4797360ea03eec5375e03a6f10d092dfc6a5e0/README.md#L37-L42",
+      "model_excerpt_literal_match": true,
+      "model_excerpt_whitespace_normalized_match": true,
+      "locator_note": "Original model line hints remain in measured.json; manual line ranges here identify the actual pinned source. Some model excerpts normalize whitespace or paraphrase and are not verbatim."
+    },
+    {
+      "artifact": "rust-filesystem",
+      "stage": "semantic",
+      "finding_index": 1,
+      "finding_title": "Fetch-and-run installation pattern (PowerShell)",
+      "finding_sha256": "741b7d8cc34f2118b5c237297d116dd645e221205515d0724885bd6b8bd9521f",
+      "original_severity": "low",
+      "original_confidence": "advisory",
+      "classification": "documented_install_hygiene",
+      "confirmed_vulnerability": false,
+      "assessment": "The PowerShell quick-start downloads then evaluates the official versioned installer. Source supports the hygiene note; the installer itself was not downloaded or executed in this task.",
+      "source_path": "README.md",
+      "source_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+      "manual_source_lines": [
+        42,
+        42
+      ],
+      "primary_url": "https://github.com/rust-mcp-stack/rust-mcp-filesystem/blob/ef4797360ea03eec5375e03a6f10d092dfc6a5e0/README.md#L42-L42",
+      "model_excerpt_literal_match": true,
+      "model_excerpt_whitespace_normalized_match": true,
+      "locator_note": "Original model line hints remain in measured.json; manual line ranges here identify the actual pinned source. Some model excerpts normalize whitespace or paraphrase and are not verbatim."
+    },
+    {
+      "artifact": "aws-sagemaker",
+      "stage": "semantic",
+      "finding_index": 0,
+      "finding_title": "External reference file not available for review",
+      "finding_sha256": "212aa99e5ecb42a42087efc8253d9c8dc1994b266e1d78dd095d9a373db9c8e1",
+      "original_severity": "low",
+      "original_confidence": "advisory",
+      "classification": "selected_input_coverage_gap",
+      "confirmed_vulnerability": false,
+      "assessment": "The reference exists at skills/sagemaker-ai-ops-review/references/pillar-checks.md in the pinned cache. It was excluded from our one-file paid packet. This is a coverage limit caused by packet selection, not evidence that the repository is missing its reference or has a vulnerability.",
+      "source_path": "skills/sagemaker-ai-ops-review/SKILL.md",
+      "source_sha256": "5018d9a649955eb71c00db5160d421028929dbecd01df43188d46cb95a5940a5",
+      "manual_source_lines": [
+        46,
+        47
+      ],
+      "primary_url": "https://github.com/aws/tools-for-devops-agent/blob/8b498ab9ba3b740a4c734fb765ea5a3119dc10e5/skills/sagemaker-ai-ops-review/SKILL.md#L46-L47",
+      "model_excerpt_literal_match": false,
+      "model_excerpt_whitespace_normalized_match": false,
+      "locator_note": "Original model line hints remain in measured.json; manual line ranges here identify the actual pinned source. Some model excerpts normalize whitespace or paraphrase and are not verbatim."
+    },
+    {
+      "artifact": "amd-hyperloom",
+      "stage": "semantic",
+      "finding_index": 0,
+      "finding_title": "Unpinned dependency in installation instruction",
+      "finding_sha256": "ba4192582942c259f087c89e4ae0a04dbdbe35491c3c5c7a4ab74e8775065ab4",
+      "original_severity": "low",
+      "original_confidence": "advisory",
+      "classification": "reproducibility_hygiene",
+      "confirmed_vulnerability": false,
+      "assessment": "The documented default installs the current wheel release; the user may request a version. That can change downstream inputs across runs. The wheel was not acquired or assessed, so this note does not establish malicious dependency behavior.",
+      "source_path": "skills/hyperloom-workload-optimizer/SKILL.md",
+      "source_sha256": "baf471f98d4339b735613586ca6c37e7b73ef42e58f35f1b2990f97b407c0f96",
+      "manual_source_lines": [
+        64,
+        72
+      ],
+      "primary_url": "https://github.com/amd/skills/blob/de0d03ae90b37a4f5ef38e0cf26ef6e3d3af7e94/skills/hyperloom-workload-optimizer/SKILL.md#L64-L72",
+      "model_excerpt_literal_match": true,
+      "model_excerpt_whitespace_normalized_match": true,
+      "locator_note": "Original model line hints remain in measured.json; manual line ranges here identify the actual pinned source. Some model excerpts normalize whitespace or paraphrase and are not verbatim."
+    },
+    {
+      "artifact": "amd-hyperloom",
+      "stage": "semantic",
+      "finding_index": 1,
+      "finding_title": "Wheel installs skills into agent skill directories",
+      "finding_sha256": "5cf806d29b647fe752dc198a2eb824330ab3ef2efa74a462fe6efab95cc54bdd",
+      "original_severity": "low",
+      "original_confidence": "advisory",
+      "classification": "declared_capability",
+      "confirmed_vulnerability": false,
+      "assessment": "The skill declares installation into agent skill directories and requires a dedicated workspace with user acceptance of .env changes. The listed paths are relative: this text does not establish modification outside the authorized workspace. Actual wheel installation behavior is unmeasured.",
+      "source_path": "skills/hyperloom-workload-optimizer/SKILL.md",
+      "source_sha256": "baf471f98d4339b735613586ca6c37e7b73ef42e58f35f1b2990f97b407c0f96",
+      "manual_source_lines": [
+        57,
+        84
+      ],
+      "primary_url": "https://github.com/amd/skills/blob/de0d03ae90b37a4f5ef38e0cf26ef6e3d3af7e94/skills/hyperloom-workload-optimizer/SKILL.md#L57-L84",
+      "model_excerpt_literal_match": false,
+      "model_excerpt_whitespace_normalized_match": true,
+      "locator_note": "Original model line hints remain in measured.json; manual line ranges here identify the actual pinned source. Some model excerpts normalize whitespace or paraphrase and are not verbatim."
+    },
+    {
+      "artifact": "amd-hyperloom",
+      "stage": "semantic",
+      "finding_index": 2,
+      "finding_title": "Credential handling delegated to installed setup skill",
+      "finding_sha256": "138de42405df319891aac8b4211dd7fdefd9f737ef8bff7d78a391436b3401f6",
+      "original_severity": "low",
+      "original_confidence": "advisory",
+      "classification": "downstream_coverage_gap",
+      "confirmed_vulnerability": false,
+      "assessment": "Credential/setup handling is delegated to the installed setup skill, outside the selected packet. This is a downstream coverage limit. The bootstrap says not to solicit keys in chat; no credential disclosure was demonstrated.",
+      "source_path": "skills/hyperloom-workload-optimizer/SKILL.md",
+      "source_sha256": "baf471f98d4339b735613586ca6c37e7b73ef42e58f35f1b2990f97b407c0f96",
+      "manual_source_lines": [
+        74,
+        90
+      ],
+      "primary_url": "https://github.com/amd/skills/blob/de0d03ae90b37a4f5ef38e0cf26ef6e3d3af7e94/skills/hyperloom-workload-optimizer/SKILL.md#L74-L90",
+      "model_excerpt_literal_match": false,
+      "model_excerpt_whitespace_normalized_match": true,
+      "locator_note": "Original model line hints remain in measured.json; manual line ranges here identify the actual pinned source. Some model excerpts normalize whitespace or paraphrase and are not verbatim."
+    },
+    {
+      "artifact": "amd-hyperloom",
+      "stage": "semantic",
+      "finding_index": 3,
+      "finding_title": "Long-running background GPU workloads with agent monitoring",
+      "finding_sha256": "1ca04a9fd3583740e03dc334017654c325f6f0752b1a775f55b1746091003b93",
+      "original_severity": "low",
+      "original_confidence": "advisory",
+      "classification": "declared_capability",
+      "confirmed_vulnerability": false,
+      "assessment": "Hours-long GPU work matches the stated optimizer purpose. Lines 118\u2013120 require a user go-ahead on the resolved plan before launch. This observation does not demonstrate excessive unauthorized agency or a violated boundary.",
+      "source_path": "skills/hyperloom-workload-optimizer/SKILL.md",
+      "source_sha256": "baf471f98d4339b735613586ca6c37e7b73ef42e58f35f1b2990f97b407c0f96",
+      "manual_source_lines": [
+        114,
+        127
+      ],
+      "primary_url": "https://github.com/amd/skills/blob/de0d03ae90b37a4f5ef38e0cf26ef6e3d3af7e94/skills/hyperloom-workload-optimizer/SKILL.md#L114-L127",
+      "model_excerpt_literal_match": false,
+      "model_excerpt_whitespace_normalized_match": false,
+      "locator_note": "Original model line hints remain in measured.json; manual line ranges here identify the actual pinned source. Some model excerpts normalize whitespace or paraphrase and are not verbatim."
+    }
+  ],
+  "manual_unmeasured_sources": [
+    {
+      "repository": "aws/tools-for-devops-agent",
+      "commit": "8b498ab9ba3b740a4c734fb765ea5a3119dc10e5",
+      "path": "skills/sagemaker-ai-ops-review/references/pillar-checks.md",
+      "sha256": "6d418fe577aa994ad61beb1022cad2767b432ff5cbf5c9960ecdefc2f789a018",
+      "lines": [
+        1,
+        125
+      ],
+      "purpose": "Confirm the referenced file exists; manual inspection only, not an S2 measured input.",
+      "url": "https://github.com/aws/tools-for-devops-agent/blob/8b498ab9ba3b740a4c734fb765ea5a3119dc10e5/skills/sagemaker-ai-ops-review/references/pillar-checks.md"
+    },
+    {
+      "repository": "UCR-Research-Computing/ursa-bifrost",
+      "commit": "35fe9ee7b161ae4b9c63be11de982a9c1870beb7",
+      "path": "README.md",
+      "sha256": "0c69655dd778edfd5746aa9753761dfa005f11a395d6c9ec81b1622b637f546d",
+      "lines": [
+        223,
+        242
+      ],
+      "purpose": "Read declared confirmation/root/redaction contract; README not included in the measured packet.",
+      "url": "https://github.com/UCR-Research-Computing/ursa-bifrost/blob/35fe9ee7b161ae4b9c63be11de982a9c1870beb7/README.md"
+    }
+  ],
+  "issue_drafts": []
+}

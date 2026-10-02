@@ -1,0 +1,556 @@
+{
+  "cases": [
+    {
+      "id": "v2-py-direct-three-way",
+      "family": "python-direct-http",
+      "kind": "attack",
+      "description": "Three distinct members expose a remote read, a demo environment read, and an HTTP POST.",
+      "target": "corpus/composition-v2/v2-py-direct-three-way",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-py-direct-two-member",
+      "family": "python-direct-http",
+      "kind": "attack",
+      "description": "A two-member minimal chain places remote read and demo environment read in one member.",
+      "target": "corpus/composition-v2/v2-py-direct-two-member",
+      "members": [
+        {
+          "dir": "reader-vault",
+          "label": "reader-vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "reserved"
+    },
+    {
+      "id": "v2-py-direct-no-private-control",
+      "family": "python-direct-http",
+      "kind": "control",
+      "description": "Remote read and HTTP POST are present, but no private-data capability is represented.",
+      "target": "corpus/composition-v2/v2-py-direct-no-private-control",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-py-module-alias-post",
+      "family": "python-import-aliases",
+      "kind": "attack",
+      "description": "HTTP POST is called through a module import alias while the other two legs are direct.",
+      "target": "corpus/composition-v2/v2-py-module-alias-post",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-py-symbol-alias-post",
+      "family": "python-import-aliases",
+      "kind": "attack",
+      "description": "HTTP POST is imported as a local symbol; remote read and private-data evidence remain direct.",
+      "target": "corpus/composition-v2/v2-py-symbol-alias-post",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-py-alias-no-private-control",
+      "family": "python-import-aliases",
+      "kind": "control",
+      "description": "Aliased HTTP POST and remote read appear without a private-data leg.",
+      "target": "corpus/composition-v2/v2-py-alias-no-private-control",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "reserved"
+    },
+    {
+      "id": "v2-py-urllib-request-body",
+      "family": "python-stdlib-urlrequest",
+      "kind": "attack",
+      "description": "Standard-library urlopen retrieval, a sensitive-path reference, and a body-bearing Request span members.",
+      "target": "corpus/composition-v2/v2-py-urllib-request-body",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-py-urllib-minimal-two-member",
+      "family": "python-stdlib-urlrequest",
+      "kind": "attack",
+      "description": "A body-bearing standard-library request is paired with one member that reads remote content and a demo environment value.",
+      "target": "corpus/composition-v2/v2-py-urllib-minimal-two-member",
+      "members": [
+        {
+          "dir": "reader-vault",
+          "label": "reader-vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "reserved"
+    },
+    {
+      "id": "v2-py-urllib-no-egress-control",
+      "family": "python-stdlib-urlrequest",
+      "kind": "control",
+      "description": "Standard-library remote read and demo environment read appear without a body-bearing request.",
+      "target": "corpus/composition-v2/v2-py-urllib-no-egress-control",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "logger",
+          "label": "logger"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-js-env-enumeration",
+      "family": "javascript-tool-schema",
+      "kind": "attack",
+      "description": "A JavaScript environment enumeration finding, a harvested fetch tool name, and a separate shell POST span members.",
+      "target": "corpus/composition-v2/v2-js-env-enumeration",
+      "members": [
+        {
+          "dir": "js-reader",
+          "label": "js-reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "reserved"
+    },
+    {
+      "id": "v2-js-env-object-entries",
+      "family": "javascript-tool-schema",
+      "kind": "attack",
+      "description": "Object.entries(process.env) is paired with a read tool and a multipart shell POST.",
+      "target": "corpus/composition-v2/v2-js-env-object-entries",
+      "members": [
+        {
+          "dir": "js-reader",
+          "label": "js-reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-js-single-env-and-get-control",
+      "family": "javascript-tool-schema",
+      "kind": "control",
+      "description": "A single NODE_ENV read and a shell GET do not establish private-data plus egress.",
+      "target": "corpus/composition-v2/v2-js-single-env-and-get-control",
+      "members": [
+        {
+          "dir": "js-reader",
+          "label": "js-reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-shell-curl-post",
+      "family": "shell-curl-methods",
+      "kind": "attack",
+      "description": "Shell GET, a sensitive credential-path reference, and shell POST are distributed across three members.",
+      "target": "corpus/composition-v2/v2-shell-curl-post",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-shell-curl-two-member",
+      "family": "shell-curl-methods",
+      "kind": "attack",
+      "description": "Shell GET and a private environment read occur in one member; a separate curl form POST supplies egress.",
+      "target": "corpus/composition-v2/v2-shell-curl-two-member",
+      "members": [
+        {
+          "dir": "reader-vault",
+          "label": "reader-vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-shell-no-private-control",
+      "family": "shell-curl-methods",
+      "kind": "control",
+      "description": "Shell GET and POST occur without any private-data access signal.",
+      "target": "corpus/composition-v2/v2-shell-no-private-control",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "reserved"
+    },
+    {
+      "id": "v2-schema-derived-ingress",
+      "family": "tool-schema-harvest",
+      "kind": "attack",
+      "description": "A fetched tool name harvested from server.json combines with direct Python private-data and egress evidence.",
+      "target": "corpus/composition-v2/v2-schema-derived-ingress",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-schema-neutral-name-control",
+      "family": "tool-schema-harvest",
+      "kind": "control",
+      "description": "A neutral compute tool name, private-data read, and HTTP POST do not provide ingress.",
+      "target": "corpus/composition-v2/v2-schema-neutral-name-control",
+      "members": [
+        {
+          "dir": "processor",
+          "label": "processor"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-schema-ingress-no-egress-control",
+      "family": "tool-schema-harvest",
+      "kind": "control",
+      "description": "A harvested read tool and a private-data read appear without an egress member.",
+      "target": "corpus/composition-v2/v2-schema-ingress-no-egress-control",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "reserved"
+    },
+    {
+      "id": "v2-member-files-split-legs",
+      "family": "member-file-boundaries",
+      "kind": "attack",
+      "description": "Remote GET and POST live in different files of one member, while private-data evidence belongs to another member.",
+      "target": "corpus/composition-v2/v2-member-files-split-legs",
+      "members": [
+        {
+          "dir": "bridge",
+          "label": "bridge"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        }
+      ],
+      "expected": {
+        "trifecta": true,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-member-files-private-egress-control",
+      "family": "member-file-boundaries",
+      "kind": "control",
+      "description": "A multi-file member contains private-data and POST evidence, but no remote-read source or read tool.",
+      "target": "corpus/composition-v2/v2-member-files-private-egress-control",
+      "members": [
+        {
+          "dir": "sender",
+          "label": "sender"
+        },
+        {
+          "dir": "logger",
+          "label": "logger"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-member-files-get-post-no-private-control",
+      "family": "member-file-boundaries",
+      "kind": "control",
+      "description": "Separate GET and POST files are present, but no private-data signal exists anywhere in the set.",
+      "target": "corpus/composition-v2/v2-member-files-get-post-no-private-control",
+      "members": [
+        {
+          "dir": "bridge",
+          "label": "bridge"
+        },
+        {
+          "dir": "logger",
+          "label": "logger"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "reserved"
+    },
+    {
+      "id": "v2-self-sufficient-member-control",
+      "family": "composition-boundaries",
+      "kind": "control",
+      "description": "One member contains all three capability legs across files and a second member is clean; no cross-member chain should be reported.",
+      "target": "corpus/composition-v2/v2-self-sufficient-member-control",
+      "members": [
+        {
+          "dir": "complete",
+          "label": "complete"
+        },
+        {
+          "dir": "logger",
+          "label": "logger"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-name-equal-different-servers-control",
+      "family": "composition-boundaries",
+      "kind": "control",
+      "description": "Two independent server manifests reuse a raw tool name; no client namespace contract or resolution evidence is supplied.",
+      "target": "corpus/composition-v2/v2-name-equal-different-servers-control",
+      "members": [
+        {
+          "dir": "server-alpha",
+          "label": "server-alpha"
+        },
+        {
+          "dir": "server-beta",
+          "label": "server-beta"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "development"
+    },
+    {
+      "id": "v2-name-normalized-different-servers-control",
+      "family": "composition-boundaries",
+      "kind": "control",
+      "description": "Two independent server manifests use punctuation variants that normalize alike; no client namespace contract or resolution evidence is supplied.",
+      "target": "corpus/composition-v2/v2-name-normalized-different-servers-control",
+      "members": [
+        {
+          "dir": "server-alpha",
+          "label": "server-alpha"
+        },
+        {
+          "dir": "server-beta",
+          "label": "server-beta"
+        }
+      ],
+      "expected": {
+        "trifecta": false,
+        "shadowing": false
+      },
+      "split": "reserved"
+    }
+  ]
+}

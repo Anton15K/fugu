@@ -1,0 +1,19 @@
+{
+  "name": "v2-js-env-enumeration",
+  "kind": "attack",
+  "description": "A JavaScript environment enumeration finding, a harvested fetch tool name, and a separate shell POST span members.",
+  "members": [
+    {
+      "dir": "js-reader",
+      "label": "js-reader"
+    },
+    {
+      "dir": "reporter",
+      "label": "reporter"
+    }
+  ],
+  "expected": {
+    "trifecta": true,
+    "shadowing": false
+  }
+}

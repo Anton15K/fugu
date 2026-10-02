@@ -3,7 +3,7 @@
  *
  * Everything under the verdict banner: the canary-exfiltration centerpiece
  * panel, per-finding collapsible rows with labeled evidence exhibits, the
- * composition section (trifecta chain / tool shadowing), and the oversized
+ * composition section (trifecta chain / tool-name inventory), and the oversized
  * confidence-tier pills used in the banner legend.
  *
  * Pure presentation — data shapes come from `@/lib/types`. Every behavioral
@@ -418,9 +418,8 @@ function TrifectaChain({ finding }: { finding: Finding }) {
   );
 }
 
-/** Shadowing: colliding tool names across members, parsed from `tools:<name>`
- *  evidence (meta { normalized, member(slug), raw }). */
-function ShadowingCollisions({ finding }: { finding: Finding }) {
+/** Tool-name inventory, parsed from `tools:<name>` evidence. */
+function ToolNameInventory({ finding }: { finding: Finding }) {
   const tools = finding.evidence
     .map((e) => {
       const p = parseToolEvidence(e.source);
@@ -434,7 +433,7 @@ function ShadowingCollisions({ finding }: { finding: Finding }) {
   if (tools.length === 0) return null;
   const normalized = tools[0]?.normalized ?? tools[0]?.name ?? "";
   return (
-    <div className="flex flex-col gap-2">
+    <div role="group" aria-label={`${finding.title} tool name inventory`} className="flex flex-col gap-2">
       {normalized && (
         <p className="font-mono text-[11px] text-zinc-500">
           all normalize to{" "}
@@ -459,10 +458,17 @@ function ShadowingCollisions({ finding }: { finding: Finding }) {
   );
 }
 
-/** True when the finding is a trifecta (member-attributed legs) vs shadowing
- *  (tools: evidence). Derives from evidence shape, not title text. */
+/** True when the finding is a trifecta (member-attributed legs). */
 function isTrifectaFinding(f: Finding): boolean {
   return f.evidence.some((e) => parseMemberEvidence(e.source) !== null);
+}
+
+/** The current backend marks inventory-only normalized overlaps explicitly. */
+function isNameOverlapOnly(f: Finding): boolean {
+  return f.evidence.length > 0 && f.evidence.every((e) => {
+    const meta = e.meta as Record<string, unknown> | undefined;
+    return parseToolEvidence(e.source) !== null && meta?.interpretation === "name-overlap-only";
+  });
 }
 
 /** Renders ONLY when composition findings exist (multi-source jobs). Single
@@ -472,8 +478,30 @@ export function CombinationSection({ findings }: { findings: Finding[] }) {
   if (compositionFindings.length === 0) return null;
 
   const trifectas = compositionFindings.filter(isTrifectaFinding);
-  const shadowing = compositionFindings.filter((f) => !isTrifectaFinding(f));
+  const toolNameFindings = compositionFindings.filter((f) =>
+    !isTrifectaFinding(f) && f.evidence.some((e) => parseToolEvidence(e.source) !== null),
+  );
+  const nameOverlaps = toolNameFindings.filter(isNameOverlapOnly);
+  const reportedToolNameFindings = toolNameFindings.filter((f) => !isNameOverlapOnly(f));
+  const otherFindings = compositionFindings.filter((f) =>
+    !isTrifectaFinding(f) && !toolNameFindings.includes(f),
+  );
   const fired = trifectas.some((f) => sevRank(f.severity) >= (SEV_RANK.high ?? 0));
+
+  const renderToolNameFinding = (f: Finding, i: number) => (
+    <div key={`${f.title}-${i}`} className="flex flex-col gap-2 rounded-lg border border-zinc-800/70 bg-zinc-950/50 p-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <SeverityChip severity={f.severity} />
+        <ConfidenceBadge tier={f.confidence} />
+        <span className="text-[13px] font-medium text-zinc-200">{f.title}</span>
+      </div>
+      <ToolNameInventory finding={f} />
+      <p className="text-[12px] leading-relaxed text-zinc-400">{f.detail}</p>
+      <div className="flex flex-wrap gap-1">
+        {f.owasp_ids.map((id) => <OwaspChip key={id} id={id} />)}
+      </div>
+    </div>
+  );
 
   return (
     <div
@@ -517,24 +545,50 @@ export function CombinationSection({ findings }: { findings: Finding[] }) {
           </section>
         )}
 
-        {shadowing.length > 0 && (
+        {nameOverlaps.length > 0 && (
+          <section aria-label="Tool name overlaps in source inventory" className="flex flex-col gap-3">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+                tool name overlaps · source inventory
+              </p>
+              <p className="mt-1 text-[11px] leading-relaxed text-zinc-400">
+                Matching normalized names are a review hint. They do not establish a shared runtime namespace or which definition a client resolves.
+              </p>
+            </div>
+            {nameOverlaps.map(renderToolNameFinding)}
+          </section>
+        )}
+
+        {reportedToolNameFindings.length > 0 && (
+          <section aria-label="Previously reported tool-name findings" className="flex flex-col gap-3">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+                previously reported tool-name findings
+              </p>
+              <p className="mt-1 text-[11px] leading-relaxed text-zinc-400">
+                Original stored findings are shown as reported. Review their evidence when checking runtime behavior.
+              </p>
+            </div>
+            {reportedToolNameFindings.map(renderToolNameFinding)}
+          </section>
+        )}
+
+        {otherFindings.length > 0 && (
           <section className="flex flex-col gap-3">
             <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-              tool shadowing · colliding names across members
+              other composition findings
             </p>
-            {shadowing.map((f, i) => (
-              <div key={i} className="flex flex-col gap-2 rounded-lg border border-zinc-800/70 bg-zinc-950/50 p-3">
+            {otherFindings.map((f, i) => (
+              <div key={`${f.title}-${i}`} className="flex flex-col gap-2 rounded-lg border border-zinc-800/70 bg-zinc-950/50 p-3">
                 <div className="flex flex-wrap items-center gap-2">
                   <SeverityChip severity={f.severity} />
                   <ConfidenceBadge tier={f.confidence} />
                   <span className="text-[13px] font-medium text-zinc-200">{f.title}</span>
                 </div>
-                <ShadowingCollisions finding={f} />
                 <p className="text-[12px] leading-relaxed text-zinc-400">{f.detail}</p>
+                {f.evidence.map((e, index) => <EvidenceBlock key={`${e.source}-${index}`} evidence={e} index={index} />)}
                 <div className="flex flex-wrap gap-1">
-                  {f.owasp_ids.map((id) => (
-                    <OwaspChip key={id} id={id} />
-                  ))}
+                  {f.owasp_ids.map((id) => <OwaspChip key={id} id={id} />)}
                 </div>
               </div>
             ))}
