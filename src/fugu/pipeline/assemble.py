@@ -16,6 +16,7 @@ from pathlib import Path
 from fugu.pipeline.stages.concealment import ConcealmentStage
 from fugu.pipeline.stages.static_scan import StaticScanStage
 from fugu.types import AuditJob, Finding, JobStatus, StageResult
+from fugu.source_safety import validate_source_tree
 
 __all__ = ["build_stages", "run_audit", "run_stages"]
 
@@ -83,8 +84,12 @@ def _make_detonation_driver():
 
 
 async def run_stages(job: AuditJob, target: Path, stages: list) -> list[StageResult]:
-    """Run stages sequentially, never raising; per-stage failures become
-    StageResult(ok=False, error=...) so partial audits stay useful."""
+    """Validate the source, then isolate per-stage failures as results.
+
+    Unsafe sources raise before any stage runs; individual stage failures
+    become StageResult(ok=False, error=...) so partial audits stay useful.
+    """
+    target = validate_source_tree(target)
     results: list[StageResult] = []
     for stage in stages:
         try:
@@ -111,6 +116,7 @@ def run_audit(
     target = Path(target).resolve()
     if not target.is_dir():
         raise NotADirectoryError(f"audit target must be a directory: {target}")
+    validate_source_tree(target)
     job = AuditJob(id="cli", source=str(target), status=JobStatus.running)
     results = asyncio.run(
         run_stages(

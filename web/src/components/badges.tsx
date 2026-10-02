@@ -25,7 +25,7 @@ export function SeverityChip({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded border px-1.5 py-px font-mono text-[10px] font-semibold uppercase tracking-wider",
+        "inline-flex items-center gap-1 rounded border px-1.5 py-px font-mono text-[11px] font-semibold uppercase tracking-wider",
         severityStyles[severity],
         className,
       )}
@@ -59,7 +59,7 @@ export function ConfidenceBadge({ tier }: { tier: ConfidenceTier }) {
 
 export function OwaspChip({ id }: { id: string }) {
   return (
-    <span className="inline-flex items-center rounded-sm border border-zinc-700/80 bg-zinc-900 px-1.5 py-px font-mono text-[10px] font-medium tracking-wide text-zinc-400">
+    <span className="inline-flex items-center rounded-sm border border-zinc-700/80 bg-zinc-900 px-1.5 py-px font-mono text-[11px] font-medium tracking-wide text-zinc-400">
       {id}
     </span>
   );

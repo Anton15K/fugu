@@ -106,5 +106,22 @@ const check = (name, cond) => { cond ? pass++ : fail++; console.log(`  ${cond ? 
   check("duplicate stage_started: idempotent", s.stages.static === "done");
 }
 
+// Successful no-op stages are unavailable coverage, not completed checks.
+{
+  let s = initialPipelineState();
+  s = applyEvent(s, ev("stage_started", { stage: "semantic" }));
+  s = applyEvent(s, ev("stage_done", { stage: "semantic", ok: true, metrics: { skipped: "no API key" } }));
+  check("skip metrics: semantic is skipped", s.stages.semantic === "skipped");
+  s = applyEvent(s, ev("verdict", { verdict: { status: "pass" } }));
+  check("skip metrics: terminal preserves skipped status", s.stages.semantic === "skipped");
+}
+// A verdict cannot prove a running stage finished without a completion event.
+{
+  let s = initialPipelineState();
+  s = applyEvent(s, ev("stage_started", { stage: "detonation" }));
+  s = applyEvent(s, ev("verdict", { verdict: { status: "warn" } }));
+  check("interrupted stage: not marked completed", s.stages.detonation === "error");
+}
+
 console.log(`\nedge cases: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

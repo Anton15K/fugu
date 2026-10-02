@@ -3,7 +3,8 @@ import { readPathJob, writePathJob, clearPathJob, rememberJobMeta } from "@/lib/
 import { openAuditStream, submitAudit, type StreamHandle, type StreamStatus } from "@/lib/api";
 import { isMockEnabled, mockSubmitAudit, openMockAuditStream } from "@/lib/mockStream";
 import { loadRecentJobs, pushRecentJob, RECENT_KEY } from "@/lib/recentJobs";
-import type { AuditDepth, AuditJob, StageEvent, VerdictData } from "@/lib/types";
+import { mapAuditResult, type AuditResult } from "@/lib/auditResult";
+import type { AuditDepth, AuditJob, StageEvent } from "@/lib/types";
 import {
   PipelineMonitor,
   applyEvent,
@@ -16,12 +17,12 @@ import { SubmitForm } from "@/views/SubmitForm";
 type Phase = "idle" | "running" | "done";
 
 interface VerdictInfo {
-  verdict: VerdictData;
+  result: AuditResult;
   elapsedMs: number;
 }
 
 export default function App() {
-  const mock = isMockEnabled();
+  const mock = isMockEnabled() && !location.pathname.startsWith("/audit/");
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [job, setJob] = useState<AuditJob | null>(null);
@@ -30,12 +31,15 @@ export default function App() {
   const [streamStatus, setStreamStatus] = useState<StreamStatus | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [recent, setRecent] = useState<AuditJob[]>(() => loadRecentJobs(RECENT_KEY));
+  const [recent, setRecent] = useState<AuditJob[]>(() => loadRecentJobs(RECENT_KEY).filter(job => !job.id.startsWith("mock-")));
   const [resumeJob, setResumeJob] = useState<AuditJob | null>(() => readPathJob());
 
   const streamRef = useRef<StreamHandle | null>(null);
 
   useEffect(() => () => streamRef.current?.close(), []);
+  useEffect(() => {
+    if (phase === "done") document.getElementById("audit-report")?.focus();
+  }, [phase]);
 
 
   /** Fold one StageEvent into pipeline + phase state. */
@@ -43,23 +47,8 @@ export default function App() {
     setPipeline((prev) => {
       const next = applyEvent(prev, event);
       if (event.type === "verdict") {
-        // Backend shape: { verdict: {status, severity_counts, reasons, ...},
-        //                 severity_counts, total_findings, stages } — the
-        // document lives in data.verdict; findings come from the stream
-        // (pipeline state), NOT from the verdict event.
-        const d = event.data as {
-          verdict?: { status?: string; severity_counts?: VerdictData["severity_counts"] };
-          severity_counts?: VerdictData["severity_counts"];
-        };
-        const raw = d.verdict;
-        const status =
-          typeof raw === "string" ? raw : (raw?.status as VerdictData["verdict"]) ?? "warn";
         setVerdictInfo({
-          verdict: {
-            verdict: status,
-            severity_counts: raw?.severity_counts ?? d.severity_counts ?? {},
-            findings: next.findings,
-          },
+          result: mapAuditResult(event.data, next.findings),
           // Final elapsed is frozen at finish from SERVER timestamps —
           // never recomputed on re-render, so reloading an old audit keeps
           // its true duration instead of restarting the clock.
@@ -100,15 +89,11 @@ export default function App() {
 
   const startAudit = useCallback(
     async (source: string, depth: AuditDepth) => {
-      // Comma-separated refs (2..8) => multi-source composition audit (S6).
-      const refs = source
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      const target: string | string[] = refs.length > 1 ? refs : source.trim();
+      const target = source.trim();
       streamRef.current?.close();
       streamRef.current = null;
       setSubmitError(null);
+      setStreamStatus(null);
       setBusy(true);
       try {
         const created = mock
@@ -116,7 +101,7 @@ export default function App() {
           : await submitAudit(target, depth);
         if (!mock) { writePathJob(created.id); rememberJobMeta(created); }
         setJob(created);
-        pushRecentJob(RECENT_KEY, created, setRecent);
+        if (!mock) pushRecentJob(RECENT_KEY, created, setRecent);
         setPipeline(initialPipelineState());
         setVerdictInfo(null);
         setPhase("running");
@@ -147,7 +132,7 @@ export default function App() {
   }, []);
 
   const clearRecent = useCallback(() => {
-    localStorage.removeItem(RECENT_KEY);
+    try { localStorage.removeItem(RECENT_KEY); } catch { /* Browser storage may be unavailable. */ }
     setRecent([]);
   }, []);
 
@@ -192,25 +177,27 @@ export default function App() {
               🐡
             </span>
             <div className="text-left">
-              <h1 className="font-mono text-sm font-bold tracking-[0.3em] text-zinc-100">
+              <p className="font-mono text-sm font-bold tracking-[0.3em] text-zinc-100">
                 FUGU
-              </h1>
-              <p className="font-mono text-[10px] text-zinc-500">
+              </p>
+              <p className="hidden font-mono text-[10px] text-zinc-400 sm:block">
                 agent-extension security auditor
               </p>
             </div>
           </button>
-          <div className="flex items-center gap-3 font-mono text-[11px] text-zinc-500">
+          <div className="flex items-center gap-3 font-mono text-xs text-zinc-400">
             <span className={mock ? "text-amber-400" : "text-emerald-400"}>
-              {mock ? "mock replay" : "live api"}
+              {mock ? "SIMULATED REPLAY" : "LIVE ANALYSIS"}
             </span>
-            <span className="text-zinc-700">|</span>
-            <span>OWASP MCP β + LLM 2025</span>
+            <span className="hidden text-zinc-700 sm:inline">|</span>
+            <span className="hidden sm:inline">OWASP MCP β + LLM 2025</span>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-6">
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <main id="main-content" className="mx-auto max-w-7xl px-4 py-6">
+        {mock && <div className="simulation-banner" role="status">Simulated walkthrough · scripted findings and verdict · no source is audited. <a href="/?mock=0">Open live analysis →</a></div>}
         {phase === "idle" && (
           <SubmitForm
             onSubmit={(s, d) => void startAudit(s, d)}
@@ -240,13 +227,16 @@ export default function App() {
 
         {phase === "done" && job && verdictInfo && (
           <div className="flex flex-col gap-6">
+            <div className="result-toolbar"><h1 id="audit-report" tabIndex={-1} className="eyebrow">{mock ? "SIMULATED RESULT" : "AUDIT REPORT"}</h1><button onClick={resetToIdle}>New audit →</button></div>
+            <Scorecard result={verdictInfo.result} elapsedMs={verdictInfo.elapsedMs} simulated={mock} />
+            <details className="run-details"><summary>Pipeline &amp; event history</summary>
             <PipelineMonitor
               job={job}
               state={pipeline}
               streamStatus={streamStatus}
               onNewAudit={resetToIdle}
             />
-            <Scorecard verdict={verdictInfo.verdict} elapsedMs={verdictInfo.elapsedMs} />
+            </details>
           </div>
         )}
 
@@ -262,7 +252,7 @@ export default function App() {
 
       <footer className="border-t border-zinc-800/60 py-4">
         <p className="text-center font-mono text-[10px] text-zinc-600">
-          evidence, not vibes · deterministic / measured / empirical / advisory
+          Fugu · inspect the evidence, understand the coverage, decide before install.
         </p>
       </footer>
     </div>

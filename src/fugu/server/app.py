@@ -179,6 +179,27 @@ def create_app(
             "jobs": len(state.store.all_ids()),
         }
 
+    @api.get("/samples")
+    async def samples() -> dict[str, list[dict[str, str]]]:
+        """Advertise only the two bundled examples available on this server."""
+        available: list[dict[str, str]] = []
+        corpus = PROJECT_ROOT / "corpus"
+        examples = (
+            ("01-hidden-instructions-skill", "Hidden instructions", "A crafted skill with concealed instructions. Inspect the decoded evidence."),
+            ("07-clean-skill", "Benign comparison", "A small benign skill. Compare findings and analysis coverage."),
+        )
+        if corpus.is_symlink() or not corpus.is_dir():
+            return {"samples": available}
+        for slug, label, description in examples:
+            path = corpus / slug
+            if not path.is_dir() or path.is_symlink():
+                continue
+            files = list(path.rglob("*"))
+            if not (path / "SKILL.md").is_file() or any(f.is_symlink() for f in files):
+                continue
+            available.append({"source": str(path.resolve()), "label": label, "description": description})
+        return {"samples": available}
+
     @api.post("/audits", status_code=202, response_model=AuditCreateResponse)
     async def create_audit(req: AuditCreateRequest) -> AuditCreateResponse:
         if req.depth not in ("full", "standard"):

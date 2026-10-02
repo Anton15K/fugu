@@ -30,6 +30,7 @@ from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 from fugu.pipeline.stages.static_scan import _TOOL_NAME_RE
+from fugu.source_safety import validate_source_tree
 from fugu.server.jobs import (
     DEFAULT_MAX_BYTES,
     DEFAULT_MAX_FILES,
@@ -81,6 +82,27 @@ class SourceSpec:
 
     ref: str
     label: str
+
+
+def _member_coverage(summaries: list[dict[str, Any]], store: JobStore) -> list[dict[str, Any]]:
+    """Keep child execution facts separate from the parent's stage lifecycle."""
+    from fugu.verdict import stage_coverage
+
+    records: list[dict[str, Any]] = []
+    for summary in summaries:
+        child = store.get(summary["job_id"])
+        results = child.stages if child is not None else []
+        for result in results:
+            record = stage_coverage(result)
+            if record is not None:
+                records.append({**record, "member": summary["label"], "job_id": summary["job_id"]})
+        if summary["status"] == "failed" and not any(not r.ok for r in results):
+            records.append({
+                "member": summary["label"], "job_id": summary["job_id"],
+                "stage": "analysis", "state": "failed",
+                "reason": "member runner failed", "executed": False,
+            })
+    return records
 
 
 def _ref_label(item: Any, index: int) -> tuple[str, str | None]:
@@ -149,6 +171,7 @@ def harvest_tool_names(target_dir: Path | None) -> list[str]:
     """
     if target_dir is None or not Path(target_dir).is_dir():
         return []
+    target_dir = validate_source_tree(target_dir)
     names: set[str] = set()
     scanned = 0
     for path in sorted(Path(target_dir).rglob("*")):
@@ -431,6 +454,7 @@ async def run_composition_job(
     elapsed = loop.time() - started
     result.metrics.setdefault("duration_s", round(elapsed, 3))
     result.metrics.setdefault("members", len(members))
+    result.metrics["member_coverage"] = _member_coverage(summaries, store)
     snap.stages.append(result)
     # Cross-stage dedupe is intentionally SKIPPED: composition findings
     # describe member combinations — they are never echoes of member
@@ -556,7 +580,8 @@ async def run_auto_job(
             await run_stage_loop(job, snap, target, stages_for_children, store)
             return
 
-        if len(units) > max_units:
+        omitted_units = max(0, len(units) - max_units)
+        if omitted_units:
             kept = units[:max_units]
             _emit(
                 store,
@@ -657,7 +682,7 @@ async def run_auto_job(
             store.close(job.id)
             return
 
-        await _compose_members(job, snap, members, store)
+        await _compose_members(job, snap, members, store, summaries, omitted_units)
     finally:
         if cloned_dir is not None:
             await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
@@ -668,6 +693,8 @@ async def _compose_members(
     snap: Any,
     members: list[Any],
     store: JobStore,
+    summaries: list[dict[str, Any]],
+    omitted_units: int = 0,
 ) -> None:
     """Run the composition stage over harvested members + parent verdict.
 
@@ -713,6 +740,8 @@ async def _compose_members(
     elapsed = loop.time() - started
     result.metrics.setdefault("duration_s", round(elapsed, 3))
     result.metrics.setdefault("members", len(members))
+    result.metrics["member_coverage"] = _member_coverage(summaries, store)
+    result.metrics["omitted_units"] = omitted_units
     snap.stages.append(result)
     # No cross-stage dedupe: composition findings are about member
     # combinations, never echoes (the parent ran no other stages).

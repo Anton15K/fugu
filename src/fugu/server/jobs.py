@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from fugu.store.sqlite import SqliteJobStore
+from fugu.source_safety import SourceSafetyError, validate_source_tree
 from fugu.types import (
     AuditJob,
     EvidenceSnippet,
@@ -59,6 +60,13 @@ DEFAULT_MAX_FILES = 20_000                 # file-count cap
 
 class ExtractionError(Exception):
     """Source validation / extraction failed (maps to HTTP 422)."""
+
+
+def _validate_source(target: Path) -> None:
+    try:
+        validate_source_tree(target)
+    except (SourceSafetyError, OSError) as exc:
+        raise ExtractionError(str(exc)) from exc
 
 
 def is_git_source(source: str) -> bool:
@@ -352,6 +360,7 @@ async def extract_source(
                 root = Path(tmp) / "clone"
                 try:
                     await _git_clone(base, root, branch=clone_ref or None)
+                    _validate_source(root)
                     audit_dir = _resolve_audit_subdir(
                         root, clone_sub, source_display=source
                     )
@@ -379,6 +388,7 @@ async def extract_source(
         target = Path(tmp)
         try:
             await _git_clone(source, target)
+            _validate_source(target)
         except ExtractionError:
             if not keep_target:
                 await loop.run_in_executor(None, shutil.rmtree, tmp, True)
@@ -391,6 +401,7 @@ async def extract_source(
         raise ExtractionError(f"local source path does not exist: {source}")
     if not p.is_dir():
         raise ExtractionError(f"local source path is not a directory: {source}")
+    _validate_source(p)
     try:
         if not any(p.iterdir()):
             raise ExtractionError(f"local source directory is empty: {source}")

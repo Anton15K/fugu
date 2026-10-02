@@ -6,6 +6,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Protocol
 
+from fugu.source_safety import validate_source_tree
 from fugu.types import AuditJob, Finding, StageResult
 
 
@@ -22,6 +23,10 @@ class DetonationStage:
         self._on_progress = on_progress
 
     async def run(self, job: AuditJob, target: Path) -> StageResult:
+        try:
+            target = validate_source_tree(target)
+        except (ValueError, OSError) as exc:
+            return StageResult(stage=self.name, ok=False, error=str(exc))
         try:
             from fugu.detonation.docker_driver import evidence_to_findings
             from fugu.detonation.triggers import derive_triggers
@@ -63,12 +68,15 @@ class DetonationStage:
                             "static-analysis-only coverage."
                         ),
                         severity="info",
-                        confidence="empirical",
+                        confidence="deterministic",
                         stage=self.name,
                         evidence=[],
                     )
                 ],
-                metrics={"triggers": 0, "note": "no runnable triggers found"},
+                metrics={
+                    "triggers": 0, "executed": False,
+                    "skipped": "no runnable triggers found; target not executed",
+                },
             )
         try:
             detonate_kwargs = {"timeout_s": self._timeout_s}
@@ -90,6 +98,7 @@ class DetonationStage:
             findings=findings,
             metrics={
                 "triggers": len(triggers),
+                "executed": bool(evidences),
                 "detonations": len(evidences),
                 "canary_hits": sum(len(e.canary_hits) for e in evidences),
                 "flows": sum(len(e.flows) for e in evidences),

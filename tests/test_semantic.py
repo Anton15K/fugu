@@ -94,7 +94,7 @@ def test_malformed_output_counts_error(tmp_path):
         return "not json at all", JudgeCall("m", 0.1, 10, 3, {})
     stage = SemanticStage(make_call=bad_call)
     res = asyncio.run(stage.run(AuditJob(id="t", source=str(target), status=JobStatus.running), target))
-    assert res.ok  # degraded, not failed
+    assert not res.ok  # no unit produced usable analysis
     assert res.metrics["parse_errors"]
 
 

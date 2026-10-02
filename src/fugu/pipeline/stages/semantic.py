@@ -31,6 +31,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from fugu.pipeline.stages.concealment import collect_text_files
+from fugu.source_safety import validate_source_tree
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult
 
 # -- tunables -----------------------------------------------------------------
@@ -196,6 +197,10 @@ class SemanticStage:
 
     async def run(self, job: AuditJob, target: Path) -> StageResult:
         t0 = time.perf_counter()
+        try:
+            target = validate_source_tree(target)
+        except (ValueError, OSError) as exc:
+            return StageResult(stage=self.name, ok=False, error=str(exc))
         call = self._make_call or _default_make_call()
         if call is None:
             return StageResult(
@@ -214,12 +219,15 @@ class SemanticStage:
                 continue
             for i, chunk in enumerate(_chunks(tf.text)):
                 units.append((tf.rel, i, chunk))
+        units_total = len(units)
         units = units[:MAX_UNITS]
 
         findings: list[Finding] = []
         calls: list[JudgeCall] = []
         call_errors: list[str] = []
         parse_errors: list[str] = []
+        completed = 0
+        partial = 0
         loop = asyncio.get_running_loop()
         for rel, i, chunk in units:
             user_prompt = (
@@ -234,17 +242,37 @@ class SemanticStage:
                 continue
             calls.append(rec)
             doc = _parse_json_loose(text)
-            if doc is None:
+            if (
+                not isinstance(doc, dict)
+                or not isinstance(doc.get("findings"), list)
+            ):
                 parse_errors.append(f"{rel}:{i}")
                 continue
-            for f in doc.get("findings", []) or []:
-                finding = self._to_finding(f, rel)
-                if finding is not None:
-                    findings.append(finding)
+            unit_findings: list[Finding] = []
+            invalid = False
+            for raw in doc["findings"]:
+                try:
+                    finding = self._to_finding(raw, rel)
+                except (TypeError, ValueError):
+                    finding = None
+                if finding is None:
+                    invalid = True
+                else:
+                    unit_findings.append(finding)
+            if invalid:
+                parse_errors.append(f"{rel}:{i}")
+                partial += bool(unit_findings)
+            else:
+                completed += 1
+            findings.extend(unit_findings)
 
         stats.update(
             {
                 "units": len(units),
+                "units_total": units_total,
+                "units_completed": completed,
+                "units_partial": partial,
+                "units_omitted": units_total - len(units),
                 "files": len(files),
                 "llm_calls": [c.__dict__ for c in calls],
                 "call_errors": call_errors,
@@ -253,7 +281,23 @@ class SemanticStage:
                 "duration_s": round(time.perf_counter() - t0, 3),
             }
         )
-        return StageResult(stage=self.name, ok=True, findings=findings, metrics=stats)
+        omitted_files = sum(stats.get(k, 0) for k in (
+            "skipped_large", "skipped_undecodable", "skipped_unreadable", "skipped_max_files"
+        ))
+        if not units:
+            stats["skipped"] = "no eligible text units for semantic analysis"
+            return StageResult(stage=self.name, ok=True, metrics=stats)
+        if completed < units_total or omitted_files:
+            stats["coverage_incomplete"] = (
+                f"{completed}/{units_total} semantic units completed "
+                f"({partial} partially parsed); "
+                f"{omitted_files} text file(s) omitted"
+            )
+        usable = completed + partial
+        return StageResult(
+            stage=self.name, ok=usable > 0, findings=findings, metrics=stats,
+            error="no semantic unit produced a valid analysis" if not usable else None,
+        )
 
     @staticmethod
     def _to_finding(raw: dict[str, Any], rel: str) -> Finding | None:

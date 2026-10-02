@@ -1,88 +1,67 @@
-# Fugu Web — audit console
+# Fugu Web — audit before install
 
-React frontend for Fugu, the agentic security auditor for agent extensions
-(skills / MCP servers / plugins). Submit an extension → watch the pipeline run
-live → read the OWASP-mapped scorecard with tiered-confidence findings and
-expandable evidence.
+React/Vite console for developers reviewing agent skills, MCP servers, and plugins.
+Submit one server-local directory or Git URL, watch live checks, then inspect the
+verdict, server policy reasons, coverage caveats, confidence tiers, and evidence.
+Large repositories may fan out into per-extension audits on the server.
 
-## Run (dev)
+## Run locally
 
-```bash
-cd web
-npm install
-npm run dev            # http://localhost:5173, proxies /api → localhost:8000
+From the repository root, use a dedicated database for development:
+
+```sh
+UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python -m fugu.server --port 8000 --db /tmp/fugu-dev.db
 ```
 
-The backend isn't wired up yet. Develop against the **mock replay** — a
-scripted, realistic malicious-skill audit (Unicode smuggling, canary-credential
-exfil in detonation, harness A/B delta, typosquat, trifecta… ~33 events, all 4
-confidence tiers, FAIL verdict):
+From `web/`:
 
-```bash
-npm run dev            # then open http://localhost:5173/?mock=1
-# or
-MOCK=1 npm run dev     # VITE_MOCK=1 also works
+```sh
+npm run dev                         # Vite; /api proxies to localhost:8000
+npm run build                       # TypeScript + production bundle in dist/
+npm run preview                     # Preview production bundle (API needs routing)
 ```
 
-With the FastAPI backend running on `:8000`, just drop the flag — the UI
-switches to `POST /api/audits` + `GET /api/audits/:id/events` (SSE).
+`GET /api/samples` advertises only two bundled corpus examples when available on
+that server. Picking one fills the source; **Start audit** launches real checks.
+An older or unavailable samples endpoint hides these choices. No arbitrary local
+path is assumed by the browser.
 
-## Build
+## Analysis and disclosure
 
-```bash
-npm run build          # tsc -b && vite build → dist/
-npx tsc --noEmit       # typecheck only
-npm run preview        # serve the production build
+The current API runs full depth. Static/concealment checks run locally. Semantic
+and harness analysis send extension content and prompts to the configured model
+provider. Reputation queries use Tavily when configured. Detonation depends on
+the configured sandbox. A verdict is limited to performed checks: **PASS is not a
+safety certification**. Skips, failures, and server policy caveats appear beside
+the verdict; reports missing coverage metadata say so.
+
+`/?mock=1` opens a **simulated walkthrough** with scripted findings and timing.
+No extension is fetched or analyzed. Replay results cannot invoke real per-finding
+probes and are excluded from live recent-audit history. `/?mock=0` forces live
+mode even if the build's VITE_MOCK environment flag is enabled.
+
+Live runs use `POST /api/audits` and SSE at `/api/audits/:id/events`. Existing
+`/audit/:id` URLs and recent history reconnect to persisted server events without
+creating a new audit. Browsers without EventSource use the polling fallback.
+
+## Verification
+
+```sh
+npm run build
+npm run lint                        # Existing warnings include generated dist
+npm run contract                    # 202 response parsing + polling fallback
+npm run smoke                       # Scripted timeline invariants
+node scripts/audit-result.mjs       # Server policy/coverage mapping + legacy payload
+node scripts/edge-reducer.mjs        # Stage completion/error/replay reducer checks
 ```
 
-## Tests
+Server sample discovery tests (from repo root):
 
-```bash
-npm run smoke          # drives the mock timeline, asserts event-shape invariants
-npm run contract       # fake backend; verifies 202 parse + SSE/polling client
+```sh
+UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync pytest tests/test_server_samples.py -q
 ```
 
-## Architecture
-
-```
-src/
-  lib/
-    types.ts       TS mirrors of src/fugu/types.py (READ-ONLY contract)
-    api.ts         submitAudit + openAuditStream (EventSource w/ reconnect,
-                   fetch-polling fallback that also parses buffered SSE bodies)
-    mockStream.ts  scripted audit replay; ?mock=1 | VITE_MOCK=1 | MOCK=1
-    recentJobs.ts  localStorage recent-audit list (best-effort)
-    utils.ts       cn() classname combiner
-  components/
-    ui/            hand-rolled shadcn-style primitives (cva + Tailwind 4):
-                   button, card, badge, progress, table, tabs, alert, collapsible
-    badges.tsx     severity chips, confidence-tier badges, status dots, verdict
-  views/
-    SubmitForm.tsx       source input + depth toggle + recent audits
-    PipelineMonitor.tsx  stage cards (fixed order), live findings/log feed,
-                         elapsed timer; exports the applyEvent state reducer
-    Scorecard.tsx        verdict banner, severity counts, OWASP matrix,
-                         expandable evidence (monospace excerpt + source pointer)
-  App.tsx          single page, state machine: idle → running → done
-```
-
-## Backend contract (expected)
-
-| Method | Path | Behavior |
-| --- | --- | --- |
-| `POST` | `/audits` | body `{source, depth}` → `202` with `{job_id}` (full `AuditJob` also accepted) |
-| `GET` | `/audits/:id/events` | SSE stream of `StageEvent` (`stage_started` \| `finding` \| `stage_done` \| `verdict` \| `error` \| `log`); terminal `verdict` closes the stream |
-
-Notes:
-- The client tolerates a missing `id` field on submit responses (`job_id`
-  fallback) and treats any `verdict` event as terminal.
-- Polling fallback sends `Last-Event-ID` (last seen `ts`) and accepts either a
-  JSON array of events or a buffered `text/event-stream` body.
-- Confidence tiers render distinctly by design: **deterministic** green-solid,
-  **measured** blue, **empirical** amber, **advisory** gray dashed outline.
-
-## Stack
-
-Vite 8 · React 19 · TypeScript (strict, no unused vars/params, noUncheckedIndexedAccess) ·
-Tailwind CSS 4 (`@tailwindcss/vite`) · class-variance-authority + clsx + tailwind-merge ·
-lucide-react icons.
+Browser verification should cover desktop/mobile entry, an actual bundled
+sample-to-result journey, result evidence expansion, saved-run resume, replay
+labels, and connection/submission failure feedback. Keep paid sample audits
+bounded; replay is illustrative and is not benchmark evidence.

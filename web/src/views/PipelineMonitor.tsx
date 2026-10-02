@@ -82,7 +82,7 @@ export function initialPipelineState(): PipelineState {
  * cards for multi-source jobs (children run server-side; the parent's only
  * own stage is `composition`, then the verdict). */
 function stageOrderFor(state: PipelineState): StageName[] {
-  return state.multiSource ? MULTI_SOURCE_STAGE_ORDER : STAGE_ORDER;
+  return state.multiSource ? MULTI_SOURCE_STAGE_ORDER : STAGE_ORDER.filter(stage => stage !== "composition");
 }
 
 /** Fold a StageEvent into pipeline state (pure). */
@@ -120,7 +120,8 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
     }
     case "stage_done":
       if (stage) {
-        next.stages[stage] = event.data.ok === false ? "error" : "done";
+        const metrics = event.data.metrics as Record<string, unknown> | undefined;
+        next.stages[stage] = event.data.ok === false ? "error" : metrics && "skipped" in metrics ? "skipped" : "done";
         next.findings = state.findings; // count already included via finding events
         if (next.stageEndedAt[stage] === undefined) next.stageEndedAt[stage] = safeTs;
       }
@@ -128,11 +129,11 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
     case "verdict":
       // Terminal: stages that never ran settle to "skipped" (honest state —
       // e.g. composition on single-source jobs, harness on standard-depth
-      // jobs), never fake-green. Stages that started but got no stage_done
-      // (interrupted run) still finish as "done" — the verdict is terminal.
+      // jobs), never fake-green. An interrupted stage has no completion
+      // evidence and settles into error, even when a verdict is returned.
       for (const s of ALL_STAGE_KEYS) {
-        if (next.stages[s] === "done" || next.stages[s] === "error") continue;
-        next.stages[s] = next.currentStage === s || next.stages[s] === "running" ? "done" : "skipped";
+        if (next.stages[s] === "done" || next.stages[s] === "error" || next.stages[s] === "skipped") continue;
+        next.stages[s] = next.stages[s] === "running" ? "error" : "skipped";
       }
       next.stages.verdict = "done";
       next.finishedAt = safeTs;
@@ -258,7 +259,7 @@ function StageGlyph({ status }: { status: StageStatus }) {
     return <CircleX className="size-3.5 shrink-0 text-red-400" aria-hidden />;
   }
   if (status === "skipped") {
-    return <CircleMinus className="size-3.5 shrink-0 text-zinc-600" aria-hidden />;
+    return <CircleMinus className="size-3.5 shrink-0 text-zinc-400" aria-hidden />;
   }
   return <StatusDot state={status} />;
 }
@@ -348,6 +349,8 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
       state.stages[s] === "error" ||
       state.stages[s] === "skipped",
   ).length;
+  const completedChecks = stageCards.filter(stage => stage !== "verdict" && state.stages[stage] === "done").length;
+  const unavailableChecks = stageCards.filter(stage => stage !== "verdict" && (state.stages[stage] === "error" || state.stages[stage] === "skipped")).length;
   const progress = Math.round((doneCount / stageCards.length) * 100);
   const finished = state.finishedAt !== null;
 
@@ -410,14 +413,14 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
           <div className="min-w-0">
             <p className="truncate font-mono text-sm text-zinc-200">{job.source}</p>
             <p className="font-mono text-[11px] text-zinc-500">
-              {job.id} · depth {job.depth}
+              {job.id} · {finished ? "run finished" : halted ? "analysis interrupted" : "analysis in progress"}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <span
             title={chip.title}
-            className="inline-flex items-center gap-1.5 rounded-full border border-zinc-800 bg-zinc-950/60 px-2.5 py-1 font-mono text-[10px] tracking-wide"
+            className="inline-flex items-center gap-1.5 rounded-full border border-zinc-800 bg-zinc-950/60 px-2.5 py-1 font-mono text-[11px] tracking-wide"
           >
             <span
               className={cn(
@@ -432,7 +435,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
             <p className="font-mono text-lg leading-none tabular-nums text-zinc-100">
               {formatElapsed(elapsed)}
             </p>
-            <p className="text-[10px] uppercase tracking-wider text-zinc-600">
+            <p className="text-[11px] uppercase tracking-wider text-zinc-400">
               {finished ? "total" : halted ? "halted at" : "elapsed"}
             </p>
           </div>
@@ -457,7 +460,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
         <span className="font-mono text-[11px] tabular-nums text-zinc-500">
           {multiSource
             ? `${membersDone}/${state.members.length} members audited`
-            : `${doneCount}/${stageCards.length} stages`}
+            : `${completedChecks}/${stageCards.length - 1} checks completed${unavailableChecks > 0 ? ` · ${unavailableChecks} unavailable` : ""}`}
         </span>
       </div>
 
@@ -473,12 +476,14 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
         </div>
       )}
 
+      {!finished && !halted && <p className="text-sm leading-relaxed text-zinc-300" role="status">{state.currentStage ? `Checking ${STAGE_META[state.currentStage]?.label ?? state.currentStage}…` : "Preparing the source…"} Model and sandbox checks can take longer. You can return to this audit’s URL to reconnect.</p>}
+
       {/* ── stage strip ─────────────────────────────────────────────
            Order matches STAGE_ORDER / MULTI_SOURCE_STAGE_ORDER exactly.
            running = sky pulse + live ticking duration; done = duration +
            findings yielded; error = red; skipped = honest dimmed, never
            fake-green. */}
-      <div className="flex items-center gap-1.5 overflow-x-auto rounded-lg border border-zinc-800/70 bg-zinc-900/30 px-3 py-3">
+      <div className="stage-strip rounded-lg border border-zinc-800/70 bg-zinc-900/30 p-3">
         {stageCards.map((stage, i) => {
           const meta = STAGE_META[stage];
           const status = state.stages[stage];
@@ -491,19 +496,19 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
               {i > 0 && (
                 <span
                   aria-hidden
-                  className={cn("h-px w-4 shrink-0 transition-colors duration-150", connectorClass(prev as StageStatus))}
+                  className={cn("hidden h-px w-4 shrink-0 transition-colors duration-150", connectorClass(prev as StageStatus))}
                 />
               )}
               <div
                 title={meta.blurb}
                 className={cn(
-                  "relative overflow-hidden rounded-lg border px-2.5 py-2 transition-colors duration-150",
-                  stageCards.length <= 3 ? "flex-1 min-w-[150px]" : "w-[136px] shrink-0",
+                  "stage-cell relative min-w-0 overflow-hidden rounded-lg border px-2.5 py-2 transition-colors duration-150",
+
                   status === "running" && "border-sky-700/70 bg-sky-950/30",
                   status === "done" && "border-zinc-800 bg-zinc-900/40",
                   status === "error" && "border-red-800/70 bg-red-950/30",
-                  status === "skipped" && "border-zinc-800/50 bg-zinc-900/20 opacity-45",
-                  status === "idle" && "border-zinc-800/60 bg-zinc-900/20 opacity-55",
+                  status === "skipped" && "border-zinc-800/50 bg-zinc-900/20 ",
+                  status === "idle" && "border-zinc-800/60 bg-zinc-900/20 ",
                   stage === "verdict" && finished && status === "done" && "border-emerald-800/60 bg-emerald-950/20",
                 )}
               >
@@ -512,7 +517,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                 )}
                 <div className="flex items-center gap-1.5">
                   <StageGlyph status={status} />
-                  <span className="font-mono text-[9px] tabular-nums text-zinc-600">
+                  <span className="font-mono text-[11px] tabular-nums text-zinc-400">
                     S{meta.index}
                   </span>
                   <span
@@ -524,13 +529,13 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                     {meta.label}
                   </span>
                 </div>
-                <div className="mt-1 flex items-center justify-between gap-1 font-mono text-[10px] tabular-nums">
+                <div className="mt-1 flex items-center justify-between gap-1 font-mono text-[11px] tabular-nums">
                   <span
                     className={cn(
                       status === "error" && "text-red-400",
                       status === "running" && "text-sky-300",
                       status === "done" && "text-zinc-500",
-                      (status === "idle" || status === "skipped") && "text-zinc-600",
+                      (status === "idle" || status === "skipped") && "text-zinc-400",
                     )}
                   >
                     {status === "skipped"
@@ -546,7 +551,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                             : "…"}
                   </span>
                   {n > 0 && (
-                    <span className="rounded border border-amber-800/70 bg-amber-950/50 px-1 py-px text-[9px] text-amber-300">
+                    <span className="rounded border border-amber-800/70 bg-amber-950/50 px-1 py-px text-[11px] text-amber-300">
                       {n} ⚠
                     </span>
                   )}
@@ -564,10 +569,10 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
       {multiSource && (
         <div className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/40">
           <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
               member audits
             </span>
-            <span className="font-mono text-[10px] tabular-nums text-zinc-600">
+            <span className="font-mono text-[11px] tabular-nums text-zinc-400">
               {state.members.length} source{state.members.length === 1 ? "" : "s"} ·{" "}
               {state.members.reduce((acc, m) => acc + m.findings, 0)} member findings
             </span>
@@ -591,13 +596,13 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                   {m.label}
                 </span>
                 {m.findings > 0 && (
-                  <span className="rounded border border-amber-800/70 bg-amber-950/50 px-1.5 py-px font-mono text-[10px] text-amber-300">
+                  <span className="rounded border border-amber-800/70 bg-amber-950/50 px-1.5 py-px font-mono text-[11px] text-amber-300">
                     {m.findings} ⚠
                   </span>
                 )}
                 <span
                   className={cn(
-                    "w-14 text-right font-mono text-[10px] uppercase tracking-wider",
+                    "w-14 text-right font-mono text-[11px] uppercase tracking-wider",
                     m.status === "done" && "text-emerald-400",
                     m.status === "failed" && "text-red-400",
                     (m.status === "running" || m.status === "queued") && "text-sky-400",
@@ -608,7 +613,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
               </li>
             ))}
             {state.members.length === 0 && (
-              <li className="px-4 py-2 font-mono text-[11px] text-zinc-600">
+              <li className="px-4 py-2 font-mono text-[11px] text-zinc-400">
                 fanning out member audits…
               </li>
             )}
@@ -620,13 +625,13 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
            Σ count + severity tally + the latest finding, flashing in
            (150ms) each time evidence lands. */}
       <div className="flex items-center gap-3 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2">
-        <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+        <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
           findings
         </span>
         <span className="shrink-0 font-mono text-base font-bold leading-none tabular-nums text-amber-300">
           {state.findings.length}
         </span>
-        <span className="hidden shrink-0 items-center gap-2 font-mono text-[10px] tabular-nums sm:flex">
+        <span className="hidden shrink-0 items-center gap-2 font-mono text-[11px] tabular-nums sm:flex">
           {[...SEVERITIES].reverse().map((sev) => {
             const c = severityTally[sev] ?? 0;
             if (c === 0) return null;
@@ -644,12 +649,12 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
               title={latestFinding.detail}
               className="animate-feed-in [animation-duration:150ms] truncate font-mono text-[11px]"
             >
-              <span className="text-zinc-600">[{latestFinding.stage}]</span>{" "}
+              <span className="text-zinc-400">[{latestFinding.stage}]</span>{" "}
               <span className={SEVERITY_TEXT[latestFinding.severity]}>▲</span>{" "}
               <span className="text-zinc-300">{latestFinding.title}</span>
             </p>
           ) : (
-            <p className="truncate font-mono text-[11px] text-zinc-600">
+            <p className="truncate font-mono text-[11px] text-zinc-400">
               {finished ? "no findings emitted" : "listening for findings…"}
             </p>
           )}
@@ -672,7 +677,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
           </CardHeader>
           <CardContent className="flex-1 overflow-y-auto p-2">
             {state.findings.length === 0 && (
-              <p className="p-4 text-center font-mono text-xs text-zinc-600">
+              <p className="p-4 text-center font-mono text-xs text-zinc-400">
                 {finished ? "no findings emitted" : "listening…"}
               </p>
             )}
@@ -688,7 +693,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                   />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                      <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
                         {f.stage}
                       </span>
                       <div className="flex items-center gap-1.5">
@@ -721,7 +726,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
           </CardHeader>
           <CardContent className="flex-1 overflow-y-auto p-3">
             {state.logs.length === 0 && (
-              <p className="p-4 text-center font-mono text-xs text-zinc-600">no log lines yet</p>
+              <p className="p-4 text-center font-mono text-xs text-zinc-400">no log lines yet</p>
             )}
             <div className="font-mono text-[11px] leading-relaxed">
               {state.logs
@@ -732,8 +737,8 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                     key={i}
                     className="animate-feed-in [animation-duration:150ms] border-b border-zinc-900 py-0.5"
                   >
-                    <span className="tabular-nums text-zinc-700">{l.ts.slice(11, 19)}</span>{" "}
-                    <span className="text-zinc-600">[{l.stage ?? "core"}]</span>{" "}
+                    <span className="tabular-nums text-zinc-500">{l.ts.slice(11, 19)}</span>{" "}
+                    <span className="text-zinc-400">[{l.stage ?? "core"}]</span>{" "}
                     <span className="text-zinc-400">{l.message}</span>
                   </p>
                 ))}

@@ -71,7 +71,7 @@ export function TierPill({ tier, count }: { tier: ConfidenceTier; count?: number
         {tier}
         {typeof count === "number" && <span className="opacity-70">×{count}</span>}
       </span>
-      <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">
+      <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
         {TIER_GLOSS[tier]}
       </span>
     </span>
@@ -101,12 +101,12 @@ export function EvidenceBlock({
     >
       <div
         className={cn(
-          "flex items-center justify-between gap-3 border-b px-3 py-1.5",
+          "flex flex-wrap items-center justify-between gap-3 border-b px-3 py-1.5",
           danger ? "border-red-900/50 bg-red-950/30" : "border-zinc-800/80 bg-zinc-900/60",
         )}
       >
         <span className="flex min-w-0 items-center gap-2">
-          <span className="shrink-0 font-mono text-[9px] uppercase tracking-wider text-zinc-600">
+          <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
             exhibit {index + 1}
           </span>
           <code
@@ -117,11 +117,11 @@ export function EvidenceBlock({
           </code>
         </span>
         {meta.length > 0 && (
-          <span className="flex shrink-0 items-center gap-2 overflow-hidden">
+          <span className="flex min-w-0 flex-wrap items-center gap-2">
             {meta.map(([k, v]) => (
               <span
                 key={k}
-                className="font-mono text-[10px] text-zinc-600"
+                className="font-mono text-[11px] text-zinc-400"
                 title={`${k}=${String(v)}`}
               >
                 {k}={String(v)}
@@ -176,18 +176,18 @@ function DetonateButton({ finding }: { finding: Finding }) {
         disabled={state === "running"}
         title="re-run the flagged command in the canary chamber"
         aria-label="detonate: re-run the flagged command in the canary chamber"
-        className="shrink-0 rounded-md border border-amber-700/60 bg-amber-950/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-amber-300 transition-colors duration-150 hover:bg-amber-900/40 disabled:opacity-50"
+        className="shrink-0 rounded-md border border-amber-700/60 bg-amber-950/30 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-amber-300 transition-colors duration-150 hover:bg-amber-900/40 disabled:opacity-50"
       >
         {state === "running" ? "detonating…" : "detonate"}
       </button>
       {result && (
         <div className="max-w-md rounded-md border border-zinc-800 bg-zinc-950/80 p-2 text-right">
           {result.trigger && (
-            <p className="font-mono text-[10px] text-zinc-500 break-all">{result.trigger}</p>
+            <p className="font-mono text-[11px] text-zinc-500 break-all">{result.trigger}</p>
           )}
           {result.ok ? (
             <>
-              <p className="font-mono text-[10px] text-zinc-400">
+              <p className="font-mono text-[11px] text-zinc-400">
                 canary {String(result.metrics.canary_hits ?? 0)} · flows {String(result.metrics.flows ?? 0)} · dns {String(result.metrics.dns ?? 0)}
               </p>
               {result.findings.length > 0 ? (
@@ -197,11 +197,11 @@ function DetonateButton({ finding }: { finding: Finding }) {
                   </p>
                 ))
               ) : (
-                <p className="font-mono text-[10px] text-emerald-400">no canary/egress hits — command behaved</p>
+                <p className="font-mono text-[11px] text-emerald-400">No canary hits observed in this run; review coverage.</p>
               )}
             </>
           ) : (
-            <p className="font-mono text-[10px] text-red-400">
+            <p className="font-mono text-[11px] text-red-400">
               {String(result.metrics.error ?? "probe failed")}
             </p>
           )}
@@ -256,22 +256,22 @@ function exfilPathSegments(f: Finding): string[] {
 /** The unmissable centerpiece: red-glow panel rendering every confirmed
  *  canary exfiltration with its path summary and forensic exhibits.
  *  Returns null when no such finding exists (clean / warn audits). */
-export function CanaryExfilPanel({ findings }: { findings: Finding[] }) {
+export function CanaryExfilPanel({ findings, simulated = false }: { findings: Finding[]; simulated?: boolean }) {
   const hits = findings.filter(isCanaryExfil);
   if (hits.length === 0) return null;
 
   return (
     <section
-      aria-label="confirmed canary exfiltration"
+      aria-label={simulated ? "simulated canary exfiltration" : "reported canary exfiltration"}
       className="relative overflow-hidden rounded-xl border border-red-700/80 bg-gradient-to-b from-red-950/60 to-zinc-950 ring-1 ring-red-600/40 shadow-[0_0_60px_-12px] shadow-red-800/80"
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-red-900/60 px-4 py-2.5">
         <h3 className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-200">
           <Siren className="size-4 text-red-400" aria-hidden />
-          confirmed canary exfiltration
+          {simulated ? "Simulated canary exfiltration" : "Reported canary exfiltration"}
         </h3>
-        <span className="font-mono text-[10px] uppercase tracking-wider text-red-400/80">
-          empirical · observed in detonation · not a heuristic
+        <span className="font-mono text-[11px] uppercase tracking-wider text-red-400/80">
+          {simulated ? "scripted demonstration · not observed behavior" : "review the evidence and confidence tier below"}
         </span>
       </div>
 
@@ -306,7 +306,7 @@ export function CanaryExfilPanel({ findings }: { findings: Finding[] }) {
             <p className="text-[13px] leading-relaxed text-zinc-300">{f.detail}</p>
 
             <div className="flex flex-col gap-2">
-              <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+              <p className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
                 <FileCode className="size-3" aria-hidden />
                 forensic trail
               </p>
@@ -376,7 +376,7 @@ function TrifectaChain({ finding }: { finding: Finding }) {
     ? "border-red-700/80 bg-red-950/40"
     : "border-zinc-700 bg-zinc-900/60";
   const labelTheme = fired ? "text-red-300" : "text-zinc-300";
-  const arrowTheme = fired ? "text-red-500" : "text-zinc-600";
+  const arrowTheme = fired ? "text-red-500" : "text-zinc-400";
 
   if (legs.length === 0) return null;
 
@@ -399,14 +399,14 @@ function TrifectaChain({ finding }: { finding: Finding }) {
             )}
             title={l.excerpt}
           >
-            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-zinc-500">
+            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-zinc-500">
               {l.leg || "leg"}
             </span>
             <span className={cn("truncate font-mono text-xs font-semibold", labelTheme)}>
               {l.memberLabel}
             </span>
             {l.strength && (
-              <span className="font-mono text-[10px] text-zinc-500">
+              <span className="font-mono text-[11px] text-zinc-500">
                 {l.strength}
                 {l.tier ? ` · ${l.tier}` : ""}
               </span>
@@ -487,15 +487,15 @@ export function CombinationSection({ findings }: { findings: Finding[] }) {
           <Waypoints className="size-3.5 text-zinc-500" aria-hidden />
           Combination
         </h3>
-        <span className="text-[10px] text-zinc-600">
-          cross-extension composition · members are individually clean
+        <span className="text-[11px] text-zinc-400">
+          cross-extension composition · review each member’s findings
         </span>
       </div>
 
       <div className="flex flex-col gap-4 p-4">
         {trifectas.length > 0 && (
           <section className="flex flex-col gap-3">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
               lethal trifecta chain · ingress → private data → egress
             </p>
             {trifectas.map((f, i) => (
@@ -519,7 +519,7 @@ export function CombinationSection({ findings }: { findings: Finding[] }) {
 
         {shadowing.length > 0 && (
           <section className="flex flex-col gap-3">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
               tool shadowing · colliding names across members
             </p>
             {shadowing.map((f, i) => (
@@ -553,9 +553,11 @@ export function CombinationSection({ findings }: { findings: Finding[] }) {
 export function FindingRow({
   finding,
   defaultOpen,
+  simulated = false,
 }: {
   finding: Finding;
   defaultOpen: boolean;
+  simulated?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const critical = finding.severity === "critical";
@@ -570,12 +572,12 @@ export function FindingRow({
           : "border-zinc-800",
       )}
     >
-      <div className="flex items-center gap-3 p-3">
+      <div className="flex flex-wrap items-center gap-3 p-3">
         <CollapsibleTrigger
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-label={`toggle finding: ${finding.title}`}
-          className="flex-1"
+          className="min-w-0 flex-1"
         >
           <span className="flex flex-wrap items-center gap-2">
             <SeverityChip severity={finding.severity} />
@@ -589,7 +591,7 @@ export function FindingRow({
               {finding.title}
             </span>
             {finding.evidence.length > 0 && (
-              <span className="font-mono text-[10px] text-zinc-600">
+              <span className="font-mono text-[11px] text-zinc-400">
                 {finding.evidence.length} exhibit{finding.evidence.length === 1 ? "" : "s"}
               </span>
             )}
@@ -598,19 +600,19 @@ export function FindingRow({
             {finding.owasp_ids.map((id) => (
               <OwaspChip key={id} id={id} />
             ))}
-            <span className="ml-1 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+            <span className="ml-1 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
               {finding.stage}
             </span>
           </span>
         </CollapsibleTrigger>
-        <DetonateButton finding={finding} />
+        {!simulated && <DetonateButton finding={finding} />}
       </div>
       <CollapsibleContent open={open} className="px-3 pb-3">
         <div className="border-t border-zinc-800/70 pt-3">
           <p className="text-[13px] leading-relaxed text-zinc-300">{finding.detail}</p>
           {finding.evidence.length > 0 && (
             <div className="mt-3 flex flex-col gap-2">
-              <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+              <p className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
                 <FileCode className="size-3" aria-hidden />
                 evidence
               </p>
