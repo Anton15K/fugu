@@ -82,6 +82,47 @@ def _stage_coverage(stage: Any) -> tuple[str, str | None]:
     return "completed", None
 
 
+def _stage_record(stage: Any) -> dict[str, Any]:
+    coverage_state, coverage_reason = _stage_coverage(stage)
+    return {
+        "stage": stage.stage,
+        "ok": stage.ok,
+        "error": stage.error,
+        "metrics": stage.metrics or {},
+        "coverage_state": coverage_state,
+        "coverage_reason": coverage_reason,
+        "findings": len(stage.findings),
+    }
+
+
+def _unavailable_case(case: dict[str, Any], reason: str) -> dict[str, Any]:
+    """Represent a missing parent result as an attempted, unavailable case."""
+    return {
+        "id": case["id"],
+        "family": case["family"],
+        "kind": case["kind"],
+        "split": case["split"],
+        "expected": case["expected"],
+        "predicted": None,
+        "composition_available": False,
+        "detection_available": False,
+        "detection_unavailable_reason": reason,
+        "complete": False,
+        "parent_status": "missing",
+        "parent_error": reason,
+        "parent_error_stage": None,
+        "parent_stages": [],
+        "composition_ok": None,
+        "composition_error": None,
+        "composition_metrics": None,
+        "children": [],
+        "harvested_tool_names": {member["label"]: [] for member in case["members"]},
+        "findings": [],
+        "parent_findings": [],
+        "correct": False,
+    }
+
+
 def _case_result(case: dict[str, Any], corpus_root: Path, modules: dict[str, Any]) -> dict[str, Any]:
     from fugu.types import AuditJob, JobStatus
 
@@ -111,67 +152,97 @@ def _case_result(case: dict[str, Any], corpus_root: Path, modules: dict[str, Any
     )
     snapshot = store.get(job.id)
     if snapshot is None:
-        raise RuntimeError(f"production runner did not persist parent job {job.id}")
+        return _unavailable_case(
+            case, f"production runner did not persist parent job {job.id}"
+        )
     composition = next((stage for stage in snapshot.stages if stage.stage == "composition"), None)
-    if composition is None:
-        raise RuntimeError(f"production runner emitted no composition stage for {case['id']}")
+    parent_stages = [_stage_record(stage) for stage in snapshot.stages]
 
-    child_ids = [
-        event.data.get("child_job_id")
-        for event in snapshot.events
-        if event.data.get("stage") == "composition"
-        and str(event.data.get("message", "")).startswith("member ")
-        and event.data.get("child_job_id")
-    ]
+    child_ids: list[str] = []
+    for event in snapshot.events:
+        child_id = event.data.get("child_job_id")
+        if (
+            event.data.get("stage") == "composition"
+            and str(event.data.get("message", "")).startswith("member ")
+            and child_id
+            and child_id not in child_ids
+        ):
+            child_ids.append(str(child_id))
     children = []
     for child_id in child_ids:
         child = store.get(child_id)
         if child is None:
             children.append({"job_id": child_id, "status": "missing", "findings": None,
+                             "finding_records": [], "error": "child job snapshot is unavailable",
                              "stages": []})
         else:
-            child_stages = []
-            for stage in child.stages:
-                state, reason = _stage_coverage(stage)
-                child_stages.append({
-                    "stage": stage.stage,
-                    "ok": stage.ok,
-                    "error": stage.error,
-                    "metrics": stage.metrics or {},
-                    "coverage_state": state,
-                    "coverage_reason": reason,
-                })
+            child_stages = [_stage_record(stage) for stage in child.stages]
+            child_error = next(
+                (stage.error for stage in child.stages if not stage.ok and stage.error), None
+            )
             children.append({
                 "job_id": child_id,
                 "status": child.job.status.value,
                 "findings": len(child.findings),
+                "finding_records": [asdict(finding) for finding in child.findings],
+                "error": child_error,
                 "stages": child_stages,
             })
 
-    findings = [asdict(finding) for finding in composition.findings]
-    trifecta = any("MCP06" in finding.owasp_ids for finding in composition.findings)
-    confirmed_shadowing = any(
-        "MCP03" in finding.owasp_ids and "MCP06" not in finding.owasp_ids
-        for finding in composition.findings
+    composition_findings = composition.findings if composition is not None else []
+    parent_findings = [asdict(finding) for finding in snapshot.findings]
+    findings = (
+        [asdict(finding) for finding in composition_findings]
+        if composition is not None
+        else parent_findings
     )
+    composition_available = composition is not None and composition.ok
+    predicted = None
+    if composition_available:
+        predicted = {
+            "trifecta": any("MCP06" in finding.owasp_ids for finding in composition_findings),
+            "shadowing": any(
+                "MCP03" in finding.owasp_ids and "MCP06" not in finding.owasp_ids
+                for finding in composition_findings
+            ),
+        }
     harvested = {
         member["label"]: harvest_tool_names(target / member["dir"])
         for member in case["members"]
     }
-    member_coverage = (composition.metrics or {}).get("member_coverage", [])
+    composition_metrics = composition.metrics or {} if composition is not None else {}
+    member_coverage = composition_metrics.get("member_coverage", [])
     member_coverage_complete = isinstance(member_coverage, list) and all(
         isinstance(record, dict) and record.get("state") == "completed"
         for record in member_coverage
     )
-    composition_metrics = composition.metrics or {}
     parent_has_omissions = any(
         isinstance(composition_metrics.get(name), (int, float))
         and composition_metrics[name] > 0
         for name in ("units_omitted", "omitted_units")
     )
+    parent_error_event = next(
+        (event.data for event in snapshot.events if event.type == "error"), None
+    )
+    failed_parent_stage = next((stage for stage in snapshot.stages if not stage.ok), None)
+    parent_error = (
+        (parent_error_event or {}).get("error")
+        or (failed_parent_stage.error if failed_parent_stage is not None else None)
+    )
+    parent_error_stage = (
+        (parent_error_event or {}).get("stage")
+        or (failed_parent_stage.stage if failed_parent_stage is not None else None)
+    )
+    unavailable_reason = None
+    if not composition_available:
+        unavailable_reason = (
+            (composition.error if composition is not None else None)
+            or parent_error
+            or f"production runner emitted no composition stage for {case['id']}"
+        )
     complete = (
         snapshot.job.status is JobStatus.done
-        and composition.ok
+        and composition_available
         and len(children) == len(case["members"])
         and all(child["status"] == JobStatus.done.value for child in children)
         and all(child["stages"] for child in children)
@@ -185,7 +256,6 @@ def _case_result(case: dict[str, Any], corpus_root: Path, modules: dict[str, Any
         and not composition_metrics.get("coverage_incomplete")
         and not parent_has_omissions
     )
-    predicted = {"trifecta": trifecta, "shadowing": confirmed_shadowing}
     return {
         "id": case["id"],
         "family": case["family"],
@@ -193,14 +263,21 @@ def _case_result(case: dict[str, Any], corpus_root: Path, modules: dict[str, Any
         "split": case["split"],
         "expected": case["expected"],
         "predicted": predicted,
+        "composition_available": composition_available,
+        "detection_available": composition_available,
+        "detection_unavailable_reason": unavailable_reason,
         "complete": complete,
         "parent_status": snapshot.job.status.value,
-        "composition_ok": composition.ok,
-        "composition_error": composition.error,
-        "composition_metrics": composition.metrics,
+        "parent_error": parent_error,
+        "parent_error_stage": parent_error_stage,
+        "parent_stages": parent_stages,
+        "composition_ok": composition.ok if composition is not None else None,
+        "composition_error": composition.error if composition is not None else None,
+        "composition_metrics": composition.metrics if composition is not None else None,
         "children": children,
         "harvested_tool_names": harvested,
         "findings": findings,
+        "parent_findings": parent_findings,
         "correct": complete and predicted == case["expected"],
     }
 
@@ -216,6 +293,11 @@ def _aggregate(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
     return result
 
 
+def _composition_available(row: dict[str, Any]) -> bool:
+    """Legacy synthetic rows omit this field and remain available by default."""
+    return bool(row.get("composition_available", row.get("detection_available", True)))
+
+
 def _aggregate_group(
     group: list[dict[str, Any]], complete: list[dict[str, Any]] | None = None
 ) -> dict[str, Any]:
@@ -226,22 +308,36 @@ def _aggregate_group(
     controls = [row for row in group if row["kind"] == "control"]
     complete_attacks = [row for row in complete if row["kind"] == "attack"]
     complete_controls = [row for row in complete if row["kind"] == "control"]
+    unavailable = [row for row in group if not _composition_available(row)]
+    available_attacks = [row for row in attacks if _composition_available(row)]
+    available_controls = [row for row in controls if _composition_available(row)]
     return {
         "attempted": len(group),
         "completed": len(complete),
         "incomplete_ids": [row["id"] for row in group if not row["complete"]],
+        "unavailable_ids": [row["id"] for row in unavailable],
         "correct": sum(row["correct"] for row in complete),
         "attacks": {
             "n": len(attacks),
             "completed": len(complete_attacks),
-            "trifecta_detected": sum(row["predicted"]["trifecta"] for row in attacks),
-            "missed_ids": [row["id"] for row in attacks if not row["predicted"]["trifecta"]],
+            "unavailable_ids": [row["id"] for row in unavailable if row["kind"] == "attack"],
+            "trifecta_detected": sum(
+                bool(row["predicted"]["trifecta"]) for row in available_attacks
+            ),
+            "missed_ids": [
+                row["id"] for row in available_attacks if not row["predicted"]["trifecta"]
+            ],
         },
         "controls": {
             "n": len(controls),
             "completed": len(complete_controls),
-            "trifecta_false_positives": sum(row["predicted"]["trifecta"] for row in controls),
-            "shadowing_findings": sum(row["predicted"]["shadowing"] for row in controls),
+            "unavailable_ids": [row["id"] for row in unavailable if row["kind"] == "control"],
+            "trifecta_false_positives": sum(
+                bool(row["predicted"]["trifecta"]) for row in available_controls
+            ),
+            "shadowing_findings": sum(
+                bool(row["predicted"]["shadowing"]) for row in available_controls
+            ),
             "incorrect_ids": [row["id"] for row in controls if not row["correct"]],
         },
     }

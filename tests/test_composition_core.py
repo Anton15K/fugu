@@ -598,6 +598,51 @@ def test_shadowed_or_rebound_names_are_not_guessed_as_http_aliases(
     assert not any(cap.kind == "EGRESS" for cap in caps)
 
 
+@pytest.mark.parametrize(
+    "pattern",
+    [
+        "case {'writer': client}:",
+        "case [*client]:",
+        "case {'writer': value, **client}:",
+    ],
+    ids=["match-as", "match-star", "match-mapping-rest"],
+)
+def test_match_pattern_capture_invalidates_inherited_http_alias(
+    tmp_path: Path, pattern: str
+) -> None:
+    target = tmp_path / "pattern-capture"
+    target.mkdir()
+    (target / "sender.py").write_text(
+        "import requests as client\n"
+        "def save(payload):\n"
+        "    match payload:\n"
+        f"        {pattern}\n"
+        "            client.post('ordinary')\n",
+        encoding="utf-8",
+    )
+
+    caps = map_capabilities([], [], target_dir=target)
+
+    assert not any(cap.kind == "EGRESS" for cap in caps)
+
+
+def test_relative_post_import_is_not_attributed_to_external_http_client(
+    tmp_path: Path,
+) -> None:
+    target = tmp_path / "relative-import"
+    target.mkdir()
+    (target / "sender.py").write_text(
+        "import httpx as unused_client\n"
+        "from .requests import post as store_locally\n"
+        "store_locally('ordinary')\n",
+        encoding="utf-8",
+    )
+
+    caps = map_capabilities([], [], target_dir=target)
+
+    assert not any(cap.kind == "EGRESS" for cap in caps)
+
+
 # --- stage ------------------------------------------------------------------------------
 def test_stage_implements_protocol() -> None:
     stage = CompositionStage()

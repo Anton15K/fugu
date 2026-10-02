@@ -242,10 +242,27 @@ def _aliased_python_post(text: str) -> str | None:
                 bound_name = alias.asname or alias.name
                 kind = (
                     "function"
-                    if package in _PY_HTTP_CLIENTS and alias.name == "post"
+                    if node.level == 0
+                    and package in _PY_HTTP_CLIENTS
+                    and alias.name == "post"
                     else None
                 )
                 self._record_import(bound_name, kind, node)
+
+        def visit_MatchAs(self, node: ast.MatchAs) -> None:
+            if node.name:
+                self.blocked.add(node.name)
+            self.generic_visit(node)
+
+        def visit_MatchStar(self, node: ast.MatchStar) -> None:
+            if node.name:
+                self.blocked.add(node.name)
+            self.generic_visit(node)
+
+        def visit_MatchMapping(self, node: ast.MatchMapping) -> None:
+            if node.rest:
+                self.blocked.add(node.rest)
+            self.generic_visit(node)
 
         def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
             self.blocked.add(node.name)

@@ -1,6 +1,8 @@
 """Frozen composition-v2 coverage run through the production job path."""
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 import sys
 from types import SimpleNamespace
@@ -176,3 +178,308 @@ def test_aggregate_keeps_incomplete_attempts_in_attack_denominator() -> None:
     assert split["attacks"]["completed"] == 0
     assert split["attacks"]["missed_ids"] == ["incomplete-attack"]
     assert split["incomplete_ids"] == ["incomplete-attack"]
+
+
+def test_aggregate_reports_unavailable_detection_without_counting_a_false_negative() -> None:
+    rows = [
+        {
+            "id": "unavailable-attack",
+            "kind": "attack",
+            "split": "development",
+            "complete": False,
+            "correct": False,
+            "composition_available": False,
+            "predicted": None,
+        },
+        {
+            "id": "unavailable-control",
+            "kind": "control",
+            "split": "development",
+            "complete": False,
+            "correct": False,
+            "composition_available": False,
+            "predicted": None,
+        },
+    ]
+
+    split = _aggregate(rows, "split")["development"]
+
+    assert split["attempted"] == 2
+    assert split["completed"] == 0
+    assert split["unavailable_ids"] == ["unavailable-attack", "unavailable-control"]
+    assert split["attacks"]["n"] == 1
+    assert split["attacks"]["unavailable_ids"] == ["unavailable-attack"]
+    assert split["attacks"]["trifecta_detected"] == 0
+    assert split["attacks"]["missed_ids"] == []
+    assert split["controls"]["n"] == 1
+    assert split["controls"]["unavailable_ids"] == ["unavailable-control"]
+    assert split["controls"]["trifecta_false_positives"] == 0
+    assert split["controls"]["shadowing_findings"] == 0
+
+
+def _case_record(
+    case_id: str,
+    target: Path,
+    *,
+    expected_trifecta: bool = True,
+    member_count: int = 3,
+) -> dict:
+    return {
+        "id": case_id,
+        "target": str(target),
+        "family": "fabricated-reliability",
+        "kind": "attack",
+        "split": "development",
+        "expected": {"trifecta": expected_trifecta, "shadowing": False},
+        "members": [
+            {"dir": "reader", "label": "reader"},
+            {"dir": "vault", "label": "vault"},
+            {"dir": "reporter", "label": "reporter"},
+        ][:member_count],
+    }
+
+
+def _write_case_sources(
+    case_id: str,
+    target: Path,
+    *,
+    reporter_source: str = (
+        "import requests\n"
+        "requests.post('https://example.test/report', json={})\n"
+    ),
+    expected_trifecta: bool = True,
+) -> tuple[dict, list[Path]]:
+    code = {
+        "reader": {
+            "server.json": '{"tools":[{"name":"fetch_note","inputSchema":{"type":"object"}}]}',
+        },
+        "vault": {"vault.py": "import os\nos.environ.get('FABRICATED_VALUE')\n"},
+        "reporter": {
+            "reporter.py": reporter_source,
+            "requests.py": "def post(value):\n    return 'stored locally'\n",
+        },
+    }
+    files: list[Path] = []
+    for label, member_files in code.items():
+        member_dir = target / label
+        member_dir.mkdir(parents=True)
+        skill = member_dir / "SKILL.md"
+        skill.write_text("Fabricated source fixture; never execute.", encoding="utf-8")
+        files.append(skill)
+        for filename, content in member_files.items():
+            path = member_dir / filename
+            path.write_text(content, encoding="utf-8")
+            files.append(path)
+    return _case_record(case_id, target, expected_trifecta=expected_trifecta), files
+
+
+def _production_modules() -> dict:
+    import fugu.pipeline.stages.composition as composition
+    import fugu.pipeline.stages.static_scan as static_scan
+    import fugu.server.composition_jobs as composition_jobs
+    import fugu.server.jobs as jobs
+
+    return {
+        "composition": composition,
+        "static_scan": static_scan,
+        "composition_jobs": composition_jobs,
+        "jobs": jobs,
+    }
+
+
+@pytest.mark.parametrize(
+    "reporter_source",
+    [
+        "import requests as client\n"
+        "def save(payload):\n"
+        "    match payload:\n"
+        "        case {'writer': client}:\n"
+        "            client.post('ordinary')\n",
+        "import httpx as unused_client\n"
+        "from .requests import post as store_locally\n"
+        "store_locally('ordinary')\n",
+    ],
+    ids=["pattern-bound-alias", "relative-helper-import"],
+)
+def test_review_alias_controls_have_no_trifecta_through_production_fanout(
+    tmp_path: Path, reporter_source: str
+) -> None:
+    case, _ = _write_case_sources(
+        "alias-control", tmp_path / "alias-control", reporter_source=reporter_source,
+        expected_trifecta=False,
+    )
+
+    row = _case_result(case, tmp_path, _production_modules())
+
+    assert row["complete"] is True
+    assert row["composition_metrics"]["capabilities"].get("EGRESS", 0) == 0
+    assert row["predicted"]["trifecta"] is False
+    assert not any("MCP06" in finding["owasp_ids"] for finding in row["findings"])
+
+
+def test_all_child_extraction_failures_return_an_unavailable_case_row(tmp_path: Path) -> None:
+    case = _case_record(
+        "all-extraction-failed", tmp_path / "missing-target", member_count=2
+    )
+
+    row = _case_result(case, tmp_path, _production_modules())
+
+    assert row["parent_status"] == "failed"
+    assert row["parent_error_stage"] == "extraction"
+    assert "all 2 members failed extraction" in row["parent_error"]
+    assert row["composition_available"] is False
+    assert row["composition_metrics"] is None
+    assert row["predicted"] is None
+    assert row["complete"] is False
+    assert row["correct"] is False
+    assert len(row["children"]) == 2
+    assert all(child["status"] == "failed" for child in row["children"])
+    assert all(child["error"] for child in row["children"])
+    assert all(child["stages"][0]["stage"] == "extraction" for child in row["children"])
+    assert all(child["stages"][0]["error"] for child in row["children"])
+    assert all(child["stages"][0]["coverage_state"] == "failed" for child in row["children"])
+    assert row["parent_stages"][0]["stage"] == "extraction"
+
+
+@pytest.mark.parametrize("mode", ["missing-snapshot", "missing-composition-stage"])
+def test_missing_parent_snapshot_or_composition_stage_is_unavailable(
+    tmp_path: Path, mode: str
+) -> None:
+    from fugu.types import EvidenceSnippet, Finding, JobStatus
+
+    modules = _production_modules()
+    note = Finding(
+        owasp_ids=["MCP06"], title="Fabricated retained parent finding",
+        detail="A finding can exist even when composition stage evidence is missing.",
+        severity="medium", confidence="measured", stage="static",
+        evidence=[EvidenceSnippet(source="fixture", excerpt="synthetic finding")],
+    )
+
+    async def incomplete_runner(job, sources, stages, store):
+        if mode == "missing-composition-stage":
+            store.create(job).findings.append(note)
+            job.status = JobStatus.done
+
+    modules["composition_jobs"] = SimpleNamespace(
+        run_composition_job=incomplete_runner,
+        harvest_tool_names=modules["composition_jobs"].harvest_tool_names,
+    )
+    case = _case_record("missing-parent-evidence", tmp_path / "no-target")
+
+    row = _case_result(case, tmp_path, modules)
+
+    assert row["composition_available"] is False
+    assert row["predicted"] is None
+    assert row["complete"] is False
+    assert row["correct"] is False
+    assert row["composition_metrics"] is None
+    assert row["detection_unavailable_reason"]
+    if mode == "missing-composition-stage":
+        assert row["parent_status"] == "done"
+        assert row["parent_stages"] == []
+        assert row["findings"][0]["title"] == note.title
+        assert row["parent_findings"][0]["title"] == note.title
+    else:
+        assert row["parent_status"] == "missing"
+
+
+def test_failed_composition_stage_keeps_findings_but_marks_detection_unavailable(
+    tmp_path: Path,
+) -> None:
+    from fugu.types import EvidenceSnippet, Finding, JobStatus, StageResult
+
+    modules = _production_modules()
+    note = Finding(
+        owasp_ids=["MCP06"], title="Fabricated partial-stage finding",
+        detail="Retained evidence for an unavailable result.", severity="medium",
+        confidence="measured", stage="composition",
+        evidence=[EvidenceSnippet(source="fixture", excerpt="synthetic finding")],
+    )
+
+    async def failed_stage_runner(job, sources, stages, store):
+        snapshot = store.create(job)
+        snapshot.stages.append(StageResult(
+            stage="composition", ok=False, findings=[note], error="fabricated stage error"
+        ))
+        snapshot.findings.append(note)
+        job.status = JobStatus.failed
+
+    modules["composition_jobs"] = SimpleNamespace(
+        run_composition_job=failed_stage_runner,
+        harvest_tool_names=modules["composition_jobs"].harvest_tool_names,
+    )
+    case = _case_record("composition-stage-failed", tmp_path / "no-target")
+
+    row = _case_result(case, tmp_path, modules)
+
+    assert row["composition_available"] is False
+    assert row["predicted"] is None
+    assert row["composition_error"] == "fabricated stage error"
+    assert row["findings"][0]["title"] == note.title
+    assert row["complete"] is False
+    assert row["correct"] is False
+
+
+def test_run_suite_persists_cases_around_all_extraction_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import bench.composition_expanded as benchmark
+
+    suite_root = tmp_path / "suite"
+    suite_root.mkdir()
+    monkeypatch.setattr(benchmark, "ROOT", suite_root)
+    corpus_root = suite_root / "corpus"
+    corpus_root.mkdir()
+    before, before_files = _write_case_sources(
+        "healthy-before", suite_root / "sources" / "before"
+    )
+    failed = _case_record(
+        "all-extraction-failed", suite_root / "sources" / "missing", member_count=2
+    )
+    after, after_files = _write_case_sources(
+        "healthy-after", suite_root / "sources" / "after"
+    )
+    cases = [before, failed, after]
+    cases_path = corpus_root / "cases.json"
+    cases_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+
+    def digest(path: Path) -> str:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+
+    source_hashes = {
+        path.relative_to(suite_root).as_posix(): digest(path)
+        for path in [*before_files, *after_files]
+    }
+    source_hashes[cases_path.relative_to(suite_root).as_posix()] = digest(cases_path)
+    engine_path = _PROJECT_ROOT / "src/fugu/pipeline/stages/composition.py"
+    engine_key = "src/fugu/pipeline/stages/composition.py"
+    freeze = {
+        "case_count": len(cases),
+        "baseline_commit": "synthetic-test-freeze",
+        "baseline_engine_source_hashes": {engine_key: digest(engine_path)},
+        "source_hashes_sha256": source_hashes,
+    }
+    (corpus_root / "manifest.json").write_text(json.dumps(freeze), encoding="utf-8")
+    output = suite_root / "results" / "suite.json"
+
+    result = benchmark.run_suite(
+        _PROJECT_ROOT / "src", output, label="after", corpus_root=corpus_root
+    )
+    persisted = json.loads(output.read_text(encoding="utf-8"))
+    failure_row = next(row for row in result["cases"] if row["id"] == failed["id"])
+
+    assert [row["id"] for row in persisted["cases"]] == [
+        "healthy-before", "all-extraction-failed", "healthy-after"
+    ]
+    assert result["summary"]["attempted"] == 3
+    assert result["summary"]["completed"] == 2
+    assert result["summary"]["attacks"]["n"] == 3
+    assert result["summary"]["attacks"]["completed"] == 2
+    assert result["summary"]["unavailable_ids"] == ["all-extraction-failed"]
+    assert result["summary"]["attacks"]["unavailable_ids"] == ["all-extraction-failed"]
+    assert result["summary"]["attacks"]["missed_ids"] == []
+    assert failure_row["predicted"] is None
+    assert failure_row["parent_status"] == "failed"
+    assert failure_row["parent_error"]
+    assert failure_row["complete"] is False and failure_row["correct"] is False
+    assert persisted["summary"] == result["summary"]

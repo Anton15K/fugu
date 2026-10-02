@@ -87,13 +87,46 @@ IDs, and do not count incomplete cases as correct. The recheck had no
 incomplete child stages; the fabricated mixed partial/failure regression
 exercises the accounting path without executing fixture code.
 
+### Final alias and unavailable-attempt recheck
+
+The immutable `review-after.json` remains the prior review snapshot. The final
+candidate was replayed against the same frozen cases into the new
+[`final-after.json`](../bench/results/2026-10-02-composition-v2/final-after.json).
+It records all 37 engine hashes and 160 corpus-source hashes. All 24 cases
+completed, all 12 positive chains were detected, all 12 controls had zero
+trifecta false positives and zero confirmed-shadowing findings, and all 24
+expected outcomes matched. There were no unavailable or incomplete cases in
+this frozen corpus.
+
+The final syntax-only alias check also invalidates HTTP aliases captured by
+`MatchAs`, `MatchStar`, and `MatchMapping` patterns. `from .requests import
+post` and other relative `post` imports are treated as local bindings, even
+when another absolute HTTP-client import exists in the same file. The direct
+absolute `requests`, `httpx`, and `aiohttp` aliases remain recognized. Two
+review-control fixtures exercised these cases through the production fan-out;
+neither produced inferred EGRESS or a trifecta. These regression-only fixtures
+were not added to the frozen corpus.
+
+When the production runner persists no parent snapshot or composition stage,
+the result row now records composition detection as unavailable: `predicted`
+is null, `complete` and `correct` are false, and the reason and available
+parent/child stage errors and findings remain in the row. A real two-member
+all-extraction-failure regression retains the failed parent extraction stage,
+both failed child attempts and their extraction errors, without inventing a
+composition stage. Such attempts remain in attack/control `n` denominators and
+appear in `unavailable_ids`; they do not count as missed attacks or control
+false positives. A suite-level regression places that failure between healthy
+cases and verifies all attempts are persisted. Missing snapshots and ordinary
+missing or failed composition stages follow the same unavailable accounting.
+Frozen corpus and engine hash mismatches still fail before measurement.
+
 Python POST alias recognition remains syntax-only and bounded to direct
-`requests`, `httpx`, and `aiohttp` module aliases and imported `post` aliases
-in module/function lexical scopes. Function-local imports do not leak to
-sibling functions, and parameters or assignments that shadow/rebind an alias
-prevent that name from being treated as an HTTP client. This does not resolve
-arbitrary wrappers, class/lambda scopes, dynamic imports, `getattr`, or runtime
-data flow; ambiguous forms may be missed.
+`requests`, `httpx`, and `aiohttp` module aliases and absolute imported `post`
+aliases in module/function lexical scopes. Function-local imports do not leak
+to sibling functions, and parameters, assignments, or match-pattern captures
+that shadow/rebind an alias prevent that name from being treated as an HTTP
+client. This does not resolve arbitrary wrappers, class/lambda scopes, dynamic
+imports, `getattr`, or runtime data flow; ambiguous forms may be missed.
 
 ## Historical full-benchmark interpretation
 
@@ -145,17 +178,13 @@ The scoped checks were:
 
 ```sh
 UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 uv run --no-sync pytest tests/test_composition_core.py tests/test_composition_server.py tests/test_composition_expanded.py tests/test_full_charts.py tests/test_coverage_honesty.py -q
-UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 uv run --no-sync python bench/composition_expanded.py --engine-root src --output bench/results/2026-10-02-composition-v2/review-after.json --label after
-uv run --no-sync python bench/composition_expanded.py --engine-root /tmp/fugu-composition-showcase-engine-20261002 --output bench/results/2026-10-02-composition-v2/baseline.json --label baseline
-uv run --no-sync python bench/composition_expanded.py --engine-root src --output bench/results/2026-10-02-composition-v2/after.json --label after
-MPLCONFIGDIR=/tmp/fugu-mplconfig /tmp/fugu-charts-venv/bin/python -m bench.full_charts --source bench/results/2026-10-02-full --out bench/results/2026-10-02-composition-v2/full-benchmark-charts --recovered
+UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 uv run --no-sync python bench/composition_expanded.py --engine-root src --output bench/results/2026-10-02-composition-v2/final-after.json --label after
+UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 uv run --no-sync ruff check src/fugu/pipeline/stages/composition.py bench/composition_expanded.py
+git diff --check
 ```
 
-Every run checks the frozen case-source hashes and records the engine hashes;
-the baseline run additionally requires an exact match with all 37 frozen
-engine files. The chart command reads the frozen full-benchmark directory but
-writes only to the new composition-v2 result path; all generated PNG charts
-were visually inspected. The current scoped suite passed 121 tests with one
-Starlette/AnyIO deprecation warning. The review replay wrote only
-`review-after.json`; the original baseline and revised result files retain
-their prior SHA-256 hashes.
+The final replay checked all frozen case-source hashes and recorded all 37
+engine hashes. The scoped suite passed 133 tests with one Starlette/AnyIO
+deprecation warning, Ruff passed for both changed Python implementation files,
+and `git diff --check` was clean. The replay wrote only `final-after.json`;
+`baseline.json`, `after.json`, and `review-after.json` remain unchanged.
