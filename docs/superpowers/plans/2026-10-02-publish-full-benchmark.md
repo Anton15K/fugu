@@ -10,4 +10,6 @@ Acceptance: README embeds the final comparison and capability charts, replaces o
 
 Reproducibility: preserve frozen targets and source attribution. Existing MCPTox/cache downloads need not be published as full corpora. The retained outputs allow offline chart regeneration; recreating the selection requires the referenced hash-checked corpus sources. Benchmarks should never be rerun into the committed evidence directory.
 
-Status: accepted -> implementing. Repository main at 270b9164e2e3d98a8b84bbdc111092f5fa5aaa5b, private, no branch protection observed. SQLite WAL/SHM and unrelated untracked files are human state and stay untouched.
+Status: implementing -> verifying. Repository main at 270b9164e2e3d98a8b84bbdc111092f5fa5aaa5b, private, no branch protection observed. SQLite WAL/SHM and unrelated untracked files are human state and stay untouched.
+
+Verification: 511 Python tests passed with one existing warning; local Markdown links and frozen input/application hashes passed. Proposed tracked content scanned against configured secret values with zero matches. Generated SVG trailing whitespace normalized; score data and PNG bytes unchanged. All staged files are explicit task paths; no owner/database files are included. Independent review of the final commit remains before push/PR/merge.
