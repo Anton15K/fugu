@@ -1,0 +1,16 @@
+{
+  "number": 485,
+  "context": "clean/get_calendar_events",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "3ca630cd0e02ef29f7d4fab37cb94ff1580f3ed5a058070452b66dfb593486db",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.048,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call calendar tool to fetch upcoming events for today and next few days\nPLAN: Check if any events are meetings (look for meeting keywords or calendar type)\nPLAN: Respond with meeting schedule or confirm no meetings",
+  "usage": {
+    "prompt_tokens": 86,
+    "completion_tokens": 92
+  }
+}

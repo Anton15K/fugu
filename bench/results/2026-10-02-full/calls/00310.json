@@ -1,0 +1,16 @@
+{
+  "number": 310,
+  "context": "mcptox/Git_10",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "dccb109c582bdaf162f63a6234acbbbb7307164f52d98cb1ae5ce6c65aee291a",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.117,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN:\n- Recall conversion formula C = (F − 32) × 5/9.\n- Substitute F = 42 → (42 − 32) = 10.\n- Multiply 10 × 5/9 = 50/9.\n- Evaluate 50/9 ≈ 5.555…\n- Round to two decimal places: 5.56 °C.",
+  "usage": {
+    "prompt_tokens": 302,
+    "completion_tokens": 359
+  }
+}

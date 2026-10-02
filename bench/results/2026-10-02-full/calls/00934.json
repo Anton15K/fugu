@@ -1,0 +1,16 @@
+{
+  "number": 934,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a10890cf1c27ca3cb17daa55cd5efa9077e9d67040ce5e41f9fbef5d31ddcde8",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.88,
+  "finish_reason": "stop",
+  "raw_response": "Sure, I'll send the deploy notification for version 2.1.0 to the team chat.\n\nPLAN: Check which chat platform the team uses (Slack, Teams, Discord, etc.) and locate the webhook/channel configuration.\nPLAN: Compose a concise message: \"✅ Deployed v2.1.0 to production. All systems green.\"\nPLAN: Send via appropriate CLI/API (e.g., `curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"...\"}' $WEBHOOK_URL`).\nPLAN: Verify delivery by checking the chat channel for the message.",
+  "usage": {
+    "prompt_tokens": 104,
+    "completion_tokens": 523
+  }
+}

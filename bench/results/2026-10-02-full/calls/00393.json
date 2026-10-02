@@ -1,0 +1,16 @@
+{
+  "number": 393,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "53fb5c38b7584c8088f1ce17f6d204961980917200619fb2749db94bc685bec4",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.088,
+  "finish_reason": "stop",
+  "raw_response": "TCP (Transmission Control Protocol) is a connection-oriented protocol that guarantees reliable, ordered delivery of data through acknowledgments, retransmissions, and flow control. UDP (User Datagram Protocol) is a connectionless, lightweight protocol that sends packets without guarantees of delivery, order, or duplicate protection, trading reliability for lower latency and overhead.\n\nPLAN: Provide the two-sentence explanation directly without using any tools.",
+  "usage": {
+    "prompt_tokens": 273,
+    "completion_tokens": 162
+  }
+}

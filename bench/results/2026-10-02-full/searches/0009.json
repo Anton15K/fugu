@@ -1,0 +1,54 @@
+{
+  "query": "\"docs.example.internal\" domain malware OR data exfiltration report",
+  "number": 9,
+  "response": {
+    "query": "docs.example.internal domain malware OR data exfiltration report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://www.cyber.gc.ca/en/guidance/defending-against-data-exfiltration-threats-itsm40110",
+        "title": "Defending against data exfiltration threats - ITSM.40.110 - Canadian Centre for Cyber Security",
+        "content": "awareness training. Phishing, malware, ransomware, and insider threats can lead to a data exfiltration event. For example, a sophisticated threat actor can use spear phishing and malware attacks to infiltrate an organization’s network to exfiltrate trade or national secrets. Financially motivated threat actors will use malware tools to steal electronic payment card information from payment processing systems, a technique described as payment card skimming (when threat actors inject custom code [...] gateway device to a threat-actor controlled-environment. For example, the Domain Name System (DNS) protocol can be exploited to exfiltrate data through DNS queries, a technique called DNS tunneling.",
+        "score": 0.49436116,
+        "raw_content": null,
+        "id": "59efde-00"
+      },
+      {
+        "url": "https://offensivebytes.com/data-exfiltration-in-modern-environments",
+        "title": "Data Exfiltration: Threats and Defenses Guide",
+        "content": "For example, Chinese-aligned group CeranaKeeper (linked to Mustang Panda) repeatedly used legitimate file-sharing services like Pastebin, Dropbox, OneDrive, and GitHub to exfiltrate Thai government data. APT32 (OceanLotus) and APT41 have encoded stolen data into DNS subdomains. The SolarWinds/Teardrop breach exemplifies steganographic exfiltration: malware hid a malicious payload inside an innocuous image file (`gracious_truth.jpg`). [...] Example Concept: Malware on a compromised PC emits a brief infrared flash (through an IR transmitter) on a schedule. A nearby IoT camera captures the flicker and forwards it via its normal cloud service. Or compromising a wireless light switch to blink Morse-coded signals to a malicious drone flying overhead (very speculative). [...] Even legitimate tools are abused. For example, CookieMiner used `curl --upload-file` to POST data via HTTP. The MITRE ATT&CK framework notes many malware families (Brave Prince, Kessel, FIN6, FIN8, OilRig, etc.) using HTTP/S for exfiltration. APT3 (Chinese) was documented compressing data and sending it over port 443 (HTTPS) with SSL encryption. Using HTTPS hides content from network inspectors, making this very stealthy.",
+        "score": 0.49143207,
+        "raw_content": null,
+        "id": "c3948d-01"
+      },
+      {
+        "url": "https://pureadmin.qub.ac.uk/ws/files/161785678/1570493592_CameraReady.pdf",
+        "title": "DNSxD: Detecting Data Exfiltration over DNS",
+        "content": "• 2: Exﬁltration tools consist of two component applica-tions; the client on the victim machine, and the server controlled by the attacker. The victim machine must be infected with the client tool. For example, within a malware payload.\n• 3a: With control of the victim’s machine, the exﬁltration tool is used to encapsulate selected data from the victim into DNS requests. [...] Depending on the data being exﬁltrated this could be of little consequence. For example, if the attacker is trying to exﬁltrate large quantities of corporate data. Furthermore, the polling from C&C and the initiation of protocols during tunnelling is often enough to trigger detection, meaning that no sensitive data can be exﬁltrated. However, if the attacker is exﬁltrating small but highly sensitive data, e.g. credit card details, through sophisticated pure exﬁltration methods this could [...] According to a 2016 Cisco security report , 91% of malware used DNS in attacks and 68% of organisations failed to monitor DNS trafﬁc as a method of attack. According to , the ﬁrst discussion of the DNS protocol being used as an exﬁltration method occurred in 1998. Since then, the attack has grown in notoriety, mainly due to its role in malware attacks. However, mitigation has not kept pace with the growth in the attack vector with the majority of networks still vulnerable to even fundamental",
+        "score": 0.42821008,
+        "raw_content": null,
+        "id": "53a727-02"
+      },
+      {
+        "url": "https://www.infoblox.com/dns-security-resource-center/dns-security-issues-threats/dns-security-threats-data-exfiltration",
+        "title": "DNS Data Exfiltration - Infoblox DNS Security Resource Center",
+        "content": "How DNS Data Exfiltration Works\n\nIn this example, it is not necessary for the client to receive a response from the malicious server, because the goal was to send information out. However, the process can easily include the malicious server sending back an exploit to be executed on the infected client.\n\n## How to Detect DNS Data Exfiltration [...] However, recognizing this possibility, attackers can register multiple domain names to use in rotation to evade detection; so, simply blocking one bad domain (ZG5ZC2VJDXJPDHKK.COM in the example) is not going to be effective in stopping this attack. In fact, this latter approach is so commonly used, many attackers employ a Domain Generation Algorithm (DGA) to automatically generate random domain names and register them, several hundreds and thousands at a time. [...] DNS Data Exfiltration is like stealing someone’s car without opening the garage door: You have to break the car down into small chunks that fit through the doors and windows, and then rebuild the car outside. Except in the case of data exfiltration, the malware breaks down files, sometimes even encrypting each chunk, before sneaking them off your premises to reassemble.\n\nFigure 2-5 illustrates a simplified flow of how data exfiltration works over DNS:",
+        "score": 0.40570828,
+        "raw_content": null,
+        "id": "624874-03"
+      },
+      {
+        "url": "https://www.akamai.com/glossary/what-is-dns-data-exfiltration",
+        "title": "What Is DNS Data Exfiltration? | How Does DNS Data Exfiltration Work? | Akamai",
+        "content": "Attackers then use the DNS protocol to embed data within packets in DNS queries (e.g., encodedstringofdata.attacker.example.com) that resolve to a domain nameserver the attacker owns. The DNS queries containing stolen data pass undiscovered through firewalls and security systems to the attacker’s authoritative nameserver, where the exfiltrated data is decoded and the transfer is complete.\n\n## How is stolen data embedded in DNS traffic? [...] DNS data exfiltration is a method used by hackers to steal data from an IT system or network by exploiting the Domain Name System (DNS) protocol. In a data exfiltration attack, hackers remove confidential or sensitive data from inside a protected IT environment by embedding it within DNS packets. Since DNS traffic is generally allowed through firewalls and security systems, the malicious data in DNS packets has a high chance of leaving the organization without triggering security alerts. DNS [...] ## How does DNS data exfiltration work?\n\nIn a DNS data exfiltration attack, a hacker first installs malware on a compromised network or system. This may be accomplished by getting a user inside the network to click on a link or visit a website containing malware that’s then downloaded to their machine. Hackers may also breach a network with stolen credentials and install malware within the environment to take control of the infected device, making it a command and control server.",
+        "score": 0.37490568,
+        "raw_content": null,
+        "id": "6d2cc6-04"
+      }
+    ],
+    "response_time": 1.62,
+    "request_id": "729d0616-681b-4476-8e5f-ddf5ff39a205"
+  }
+}

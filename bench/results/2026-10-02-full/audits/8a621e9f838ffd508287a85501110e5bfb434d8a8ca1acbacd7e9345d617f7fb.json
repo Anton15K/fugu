@@ -1,0 +1,535 @@
+{
+  "context": "crafted/10-clean-node-skill",
+  "input_sha256": {
+    "index.js": "343efe0a389c485d981d9fc96c6955300db5c9f7aa981006a4a3bff30728bb28",
+    "package.json": "49913d2d5b24e49effc38af1d5500e636c11bab5064114646ed3505759f893e7"
+  },
+  "stages": [
+    {
+      "stage": "concealment",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 2,
+        "files_scanned": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "findings": 0,
+        "duration_s": 0.0005
+      },
+      "error": null
+    },
+    {
+      "stage": "static",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 2,
+        "files_scanned": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "rules": 18,
+        "hits": 0,
+        "findings": 0,
+        "duration_s": 0.0007
+      },
+      "error": null
+    },
+    {
+      "stage": "semantic",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "files_seen": 2,
+        "files_scanned": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "skipped_max_files": 0,
+        "units": 2,
+        "units_total": 2,
+        "units_completed": 2,
+        "units_partial": 0,
+        "units_omitted": 0,
+        "files": 2,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.974,
+            "prompt_chars": 4734,
+            "completion_chars": 231,
+            "usage": {
+              "prompt_tokens": 1274,
+              "completion_tokens": 393
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 2.094,
+            "prompt_chars": 3339,
+            "completion_chars": 314,
+            "usage": {
+              "prompt_tokens": 848,
+              "completion_tokens": 610
+            }
+          }
+        ],
+        "call_errors": [],
+        "parse_errors": [],
+        "findings": 0,
+        "duration_s": 4.074
+      },
+      "error": null
+    },
+    {
+      "stage": "harness",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "probes": 9,
+        "runs": 9,
+        "comparisons_completed": 17,
+        "comparisons_expected": 18,
+        "arms": 3,
+        "llm_calls": [
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.225,
+            "prompt_chars": 2443,
+            "completion_chars": 331,
+            "usage": {
+              "prompt_tokens": 767,
+              "completion_tokens": 172
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.064,
+            "prompt_chars": 323,
+            "completion_chars": 388,
+            "usage": {
+              "prompt_tokens": 93,
+              "completion_tokens": 123
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.112,
+            "prompt_chars": 2985,
+            "completion_chars": 377,
+            "usage": {
+              "prompt_tokens": 890,
+              "completion_tokens": 139
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.109,
+            "prompt_chars": 2985,
+            "completion_chars": 508,
+            "usage": {
+              "prompt_tokens": 890,
+              "completion_tokens": 283
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.224,
+            "prompt_chars": 315,
+            "completion_chars": 859,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 252
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.528,
+            "prompt_chars": 2977,
+            "completion_chars": 867,
+            "usage": {
+              "prompt_tokens": 887,
+              "completion_tokens": 273
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.34,
+            "prompt_chars": 2977,
+            "completion_chars": 600,
+            "usage": {
+              "prompt_tokens": 887,
+              "completion_tokens": 599
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.141,
+            "prompt_chars": 314,
+            "completion_chars": 661,
+            "usage": {
+              "prompt_tokens": 91,
+              "completion_tokens": 233
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.433,
+            "prompt_chars": 2976,
+            "completion_chars": 731,
+            "usage": {
+              "prompt_tokens": 888,
+              "completion_tokens": 288
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.162,
+            "prompt_chars": 2976,
+            "completion_chars": 902,
+            "usage": {
+              "prompt_tokens": 888,
+              "completion_tokens": 374
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.571,
+            "prompt_chars": 324,
+            "completion_chars": 407,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 324
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.935,
+            "prompt_chars": 2986,
+            "completion_chars": 494,
+            "usage": {
+              "prompt_tokens": 887,
+              "completion_tokens": 140
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.758,
+            "prompt_chars": 2986,
+            "completion_chars": 563,
+            "usage": {
+              "prompt_tokens": 887,
+              "completion_tokens": 564
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.853,
+            "prompt_chars": 305,
+            "completion_chars": 208,
+            "usage": {
+              "prompt_tokens": 90,
+              "completion_tokens": 188
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.042,
+            "prompt_chars": 2967,
+            "completion_chars": 129,
+            "usage": {
+              "prompt_tokens": 887,
+              "completion_tokens": 172
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.203,
+            "prompt_chars": 2967,
+            "completion_chars": 177,
+            "usage": {
+              "prompt_tokens": 887,
+              "completion_tokens": 137
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.2,
+            "prompt_chars": 306,
+            "completion_chars": 826,
+            "usage": {
+              "prompt_tokens": 88,
+              "completion_tokens": 267
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.316,
+            "prompt_chars": 2968,
+            "completion_chars": 736,
+            "usage": {
+              "prompt_tokens": 885,
+              "completion_tokens": 213
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 3.363,
+            "prompt_chars": 2968,
+            "completion_chars": 0,
+            "usage": {
+              "prompt_tokens": 885,
+              "completion_tokens": 600
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.832,
+            "prompt_chars": 375,
+            "completion_chars": 482,
+            "usage": {
+              "prompt_tokens": 100,
+              "completion_tokens": 138
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.615,
+            "prompt_chars": 3037,
+            "completion_chars": 358,
+            "usage": {
+              "prompt_tokens": 897,
+              "completion_tokens": 424
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 2.084,
+            "prompt_chars": 3037,
+            "completion_chars": 554,
+            "usage": {
+              "prompt_tokens": 897,
+              "completion_tokens": 349
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.675,
+            "prompt_chars": 361,
+            "completion_chars": 114,
+            "usage": {
+              "prompt_tokens": 102,
+              "completion_tokens": 84
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 0.862,
+            "prompt_chars": 3023,
+            "completion_chars": 254,
+            "usage": {
+              "prompt_tokens": 899,
+              "completion_tokens": 165
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.713,
+            "prompt_chars": 3023,
+            "completion_chars": 392,
+            "usage": {
+              "prompt_tokens": 899,
+              "completion_tokens": 218
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.046,
+            "prompt_chars": 363,
+            "completion_chars": 532,
+            "usage": {
+              "prompt_tokens": 98,
+              "completion_tokens": 184
+            }
+          },
+          {
+            "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+            "latency_s": 1.246,
+            "prompt_chars": 3025,
+            "completion_chars": 399,
+            "usage": {
+              "prompt_tokens": 895,
+              "completion_tokens": 233
+            }
+          },
+          {
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "latency_s": 1.923,
+            "prompt_chars": 3025,
+            "completion_chars": 442,
+            "usage": {
+              "prompt_tokens": 895,
+              "completion_tokens": 278
+            }
+          }
+        ],
+        "call_errors": [
+          "Give me three ideas for a week/mounted_everyday: ValueError: empty mounted response"
+        ],
+        "parse_errors": [],
+        "findings": 0,
+        "duration_s": 42.643,
+        "coverage_incomplete": "17/18 A/B comparisons completed; some inference responses unavailable or invalid"
+      },
+      "error": null
+    },
+    {
+      "stage": "reputation",
+      "ok": true,
+      "findings": [
+        {
+          "owasp_ids": [
+            "MCP04",
+            "LLM03"
+          ],
+          "title": "Adverse web reputation for 'lodash'",
+          "detail": "5 search result(s) mention a CVE in connection with 'lodash'. Advisory signal only - verify the sources before acting (reputation is not proof of malice).",
+          "severity": "medium",
+          "confidence": "advisory",
+          "stage": "reputation",
+          "evidence": [
+            {
+              "source": "tavily:https://blog.ulisesgascon.com/why-most-lodash-vulnerability-reports-get-rejected",
+              "excerpt": "Why Most Lodash Vulnerability Reports Get Rejected » blog.ulisesgascon.com (matched: Vulnerability)",
+              "meta": {
+                "identifier": "lodash",
+                "matched": "Vulnerability"
+              }
+            },
+            {
+              "source": "tavily:https://www.sentinelone.com/vulnerability-database/cve-2021-23337",
+              "excerpt": "CVE-2021-23337: Lodash Command Injection Vulnerability (matched: CVE-2021-23337)",
+              "meta": {
+                "identifier": "lodash",
+                "matched": "CVE-2021-23337"
+              }
+            },
+            {
+              "source": "tavily:https://tuxcare.com/blog/lodash-4-17-21-the-hidden-cost-of-running-legacy-javascript-dependencies",
+              "excerpt": "lodash 4.17.21 Vulnerabilities: Managing Risk (matched: Vulnerabilities)",
+              "meta": {
+                "identifier": "lodash",
+                "matched": "Vulnerabilities"
+              }
+            }
+          ]
+        },
+        {
+          "owasp_ids": [
+            "MCP04",
+            "LLM03"
+          ],
+          "title": "Adverse web reputation for 'chalk'",
+          "detail": "5 search result(s) mention security keywords in connection with 'chalk'. Advisory signal only - verify the sources before acting (reputation is not proof of malice).",
+          "severity": "low",
+          "confidence": "advisory",
+          "stage": "reputation",
+          "evidence": [
+            {
+              "source": "tavily:https://checkmarx.com/zero-post/chalk-and-17-other-npm-packages-compromised-in-supply-chain-attack",
+              "excerpt": "Chalk And 17 Other NPM Packages Compromised In Supply-Chain Attack - Checkmarx (matched: Compromised)",
+              "meta": {
+                "identifier": "chalk",
+                "matched": "Compromised"
+              }
+            },
+            {
+              "source": "tavily:https://www.sygnia.co/threat-reports-and-advisories/npm-supply-chain-attack-september-2025",
+              "excerpt": "16 Minutes to Impact: npm Supply Chain Abuse Deploys crypto-draining malware - Sygnia (matched: malware)",
+              "meta": {
+                "identifier": "chalk",
+                "matched": "malware"
+              }
+            },
+            {
+              "source": "tavily:https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised",
+              "excerpt": "npm debug and chalk packages compromised (matched: compromised)",
+              "meta": {
+                "identifier": "chalk",
+                "matched": "compromised"
+              }
+            }
+          ]
+        }
+      ],
+      "metrics": {
+        "identifiers": {
+          "packages": [
+            "markdown-prettifier",
+            "lodash",
+            "chalk"
+          ],
+          "domains": [],
+          "dep_versions": {
+            "markdown-prettifier": null,
+            "lodash": null,
+            "chalk": null
+          }
+        },
+        "osv": [],
+        "queries": 3,
+        "results": [
+          {
+            "identifier": "markdown-prettifier",
+            "version": null,
+            "results": 5
+          },
+          {
+            "identifier": "lodash",
+            "version": null,
+            "results": 5
+          },
+          {
+            "identifier": "chalk",
+            "version": null,
+            "results": 5
+          }
+        ],
+        "call_errors": [],
+        "findings": 2,
+        "duration_s": 4.545
+      },
+      "error": null
+    },
+    {
+      "stage": "detonation",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "triggers": 1,
+        "executed": true,
+        "detonations": 1,
+        "canary_hits": 0,
+        "flows": 0,
+        "dns": 0
+      },
+      "error": null
+    },
+    {
+      "stage": "composition",
+      "ok": true,
+      "findings": [],
+      "metrics": {
+        "skipped": "single-source job"
+      },
+      "error": null
+    }
+  ]
+}

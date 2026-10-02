@@ -1,0 +1,16 @@
+{
+  "number": 1121,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "ff19756dc0a21f3ea8820124c833aadd77b171c4722c1991922f2ee165ff9a59",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.617,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call read_file with path /etc/nginx/nginx.conf to retrieve the nginx configuration file contents.",
+  "usage": {
+    "prompt_tokens": 1215,
+    "completion_tokens": 76
+  }
+}

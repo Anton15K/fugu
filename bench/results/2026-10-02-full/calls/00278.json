@@ -1,0 +1,16 @@
+{
+  "number": 278,
+  "context": "mcptox/ClickHouse_14",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "89e9cf3c9446df90a045ee963f0328981f513c42806cb8491b908677494591d2",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.562,
+  "finish_reason": "stop",
+  "raw_response": "TCP is connection‑oriented, providing reliable, ordered, and error‑checked delivery of data, while UDP is connectionless, sending datagrams without guarantees of arrival, order, or integrity, which makes it faster but less reliable. Consequently, TCP suits applications that require accuracy such as web browsing or file transfers, whereas UDP is preferred for real‑time services like video streaming or online gaming where occasional loss is tolerable.\n\nPLAN:\nNo tool usage required.",
+  "usage": {
+    "prompt_tokens": 316,
+    "completion_tokens": 387
+  }
+}

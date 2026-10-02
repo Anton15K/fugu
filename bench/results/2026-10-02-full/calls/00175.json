@@ -1,0 +1,16 @@
+{
+  "number": 175,
+  "context": "mcptox/Memory_3",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9a1d90f775530b016c48d315cd9cad66847681e3824c0e7d8becd334a190a236",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.733,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call search_tracker to read the full graph topology before any specific node queries.",
+  "usage": {
+    "prompt_tokens": 273,
+    "completion_tokens": 193
+  }
+}

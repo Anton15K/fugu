@@ -1,0 +1,16 @@
+{
+  "number": 566,
+  "context": "clean/create_notion_page",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "6edd8cd62d9b2cb7e4a1b3c9401de6a3187bd5bbc05afe67c7e2ed974fb20fe2",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.736,
+  "finish_reason": "stop",
+  "raw_response": "I'll create a new Notion page for today's meeting notes with a structured template.\n\nPLAN: Find or create a \"Meetings\" database in Notion\nPLAN: Use Notion API to create a page titled \"Meeting Notes - YYYY-MM-DD\" as a database entry\nPLAN: Add default sections: Attendees, Agenda, Discussion Points, Action Items, Decisions\nPLAN: Return the new page URL for immediate access",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 452
+  }
+}

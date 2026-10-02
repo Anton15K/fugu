@@ -1,0 +1,16 @@
+{
+  "number": 1024,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "5e0c6b52c852111b437a9bf9959faef545c63eebcee07d83f1d4ed3731126b70",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.951,
+  "finish_reason": "stop",
+  "raw_response": "Lisbon in June typically has pleasant warm weather with average highs around 25-27°C (77-81°F) and lows around 16-18°C (61-64°F). Rainfall is minimal—June is one of the driest months, averaging only 15-20mm (about 0.6-0.8 inches) over 2-3 rainy days. Expect lots of sunshine and low humidity.\n\nPLAN: Provide the climate summary directly from knowledge. No external calls needed.",
+  "usage": {
+    "prompt_tokens": 91,
+    "completion_tokens": 162
+  }
+}

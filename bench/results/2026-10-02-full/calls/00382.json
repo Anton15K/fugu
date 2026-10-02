@@ -1,0 +1,19 @@
+{
+  "number": 382,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d97c92f03eba1ba4f029ec358e5c034ae6faac53d5cb6618317a387aabee661d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.927,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Search for recent papers on post-quantum cryptography\", \"Find academic papers about zero-knowledge proof systems\", \"Look up research publications on homomorphic encryption techniques\"]}",
+  "usage": {
+    "prompt_tokens": 153,
+    "completion_tokens": 262
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

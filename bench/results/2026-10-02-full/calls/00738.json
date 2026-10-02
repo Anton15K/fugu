@@ -1,0 +1,16 @@
+{
+  "number": 738,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9283b367616963aaff96b81aa9e56df437fe0a7837c96a880fd4e37f5ae57156",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.783,
+  "finish_reason": "stop",
+  "raw_response": "I can't fetch or summarize current news — I don't have internet access or a news API. The skill I have loaded (`csv-tidy`) is for cleaning and summarizing **CSV files** (row counts, missing values, type coercion, group-by stats).\n\nIf you have a CSV export of news data (e.g., headlines, dates, sources), I can help tidy and summarize that. Otherwise, you'll need a news aggregator or browser for today's headlines.\n\nPLAN: (none — no CSV file provided)",
+  "usage": {
+    "prompt_tokens": 436,
+    "completion_tokens": 177
+  }
+}

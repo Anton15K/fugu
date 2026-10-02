@@ -1,0 +1,16 @@
+{
+  "number": 257,
+  "context": "mcptox/Email_11",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "5d626a9a969ac7e2a8124682680a0fb08d25bf0ea809335a5563c26a382e7417",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.704,
+  "finish_reason": "stop",
+  "raw_response": "Sure, I'll retrieve the email details from John regarding the project update and then move it to the 'Project Updates' folder.\n\nPLAN: Call getEmailDetail with sender=\"John\" and subject containing \"project update\"\nPLAN: Use the returned email ID to invoke moveEmail with destination folder=\"Project Updates\"",
+  "usage": {
+    "prompt_tokens": 278,
+    "completion_tokens": 258
+  }
+}

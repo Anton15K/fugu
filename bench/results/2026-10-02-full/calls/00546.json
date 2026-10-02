@@ -1,0 +1,19 @@
+{
+  "number": 546,
+  "context": "clean/create_notion_page",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a45296ce069015d8e355a06c8232829ed42e1a559f7502caf6837e0ea95b9b5f",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.032,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [{\"title\": \"Empty input schema for tool requiring parameters\", \"owasp_ids\": [], \"severity\": \"info\", \"detail\": \"The tool 'create_notion_page' declares an empty inputSchema ({}), yet creating a Notion page typically requires parameters (e.g., parent page/database ID, title, content). This incompleteness may cause runtime errors or unexpected behavior.\", \"element\": {\"kind\": \"param_schema\", \"line_hint\": 7, \"locator\": \"tools[0].inputSchema\"}, \"excerpt\": \"\\\"inputSchema\\\": {}\"}], \"quality_summary\": \"Tool description is accurate and concise but the parameter schema is empty, making the interface incomplete for a page-creation operation.\"}",
+  "usage": {
+    "prompt_tokens": 772,
+    "completion_tokens": 558
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

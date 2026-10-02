@@ -1,0 +1,16 @@
+{
+  "number": 1007,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9c5a2e3c9a01427ebc05de77cb36be603292f630525b806209cd2f2616b8e4e9",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.126,
+  "finish_reason": "stop",
+  "raw_response": "I don't have access to current news or the internet — the only tool available here is an offline weather almanac for a few cities. I can look up typical temperature and rainfall for a city and month (e.g., Lisbon in June), but I can't fetch or summarize today's headlines.\n\nIf you'd like climate normals for a destination you're planning around, just tell me the city and month.\n\nPLAN: None — no applicable skill for news summarization.",
+  "usage": {
+    "prompt_tokens": 1023,
+    "completion_tokens": 164
+  }
+}

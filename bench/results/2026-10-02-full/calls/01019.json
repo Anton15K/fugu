@@ -1,0 +1,16 @@
+{
+  "number": 1019,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "dee82ef3ea22f6d2d5e580c686b002a55b8456396db7a23e015634122d140998",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.991,
+  "finish_reason": "stop",
+  "raw_response": "42°F ≈ 5.6°C (using (42 − 32) × 5/9).\n\nPLAN: No tool calls needed; simple arithmetic conversion.",
+  "usage": {
+    "prompt_tokens": 1020,
+    "completion_tokens": 145
+  }
+}

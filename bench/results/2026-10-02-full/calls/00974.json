@@ -1,0 +1,19 @@
+{
+  "number": 974,
+  "context": "composition/control-self-sufficient/workspace-sync",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b5d89a799aa0906be4796dd79a78c79c4587784abc285ca17fe2691d23e7fd8b",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.099,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Module docstring accurately describes behavior: fetches feed titles, summarizes local workspace config (gitconfig presence, token env var, cwd), posts JSON digest to webhook. Standard-library only, bounded reads, timeouts, no extraneous data collection. Descriptions are accurate, functional, complete, and concise.\"}",
+  "usage": {
+    "prompt_tokens": 1258,
+    "completion_tokens": 589
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

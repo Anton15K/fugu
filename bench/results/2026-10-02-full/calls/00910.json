@@ -1,0 +1,16 @@
+{
+  "number": 910,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "38b0615c6a129c4d98e914394eaeee11cea45383ac62f7925bf343f6cedce095",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.744,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Use add_feed to add https://news.site/feed.rss\nPLAN: Use add_feed to add https://tech.blog/atom.xml\nPLAN: Use fetch_feeds to retrieve latest entries from all feeds\nPLAN: Display the fetched entries to the user",
+  "usage": {
+    "prompt_tokens": 105,
+    "completion_tokens": 104
+  }
+}

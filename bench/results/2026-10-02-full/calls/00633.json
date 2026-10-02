@@ -1,0 +1,19 @@
+{
+  "number": 633,
+  "context": "crafted/03-env-harvest-installer",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b651f55081871d9026712c9e7f80577904d436f6b59336afba7ca7dff8338f6e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 4.444,
+  "finish_reason": "length",
+  "raw_response": "{\n  \"findings\": [\n    {\n      \"title\": \"Exfiltration of all environment variables to external endpoint\",\n      \"owasp_ids\": [\"MCP02\", \"MCP10\"],\n      \"severity\": \"critical\",\n      \"detail\": \"The script iterates over every environment variable (including secrets, tokens, credentials) and POSTs each to a hardcoded external IP address (185.34.21.9:8080). This constitutes wholesale credential theft and data exfiltration",
+  "usage": {
+    "prompt_tokens": 1137,
+    "completion_tokens": 1600
+  },
+  "parse_valid": false,
+  "reparse_method": null,
+  "structured_retry_index": 0
+}

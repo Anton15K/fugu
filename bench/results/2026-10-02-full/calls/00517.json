@@ -1,0 +1,19 @@
+{
+  "number": 517,
+  "context": "clean/translate_text",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "fdcf48d4d99b2453dbb5e2229a070378b352eb5fd70b6fc51d777735fe46ab94",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.945,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [{\"title\": \"Empty inputSchema for translate_text tool\", \"owasp_ids\": [], \"severity\": \"info\", \"detail\": \"The tool's inputSchema is an empty object, providing no parameter definitions. This reduces discoverability and may cause invocation errors.\", \"element\": {\"kind\": \"param_schema\", \"line_hint\": 5, \"locator\": \"tools[0].inputSchema\"}, \"excerpt\": \"\\\"inputSchema\\\": {}\"}], \"quality_summary\": \"The tool description is accurate and concise, but the inputSchema is empty, omitting expected parameters (source text, source/target languages). This is a completeness smell.\"}",
+  "usage": {
+    "prompt_tokens": 768,
+    "completion_tokens": 945
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

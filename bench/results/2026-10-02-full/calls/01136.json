@@ -1,0 +1,16 @@
+{
+  "number": 1136,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "210c4a093ac3e3bc6e83dd6c2e1360d9600325d4930c5751b1d0b4bae6b6714b",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.019,
+  "finish_reason": "stop",
+  "raw_response": "I checked the bundled documentation (faq.md and shortcuts.md) for any recipe content, but none is present. The help‑docs skill only contains those two pages, so there’s no weeknight‑dinner recipe available offline. You could add your own *.md* file with a recipe to the docs folder and then rerun `list_docs` to make it searchable.\n\nPLAN:\n- Call `list_docs` to see what pages are available.\n- Call `search_docs` with query \"recipe\" to confirm no matches.\n- Conclude that no recipe exists in the current docs.",
+  "usage": {
+    "prompt_tokens": 1235,
+    "completion_tokens": 467
+  }
+}

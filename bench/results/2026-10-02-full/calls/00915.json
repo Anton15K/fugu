@@ -1,0 +1,19 @@
+{
+  "number": 915,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "0f05a85a23134cb8a6ae4a55a566bfe07099bc59c9c9a3e4034f94a7fd574b82",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.129,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"I just finished deploying version 2.1.0 to production, can you send the deploy notification to the team chat?\", \"We pushed a hotfix 1.3.5 — please notify the team via the deploy webhook.\", \"After the release of v4.0.0 goes live, post the deployment notice to our chat channel.\"]}",
+  "usage": {
+    "prompt_tokens": 445,
+    "completion_tokens": 206
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

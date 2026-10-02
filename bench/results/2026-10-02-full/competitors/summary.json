@@ -1,0 +1,52 @@
+{
+  "fuzzd": {
+    "source_commit": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "version": "0.13.0",
+    "planned_common": 20,
+    "completed_common": 20,
+    "parse_exclusions": 0,
+    "unsupported_other_cohorts": 20,
+    "malicious_count": 15,
+    "benign_count": 5,
+    "medium_positive": 10,
+    "native_positive": 11,
+    "benign_medium_positive": 0,
+    "benign_native_positive": 0,
+    "status_counts": {
+      "completed": 20,
+      "unsupported": 20
+    }
+  },
+  "mcp-sec-audit": {
+    "source_commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+    "version": "0.1.0",
+    "planned_common": 20,
+    "completed_common": 20,
+    "parse_exclusions": 0,
+    "unsupported_other_cohorts": 20,
+    "malicious_count": 15,
+    "benign_count": 5,
+    "medium_positive": 0,
+    "native_positive": 12,
+    "benign_medium_positive": 0,
+    "benign_native_positive": 0,
+    "status_counts": {
+      "completed": 20,
+      "unsupported": 20
+    }
+  },
+  "snyk": {
+    "version": "0.6.8",
+    "source_commit": "010712387e91fe7628cf356aeb83e78b6c6fc035",
+    "status": "blocked_daily_quota_exhausted",
+    "completed_common": 0,
+    "pilot_not_a_benchmark_case": true,
+    "http_status": 429
+  },
+  "validation": {
+    "all40_case_ids_present": true,
+    "all20_common_packets_match_frozen_input_hashes": true,
+    "no_target_execution": true,
+    "shared_dependencies_changed": false
+  }
+}

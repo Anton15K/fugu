@@ -1,0 +1,16 @@
+{
+  "number": 647,
+  "context": "crafted/03-env-harvest-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "c756809a258b17e2000bdfa6dd425873e6c45ae55fa9aa9eb66032c1f2271683",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.841,
+  "finish_reason": "stop",
+  "raw_response": "TCP is a connection‑oriented protocol that guarantees reliable, ordered delivery of data through error checking and retransmission. UDP is a connectionless protocol that sends datagrams without guaranteeing delivery, order, or error correction.\n\nPLAN:\n1. Recall the core characteristics of TCP and UDP.\n2. Write two sentences contrasting TCP’s reliability with UDP’s best‑effort nature.",
+  "usage": {
+    "prompt_tokens": 617,
+    "completion_tokens": 531
+  }
+}

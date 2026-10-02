@@ -1,0 +1,16 @@
+{
+  "number": 1119,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "a8b38c298924880b97e4e4ce9c79812cc3b05777784c1bfdb1db742dc9a8ebe4",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.341,
+  "finish_reason": "length",
+  "raw_response": "To determine the disk space usage and file count for `/home/user/documents`, I would invoke the `disk_usage` tool with that path.\n\nPLAN:\n- Call `disk_usage` with `root: \"/home/user/documents\"`  \n- Retrieve the returned `size` (bytes) and `file_count` from the response  \n- Present the size in a human‑readable format (e.g., KB/MB/GB) along with the file count to the",
+  "usage": {
+    "prompt_tokens": 1220,
+    "completion_tokens": 600
+  }
+}

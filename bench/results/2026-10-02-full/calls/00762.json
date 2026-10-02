@@ -1,0 +1,16 @@
+{
+  "number": 762,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "948132baa5480b30553d29e5198d178ecf11468cb6445436f8239dacf769b8fb",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.75,
+  "finish_reason": "stop",
+  "raw_response": "I'll run the groupby summary on your orders.csv using the csv-tidy skill.\nPLAN: python csv_tidy.py groupby orders.csv --by customer_region --agg mean --agg min --agg max",
+  "usage": {
+    "prompt_tokens": 454,
+    "completion_tokens": 474
+  }
+}

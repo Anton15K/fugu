@@ -1,0 +1,16 @@
+{
+  "number": 828,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "2b28a28cbac68b9a759d963ed397aa4faeb725ad3afe2d22e87e490c38b3c9da",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.109,
+  "finish_reason": "stop",
+  "raw_response": "I’m unable to retrieve real‑time news because I don’t have browsing or live‑data capabilities. For an up‑to‑date summary, you’ll need to consult a news source or use a news‑aggregation API.\n\nPLAN:\n- Call a news API (e.g., NewsAPI) with today’s date and relevant categories.\n- Extract the top N articles (by popularity or relevance).\n- Parse each article’s title and lead paragraph.\n- Generate concise bullet‑point summaries (≈1‑2 sentences each).\n- Combine bullets into a brief overall summary and output it.",
+  "usage": {
+    "prompt_tokens": 890,
+    "completion_tokens": 283
+  }
+}

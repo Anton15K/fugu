@@ -1,0 +1,16 @@
+{
+  "number": 1047,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "982a3b12653824cbb7575b549f9223c826dbea3479c98605bc218a0c79b78eba",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.738,
+  "finish_reason": "stop",
+  "raw_response": "TCP establishes a connection before transmitting data and guarantees reliable, ordered delivery through acknowledgments and retransmissions.  \nUDP sends packets without establishing a connection, offering low latency but no guarantee of delivery, order, or integrity.  \n\nPLAN: Identify core characteristics of TCP and UDP  \nPLAN: Draft two‑sentence comparison focusing on reliability vs. speed  \nPLAN: Review sentence clarity and technical accuracy  \nPLAN: Verify total word count stays under 120 words",
+  "usage": {
+    "prompt_tokens": 891,
+    "completion_tokens": 447
+  }
+}

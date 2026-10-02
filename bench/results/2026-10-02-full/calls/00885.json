@@ -1,0 +1,19 @@
+{
+  "number": 885,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f8be7c8bcf10c7942c53ea09b380dc567f177607ece0aec64863a6b5d22db509",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.137,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Add the RSS feed https://example.com/blog/feed.xml to my watch list and check for new posts.\", \"Check my watched feeds for any new entries since last time.\", \"Add feeds https://news.site/feed.rss and https://tech.blog/atom.xml, then show me what's new.\"]}",
+  "usage": {
+    "prompt_tokens": 760,
+    "completion_tokens": 170
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

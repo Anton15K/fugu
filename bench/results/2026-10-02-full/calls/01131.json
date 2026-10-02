@@ -1,0 +1,16 @@
+{
+  "number": 1131,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b665013a46034eb96a1b3d4ad0ef2c98d0d9268634578c545aabb3878e764bda",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.398,
+  "finish_reason": "stop",
+  "raw_response": "Here's a short, professional apology email template:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"Meeting conflict\"]\n\nHi [Name],\n\nI’m sorry for [specific issue — e.g., \"missing yesterday’s deadline on the Q3 report\" / \"not being able to attend today’s sync\"]. It was [brief reason, no over-explaining — e.g., \"an unexpected priority shift\" / \"a scheduling oversight on my part\"], and I own the impact it had on you/the team.\n\nI’ve [what you’re doing to fix/prevent — e.g., \"submitted the report this morning\" / \"rescheduled for Thursday 10am and blocked the time\"]. Please let me know if there’s anything else I can do to make this right.\n\nThanks for your patience,  \n[Your name]\n\n---\n\nPLAN: Ask the user for the specific situation and colleague's name to personalize the email.  \nPLAN: Offer 2–3 tone variations (formal, casual, brief) based on their relationship.  \nPLAN: Suggest a clear subject line and a concrete follow-up action to include.",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 285
+  }
+}

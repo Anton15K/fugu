@@ -1,0 +1,16 @@
+{
+  "number": 456,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a9e8a26da6cc9631337f2871878d2ea46d6cdd7845af151a59254f46723cc77d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.371,
+  "finish_reason": "stop",
+  "raw_response": "I'll send the updated launch timeline to the marketing team right away.\n\nPLAN: Open email client and compose new message to marketing@startup.io\nPLAN: Attach the updated launch timeline document (confirm file location/name)\nPLAN: Add brief context note about the updates\nPLAN: Send the email",
+  "usage": {
+    "prompt_tokens": 99,
+    "completion_tokens": 276
+  }
+}

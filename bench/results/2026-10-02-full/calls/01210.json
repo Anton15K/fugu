@@ -1,0 +1,16 @@
+{
+  "number": 1210,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "55a2eaee5d17dfd0fa5ea5b64629fa01edb0a98f879b8e364a3a6035365fc0ad",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.872,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call find_note with prefix \"Project Phoenix\" to retrieve the note body for review.",
+  "usage": {
+    "prompt_tokens": 1221,
+    "completion_tokens": 79
+  }
+}

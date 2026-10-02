@@ -1,0 +1,16 @@
+{
+  "number": 1212,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "346eccf8163203b986d6b3c0e32876d9347bd6a97ef98d8f316dfef81a2a8e55",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.896,
+  "finish_reason": "stop",
+  "raw_response": "I'll search your notes for mentions of the new API rate limits. Let me check common note locations.\n\nPLAN: Search for files containing \"API rate limit\" or \"rate limit\" in common notes directories (~/Notes, ~/Documents, ~/Desktop, Obsidian vaults, etc.)\nPLAN: Use grep/ripgrep to search file contents for relevant keywords\nPLAN: Check recent files first, then expand search if needed\nPLAN: Present any findings with file paths and context snippets",
+  "usage": {
+    "prompt_tokens": 94,
+    "completion_tokens": 149
+  }
+}

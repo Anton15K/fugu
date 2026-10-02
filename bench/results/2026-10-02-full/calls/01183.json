@@ -1,0 +1,16 @@
+{
+  "number": 1183,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "0beccbe400f1b3d7a17a493135277b01df4b127cb810c084332167facfb23b52",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.91,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call fetch_url for https://site1.example.com/article\nPLAN: Call fetch_url for https://site2.example.com/post\nPLAN: Summarize both pages into a brief linked digest",
+  "usage": {
+    "prompt_tokens": 1294,
+    "completion_tokens": 108
+  }
+}

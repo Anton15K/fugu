@@ -1,0 +1,19 @@
+{
+  "number": 884,
+  "context": "composition/control-ingress-egress/feed-watch",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "629d118dbc061a01fd7ac6cd99b0d3e587defdf8df5f1cc889af539d9a473315",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.844,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, single-purpose CLI script using only stdlib. Accurate docstring, clear command structure, bounded network I/O (15s timeout, 200KB cap), per-feed error isolation, local JSON state. No misleading descriptions, no hidden behavior, no supply-chain risks. Regex XML parsing is fragile but not a security defect.\"}",
+  "usage": {
+    "prompt_tokens": 1424,
+    "completion_tokens": 715
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

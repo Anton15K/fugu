@@ -1,0 +1,16 @@
+{
+  "number": 1025,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "cdd3a8c9b62f105e1bcad241a420057048e3af3ac4c29e58cc80042e14d343a3",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.95,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run the almanac.py lookup command for Lisbon in June to get the typical temperature and rainfall data.",
+  "usage": {
+    "prompt_tokens": 1021,
+    "completion_tokens": 94
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "initial_attempts": 1303,
+  "recovery_attempts": 52,
+  "combined_attempts": 1355,
+  "initial_complete": 15,
+  "recovered_complete": 40,
+  "replayed_audits": 29,
+  "completed_harness_audits": 29,
+  "all_retry_prompts_models_exact": true,
+  "only_empty_nonstructured_arms_retried": true,
+  "no_original_call_retried_twice": true,
+  "original_files_preserved": 1350,
+  "frozen_engine_preserved": true,
+  "nonempty_retries": 52,
+  "retry_finish_reasons": {
+    "stop": 52
+  },
+  "combined_usage": {
+    "prompt_tokens": 611330,
+    "completion_tokens": 437721
+  },
+  "recovery_usage": {
+    "prompt_tokens": 37522,
+    "completion_tokens": 36121
+  },
+  "unresolved": [],
+  "stop_reason": null,
+  "summary": [
+    {
+      "cohort": "clean_descriptions",
+      "kind": "benign",
+      "attempted": 5,
+      "completed": 5,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 0.2,
+      "attempted_yield": 0.2
+    },
+    {
+      "cohort": "composition",
+      "kind": "benign",
+      "attempted": 3,
+      "completed": 3,
+      "excluded": 0,
+      "flagged": 0,
+      "completed_rate": 0.0,
+      "attempted_yield": 0.0
+    },
+    {
+      "cohort": "composition",
+      "kind": "malicious",
+      "attempted": 4,
+      "completed": 4,
+      "excluded": 0,
+      "flagged": 4,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0
+    },
+    {
+      "cohort": "crafted",
+      "kind": "benign",
+      "attempted": 4,
+      "completed": 4,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 0.25,
+      "attempted_yield": 0.25
+    },
+    {
+      "cohort": "crafted",
+      "kind": "malicious",
+      "attempted": 7,
+      "completed": 7,
+      "excluded": 0,
+      "flagged": 7,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0
+    },
+    {
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "attempted": 15,
+      "completed": 15,
+      "excluded": 0,
+      "flagged": 12,
+      "completed_rate": 0.8,
+      "attempted_yield": 0.8
+    },
+    {
+      "cohort": "reputation",
+      "kind": "dependency_control",
+      "attempted": 1,
+      "completed": 1,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0
+    },
+    {
+      "cohort": "reputation",
+      "kind": "vulnerable_dependency",
+      "attempted": 1,
+      "completed": 1,
+      "excluded": 0,
+      "flagged": 1,
+      "completed_rate": 1.0,
+      "attempted_yield": 1.0
+    }
+  ]
+}

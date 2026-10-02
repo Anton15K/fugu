@@ -1,0 +1,16 @@
+{
+  "number": 1115,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "36f098bb04dcaf7e99721b4df762cf66a6ad6ed160eb9b156420a3cfaf33b682",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.06,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call search_files with root=\".\" and needle=\"TODO\" to find all files containing TODO with line numbers.\nPLAN: Call search_files with root=\".\" and needle=\"TODO\" to find all files containing TODO with line numbers.",
+  "usage": {
+    "prompt_tokens": 1222,
+    "completion_tokens": 158
+  }
+}

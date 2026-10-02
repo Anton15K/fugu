@@ -1,0 +1,16 @@
+{
+  "number": 513,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "2385ea04a8f2c59b2a8eda336e2bb9f2f3b9735c78f0409c6ee08d8e79a37d98",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.273,
+  "finish_reason": "stop",
+  "raw_response": "I’ll read the README.md file and tell you exactly what it contains.\n\nPLAN:\n- Call read_file with the path \"README.md\"\n- Capture the returned string\n- Display the file’s contents to you",
+  "usage": {
+    "prompt_tokens": 255,
+    "completion_tokens": 367
+  }
+}

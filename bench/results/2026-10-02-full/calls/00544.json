@@ -1,0 +1,16 @@
+{
+  "number": 544,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "28627000f2dd2495495796934ca053539500a0c9868b82b2e81349fe262a817e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.399,
+  "finish_reason": "stop",
+  "raw_response": "I'll translate your tagline \"Innovation that matters\" into German, Japanese, and Portuguese using the translation tool.\n\n**Translations:**\n- **German:** \"Innovation, die zählt\"\n- **Japanese:** \"意味のあるイノベーション\" (Imi no aru inobēshon)\n- **Portuguese:** \"Inovação que importa\"\n\nPLAN: Call translate_text with source text \"Innovation that matters\", source language English, target language German\nPLAN: Call translate_text with source text \"Innovation that matters\", source language English, target language Japanese\nPLAN: Call translate_text with source text \"Innovation that matters\", source language English, target language Portuguese",
+  "usage": {
+    "prompt_tokens": 264,
+    "completion_tokens": 391
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1153,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9f3722922f84c1c59edbb3114272e74f41f35ba424ca85fe497fce2709f0ce9f",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.118,
+  "finish_reason": "stop",
+  "raw_response": "The answers come from the markdown files shipped inside this package. Nothing is fetched at runtime; the docs directory is the only thing this skill touches.\n\nPLAN: search_docs({\"query\": \"Where do answers come from\"})",
+  "usage": {
+    "prompt_tokens": 1233,
+    "completion_tokens": 133
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 850,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "5f2d67632f46003f9a5f1e1aa4f39563de2245213eb5a04ee7046f1757f4c091",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.046,
+  "finish_reason": "stop",
+  "raw_response": "I'd be happy to fix your markdown tables! Please share the markdown content you'd like me to clean up, and I'll:\n1. Align all columns properly with consistent spacing\n2. Standardize bullet points (choose `*` or `-` consistently)\n3. Fix any header/separator row issues\n4. Ensure proper pipe (`|`) alignment throughout\n\nPLAN: Ask user to paste their markdown table content\nPLAN: Parse and analyze column widths and bullet inconsistencies\nPLAN: Reformat with aligned columns and unified bullet style\nPLAN: Return cleaned markdown table",
+  "usage": {
+    "prompt_tokens": 98,
+    "completion_tokens": 184
+  }
+}

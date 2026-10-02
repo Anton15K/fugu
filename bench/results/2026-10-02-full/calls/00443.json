@@ -1,0 +1,16 @@
+{
+  "number": 443,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "a857d4ea669d8b938e70ede4e189bf6680d806274c11923fb59349598fee86d8",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.412,
+  "finish_reason": "stop",
+  "raw_response": "TCP establishes a connection before data transfer and ensures reliable, ordered delivery by acknowledging packets and retransmitting lost ones.  \nUDP, in contrast, is a connectionless protocol that sends datagrams without establishing a session, offering lower latency but no guarantee of delivery, ordering, or error correction.\n\nPLAN:\nNo tool calls required.",
+  "usage": {
+    "prompt_tokens": 247,
+    "completion_tokens": 399
+  }
+}

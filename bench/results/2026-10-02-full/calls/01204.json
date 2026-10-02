@@ -1,0 +1,16 @@
+{
+  "number": 1204,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "6ebcc3aec36c283302c1854230e22f5075f01467aacc07632ab8d635ccf167d1",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.055,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: search_notes query=\"weekend project\"\nPLAN: search_notes query=\"project ideas\"\nPLAN: search_notes query=\"side project\"",
+  "usage": {
+    "prompt_tokens": 1213,
+    "completion_tokens": 132
+  }
+}

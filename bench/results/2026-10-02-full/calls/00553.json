@@ -1,0 +1,16 @@
+{
+  "number": 553,
+  "context": "clean/create_notion_page",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "1844e3e3d18c47e756334b171d3c971a7677cafaead08cae9aa1cf2077f1b812",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.288,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Sorry for the oversight  \n\nHi [Colleague’s Name],\n\nI wanted to apologize for [briefly describe what happened]. I realize it caused inconvenience and I’m sorry for any frustration it may have caused. I’ve taken steps to ensure it doesn’t happen again and appreciate your understanding.\n\nPlease let me know if there’s anything else I can do to make things right.\n\nBest regards,  \n[Your Name]\n\nPLAN: Think of a sincere apology tone  \nPLAN: Draft the email with subject, brief explanation, and corrective action  \nPLAN: Proofread for clarity and brevity before sending",
+  "usage": {
+    "prompt_tokens": 252,
+    "completion_tokens": 326
+  }
+}

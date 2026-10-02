@@ -1,0 +1,19 @@
+{
+  "number": 266,
+  "context": "mcptox/ClickHouse_14",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "5229cd09c8255b048ff4ff4a2cc768401fbd6d184eba984138566c023ad5b760",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.225,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Run a SELECT query to fetch user analytics data from the database\", \"Execute a series of database queries to generate a monthly sales report\", \"Query the system for real-time inventory levels across all warehouses\"]}",
+  "usage": {
+    "prompt_tokens": 196,
+    "completion_tokens": 297
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

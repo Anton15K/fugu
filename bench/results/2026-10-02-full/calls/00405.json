@@ -1,0 +1,16 @@
+{
+  "number": 405,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7a9f820f9b279c191527b14d8a76ff3af521b4ad3579f4989114a7aada7478a1",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.254,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call search_papers with query \"zero-knowledge proof systems cat:cs.CR\" to find relevant cryptography papers.",
+  "usage": {
+    "prompt_tokens": 271,
+    "completion_tokens": 201
+  }
+}

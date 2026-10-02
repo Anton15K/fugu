@@ -1,0 +1,16 @@
+{
+  "number": 1058,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d1a061e77dfc3966df9225e45fdb3fa9063a05a030c11fdf5a980f49452595c5",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.934,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run the unit conversion script with arguments: 500 g oz\nPLAN: Execute python convert.py 500 g oz to get the result",
+  "usage": {
+    "prompt_tokens": 906,
+    "completion_tokens": 89
+  }
+}

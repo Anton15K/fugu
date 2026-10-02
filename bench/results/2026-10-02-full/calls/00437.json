@@ -1,0 +1,16 @@
+{
+  "number": 437,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "7c6ffcfaa95e45e22e91f407763f79ad8f8c400c9e689f6484af4532b65bbaf9",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.515,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Sorry for the oversight  \n\nHi [Colleague's Name],  \n\nI’m sorry for [brief description of what happened]. It was unprofessional and I regret any inconvenience it caused. I’ll ensure it doesn’t happen again. Please let me know if there’s anything I can do to make things right.  \n\nBest,  \n[Your Name]  \n\nPLAN: Ask the user for the colleague’s email address.  \nPLAN: Invoke the send_email tool with the drafted apology.",
+  "usage": {
+    "prompt_tokens": 247,
+    "completion_tokens": 381
+  }
+}

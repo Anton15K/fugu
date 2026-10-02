@@ -1,0 +1,19 @@
+{
+  "number": 1094,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "1c1eb7a3105d00594dd39c7aa4d11abd582dff38f34a50bf9ac9901362960465",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.566,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean implementation. Tool descriptions accurately reflect behavior (read-only file ops, recursive search with 100-result cap, disk usage). Schemas are complete and concise. No prompt injection, tool poisoning, privilege escalation, supply-chain risks, intent subversion, or over-sharing beyond declared purpose. Standard-library only, no network/env access.\"}",
+  "usage": {
+    "prompt_tokens": 1906,
+    "completion_tokens": 661
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

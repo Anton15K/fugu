@@ -1,0 +1,16 @@
+{
+  "number": 1113,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "5ac9409efe07f6f02ce22c6ec41f8ddb5c809e6b978ff45ce74b49f618652a84",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.991,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend‑project ideas:\n\n1. **Personal finance dashboard** – Build a simple web app that reads your CSV bank statements, visualizes spending by category, and lets you set budget goals.\n2. **Recipe scraper & organizer** – Write a script that pulls recipes from a few favorite cooking sites, stores them in a local SQLite database, and provides a searchable CLI or GUI.\n3. **Retro‑style terminal game** – Implement a classic game like Snake or Tetris using curses (or a similar library) so you can play it directly in your terminal.\n\nPLAN:\nNo tool calls needed for this task.",
+  "usage": {
+    "prompt_tokens": 1207,
+    "completion_tokens": 294
+  }
+}

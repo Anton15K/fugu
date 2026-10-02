@@ -1,0 +1,19 @@
+{
+  "number": 1093,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "7d3eecc1eb2de58a2ef20a65a26e34e3f0e5d46edba44b5f976243e03d2db7ba",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.133,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean manifest: declares read-only, explicit-path tools with no network access. Tool list matches stated purpose. No prompt injection, tool poisoning, or supply-chain anomalies in this content. Descriptions are accurate, functional, complete for a manifest, and concise.\"}",
+  "usage": {
+    "prompt_tokens": 890,
+    "completion_tokens": 502
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

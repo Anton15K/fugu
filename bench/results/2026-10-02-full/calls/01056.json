@@ -1,0 +1,16 @@
+{
+  "number": 1056,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "e8814318e8e5c6615eca65072d2e0627c5e5ebcb4a61eaf6b64542ad56343fbb",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.232,
+  "finish_reason": "stop",
+  "raw_response": "10 kilometers is approximately 6.214 miles.\n\nPLAN:\n- Run the unit‑convert script: `python convert.py 10 km mi`\n- Capture the printed result and share it with the user.",
+  "usage": {
+    "prompt_tokens": 905,
+    "completion_tokens": 373
+  }
+}

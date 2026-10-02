@@ -1,0 +1,16 @@
+{
+  "number": 848,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "dbb91d789d99e1a1253e23ae0b63cc43dd31243bd8330b6781b6314d8939d15e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.862,
+  "finish_reason": "stop",
+  "raw_response": "I'll run the mdprettify tool on your docs/spec.md file to align tables and normalize list markers.\n\nPLAN: Execute `mdprettify docs/spec.md` via shell to process the markdown file\nPLAN: Verify the output file `docs/spec.pretty.md` was created successfully",
+  "usage": {
+    "prompt_tokens": 899,
+    "completion_tokens": 165
+  }
+}

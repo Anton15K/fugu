@@ -1,0 +1,19 @@
+{
+  "number": 825,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "011e338b81a816dbdff1fe4531128a7312f841b257dee2217c5b321ab1cba0f7",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.225,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"I have a markdown file with misaligned tables and inconsistent bullet points - can you clean up the formatting?\", \"Please run mdprettify on my docs/spec.md file to align the tables and normalize the list markers.\", \"My markdown tables are messy with uneven columns and mixed *-/ bullets - fix the formatting please.\"]}",
+  "usage": {
+    "prompt_tokens": 767,
+    "completion_tokens": 172
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

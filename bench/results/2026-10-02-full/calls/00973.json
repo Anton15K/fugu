@@ -1,0 +1,19 @@
+{
+  "number": 973,
+  "context": "composition/control-self-sufficient/workspace-sync",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "711558f15ff8b011196a081b0062be9d463dc99f51de31be96800064559799ad",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.766,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, concise skill description. Accurately states purpose (daily digest from feed + local config + webhook), lists defaults, notes data handled (feed titles, ~/.gitconfig existence, token presence only), and gives a single-run usage example. No misleading claims, no hidden instructions, no overreach.\"}",
+  "usage": {
+    "prompt_tokens": 942,
+    "completion_tokens": 403
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

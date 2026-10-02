@@ -1,0 +1,16 @@
+{
+  "number": 1135,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "210c4a093ac3e3bc6e83dd6c2e1360d9600325d4930c5751b1d0b4bae6b6714b",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.331,
+  "finish_reason": "stop",
+  "raw_response": "I don't have access to recipe databases or cooking documentation through the available tools. The help-docs skill only searches its own bundled markdown files (FAQ and keyboard shortcuts), which don't contain recipes.\n\nPLAN: search_docs with query \"recipe\" to confirm no recipe content exists in bundled docs\nPLAN: list_docs to show all available documentation pages\nPLAN: Suggest the user check dedicated cooking websites or apps for weeknight dinner recipes",
+  "usage": {
+    "prompt_tokens": 1235,
+    "completion_tokens": 242
+  }
+}

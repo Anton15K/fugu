@@ -1,0 +1,19 @@
+{
+  "number": 795,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "fc9586799a1cfd16717db14b01b6fc2e01fa675b38a18daf9d00b4baf5b968f2",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.149,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Preview the structure and missing values in my data.csv file\", \"Fill missing numeric values in sales_data.csv using the mean strategy\", \"Clean up survey_results.csv by replacing empty cells with column medians\"]}",
+  "usage": {
+    "prompt_tokens": 735,
+    "completion_tokens": 167
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

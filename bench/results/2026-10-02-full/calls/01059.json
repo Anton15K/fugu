@@ -1,0 +1,16 @@
+{
+  "number": 1059,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "d1a061e77dfc3966df9225e45fdb3fa9063a05a030c11fdf5a980f49452595c5",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.046,
+  "finish_reason": "stop",
+  "raw_response": "500 g is approximately **17.64 oz** (four‑significant‑digit result).\n\nPLAN:\n- Invoke the unit‑convert script: `python convert.py 500 g oz`\n- Capture the printed result and present it to the user.",
+  "usage": {
+    "prompt_tokens": 906,
+    "completion_tokens": 318
+  }
+}

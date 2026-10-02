@@ -1,0 +1,16 @@
+{
+  "number": 815,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "e9bc53c05308d27d09b30f27c9f6b1e383deef4de917b18293085fc0ac4d4e52",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.863,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run csv_tidy preview on data.csv to show structure and missing values",
+  "usage": {
+    "prompt_tokens": 855,
+    "completion_tokens": 91
+  }
+}

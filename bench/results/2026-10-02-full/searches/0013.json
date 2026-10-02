@@ -1,0 +1,54 @@
+{
+  "query": "\"dependency-review-fixture\" package vulnerability OR typosquat OR malware report",
+  "number": 13,
+  "response": {
+    "query": "dependency-review-fixture package vulnerability OR typosquat OR malware report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-review",
+        "title": "Dependency review - GitHub Docs",
+        "content": "The \"dependency review action\" refers to the specific action that can report on differences in a pull request within the GitHub Actions context. See `dependency-review-action`. You can use the dependency review action in your repository to enforce dependency reviews on your pull requests. The action scans for vulnerable versions of dependencies introduced by package version changes in pull requests, and warns you about the associated security vulnerabilities. This gives you better visibility of [...] For pull requests that contain changes to package manifests or lock files, you can display a dependency review to see what has changed. The dependency review includes details of changes to indirect dependencies in lock files, and it tells you if any of the added or updated dependencies contain known vulnerabilities. [...] Dependency review helps you understand dependency changes and the security impact of these changes at every pull request. It provides an easily understandable visualization of dependency changes with a rich diff on the \"Files Changed\" tab of a pull request. Dependency review informs you of:\n\n Which dependencies were added, removed, or updated, along with the release dates\n How many projects use these components\n Vulnerability data for these dependencies",
+        "score": 0.42305335,
+        "raw_content": null,
+        "id": "53d9b3-00"
+      },
+      {
+        "url": "https://www.ox.security/blog/understanding-and-preventing-dependency-confusion-attacks",
+        "title": "Preventing Dependency Confusion Attacks | OX Security",
+        "content": "To emulate an adversary’s actions and perform the dependency confusion attack on our systems, the organization name “@oxappsec” was registered on NPM official website and we published a (non malicious) research-purposes-only package under that organization scope, named (you guessed it) “poc-npm-dependency-confusion”, with a higher version: @0.1.11337  \n\n(If you missed the extra ‘1’, you might also fall for Typosquatting, you can read more here) [...] Yandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squatting\nYandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squatting [...] Yandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squattingYandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squatting",
+        "score": 0.3388867,
+        "raw_content": null,
+        "id": "7683fb-01"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages",
+        "title": "Auditing package dependencies for security vulnerabilities | Microsoft Learn",
+        "content": "A security audit for package managers like NuGet is a process that involves analyzing the security of the packages that are included in a software project.\nThis involves identifying vulnerabilities, evaluating risks, and making recommendations for improving security.\nThe audit can include a review of the packages themselves, as well as any dependencies and their associated risks. [...] Review the security advisor for any mitigating factors that may allow you to continue using the package with the vulnerability.\nThe vulnerability may only exist when the code is used on a specific framework, operating system, or a special function is called.\n\n#### Use a suggested package [...] The goal of the audit is to identify and mitigate any security vulnerabilities that could be exploited by attackers, such as code injection or cross-site scripting attacks.",
+        "score": 0.2831942,
+        "raw_content": null,
+        "id": "a2406d-02"
+      },
+      {
+        "url": "https://www.jetbrains.com/help/idea/package-analysis.html",
+        "title": "Find vulnerable and malicious dependencies | IntelliJ IDEA Documentation",
+        "content": "## Report false positives\n\nIf you believe that a dependency identified as vulnerable is safe, you can report a false positive.\n\n1. Click a dependency on the Vulnerable Dependencies tab of the Problems tool window (View | Tool Windows | Problems or `Alt+6`) to open its description.\n2. Locate the vulnerability that you want to report and click Report false positive.\n\n   You will see a notification with confirmation.\n\n## Malicious dependencies [...] The Vulnerable API usage inspection automatically highlights vulnerable APIs and open-source libraries right in your code. You can also run the inspection manually to get a report about all vulnerable APIs and open-source libraries in your project.\n\n### Show vulnerable APIs in the editor\n\n1. Hover over the detected problem in the editor.\n\n   A popup with vulnerability details appears.\n2. Place the caret at the problem, press, and select Go to file with declared dependency. [...] The File mask(s) option helps you narrow down the number of files that will be inspected. Specify a pattern of characters and wildcards that matches the names of files you want to analyze. Use a comma to separate multiple file masks.\n4. Click OK to run the inspection.\n\nThe result appears in the Problems tool window (View | Tool Windows | Problems or `Alt+6`) from which you can navigate to the file with declared vulnerable dependencies, suppress the inspection, or generate a report.",
+        "score": 0.24713744,
+        "raw_content": null,
+        "id": "173fee-03"
+      },
+      {
+        "url": "https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities",
+        "title": "Auditing package dependencies for security vulnerabilities | npm Docs",
+        "content": "1. On the npm public registry, find the package with the vulnerability or the dependent package that needs an update. For more information on finding packages, see \"Searching for and choosing packages to download\".\n2. In the package or dependent package issue tracker, open an issue and include information from the audit report, including the vulnerability report from the \"More info\" field.\n\n## No security vulnerabilities found [...] If security vulnerabilities are found, but no patches are available, the audit report will provide information about the vulnerability so you can investigate further.\n\nScreenshot of command-line audit results requiring a manual review\n\nTo address the vulnerability, you can\n\n Check for mitigating factors\n Update dependent packages if a fix exists\n Fix the vulnerability\n Open an issue in the package or dependent package issue tracker\n\n### Check for mitigating factors [...] Review the security advisory in the \"More info\" field for mitigating factors that may allow you to continue using the package with the vulnerability in limited cases. For example, the vulnerability may only exist when the code is used on specific operating systems, or when a specific function is called.\n\n### Update dependent packages if a fix exists",
+        "score": 0.2452752,
+        "raw_content": null,
+        "id": "b1ae1d-04"
+      }
+    ],
+    "response_time": 1.02,
+    "request_id": "465e8222-8407-4a73-aabd-67b1a2ebe3e5"
+  }
+}

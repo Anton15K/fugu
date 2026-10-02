@@ -1,0 +1,16 @@
+{
+  "number": 512,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "2385ea04a8f2c59b2a8eda336e2bb9f2f3b9735c78f0409c6ee08d8e79a37d98",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.617,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: read_file README.md",
+  "usage": {
+    "prompt_tokens": 255,
+    "completion_tokens": 50
+  }
+}

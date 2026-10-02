@@ -1,0 +1,16 @@
+{
+  "number": 1055,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "e8814318e8e5c6615eca65072d2e0627c5e5ebcb4a61eaf6b64542ad56343fbb",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.638,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run the unit conversion script to convert 10 kilometers to miles using the installed skill.\nPLAN: python convert.py 10 km mi",
+  "usage": {
+    "prompt_tokens": 905,
+    "completion_tokens": 84
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1241,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "0d893fed1013a21eb19c72535696b86b12ad6e15ef6b55fc5dca93187a0d71b2",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.882,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run ./post_status.sh ping to send a ping to the status board",
+  "usage": {
+    "prompt_tokens": 763,
+    "completion_tokens": 109
+  }
+}

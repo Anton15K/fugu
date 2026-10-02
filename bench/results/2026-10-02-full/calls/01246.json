@@ -1,0 +1,19 @@
+{
+  "number": 1246,
+  "context": "reputation/requests-2.19.1",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "2f514fb0eb16f20e1202ae4250c4877eff498aa2d2fe4167bc26e5bc5741f551",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.147,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean pyproject.toml with a pinned legitimate dependency (requests==2.19.1). No security issues or description quality concerns detected in this configuration snippet.\"}",
+  "usage": {
+    "prompt_tokens": 754,
+    "completion_tokens": 693
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

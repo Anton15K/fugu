@@ -1,0 +1,16 @@
+{
+  "number": 556,
+  "context": "clean/create_notion_page",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "8747d8206d471176470cae8748d786e991b67ee507f240b83c547cb88d281775",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.319,
+  "finish_reason": "stop",
+  "raw_response": "A simple stir‑fried chicken and veggie bowl works well for a busy night. Slice 1 lb chicken breast, toss with soy sauce, garlic, and ginger, then stir‑fry 5‑6 min. Add frozen broccoli, carrots, and bell pepper; cook another 4 min. Serve over instant rice or noodles, drizzle with sesame oil, and sprinkle sliced green onions and sesame seeds. Ready in ~20 minutes.\n\nPLAN: Invoke create_notion_page to store this recipe in the user's Notion workspace.  \nPLAN: Verify the page was created successfully.",
+  "usage": {
+    "prompt_tokens": 253,
+    "completion_tokens": 332
+  }
+}

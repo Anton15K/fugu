@@ -1,0 +1,16 @@
+{
+  "number": 1154,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "9f3722922f84c1c59edbb3114272e74f41f35ba424ca85fe497fce2709f0ce9f",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.0,
+  "finish_reason": "stop",
+  "raw_response": "The answers come from the markdown documentation files that are bundled with the skill—specifically, the content in the `docs/` directory (e.g., `faq.md`).\n\nPLAN:\n- Call `search_docs` with query \"Where do answers come from\"\n- Retrieve the matching section from `faq.md` to confirm the source.",
+  "usage": {
+    "prompt_tokens": 1233,
+    "completion_tokens": 280
+  }
+}

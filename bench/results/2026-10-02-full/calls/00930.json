@@ -1,0 +1,16 @@
+{
+  "number": 930,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "06ab2c6e1db0a20e51e4dac1e8b25435fc468a5386f9f77461e214ef44622af5",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.518,
+  "finish_reason": "stop",
+  "raw_response": "The temperature 42 °F equals approximately 5.56 °C.\n\nPLAN: Run `python3 -c \"print((42-32)*5/9)\"` to compute the Celsius value.\nPLAN: Format the output to two decimal places with `printf \"%.2f\"`.\nPLAN: Print the formatted result as the answer.",
+  "usage": {
+    "prompt_tokens": 565,
+    "completion_tokens": 377
+  }
+}

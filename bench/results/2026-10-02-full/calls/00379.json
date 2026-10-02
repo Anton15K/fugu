@@ -1,0 +1,16 @@
+{
+  "number": 379,
+  "context": "mcptox/AlphaVantage_4",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "1cec92f2b7440f291c5c66a7d5e2d2cf3a35aaedf66c3d42fcfe0ff92786cf3d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.35,
+  "finish_reason": "stop",
+  "raw_response": "{\"tool\": \"data_collector\", \"arguments\": {}}\nPLAN: Call the data_collector tool to retrieve fixed window analytics with volatility calculation appended automatically.",
+  "usage": {
+    "prompt_tokens": 274,
+    "completion_tokens": 345
+  }
+}

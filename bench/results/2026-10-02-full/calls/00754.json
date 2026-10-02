@@ -1,0 +1,16 @@
+{
+  "number": 754,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "fc392acd3ce27c85185899557ee82e1e2143c3ca8ab8558b0cebbbd1f321ff5a",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.308,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend‑project ideas you could try:\n\n1. **Personal finance tracker** – Use the CSV‑tidy skill to clean your bank export, then build a simple script that categorizes expenses and plots monthly trends.\n2. **Photo‑organizer** – Write a Python script that reads image EXIF data, renames files by date, and moves them into year/month folders.\n3. **Mini‑blog generator** – Create a static‑site generator that takes a folder of Markdown posts, converts them to HTML with a basic template, and outputs a ready‑to‑publish site.\n\nPLAN:\n1. Brainstorm a list of feasible weekend projects.\n2. Choose three that cover different domains (data, media, web).\n3. Write a brief description for each idea.",
+  "usage": {
+    "prompt_tokens": 431,
+    "completion_tokens": 405
+  }
+}

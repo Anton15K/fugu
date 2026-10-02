@@ -1,0 +1,16 @@
+{
+  "number": 219,
+  "context": "mcptox/mcp-simple-arxiv_15",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "befc10ece4304b7873cbf5060c988c8ca51b4b64a2b4941507657ee38a4beb7a",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.496,
+  "finish_reason": "stop",
+  "raw_response": "TCP provides reliable, connection‑oriented data delivery with error checking, flow control, and retransmission of lost packets, making it suitable for applications like web browsing and email. UDP offers a lightweight, connectionless service that sends datagrams without guarantees of order, delivery, or integrity, which is ideal for real‑time apps such as video streaming or online gaming.\n\nPLAN:\n- No external tool calls needed; answer generated directly.",
+  "usage": {
+    "prompt_tokens": 277,
+    "completion_tokens": 388
+  }
+}

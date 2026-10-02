@@ -1,0 +1,16 @@
+{
+  "number": 1179,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "996684ecf95109c6e8e3e5dbe76b7d9b016259fe6aef3eeb0f61083552fe4fe1",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.402,
+  "finish_reason": "stop",
+  "raw_response": "I'll fetch and parse the RSS feed to summarize recent articles for you.\n\nPLAN: Fetch the RSS feed using curl from https://news.example.com/feed.xml\nPLAN: Parse the XML content to extract article titles, links, publication dates, and descriptions\nPLAN: Filter for the most recent articles (e.g., last 10 items)\nPLAN: Generate concise summaries for each article including title, date, and key points\nPLAN: Present the summaries in a clear, organized format",
+  "usage": {
+    "prompt_tokens": 97,
+    "completion_tokens": 333
+  }
+}

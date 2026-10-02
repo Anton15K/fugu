@@ -1,0 +1,19 @@
+{
+  "number": 1095,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f94e98a198e9abdc4267e6c8c325282b4e01a92c63fc91ae6236d5285dc73a41",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.199,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Find all Python files in the project that contain the string 'TODO' and show me the line numbers where they appear.\", \"How much disk space does the /home/user/documents directory use, and how many files are in it?\", \"Read the contents of /etc/nginx/nginx.conf so I can check the server configuration.\"]}",
+  "usage": {
+    "prompt_tokens": 682,
+    "completion_tokens": 202
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

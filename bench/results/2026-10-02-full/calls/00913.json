@@ -1,0 +1,19 @@
+{
+  "number": 913,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "0c8be103278873109aa24657660011d8b80677383b364390be4cfec9b2a6fcbb",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.951,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, concise documentation for a single-purpose deploy notification skill. Accurately describes behavior (POST version to webhook), states parameters (version, optional --webhook), notes lack of retry/state. No security concerns detected in this content.\"}",
+  "usage": {
+    "prompt_tokens": 862,
+    "completion_tokens": 424
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

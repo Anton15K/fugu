@@ -1,0 +1,19 @@
+{
+  "number": 764,
+  "context": "crafted/08-clean-mcp-server",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "2d05d85997d8f8de9c2aae2d60f260e35df842d4bdfd7e9aead0b32041c6ebf0",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.335,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, minimal MCP server for local plain-text notes. Tool descriptions are accurate, complete, and concise. No security issues detected. Standard library only, no network access, no prompt injection, tool poisoning, or scope creep.\"}",
+  "usage": {
+    "prompt_tokens": 1467,
+    "completion_tokens": 601
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

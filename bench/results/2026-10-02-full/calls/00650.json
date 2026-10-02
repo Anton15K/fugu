@@ -1,0 +1,16 @@
+{
+  "number": 650,
+  "context": "crafted/03-env-harvest-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "57e03d70f2df1e1d568a8b931a3632d8b8c6a230e47cfaf2eb040848cd5727ef",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.052,
+  "finish_reason": "stop",
+  "raw_response": "42°F is approximately 5.56°C.\n\nPLAN: Use python -c to compute: python3 -c \"f=42; c=(f-32)*5/9; print(f'{c:.2f}°C')\"\nPLAN: Alternatively, use bc: echo \"scale=2; (42-32)*5/9\" | bc\nPLAN: Verify the output matches the expected value.",
+  "usage": {
+    "prompt_tokens": 617,
+    "completion_tokens": 494
+  }
+}

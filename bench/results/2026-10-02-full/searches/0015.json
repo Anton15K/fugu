@@ -1,0 +1,54 @@
+{
+  "query": "\"dependency-review-fixture\" package vulnerability OR typosquat OR malware report",
+  "number": 15,
+  "response": {
+    "query": "dependency-review-fixture package vulnerability OR typosquat OR malware report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://marketplace.visualstudio.com/items?itemName=brahimkedjar.dependency-vulnerability-auditor",
+        "title": "Dependency Vulnerability Auditor - Visual Studio Marketplace",
+        "content": "or scheduled fixes, package-manager execution, dependency update commands, a headless scanner CLI, CI job/PR integration, live NVD/GHSA providers, source or call-graph reachability, container analysis, license analysis, package-health or typosquatting/provenance detection, CycloneDX XML, SPDX, SBOM import/diff, signing/attestation, centralized reporting, or arbitrary build-tool evaluation. SARIF and CycloneDX support currently means bounded report generation over a completed extension scan, not [...] rescanning or contacting OSV. See `docs/remediation.md` for candidate selection, confidence, transitive-path, and limitation rules. Remediation preview and manual verification For an eligible recommendation, Review Fix creates a read-only preview with current file hashes and real diffs. Previewing is not approval and does not modify the workspace. The packaged adapter exposes no automatically applicable plan in this release; all remediation is manual.  The deterministic npm preview subset is [...] available. Provider totals are cross-checked so missing records cannot silently turn a gate or exported report clean. Security UI   Dependency Security Tree View groups results by workspace, ecosystem, severity, package, and advisory.  Dependency Security Dashboard presents severity totals, coverage by ecosystem, provider status, top vulnerable dependencies, filters, and the last usable scan.  Vulnerability Details shows the canonical ecosystem/package identity, exact version, dependency",
+        "score": 0.37175277,
+        "raw_content": null,
+        "id": "6c3840-00"
+      },
+      {
+        "url": "https://www.ox.security/blog/understanding-and-preventing-dependency-confusion-attacks",
+        "title": "Preventing Dependency Confusion Attacks | OX Security",
+        "content": "To emulate an adversary’s actions and perform the dependency confusion attack on our systems, the organization name “@oxappsec” was registered on NPM official website and we published a (non malicious) research-purposes-only package under that organization scope, named (you guessed it) “poc-npm-dependency-confusion”, with a higher version: @0.1.11337  \n\n(If you missed the extra ‘1’, you might also fall for Typosquatting, you can read more here) [...] Yandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squatting\nYandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squatting [...] Yandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squattingYandex internal package placeholders registered on PyPI public registry demonstrating defensive dependency confusion attack prevention strategy through namespace reservation and package squatting",
+        "score": 0.3388867,
+        "raw_content": null,
+        "id": "f5360d-01"
+      },
+      {
+        "url": "https://www.veracode.com/blog/malicious-npm-package-targeting-github-actions",
+        "title": "Malicious NPM Package Found Targeting GitHub Actions",
+        "content": "The package states it is for the GitHub Actions Toolkit, which has a legitimate npm package @actions/artifact. Therefore this malware package is a clear typosquat with the swapping of the letters “ti” for “it”. [...] # Malicious NPM Package Found Targeting GitHub By Typosquatting on GitHub Action Packages\n\nVeracode Threat Research\n\nBy Veracode Threat Research [...] > On Friday 7th November Veracode Threat Research identified a malicious npm package “@acitons/artifact”, that was typosquatting on the legitimate package @actions/artifact, which has accumulated over 206k downloads. The malicious package appeared to be targeting GitHub-owned repositories.\n>",
+        "score": 0.3180513,
+        "raw_content": null,
+        "id": "e4a7f3-02"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages",
+        "title": "Auditing package dependencies for security vulnerabilities | Microsoft Learn",
+        "content": "A security audit for package managers like NuGet is a process that involves analyzing the security of the packages that are included in a software project.\nThis involves identifying vulnerabilities, evaluating risks, and making recommendations for improving security.\nThe audit can include a review of the packages themselves, as well as any dependencies and their associated risks. [...] Review the security advisor for any mitigating factors that may allow you to continue using the package with the vulnerability.\nThe vulnerability may only exist when the code is used on a specific framework, operating system, or a special function is called.\n\n#### Use a suggested package [...] The goal of the audit is to identify and mitigate any security vulnerabilities that could be exploited by attackers, such as code injection or cross-site scripting attacks.",
+        "score": 0.2831942,
+        "raw_content": null,
+        "id": "0e15a6-03"
+      },
+      {
+        "url": "https://github.com/actions/dependency-review-action",
+        "title": "GitHub - actions/dependency-review-action: A GitHub Action for detecting vulnerable dependencies and invalid licenses in your PRs · GitHub",
+        "content": "## Configuration\n\n### Configuration options\n\nThere are various configuration options you can use to specify settings for the dependency review action.\n\nAll configuration options are optional. [...] | package-lock.json | | package-lock.json |  |  |\n| package.json | | package.json |  |  |\n| tsconfig.build.json | | tsconfig.build.json |  |  |\n| tsconfig.json | | tsconfig.json |  |  |\n| View all files | | | [...] | `license-check` | Enable or disable the license check performed by the action. | `true`, `false` | `true` |\n| `vulnerability-check` | Enable or disable the vulnerability check performed by the action. | `true`, `false` | `true` |\n| `allow-dependencies-licenses`\\ | Contains a list of packages that will be excluded from license checks. | Any package(s) in purl format | none |",
+        "score": 0.26457015,
+        "raw_content": null,
+        "id": "dc8f3a-04"
+      }
+    ],
+    "response_time": 1.58,
+    "request_id": "a2ff340c-96de-4a69-ae68-cbe94f0464a2"
+  }
+}

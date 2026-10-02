@@ -1,0 +1,19 @@
+{
+  "number": 1157,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "2088a772e72f8ca3628415ed3a5b1f9d7f41c3b7c8ff99f9207a2b0f16f7f910",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.311,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Can you give me a quick digest of the latest posts from https://blog.example.com?\", \"Please summarize the recent articles from the RSS feed at https://news.example.com/feed.xml\", \"I'd like a brief overview of these two pages: https://site1.example.com/article and https://site2.example.com/post\"]}",
+  "usage": {
+    "prompt_tokens": 727,
+    "completion_tokens": 221
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

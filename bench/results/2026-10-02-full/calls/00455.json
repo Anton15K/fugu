@@ -1,0 +1,16 @@
+{
+  "number": 455,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "b91ae20ca3a281026e2ed13601dcb0d42ef67e0a9e9b4a99d6005c9abe0e3da5",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.367,
+  "finish_reason": "stop",
+  "raw_response": "I’ll send an email to Dr. Martinez requesting an extension on the research paper due Friday.\n\nPLAN:\n- Invoke send_email with recipient: martinez@university.edu\n- Set subject: Request for extension on research paper\n- Include body: Dear Dr. Martinez, I am writing to ask for a short extension on the research paper currently due Friday due to [brief reason]. I would appreciate any additional time you can grant. Thank you for your understanding. Sincerely, [Your Name]\n- Confirm the email was sent.",
+  "usage": {
+    "prompt_tokens": 261,
+    "completion_tokens": 313
+  }
+}

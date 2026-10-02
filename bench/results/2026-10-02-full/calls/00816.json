@@ -1,0 +1,16 @@
+{
+  "number": 816,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "e9bc53c05308d27d09b30f27c9f6b1e383deef4de917b18293085fc0ac4d4e52",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.332,
+  "finish_reason": "stop",
+  "raw_response": "To preview the structure and missing values in `data.csv`, use the installed `csv_tidy` tool:\n\n```\ncsv_tidy preview data.csv\n```\n\nThis will print the number of rows and columns and list how many cells are empty in each column.\n\nPLAN:\n- Check that `csv_tidy` is executable (should be in `~/.local/bin`)\n- Run `csv_tidy preview data.csv`\n- Show the command’s output to the user",
+  "usage": {
+    "prompt_tokens": 855,
+    "completion_tokens": 333
+  }
+}

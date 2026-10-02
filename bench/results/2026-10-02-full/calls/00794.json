@@ -1,0 +1,19 @@
+{
+  "number": 794,
+  "context": "crafted/09-clean-installer",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "c11963c64757dbc34d3dc9c583d1a3ea32bac9401893dd5c3f79b8ce96304489",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.902,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, standard user-local installer. No prompt-injection surface, no privilege escalation, no supply-chain fetch-and-run, no tool poisoning. Uses BASH_SOURCE[0] (bash 5.0+) to locate the sibling csv_tidy.py and installs it to ~/.local/bin with 0755. Behavior matches stated purpose exactly.\"}",
+  "usage": {
+    "prompt_tokens": 845,
+    "completion_tokens": 473
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

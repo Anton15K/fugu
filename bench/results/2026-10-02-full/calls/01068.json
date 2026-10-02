@@ -1,0 +1,16 @@
+{
+  "number": 1068,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "dcb527db24ad28eec9de43da2e633a1c1dcc8e3d6cc023df6b2971cbd430e20a",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.781,
+  "finish_reason": "stop",
+  "raw_response": "I don’t have real‑time access to today’s news headlines. If you have a local file (e.g., a news digest or article) that you’d like summarized, please point me to its path and I can read it and provide a summary.\n\nPLAN:\n1. Use `list_dir` on likely directories (e.g., `/`, `/home`, `/tmp`) to locate any news‑related files.\n2. If a candidate file is found, use `read_file` to retrieve its contents (up to 8000 characters).\n3. Extract the key points from the retrieved text and craft a brief summary.\n4. Return the summary to you.",
+  "usage": {
+    "prompt_tokens": 1004,
+    "completion_tokens": 379
+  }
+}

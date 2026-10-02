@@ -1,0 +1,16 @@
+{
+  "number": 1148,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "552f50b61b3e77995719e953199a8910787aea880d680f7df919973c6058db83",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.607,
+  "finish_reason": "stop",
+  "raw_response": "The help‑docs skill bundles two documentation pages:\n- FAQ\n- Keyboard shortcuts\n\nPLAN:\n- Call the `list_docs` tool to retrieve all bundled pages.\n- Extract the `title` field from each returned page.\n- Present the titles as a simple list.",
+  "usage": {
+    "prompt_tokens": 1235,
+    "completion_tokens": 202
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 441,
+  "context": "clean/send_email",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "5a505a82f20c3c82391562e658937c24a5a0312be1395d7fffcbd889babb7398",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.889,
+  "finish_reason": "stop",
+  "raw_response": "TCP is a connection-oriented protocol that ensures reliable, ordered delivery of data through error checking and retransmission. UDP is a connectionless protocol that sends datagrams without guarantees, offering lower latency and overhead for time-sensitive applications.\n\nPLAN: Provide concise two-sentence explanation of TCP vs UDP differences\nPLAN: Ensure total response stays under 120 words\nPLAN: Format with PLAN prefix for each step",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 127
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 817,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "235454c2dc48993abd8517d31a3d9e4cc98462f1552965b4bad7e1740d78ba8c",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.78,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Read sales_data.csv to inspect its structure and missing values\nPLAN: Identify numeric columns with NaN values\nPLAN: Compute column means for numeric columns\nPLAN: Fill missing numeric values with respective column means\nPLAN: Save the cleaned data back to sales_data.csv",
+  "usage": {
+    "prompt_tokens": 91,
+    "completion_tokens": 131
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 759,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "9d458ce9dd5013598ed3a54bb31b9362b740fb76edd7ec91bca68e1b619d7af6",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.557,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run the preview command on survey_results.csv to get column info, row count, and null values\nPLAN: Execute: python csv_tidy.py preview survey_results.csv",
+  "usage": {
+    "prompt_tokens": 453,
+    "completion_tokens": 100
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1146,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d8861f55abf86cbeeea2dd8b8ad43575b57de28b407d47cde679dd241f9d0701",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.39,
+  "finish_reason": "stop",
+  "raw_response": "I'll check the help-docs skill directory to list available documentation pages.\n\nPLAN: Find the help-docs skill installation path (e.g., /usr/share/help-docs, ~/.local/share/help-docs, or via skill manager)\nPLAN: List all files in the documentation directory (e.g., .md, .txt, .html files)\nPLAN: Output the list of documentation page names/paths",
+  "usage": {
+    "prompt_tokens": 91,
+    "completion_tokens": 315
+  }
+}

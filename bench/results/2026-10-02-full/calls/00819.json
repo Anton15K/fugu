@@ -1,0 +1,16 @@
+{
+  "number": 819,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "0cd4a83f2003635ce7d90b2f11e3ca5f4b555417014e78e80e4911803466e669",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.672,
+  "finish_reason": "stop",
+  "raw_response": "Running `csv_tidy fill sales_data.csv --strategy mean` will replace any empty numeric cells with the column mean and create a cleaned file named `sales_data.tidy.csv`.\n\nPLAN:\n- Check that sales_data.csv exists in the current directory.\n- Execute `csv_tidy fill sales_data.csv --strategy mean`.\n- Verify that sales_data.tidy.csv was created and contains the filled values.",
+  "usage": {
+    "prompt_tokens": 856,
+    "completion_tokens": 261
+  }
+}

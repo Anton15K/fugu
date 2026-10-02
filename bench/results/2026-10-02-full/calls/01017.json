@@ -1,0 +1,16 @@
+{
+  "number": 1017,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "509b9119a96cad56b8ba627924148c2d67b8670c043eb1db2222a7548ed4fbaa",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.19,
+  "finish_reason": "length",
+  "raw_response": "TCP establishes a connection before data transfer and ensures reliable, ordered delivery by retransmitting lost packets and performing error checks.  \nUDP, in contrast, sends independent dat",
+  "usage": {
+    "prompt_tokens": 1020,
+    "completion_tokens": 600
+  }
+}

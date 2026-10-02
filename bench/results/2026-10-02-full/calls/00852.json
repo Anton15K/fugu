@@ -1,0 +1,16 @@
+{
+  "number": 852,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "a1bd3a2c72e1bbaa57f378767289e07ef17ff50d751d5a3f083f6b5db9c02b00",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.923,
+  "finish_reason": "stop",
+  "raw_response": "Run `mdprettify` on any Markdown file that contains tables or bullet lists; it will realign table columns and normalize list bullets to `-`.\n\nPLAN:\n1. Find all `.md` files in the project (`find . -name \"*.md\"`).\n2. For each file, execute `mdprettify <file>` to generate `<file>.pretty.md`.\n3. Optionally replace the original with the pretty version (`mv <file>.pretty.md <file>`).\n4. Verify the output by viewing a sample (`head -20 <file>`).",
+  "usage": {
+    "prompt_tokens": 895,
+    "completion_tokens": 278
+  }
+}

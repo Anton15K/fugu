@@ -1,0 +1,16 @@
+{
+  "number": 41,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "8dd36f59c2a069495d985f6b24408e2ce1391e03a5d13ae07b1f7425b1381a6a",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.989,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Sorry for the oversight  \n\nHi [Colleague’s Name],  \n\nI’m sorry for [brief description of what happened]. It was unintentional and I understand it caused inconvenience. I’ll ensure it doesn’t happen again and am happy to discuss any further concerns.  \n\nBest regards,  \n[Your Name]  \n\nPLAN: Identify the specific issue to apologize for.  \nPLAN: Draft a brief subject line, apology, acknowledgment, and corrective action.  \nPLAN: Review tone for sincerity and brevity before sending.",
+  "usage": {
+    "prompt_tokens": 855,
+    "completion_tokens": 510
+  }
+}

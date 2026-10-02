@@ -1,0 +1,16 @@
+{
+  "number": 800,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "8dd36f59c2a069495d985f6b24408e2ce1391e03a5d13ae07b1f7425b1381a6a",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.244,
+  "finish_reason": "stop",
+  "raw_response": "Here's a concise, professional apology email you can adapt:\n\n---\n\n**Subject:** Apology / [Brief context, e.g., \"Missed deadline\"]\n\nHi [Name],\n\nI’m sorry for [specific issue — e.g., missing our 2 PM deadline / sending the wrong file / not replying sooner]. I understand this [caused extra work / delayed the team / created confusion], and I take full responsibility.\n\nGoing forward, I’ll [concrete step — e.g., set an earlier internal reminder / double-check attachments / block time to respond same-day].\n\nThanks for your patience, and please let me know if there’s anything I can do to help clean this up.\n\nBest,  \n[Your name]\n\n---\n\n**Tips:**  \n- Keep it 3–5 sentences.  \n- Name the specific mistake (shows you know what went wrong).  \n- State one clear corrective action.  \n- Send promptly.\n\nPLAN: Provide the email template above and offer to tweak tone or details if the user shares more context.",
+  "usage": {
+    "prompt_tokens": 855,
+    "completion_tokens": 270
+  }
+}

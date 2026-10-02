@@ -1,0 +1,19 @@
+{
+  "number": 1127,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "3214824137a9b751ea1bea9dbfbc504eccb9abcd6838d86cf41e76168ba0e7d7",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.05,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"What documentation pages are available in the help-docs skill?\", \"How do I search across all bundled documentation pages?\", \"Where do the answers in this skill come from?\"]}",
+  "usage": {
+    "prompt_tokens": 687,
+    "completion_tokens": 152
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

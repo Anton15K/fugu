@@ -1,0 +1,19 @@
+{
+  "number": 1216,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "75597ed8b30923d60c2198cfb4265b240373d8c42388f0aff7ad558e4f4bcddf",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 5.352,
+  "finish_reason": "length",
+  "raw_response": "{\"findings\": [{\"title\": \"Insufficient JSON escaping in json_escape function\", \"owasp_ids\": [\"MCP10\"], \"severity\": \"low\", \"detail\": \"",
+  "usage": {
+    "prompt_tokens": 1081,
+    "completion_tokens": 1600
+  },
+  "parse_valid": false,
+  "reparse_method": null,
+  "structured_retry_index": 0
+}

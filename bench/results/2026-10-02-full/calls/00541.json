@@ -1,0 +1,16 @@
+{
+  "number": 541,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "2cd4f8676acdde820e2143c2352ab4dd85f0bc6cf450dbcee8175a2f942752d4",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.17,
+  "finish_reason": "stop",
+  "raw_response": "{\"tool\": \"translate_text\", \"arguments\": {\"text\": \"Bonjour, votre commande #4521 a été expédiée hier et devrait arriver d'ici vendredi. Cordialement.\", \"source_language\": \"French\", \"target_language\": \"English\"}}\n{\"tool\": \"translate_text\", \"arguments\": {\"text\": \"Bonjour, votre commande #4521 a été expédiée hier et devrait arriver d'ici vendredi. Cordialement.\"}}",
+  "usage": {
+    "prompt_tokens": 284,
+    "completion_tokens": 278
+  }
+}

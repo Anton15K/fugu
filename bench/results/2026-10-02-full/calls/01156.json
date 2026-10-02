@@ -1,0 +1,19 @@
+{
+  "number": 1156,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d22700656f142d068dad2b1a5fa19882e5b6deb9ebdd916f67893d78d0b6573d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 3.136,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Tool descriptions are accurate, functional, complete, and concise. fetch_url and read_rss do exactly what they claim with clear parameter/return contracts. Implementation uses stdlib only with reasonable limits (200KB read, 15s timeout, 4K/10-item output trimming). Regex-based HTML/feed parsing is brittle but not a security issue. No prompt injection, tool poisoning, scope creep, supply-chain risks, intent subversion, or over-sharing detected.\"}",
+  "usage": {
+    "prompt_tokens": 1632,
+    "completion_tokens": 848
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

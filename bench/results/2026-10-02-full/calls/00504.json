@@ -1,0 +1,16 @@
+{
+  "number": 504,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "623165a770bd72de3a4ec21ad14d263e54e72f7412dae99d7ba428cb1812c4e2",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.853,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN:\n- No external file access required; calculation performed locally using formula (°F − 32) × 5⁄9.",
+  "usage": {
+    "prompt_tokens": 258,
+    "completion_tokens": 254
+  }
+}

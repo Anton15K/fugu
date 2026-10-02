@@ -1,0 +1,16 @@
+{
+  "number": 751,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "ec40658ed892a92c4093278f096263dbd0746178a613d51c5835b9fec0ab0e6c",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.687,
+  "finish_reason": "stop",
+  "raw_response": "42 °F equals approximately 5.56 °C (using °C = (°F − 32) × 5⁄9).\n\nPLAN:\n- Run `python -c \"print((42-32)*5/9)\"` to verify the calculation.",
+  "usage": {
+    "prompt_tokens": 433,
+    "completion_tokens": 240
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 791,
+  "context": "crafted/08-clean-mcp-server",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "deb32fc254b5e9ad1eeacfcf11c19c66f9505c183976dc26878af498b7fa61e4",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.829,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call the add_note tool with the text \"Buy groceries: milk, eggs, bread\" to append it to today's note file.",
+  "usage": {
+    "prompt_tokens": 952,
+    "completion_tokens": 78
+  }
+}

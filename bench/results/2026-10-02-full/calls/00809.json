@@ -1,0 +1,16 @@
+{
+  "number": 809,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "48d187f455d795874ce0d30839e885a566ff2f6e06830e44fccdeb8f821d9e6e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.974,
+  "finish_reason": "stop",
+  "raw_response": "42°F = (42 - 32) × 5/9 = 10 × 5/9 ≈ **5.56°C**\n\nPLAN: No tool calls needed; this is a direct calculation.",
+  "usage": {
+    "prompt_tokens": 855,
+    "completion_tokens": 155
+  }
+}

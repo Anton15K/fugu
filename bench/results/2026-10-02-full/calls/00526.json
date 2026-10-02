@@ -1,0 +1,16 @@
+{
+  "number": 526,
+  "context": "clean/translate_text",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a41a47b918d3306c13cc277b57db7391ea067a5be9909f04765d744da88410ef",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.103,
+  "finish_reason": "stop",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus**:\n\n**Ingredients:** 2 chicken breasts, 1 bunch asparagus (trimmed), 3 garlic cloves (minced), 1 lemon (zested & juiced), olive oil, salt, pepper, optional red pepper flakes.\n\n**Method:**  \n1. Pound chicken to even thickness; season generously.  \n2. Heat 1 Tbsp oil in a large skillet over medium-high. Sear chicken 4–5 min/side until golden and 165 °F internal. Remove.  \n3. Reduce heat to medium; add asparagus and garlic, sauté 3–4 min until crisp-tender.  \n4. Deglaze with lemon juice (≈2 Tbsp), zest, and a splash of water. Return chicken to pan to warm through.  \n5. Finish with a drizzle of olive oil and flaky salt.\n\n**Time:** ~20 minutes. Serve with microwave rice or crusty bread.\n\nPLAN: No tool calls needed; answer provided directly.",
+  "usage": {
+    "prompt_tokens": 249,
+    "completion_tokens": 292
+  }
+}

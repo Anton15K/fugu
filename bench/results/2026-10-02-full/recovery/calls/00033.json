@@ -1,0 +1,16 @@
+{
+  "number": 33,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "8825b4b9bac579f42c9f5d5226c0c5fe96a5ef7d3812a71548ebe7ba533ee78f",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.914,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Apology for the oversight  \n\nHi [Colleague's Name],\n\nI’m sorry for [briefly describe what happened]. It was inconsiderate and I regret any inconvenience or frustration it caused. I value our collaboration and will make sure it doesn’t happen again. Please let me know if there’s anything I can do to make things right.\n\nBest regards,  \n[Your Name]\n\nPLAN: Compose the apology email text.  \nPLAN: No file‑system calls are needed for this task.",
+  "usage": {
+    "prompt_tokens": 1209,
+    "completion_tokens": 505
+  }
+}

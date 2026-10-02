@@ -1,0 +1,16 @@
+{
+  "number": 1030,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "800c9b79802ef8fabb6f8be6752ea49b88c26daf09581d83636c0843ea57eaff",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.025,
+  "finish_reason": "stop",
+  "raw_response": "Taipei in July (climate normals, 1991–2020 averages):\n- **Avg. high**: 34–35 °C (93–95 °F)  \n- **Avg. low**: 27–28 °C (81–82 °F)  \n- **Mean temp.**: ~30 °C (86 °F)  \n- **Rainfall**: ~250–300 mm (10–12 in) over 13–15 rainy days  \n- **Relative humidity**: 75–80 %  \n- **Sunshine**: ~180–200 hours  \n- **Typhoon risk**: moderate—July is in the NW Pacific typhoon season.\n\nPLAN:\n- Verify latest 30-year normals from CWB or WMO if user needs official source.\n- Offer to pull real-time forecast or historical extremes.",
+  "usage": {
+    "prompt_tokens": 92,
+    "completion_tokens": 264
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 1063,
+  "context": "composition/shadow-pair/filesystem",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "61ab1fe5b4aabdf87b33eff93e4badbfd313681cd8ade987837081d0733bf7de",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.43,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, concise manifest. Accurately describes a read-only filesystem inspection skill with two tools (read_file, list_dir). No misleading claims, no hidden instructions, no overreach. Parameters and returns summarized at appropriate level for a manifest. No security concerns detected.\"}",
+  "usage": {
+    "prompt_tokens": 823,
+    "completion_tokens": 632
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

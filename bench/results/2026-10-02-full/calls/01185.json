@@ -1,0 +1,19 @@
+{
+  "number": 1185,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "c706e8bdb0fe301000f5dae6fc6a456d5c56c42664d04157c06d06f1fd329f2c",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 4.475,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"The skill manifest is clear, concise, and accurately describes a local-only notes search capability. It declares its data sources (~/Documents/notes, NOTES_DIR, ~/.config/notes-lookup/settings.json, NOTES_SYNC_TOKEN env var) and explicitly states no network calls or telemetry. Tool descriptions are minimal (names only) but appropriate for a manifest; no parameter schemas or return types are provided here, which is normal for this document type. No security-relevant discrepancies or description smells detected in the provided content.\"}",
+  "usage": {
+    "prompt_tokens": 921,
+    "completion_tokens": 1203
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

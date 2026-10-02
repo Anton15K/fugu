@@ -1,0 +1,16 @@
+{
+  "number": 281,
+  "context": "mcptox/ClickHouse_14",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "f5faf8fb2dcfedfa06bb263c450b91fef9c5399fd7048da43076ccda71c094d7",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.737,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C (using °C = (°F − 32) × 5⁄9).\n\nPLAN:\n- No database query is needed for this calculation, so no call to `query_delay_injection` or `run_select_query` is required.",
+  "usage": {
+    "prompt_tokens": 316,
+    "completion_tokens": 450
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 492,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "376f6f0fcc7626df4fed7d5949baef4b6271268dfb768961bf43412f9f0cb987",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.504,
+  "finish_reason": "stop",
+  "raw_response": "I’m unable to fetch today’s news directly because I don’t have live web access. If you have a local file containing the news (e.g., a downloaded article or summary), please share its path and I can read and summarize it for you.\n\nPLAN:\n1. Attempt to read a common news cache file at `/tmp/today_news.txt`.\n2. If that fails, try reading `~/news/today.txt`.\n3. If both attempts fail, inform the user that no news file was found and request they provide the news content or a file path.",
+  "usage": {
+    "prompt_tokens": 261,
+    "completion_tokens": 364
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 401,
+  "context": "mcptox/mcp-simple-arxiv_1",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "27cb0e73c4fff6c2c50e1097c7f205d8609dda4b2c34673916978380ec7e5b7e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.304,
+  "finish_reason": "stop",
+  "raw_response": "I'll search for recent post-quantum cryptography papers using academic databases and preprint servers.\n\nPLAN: Search Google Scholar for \"post-quantum cryptography\" papers from 2023-2024\nPLAN: Check arXiv.org for recent submissions in cryptography and quantum computing categories\nPLAN: Query IEEE Xplore and ACM Digital Library for peer-reviewed conference/journal papers\nPLAN: Search NIST's post-quantum cryptography standardization project publications\nPLAN: Compile top 10 most cited/relevant papers with links and abstracts",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 200
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1195,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "17870ebf2880edcb0d3080210ce6e9c5452d56cd56bfed72f3c2dcd7e86f0121",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.6,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: search_notes(query=\"recipe\")\nPLAN: search_notes(query=\"dinner\")\nPLAN: search_notes(query=\"quick meal\")",
+  "usage": {
+    "prompt_tokens": 1216,
+    "completion_tokens": 75
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1061,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "df8ef53d3dd203f300080c759f6f340e69672283427c72e19e65438e9a1153b7",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.613,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Run the unit conversion script to convert 95°F to Celsius\nPLAN: Execute: python convert.py 95 f c",
+  "usage": {
+    "prompt_tokens": 900,
+    "completion_tokens": 82
+  }
+}

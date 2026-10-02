@@ -1,0 +1,16 @@
+{
+  "number": 507,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "27c17345a018fa44fed259f3cf4ed6200523d6b588276599f7a5c11a44173c97",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 3.264,
+  "finish_reason": "length",
+  "raw_response": "Here are three weekend‑project ideas:\n1. A tiny weather dashboard that fetches data from OpenWeatherMap and displays it in a web page.  \n2. A command‑line personal finance tracker that logs expenses/income to a CSV and shows summaries.  \n3. A two‑player Tic‑Tac‑Toe game built with Python’s Pygame library.  \n\nPLAN: Choose an idea based on your interests",
+  "usage": {
+    "prompt_tokens": 256,
+    "completion_tokens": 600
+  }
+}

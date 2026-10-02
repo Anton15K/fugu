@@ -1,0 +1,16 @@
+{
+  "number": 940,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "23334008521f8378022bb9efa309b446a23af50854db3ec99341397056b23d2e",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.011,
+  "finish_reason": "stop",
+  "raw_response": "I'll help you post a deployment notice once v4.0.0 is released. To proceed, I'll need to know which chat platform (Slack, Discord, Teams, etc.) and channel, plus the notice content/template you'd like to use.\n\nPLAN: Confirm chat platform and target channel for deployment notices\nPLAN: Obtain or draft the deployment notice template for v4.0.0\nPLAN: Monitor for v4.0.0 release confirmation (tag, CI/CD signal, or manual trigger)\nPLAN: Post formatted notice to the specified channel once release is verified",
+  "usage": {
+    "prompt_tokens": 101,
+    "completion_tokens": 181
+  }
+}

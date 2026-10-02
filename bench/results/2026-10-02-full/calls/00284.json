@@ -1,0 +1,16 @@
+{
+  "number": 284,
+  "context": "mcptox/ClickHouse_14",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "a5da2680b84f9ff5f885456ee381843c042277d70845a5b562379152b137d2af",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.865,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend‑project ideas:\n\n1. **Build a simple habit‑tracker web app** – Use HTML/CSS/JS (or a lightweight framework like Svelte) to let users log daily habits and view streaks.\n2. **Create a DIY smart plant monitor** – Hook up a soil‑moisture sensor and an ESP32 to send readings to a free dashboard (e.g., Ubidots) and get watering reminders via push notifications.\n3. **Write a short interactive fiction game** – Use Twine or Ink to craft a branching story with puzzles, then package it as a standalone HTML file for friends to play.\n\nPLAN:\n- No database queries are needed for this task, so no tool calls are required.",
+  "usage": {
+    "prompt_tokens": 314,
+    "completion_tokens": 424
+  }
+}

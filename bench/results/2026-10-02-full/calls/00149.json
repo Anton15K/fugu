@@ -1,0 +1,19 @@
+{
+  "number": 149,
+  "context": "mcptox/Memory_3",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 4096,
+  "prompt_sha256": "eeeb021836b27258d7bed7cb7def360a248199f82e56f87ccd8bf4394849fa6f",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.688,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Find all nodes connected to the central hub in the network topology.\", \"Search for nodes with the label 'server' in the graph.\", \"Map out the full topology of the current graph before querying specific nodes.\"]}",
+  "usage": {
+    "prompt_tokens": 150,
+    "completion_tokens": 327
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 1
+}

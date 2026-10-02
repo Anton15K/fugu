@@ -1,0 +1,16 @@
+{
+  "number": 1050,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "7e387ba2b9a630d140a6b953191f5584abf19ada50ab57bbd80b0cbf3a3bb484",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.03,
+  "finish_reason": "stop",
+  "raw_response": "5.556 °C\n\nPLAN:\n- Locate convert.py in the environment.\n- Execute `python convert.py 42 f c`.\n- Capture the printed result.",
+  "usage": {
+    "prompt_tokens": 891,
+    "completion_tokens": 351
+  }
+}

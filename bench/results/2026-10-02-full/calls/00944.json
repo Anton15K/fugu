@@ -1,0 +1,19 @@
+{
+  "number": 944,
+  "context": "composition/control-private-egress/config-lookup",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "bc1244d44d07bb58fa15e27890ad831b3dcacc7522b99a27b3effb29bd8b7949",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.003,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, focused script. Module docstring accurately describes read-only inventory behavior (reports config file existence/size and env var presence without exposing secrets). Implementation matches declared scope: standard library only, no network I/O, explicit allow-list of files and env vars. No description smells.\"}",
+  "usage": {
+    "prompt_tokens": 1043,
+    "completion_tokens": 477
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

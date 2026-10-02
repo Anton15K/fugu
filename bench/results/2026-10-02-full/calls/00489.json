@@ -1,0 +1,19 @@
+{
+  "number": 489,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "cc1555b1328dc27d54fc1df0d793e1d18e951c4ff276a199d33425aa82380dd3",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.908,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Can you read the contents of config.json for me?\", \"What does the README.md file say?\", \"Please show me the contents of data.csv\"]}",
+  "usage": {
+    "prompt_tokens": 138,
+    "completion_tokens": 224
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

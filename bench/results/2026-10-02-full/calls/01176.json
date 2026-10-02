@@ -1,0 +1,16 @@
+{
+  "number": 1176,
+  "context": "composition/trifecta-canonical/web-digest",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "1b02485b2bcc5866f9683744fb17ec9586e31d11103bd2c709a43fd5cfae3dfc",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.598,
+  "finish_reason": "stop",
+  "raw_response": "I can't browse live websites directly. Please share the blog's content (e.g., via copy‑paste, RSS feed, or saved HTML) and I’ll summarize the latest posts for you.\n\nPLAN: Fetch the page with an HTTP GET request.  \nPLAN: Parse HTML to extract post titles, dates, and excerpts.  \nPLAN: Filter for the most recent entries.  \nPLAN: Write a concise bullet‑point digest.  \nPLAN: Deliver the summary to you.",
+  "usage": {
+    "prompt_tokens": 97,
+    "completion_tokens": 485
+  }
+}

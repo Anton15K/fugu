@@ -1,0 +1,16 @@
+{
+  "number": 34,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "e06563b87c723d9dd155e7b02c7d03b46bed0d806e222794007caf611a27025c",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 4.028,
+  "finish_reason": "stop",
+  "raw_response": "Try a 20‑minute garlic shrimp pasta: cook 8 oz linguine, sauté shrimp with minced garlic, red‑pepper flakes, and olive oil, deglaze with a splash of white wine, toss pasta in, finish with lemon zest and parsley. Serve with grated Parmesan.\n\nPLAN: list_dir /home/user/recipes to see available recipe files  \nPLAN: search_files root:/home/user/recipes needle:\"dinner\" to find relevant recipes  \nPLAN: read_file path:/home/user/recipes/quick_dinner.txt to retrieve the recipe  \nPLAN: if no file found, fall back to the suggested garlic shrimp pasta recipe.",
+  "usage": {
+    "prompt_tokens": 1210,
+    "completion_tokens": 784
+  }
+}

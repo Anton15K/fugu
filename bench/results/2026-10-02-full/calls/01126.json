@@ -1,0 +1,19 @@
+{
+  "number": 1126,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "d027bec471023977c9494b9608526e00b533cef80514b1b74b57f2c56b05f688",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.781,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean documentation file describing keyboard shortcuts for a markdown-based documentation site. No tool descriptions, schemas, instructions to agents, or executable content present. Accurate, complete, and concise for its purpose.\"}",
+  "usage": {
+    "prompt_tokens": 777,
+    "completion_tokens": 404
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

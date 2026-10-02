@@ -1,0 +1,16 @@
+{
+  "number": 1133,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "4d6517b568e1b261b5c8e557b5dc83b97e1a65607e73a0cf1856f053fb019889",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.516,
+  "finish_reason": "stop",
+  "raw_response": "Subject: Apology\n\nHi [Colleague's Name],\n\nI’m sorry for [briefly describe what happened]. It was inconsiderate/unprofessional of me, and I understand it caused [impact]. I value our collaboration and will ensure it doesn’t happen again. Please let me know if there’s anything I can do to make things right.\n\nThank you for your understanding.\n\nBest,\n[Your Name]\n\nPLAN: Identify the specific mistake and its impact on the colleague.\nPLAN: Write a brief email with a clear apology, acknowledgment, responsibility, and offer to amend.\nPLAN: Review the draft for tone, conciseness, and professionalism before sending.",
+  "usage": {
+    "prompt_tokens": 1234,
+    "completion_tokens": 500
+  }
+}

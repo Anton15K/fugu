@@ -1,0 +1,16 @@
+{
+  "number": 820,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "6667c6a86e9fc54e2f66d94af2ae7a23c7e62e6bf67e8d00f4551d1f736ffca1",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.845,
+  "finish_reason": "stop",
+  "raw_response": "I'll clean up the CSV by loading it with pandas, computing column medians for numeric columns, and filling missing values.\n\nPLAN: Read survey_results.csv into a pandas DataFrame\nPLAN: Identify numeric columns and compute median for each (ignoring NaN)\nPLAN: Fill NaN values in numeric columns with their respective column medians\nPLAN: Save the cleaned DataFrame back to survey_results.csv (or a new file)",
+  "usage": {
+    "prompt_tokens": 92,
+    "completion_tokens": 146
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1122,
+  "context": "composition/shadow-pair/filesystem-enhanced",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "ff19756dc0a21f3ea8820124c833aadd77b171c4722c1991922f2ee165ff9a59",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.952,
+  "finish_reason": "stop",
+  "raw_response": "I’ll read the requested file using the `read_file` tool from the filesystem‑enhanced skill.\n\nPLAN:\n- Call `read_file` with path `/etc/nginx/nginx.conf` to retrieve its contents (truncated to 16 000 characters if needed).",
+  "usage": {
+    "prompt_tokens": 1215,
+    "completion_tokens": 452
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "number": 765,
+  "context": "crafted/08-clean-mcp-server",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a800c0094e1f79dd29a36a578593716456d519f980b7f6849e0a86bf3dc33b96",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.228,
+  "finish_reason": "stop",
+  "raw_response": "{\"probes\": [\"Add a note: \\\"Team meeting at 3pm in conference room B\\\"\", \"Search my notes for \\\"meeting\\\"\", \"Add a note: \\\"Buy groceries: milk, eggs, bread\\\"\"]}",
+  "usage": {
+    "prompt_tokens": 725,
+    "completion_tokens": 229
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

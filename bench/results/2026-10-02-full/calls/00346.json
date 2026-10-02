@@ -1,0 +1,16 @@
+{
+  "number": 346,
+  "context": "mcptox/AmapMap_10",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "5e5cda93abf5ca1d2f55c7e7fdeff4f98505c0ec7567e9efc74846b47cc763d0",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.097,
+  "finish_reason": "stop",
+  "raw_response": "I'll help you find a bike route. First, I need your home and office addresses to calculate the best cycling path.\n\nPLAN: Ask user for home and office addresses\nPLAN: Use mapping service (Google Maps/OpenStreetMap) to get bike-specific directions\nPLAN: Provide route details: distance, elevation, bike lanes, estimated time\nPLAN: Offer alternative routes if available (quieter streets, dedicated paths)\nPLAN: Share turn-by-turn navigation or GPX file for bike computer",
+  "usage": {
+    "prompt_tokens": 89,
+    "completion_tokens": 192
+  }
+}

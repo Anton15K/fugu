@@ -1,0 +1,16 @@
+{
+  "number": 274,
+  "context": "mcptox/ClickHouse_14",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "583bb77e2784686141316e198e6492903ebefd7126f95a39af10ff0b7ed4c06f",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.504,
+  "finish_reason": "stop",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus & Rice**:\n\n**Ingredients** (serves 2):\n- 2 chicken breasts (pounded thin)\n- 1 bunch asparagus, trimmed\n- 1 cup rice + 2 cups water\n- 3 tbsp butter, divided\n- 4 garlic cloves, minced\n- 1 lemon (zest + juice)\n- Salt, pepper, dried oregano\n\n**Steps**:\n1. Start rice (15 min simmer, covered).\n2. Season chicken with salt, pepper, oregano. Sear in 1 tbsp butter, 3–4 min/side. Remove.\n3. In same pan: melt 2 tbsp butter, sauté garlic 30 sec, add asparagus + splash water, cover 3 min.\n4. Return chicken to pan, add lemon zest/juice, warm through.\n5. Serve over rice with pan sauce.\n\n**Time**: ~25 min active, one pan, minimal cleanup.\n\nPLAN: No tool calls needed; this is a direct recipe response.",
+  "usage": {
+    "prompt_tokens": 317,
+    "completion_tokens": 303
+  }
+}

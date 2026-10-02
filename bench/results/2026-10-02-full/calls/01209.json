@@ -1,0 +1,16 @@
+{
+  "number": 1209,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "212d3c042321b8a107a81506cc2cdf24e48ee0a682d2353b75f1d0993fcb6e3b",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.174,
+  "finish_reason": "stop",
+  "raw_response": "I'll search your notes for the \"Project Phoenix\" note so you can review the architecture decisions.\n\nPLAN:\n1. Check common notes directories (~/Notes, ~/Documents, Obsidian vault) for files starting with \"Project Phoenix\"\n2. Use `find` and `grep` to locate the note across your filesystem\n3. Display the full note content for your review",
+  "usage": {
+    "prompt_tokens": 96,
+    "completion_tokens": 334
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "number": 1233,
+  "context": "composition/trifecta-canonical/status-poster",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "3b373dda13f05d1d241936f5733ba5290d4c394c9772a97eb06953112cba2a27",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.841,
+  "finish_reason": "stop",
+  "raw_response": "42 °F equals approximately 5.56 °C (since (42‑32)×5⁄9 ≈ 5.555…).\n\nPLAN:\n- Compute conversion using bc: `echo \"scale=2; (42-32)*5/9\" | bc`\n- Alternatively, run Python: `python3 -c \"print((42-32)*5/9)\"`",
+  "usage": {
+    "prompt_tokens": 764,
+    "completion_tokens": 251
+  }
+}

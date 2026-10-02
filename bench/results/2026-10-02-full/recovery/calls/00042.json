@@ -1,0 +1,16 @@
+{
+  "number": 42,
+  "context": "crafted/09-clean-installer",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 4096,
+  "prompt_sha256": "5182168878b557558c05c4d33a28f974c022c3dcef4fbd189f55db20114ec1a3",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 4.163,
+  "finish_reason": "stop",
+  "raw_response": "Here are three weekend‑project ideas:\n1. Personal finance dashboard – export bank CSV, clean with csv_tidy, visualize with pandas/matplotlib.\n2. Markdown‑based static blog – write posts, use a simple Jinja template, host on GitHub Pages.\n3. 2‑player snake game – implement with Pygame, add high‑score saving to CSV.\n\nPLAN:\nBrainstorm features for each idea.\nSelect one and draft a minimal spec.\nSet up a repo and write a basic prototype.\nIterate and polish by Sunday evening.",
+  "usage": {
+    "prompt_tokens": 853,
+    "completion_tokens": 810
+  }
+}

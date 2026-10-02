@@ -1,0 +1,54 @@
+{
+  "query": "\"hooks.example.com\" domain malware OR data exfiltration report",
+  "number": 11,
+  "response": {
+    "query": "hooks.example.com domain malware OR data exfiltration report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://www.paloaltonetworks.com/cyberpedia/data-exfiltration",
+        "title": "What Is Data Exfiltration? - Palo Alto Networks",
+        "content": "Data exfiltration is data theft, the intentional, unauthorized transfer of data from a system or network. Various agents target data exfiltration — attackers, insiders, and malware designed for data theft. Data exfiltration presents a significant concern for organizations, as it can lead to severe financial loss, reputational damage, and legal consequences. Given the abundance and high value of sensitive data, data exfiltration attempts will remain a present threat, requiring organizations to [...] Custom Malware and Advanced Persistent Threats (APTs): Sophisticated attackers may develop custom malware or use APTs to infiltrate target systems and stealthily exfiltrate data over an extended period.\n\nEach of these examples highlights the importance of robust security measures, monitoring, and incident response plans to detect, prevent, and mitigate data exfiltration attempts.\n\n## Data Exfiltration in Public Clouds [...] DNS Tunneling: Malicious actors can use Domain Name System (DNS) requests to covertly exfiltrate data by encoding it within DNS queries or responses, bypassing traditional security measures.\n\nCommand and Control (C2) Channels: Attackers can establish C2 channels between compromised systems and external servers to transfer data out of the target network.",
+        "score": 0.32261184,
+        "raw_content": null,
+        "id": "ead5ec-00"
+      },
+      {
+        "url": "https://www.teramind.co/blog/data-exfiltration-examples",
+        "title": "20 Data Exfiltration Examples Every Business Should Know",
+        "content": "Data Exfiltration refers to the unauthorized transfer or removal of sensitive information from a computer system or network to an external destination. Essentially, it is a form of data theft where confidential or proprietary data is copied, transferred, or accessed without proper authorization. This activity can be conducted by malicious insiders within an organization or by external attackers who gain unauthorized access. [...] Exploitation of Application Vulnerabilities. Malicious insiders or malware can exploit weaknesses in applications to extract sensitive information.\n Exfiltration via Physical Devices. Theft of physical devices, such as laptops, smartphones, or external drives, can lead to unauthorized access to sensitive data stored on them. [...] Data Exfiltration. This is the intentional and unauthorized transfer of data from a system or network, typically carried out by malicious actors or insiders with intent to steal sensitive information. Think of it like a burglar sneaking valuables out of your home.\n Data Leakage. This is the unintentional exposure of sensitive information due to security oversights, misconfigurations, or human error. Imagine forgetting to lock your front door and leaving your valuables accessible to anyone.",
+        "score": 0.31016183,
+        "raw_content": null,
+        "id": "3cf969-01"
+      },
+      {
+        "url": "https://www.mindpointgroup.com/blog/conducting-and-detecting-data-exfiltration",
+        "title": "Conducting and Detecting Data Exfiltration",
+        "content": "### Domain Name System (DNS)\n\n#### Method\n\nThe Domain Name System is the component of the internet that maps domain names to the numerical IP addresses that are required for routing internet traffic to its proper location. Computers are designed to automatically query DNS servers in the background during normal user operations. For example, when a user types “www.example.com” in a web browser, their computer retrieves the website without ever displaying its hosted IP address. [...] Figure 03 – Unencrypted request to www.example.com over HTTP\n\nDetection methods that rely on analyzing packet content are almost entirely ineffective when encryption is used. For example, HTTPS data is virtually impossible to read without network perimeter devices that are capable of decrypting SSL/TLS streams.\n\nFigure 04 – Encrypted request to www.example.com over HTTPS [...] Data exfiltration is the process of transmitting data across network boundaries, typically from an organization’s intranet to the internet. It is commonly achieved by attackers after they establish a foothold in an organization’s network. Sophisticated attackers can often remain undetected in enterprise networks for a remarkable amount of time, even while actively hunting for valuable data. Once an attacker decides they have gathered enough data, they will attempt to exfiltrate it. An",
+        "score": 0.303371,
+        "raw_content": null,
+        "id": "669457-02"
+      },
+      {
+        "url": "https://www.cyberhaven.com/infosec-essentials/what-is-data-exfiltration",
+        "title": "Data Exfiltration: Types, Detection & Prevention",
+        "content": "Key takeaways:\n\nData exfiltration is the unauthorized transfer of sensitive data from an organization to an external destination. External attackers and insiders carry it out through techniques such as malware, phishing, DNS tunneling, and credential abuse. Preventing data exfiltration requires layered defenses including data loss prevention tools, behavioral analytics, and data lineage tracking that monitors how sensitive information moves across endpoints and cloud services. [...] ## What Is Data Exfiltration?\n\nData exfiltration is the unauthorized transfer of sensitive data from an organization to an external destination. Also called data extrusion or data theft, it involves the deliberate movement of protected information outside network boundaries by a threat actor or negligent insider. Exfiltration is a primary objective in most cyberattacks. [...] Most external threat actors rely on malware-based channels such as C2 connections and DNS tunneling, or they abuse legitimate cloud services to blend stolen data into normal outbound traffic. These attacks often involve prolonged access periods and large data volumes.",
+        "score": 0.2939823,
+        "raw_content": null,
+        "id": "dbee0d-03"
+      },
+      {
+        "url": "https://www.zengrc.com/blog/data-exfiltration-what-it-is-and-how-to-prevent-it",
+        "title": "Data Exfiltration: What It Is and How to Prevent It - ZenGRC",
+        "content": "A data exfiltration attack is a security breach when your company’s data is copied, transferred, or retrieved from a computer or server without authorization. Such attacks are difficult to detect, as they involve transferring or moving data within and outside your company’s network and usually mimic typical network traffic. [...] Also known as data theft, data expiration, data extrusion, and data exfil, data exfiltration typically happens through hacking, malware, or social engineering attacks. It can involve the theft of many types of information, including:",
+        "score": 0.264506,
+        "raw_content": null,
+        "id": "61b3db-04"
+      }
+    ],
+    "response_time": 0.92,
+    "request_id": "8604445a-9e7b-4f2a-a834-dd3fafdaf87a"
+  }
+}

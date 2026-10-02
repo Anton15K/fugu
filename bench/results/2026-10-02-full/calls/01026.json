@@ -1,0 +1,16 @@
+{
+  "number": 1026,
+  "context": "composition/control-self-sufficient/weather-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "cdd3a8c9b62f105e1bcad241a420057048e3af3ac4c29e58cc80042e14d343a3",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.18,
+  "finish_reason": "stop",
+  "raw_response": "Lisbon in June typically has an average temperature of 21 °C and receives about 15 mm of rainfall.\n\nPLAN:\npython almanac.py lookup --city lisbon --month june",
+  "usage": {
+    "prompt_tokens": 1021,
+    "completion_tokens": 146
+  }
+}

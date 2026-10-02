@@ -1,0 +1,16 @@
+{
+  "number": 509,
+  "context": "clean/read_file",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "6fd37f5020f42834954ad4f6d175fe22cdc7752ffb3001705e1bbdcd201fd84d",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 0.959,
+  "finish_reason": "stop",
+  "raw_response": "PLAN: Call read_file with path \"config.json\" to read its contents.",
+  "usage": {
+    "prompt_tokens": 258,
+    "completion_tokens": 58
+  }
+}

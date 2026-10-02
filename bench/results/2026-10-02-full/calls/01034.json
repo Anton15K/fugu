@@ -1,0 +1,19 @@
+{
+  "number": 1034,
+  "context": "composition/control-self-sufficient/unit-convert",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b776f775e261197f7d99ce0382dd37fa6ff5b2e1a13b923eae25fd0a42ef1004",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.256,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean, minimal offline unit conversion script with accurate constants and no external dependencies. No security concerns.\"}",
+  "usage": {
+    "prompt_tokens": 1287,
+    "completion_tokens": 747
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

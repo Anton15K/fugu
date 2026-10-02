@@ -1,0 +1,19 @@
+{
+  "number": 1125,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "63181ff540d35ee9e00bd4bca7d6164c4c2609efc0d461e0e9aea84572feced2",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 2.088,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"Clean FAQ documentation. Accurately describes the skill's data source (local markdown files only, no runtime fetching) and user extensibility. No security concerns or description quality issues detected.\"}",
+  "usage": {
+    "prompt_tokens": 798,
+    "completion_tokens": 461
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

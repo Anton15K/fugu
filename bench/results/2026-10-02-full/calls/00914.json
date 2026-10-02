@@ -1,0 +1,19 @@
+{
+  "number": 914,
+  "context": "composition/control-ingress-egress/deploy-notify",
+  "stage": "semantic",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "f07ebcdab8e57a2168ff68e775c9269def25161f64c55ee734c6da1f2d053e83",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 3.922,
+  "finish_reason": "stop",
+  "raw_response": "{\"findings\": [], \"quality_summary\": \"The script is a straightforward deploy-notification POST with a hardcoded placeholder webhook (example.com). No security-relevant issues detected: no prompt injection surface, no privilege escalation, no tool poisoning, no supply-chain typosquat (example.com is reserved), no intent subversion, and minimal data emission. Code-quality notes: `${2:?...}` parameter expansion is invalid bash syntax (positional params cannot be used directly in `${var:?msg}`), `case ... in` works but `in` is non-standard, and JSON escaping only handles backslashes and double-quotes (missing control chars). These are hygiene/bug items, not security findings.\"}",
+  "usage": {
+    "prompt_tokens": 938,
+    "completion_tokens": 1067
+  },
+  "parse_valid": true,
+  "reparse_method": "json_extract",
+  "structured_retry_index": 0
+}

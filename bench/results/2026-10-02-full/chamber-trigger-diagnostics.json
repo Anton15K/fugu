@@ -1,0 +1,51 @@
+{
+  "scope": "Supplementary trigger exit diagnostics, outside40 primary denominators",
+  "case_id": "crafted/09-clean-installer",
+  "evidence": [
+    {
+      "trigger": "bash /opt/target/install.sh",
+      "exit_code": 0,
+      "duration_s": 0.506,
+      "flows": [],
+      "dns": [],
+      "fs_changes": [
+        "C /root",
+        "A /root/.local",
+        "A /root/.local/bin",
+        "A /root/.local/bin/csv_tidy"
+      ],
+      "canary_hits": [],
+      "metrics": {
+        "stdout_tail": "csv-tidy installed to /root/.local/bin/csv_tidy\nRun 'csv_tidy --help' to list commands.\n",
+        "stderr_tail": ""
+      }
+    },
+    {
+      "trigger": "python -c \"import csv_tidy\"",
+      "exit_code": 1,
+      "duration_s": 0.506,
+      "flows": [],
+      "dns": [],
+      "fs_changes": [
+        "C /usr",
+        "C /usr/local",
+        "C /usr/local/lib",
+        "C /usr/local/lib/python3.11",
+        "C /usr/local/lib/python3.11/encodings",
+        "C /usr/local/lib/python3.11/encodings/__pycache__",
+        "A /usr/local/lib/python3.11/encodings/__pycache__/__init__.cpython-311.pyc",
+        "A /usr/local/lib/python3.11/encodings/__pycache__/aliases.cpython-311.pyc",
+        "A /usr/local/lib/python3.11/encodings/__pycache__/utf_8.cpython-311.pyc",
+        "C /usr/local/lib/python3.11/site-packages",
+        "C /usr/local/lib/python3.11/site-packages/_distutils_hack",
+        "C /usr/local/lib/python3.11/site-packages/_distutils_hack/__pycache__",
+        "A /usr/local/lib/python3.11/site-packages/_distutils_hack/__pycache__/__init__.cpython-311.pyc"
+      ],
+      "canary_hits": [],
+      "metrics": {
+        "stdout_tail": "",
+        "stderr_tail": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'csv_tidy'\n"
+      }
+    }
+  ]
+}

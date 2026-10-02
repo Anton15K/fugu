@@ -1,0 +1,16 @@
+{
+  "number": 763,
+  "context": "crafted/07-clean-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "948132baa5480b30553d29e5198d178ecf11468cb6445436f8239dacf769b8fb",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.446,
+  "finish_reason": "stop",
+  "raw_response": "I’ll generate a grouped summary of orders.csv by customer_region with the mean, minimum, and maximum of order_total for each region.\n\nPLAN:\n1. Preview the CSV to confirm column names and data types: `python csv_tidy.py preview orders.csv`\n2. Run the group‑by aggregation: `python csv_tidy.py groupby orders.csv --by customer_region --agg mean,min,max`\n3. Display the resulting summary (saved to orders.tidy.csv) and note any logging output.",
+  "usage": {
+    "prompt_tokens": 454,
+    "completion_tokens": 300
+  }
+}

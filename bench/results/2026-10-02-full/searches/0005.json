@@ -1,0 +1,54 @@
+{
+  "query": "\"lodash\" package vulnerability OR typosquat OR malware report",
+  "number": 5,
+  "response": {
+    "query": "lodash package vulnerability OR typosquat OR malware report",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://blog.ulisesgascon.com/why-most-lodash-vulnerability-reports-get-rejected",
+        "title": "Why Most Lodash Vulnerability Reports Get Rejected » blog.ulisesgascon.com",
+        "content": "4. Dependencies and surrounding code. Typosquats, tampered packages, or code that overwrites or wraps Lodash are all upstream, not bugs in the library.\n5. Process privileges. Lodash inherits whatever the process holds; running as root is an operational concern. [...] > Lodash is a utility library operating entirely within the trust boundary of its caller. Vulnerabilities in scope are limited to cases where Lodash fails to uphold its documented behavior in the presence of untrusted input, without assuming compromise of trusted components such as the runtime, the operating system, or the invoking application code.\n\nA failure in any of those trusted components is out of scope, no matter how real the impact. Lodash trusts five things: [...] Whether reaching that edge is a vulnerability comes down to one question: does it break normal, reasonable usage? If Lodash fell over on ordinary inputs, that would be our bug, and we would fix it. But a deeply nested object built to exhaust the stack, or a regex crafted to backtrack forever, is not ordinary input; it is a payload aimed at the edge. And \"reasonable\" is subjective. Only the application can define it, because Lodash is general-purpose and cannot know what nesting depth is normal",
+        "score": 0.69199765,
+        "raw_content": null,
+        "id": "3732cd-00"
+      },
+      {
+        "url": "https://www.sentinelone.com/vulnerability-database/cve-2021-23337",
+        "title": "CVE-2021-23337: Lodash Command Injection Vulnerability",
+        "content": "Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function. Lodash is one of the most widely-used JavaScript utility libraries, providing helpful methods for manipulating arrays, objects, strings, and more. This vulnerability allows authenticated attackers with high privileges to execute arbitrary commands on systems where user-controlled input is passed to the \\_.template() function without proper sanitization. [...] The vulnerability specifically occurs because the template function does not adequately sanitize or escape special characters and code sequences within the template source or options, allowing attackers to break out of the intended template context and inject arbitrary commands.\n\n### Attack Vector\n\nAn attacker with authenticated access to an application using vulnerable Lodash versions can exploit this vulnerability by: [...] 1. Identifying application endpoints that process user input through Lodash's \\_.template() function\n2. Crafting malicious input containing JavaScript code injection payloads\n3. Submitting the payload through the identified entry points\n4. The injected code executes within the Node.js process context, enabling command execution",
+        "score": 0.685971,
+        "raw_content": null,
+        "id": "2dbe19-01"
+      },
+      {
+        "url": "https://tuxcare.com/blog/lodash-4-17-21-the-hidden-cost-of-running-legacy-javascript-dependencies",
+        "title": "lodash 4.17.21 Vulnerabilities: Managing Risk",
+        "content": "lodash became one of the most downloaded JavaScript packages in history because it solved a real problem: JavaScript’s standard library was thin, inconsistent across environments, and browser compatibility was a minefield. At its peak, lodash was used in everything from startup side projects to Fortune 500 enterprise platforms. [...] But the attack surface is not about function. It is about exposure. lodash functions are invoked throughout application logic, often with data that has traversed trust boundaries. The prototype pollution vulnerabilities – where an attacker can manipulate JavaScript’s object inheritance chain by supplying crafted input – can affect application behavior in ways that are non-obvious and context-dependent. [...] lodash feels small. It is a utility library. It does not touch authentication, authorization, or network communication – the components most people associate with security-sensitive code. This perception contributes to the deferral problem.",
+        "score": 0.6018984,
+        "raw_content": null,
+        "id": "2534f4-02"
+      },
+      {
+        "url": "https://github.com/lodash/lodash/issues/5918",
+        "title": "Potential false positive: npm audit reports high severity vulnerability in lodash.pick@4.4.0 · Issue #5918 · lodash/lodash · GitHub",
+        "content": "Issue body actions\n\nnpm audit is reporting a high severity vulnerability (Prototype Pollution) in lodash.pick@4.4.0, which appears to be a false positive or misclassification. The vulnerability seems to be related to the full lodash library, but lodash.pick is a separate, minimal package.\n\n## Environment\n\n lodash.pick version: 4.4.0\n native-base version: 3.4.28 (which depends on lodash.pick)\n npm version: 10.8.3\n Node.js version: 18.18.0\n\n## npm audit report [...] ## Additional Context\n\n The suggested fix (downgrading to 3.1.0) seems incorrect, as it's recommending an older version.\n The vulnerability refers to the full lodash library, but lodash.pick is a separate, minimal package.\n This issue is causing false positives in our CI/CD pipeline and security scans.\n\n## Questions [...] 1. Create a new project with `npm init -y`\n2. Install lodash.pick@4.4.0 and native-base@3.4.28\n3. Run `npm audit`\n\n## Expected Behavior\n\nnpm audit should not report a high severity vulnerability for lodash.pick@4.4.0, as it's a minimal package that shouldn't be affected by the full lodash library's Prototype Pollution vulnerability.\n\n## Actual Behavior\n\nnpm audit reports a high severity vulnerability and suggests downgrading to lodash.pick@3.1.0, which is an older version.",
+        "score": 0.598524,
+        "raw_content": null,
+        "id": "08bbe8-03"
+      },
+      {
+        "url": "https://medium.com/@jake_52237/lodash-understanding-the-recent-vulnerability-and-how-we-can-rally-behind-packages-c19a2a630254",
+        "title": "Lodash: Understanding the recent vulnerability and how we can rally behind packages",
+        "content": "Lodash versions prior to 4.17.19 are vulnerable to a Prototype Pollution (CVE-2020–8203). The function `zipObjectDeep()` allows a malicious user to modify the prototype of an `Object` if the property identifiers are user-supplied. To be affected by this issue, developers would have to be zipping objects based upon user-provided property arrays. [...] This vulnerability causes the addition or modification of an existing property that will exist on all objects and may lead to Denial of Service or Code Execution under certain circumstances.\n\n## Deep dive Into The Vulnerability\n\nThe vulnerability arises when we give a maliciously crafted object to the `zipObjectDeep()` function in Lodash.\n\n### The Vulnerable Code:\n\nPress enter or click to view image in full size\n\nImage 4 [...] Sitemap\n\nOpen in app\n\nSign up\n\nSign in\n\n.\n\nIn this post, we will dive into the detail: the disclosure, the fix and then discuss where we as a community could have done better!\n\n## Lodash\n\nOn the 30th April, an issue was opened on the Lodash repository by @nickrobson stating that he had found a prototype pollution vulnerability in `lodash.js`. The next day he had opened a pull request with a fix for the vulnerability. However, the maintainer only accepted the pull request almost 2 months later.",
+        "score": 0.5954225,
+        "raw_content": null,
+        "id": "83d13b-04"
+      }
+    ],
+    "response_time": 0.81,
+    "request_id": "638f3e7d-1706-49fe-8e69-94d13cd07809"
+  }
+}

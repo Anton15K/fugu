@@ -1,0 +1,16 @@
+{
+  "number": 1191,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "b665013a46034eb96a1b3d4ad0ef2c98d0d9268634578c545aabb3878e764bda",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.22,
+  "finish_reason": "stop",
+  "raw_response": "Here's a short, professional apology email draft:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"My response yesterday\"]\n\nHi [Name],\n\nI'm sorry for [specific action: missing our meeting / the delayed reply / the error in the report]. It was my responsibility to [what you should have done], and I fell short.\n\nI've [what you're doing to fix it: rescheduled / sent the corrected file / put a reminder in place] so this doesn't happen again. Please let me know if there's anything else I can do to make up for the inconvenience.\n\nBest,  \n[Your Name]\n\n---\n\nPLAN: Ask user for the specific situation and colleague's name to personalize the draft  \nPLAN: Offer 2–3 tone options (formal, casual, brief) based on their relationship  \nPLAN: Finalize and copy the chosen version to clipboard for quick sending",
+  "usage": {
+    "prompt_tokens": 90,
+    "completion_tokens": 234
+  }
+}

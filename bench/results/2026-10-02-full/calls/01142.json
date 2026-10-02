@@ -1,0 +1,16 @@
+{
+  "number": 1142,
+  "context": "composition/shadow-pair/help-docs",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "eb055eafb0ee55a8e2021ceecedaddd3687c858f6c3b224e0cdb4f066018d8ff",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 1.826,
+  "finish_reason": "stop",
+  "raw_response": "42 °F is approximately 5.56 °C.\n\nPLAN:\n- Apply the conversion formula °C = (°F − 32) × 5⁄9.\n- Subtract 32 from 42 to get 10.\n- Multiply 10 by 5⁄9 to obtain 50⁄9 ≈ 5.555…\n- Round to two decimal places for the final answer.",
+  "usage": {
+    "prompt_tokens": 1234,
+    "completion_tokens": 258
+  }
+}

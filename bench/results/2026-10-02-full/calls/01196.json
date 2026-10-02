@@ -1,0 +1,16 @@
+{
+  "number": 1196,
+  "context": "composition/trifecta-canonical/notes-lookup",
+  "stage": "harness",
+  "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+  "max_tokens": 600,
+  "prompt_sha256": "17870ebf2880edcb0d3080210ce6e9c5452d56cd56bfed72f3c2dcd7e86f0121",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "duration_s": 2.674,
+  "finish_reason": "stop",
+  "raw_response": "A quick weeknight dinner idea is one‑pan lemon‑garlic chicken with roasted vegetables: season chicken thighs with salt, pepper, minced garlic, and lemon zest; toss chopped potatoes, carrots, and broccoli with olive oil, salt, and pepper; arrange everything on a baking sheet and roast at 425 °F for 35‑40 minutes, stirring halfway through. Serve with a squeeze of fresh lemon juice.\n\nPLAN:\n- Call `search_notes` with query \"quick weeknight dinner\" to see if any personal recipe notes exist.\n- If results appear, examine the top match for detailed instructions.\n- If no notes are found, fall back to the generic recipe above.",
+  "usage": {
+    "prompt_tokens": 1216,
+    "completion_tokens": 370
+  }
+}

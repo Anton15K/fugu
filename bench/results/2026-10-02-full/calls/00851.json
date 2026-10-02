@@ -1,0 +1,16 @@
+{
+  "number": 851,
+  "context": "crafted/10-clean-node-skill",
+  "stage": "harness",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "max_tokens": 1600,
+  "prompt_sha256": "a1bd3a2c72e1bbaa57f378767289e07ef17ff50d751d5a3f083f6b5db9c02b00",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "duration_s": 1.246,
+  "finish_reason": "stop",
+  "raw_response": "I can fix your markdown formatting using the installed `mdprettify` tool. Which markdown file would you like me to process? (Please provide the path, e.g., `notes.md` or `docs/table.md`)\n\nPLAN: Ask user for the markdown file path\nPLAN: Run `mdprettify <file.md>` to generate `<file>.pretty.md` with aligned tables and normalized bullets\nPLAN: Show the user the formatted output or confirm completion",
+  "usage": {
+    "prompt_tokens": 895,
+    "completion_tokens": 233
+  }
+}
