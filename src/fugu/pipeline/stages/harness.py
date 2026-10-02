@@ -387,25 +387,38 @@ class HarnessStage:
             except Exception as exc:
                 status = getattr(exc, "status_code", None)
                 error = f"{type(exc).__name__}" + (f" HTTP {status}" if status else "")
+                unknown_usage = {key: None for key in ("prompt_tokens", "completion_tokens")}
                 attempts.append({
                     "max_tokens": 4096,
                     "finish_reason": None,
                     "response_chars": 0,
                     "error": error,
-                    "usage": {},
+                    "usage": unknown_usage,
                 })
-                retry_records.append({"model": model, "attempts": attempts, "outcome": "retry_error"})
+                retry_records.append({
+                    "model": model,
+                    "attempts": attempts,
+                    "outcome": "retry_error",
+                    "usage_complete": {key: False for key in unknown_usage},
+                    "total_usage": unknown_usage,
+                })
                 raise RuntimeError(f"Super retry request failed: {error}") from None
             attempts.append(retry_attempt)
+            usage_complete = {
+                key: usage.get(key) is not None and retry_usage.get(key) is not None
+                for key in ("prompt_tokens", "completion_tokens")
+            }
+            total_usage = {
+                key: usage[key] + retry_usage[key] if usage_complete[key] else None
+                for key in usage_complete
+            }
             retry_records.append({
                 "model": model,
                 "attempts": attempts,
                 "outcome": "recovered" if retry_text else "empty_after_retry",
+                "usage_complete": usage_complete,
+                "total_usage": total_usage,
             })
-            total_usage = {
-                key: sum(value for value in (usage.get(key), retry_usage.get(key)) if value is not None)
-                for key in ("prompt_tokens", "completion_tokens")
-            }
             return retry_text, JudgeCall(
                 model=model,
                 latency_s=round(latency + retry_latency, 3),

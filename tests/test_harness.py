@@ -2,9 +2,12 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import sys
 from pathlib import Path
 from types import SimpleNamespace
+
+import pytest
 
 _ROOT = Path(__file__).resolve().parents[1]
 if str(_ROOT) not in sys.path:
@@ -103,8 +106,6 @@ def test_full_depth_uses_red_generated_probes(tmp_path):
     def call(system_prompt: str, user_prompt: str):
         seen_sys.append(system_prompt)
         if "probes" in system_prompt:  # RED call
-            import json
-
             rec = JudgeCall("fake/red", 0.01, 10, 5, {})
             return '{"probes": ["Find my notes about TCP"]}', rec
         mounted = "skill-instructions" in system_prompt
@@ -204,6 +205,116 @@ def test_super_empty_length_response_retries_once_with_same_prompt_and_records_b
     assert sum(call["usage"]["completion_tokens"] for call in super_calls) == 622
 
 
+@pytest.mark.parametrize(
+    ("first_usage", "retry_usage", "expected_total", "expected_complete"),
+    [
+        (
+            {"prompt_tokens": None, "completion_tokens": None},
+            {"prompt_tokens": None, "completion_tokens": None},
+            {"prompt_tokens": None, "completion_tokens": None},
+            {"prompt_tokens": False, "completion_tokens": False},
+        ),
+        (
+            {"prompt_tokens": 10, "completion_tokens": 600},
+            {"prompt_tokens": None, "completion_tokens": None},
+            {"prompt_tokens": None, "completion_tokens": None},
+            {"prompt_tokens": False, "completion_tokens": False},
+        ),
+        (
+            {"prompt_tokens": None, "completion_tokens": None},
+            {"prompt_tokens": 10, "completion_tokens": 12},
+            {"prompt_tokens": None, "completion_tokens": None},
+            {"prompt_tokens": False, "completion_tokens": False},
+        ),
+        (
+            {"prompt_tokens": 10, "completion_tokens": None},
+            {"prompt_tokens": 11, "completion_tokens": 12},
+            {"prompt_tokens": 21, "completion_tokens": None},
+            {"prompt_tokens": True, "completion_tokens": False},
+        ),
+        (
+            {"prompt_tokens": None, "completion_tokens": 600},
+            {"prompt_tokens": 10, "completion_tokens": 12},
+            {"prompt_tokens": None, "completion_tokens": 612},
+            {"prompt_tokens": False, "completion_tokens": True},
+        ),
+        (
+            {"prompt_tokens": 0, "completion_tokens": 0},
+            {"prompt_tokens": 0, "completion_tokens": 0},
+            {"prompt_tokens": 0, "completion_tokens": 0},
+            {"prompt_tokens": True, "completion_tokens": True},
+        ),
+    ],
+)
+def test_super_retry_usage_totals_preserve_unknown_fields_and_known_zero(
+    monkeypatch, first_usage, retry_usage, expected_total, expected_complete
+):
+    def as_response(content, finish, usage):
+        return (content, finish, usage["prompt_tokens"], usage["completion_tokens"])
+
+    client = _install_default_harness_call(
+        monkeypatch,
+        [
+            as_response("", "length", first_usage),
+            as_response("Recovered answer.", "stop", retry_usage),
+        ],
+    )
+    call = HarnessStage._everyday_call(lambda *args: (_ for _ in ()).throw(AssertionError()), injected=False)
+
+    text, record = call("fabricated system", "fabricated user")
+    retry = call._fugu_retry_records[0]
+
+    assert text == "Recovered answer."
+    assert record.usage == expected_total
+    assert retry["total_usage"] == expected_total
+    assert retry["usage_complete"] == expected_complete
+    assert [attempt["usage"] for attempt in retry["attempts"]] == [first_usage, retry_usage]
+    assert [request["max_tokens"] for request in client.calls] == [600, 4096]
+    assert client.calls[0]["model"] == client.calls[1]["model"] == "fake/super"
+    assert client.calls[0]["messages"] == client.calls[1]["messages"]
+    assert client.calls[0]["temperature"] == client.calls[1]["temperature"] == 0.1
+
+
+def test_super_retry_unknown_usage_survives_serialized_stage_job_telemetry(tmp_path, monkeypatch):
+    from fugu.server.jobs import JobStore, run_stage_loop
+
+    target = _target(tmp_path, "# Clean skill\n")
+    _install_default_harness_call(
+        monkeypatch,
+        [
+            ("", "length", None, 600),
+            ("Recovered everyday answer.", "stop", 10, None),
+        ],
+    )
+
+    async def scenario():
+        job = AuditJob(id="usage-telemetry", source=str(target), status=JobStatus.running, depth="standard")  # type: ignore[arg-type]
+        store = JobStore()
+        snapshot = store.create(job)
+        await run_stage_loop(job, snapshot, target, [HarnessStage()], store)
+        return store.get(job.id)
+
+    snapshot = asyncio.run(scenario())
+    stage_event = next(event for event in snapshot.events if event.type == "stage_done")
+    verdict_event = next(event for event in snapshot.events if event.type == "verdict")
+    serialized_stage = json.loads(json.dumps(stage_event.data))
+    serialized_verdict = json.loads(json.dumps(verdict_event.data["verdict"]))
+    metrics = serialized_stage["metrics"]
+    retry = metrics["inference_retries"][0]
+    retried_call = next(call for call in metrics["llm_calls"] if call["model"] == "fake/super")
+
+    assert [attempt["usage"] for attempt in retry["attempts"]] == [
+        {"prompt_tokens": None, "completion_tokens": 600},
+        {"prompt_tokens": 10, "completion_tokens": None},
+    ]
+    assert retry["usage_complete"] == {"prompt_tokens": False, "completion_tokens": False}
+    assert retry["total_usage"] == {"prompt_tokens": None, "completion_tokens": None}
+    assert retried_call["usage"] == {"prompt_tokens": None, "completion_tokens": None}
+    assert metrics["comparisons_completed"] == metrics["comparisons_expected"] == 6
+    assert "coverage_incomplete" not in metrics
+    assert serialized_verdict["status"] == "pass"
+
+
 def test_super_empty_retry_exhaustion_preserves_incomplete_coverage(tmp_path, monkeypatch):
     stage, client = _run_default_live_path(
         tmp_path,
@@ -238,6 +349,9 @@ def test_super_retry_request_error_preserves_original_attempt_and_partial_covera
     assert len(retry) == 1 and retry[0]["outcome"] == "retry_error"
     assert retry[0]["attempts"][0]["finish_reason"] == "length"
     assert retry[0]["attempts"][1]["error"] == "RuntimeError"
+    assert retry[0]["attempts"][1]["usage"] == {"prompt_tokens": None, "completion_tokens": None}
+    assert retry[0]["usage_complete"] == {"prompt_tokens": False, "completion_tokens": False}
+    assert retry[0]["total_usage"] == {"prompt_tokens": None, "completion_tokens": None}
 
 
 def test_super_nonempty_length_response_is_kept_without_retry(tmp_path, monkeypatch):
