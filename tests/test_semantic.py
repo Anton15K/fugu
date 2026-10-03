@@ -42,7 +42,7 @@ def test_offline_noop(tmp_path):
     stage._make_call = None
     import fugu.pipeline.stages.semantic as sem
     saved = sem._default_make_call
-    sem._default_make_call = lambda: None  # simulate offline
+    sem._default_make_call = lambda **kwargs: None  # simulate offline
     try:
         res = asyncio.run(stage.run(AuditJob(id="t", source=str(target), status=JobStatus.running), target))
     finally:
@@ -197,6 +197,36 @@ def test_semantic_retry_request_error_preserves_original_parse_failure(tmp_path)
     assert recovery["attempts"][1]["error"] == "RuntimeError"
 
 
+def test_semantic_retry_preserves_safe_sdk_http_status_metadata(tmp_path):
+    from fugu.pipeline.stages.semantic import InferenceCallError
+
+    target = _make_target(tmp_path, "# suspicious\n")
+    seen = []
+    failed_attempt = {
+        "requested_model": "fake/model",
+        "served_model": None,
+        "max_tokens": 4096,
+        "finish_reason": None,
+        "response_chars": 0,
+        "response_sha256": "empty-hash",
+        "error": "APIError HTTP 429",
+        "usage": {"prompt_tokens": None, "completion_tokens": None},
+        "latency_s": 0.25,
+    }
+    call = _scripted_judge(
+        ["not json", InferenceCallError("APIError HTTP 429", failed_attempt)], seen
+    )
+
+    result = asyncio.run(SemanticStage(make_call=call).run(
+        AuditJob(id="retry-http-status", source=str(target), status=JobStatus.running), target
+    ))
+
+    recovery_attempt = result.metrics["response_recoveries"][0]["attempts"][1]
+    assert recovery_attempt["error"] == "APIError HTTP 429"
+    assert recovery_attempt["latency_s"] == 0.25
+    assert "retry failed: APIError HTTP 429" in result.metrics["call_errors"][0]
+
+
 def test_trailing_comma_response_is_reparsed_without_replacing_its_evidence(tmp_path):
     target = _make_target(tmp_path, "# suspicious\n")
     raw = (
@@ -260,7 +290,7 @@ def test_default_judge_factory_accepts_larger_retry_limit_and_records_usage(monk
     client = Client()
     client.chat = SimpleNamespace(completions=SimpleNamespace(create=client.chat_completions))
     monkeypatch.setattr(config, "get_settings", lambda: SimpleNamespace(has_api_key=True))
-    monkeypatch.setattr(client_module, "make_client", lambda settings: client)
+    monkeypatch.setattr(client_module, "make_client", lambda settings, **kwargs: client)
     monkeypatch.setattr(router, "pick_model", lambda task="", tier="": "fake/ultra")
 
     call = _default_make_call(max_tokens=4096)

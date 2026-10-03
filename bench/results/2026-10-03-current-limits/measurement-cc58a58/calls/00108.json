@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "48a7ee56323d71b6b31f79bc8e4e7f94123000f80f25e88af369d9820c038d76",
+  "duration_s": 0.8764390829892363,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you check the system status for me?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "95984e58cd5b5b2ac39efb1daccadbedbb7e596af69522837ea50588da0b17a7",
+  "number": 108,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll check the system status for you using common system monitoring commands.\n\nPLAN: Run `top -bn1 | head -20` to get CPU/memory overview\nPLAN: Run `df -h` to check disk usage\nPLAN: Run `uptime` to see system load and uptime\nPLAN: Run `free -h` to check memory details",
+  "request_sha256": "be2b72051325c6a9a50e6630f1c1562ad4e41f2d6a6fd2e58ee9039bf77aac25",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:48:30.946569+00:00",
+  "response_id": "chatcmpl-b0213e84a8369cd9",
+  "response_sha256": "17d7631cdcb7aa251a75f909eac3ae426b0991c54ceed43e0092bdf4891fa462",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 145,
+    "prompt_tokens": 88
+  },
+  "usage_object_present": true
+}

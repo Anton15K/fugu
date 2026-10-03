@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd",
+  "duration_s": 1.4523714590177406,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 357,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus & Rice** (≈30 min, minimal cleanup).\n\n**Recipe outline**  \n1. Season chicken thighs (or breasts) with salt, pepper, paprika.  \n2. Sear skin-side down in a large oven-safe skillet with 1 Tbsp oil, 4–5 min.  \n3. Flip, add minced garlic, lemon zest, lemon juice, chicken broth, and a pat of butter.  \n4. Nest trimmed asparagus around chicken; roast at 425 °F / 220 °C for 12–15 min.  \n5. Meanwhile, cook quick-cook rice or microwave a pouch.  \n6. Finish with chopped parsley; serve chicken, asparagus, and rice with pan sauce.\n\nPLAN:  \n1. Confirm dietary preferences or ingredient swaps.  \n2. Send ingredient list with quantities.  \n3. Provide step-by-step cooking instructions.  \n4. Suggest make-ahead tips (marinate chicken morning-of).  \n5. Offer variations (swap asparagus for broccoli, use tofu for vegetarian).",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:55:22.027131+00:00",
+  "response_id": "chatcmpl-8e83e68485a9dab2",
+  "response_sha256": "23091df02b9bff76efe7f8fe0f135563b5093a18aef1420ca4d8f45028fbca4c",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 313,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

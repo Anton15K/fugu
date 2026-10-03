@@ -1,0 +1,196 @@
+{
+  "accepted_plan_sha256": "8f304c3da81e0db091da6e2c324c064d013129d63644b278079c4cf8ad9ef725",
+  "additional_provider_requests": 0,
+  "cases": {
+    "benign_attempted": 0,
+    "benign_rates": null,
+    "completed_description_attacks": 12,
+    "contexts": 54,
+    "distinct_audits": 45,
+    "input_files": 81,
+    "missed_ids": [
+      "mcptox/mcp-simple-arxiv_9"
+    ],
+    "outcomes": {
+      "completed": 12,
+      "partial": 1,
+      "unattempted": 27
+    },
+    "partial_high_advisory_preserved": true,
+    "planned": 40,
+    "planned_description_attacks": 15,
+    "primary_description_detections": 11,
+    "semantic_units": 63,
+    "symlinks": 0,
+    "tracked_original_blob_hashes_verified": 81
+  },
+  "charts": {
+    "excluded_ids": 8,
+    "paired_attacks": 12,
+    "paired_controls": 0,
+    "panels": 4,
+    "png_svg_files": 8,
+    "restored_input_png_bytes_equal": 4,
+    "saved_chart_data_equal_recomputed": true
+  },
+  "check_script_sha256": "810a48478ab33fb766782737167e23791a1048456f4c047e86906f70b6e629cd",
+  "checked_utc": "2026-10-03T03:28:40.964179+00:00",
+  "command": "PYTHONPATH=. PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY= UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python /tmp/fugu-verify-stopped-current-limits.py",
+  "documentation": {
+    "local_links_checked": 21,
+    "sha256": "2d8b8a3b9768fde62715ce8aa9c05edaa37c57a0e30d7db1898b2c7b8cf37882",
+    "trailing_whitespace": 0
+  },
+  "freeze": {
+    "chart_generator_sha256": "874c20f54b73a7ef9416d60af376dad0186a4953ee6d12f4d46bdbdf9e0df546",
+    "frozen_python_files": 37,
+    "git_python_blobs_match": 37,
+    "historical_engine_inventories": [
+      {
+        "mismatches": [],
+        "python_files": 37,
+        "root": "/tmp/fugu-current-limits-base-engine"
+      },
+      {
+        "mismatches": [],
+        "python_files": 37,
+        "root": "/tmp/fugu-showcase-reconstructed-engine-20261002"
+      },
+      {
+        "mismatches": [],
+        "python_files": 37,
+        "root": "/tmp/fugu-composition-showcase-engine-20261002"
+      }
+    ],
+    "project_dependency_files_unchanged": true,
+    "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+    "working_python_files_match": 37
+  },
+  "ledger": {
+    "additional_requests_after_error": 0,
+    "errors": 1,
+    "hashes_verified": {
+      "messages": 359,
+      "raw_responses": 358,
+      "requests": 359
+    },
+    "known_completion_tokens": 112637,
+    "known_prompt_tokens": 85076,
+    "last_error": {
+      "classification": "provider_error",
+      "status": 500,
+      "type": "InternalServerError"
+    },
+    "orphan": 0,
+    "output_cap": 4096,
+    "replay": 0,
+    "returned": 358,
+    "rows": 359,
+    "stop_reason": "provider_error",
+    "summed_sdk_duration_s": 592.0056209189643,
+    "unknown_usage_attempts": 1
+  },
+  "limits": [
+    "Fresh40 remains blocked by provider500, not quota exhaustion",
+    "All12 benign cases unattempted; rates unmeasured",
+    "Only13 observed source/inference audits; composition,detonation,reputation unmeasured",
+    "Cost and remaining quota unknown",
+    "Old report hash verified against cc58 Git blob; old manifests unchanged"
+  ],
+  "method": "Read-only rehash/recount from saved JSON and native audits; original source Git blobs; accepted immutable plan/profile; historical manifests; frozen-engine inventories; chart_data regeneration without provider calls or target execution.",
+  "native": {
+    "alignment_mismatches": [
+      {
+        "actual_journal_rows": 10,
+        "excess_proxy_rows": 18,
+        "native_rows": 28,
+        "stage": "harness"
+      }
+    ],
+    "known_subtotals": {
+      "harness": {
+        "comparisons_completed": 221,
+        "comparisons_expected": 234,
+        "files_omitted": 0,
+        "mount_omitted_files": 0,
+        "mounted_chars": 4384,
+        "mounted_content_chars": 4137,
+        "omitted_chars": 0,
+        "red_chars": 4852,
+        "red_mounted_chars": 4384,
+        "red_probe_chars_omitted": 0,
+        "red_probes_generated": 39,
+        "red_probes_omitted": 0,
+        "source_chars": 4137
+      },
+      "semantic": {
+        "omitted_chars": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "source_chars": 4137,
+        "submitted_chars": 4137,
+        "units_completed": 13,
+        "units_omitted": 0,
+        "units_partial": 0,
+        "units_total": 13
+      }
+    },
+    "metadata_counts": {
+      "call_errors": 19,
+      "inference_retries": 0,
+      "parse_errors": 0,
+      "response_recoveries": 0
+    },
+    "observed_audits": 13,
+    "unknown_planned_audits": 32
+  },
+  "preservation": {
+    "correction_immutable": {
+      "entries": 1877,
+      "mismatches": []
+    },
+    "historical_artifact_manifests": [
+      {
+        "entries": 28,
+        "historical_document_exceptions": [
+          {
+            "binding_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+            "current_revision_authorized_under": "qitem-20261003023545-501c0320",
+            "path": "docs/benchmark-current-limits.md"
+          }
+        ],
+        "manifest": "bench/results/2026-10-03-current-limits/offline-checkpoint/artifact-manifest.json",
+        "manifest_sha256": "f33ab8c1de72f33ffc5a8ec70743d826754e14ceb0c4df49ab81f722a86a9287"
+      },
+      {
+        "entries": 15,
+        "historical_document_exceptions": [
+          {
+            "binding_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+            "current_revision_authorized_under": "qitem-20261003023545-501c0320",
+            "path": "docs/benchmark-current-limits.md"
+          }
+        ],
+        "manifest": "bench/results/2026-10-03-current-limits/journal-stop-correction/artifact-manifest.json",
+        "manifest_sha256": "41c577e0d1a7716a1f24e0fe1d759243b68ebe215be7d223c930f75921c534b2"
+      }
+    ],
+    "historical_source_hashes": 1359,
+    "immutable_source_hashes": {
+      "entries": 1672,
+      "mismatches": []
+    },
+    "never_released_plan_preserved": true,
+    "owner_hashes": {
+      "entries": 3,
+      "mismatches": []
+    }
+  },
+  "profile_sha256": "0ca72c2f933e0f03adc15b70bc362be269865222c41cdb0a42208b9185f47403",
+  "schema": 1,
+  "source_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+  "status": "pass",
+  "target_executions": 0
+}

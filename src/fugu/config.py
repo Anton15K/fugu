@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import sys
+from dataclasses import asdict, dataclass
 
 from dotenv import load_dotenv
 
@@ -30,6 +31,42 @@ DEFAULT_BASE_URL = BASE_URL_EU
 NANO_MODEL = "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
 SUPER_MODEL = "nvidia/nemotron-3-super-120b-a12b"
 ULTRA_MODEL = "nvidia/Nemotron-3-Ultra-550b-a55b"
+
+
+@dataclass(frozen=True)
+class ProductionLimits:
+    """Immutable, shared defaults for bounded production audit work."""
+
+    llm_max_output_tokens: int = 4_096
+    request_timeout_seconds: int = 90
+    sdk_max_retries: int = 0
+    semantic_max_units: int = 24
+    semantic_max_chars_per_unit: int = 6_000
+    semantic_max_file_bytes: int = 2_000_000
+    semantic_max_files: int = 2_000
+    harness_max_file_bytes: int = 2_000_000
+    harness_max_files: int = 50
+    harness_mount_char_budget: int = 32_000
+    harness_standard_static_probes: int = 3
+    harness_full_static_probes: int = 6
+    red_probe_count: int = 3
+    red_probe_max_chars: int = 200
+    source_max_bytes: int = 512 * 1024 * 1024
+    source_max_entries: int = 20_000
+    git_clone_timeout_seconds: int = 120
+    fanout_max_units: int = 24
+
+    def to_dict(self) -> dict[str, int]:
+        """Return the safe, JSON-serializable effective profile."""
+        return asdict(self)
+
+
+DEFAULT_PRODUCTION_LIMITS = ProductionLimits()
+
+
+def get_production_limits() -> ProductionLimits:
+    """Return the immutable production limits used by default pipeline paths."""
+    return DEFAULT_PRODUCTION_LIMITS
 
 
 class Settings:

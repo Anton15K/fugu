@@ -27,6 +27,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+from fugu.config import DEFAULT_PRODUCTION_LIMITS
 from fugu.store.sqlite import SqliteJobStore
 from fugu.source_safety import SourceSafetyError, validate_source_tree
 from fugu.types import (
@@ -54,8 +55,11 @@ __all__ = [
 
 # --- Extraction config ---------------------------------------------------------
 
-DEFAULT_MAX_BYTES = 512 * 1024 * 1024      # 512 MiB total size cap
-DEFAULT_MAX_FILES = 20_000                 # file-count cap
+DEFAULT_MAX_BYTES = DEFAULT_PRODUCTION_LIMITS.source_max_bytes
+DEFAULT_MAX_FILES = DEFAULT_PRODUCTION_LIMITS.source_max_entries
+DEFAULT_GIT_CLONE_TIMEOUT_SECONDS = DEFAULT_PRODUCTION_LIMITS.git_clone_timeout_seconds
+_GIT_CLONE_TIMEOUT_DRAIN_SECONDS = 0.1
+_GIT_CLONE_TIMEOUT_WAIT_SECONDS = 0.1
 
 
 class ExtractionError(Exception):
@@ -322,6 +326,7 @@ async def extract_source(
     max_files: int = DEFAULT_MAX_FILES,
     max_bytes: int = DEFAULT_MAX_BYTES,
     keep_target: bool = False,
+    git_timeout_s: float = DEFAULT_GIT_CLONE_TIMEOUT_SECONDS,
 ) -> Path:
     """Materialize the audited source into a usable target directory.
 
@@ -363,12 +368,19 @@ async def extract_source(
                 )
                 root = Path(tmp) / "clone"
                 try:
-                    await _git_clone(base, root, branch=clone_ref or None)
+                    await _git_clone(
+                        base, root, branch=clone_ref or None, timeout_s=git_timeout_s
+                    )
                     _validate_source(root)
                     audit_dir = _resolve_audit_subdir(
                         root, clone_sub, source_display=source
                     )
-                    return await loop.run_in_executor(None, _materialize_git_selection, audit_dir)
+                    return await loop.run_in_executor(
+                        None,
+                        lambda: _materialize_git_selection(
+                            audit_dir, max_files=max_files, max_bytes=max_bytes
+                        ),
+                    )
                 except (ExtractionError, OSError) as exc:
                     last_err = exc if isinstance(exc, ExtractionError) else ExtractionError(f"source materialization failed: {exc}")
                     continue
@@ -381,9 +393,14 @@ async def extract_source(
         )
         root = Path(tmp) / "clone"
         try:
-            await _git_clone(source, root)
+            await _git_clone(source, root, timeout_s=git_timeout_s)
             _validate_source(root)
-            return await loop.run_in_executor(None, _materialize_git_selection, root)
+            return await loop.run_in_executor(
+                None,
+                lambda: _materialize_git_selection(
+                    root, max_files=max_files, max_bytes=max_bytes
+                ),
+            )
         except OSError as exc:
             raise ExtractionError(f"source extraction failed: {exc}") from exc
         finally:
@@ -402,27 +419,33 @@ async def extract_source(
     except PermissionError as exc:
         raise ExtractionError(f"local source not readable: {source} ({exc})") from exc
 
-    n_files = 0
-    n_bytes = 0
-    for f in p.rglob("*"):
-        n_files += 1
-        if n_files > max_files:
-            raise ExtractionError(
-                f"source has too many files (> {max_files}): {source}"
-            )
-        try:
-            if f.is_file():
-                n_bytes += f.stat().st_size
-        except OSError:
-            pass  # broken symlink / race: ignore
-        if n_bytes > max_bytes:
-            raise ExtractionError(
-                f"source is too large (> {max_bytes} bytes): {source}"
-            )
+    _enforce_source_limits(p, max_files=max_files, max_bytes=max_bytes)
     return p
 
 
-def _materialize_git_selection(selected: Path) -> Path:
+def _enforce_source_limits(root: Path, *, max_files: int, max_bytes: int) -> None:
+    """Apply the local source entry/byte limits to a materialized tree."""
+    n_entries = 0
+    n_bytes = 0
+    for path in root.rglob("*"):
+        n_entries += 1
+        if n_entries > max_files:
+            raise ExtractionError(f"source has too many files/entries (> {max_files})")
+        try:
+            if path.is_file():
+                n_bytes += path.stat().st_size
+        except OSError:
+            pass  # broken symlink / race: ignore as in the local-path walk
+        if n_bytes > max_bytes:
+            raise ExtractionError(f"source is too large (> {max_bytes} bytes)")
+
+
+def _materialize_git_selection(
+    selected: Path,
+    *,
+    max_files: int = DEFAULT_MAX_FILES,
+    max_bytes: int = DEFAULT_MAX_BYTES,
+) -> Path:
     """Give each selected file/tree one directory owned by the caller."""
     target = Path(tempfile.mkdtemp(prefix="fugu-source-"))
     try:
@@ -434,14 +457,21 @@ def _materialize_git_selection(selected: Path) -> Path:
         else:
             raise ExtractionError("selected git source is not a regular file or directory")
         _validate_source(target)
+        _enforce_source_limits(target, max_files=max_files, max_bytes=max_bytes)
         return target
     except BaseException:
         shutil.rmtree(target, ignore_errors=True)
         raise
 
 
-async def _git_clone(source: str, target: Path, branch: str | None = None) -> None:
-    """Clone `source` (depth 1, optionally pinned to `branch`) into `target`."""
+async def _git_clone(
+    source: str,
+    target: Path,
+    branch: str | None = None,
+    *,
+    timeout_s: float = DEFAULT_GIT_CLONE_TIMEOUT_SECONDS,
+) -> None:
+    """Clone `source` into `target` with one bounded subprocess attempt."""
     cmd = ["git", "clone", "--quiet"]
     if branch:
         # --branch also accepts tags & commit ids; --depth keeps it shallow.
@@ -452,12 +482,72 @@ async def _git_clone(source: str, target: Path, branch: str | None = None) -> No
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
-    _, stderr = await proc.communicate()
+    try:
+        _, stderr = await asyncio.wait_for(proc.communicate(), timeout=timeout_s)
+    except asyncio.TimeoutError:
+        try:
+            proc.kill()
+        except ProcessLookupError:  # process exited at the timeout boundary
+            pass
+        try:
+            drained = await _bounded_process_cleanup(
+                proc.communicate(), _GIT_CLONE_TIMEOUT_DRAIN_SECONDS
+            )
+        finally:
+            _close_subprocess_transport(proc)
+        if not drained:
+            await _bounded_process_cleanup(
+                proc.wait(), _GIT_CLONE_TIMEOUT_WAIT_SECONDS
+            )
+        raise ExtractionError(f"git clone timed out after {timeout_s:g} seconds") from None
     if proc.returncode != 0:
         detail = (stderr or b"").decode(errors="replace").strip()
         raise ExtractionError(
             f"git clone failed (exit {proc.returncode}): {detail[:500]}"
         )
+
+
+async def _bounded_process_cleanup(awaitable: Any, timeout_s: float) -> bool:
+    """Run one cleanup awaitable without extending clone timeout indefinitely."""
+    task = asyncio.create_task(awaitable)
+    try:
+        done, _ = await asyncio.wait({task}, timeout=timeout_s)
+        if task not in done:
+            return False
+        try:
+            task.result()
+        except Exception:  # noqa: BLE001 - cleanup is best effort after timeout
+            return False
+        except asyncio.CancelledError:
+            return False
+        return True
+    finally:
+        if not task.done():
+            task.cancel()
+            task.add_done_callback(_consume_task_outcome)
+
+
+def _consume_task_outcome(task: asyncio.Task[Any]) -> None:
+    """Retrieve a late cleanup-task exception without awaiting it indefinitely."""
+    try:
+        task.exception()
+    except asyncio.CancelledError:
+        pass
+
+
+def _close_subprocess_transport(proc: Any) -> None:
+    """Close owned subprocess pipes after a timed-out drain attempt.
+
+    asyncio.Process has no public close method; its SubprocessTransport owns
+    the stdout/stderr pipes and closes them when closed.
+    """
+    transport = getattr(proc, "_transport", None)
+    close = getattr(transport, "close", None)
+    if callable(close):
+        try:
+            close()
+        except Exception:  # noqa: BLE001 - preserve the timeout error
+            pass
 
 
 def _resolve_audit_subdir(root: Path, subpath: str, *, source_display: str) -> Path:

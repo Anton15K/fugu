@@ -340,6 +340,352 @@ def test_extract_source_local_caps_and_errors() -> None:
     asyncio.run(scenario())
 
 
+def test_git_materialization_uses_local_entry_and_byte_caps_and_cleans_clone(tmp_path, monkeypatch):
+    import fugu.server.jobs as jobs_module
+
+    clone_parents: list[Path] = []
+
+    async def fake_clone(source, target, branch=None, *, timeout_s=120):
+        clone_parents.append(target.parent)
+        target.mkdir(parents=True)
+        (target / "one.md").write_text("1234")
+        nested = target / "nested"
+        nested.mkdir()
+        (nested / "two.md").write_text("5678")
+
+    monkeypatch.setattr(jobs_module, "_git_clone", fake_clone)
+
+    async def scenario():
+        remote = "https://example.invalid/acme/repo.git"
+        with pytest.raises(ExtractionError, match="too many"):
+            await extract_source(AuditJob(id="git-files", source=remote), max_files=2)
+        assert not clone_parents[-1].exists()
+
+        with pytest.raises(ExtractionError, match="too large"):
+            await extract_source(AuditJob(id="git-bytes", source=remote), max_bytes=7)
+        assert not clone_parents[-1].exists()
+
+    asyncio.run(scenario())
+
+
+def test_git_clone_timeout_kills_and_reaps_fake_process(tmp_path, monkeypatch):
+    import fugu.server.jobs as jobs_module
+
+    class SlowProcess:
+        def __init__(self):
+            self.returncode = None
+            self.communicate_calls = 0
+            self.killed = False
+
+        async def communicate(self):
+            self.communicate_calls += 1
+            if self.communicate_calls == 1:
+                await asyncio.sleep(10)
+            self.returncode = -9 if self.killed else 0
+            return b"", b""
+
+        def kill(self):
+            self.killed = True
+
+    process = SlowProcess()
+    async def fake_subprocess(*args, **kwargs):
+        return process
+
+    monkeypatch.setattr(jobs_module.asyncio, "create_subprocess_exec", fake_subprocess)
+
+    async def scenario():
+        with pytest.raises(ExtractionError, match="timed out"):
+            await jobs_module._git_clone("fake://source", tmp_path / "clone", timeout_s=0.001)
+
+    asyncio.run(scenario())
+    assert process.killed
+    assert process.communicate_calls == 2
+
+
+@pytest.mark.parametrize(
+    "teardown_mode", ["open-pipe", "drain-error", "already-exited", "wait-hangs"]
+)
+def test_git_clone_timeout_teardown_is_bounded_and_cleans_partial_source(
+    tmp_path, monkeypatch, teardown_mode
+):
+    import time
+
+    import fugu.server.jobs as jobs_module
+
+    class FakeTransport:
+        def __init__(self):
+            self.close_calls = 0
+
+        def close(self):
+            self.close_calls += 1
+
+    class FakeProcess:
+        def __init__(self):
+            self.returncode = None
+            self.communicate_calls = 0
+            self.kill_calls = 0
+            self.wait_calls = 0
+            self._transport = FakeTransport()
+
+        async def communicate(self):
+            self.communicate_calls += 1
+            if self.communicate_calls == 1 or teardown_mode == "open-pipe":
+                await asyncio.Event().wait()
+            if teardown_mode in {"drain-error", "wait-hangs"}:
+                raise OSError("fabricated post-kill pipe drain failure")
+            if teardown_mode == "already-exited":
+                self.returncode = 0
+                await self.wait()
+            return b"", b""
+
+        def kill(self):
+            self.kill_calls += 1
+            if teardown_mode == "already-exited":
+                self.returncode = 0
+                raise ProcessLookupError
+            self.returncode = -9
+
+        async def wait(self):
+            self.wait_calls += 1
+            if teardown_mode == "wait-hangs":
+                await asyncio.Event().wait()
+            return self.returncode
+
+    process = FakeProcess()
+    partial_targets: list[Path] = []
+    workspaces: list[Path] = []
+    original_mkdtemp = jobs_module.tempfile.mkdtemp
+
+    def tracked_mkdtemp(*args, **kwargs):
+        kwargs["dir"] = tmp_path
+        workspace = Path(original_mkdtemp(*args, **kwargs))
+        workspaces.append(workspace)
+        return str(workspace)
+
+    async def fake_subprocess(*args, **kwargs):
+        target = Path(args[-1])
+        target.mkdir(parents=True)
+        (target / "partial.txt").write_text("fabricated partial clone")
+        partial_targets.append(target)
+        return process
+
+    monkeypatch.setattr(jobs_module.tempfile, "mkdtemp", tracked_mkdtemp)
+    monkeypatch.setattr(jobs_module.asyncio, "create_subprocess_exec", fake_subprocess)
+
+    async def scenario():
+        started = time.monotonic()
+        with pytest.raises(ExtractionError, match="timed out"):
+            await asyncio.wait_for(
+                extract_source(
+                    AuditJob(id="bounded-clone-timeout", source="https://example.invalid/repo.git"),
+                    git_timeout_s=0.01,
+                ),
+                timeout=0.75,
+            )
+        return time.monotonic() - started
+
+    elapsed = asyncio.run(scenario())
+    assert elapsed < 0.5
+    assert process.kill_calls == 1
+    assert process.communicate_calls == 2
+    assert process.wait_calls == 1
+    assert process._transport.close_calls >= 1
+    assert partial_targets and not partial_targets[0].exists()
+    assert workspaces and all(not workspace.exists() for workspace in workspaces)
+
+
+def test_git_view_materialization_is_capped_and_slashed_ref_retry_stays_at_two(
+    tmp_path, monkeypatch
+):
+    import fugu.server.giturls as giturls_module
+    import fugu.server.jobs as jobs_module
+
+    clone_parents: list[Path] = []
+    branches: list[str | None] = []
+    timeouts: list[float] = []
+
+    async def fake_clone(source, target, branch=None, *, timeout_s=120):
+        clone_parents.append(target.parent)
+        branches.append(branch)
+        timeouts.append(timeout_s)
+        target.mkdir(parents=True)
+        selected = target / ("tools/skill" if branch == "main" else "skill")
+        selected.mkdir(parents=True)
+        (selected / "one.md").write_text("1234")
+        nested = selected / "nested"
+        nested.mkdir()
+        (nested / "two.md").write_text("5678")
+
+    monkeypatch.setattr(
+        giturls_module,
+        "extract_git_parts",
+        lambda source: ("https://example.invalid/repo.git", "main", "tools/skill"),
+    )
+    monkeypatch.setattr(jobs_module, "_git_clone", fake_clone)
+
+    async def scenario():
+        with pytest.raises(ExtractionError, match="too many"):
+            await extract_source(
+                AuditJob(id="git-view", source="https://example.invalid/repo/tree/main/tools/skill"),
+                max_files=2,
+                git_timeout_s=0.25,
+            )
+
+    asyncio.run(scenario())
+    assert branches == ["main", "main/tools"]
+    assert timeouts == [0.25, 0.25]
+    assert all(not parent.exists() for parent in clone_parents)
+
+
+def test_configured_pipeline_depth_and_limit_telemetry_survive_http_sse_and_restart(
+    tmp_path, monkeypatch
+):
+    import fugu.pipeline.stages.harness as harness_module
+    import fugu.pipeline.stages.semantic as semantic_module
+    from fugu.config import DEFAULT_PRODUCTION_LIMITS
+    from fugu.pipeline.assemble import build_stages
+
+    def fake_call(system, user):
+        if '"probes"' in system:
+            text = '{"probes": []}'
+        elif "security reviewer" in system:
+            text = '{"findings": []}'
+        else:
+            text = "A direct answer."
+        from fugu.pipeline.stages.semantic import JudgeCall
+
+        return text, JudgeCall("fake/pipeline", 0.01, len(system) + len(user), len(text), {})
+
+    monkeypatch.setattr(semantic_module, "_default_make_call", lambda max_tokens=4096, **kwargs: fake_call)
+    monkeypatch.setattr(harness_module, "_default_make_call", lambda max_tokens=4096, **kwargs: fake_call)
+    monkeypatch.setattr(
+        harness_module.HarnessStage,
+        "_everyday_call",
+        staticmethod(lambda call, *, injected, limits=None: call),
+    )
+
+    source = tmp_path / "single-skill"
+    source.mkdir()
+    (source / "SKILL.md").write_text("A small, ordinary skill.")
+    database = tmp_path / "jobs.sqlite3"
+    stages = build_stages(include_detonation=False, include_reputation=False)
+    app = create_app(stages=stages, db=database, static_dir="/not-present")
+
+    with TestClient(app) as client:
+        for requested_depth in ("standard", "full"):
+            job_id = _submit(client, str(source), depth=requested_depth)
+            job = _wait_done(client, job_id)
+            assert job["depth"] == "full"
+            stage_names = [stage["stage"] for stage in job["stages"]]
+            assert stage_names == ["concealment", "static", "semantic", "harness"]
+            semantic = next(stage for stage in job["stages"] if stage["stage"] == "semantic")
+            harness = next(stage for stage in job["stages"] if stage["stage"] == "harness")
+            assert semantic["metrics"]["effective_limits"] == DEFAULT_PRODUCTION_LIMITS.to_dict()
+            assert harness["metrics"]["effective_limits"] == DEFAULT_PRODUCTION_LIMITS.to_dict()
+            assert harness["metrics"]["probes"] == 6
+
+            events = _parse_sse(client.get(f"/audits/{job_id}/events").text)
+            semantic_event = next(
+                event for event in events
+                if event["type"] == "stage_done" and event["data"].get("stage") == "semantic"
+            )
+            assert semantic_event["data"]["metrics"]["effective_limits"] == DEFAULT_PRODUCTION_LIMITS.to_dict()
+
+        app.state.fugu.store.db.close()
+
+    recovered = create_app(stages=[], db=database, static_dir="/not-present")
+    with TestClient(recovered) as client:
+        for job_id in recovered.state.fugu.store.all_ids():
+            job = client.get(f"/audits/{job_id}").json()
+            harness = next(stage for stage in job["stages"] if stage["stage"] == "harness")
+            assert harness["metrics"]["effective_limits"] == DEFAULT_PRODUCTION_LIMITS.to_dict()
+            events = _parse_sse(client.get(f"/audits/{job_id}/events").text)
+            assert any(
+                event["type"] == "stage_done"
+                and event["data"].get("stage") == "harness"
+                and event["data"]["metrics"]["effective_limits"] == DEFAULT_PRODUCTION_LIMITS.to_dict()
+                for event in events
+            )
+    recovered.state.fugu.store.db.close()
+
+
+def test_configured_auto_fanout_propagates_member_coverage_through_http_sse_and_restart(
+    tmp_path, monkeypatch
+):
+    import fugu.pipeline.stages.harness as harness_module
+    import fugu.pipeline.stages.semantic as semantic_module
+    from fugu.config import DEFAULT_PRODUCTION_LIMITS
+    from fugu.pipeline.assemble import build_stages
+
+    def fake_call(system, user):
+        if '"probes"' in system:
+            text = '{"probes": []}'
+        elif "security reviewer" in system:
+            text = '{"findings": []}'
+        else:
+            text = "A direct answer."
+        from fugu.pipeline.stages.semantic import JudgeCall
+
+        return text, JudgeCall("fake/auto", 0.01, len(system) + len(user), len(text), {})
+
+    monkeypatch.setattr(semantic_module, "_default_make_call", lambda max_tokens=4096, **kwargs: fake_call)
+    monkeypatch.setattr(harness_module, "_default_make_call", lambda max_tokens=4096, **kwargs: fake_call)
+    monkeypatch.setattr(
+        harness_module.HarnessStage,
+        "_everyday_call",
+        staticmethod(lambda call, *, injected, limits=None: call),
+    )
+
+    source = tmp_path / "monorepo"
+    source.mkdir()
+    for label in ("alpha", "beta"):
+        unit = source / label
+        unit.mkdir()
+        (unit / "SKILL.md").write_text(f"# {label}\n" + "ordinary content " * 2400)
+
+    database = tmp_path / "auto-jobs.sqlite3"
+    stages = build_stages(include_detonation=False, include_reputation=False)
+    app = create_app(stages=stages, db=database, static_dir="/not-present")
+    with TestClient(app) as client:
+        parent_id = _submit(client, str(source))
+        parent = _wait_done(client, parent_id)
+        composition = next(stage for stage in parent["stages"] if stage["stage"] == "composition")
+        assert composition["metrics"]["effective_limits"] == DEFAULT_PRODUCTION_LIMITS.to_dict()
+        coverage = composition["metrics"]["member_coverage"]
+        assert {
+            (record["member"], record["stage"], record["state"])
+            for record in coverage
+            if record["stage"] == "harness"
+        } == {("alpha", "harness", "partial"), ("beta", "harness", "partial")}
+        events = _parse_sse(client.get(f"/audits/{parent_id}/events").text)
+        verdict = next(event["data"]["verdict"] for event in events if event["type"] == "verdict")
+        assert all(
+            any(label in caveat and "harness: partial" in caveat for caveat in verdict["coverage_caveats"])
+            for label in ("alpha", "beta")
+        )
+        children = [
+            event["data"]["child_job_id"]
+            for event in events
+            if event["type"] == "log" and event["data"].get("child_job_id")
+        ]
+        assert len(children) == 2
+        for child_id in children:
+            child = client.get(f"/audits/{child_id}").json()
+            harness = next(stage for stage in child["stages"] if stage["stage"] == "harness")
+            assert harness["metrics"]["mounted_chars"] <= 32_000
+            assert harness["metrics"]["coverage_incomplete"]
+            assert harness["metrics"]["effective_limits"] == DEFAULT_PRODUCTION_LIMITS.to_dict()
+
+        first_events = events
+        app.state.fugu.store.db.close()
+
+    recovered = create_app(stages=[], db=database, static_dir="/not-present")
+    with TestClient(recovered) as client:
+        assert client.get(f"/audits/{parent_id}").json()["stages"] == parent["stages"]
+        assert _parse_sse(client.get(f"/audits/{parent_id}/events").text) == first_events
+    recovered.state.fugu.store.db.close()
+
+
 def test_git_source_detection() -> None:
     from fugu.server.jobs import is_git_source
 

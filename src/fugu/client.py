@@ -14,10 +14,14 @@ from __future__ import annotations
 
 from openai import OpenAI
 
-from fugu.config import Settings, get_settings
+from fugu.config import DEFAULT_PRODUCTION_LIMITS, ProductionLimits, Settings, get_settings
 
 
-def make_client(settings: Settings | None = None) -> OpenAI:
+def make_client(
+    settings: Settings | None = None,
+    *,
+    limits: ProductionLimits = DEFAULT_PRODUCTION_LIMITS,
+) -> OpenAI:
     """Return a bounded, single-request client pointed at Nebius Token Factory.
 
     Pipeline stages own response-level retry decisions so failed calls stay
@@ -28,6 +32,6 @@ def make_client(settings: Settings | None = None) -> OpenAI:
     return OpenAI(
         base_url=settings.base_url,
         api_key=settings.api_key,
-        max_retries=0,
-        timeout=90,
+        max_retries=limits.sdk_max_retries,
+        timeout=limits.request_timeout_seconds,
     )

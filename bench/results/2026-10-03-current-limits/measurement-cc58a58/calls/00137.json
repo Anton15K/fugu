@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "0bc24398bce42bb397b9df0565408305b68287ec48a7d338c0ad154913baabc4",
+  "duration_s": 0.7841088749992196,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What is 45 minus 12?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "64b303568131e605590e8b2afa2d180f661f1943d18392f41aa9c8d3fefcbe04",
+  "number": 137,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "45 minus 12 equals 33.\n\nPLAN: Calculate 45 - 12 = 33 and provide the result.",
+  "request_sha256": "014f875de113992641ef72315a6336739500a4a26d249e4cf273a01e639f9086",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:49:17.146641+00:00",
+  "response_id": "chatcmpl-bc824c3a5fabd2ae",
+  "response_sha256": "e6e1da67e48f096b5b2da495cf90cee1bff8ea754ed8aa5c995a1849827cf700",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 95,
+    "prompt_tokens": 89
+  },
+  "usage_object_present": true
+}

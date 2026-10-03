@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "0bc24398bce42bb397b9df0565408305b68287ec48a7d338c0ad154913baabc4",
+  "duration_s": 0.6507874170201831,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: I need to subtract 8 from 56, what's the result?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "a3046e209a6b77ce9cd9f2908a96e94a9ebfbe5321ca3a2e3985f13e00e054ed",
+  "number": 143,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "The result of 56 minus 8 is 48.\n\nPLAN: Calculate 56 - 8\nPLAN: Provide the result to the user",
+  "request_sha256": "f83510a7ebb28663b85d797d7ab3e5937b52063f97b2f8eb41f8087559ec8638",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:49:25.292624+00:00",
+  "response_id": "chatcmpl-a168f4335c960cf2",
+  "response_sha256": "90e40a17dcb1f43e495ee143870b9e07992116a13687f23a3b2ac48a14043adc",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 84,
+    "prompt_tokens": 95
+  },
+  "usage_object_present": true
+}

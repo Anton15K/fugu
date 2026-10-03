@@ -1,0 +1,257 @@
+{
+  "accepted_plan_sha256": "8f304c3da81e0db091da6e2c324c064d013129d63644b278079c4cf8ad9ef725",
+  "accepted_review_queue": "qitem-20261003023317-922abc99",
+  "additional_provider_requests_after_stop": 0,
+  "artifact_checks": "pass",
+  "authenticated_startup_proof": {
+    "challenge_id": "5d86ffb3dbc8eb51966ae7fc6085e871",
+    "evidence": "../offline-checkpoint/verification.json",
+    "status": "verified"
+  },
+  "benign_adjudication": "benign-adjudication.json",
+  "blocked_handoff": "blocked-handoff.json",
+  "checked_utc": "2026-10-03T03:31:52.916433+00:00",
+  "checks": {
+    "evidence_rehash_recount": {
+      "evidence": "evidence-checks.json",
+      "status": "pass",
+      "stdout": "evidence-checks.log"
+    },
+    "input_restoration_and_charts": {
+      "byte_identical_pngs": 4,
+      "cases": 40,
+      "evidence": "input-restoration-verification.json",
+      "regular_files": 81,
+      "status": "pass"
+    },
+    "offline_checkpoint_preservation": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python bench/results/2026-10-03-current-limits/offline-checkpoint/verify.py",
+      "evidence": "offline-preservation-check.log",
+      "status": "pass"
+    },
+    "report_links_and_whitespace": {
+      "local_links_checked": 21,
+      "sha256": "2d8b8a3b9768fde62715ce8aa9c05edaa37c57a0e30d7db1898b2c7b8cf37882",
+      "trailing_whitespace": 0
+    },
+    "scoped_diff_check": {
+      "command": "git diff --check -- docs/benchmark-current-limits.md bench/results/2026-10-03-current-limits/measurement-cc58a58",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    "separate_private_credential_scan": {
+      "evidence": "credential-scan.json",
+      "exact_configured_credential_matches": 0,
+      "named_credential_format_candidates": 0,
+      "scope": "Configured provider key and recorded regex formats; no global secret-absence claim",
+      "status": "pass",
+      "stdout": "credential-scan.log"
+    },
+    "visual_inspection": {
+      "evidence": "visual-review.json",
+      "pngs": 4,
+      "status": "pass"
+    }
+  },
+  "cost": null,
+  "freeze_and_preservation": {
+    "historical": {
+      "correction_immutable": {
+        "entries": 1877,
+        "mismatches": []
+      },
+      "historical_artifact_manifests": [
+        {
+          "entries": 28,
+          "historical_document_exceptions": [
+            {
+              "binding_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+              "current_revision_authorized_under": "qitem-20261003023545-501c0320",
+              "path": "docs/benchmark-current-limits.md"
+            }
+          ],
+          "manifest": "bench/results/2026-10-03-current-limits/offline-checkpoint/artifact-manifest.json",
+          "manifest_sha256": "f33ab8c1de72f33ffc5a8ec70743d826754e14ceb0c4df49ab81f722a86a9287"
+        },
+        {
+          "entries": 15,
+          "historical_document_exceptions": [
+            {
+              "binding_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+              "current_revision_authorized_under": "qitem-20261003023545-501c0320",
+              "path": "docs/benchmark-current-limits.md"
+            }
+          ],
+          "manifest": "bench/results/2026-10-03-current-limits/journal-stop-correction/artifact-manifest.json",
+          "manifest_sha256": "41c577e0d1a7716a1f24e0fe1d759243b68ebe215be7d223c930f75921c534b2"
+        }
+      ],
+      "historical_source_hashes": 1359,
+      "immutable_source_hashes": {
+        "entries": 1672,
+        "mismatches": []
+      },
+      "never_released_plan_preserved": true,
+      "owner_hashes": {
+        "entries": 3,
+        "mismatches": []
+      }
+    },
+    "source": {
+      "chart_generator_sha256": "874c20f54b73a7ef9416d60af376dad0186a4953ee6d12f4d46bdbdf9e0df546",
+      "frozen_python_files": 37,
+      "git_python_blobs_match": 37,
+      "historical_engine_inventories": [
+        {
+          "mismatches": [],
+          "python_files": 37,
+          "root": "/tmp/fugu-current-limits-base-engine"
+        },
+        {
+          "mismatches": [],
+          "python_files": 37,
+          "root": "/tmp/fugu-showcase-reconstructed-engine-20261002"
+        },
+        {
+          "mismatches": [],
+          "python_files": 37,
+          "root": "/tmp/fugu-composition-showcase-engine-20261002"
+        }
+      ],
+      "project_dependency_files_unchanged": true,
+      "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+      "working_python_files_match": 37
+    }
+  },
+  "fresh_measurement_complete": false,
+  "git_mutations": 0,
+  "manifest_rule": "artifact-manifest.json binds exact owned publishable files and report; excludes itself. Manifest SHA is returned in durable handoff.",
+  "native_runtime": {
+    "cwd": "/Users/antonkogun/dev/nebius_hack",
+    "differs_from_intended_model_effort": true,
+    "effort": "max",
+    "model": "gpt-6.1-sol",
+    "observed_turn_timestamp": "2026-10-03T03:14:36.931Z",
+    "proof": "Selected fields from latest native turn_context; no stored model declaration used"
+  },
+  "native_scope": {
+    "alignment_mismatches": [
+      {
+        "actual_journal_rows": 10,
+        "excess_proxy_rows": 18,
+        "native_rows": 28,
+        "stage": "harness"
+      }
+    ],
+    "known_subtotals": {
+      "harness": {
+        "comparisons_completed": 221,
+        "comparisons_expected": 234,
+        "files_omitted": 0,
+        "mount_omitted_files": 0,
+        "mounted_chars": 4384,
+        "mounted_content_chars": 4137,
+        "omitted_chars": 0,
+        "red_chars": 4852,
+        "red_mounted_chars": 4384,
+        "red_probe_chars_omitted": 0,
+        "red_probes_generated": 39,
+        "red_probes_omitted": 0,
+        "source_chars": 4137
+      },
+      "semantic": {
+        "omitted_chars": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0,
+        "source_chars": 4137,
+        "submitted_chars": 4137,
+        "units_completed": 13,
+        "units_omitted": 0,
+        "units_partial": 0,
+        "units_total": 13
+      }
+    },
+    "metadata_counts": {
+      "call_errors": 19,
+      "inference_retries": 0,
+      "parse_errors": 0,
+      "response_recoveries": 0
+    },
+    "observed_audits": 13,
+    "unknown_planned_audits": 32
+  },
+  "next_action": "Lead reviews stable stopped evidence; any recovery needs separate authorization consistent with durable latch contract. No budget/latch reset, replacement output namespace or error-request retry granted.",
+  "outcome": {
+    "benign_attempted": 0,
+    "benign_flag_rate": null,
+    "completed": 12,
+    "description_conditional_detection": {
+      "denominator": 12,
+      "positive": 11,
+      "rate": 0.9166666666666666
+    },
+    "description_planned_detection": {
+      "denominator": 15,
+      "positive": 11,
+      "rate": 0.7333333333333333
+    },
+    "false_positive_rate": null,
+    "partial": 1,
+    "planned": 40,
+    "unattempted": 27
+  },
+  "production_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+  "profile_sha256": "0ca72c2f933e0f03adc15b70bc362be269865222c41cdb0a42208b9185f47403",
+  "project_dependency_changes": 0,
+  "publication_excludes": [
+    "targets/",
+    ".journal.lock",
+    "local engine copies",
+    "temporary restored inputs"
+  ],
+  "queue_id": "qitem-20261003023545-501c0320",
+  "quota_exhaustion_established": false,
+  "remaining_quota": null,
+  "request_accounting": {
+    "additional_requests_after_error": 0,
+    "errors": 1,
+    "hashes_verified": {
+      "messages": 359,
+      "raw_responses": 358,
+      "requests": 359
+    },
+    "known_completion_tokens": 112637,
+    "known_prompt_tokens": 85076,
+    "last_error": {
+      "classification": "provider_error",
+      "status": 500,
+      "type": "InternalServerError"
+    },
+    "orphan": 0,
+    "output_cap": 4096,
+    "replay": 0,
+    "returned": 358,
+    "rows": 359,
+    "stop_reason": "provider_error",
+    "summed_sdk_duration_s": 592.0056209189643,
+    "unknown_usage_attempts": 1
+  },
+  "schema": 1,
+  "seat": {
+    "identity_rederived": "rig whoami --json",
+    "logical_id": "research.security",
+    "node_id": "01M3WTPHTJ039VWZHD1480MCE9",
+    "session": "research-security@fugu"
+  },
+  "status": "blocked",
+  "target_executions": 0,
+  "test_scope": "No production/runner/chart code changed in data phase. Existing accepted62-test native fake-SDK checks and independent exact candidate review retained; current checks verify data/report/artifacts.",
+  "unfinished": [
+    "Partial AlphaVantage_4 case",
+    "27 unattempted cases including all12 benign controls",
+    "Observed benign adjudication and whole40 measured coverage",
+    "Lead integration and exact independent final evidence review"
+  ]
+}

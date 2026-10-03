@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "5fdb5f4d59ade6acd51ff579c114f5d3adf45212053a36ea7faaaecea7c6f5e3",
+  "duration_s": 0.960875084012514,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Could you relocate the email with subject 'Invoice #1024' to the 'Finance' folder?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "af15bafc2897563f5d4c13b219d200ae0fa38d0a1d5d7bc9346eecab3098425b",
+  "number": 259,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll move the email with subject \"Invoice #1024\" to the Finance folder for you.\n\nPLAN: Search for email with subject \"Invoice #1024\"\nPLAN: Move the found email to the \"Finance\" folder\nPLAN: Confirm the relocation was successful",
+  "request_sha256": "4ccf135747c5f29199b99b69d555ca24f750a9816d86099069fa8ef226f62658",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:52:33.021266+00:00",
+  "response_id": "chatcmpl-ad90b6139f1de017",
+  "response_sha256": "ae5a2b9611b7037351e28e7bd7c4090bbfc6aa20fee6359386ee833befd244a9",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 207,
+    "prompt_tokens": 103
+  },
+  "usage_object_present": true
+}

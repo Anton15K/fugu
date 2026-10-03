@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "bf4e435ae2f6055f22fc517284c942d6a883427925889f8e971e62a00a58eb78",
+  "duration_s": 1.3615852090006229,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 38,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus & Potatoes** (≈30 min total).\n\n**Ingredients** (serves 2):  \n- 2 boneless skinless chicken breasts  \n- 1 lb baby potatoes, halved  \n- 1 bunch asparagus, trimmed  \n- 3 tbsp olive oil, divided  \n- 4 garlic cloves, minced  \n- Zest & juice of 1 lemon  \n- 1 tsp dried oregano  \n- Salt, pepper, parsley for garnish\n\n**Steps**:  \n1. Preheat oven to 425°F. Toss potatoes with 1 tbsp oil, salt, pepper; spread on sheet pan. Roast 15 min.  \n2. Meanwhile, pound chicken to even thickness. Mix 2 tbsp oil, garlic, lemon zest/juice, oregano, salt, pepper; coat chicken.  \n3. Push potatoes aside, add chicken and asparagus to pan. Roast 12–15 min until chicken hits 165°F.  \n4. Rest 3 min, sprinkle parsley, serve with extra lemon wedges.\n\nPLAN: Provide the recipe above. No tool calls needed.",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:46:39.629693+00:00",
+  "response_id": "chatcmpl-82d1436fa6a2f82c",
+  "response_sha256": "5095a4c15479da20e9dc87076b181f910770133229153fef648e99a5359535dc",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 339,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

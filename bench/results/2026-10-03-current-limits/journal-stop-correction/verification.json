@@ -1,0 +1,77 @@
+{
+  "base_commit": "473cc4bb44b26bebdb6082113d99c40030f25f70",
+  "checked_utc": "2026-10-03T02:04:43.260214+00:00",
+  "engine_checks": [
+    {
+      "bytes_match": true,
+      "commit": "e184128979b3551ff6cb97561cd7822f4a9accd0",
+      "manifest_sha256": "8bed299bc8ec866a9d6c51e35db380f2f2daf47e879c13280d1acb4a57a24a14",
+      "python_files": 37
+    },
+    {
+      "bytes_match": true,
+      "commit": "473cc4bb44b26bebdb6082113d99c40030f25f70",
+      "manifest_sha256": "df0e7fcfa5c3d4ed71891c8398b45926adae999d61ececd2eedf5db482dc43e8",
+      "python_files": 37
+    }
+  ],
+  "immutable_changes": [],
+  "immutable_files_checked": 1877,
+  "lead_log_formatting_correction": {
+    "at_utc": "2026-10-03T02:14:06.285680+00:00",
+    "original_log_sha256": "bd53d9c962aebeabf04b85831a7ca23ddaa3563c7418ef1cb639a9856206cc20",
+    "prior_checks_sha256": "c07cd916f7e37d7201733c872f79f53428fd03b01ba753c7a6c683f67822d06d",
+    "reconstruction": "checks.json red.log_normalization original_lines restores exact original bytes",
+    "scope": "Exported pytest red log whitespace only; no test rerun, source or outcome change"
+  },
+  "live_provider_requests": 0,
+  "new_measurement_authority": false,
+  "next_gate": "Lead integrates, freezes and prepares a new candidate/plan for exact independent review; later separate data grant required",
+  "offline_artifact_verifier": {
+    "artifact_checks": "pass",
+    "cases_checked": 40,
+    "documentation_links_checked": 6,
+    "engine_bytes_checked": true,
+    "frozen_python_hashes": 37,
+    "historical_source_hashes": 1359,
+    "live_provider_requests": 0,
+    "plots_checked": 4,
+    "preflight": [
+      40,
+      54,
+      45,
+      63
+    ],
+    "target_executions": 0
+  },
+  "offline_manifest_entries_checked": 28,
+  "offline_plan_sha256": "090042784c1f0b73b2071eb3480d97a80d9828a0a49c36259ac181d49888aea4",
+  "original_immutable_entries_unchanged": true,
+  "original_offline_manifest_key_set_retained": true,
+  "original_offline_plan_fields_retained_except_runner_binding": true,
+  "original_verification_observations_retained": true,
+  "prepared_measurement": {
+    "budget_exists": false,
+    "data_release_exists": false,
+    "plan_file_sha256": "961979c529ae7d120955da0a38b8650c6ae6990fc36f597129b9858a17acb3f4",
+    "plan_sha256": "bd3edc87293debfec4826ab8c5af290c30c77cf49ec167fcaff2ffe1293fb992",
+    "preserved": true,
+    "sdk_call_records": 0
+  },
+  "queue_id": "qitem-20261003014842-6180d14e",
+  "schema": 1,
+  "scoped_diff_check_exit_code": 0,
+  "status": "Correction checks pass; lead integration/exact review required",
+  "target_executions": 0,
+  "test_evidence": {
+    "new_regressions_failed_before_fix": 21,
+    "new_regressions_passed_after_fix": 21,
+    "path": "bench/results/2026-10-03-current-limits/journal-stop-correction/checks.json",
+    "sha256": "826ef3239e37da4c03199cd5b2934584973e1f6b5b01acbbecc3b4b06ad7cbc4",
+    "suite_passes_per_engine": 62,
+    "suite_skips_per_engine": 0
+  },
+  "unrelated_new_paths_untouched": [
+    "bench/results/2026-10-03-current-limits/clone-timeout-correction/verification.json"
+  ]
+}

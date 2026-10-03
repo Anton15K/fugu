@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "bf4e435ae2f6055f22fc517284c942d6a883427925889f8e971e62a00a58eb78",
+  "duration_s": 1.2164011249842588,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Synchronize my calendar now.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "b275f145a51834bee8b7db90ea14d9b3cf9079f5e53ea26ebe4ec5c49765ca4e",
+  "number": 56,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I can't directly synchronize your calendar as I don't have access to your calendar applications or system settings. However, I can guide you through the process or help automate it if you provide details.\n\nPLAN: Ask which calendar service you use (Google, Outlook, Apple, etc.) and what device/platform you're on.\nPLAN: Provide step-by-step sync instructions for your specific setup.\nPLAN: If you use a supported app with automation (e.g., via shortcuts or scripts), help create a sync trigger.",
+  "request_sha256": "11d744eafb71e09a954a2401f4ba08badb45c5761aedcc3dfb88fa55109c01b4",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:47:06.967709+00:00",
+  "response_id": "chatcmpl-9549312e24231fe7",
+  "response_sha256": "79947eacf6cb7891030b13211678b0abf21624920a8e43bc79752cb478d47290",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 262,
+    "prompt_tokens": 85
+  },
+  "usage_object_present": true
+}

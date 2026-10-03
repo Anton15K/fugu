@@ -1,0 +1,155 @@
+FFFFFFFFFFFFFFFFFFFFF                                                    [100%]
+=================================== FAILURES ===================================
+_ test_restart_recovers_provider_stop_after_lost_budget_write[False-402-provider_quota_exhausted] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_quota_exhausted'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107bf5950>.stop_reason
+_ test_restart_recovers_provider_stop_after_lost_budget_write[False-401-provider_auth_failure] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_auth_failure'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107b916d0>.stop_reason
+_ test_restart_recovers_provider_stop_after_lost_budget_write[False-429-provider_rate_limit] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_rate_limit'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107b67d50>.stop_reason
+_ test_restart_recovers_provider_stop_after_lost_budget_write[False-503-provider_error] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_error'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107b48390>.stop_reason
+_ test_restart_recovers_provider_stop_after_lost_budget_write[True-402-provider_quota_exhausted] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_quota_exhausted'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107afd110>.stop_reason
+_ test_restart_recovers_provider_stop_after_lost_budget_write[True-401-provider_auth_failure] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_auth_failure'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107abbb10>.stop_reason
+_ test_restart_recovers_provider_stop_after_lost_budget_write[True-429-provider_rate_limit] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_rate_limit'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107be6a10>.stop_reason
+_ test_restart_recovers_provider_stop_after_lost_budget_write[True-503-provider_error] _
+tests/test_current_limits.py:150: in test_restart_recovers_provider_stop_after_lost_budget_write
+    assert resumed.stop_reason == reason
+E   AssertionError: assert None == 'provider_error'
+E    +  where None = <bench.current_limits.RequestJournal object at 0x107a5ae90>.stop_reason
+______ test_restart_fails_closed_when_recovered_stop_cannot_be_persisted _______
+tests/test_current_limits.py:200: in test_restart_fails_closed_when_recovered_stop_cannot_be_persisted
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:259: in request
+    raise JournalStopped(self.stop_reason or "orphan_attempt_requires_review")
+E   bench.current_limits.JournalStopped: orphan_attempt_requires_review
+_____________ test_restart_rejects_malformed_terminal_error[None] ______________
+tests/test_current_limits.py:224: in test_restart_rejects_malformed_terminal_error
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+_________ test_restart_rejects_malformed_terminal_error[error_record1] _________
+tests/test_current_limits.py:224: in test_restart_rejects_malformed_terminal_error
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+_________ test_restart_rejects_malformed_terminal_error[error_record2] _________
+tests/test_current_limits.py:224: in test_restart_rejects_malformed_terminal_error
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+_________ test_restart_rejects_malformed_terminal_error[error_record3] _________
+tests/test_current_limits.py:224: in test_restart_rejects_malformed_terminal_error
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+_________ test_restart_rejects_malformed_terminal_error[error_record4] _________
+tests/test_current_limits.py:224: in test_restart_rejects_malformed_terminal_error
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+_________ test_restart_rejects_malformed_terminal_error[error_record5] _________
+tests/test_current_limits.py:224: in test_restart_rejects_malformed_terminal_error
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+_______________ test_restart_rejects_unknown_request_state[None] _______________
+tests/test_current_limits.py:243: in test_restart_rejects_unknown_request_state
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+______ test_restart_rejects_unknown_request_state[unknown_terminal_state] ______
+tests/test_current_limits.py:243: in test_restart_rejects_unknown_request_state
+    resumed.request(sdk.create, **request())
+bench/current_limits.py:296: in request
+    raise JournalStopped(reason) from None
+E   bench.current_limits.JournalStopped: provider_error
+_ test_native_restart_recovers_provider_stop_and_preserves_completed_rows[402-provider_quota_exhausted] _
+tests/test_current_limits.py:795: in test_native_restart_recovers_provider_stop_and_preserves_completed_rows
+    assert result.returncode == 0, result.stderr[-3000:]
+E   AssertionError: Traceback (most recent call last):
+E       File "<string>", line 69, in <module>
+E     AssertionError
+E
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['/Users/antonkogun/dev/nebius_hack/.venv/bin/python3', '-c', '\nimport asyncio, json\nfrom path...e=1, stdout='', stderr='Traceback (most recent call last):\n  File "<string>", line 69, in <module>\nAssertionError\n').returncode
+_ test_native_restart_recovers_provider_stop_and_preserves_completed_rows[401-provider_auth_failure] _
+tests/test_current_limits.py:795: in test_native_restart_recovers_provider_stop_and_preserves_completed_rows
+    assert result.returncode == 0, result.stderr[-3000:]
+E   AssertionError: Traceback (most recent call last):
+E       File "<string>", line 69, in <module>
+E     AssertionError
+E
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['/Users/antonkogun/dev/nebius_hack/.venv/bin/python3', '-c', '\nimport asyncio, json\nfrom path...e=1, stdout='', stderr='Traceback (most recent call last):\n  File "<string>", line 69, in <module>\nAssertionError\n').returncode
+_ test_native_restart_recovers_provider_stop_and_preserves_completed_rows[429-provider_rate_limit] _
+tests/test_current_limits.py:795: in test_native_restart_recovers_provider_stop_and_preserves_completed_rows
+    assert result.returncode == 0, result.stderr[-3000:]
+E   AssertionError: Traceback (most recent call last):
+E       File "<string>", line 69, in <module>
+E     AssertionError
+E
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['/Users/antonkogun/dev/nebius_hack/.venv/bin/python3', '-c', '\nimport asyncio, json\nfrom path...e=1, stdout='', stderr='Traceback (most recent call last):\n  File "<string>", line 69, in <module>\nAssertionError\n').returncode
+_ test_native_restart_recovers_provider_stop_and_preserves_completed_rows[503-provider_error] _
+tests/test_current_limits.py:795: in test_native_restart_recovers_provider_stop_and_preserves_completed_rows
+    assert result.returncode == 0, result.stderr[-3000:]
+E   AssertionError: Traceback (most recent call last):
+E       File "<string>", line 69, in <module>
+E     AssertionError
+E
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['/Users/antonkogun/dev/nebius_hack/.venv/bin/python3', '-c', '\nimport asyncio, json\nfrom path...e=1, stdout='', stderr='Traceback (most recent call last):\n  File "<string>", line 69, in <module>\nAssertionError\n').returncode
+=========================== short test summary info ============================
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[False-402-provider_quota_exhausted]
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[False-401-provider_auth_failure]
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[False-429-provider_rate_limit]
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[False-503-provider_error]
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[True-402-provider_quota_exhausted]
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[True-401-provider_auth_failure]
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[True-429-provider_rate_limit]
+FAILED tests/test_current_limits.py::test_restart_recovers_provider_stop_after_lost_budget_write[True-503-provider_error]
+FAILED tests/test_current_limits.py::test_restart_fails_closed_when_recovered_stop_cannot_be_persisted
+FAILED tests/test_current_limits.py::test_restart_rejects_malformed_terminal_error[None]
+FAILED tests/test_current_limits.py::test_restart_rejects_malformed_terminal_error[error_record1]
+FAILED tests/test_current_limits.py::test_restart_rejects_malformed_terminal_error[error_record2]
+FAILED tests/test_current_limits.py::test_restart_rejects_malformed_terminal_error[error_record3]
+FAILED tests/test_current_limits.py::test_restart_rejects_malformed_terminal_error[error_record4]
+FAILED tests/test_current_limits.py::test_restart_rejects_malformed_terminal_error[error_record5]
+FAILED tests/test_current_limits.py::test_restart_rejects_unknown_request_state[None]
+FAILED tests/test_current_limits.py::test_restart_rejects_unknown_request_state[unknown_terminal_state]
+FAILED tests/test_current_limits.py::test_native_restart_recovers_provider_stop_and_preserves_completed_rows[402-provider_quota_exhausted]
+FAILED tests/test_current_limits.py::test_native_restart_recovers_provider_stop_and_preserves_completed_rows[401-provider_auth_failure]
+FAILED tests/test_current_limits.py::test_native_restart_recovers_provider_stop_and_preserves_completed_rows[429-provider_rate_limit]
+FAILED tests/test_current_limits.py::test_native_restart_recovers_provider_stop_and_preserves_completed_rows[503-provider_error]
+21 failed, 36 deselected in 1.61s

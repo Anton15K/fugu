@@ -27,17 +27,18 @@ import hashlib
 import json
 import re
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Callable
 
+from fugu.config import DEFAULT_PRODUCTION_LIMITS, ProductionLimits
 from fugu.pipeline.stages.concealment import collect_text_files
 from fugu.source_safety import validate_source_tree
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult
 
 # -- tunables -----------------------------------------------------------------
-MAX_UNITS = 8            # files (chunks) judged per audit
-MAX_CHARS_PER_UNIT = 6_000
+MAX_UNITS = DEFAULT_PRODUCTION_LIMITS.semantic_max_units
+MAX_CHARS_PER_UNIT = DEFAULT_PRODUCTION_LIMITS.semantic_max_chars_per_unit
 CHUNK_LINES = 220
 
 _TEXT_ANALYZABLE_OWASP = {
@@ -85,14 +86,47 @@ class JudgeCall:
     latency_s: float
     prompt_chars: int
     completion_chars: int
-    usage: dict[str, Any]
+    usage: dict[str, Any] | None
+    requested_model: str | None = None
+    served_model: str | None = None
+    max_tokens: int | None = None
+    finish_reason: str | None = None
+    response_sha256: str | None = None
+    sdk_attempts: list[dict[str, Any]] | None = None
+
+
+def judge_call_metrics(record: JudgeCall) -> dict[str, Any]:
+    """Serialize the logical call without duplicating transport attempts."""
+    return {
+        key: value for key, value in record.__dict__.items()
+        if key != "sdk_attempts"
+    }
+
+
+class InferenceCallError(RuntimeError):
+    """A failed SDK request with safe, bounded attempt metadata."""
+
+    def __init__(
+        self,
+        error: str,
+        attempt: dict[str, Any],
+        *,
+        sdk_attempts: list[dict[str, Any]] | None = None,
+    ) -> None:
+        super().__init__(error)
+        self.attempt = attempt
+        self.sdk_attempts = sdk_attempts
 
 
 MakeCall = Callable[[str, str], tuple[str, JudgeCall]]
 """system_prompt, user_prompt -> (raw_completion_text, call_record)"""
 
 
-def _default_make_call(max_tokens: int = 1600) -> MakeCall | None:
+def _default_make_call(
+    max_tokens: int | None = None,
+    *,
+    limits: ProductionLimits = DEFAULT_PRODUCTION_LIMITS,
+) -> MakeCall | None:
     """Build the real Token Factory caller (None when offline)."""
     from fugu.config import get_settings
 
@@ -102,35 +136,58 @@ def _default_make_call(max_tokens: int = 1600) -> MakeCall | None:
     from fugu.client import make_client
     from fugu.model_router import pick_model
 
-    client = make_client(settings)
+    client = make_client(settings, limits=limits)
+    output_limit = limits.llm_max_output_tokens if max_tokens is None else max_tokens
 
     def call(system_prompt: str, user_prompt: str) -> tuple[str, JudgeCall]:
         model = pick_model("audit semantic security analysis")
         t0 = time.perf_counter()
-        resp = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            temperature=0.1,
-            max_tokens=max_tokens,
-        )
-        latency = time.perf_counter() - t0
-        text = (resp.choices[0].message.content or "").strip()
-        usage = {}
-        if getattr(resp, "usage", None) is not None:
-            u = resp.usage
-            usage = {
-                "prompt_tokens": getattr(u, "prompt_tokens", None),
-                "completion_tokens": getattr(u, "completion_tokens", None),
+        try:
+            resp = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=0.1,
+                max_tokens=output_limit,
+            )
+            choice = resp.choices[0]
+            text = choice.message.content or ""
+        except Exception as exc:
+            latency = time.perf_counter() - t0
+            status = getattr(exc, "status_code", None)
+            error = f"{type(exc).__name__}" + (f" HTTP {status}" if status else "")
+            attempt = {
+                "requested_model": model,
+                "served_model": None,
+                "max_tokens": output_limit,
+                "finish_reason": None,
+                "response_chars": 0,
+                "response_sha256": hashlib.sha256(b"").hexdigest(),
+                "error": error,
+                "usage": {"prompt_tokens": None, "completion_tokens": None},
+                "latency_s": round(latency, 3),
             }
+            raise InferenceCallError(error, attempt) from None
+        latency = time.perf_counter() - t0
+        u = getattr(resp, "usage", None)
+        usage = {
+            "prompt_tokens": getattr(u, "prompt_tokens", None),
+            "completion_tokens": getattr(u, "completion_tokens", None),
+        }
+        finish_reason = getattr(choice, "finish_reason", None)
         rec = JudgeCall(
             model=model,
             latency_s=round(latency, 3),
             prompt_chars=len(system_prompt) + len(user_prompt),
             completion_chars=len(text),
             usage=usage,
+            requested_model=model,
+            served_model=getattr(resp, "model", None),
+            max_tokens=output_limit,
+            finish_reason=finish_reason,
+            response_sha256=hashlib.sha256(text.encode("utf-8")).hexdigest(),
         )
         return text, rec
 
@@ -209,27 +266,70 @@ def _response_problem(text: str, document: dict[str, Any] | None) -> str | None:
     return "missing_findings_list"
 
 
-def _response_attempt(text: str, error: str | None) -> dict[str, Any]:
-    return {
+def _response_attempt(
+    text: str, error: str | None, record: JudgeCall | None = None
+) -> dict[str, Any]:
+    attempt = {
         "response_chars": len(text),
         "response_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
         "error": error,
     }
-def _chunks(text: str) -> list[str]:
-    lines = text.splitlines()
-    if len(text) <= MAX_CHARS_PER_UNIT:
+    if record is not None:
+        attempt.update(
+            {
+                "requested_model": record.requested_model or record.model,
+                "served_model": record.served_model,
+                "max_tokens": record.max_tokens,
+                "finish_reason": record.finish_reason,
+                "usage": record.usage,
+                "latency_s": record.latency_s,
+            }
+        )
+    return attempt
+
+
+def _failed_attempt(exc: Exception, latency_s: float, max_tokens: int) -> dict[str, Any]:
+    recorded = getattr(exc, "attempt", None)
+    if isinstance(recorded, dict):
+        return dict(recorded)
+    status = getattr(exc, "status_code", None)
+    error = f"{type(exc).__name__}" + (f" HTTP {status}" if status else "")
+    return {
+        "requested_model": None,
+        "served_model": None,
+        "max_tokens": max_tokens,
+        "finish_reason": None,
+        "response_chars": 0,
+        "response_sha256": hashlib.sha256(b"").hexdigest(),
+        "error": error,
+        "usage": {"prompt_tokens": None, "completion_tokens": None},
+        "latency_s": round(latency_s, 3),
+    }
+
+
+def _chunks(text: str, max_chars: int = MAX_CHARS_PER_UNIT) -> list[str]:
+    """Split on line boundaries where possible without dropping any characters."""
+    if not text:
+        return [text]
+    if len(text) <= max_chars:
         return [text]
     out: list[str] = []
-    buf: list[str] = []
-    size = 0
-    for line in lines:
-        if size + len(line) > MAX_CHARS_PER_UNIT and buf:
-            out.append("\n".join(buf))
-            buf, size = [], 0
-        buf.append(line)
-        size += len(line) + 1
+    buf = ""
+    for line in text.splitlines(keepends=True):
+        if len(line) > max_chars:
+            if buf:
+                out.append(buf)
+                buf = ""
+            out.extend(line[index : index + max_chars] for index in range(0, len(line), max_chars))
+        elif len(buf) + len(line) <= max_chars:
+            buf += line
+        else:
+            out.append(buf)
+            buf = line
     if buf:
-        out.append("\n".join(buf))
+        out.append(buf)
+    if "".join(out) != text:  # defensive for unusual Unicode line separators
+        return [text[index : index + max_chars] for index in range(0, len(text), max_chars)]
     return out
 
 
@@ -250,12 +350,21 @@ class SemanticStage:
         self,
         make_call: MakeCall | None = None,
         *,
-        max_file_bytes: int = 2_000_000,
-        max_files: int = 2_000,
+        max_file_bytes: int | None = None,
+        max_files: int | None = None,
+        limits: ProductionLimits = DEFAULT_PRODUCTION_LIMITS,
     ) -> None:
         self._make_call = make_call
-        self.max_file_bytes = max_file_bytes
-        self.max_files = max_files
+        self.limits = limits
+        self.max_file_bytes = (
+            limits.semantic_max_file_bytes if max_file_bytes is None else max_file_bytes
+        )
+        self.max_files = limits.semantic_max_files if max_files is None else max_files
+        self.effective_limits = replace(
+            limits,
+            semantic_max_file_bytes=self.max_file_bytes,
+            semantic_max_files=self.max_files,
+        )
 
     async def run(self, job: AuditJob, target: Path) -> StageResult:
         t0 = time.perf_counter()
@@ -263,7 +372,10 @@ class SemanticStage:
             target = validate_source_tree(target)
         except (ValueError, OSError) as exc:
             return StageResult(stage=self.name, ok=False, error=str(exc))
-        call = self._make_call or _default_make_call()
+        call = self._make_call or _default_make_call(
+            max_tokens=self.limits.llm_max_output_tokens,
+            limits=self.limits,
+        )
         if call is None:
             return StageResult(
                 stage=self.name,
@@ -279,13 +391,20 @@ class SemanticStage:
         for tf in files:
             if Path(tf.rel).name.lower() in _SEMANTIC_SKIP_FILES:
                 continue
-            for i, chunk in enumerate(_chunks(tf.text)):
+            for i, chunk in enumerate(_chunks(tf.text, self.limits.semantic_max_chars_per_unit)):
                 units.append((tf.rel, i, chunk))
         units_total = len(units)
-        units = units[:MAX_UNITS]
+        source_chars = sum(
+            len(tf.text) for tf in files
+            if Path(tf.rel).name.lower() not in _SEMANTIC_SKIP_FILES
+        )
+        unit_chars = sum(len(chunk) for _rel, _index, chunk in units)
+        units = units[: self.limits.semantic_max_units]
+        submitted_chars = sum(len(chunk) for _rel, _index, chunk in units)
 
         findings: list[Finding] = []
         calls: list[JudgeCall] = []
+        request_attempts: list[dict[str, Any]] = []
         call_errors: list[str] = []
         parse_errors: list[str] = []
         response_recoveries: list[dict[str, Any]] = []
@@ -298,12 +417,21 @@ class SemanticStage:
                 f"<content>\n{chunk}\n</content>\n\n"
                 "Audit this content per the system instructions. JSON only."
             )
+            call_started = time.perf_counter()
             try:
                 text, rec = await loop.run_in_executor(None, call, _JUDGE_SYSTEM, user_prompt)
             except Exception as exc:  # one bad call must not kill the stage
                 call_errors.append(f"{rel}:{i}: {type(exc).__name__}: {exc}")
+                request_attempts.append(
+                    _failed_attempt(
+                        exc,
+                        time.perf_counter() - call_started,
+                        self.limits.llm_max_output_tokens,
+                    )
+                )
                 continue
             calls.append(rec)
+            request_attempts.append(_response_attempt(text, None, rec))
             doc = _parse_json_loose(text)
             problem = _response_problem(text, doc)
             if problem is not None:
@@ -312,30 +440,40 @@ class SemanticStage:
                     "unit": f"{rel}:{i}",
                     "initial_error": problem,
                     "recovered_by": None,
-                    "attempts": [_response_attempt(text, problem)],
+                    "attempts": [_response_attempt(text, problem, rec)],
                 }
                 if _has_findings_list(repaired):
                     doc = repaired
                     recovery["recovered_by"] = "trailing_comma_reparse"
                     response_recoveries.append(recovery)
                 else:
+                    retry_started = time.perf_counter()
                     try:
-                        retry_call = self._make_call or _default_make_call(max_tokens=4096)
+                        retry_call = self._make_call or _default_make_call(
+                            max_tokens=self.limits.llm_max_output_tokens,
+                            limits=self.limits,
+                        )
                         if retry_call is None:
                             raise RuntimeError("inference unavailable for bounded retry")
                         retry_text, retry_rec = await loop.run_in_executor(
                             None, retry_call, _JUDGE_SYSTEM, user_prompt
                         )
                     except Exception as exc:  # preserve initial and retry errors
-                        status = getattr(exc, "status_code", None)
-                        error = f"{type(exc).__name__}" + (f" HTTP {status}" if status else "")
-                        recovery["attempts"].append({"response_chars": 0, "error": error})
+                        failed = _failed_attempt(
+                            exc,
+                            time.perf_counter() - retry_started,
+                            self.limits.llm_max_output_tokens,
+                        )
+                        error = failed["error"]
+                        request_attempts.append(failed)
+                        recovery["attempts"].append(failed)
                         response_recoveries.append(recovery)
                         call_errors.append(f"{rel}:{i}: retry failed: {error}")
                         parse_errors.append(f"{rel}:{i}")
                         continue
 
                     calls.append(retry_rec)
+                    request_attempts.append(_response_attempt(retry_text, None, retry_rec))
                     retry_doc = _parse_json_loose(retry_text)
                     retry_problem = _response_problem(retry_text, retry_doc)
                     if retry_problem is not None:
@@ -344,7 +482,8 @@ class SemanticStage:
                             retry_doc = repaired_retry
                             retry_problem = None
                             recovery["recovered_by"] = "retry_trailing_comma_reparse"
-                    recovery["attempts"].append(_response_attempt(retry_text, retry_problem))
+                    retry_attempt = _response_attempt(retry_text, retry_problem, retry_rec)
+                    recovery["attempts"].append(retry_attempt)
                     if retry_problem is not None:
                         response_recoveries.append(recovery)
                         parse_errors.append(f"{rel}:{i}")
@@ -376,6 +515,10 @@ class SemanticStage:
                 completed += 1
             findings.extend(unit_findings)
 
+        omitted_files = sum(stats.get(k, 0) for k in (
+            "skipped_large", "skipped_undecodable", "skipped_unreadable",
+            "skipped_max_files", "skipped_binary",
+        ))
         stats.update(
             {
                 "units": len(units),
@@ -383,19 +526,33 @@ class SemanticStage:
                 "units_completed": completed,
                 "units_partial": partial,
                 "units_omitted": units_total - len(units),
+                "source_chars": source_chars,
+                "unit_chars": unit_chars,
+                "submitted_chars": submitted_chars,
+                "omitted_chars": max(0, source_chars - submitted_chars),
+                "files_omitted": omitted_files,
                 "files": len(files),
-                "llm_calls": [c.__dict__ for c in calls],
+                "llm_calls": [judge_call_metrics(c) for c in calls],
+                "request_attempts": request_attempts,
                 "call_errors": call_errors,
                 "parse_errors": parse_errors,
                 "response_recoveries": response_recoveries,
                 "findings": len(findings),
                 "duration_s": round(time.perf_counter() - t0, 3),
+                "effective_limits": self.effective_limits.to_dict(),
             }
         )
-        omitted_files = sum(stats.get(k, 0) for k in (
-            "skipped_large", "skipped_undecodable", "skipped_unreadable", "skipped_max_files"
-        ))
         if not units:
+            if omitted_files:
+                stats["coverage_incomplete"] = (
+                    f"no eligible semantic units; {omitted_files} source file(s) omitted"
+                )
+                return StageResult(
+                    stage=self.name,
+                    ok=False,
+                    error="no eligible semantic text units; source files were omitted",
+                    metrics=stats,
+                )
             stats["skipped"] = "no eligible text units for semantic analysis"
             return StageResult(stage=self.name, ok=True, metrics=stats)
         if completed < units_total or omitted_files:

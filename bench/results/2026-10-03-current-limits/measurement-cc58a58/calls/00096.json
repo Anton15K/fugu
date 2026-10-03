@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "48a7ee56323d71b6b31f79bc8e4e7f94123000f80f25e88af369d9820c038d76",
+  "duration_s": 0.8810630830121227,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 96,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus**: Season chicken thighs with salt, pepper, and paprika. Sear skin-side down in an oven-safe skillet (5 min). Flip, add asparagus, garlic, lemon slices, and butter. Roast at 425°F (220°C) for 15–20 min until chicken hits 165°F. Finish with fresh parsley. Serve with microwave rice or crusty bread.\n\nPLAN: Suggest a balanced, 25-minute one-pan recipe with minimal prep and cleanup\nPLAN: Include protein, vegetable, and starch pairing for a complete meal\nPLAN: Keep instructions concise with clear timing and temperature cues",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:48:12.581557+00:00",
+  "response_id": "chatcmpl-a750f24b7c3faeed",
+  "response_sha256": "47418d7e0d6715c63abff745662e76ac3a4f459fa2c91f96c0eed6bb09de8a6a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 237,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,62 @@
+{
+  "accepted_review_queue": "qitem-20261003023317-922abc99",
+  "attempt_limit": 1900,
+  "authorization_queue": "qitem-20261003023545-501c0320",
+  "bootstrap": "load_dotenv(Path.cwd()/\".env\", override=False), then runpy.run_module(\"bench.current_limits\", run_name=\"__main__\") with exactly the command arguments above; no engine/model/parser overrides",
+  "chart_generator_sha256": "874c20f54b73a7ef9416d60af376dad0186a4953ee6d12f4d46bdbdf9e0df546",
+  "command": "PYTHONDONTWRITEBYTECODE=1 UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python -m bench.current_limits run --engine-root /tmp/fugu-current-limits-checked-cc58a58d6cea --output bench/results/2026-10-03-current-limits/measurement-cc58a58 --approved-plan-sha256 8f304c3da81e0db091da6e2c324c064d013129d63644b278079c4cf8ad9ef725 --data-release-ref qitem-20261003023545-501c0320",
+  "copied_symlinks": 0,
+  "cost": null,
+  "credentials_loaded": "Explicit project-root python-dotenv loader, override=False; no credential values retained",
+  "engine_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+  "frozen_python_hashes_checked": 37,
+  "loader_reason": "Frozen engine automatic dotenv lookup did not load project-root credential; resolved before any journal or dispatch",
+  "original_case_fields_except_target_unchanged": 40,
+  "original_case_manifest_sha256": "f9b31035908d217a822079dd190c4d5797f86646c65f01c2e06b1f57ae3e91b1",
+  "phase_limits": {
+    "common20": 800,
+    "remainder": 1100
+  },
+  "plan_sha256": "8f304c3da81e0db091da6e2c324c064d013129d63644b278079c4cf8ad9ef725",
+  "preflight": [
+    40,
+    54,
+    45,
+    63
+  ],
+  "prepared_extra_field": "original_target, native preparation provenance equal to original target path",
+  "prepared_files_before_sha256": {
+    "cases.json": "2a84872cab32859d397df94e924143d1563aac10e7ea16c343a68a3fc2f7e26f",
+    "plan-hash.json": "b6d1e40581a8c6d1d4930669a180d7217f99848bfc1f4db72636231159bb83d0",
+    "plan.json": "eb150d1b0310f022abc94e39b49ad3ff18c39af05503e52447e46d410c6e81ec"
+  },
+  "preservation": {
+    "checks": {
+      "immutable_source_hashes": {
+        "checked": 1672,
+        "mismatches": []
+      },
+      "owner_hashes": {
+        "checked": 3,
+        "mismatches": []
+      }
+    },
+    "correction_baseline_ref": "bench/results/2026-10-03-current-limits/journal-stop-correction/baseline-inventory.json",
+    "correction_baseline_sha256": "3d502594d4469dbc3eb5773f3846c0c70ab3443c7b7789c9be9ccf9b02734d8b",
+    "mismatches": [],
+    "original_baseline_ref": "/tmp/fugu-current-production-limits-baseline.json",
+    "original_baseline_sha256": "93dcc452b39198660588ad1c24a660da915308ea359142ba57ac840afff6e1fb",
+    "original_correction_immutable_entries_checked": 1877
+  },
+  "profile_sha256": "0ca72c2f933e0f03adc15b70bc362be269865222c41cdb0a42208b9185f47403",
+  "provider_host": "api.tokenfactory.nebius.com",
+  "provider_requests_before_release": 0,
+  "regular_copied_input_files": 81,
+  "remaining_quota": null,
+  "review_report_sha256": "d085d8c6b963de25b73053ab6ad100cb56d7d42938006627624c4e2951526e4a",
+  "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+  "schema": 1,
+  "target_executions": 0,
+  "verification_check_correction": "Original field equality excludes prepared original_target provenance; no manifest, plan or input changed, zero requests",
+  "verified_utc": "2026-10-03T02:45:03.843989+00:00"
+}

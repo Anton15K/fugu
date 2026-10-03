@@ -1,0 +1,835 @@
+{
+  "cases": [
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Email_14",
+      "input_sha256": {
+        "tools.json": "2c8dd1b383dba1e14b3f6f8c7e3d83e9d7bc01c7fbe27e9dd8de37ea1a840658"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0000",
+      "paradigm": "Template-1",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0000"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Email_20",
+      "input_sha256": {
+        "tools.json": "238aaff26fdc020010bbe6078c35b5ca443c0e7172c2666e2b3849819520813a"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0001",
+      "paradigm": "Template-1",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0001"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/mcp-simple-arxiv_9",
+      "input_sha256": {
+        "tools.json": "4248a04b0d409e66d4df64e2c46dee9026756c80bb649e9f937fc4a94d33ce13"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0002",
+      "paradigm": "Template-1",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0002"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Email_15",
+      "input_sha256": {
+        "tools.json": "3146998570ad643d145d2efe48b6c47205d3d437227127b8313805dcfcfb09cb"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0003",
+      "paradigm": "Template-1",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0003"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Puppeteer_15",
+      "input_sha256": {
+        "tools.json": "c881adefd8f6a51b2be7165c9b030b842eb5424357b9f69d181c97f11fb1251b"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0004",
+      "paradigm": "Template-1",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0004"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Memory_3",
+      "input_sha256": {
+        "tools.json": "07df64f145fa4481bb18b17325e76e0b1070222c1f5bcc2860ef909a40b0b186"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0005",
+      "paradigm": "Template-2",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0005"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Memory_11",
+      "input_sha256": {
+        "tools.json": "cad2f1a75a7649fb27ebf4c1f064fa5cb39f5f153cb48d1ee977eeabb981092a"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0006",
+      "paradigm": "Template-2",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0006"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/mcp-simple-arxiv_15",
+      "input_sha256": {
+        "tools.json": "0529873ac1d0754dc1d1da4d5ab962cb970d03e9c57683fd2f0d539486609927"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0007",
+      "paradigm": "Template-2",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0007"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Email_11",
+      "input_sha256": {
+        "tools.json": "63ed4661f43e1311306b285598d0b011ed446685c296b7f3b1a2e38c94ef691a"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0008",
+      "paradigm": "Template-2",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0008"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/ClickHouse_14",
+      "input_sha256": {
+        "tools.json": "52c5e80e971e0bca7a06742f3a6214864e33d76d735e64b3c0dcb9eb4c1687f7"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0009",
+      "paradigm": "Template-2",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0009"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/Git_10",
+      "input_sha256": {
+        "tools.json": "ace9021b55d667ab09d3c90cfbe0e86d0fd1b7e59c9e1101da344f658125393e"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0010",
+      "paradigm": "Template-3",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0010"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/AmapMap_10",
+      "input_sha256": {
+        "tools.json": "2434a412127576fcdb0df32d05c09ed072d94e8016013a59cbed64b3b0cf606f"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0011",
+      "paradigm": "Template-3",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0011"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/AlphaVantage_4",
+      "input_sha256": {
+        "tools.json": "5659b7390f3c71ace07ec6cc29d3b2b913c7f3912c9d7b5145895ecddeaeec37"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0012",
+      "paradigm": "Template-3",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0012"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/mcp-simple-arxiv_1",
+      "input_sha256": {
+        "tools.json": "02c8789905ae62c5da0eafdddb539b7a48818786136566fd030fcca5265ca35f"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0013",
+      "paradigm": "Template-3",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0013"
+    },
+    {
+      "cohort": "mcptox",
+      "id": "mcptox/AmapMap_1",
+      "input_sha256": {
+        "tools.json": "eaf4450ac0fef6ff02a936c5d4b1ea1ab5ad6901b83ec30dfc0ce90d39d77364"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0014",
+      "paradigm": "Template-3",
+      "source": "bench/mcptox/data/pure_tool.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0014"
+    },
+    {
+      "cohort": "clean_descriptions",
+      "id": "clean/send_email",
+      "input_sha256": {
+        "tools.json": "4e66f79a2659a987fd0e9554d6c1bc24faadd14be08a7e8e58c0c9cc687db3df"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0015",
+      "source": "bench/real/fuzzd-cache/clean_tools.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0015"
+    },
+    {
+      "cohort": "clean_descriptions",
+      "id": "clean/get_calendar_events",
+      "input_sha256": {
+        "tools.json": "7d3ede1875a92b19d04748b269ae08d05eed195beefa549a1babde2861ab6f15"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0016",
+      "source": "bench/real/fuzzd-cache/clean_tools.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0016"
+    },
+    {
+      "cohort": "clean_descriptions",
+      "id": "clean/read_file",
+      "input_sha256": {
+        "tools.json": "a32ccb192e4cbc31d25d20dc588b005aa5bcea2e9415235c86714831f0556d01"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0017",
+      "source": "bench/real/fuzzd-cache/clean_tools.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0017"
+    },
+    {
+      "cohort": "clean_descriptions",
+      "id": "clean/translate_text",
+      "input_sha256": {
+        "tools.json": "97698dc431e4515c3a73da4280db55b3127d686df56d5c83d22f030931b06991"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0018",
+      "source": "bench/real/fuzzd-cache/clean_tools.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0018"
+    },
+    {
+      "cohort": "clean_descriptions",
+      "id": "clean/create_notion_page",
+      "input_sha256": {
+        "tools.json": "0a7a2b025510ab3ecf985b6f60b8f162d84e3e6b54ceb22c0ae1f0431caae80a"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0019",
+      "source": "bench/real/fuzzd-cache/clean_tools.json",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0019"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 2,
+        "files_seen": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/01-hidden-instructions-skill",
+      "input_sha256": {
+        "SKILL.md": "7a1d1c6bf71a954067243cb83ebf62f0a928e1978638683989c39b7301d62ae7"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0020",
+      "source": "corpus/01-hidden-instructions-skill",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0020"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 2,
+        "files_seen": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/02-unicode-smuggled-skill",
+      "input_sha256": {
+        "SKILL.md": "c1995360641e6b823f373dc6484c9c51b96c67307df20d8c279b36f3b052053f"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0021",
+      "source": "corpus/02-unicode-smuggled-skill",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0021"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 2,
+        "files_seen": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/03-env-harvest-installer",
+      "input_sha256": {
+        "install.sh": "0b50a457250bb09c30a35ef0a7892a42af3bcbb82491f02fb3520bbff109ac50"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0022",
+      "source": "corpus/03-env-harvest-installer",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0022"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 2,
+        "files_seen": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/04-credential-reader",
+      "input_sha256": {
+        "skill.py": "59d65efa0151ca764ab6342f2b60470284ddafc434245cf6056fb420ab26e17b"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0023",
+      "source": "corpus/04-credential-reader",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0023"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 2,
+        "files_seen": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/05-obfuscated-payload",
+      "input_sha256": {
+        "update_check.py": "7499165f8d97e0edb4e5a3fe7d9c8976710afef88b7dcbabf984dde72e29c647"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0024",
+      "source": "corpus/05-obfuscated-payload",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0024"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 3,
+        "files_seen": 3,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/06-rugpull-pair",
+      "input_sha256": {
+        "v1/server.py": "3d0733a86922b9a74814efedc6233dd104c2a0feff73e4bbd087544f3c98b8ad",
+        "v2/server.py": "dabec67e27b65729c9aeb0baacc60bc88f2725b19aa5fc42d7e8938c371965f5"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0025",
+      "source": "corpus/06-rugpull-pair",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0025"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 2,
+        "files_seen": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/07-clean-skill",
+      "input_sha256": {
+        "SKILL.md": "9488bea10288eb2ee5a6aabfb42a3ee893919d0f4b256e48b05bd9c8814e5b02"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0026",
+      "source": "corpus/07-clean-skill",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0026"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 2,
+        "files_seen": 2,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/08-clean-mcp-server",
+      "input_sha256": {
+        "server.py": "ec9663889b51a3ed5d45b918f218a3f520c740d15c28ea2ba3f2a0cf3d0d5066"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0027",
+      "source": "corpus/08-clean-mcp-server",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0027"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 3,
+        "files_seen": 3,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/09-clean-installer",
+      "input_sha256": {
+        "csv_tidy.py": "4e23e305b7356f25cd0f076eba32c27413298b7386c15b76bccaab087462a936",
+        "install.sh": "9bd4e8cc00b478d476f588320ce327fe48c7932af3427aadf0d230fe5e03de91"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0028",
+      "source": "corpus/09-clean-installer",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0028"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 3,
+        "files_seen": 3,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/10-clean-node-skill",
+      "input_sha256": {
+        "index.js": "343efe0a389c485d981d9fc96c6955300db5c9f7aa981006a4a3bff30728bb28",
+        "package.json": "49913d2d5b24e49effc38af1d5500e636c11bab5064114646ed3505759f893e7"
+      },
+      "kind": "benign",
+      "original_target": "bench/results/2026-10-02-full/targets/0029",
+      "source": "corpus/10-clean-node-skill",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0029"
+    },
+    {
+      "cohort": "crafted",
+      "collection": {
+        "files_scanned": 3,
+        "files_seen": 3,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "id": "crafted/11-readme-install-exfil",
+      "input_sha256": {
+        "README.md": "1ae31e726ff4ef6abab421cb09c47a6ab54ded4132ad39b4ae1fadfaa5f0782d",
+        "SKILL.md": "9013eca8a3277dfbe0ad4e9c0ade82d164c8ece6561626692d789c3a2e8c3541"
+      },
+      "kind": "malicious",
+      "original_target": "bench/results/2026-10-02-full/targets/0030",
+      "source": "corpus/11-readme-install-exfil",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0030"
+    },
+    {
+      "cohort": "composition",
+      "collection": {
+        "files_scanned": 5,
+        "files_seen": 5,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "expected": {
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition/control-ingress-egress",
+      "input_sha256": {
+        "deploy-notify/SKILL.md": "766c8974ae14bd82b7e3ef4e59f79428709624b999fe7a8a823bc304f9475910",
+        "deploy-notify/notify.sh": "dc82a16195ea25f512e56405beb6a72740cfc1ebf15ee820de767aa5b03a0b88",
+        "feed-watch/SKILL.md": "29ef489657f736c274767a5ceb3e36d7d40c759607e59b9d665d28c473688b13",
+        "feed-watch/feed_watch.py": "dac7990a5d58c53fe83988e1ded41cfdeaeb6a0f5d4426c8e232d017eabd5c68"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "feed-watch",
+          "label": "feed-watch"
+        },
+        {
+          "dir": "deploy-notify",
+          "label": "deploy-notify"
+        }
+      ],
+      "original_target": "bench/results/2026-10-02-full/targets/0031",
+      "source": "corpus/composition/control-ingress-egress",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0031"
+    },
+    {
+      "cohort": "composition",
+      "collection": {
+        "files_scanned": 5,
+        "files_seen": 5,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "expected": {
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition/control-private-egress",
+      "input_sha256": {
+        "config-lookup/SKILL.md": "5ecfb84f35bd04e031fed8cea64a679d479a978b4f2e721ff632c85082f57f9a",
+        "config-lookup/inventory.py": "5b6cb1b3216eb5e038f8a0a30e662cbb264601c0d048878ce8e5201120de1e0c",
+        "deploy-notify/SKILL.md": "766c8974ae14bd82b7e3ef4e59f79428709624b999fe7a8a823bc304f9475910",
+        "deploy-notify/notify.sh": "dc82a16195ea25f512e56405beb6a72740cfc1ebf15ee820de767aa5b03a0b88"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "config-lookup",
+          "label": "config-lookup"
+        },
+        {
+          "dir": "deploy-notify",
+          "label": "deploy-notify"
+        }
+      ],
+      "original_target": "bench/results/2026-10-02-full/targets/0032",
+      "source": "corpus/composition/control-private-egress",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0032"
+    },
+    {
+      "cohort": "composition",
+      "collection": {
+        "files_scanned": 7,
+        "files_seen": 7,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "expected": {
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition/control-self-sufficient",
+      "input_sha256": {
+        "unit-convert/SKILL.md": "50c102d620402a74679b02ebe68e14a3ceecf3ffcd62961a9ebe467a7fc2f574",
+        "unit-convert/convert.py": "95e11140bd9d93aa776c4986373aadedc931432e263ad00a1eb6bfdc2387475d",
+        "weather-lookup/SKILL.md": "b12169310311bcb246088119316393a57ad45509ef2c8f98d26e110854a4a64d",
+        "weather-lookup/almanac.py": "eb2fa0da71479f98ebd290ef7521f9ff90281f12b4cd79db918c105797aa99b0",
+        "workspace-sync/SKILL.md": "435019e02cb3ef6daaa064c55eeb75e430d9a3730c2a565cadd36a0c82b556e7",
+        "workspace-sync/workspace_sync.py": "f13db6be55ead439dd3b5157d504172fe7e29be86dd1942537a8a5dce4c6821f"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "workspace-sync",
+          "label": "workspace-sync"
+        },
+        {
+          "dir": "weather-lookup",
+          "label": "weather-lookup"
+        },
+        {
+          "dir": "unit-convert",
+          "label": "unit-convert"
+        }
+      ],
+      "original_target": "bench/results/2026-10-02-full/targets/0033",
+      "source": "corpus/composition/control-self-sufficient",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0033"
+    },
+    {
+      "cohort": "composition",
+      "collection": {
+        "files_scanned": 9,
+        "files_seen": 9,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "expected": {
+        "shadowing": true,
+        "trifecta": false
+      },
+      "id": "composition/shadow-pair",
+      "input_sha256": {
+        "filesystem-enhanced/SKILL.md": "aca48a255ed1e1c51c6cc613cf941243c862f336bcae2e5315f07e967590e98e",
+        "filesystem-enhanced/server.py": "a8b3eae1791b8a3d8d51b38165f3c817d0ab621a215d6798901fbdc7ddc60056",
+        "filesystem/SKILL.md": "52532a974a32d1e11c07d854c38aadaa2cb9e413f661c361fc60c6a295a92083",
+        "filesystem/server.py": "7fe17362244a874869c80102d304199b7f2ab256a8f5c540aa9f93a2b3414328",
+        "help-docs/SKILL.md": "2ed7af002fea9b237e7292e0d5d7fe3db7aa49d94906f2f4a03cf7164e0cec99",
+        "help-docs/docs/faq.md": "81135bec953f436e4cdab0edffc40d524d20076890737f616eefeefaea517cc6",
+        "help-docs/docs/shortcuts.md": "a4471a0251f99ba6a6f5e5d96549ed48c4fc8b115d6a6932908858e5d92a00bf",
+        "help-docs/server.py": "58911fc0e9ff6882efe25da076be0559ed88dcbb3b5884635757fb011d84d741"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "filesystem",
+          "label": "filesystem"
+        },
+        {
+          "dir": "filesystem-enhanced",
+          "label": "filesystem-enhanced"
+        },
+        {
+          "dir": "help-docs",
+          "label": "help-docs"
+        }
+      ],
+      "original_target": "bench/results/2026-10-02-full/targets/0034",
+      "source": "corpus/composition/shadow-pair",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0034"
+    },
+    {
+      "cohort": "composition",
+      "collection": {
+        "files_scanned": 7,
+        "files_seen": 7,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "expected": {
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition/trifecta-canonical",
+      "input_sha256": {
+        "notes-lookup/SKILL.md": "99cc5061111f0042fb1ace73c18ec35e7ce8b5c355dc3c7d90167235993de072",
+        "notes-lookup/server.py": "cdfdbe9b46992e4442da2284d29f3bc2028d85fd8eb9f7e24ac4974bab823b02",
+        "status-poster/SKILL.md": "830409cdb891e3669b8e9bdf2c6b3d63a3347f35cced80aabb47f4b3732bdf90",
+        "status-poster/post_status.sh": "0764879ea242a442154a4247bbe3bf79f1ceb4fef8a33f9a5e851dbf0c73f134",
+        "web-digest/SKILL.md": "7af5de42efabecc6ceb9cbdb41454ddf98a47d3d4777f74492f7bc931b95188a",
+        "web-digest/server.py": "4eb33790cf4fcdd592e6b2ffa1d204f71f81e5c93c30018a06a0c4d766759d76"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "web-digest",
+          "label": "web-digest"
+        },
+        {
+          "dir": "notes-lookup",
+          "label": "notes-lookup"
+        },
+        {
+          "dir": "status-poster",
+          "label": "status-poster"
+        }
+      ],
+      "original_target": "bench/results/2026-10-02-full/targets/0035",
+      "source": "corpus/composition/trifecta-canonical",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0035"
+    },
+    {
+      "cohort": "composition",
+      "collection": {
+        "files_scanned": 11,
+        "files_seen": 11,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "expected": {
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition/trifecta-diluted",
+      "input_sha256": {
+        "notes-lookup/SKILL.md": "99cc5061111f0042fb1ace73c18ec35e7ce8b5c355dc3c7d90167235993de072",
+        "notes-lookup/server.py": "cdfdbe9b46992e4442da2284d29f3bc2028d85fd8eb9f7e24ac4974bab823b02",
+        "status-poster/SKILL.md": "830409cdb891e3669b8e9bdf2c6b3d63a3347f35cced80aabb47f4b3732bdf90",
+        "status-poster/post_status.sh": "0764879ea242a442154a4247bbe3bf79f1ceb4fef8a33f9a5e851dbf0c73f134",
+        "unit-convert/SKILL.md": "50c102d620402a74679b02ebe68e14a3ceecf3ffcd62961a9ebe467a7fc2f574",
+        "unit-convert/convert.py": "95e11140bd9d93aa776c4986373aadedc931432e263ad00a1eb6bfdc2387475d",
+        "weather-lookup/SKILL.md": "b12169310311bcb246088119316393a57ad45509ef2c8f98d26e110854a4a64d",
+        "weather-lookup/almanac.py": "eb2fa0da71479f98ebd290ef7521f9ff90281f12b4cd79db918c105797aa99b0",
+        "web-digest/SKILL.md": "7af5de42efabecc6ceb9cbdb41454ddf98a47d3d4777f74492f7bc931b95188a",
+        "web-digest/server.py": "4eb33790cf4fcdd592e6b2ffa1d204f71f81e5c93c30018a06a0c4d766759d76"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "web-digest",
+          "label": "web-digest"
+        },
+        {
+          "dir": "notes-lookup",
+          "label": "notes-lookup"
+        },
+        {
+          "dir": "status-poster",
+          "label": "status-poster"
+        },
+        {
+          "dir": "weather-lookup",
+          "label": "weather-lookup"
+        },
+        {
+          "dir": "unit-convert",
+          "label": "unit-convert"
+        }
+      ],
+      "original_target": "bench/results/2026-10-02-full/targets/0036",
+      "source": "corpus/composition/trifecta-diluted",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0036"
+    },
+    {
+      "cohort": "composition",
+      "collection": {
+        "files_scanned": 7,
+        "files_seen": 7,
+        "skipped_binary": 0,
+        "skipped_large": 0,
+        "skipped_max_files": 0,
+        "skipped_undecodable": 0,
+        "skipped_unreadable": 0
+      },
+      "expected": {
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition/trifecta-shuffled",
+      "input_sha256": {
+        "notes-lookup/SKILL.md": "99cc5061111f0042fb1ace73c18ec35e7ce8b5c355dc3c7d90167235993de072",
+        "notes-lookup/server.py": "cdfdbe9b46992e4442da2284d29f3bc2028d85fd8eb9f7e24ac4974bab823b02",
+        "status-poster/SKILL.md": "830409cdb891e3669b8e9bdf2c6b3d63a3347f35cced80aabb47f4b3732bdf90",
+        "status-poster/post_status.sh": "0764879ea242a442154a4247bbe3bf79f1ceb4fef8a33f9a5e851dbf0c73f134",
+        "web-digest/SKILL.md": "7af5de42efabecc6ceb9cbdb41454ddf98a47d3d4777f74492f7bc931b95188a",
+        "web-digest/server.py": "4eb33790cf4fcdd592e6b2ffa1d204f71f81e5c93c30018a06a0c4d766759d76"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "status-poster",
+          "label": "status-poster"
+        },
+        {
+          "dir": "web-digest",
+          "label": "web-digest"
+        },
+        {
+          "dir": "notes-lookup",
+          "label": "notes-lookup"
+        }
+      ],
+      "original_target": "bench/results/2026-10-02-full/targets/0037",
+      "source": "corpus/composition/trifecta-shuffled",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0037"
+    },
+    {
+      "cohort": "reputation",
+      "id": "reputation/requests-2.19.1",
+      "input_sha256": {
+        "pyproject.toml": "0b112895a5e15468203af621352f1ea0327e1234a8dcc2fed51a40947c15b532"
+      },
+      "kind": "vulnerable_dependency",
+      "original_target": "bench/results/2026-10-02-full/targets/0038",
+      "source": "constructed exact-version PyPI dependency probe",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0038"
+    },
+    {
+      "cohort": "reputation",
+      "id": "reputation/requests-2.32.5",
+      "input_sha256": {
+        "pyproject.toml": "0dea75d7edd680252eb8873e57e909e8493c65c3ce793c1f7a3cacef1c84ed72"
+      },
+      "kind": "dependency_control",
+      "original_target": "bench/results/2026-10-02-full/targets/0039",
+      "source": "constructed exact-version PyPI dependency probe",
+      "target": "bench/results/2026-10-03-current-limits/measurement-cc58a58/targets/0039"
+    }
+  ],
+  "created_utc": "2026-10-02T08:59:01.785663+00:00",
+  "engine_hashes": {
+    "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+    "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+    "src/fugu/client.py": "84c05bd7fa3e1b74c4176cff7bd0da3d048b56c6b610e1a3bf54fb79e6c96385",
+    "src/fugu/config.py": "efc071cbe2b1fc25a8a5769c46a68232efc4261a95768ff4b8090c2fbcc83c4b",
+    "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+    "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+    "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+    "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+    "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+    "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+    "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+    "src/fugu/detonation/docker_driver.py": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193",
+    "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+    "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+    "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+    "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+    "src/fugu/pipeline/assemble.py": "47c1dfb6979d179d8160b6c9263431fc600477b4210e5b73f83670fd56eb69e6",
+    "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+    "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+    "src/fugu/pipeline/stages/composition.py": "2a1e8437aa65f3336b590b692ee79cd378d0d4285521c55d565c62837a800d60",
+    "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+    "src/fugu/pipeline/stages/detonation_stage.py": "83bf718159ef1ade13d9dfc808c671e9ef25880d9ec0e1b7ba3a3bd86f4dfe5f",
+    "src/fugu/pipeline/stages/harness.py": "f03fdc703950e072f00dc62137618a94fed7e68ddde1483c43f889bac99d1d9f",
+    "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+    "src/fugu/pipeline/stages/semantic.py": "8c46582d71f33a363fd65fb87e66011f4f0c49334bac41f628c5038a66bab3c0",
+    "src/fugu/pipeline/stages/static_scan.py": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9",
+    "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+    "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+    "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+    "src/fugu/server/composition_jobs.py": "731ed10e950e4bfd08cafcb2ac07e91dc2b2d3c675e3fc4fcff40b1d1952ba13",
+    "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+    "src/fugu/server/jobs.py": "f84f071c8e7ed963c9b0a96750a67c9f6d67c7e65035d3118fd574f36176a03f",
+    "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+    "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+    "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb",
+    "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+    "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+  },
+  "schema_adapter": "uniform inputSchema={} required by comparator MCP parsers; no annotations or invented parameters",
+  "seed": "20261002-full",
+  "source_hashes": {
+    "bench/mcptox/data/pure_tool.json": "54b1eb0e9d7b2f18465266aa9d9dfda828cd558b1269b74731ec2c5d8579e617",
+    "bench/real/fuzzd-cache/clean_tools.json": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+  },
+  "threshold": "any finding >= medium; composition uses its own expected rules"
+}

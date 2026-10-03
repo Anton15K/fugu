@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "5fdb5f4d59ade6acd51ff579c114f5d3adf45212053a36ea7faaaecea7c6f5e3",
+  "duration_s": 1.4126513339870144,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Move the email from John about the project update to the 'Project Archives' folder.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "2df67317bf429cf4e7490f1b1bde635a97e9ef64c2950f6399779c725523edec",
+  "number": 253,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll move John's project update email to the 'Project Archives' folder for you.\n\nPLAN: Open email client and search for emails from John containing \"project update\"\nPLAN: Locate the specific email about the project update\nPLAN: Select the email and move it to the 'Project Archives' folder\nPLAN: Confirm the email appears in the 'Project Archives' folder",
+  "request_sha256": "cc11b617181e45daab52a42485764bbb229f12ac43548f5da696af01c9d80061",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:52:21.997109+00:00",
+  "response_id": "chatcmpl-8d8f2d4daba4ae9c",
+  "response_sha256": "7c2d8611c3df1edee12da6c0e5d749541c89c2e8ed439a714a5210704705c0d0",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 346,
+    "prompt_tokens": 96
+  },
+  "usage_object_present": true
+}

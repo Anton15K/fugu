@@ -1,0 +1,38 @@
+name: fugu-showcase-evidence
+version: "1.0"
+description: Dedicated Fugu showcase evidence seat.
+defaults:
+  runtime: codex
+imports:
+  - ref: path:/opt/homebrew/lib/node_modules/@openrig/cli/daemon/specs/agents/shared
+profiles:
+  default:
+    uses:
+      skills: [shared:review-team, shared:systematic-debugging, shared:verification-before-completion]
+      guidance: []
+      subagents: []
+      plugins: [shared:openrig-core]
+      runtime_resources: [shared:codex-default-config]
+resources:
+  guidance:
+    - id: role
+      path: guidance/role.md
+startup:
+  files:
+    - path: guidance/role.md
+      delivery_hint: send_text
+      required: true
+    - path: guidance/project.md
+      delivery_hint: send_text
+      required: true
+    - path: guidance/campaign.md
+      delivery_hint: send_text
+      required: true
+  actions:
+    - type: startup_proof
+      value: authenticated
+      idempotent: true
+    - type: send_text
+      value: "Complete your authenticated startup orientation, verify native model and max effort, report readiness to control-lead@fugu, then wait for the durable showcase campaign row. Do not start discovery, paid calls or edits during boot."
+      phase: after_ready
+      idempotent: true

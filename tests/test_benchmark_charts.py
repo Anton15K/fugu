@@ -98,7 +98,7 @@ def fake_judge_record():
     return JudgeCall('offline-test', 0, 0, 0, {})
 
 
-@pytest.mark.parametrize('files,completed,omitted', [(1, 1, 0), (12, 8, 4)])
+@pytest.mark.parametrize('files,completed,omitted', [(1, 1, 0), (24, 24, 0), (25, 24, 1)])
 def test_semantic_unit_cap_does_not_count_omitted_content_as_complete(tmp_path, files, completed, omitted):
     def fake_call(*args):
         return '{"findings": []}', fake_judge_record()

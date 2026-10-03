@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "ec38802d92c1a9bb10010bb8739163f634008d8f2b3a3057e472cc9f2eca6034",
+  "duration_s": 1.2025925829948392,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: I'm planning to create several new entity types for our supply chain model. Please run a conflict detection first.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "1c2ccfc729dec11a6182e7fe47aeb2975c415f46e730282ce3d8b804cabe348d",
+  "number": 201,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll run conflict detection for your new supply chain entity types. To proceed, I need access to your current model (file path, database, or API) and the proposed entity definitions.\n\nPLAN: Ask user for model location and new entity specifications\nPLAN: Load existing supply chain model schema\nPLAN: Parse proposed entity types and relationships\nPLAN: Run conflict detection (naming, constraints, dependencies)\nPLAN: Generate conflict report with resolution suggestions",
+  "request_sha256": "3892cfa5ab7fb8b68414a1630d85deb889d3f14ae48bbfcd695352ef18d16a6c",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:50:59.687095+00:00",
+  "response_id": "chatcmpl-a07232d6ad03d9d9",
+  "response_sha256": "817cef931dfa1d22a51a9c994c0602fb7becacb40c379638f5a95f92076115d9",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 288,
+    "prompt_tokens": 101
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,64 @@
+{
+  "task": "bounded git clone timeout teardown",
+  "reviewed_base": "473cc4bb44b26bebdb6082113d99c40030f25f70",
+  "changed_paths": [
+    "src/fugu/server/jobs.py",
+    "tests/test_server.py",
+    "docs/production-limits.md",
+    "bench/results/2026-10-03-current-limits/clone-timeout-correction/verification.json"
+  ],
+  "sha256": {
+    "src/fugu/server/jobs.py": "4bf9d679c36facf99c7b99547a6b76a67edbe050a6f7b0c5186a4375260e6ee6",
+    "tests/test_server.py": "0d60bb5b5f5e7d46b25b728012df3ab4de38e9ad10ce6b7669ed9b0222c60f30",
+    "docs/production-limits.md": "48d99911a139005e0da69ac5386877416cb9cdbed2c579bf20919b2559fb51c7"
+  },
+  "unchanged_granted_path_sha256": {
+    "tests/test_giturls.py": "d737314c225c53ad3b92b32f498d75b178c3f71b8454c8b6001a998e65a68375"
+  },
+  "red": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_server.py::test_git_clone_timeout_teardown_is_bounded_and_cleans_partial_source -q -p no:cacheprovider --tb=short",
+    "result": "4 failed as expected before the production change",
+    "cases": [
+      "post-kill communicate remains pending with open pipes",
+      "post-kill communicate raises while fallback wait completes",
+      "kill sees process already exited at timeout boundary",
+      "fallback process wait remains pending"
+    ],
+    "failure_evidence": "The open-pipe and stalled-wait cases exceeded the outer watchdog; drain-error and already-exited cases failed because owned subprocess pipes were not closed."
+  },
+  "green": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_server.py tests/test_giturls.py tests/test_source_safety.py tests/test_composition_server.py -q -p no:cacheprovider --tb=short",
+    "result": "153 passed, 1 existing Starlette/AnyIO deprecation warning, 0.88s"
+  },
+  "lint": {
+    "scoped_command": "UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync ruff check --ignore E402 src/fugu/server/jobs.py tests/test_server.py",
+    "scoped_result": "All checks passed.",
+    "unfiltered_result": "Ruff reports three existing E402 findings at unchanged tests/test_server.py import-shim lines 25-32."
+  },
+  "diff_check": "git diff --check passed for granted source, tests and documentation paths.",
+  "bounds": {
+    "clone_attempt_timeout_seconds": 120,
+    "post_kill_communicate_drain_bound_ms": 100,
+    "fallback_process_wait_bound_ms": 100,
+    "maximum_additional_awaited_cleanup_ms": 200,
+    "bound_starts": "After the initial asyncio.wait_for reports TimeoutError; cancellation delivery before that handler and event-loop scheduling are outside the two-step allowance.",
+    "cleanup_behavior": "Kill the direct clone process; bound post-kill communicate; close the asyncio subprocess transport to release owned pipes; if draining did not complete, make one bounded process wait; raise ExtractionError so extraction finally cleanup removes partial materialization."
+  },
+  "preserved_contracts": [
+    "At most two clone attempts for slashed refs, exercised by existing scoped tests.",
+    "Source caps, selected-source safety and normal temp-workspace cleanup, exercised by existing scoped tests.",
+    "No production limit, dependency, configuration, shared contract, benchmark input or retained historical evidence changed."
+  ],
+  "limitations": [
+    "Process reaping is best effort if the OS or event loop fails to report exit within the bounded wait; no race-proof or cancellation-safe guarantee is claimed.",
+    "Only the direct clone process is killed. No process-group or descendant kill is attempted; closing Fugu's transport releases Fugu-owned pipe handles but does not guarantee helper processes terminate.",
+    "Timeout cleanup uses asyncio.Process._transport because Process has no public close method; SubprocessTransport.close is documented for Python 3.10 and closes owned pipes."
+  ],
+  "isolation": {
+    "real_clone_or_network_requests": 0,
+    "provider_calls": 0,
+    "target_execution": 0,
+    "services_started": 0
+  },
+  "reference": "https://docs.python.org/3.10/library/asyncio-protocol.html#asyncio.SubprocessTransport.close"
+}

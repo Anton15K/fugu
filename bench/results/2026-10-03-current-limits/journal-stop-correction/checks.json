@@ -1,0 +1,88 @@
+{
+  "base_commit": "473cc4bb44b26bebdb6082113d99c40030f25f70",
+  "checked_utc": "2026-10-03T02:00:56.834815+00:00",
+  "coverage": [
+    "402 quota exhaustion",
+    "401 authentication failure",
+    "429 temporary rate limit",
+    "503 other provider error",
+    "Restart after lost stop write, with and without preceding successful response",
+    "Two repeated restart storage failures with released owner lock",
+    "Six malformed/unknown provider error shapes and two unknown request states",
+    "Exact raw/usage/request/model replay and native attempt links",
+    "Four native engine runs preserve completed rows and block later phase/stage fallback"
+  ],
+  "focused_green": {
+    "deselected": 36,
+    "exit_code": 0,
+    "log": "pytest-regressions-green.log",
+    "log_sha256": "0334a9bac33279b1f470ecf418624ec61f65044a3ced7108407f7f7bbc0452ad",
+    "passed": 21
+  },
+  "limitations": [
+    "Fake SDK evidence does not measure provider behavior, accuracy, cost or latency",
+    "Checked engine is pre-fix473; integrated engine and exact independent review remain required",
+    "Previously prepared measurement plan remains unreleased and unchanged"
+  ],
+  "live_provider_requests": 0,
+  "queue_id": "qitem-20261003014842-6180d14e",
+  "red": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_current_limits.py -q -p no:cacheprovider -k 'restart_recovers_provider_stop or restart_fails_closed or restart_rejects' --tb=short",
+    "deselected": 36,
+    "exit_code": 1,
+    "expected_failure": "Missing durable stop recovery or malformed-state rejection before dispatch; native line69 asserts restored classification",
+    "failed": 21,
+    "log": "pytest-red.log",
+    "log_normalization": {
+      "normalized_log_sha256": "b565cf25a274145dc560fa188e0b607276dce9b1dbf0f2bde8a80d420640b14a",
+      "original_lines": {
+        "103": "E     ",
+        "112": "E     ",
+        "121": "E     ",
+        "130": "E     "
+      },
+      "original_log_reconstruction_verified": true,
+      "original_log_sha256": "bd53d9c962aebeabf04b85831a7ca23ddaa3563c7418ef1cb639a9856206cc20",
+      "scope": "Trailing spaces on four pytest error separator lines only; original failure observations unchanged"
+    },
+    "log_sha256": "b565cf25a274145dc560fa188e0b607276dce9b1dbf0f2bde8a80d420640b14a"
+  },
+  "ruff": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 NEBIUS_API_KEY='' uv run --no-sync ruff check --no-cache bench/current_limits.py bench/current_limits_charts.py tests/test_current_limits.py tests/test_current_limits_charts.py bench/results/2026-10-03-current-limits/offline-checkpoint/verify.py",
+    "exit_code": 0,
+    "log": "ruff.log",
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  "runner_before_sha256": "f292fc396e3a910a063e0c5a1458ff8eef1bd21be75cdd49d8721469d7ef4416",
+  "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+  "schema": 1,
+  "scope": "Offline fake SDK regression correction; no live measurements",
+  "suites": [
+    {
+      "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_current_limits.py tests/test_current_limits_charts.py -q -p no:cacheprovider --tb=short",
+      "duration_s": 4.22,
+      "engine_commit": "e184128979b3551ff6cb97561cd7822f4a9accd0",
+      "engine_manifest_sha256": "8bed299bc8ec866a9d6c51e35db380f2f2daf47e879c13280d1acb4a57a24a14",
+      "engine_root": "/tmp/fugu-current-limits-base-engine",
+      "exit_code": 0,
+      "log": "pytest-legacy-green.log",
+      "log_sha256": "12ce07753be8f1037a73ce57cd751d56bdbddf289f56042c21eed81ed5027339",
+      "passed": 62,
+      "skipped": 0
+    },
+    {
+      "command": "FUGU_BENCH_TEST_ENGINE=/tmp/fugu-current-limits-checked-473cc4bb44b2 UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_current_limits.py tests/test_current_limits_charts.py -q -p no:cacheprovider --tb=short",
+      "duration_s": 4.36,
+      "engine_commit": "473cc4bb44b26bebdb6082113d99c40030f25f70",
+      "engine_manifest_sha256": "df0e7fcfa5c3d4ed71891c8398b45926adae999d61ececd2eedf5db482dc43e8",
+      "engine_root": "/tmp/fugu-current-limits-checked-473cc4bb44b2",
+      "exit_code": 0,
+      "log": "pytest-checked-green.log",
+      "log_sha256": "922456abf3721575d1d1d4a5a24e6f058c4f2196525c51fc99fb4e2681daf4ab",
+      "passed": 62,
+      "skipped": 0
+    }
+  ],
+  "target_executions": 0,
+  "tests_sha256": "cfdf80c60bfe2455196db3763160643b8f9d9291f5708c274a7b6c3a4cdad072"
+}

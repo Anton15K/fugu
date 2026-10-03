@@ -163,8 +163,8 @@ def test_fake_clone_receives_exact_remote_ref_and_selected_content(tmp_path, mon
     calls = []
     observed = []
 
-    async def fake_clone(remote, target, branch=None):
-        calls.append((remote, branch))
+    async def fake_clone(remote, target, branch=None, *, timeout_s):
+        calls.append((remote, branch, timeout_s))
         target.mkdir(parents=True, exist_ok=True)
         (target / "root.txt").write_text("Repository root.")
         leaf = target / "skills" / "tdd"
@@ -187,7 +187,7 @@ def test_fake_clone_receives_exact_remote_ref_and_selected_content(tmp_path, mon
     job = AuditJob(id="remote", source="  " + url + "  ")
     store.create(job)
     asyncio.run(run_job(job, [InspectSelection()], store))
-    assert calls == [(expected_remote, expected_ref)]
+    assert calls == [(expected_remote, expected_ref, 120)]
     snap = store.get(job.id)
     extraction_log = snap.stages
     assert job.status.value == "done", extraction_log
@@ -226,7 +226,7 @@ def test_blob_matches_directory_scanning_and_removes_all_materialization(tmp_pat
     workspaces = _record_workspaces(tmp_path, monkeypatch)
     observed = []
 
-    async def clone(remote, target, branch=None):
+    async def clone(remote, target, branch=None, *, timeout_s):
         target.mkdir(parents=True, exist_ok=True)
         (target / filename).write_text(content)
 
@@ -261,7 +261,7 @@ def test_remote_cleanup_across_runners_and_failures(tmp_path, monkeypatch, runne
     workspaces = _record_workspaces(tmp_path, monkeypatch)
     targets = []
 
-    async def clone(remote, target, branch=None):
+    async def clone(remote, target, branch=None, *, timeout_s):
         target.mkdir(parents=True, exist_ok=True)
         (target / "SKILL.md").write_text("Ordinary skill.")
 
@@ -315,7 +315,7 @@ def test_remote_cleanup_across_runners_and_failures(tmp_path, monkeypatch, runne
 def test_extraction_exceptions_remove_all_owned_workspaces(tmp_path, monkeypatch, source, failure):
     workspaces = _record_workspaces(tmp_path, monkeypatch)
 
-    async def clone(remote, target, branch=None):
+    async def clone(remote, target, branch=None, *, timeout_s):
         target.mkdir(parents=True, exist_ok=True)
         (target / "SKILL.md").write_text("Fabricated source.")
         if failure == "clone-oserror":
@@ -341,7 +341,7 @@ def test_failed_remote_containment_cleans_clone_even_when_keep_requested(tmp_pat
     outside = tmp_path / "outside.txt"
     outside.write_text("Fabricated outside note.")
 
-    async def clone(remote, target, branch=None):
+    async def clone(remote, target, branch=None, *, timeout_s):
         target.mkdir(parents=True, exist_ok=True)
         (target / "note.txt").symlink_to(outside)
 
@@ -363,8 +363,8 @@ def test_uncloneable_unsupported_view_fails_without_auditing_root(tmp_path, monk
     calls = []
     workspaces = _record_workspaces(tmp_path, monkeypatch)
 
-    async def clone(remote, target, branch=None):
-        calls.append((remote, branch))
+    async def clone(remote, target, branch=None, *, timeout_s):
+        calls.append((remote, branch, timeout_s))
         raise ExtractionError("fabricated uncloneable remote")
 
     monkeypatch.setattr("fugu.server.jobs._git_clone", clone)
@@ -372,7 +372,7 @@ def test_uncloneable_unsupported_view_fails_without_auditing_root(tmp_path, monk
     job = AuditJob(id="bad-view", source=source)
     store.create(job)
     asyncio.run(run_job(job, [StaticScanStage()], store))
-    assert calls == [(source, None)]
+    assert calls == [(source, None, 120)]
     assert job.status.value == "failed"
     snap = store.get(job.id)
     assert snap.events[-1].type == "error" and not snap.findings
@@ -384,7 +384,7 @@ def test_selected_tree_preserves_repo_layout_and_has_complete_cleanup(tmp_path, 
     workspaces = _record_workspaces(tmp_path, monkeypatch)
     observed = []
 
-    async def clone(remote, target, branch=None):
+    async def clone(remote, target, branch=None, *, timeout_s):
         nested = target / "skills" / "selected"
         nested.mkdir(parents=True)
         (nested / "SKILL.md").write_text("Selected skill.")
@@ -409,7 +409,7 @@ def test_selected_tree_preserves_repo_layout_and_has_complete_cleanup(tmp_path, 
 def test_known_tree_traversal_is_rejected_before_stage_execution(tmp_path, monkeypatch):
     calls = []
 
-    async def clone(remote, target, branch=None):
+    async def clone(remote, target, branch=None, *, timeout_s):
         calls.append(remote)
         target.mkdir(parents=True, exist_ok=True)
         (target / "SKILL.md").write_text("Unselected repository root.")

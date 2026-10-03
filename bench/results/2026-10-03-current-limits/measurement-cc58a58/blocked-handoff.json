@@ -1,0 +1,26 @@
+{
+  "affected_paid_dispatch_stopped": true,
+  "automatic_restart_permitted": false,
+  "blocked_utc": "2026-10-03T03:03:36.538704+00:00",
+  "budget_reset_permitted": false,
+  "complete": 12,
+  "cumulative_attempts": 359,
+  "incomplete": 1,
+  "ledger_path": "calls/00359.json",
+  "next_action": "Lead reviews the stopped evidence and decides any separately authorized recovery consistent with the durable stop contract. This row grants no reset, replacement directory or retry of the error request.",
+  "planned_cases": 40,
+  "queue_id": "qitem-20261003023545-501c0320",
+  "quota_exhaustion_established": false,
+  "reason": "HTTP500/InternalServerError on Super harness attempt359; durable provider_error latch",
+  "retries_after_error": 0,
+  "schema": 1,
+  "state": "blocked",
+  "unattempted": 27,
+  "unfinished": [
+    "Complete first20 descriptions, including5 benign cases",
+    "Remaining20 crafted/composition/dependency-source cases",
+    "Benign manual adjudication with actual observations",
+    "Final whole40 measurement and independent evidence review"
+  ],
+  "valid_responses_preserved": 358
+}

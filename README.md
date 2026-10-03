@@ -94,9 +94,9 @@ defaults to its EU endpoint and supports `NEBIUS_BASE_URL` overrides.
 | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | Available router tier; not established as an active pipeline stage |
 
 Token Factory provides runtime inference for the security reading and A/B
-comparisons through the same client interface. The full benchmark retains raw
-responses, model names and token usage. Dollar cost, remaining quota and monetary
-savings were not measured.
+comparisons through the same client interface. The 2 October full-capability
+benchmark retains raw responses, model names and token usage. Dollar cost,
+remaining quota and monetary savings were not measured.
 
 Concealment and static analysis run locally. **Enabled semantic and harness
 stages send selected extension text and prompts to the configured inference
@@ -107,12 +107,60 @@ compute when selected; live sandbox behavior has not been verified here.
 Fugu is not an entirely local analysis system. Review these flows before
 submitting confidential content.
 
-## Full-capability benchmark
+## Current production profile and measurement status
+
+The checked application uses a shared, immutable profile for inference and
+source coverage. Its main bounds are:
+
+| Area | Current default |
+|---|---:|
+| Model output | 4,096 tokens per request |
+| SDK timeout / automatic SDK retries | 90 seconds / 0 |
+| Semantic review | Up to 24 units, each at most 6,000 characters |
+| Harness source and RED input packet | 32,000 characters, including file headings and separators |
+| Generated RED probes | First 3 valid probes, at most 200 characters each |
+| Materialized source tree | 512 MiB / 20,000 entries |
+
+The SDK retry count does not include the stages’ bounded response recovery;
+those requests are recorded separately. The source-tree caps are checked after
+materialization and do not cap bytes transferred during a shallow Git clone.
+See [production limits](docs/production-limits.md) for file caps, fixed probes,
+coverage metrics, and cleanup bounds.
+
+The fixed 40-case evaluation used this current profile on 3 October under the
+[current-limit protocol](docs/benchmark-current-limits.md). It stopped on an
+HTTP 500 `InternalServerError` from the Super harness at SDK attempt 359; this
+does not establish quota exhaustion. Of 40 planned cases, 12 completed, one was
+partial and 27 were unattempted. The primary MCPTox result is **11/15 planned
+attacks (73.3%)**: 11 completed detections, one completed miss, one partial case
+and two unattempted cases. The secondary completed-case result is **11/12
+(91.7%)**. All 12 planned benign controls were unattempted, so benign flag and
+false-positive rates are unmeasured.
+
+All 12 completed cases and the one partial case came from the MCPTox
+descriptions. No clean control, crafted extension, composition set or dependency
+case was reached.
+
+Observed work covered local concealment/static checks, hosted semantic and
+harness analysis on 13 of 45 distinct audits; 32 planned audits have unknown
+coverage. No composition case started. The protocol excludes detonation, live
+reputation, running audited code and fresh competitor execution. The selected,
+previously inspected cases are not a blind or representative evaluation. Token
+usage, model records, partial coverage and the stopped-run charts are in the
+[measurement report](docs/benchmark-current-limits.md) and
+[retained result](bench/results/2026-10-03-current-limits/measurement-cc58a58/fugu.json).
+Whole-run token totals, cost and remaining quota are unknown. This stopped
+subset and the historical full-capability results below are different
+measurements.
+
+## Historical full-capability benchmark (2 October 2026)
 
 **40 frozen cases, 40 completed after bounded response recovery**, measured on
-2 October 2026. Every applicable capability ran: concealment, static, semantic,
-Docker detonation, A/B harness, reputation and composition. Detection means a
-medium-or-higher finding; composition scores its cross-extension rules separately.
+the frozen inputs and application snapshot recorded by that run. Every applicable
+capability ran: concealment, static, semantic, Docker detonation, A/B harness,
+reputation and composition. Detection means a medium-or-higher finding;
+composition scores its cross-extension rules separately. This historical result
+does not measure the current profile above.
 
 Fugu and the local competitors received the same **15 MCPTox attack descriptions
 and five constructed clean descriptions**. Source fixtures, composition and
@@ -128,11 +176,11 @@ dependency probes are separate cohorts rather than extra competitor misses.
 | Snyk Agent Scan 0.6.8 | Unavailable: hosted daily quota exhausted | Unscored |
 
 Capability hits and aggregate risk are different tasks from malicious-instruction
-detection. Severity labels also differ across tools. These fresh measurements
+detection. Severity labels also differ across tools. These run-specific measurements
 show how the pinned tools behaved on this sample; they do not establish a
 universal ranking or population false-positive rate.
 
-![Fresh comparison on identical descriptions](bench/results/2026-10-02-full/charts/same-input-comparison.png)
+![Historical 2 October comparison on identical descriptions](bench/results/2026-10-02-full/charts/same-input-comparison.png)
 
 | Other Fugu cohorts | Measured result |
 |---|---|
@@ -163,8 +211,9 @@ characters; Docker observations depend on which triggers actually execute.
 The initial run completed 15/40 cases. Seven malformed structured replies and
 52 missing A/B replies recovered through bounded, identical-prompt retries.
 Every valid original reply was preserved; no unresolved parsing exclusions
-remain. Recovery improved this evaluation's completion without changing the
-application's default output limits.
+remain. Recovery improved completion within this historical evaluation; the
+application source and defaults for that run were unchanged. The current profile
+is described separately above.
 
 [Full protocol and results](docs/benchmark-full.md) ·
 [Cohort chart](bench/results/2026-10-02-full/charts/cohort-results.svg) ·
@@ -179,17 +228,17 @@ application's default output limits.
 From the repository root: `uv run --no-sync python -m pytest -q`. From `web/`:
 `npm run build`, `npm run lint`, `npm run contract`, `npm run smoke`,
 `node scripts/audit-result.mjs`, and `node scripts/edge-reducer.mjs`.
-The benchmark's scoped checks passed **37 tests** and independent review verified
-the chart arithmetic, original evidence preservation and application hashes.
-Verification history and the advisory judging score are in the
+The 2 October benchmark's scoped checks and independent artifact review verified
+chart arithmetic, original evidence preservation and application hashes.
+Current candidate verification and the advisory judging score are in the
 [assessment](docs/hackathon-assessment.md).
 
 Source preflight rejects descendant symlinks before host reads and remote payload
 construction. It is not race-proof isolation of a changing source tree. Execution
-coverage depends on chamber availability and trigger derivation. The new
-benchmark exercised the Docker chamber; remote Nebius Sandboxes transport remains
-unverified. Public deployment safety is not
-established by local tests or these guards. No deployment target is assigned.
+coverage depends on chamber availability and trigger derivation. The 2 October
+full-capability benchmark exercised the Docker chamber; remote Nebius Sandboxes
+transport remains unverified. Public deployment safety is not established by
+local tests or these guards. No deployment target is assigned.
 
 [User story, advisory rubric and readiness](docs/hackathon-assessment.md) ·
 [Under-three-minute demo script](docs/demo-script.md).

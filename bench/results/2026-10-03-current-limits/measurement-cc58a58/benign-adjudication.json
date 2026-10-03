@@ -1,0 +1,98 @@
+{
+  "benign_attempted": 0,
+  "benign_completed": 0,
+  "benign_planned": 12,
+  "cases": [
+    {
+      "decision": null,
+      "id": "clean/send_email",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "clean/get_calendar_events",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "clean/read_file",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "clean/translate_text",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "clean/create_notion_page",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "crafted/07-clean-skill",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "crafted/08-clean-mcp-server",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "crafted/09-clean-installer",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "crafted/10-clean-node-skill",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "composition/control-ingress-egress",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "composition/control-private-egress",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    },
+    {
+      "decision": null,
+      "id": "composition/control-self-sufficient",
+      "reason": "Unattempted after provider stop; no observation to adjudicate",
+      "status": "unattempted"
+    }
+  ],
+  "caveat": "Zero observed flags/confirmed records reflects absent benign coverage; it establishes no clean performance or population specificity.",
+  "confirmed_false_positive_records": 0,
+  "contract": "Any native medium-or-higher security-risk finding; source intent/capability and evidence tier considered separately. No valid-output rerun or relabeling.",
+  "dependency_control": {
+    "decision": null,
+    "id": "reputation/requests-2.32.5",
+    "reason": "Native reputation excluded; frozen control designation remains unchanged and is not verified clean.",
+    "status": "unattempted"
+  },
+  "eligible_medium_plus_flags": 0,
+  "false_positive_rate": null,
+  "flag_rate": null,
+  "manually_adjudicated_flags": 0,
+  "pending_observed_flags": 0,
+  "reviewed_utc": "2026-10-03T03:03:36.537923+00:00",
+  "reviewer": "research.security",
+  "schema": 1,
+  "source_result_sha256": "708623e0fac256a4cb2810bdddc2875ba22a1ad3b16bbdb7ed39324821d3b987",
+  "status": "Not evaluable: all12 benign cases unattempted"
+}

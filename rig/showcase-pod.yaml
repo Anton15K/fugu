@@ -1,0 +1,46 @@
+pod:
+  id: showcase
+  label: Dedicated showcase research
+  summary: Continuous MCP and skill discovery with independent evidence validation.
+  members:
+    - id: mcp
+      agent_ref: local:rig/agents/showcase-mcp
+      profile: default
+      runtime: codex
+      model: gpt-6.1-sol
+      codex_config_profile: fugu-rig-high
+      cwd: "."
+    - id: skills
+      agent_ref: local:rig/agents/showcase-skills
+      profile: default
+      runtime: codex
+      model: gpt-6.1-sol
+      codex_config_profile: fugu-rig-high
+      cwd: "."
+    - id: evidence
+      agent_ref: local:rig/agents/showcase-evidence
+      profile: default
+      runtime: codex
+      model: gpt-6.1-sol
+      codex_config_profile: fugu-rig-high
+      cwd: "."
+  edges:
+    - kind: can_observe
+      from: evidence
+      to: mcp
+    - kind: can_observe
+      from: evidence
+      to: skills
+crossPodEdges:
+  - kind: delegates_to
+    from: control.lead
+    to: showcase.mcp
+  - kind: delegates_to
+    from: control.lead
+    to: showcase.skills
+  - kind: delegates_to
+    from: control.lead
+    to: showcase.evidence
+  - kind: can_observe
+    from: quality.reviewer
+    to: showcase.evidence

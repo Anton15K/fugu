@@ -111,7 +111,7 @@ class ReplayHarness(HarnessStage):
         super().__init__(make_call=replay.caller(ultra))
         self.everyday = replay.caller(super_model)
 
-    def _everyday_call(self, call, *, injected):
+    def _everyday_call(self, call, *, injected, limits=None):
         return self.everyday
 
 
