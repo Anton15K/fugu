@@ -25,10 +25,11 @@ import asyncio
 import os
 import re
 import shutil
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
+from fugu.config import DEFAULT_PRODUCTION_LIMITS
 from fugu.pipeline.stages.static_scan import _TOOL_NAME_RE
 from fugu.source_safety import validate_source_tree
 from fugu.server.jobs import (
@@ -52,6 +53,7 @@ __all__ = [
     "MAX_SOURCES",
     "MIN_SOURCES",
     "SourceSpec",
+    "configured_auto_max_units",
     "harvest_tool_names",
     "normalize_sources",
     "run_auto_job",
@@ -506,7 +508,35 @@ _AUTO_MIN_UNITS = 2
 #: Fan-out cap: audited units per repo. Cost guard (each unit runs the
 #: full pipeline incl. harness A/B); env-tunable. Truncation is announced
 #: in the event stream and the remaining units are listed in the log.
-_AUTO_MAX_UNITS = int(os.environ.get("FUGU_FANOUT_MAX", "24"))
+_AUTO_MAX_UNITS = DEFAULT_PRODUCTION_LIMITS.fanout_max_units
+
+
+def configured_auto_max_units(raw: str | None = None) -> int:
+    """Read the optional fan-out override, rejecting values outside 1..24."""
+    if raw is None:
+        raw = os.environ.get("FUGU_FANOUT_MAX")
+    if raw is None or not raw.strip():
+        return DEFAULT_PRODUCTION_LIMITS.fanout_max_units
+    try:
+        parsed = int(raw)
+    except ValueError:
+        return DEFAULT_PRODUCTION_LIMITS.fanout_max_units
+    if not 1 <= parsed <= DEFAULT_PRODUCTION_LIMITS.fanout_max_units:
+        return DEFAULT_PRODUCTION_LIMITS.fanout_max_units
+    return parsed
+
+
+def _fanout_limit(max_units: int | None) -> tuple[int, str | None, bool]:
+    raw = os.environ.get("FUGU_FANOUT_MAX") if max_units is None else str(max_units)
+    if raw is None or not raw.strip():
+        return DEFAULT_PRODUCTION_LIMITS.fanout_max_units, raw, True
+    try:
+        parsed = int(raw.strip())
+    except ValueError:
+        return DEFAULT_PRODUCTION_LIMITS.fanout_max_units, raw, False
+    if not 1 <= parsed <= DEFAULT_PRODUCTION_LIMITS.fanout_max_units:
+        return DEFAULT_PRODUCTION_LIMITS.fanout_max_units, raw, False
+    return parsed, raw, True
 
 
 async def run_auto_job(
@@ -517,7 +547,7 @@ async def run_auto_job(
     max_files: int = DEFAULT_MAX_FILES,
     max_bytes: int = DEFAULT_MAX_BYTES,
     min_units: int = _AUTO_MIN_UNITS,
-    max_units: int = _AUTO_MAX_UNITS,
+    max_units: int | None = None,
 ) -> None:
     """Auto fan-out: audit one source's skill UNITS, then compose.
 
@@ -580,7 +610,9 @@ async def run_auto_job(
             await run_stage_loop(job, snap, target, stages_for_children, store)
             return
 
-        omitted_units = max(0, len(units) - max_units)
+        max_units, fanout_override, fanout_override_valid = _fanout_limit(max_units)
+        omitted_unit_labels = [label for label, _ in units[max_units:]]
+        omitted_units = len(omitted_unit_labels)
         if omitted_units:
             kept = units[:max_units]
             _emit(
@@ -619,11 +651,9 @@ async def run_auto_job(
             child = AuditJob(id=new_job_id(), source=str(unit_dir), depth="full")
             store.create(child)
             child_snap = store.get(child.id)
-            crashed: str | None = None
             try:
                 await run_stage_loop(child, child_snap, unit_dir, stages, store)
-            except Exception as exc:  # noqa: BLE001 - one unit must not kill the run
-                crashed = f"{type(exc).__name__}: {exc}"
+            except Exception:  # noqa: BLE001 - one unit must not kill the run
                 child_snap.job.status = JobStatus.failed
                 store.close(child.id)
             status = child_snap.job.status.value
@@ -682,7 +712,18 @@ async def run_auto_job(
             store.close(job.id)
             return
 
-        await _compose_members(job, snap, members, store, summaries, omitted_units)
+        await _compose_members(
+            job,
+            snap,
+            members,
+            store,
+            summaries,
+            omitted_units,
+            omitted_unit_labels=omitted_unit_labels,
+            fanout_max_units=max_units,
+            fanout_override=fanout_override,
+            fanout_override_valid=fanout_override_valid,
+        )
     finally:
         if cloned_dir is not None:
             await loop.run_in_executor(None, shutil.rmtree, cloned_dir, True)
@@ -695,6 +736,11 @@ async def _compose_members(
     store: JobStore,
     summaries: list[dict[str, Any]],
     omitted_units: int = 0,
+    *,
+    omitted_unit_labels: list[str] | None = None,
+    fanout_max_units: int | None = None,
+    fanout_override: str | None = None,
+    fanout_override_valid: bool | None = None,
 ) -> None:
     """Run the composition stage over harvested members + parent verdict.
 
@@ -740,8 +786,32 @@ async def _compose_members(
     elapsed = loop.time() - started
     result.metrics.setdefault("duration_s", round(elapsed, 3))
     result.metrics.setdefault("members", len(members))
-    result.metrics["member_coverage"] = _member_coverage(summaries, store)
+    member_coverage = _member_coverage(summaries, store)
+    omitted_unit_labels = omitted_unit_labels or []
+    member_coverage.extend(
+        {
+            "member": label,
+            "job_id": job.id,
+            "stage": "fanout",
+            "state": "omitted",
+            "reason": "unit omitted by fan-out cap",
+            "executed": False,
+        }
+        for label in omitted_unit_labels
+    )
+    result.metrics["member_coverage"] = member_coverage
     result.metrics["omitted_units"] = omitted_units
+    result.metrics["omitted_unit_labels"] = omitted_unit_labels
+    effective_profile = (
+        replace(DEFAULT_PRODUCTION_LIMITS, fanout_max_units=fanout_max_units)
+        if fanout_max_units is not None
+        else DEFAULT_PRODUCTION_LIMITS
+    )
+    result.metrics["effective_limits"] = effective_profile.to_dict()
+    if fanout_max_units is not None:
+        result.metrics["fanout_max_units"] = fanout_max_units
+        result.metrics["fanout_override"] = fanout_override
+        result.metrics["fanout_override_valid"] = fanout_override_valid
     snap.stages.append(result)
     # No cross-stage dedupe: composition findings are about member
     # combinations, never echoes (the parent ran no other stages).

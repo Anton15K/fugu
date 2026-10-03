@@ -69,7 +69,7 @@ def test_offline_noop(tmp_path):
     import fugu.pipeline.stages.harness as h
 
     saved = h._default_make_call
-    h._default_make_call = lambda: None
+    h._default_make_call = lambda **kwargs: None
     try:
         res = _run(HarnessStage(), _target(tmp_path, "# skill\n"))
     finally:
@@ -163,9 +163,9 @@ def _install_default_harness_call(monkeypatch, responses):
             content = "A direct answer without unsafe behavior."
         return content, JudgeCall("fake/ultra", 0.01, len(system_prompt) + len(user_prompt), len(content), {})
 
-    monkeypatch.setattr(harness_module, "_default_make_call", lambda: ultra_call)
+    monkeypatch.setattr(harness_module, "_default_make_call", lambda max_tokens=4096, **kwargs: ultra_call)
     monkeypatch.setattr("fugu.config.get_settings", lambda: SimpleNamespace(has_api_key=True))
-    monkeypatch.setattr("fugu.client.make_client", lambda settings: client)
+    monkeypatch.setattr("fugu.client.make_client", lambda settings, **kwargs: client)
     monkeypatch.setattr("fugu.model_router.pick_model", lambda **kwargs: "fake/super")
     return client
 
@@ -185,7 +185,7 @@ def test_super_empty_length_response_retries_once_with_same_prompt_and_records_b
         [("", "length", 10, 600), ("Everyday answer.", "stop", 10, 12)],
     )
 
-    assert [call["max_tokens"] for call in client.calls] == [600, 4096, 600, 600]
+    assert [call["max_tokens"] for call in client.calls] == [4096, 4096, 4096, 4096]
     assert client.calls[0]["model"] == client.calls[1]["model"] == "fake/super"
     assert client.calls[0]["messages"] == client.calls[1]["messages"]
     assert client.calls[0]["temperature"] == client.calls[1]["temperature"] == 0.1
@@ -195,11 +195,26 @@ def test_super_empty_length_response_retries_once_with_same_prompt_and_records_b
     assert len(retry) == 1
     attempts = retry[0]["attempts"]
     assert [(attempt["max_tokens"], attempt["finish_reason"], attempt["response_chars"], attempt["error"])
-            for attempt in attempts] == [(600, "length", 0, None), (4096, "stop", 16, None)]
+            for attempt in attempts] == [(4096, "length", 0, None), (4096, "stop", 16, None)]
     assert [attempt["usage"] for attempt in attempts] == [
         {"prompt_tokens": 10, "completion_tokens": 600},
         {"prompt_tokens": 10, "completion_tokens": 12},
     ]
+    super_requests = [
+        attempt for attempt in stage.metrics["request_attempts"]
+        if attempt.get("requested_model") == "fake/super"
+    ]
+    assert len(super_requests) == 4
+    assert [(attempt["finish_reason"], attempt["response_chars"], attempt["error"])
+            for attempt in super_requests[:2]] == [
+        ("length", 0, None), ("stop", len("Everyday answer."), None)
+    ]
+    assert [attempt["usage"] for attempt in super_requests[:2]] == [
+        {"prompt_tokens": 10, "completion_tokens": 600},
+        {"prompt_tokens": 10, "completion_tokens": 12},
+    ]
+    assert all(attempt["latency_s"] is not None for attempt in super_requests)
+    assert len(stage.metrics["request_attempts"]) == 11  # RED + 6 Ultra + 4 Super SDK requests
     super_calls = [call for call in stage.metrics["llm_calls"] if call["model"] == "fake/super"]
     assert sum(call["usage"]["prompt_tokens"] for call in super_calls) == 40
     assert sum(call["usage"]["completion_tokens"] for call in super_calls) == 622
@@ -269,7 +284,7 @@ def test_super_retry_usage_totals_preserve_unknown_fields_and_known_zero(
     assert retry["total_usage"] == expected_total
     assert retry["usage_complete"] == expected_complete
     assert [attempt["usage"] for attempt in retry["attempts"]] == [first_usage, retry_usage]
-    assert [request["max_tokens"] for request in client.calls] == [600, 4096]
+    assert [request["max_tokens"] for request in client.calls] == [4096, 4096]
     assert client.calls[0]["model"] == client.calls[1]["model"] == "fake/super"
     assert client.calls[0]["messages"] == client.calls[1]["messages"]
     assert client.calls[0]["temperature"] == client.calls[1]["temperature"] == 0.1
@@ -322,7 +337,7 @@ def test_super_empty_retry_exhaustion_preserves_incomplete_coverage(tmp_path, mo
         [("", "length", 10, 600), ("", "length", 10, 4096)],
     )
 
-    assert [call["max_tokens"] for call in client.calls] == [600, 4096, 600, 600]
+    assert [call["max_tokens"] for call in client.calls] == [4096, 4096, 4096, 4096]
     assert stage.ok
     assert stage.metrics["comparisons_completed"] == 5
     assert stage.metrics["coverage_incomplete"]
@@ -333,25 +348,52 @@ def test_super_empty_retry_exhaustion_preserves_incomplete_coverage(tmp_path, mo
     assert len(retry[0]["attempts"]) == 2
     assert retry[0]["attempts"][0]["finish_reason"] == "length"
     assert retry[0]["attempts"][1]["finish_reason"] == "length"
+    super_requests = [
+        attempt for attempt in stage.metrics["request_attempts"]
+        if attempt.get("requested_model") == "fake/super"
+    ]
+    assert len(super_requests) == 4
+    assert [(attempt["finish_reason"], attempt["response_chars"], attempt["error"])
+            for attempt in super_requests[:2]] == [
+        ("length", 0, None), ("length", 0, None)
+    ]
+    assert not any(attempt.get("error") == "ValueError" for attempt in super_requests)
+    assert len(stage.metrics["request_attempts"]) == 11
 
 
 def test_super_retry_request_error_preserves_original_attempt_and_partial_coverage(tmp_path, monkeypatch):
+    class FakeHTTPError(RuntimeError):
+        status_code = 429
+
     stage, client = _run_default_live_path(
         tmp_path,
         monkeypatch,
-        [("", "length", 10, 600), RuntimeError("temporary provider failure")],
+        [("", "length", 10, 600), FakeHTTPError("provider diagnostic text")],
     )
 
-    assert [call["max_tokens"] for call in client.calls] == [600, 4096, 600, 600]
+    assert [call["max_tokens"] for call in client.calls] == [4096, 4096, 4096, 4096]
     assert stage.metrics["coverage_incomplete"]
     assert stage.metrics["comparisons_completed"] == 5
     retry = stage.metrics["inference_retries"]
     assert len(retry) == 1 and retry[0]["outcome"] == "retry_error"
     assert retry[0]["attempts"][0]["finish_reason"] == "length"
-    assert retry[0]["attempts"][1]["error"] == "RuntimeError"
+    assert retry[0]["attempts"][1]["error"] == "FakeHTTPError HTTP 429"
     assert retry[0]["attempts"][1]["usage"] == {"prompt_tokens": None, "completion_tokens": None}
     assert retry[0]["usage_complete"] == {"prompt_tokens": False, "completion_tokens": False}
     assert retry[0]["total_usage"] == {"prompt_tokens": None, "completion_tokens": None}
+    super_requests = [
+        attempt for attempt in stage.metrics["request_attempts"]
+        if attempt.get("requested_model") == "fake/super"
+    ]
+    assert len(super_requests) == 4
+    assert [(attempt["finish_reason"], attempt["response_chars"], attempt["error"])
+            for attempt in super_requests[:2]] == [
+        ("length", 0, None), (None, 0, "FakeHTTPError HTTP 429")
+    ]
+    assert super_requests[1]["usage"] == {"prompt_tokens": None, "completion_tokens": None}
+    assert super_requests[1]["latency_s"] is not None
+    assert len(stage.metrics["request_attempts"]) == 11
+    assert "provider diagnostic text" not in json.dumps(stage.metrics)
 
 
 def test_super_nonempty_length_response_is_kept_without_retry(tmp_path, monkeypatch):
@@ -361,7 +403,7 @@ def test_super_nonempty_length_response_is_kept_without_retry(tmp_path, monkeypa
         [("Usable partial response.", "length", 10, 600)],
     )
 
-    assert [call["max_tokens"] for call in client.calls] == [600, 600, 600]
+    assert [call["max_tokens"] for call in client.calls] == [4096, 4096, 4096]
     assert stage.metrics["comparisons_completed"] == 6
     assert stage.metrics["inference_retries"] == []
     assert not stage.metrics.get("coverage_incomplete")
@@ -371,7 +413,7 @@ def test_super_client_setup_failure_does_not_silently_reuse_ultra(tmp_path, monk
     client = _install_default_harness_call(monkeypatch, [])
     monkeypatch.setattr(
         "fugu.client.make_client",
-        lambda settings: (_ for _ in ()).throw(RuntimeError("fake Super setup failure")),
+        lambda settings, **kwargs: (_ for _ in ()).throw(RuntimeError("fake Super setup failure")),
     )
 
     stage = _run(HarnessStage(), _target(tmp_path, "# Clean skill\n"))
@@ -382,6 +424,62 @@ def test_super_client_setup_failure_does_not_silently_reuse_ultra(tmp_path, monk
     assert stage.metrics["coverage_incomplete"]
     assert len(stage.metrics["call_errors"]) == 3
     assert all("Super model setup failed: RuntimeError" in error for error in stage.metrics["call_errors"])
+    assert len(stage.metrics["request_attempts"]) == 7  # setup made no Super SDK requests
+    assert all(attempt.get("requested_model") != "fake/super"
+               for attempt in stage.metrics["request_attempts"])
+
+
+def test_consecutive_harness_arm_failures_record_each_independent_attempt(tmp_path):
+    calls = []
+
+    class FakeHTTPError(RuntimeError):
+        status_code = 503
+
+    def call(system_prompt, user_prompt):
+        calls.append((system_prompt, user_prompt))
+        if 'JSON only: {"probes"' in system_prompt:
+            text = '{"probes": []}'
+            return text, JudgeCall("fake/red", 0.01, 10, len(text), {})
+        raise FakeHTTPError("provider diagnostic text")
+
+    result = _run(HarnessStage(make_call=call), _target(tmp_path, "# ordinary skill\n"))
+
+    assert len(calls) == 10  # one RED plus nine standard-depth arm calls
+    attempts = result.metrics["request_attempts"]
+    assert len(attempts) == 10
+    assert attempts[0]["response_chars"] == len('{"probes": []}')
+    failures = attempts[1:]
+    assert all(attempt["error"] == "FakeHTTPError HTTP 503" for attempt in failures)
+    assert all(attempt["max_tokens"] == 4096 for attempt in failures)
+    assert all(attempt["usage"] == {"prompt_tokens": None, "completion_tokens": None}
+               for attempt in failures)
+    assert all(attempt["latency_s"] is not None for attempt in failures)
+    assert len(result.metrics["call_errors"]) == 9
+    assert result.metrics["coverage_incomplete"]
+
+
+def test_empty_successful_harness_responses_are_not_double_counted_as_failures(tmp_path):
+    calls = []
+
+    def call(system_prompt, user_prompt):
+        calls.append((system_prompt, user_prompt))
+        if 'JSON only: {"probes"' in system_prompt:
+            text = '{"probes": []}'
+            return text, JudgeCall("fake/red", 0.01, 10, len(text), {})
+        return "", JudgeCall("fake/blue", 0.01, 10, 0, {
+            "prompt_tokens": None, "completion_tokens": None,
+        })
+
+    result = _run(HarnessStage(make_call=call), _target(tmp_path, "# ordinary skill\n"))
+
+    assert len(calls) == 10
+    attempts = result.metrics["request_attempts"]
+    assert len(attempts) == 10
+    assert sum(attempt["response_chars"] == 0 for attempt in attempts) == 9
+    assert all(attempt["error"] is None for attempt in attempts)
+    assert len(result.metrics["call_errors"]) == 9
+    assert all("empty" in error for error in result.metrics["call_errors"])
+    assert result.metrics["coverage_incomplete"]
 
 
 def test_red_unusable_response_retries_once_with_same_prompt_and_preserves_parse_evidence(tmp_path, monkeypatch):
@@ -394,7 +492,7 @@ def test_red_unusable_response_retries_once_with_same_prompt_and_preserves_parse
     red_prompts = []
     red_responses = iter(["not json at all", '{"probes": ["Find my TCP notes"]}'])
 
-    def caller_factory(max_tokens=1600):
+    def caller_factory(max_tokens=4096, **kwargs):
         token_caps.append(max_tokens)
 
         def call(system_prompt, user_prompt):
@@ -410,10 +508,10 @@ def test_red_unusable_response_retries_once_with_same_prompt_and_preserves_parse
     monkeypatch.setattr(harness_module, "_default_make_call", caller_factory)
     stage = HarnessStage()
     # Keep this hermetic while exercising the real default caller/retry factory.
-    stage._everyday_call = lambda call, *, injected: call
+    stage._everyday_call = lambda call, *, injected, limits=None: call
     result = _run(stage, _target(tmp_path, "# Clean skill\n"), depth="full")
 
-    assert token_caps == [1600, 4096]
+    assert token_caps == [4096, 4096]
     assert len(red_prompts) == 2 and red_prompts[0] == red_prompts[1]
     assert result.metrics["probes"] == 7
     assert result.metrics["parse_errors"] == []
@@ -421,13 +519,13 @@ def test_red_unusable_response_retries_once_with_same_prompt_and_preserves_parse
     assert len(recovery) == 1
     assert recovery[0]["initial_error"] == "invalid_json"
     assert recovery[0]["recovered_by"] == "retry"
-    assert recovery[0]["attempts"][0] == {
-        "response_chars": len("not json at all"),
-        "response_sha256": hashlib.sha256(b"not json at all").hexdigest(),
-        "error": "invalid_json",
-    }
+    assert recovery[0]["attempts"][0]["response_chars"] == len("not json at all")
+    assert recovery[0]["attempts"][0]["response_sha256"] == hashlib.sha256(b"not json at all").hexdigest()
+    assert recovery[0]["attempts"][0]["error"] == "invalid_json"
     assert recovery[0]["attempts"][1]["response_chars"] == len('{"probes": ["Find my TCP notes"]}')
     assert recovery[0]["attempts"][1]["error"] is None
+    assert len(result.metrics["request_attempts"]) == 23  # 2 RED requests + 21 arm requests
+    assert all("sdk_attempts" not in record for record in result.metrics["llm_calls"])
     assert "not json at all" not in json.dumps(recovery)
     assert "raw_response" not in recovery[0]["attempts"][0]
 
@@ -481,7 +579,7 @@ def test_red_retry_exhaustion_keeps_both_parse_errors_and_marks_coverage_incompl
     red_prompts = []
     red_responses = iter(["not json", '{"probes": true}'])
 
-    def caller_factory(max_tokens=1600):
+    def caller_factory(max_tokens=4096, **kwargs):
         token_caps.append(max_tokens)
 
         def call(system_prompt, user_prompt):
@@ -496,10 +594,10 @@ def test_red_retry_exhaustion_keeps_both_parse_errors_and_marks_coverage_incompl
 
     monkeypatch.setattr(harness_module, "_default_make_call", caller_factory)
     stage = HarnessStage()
-    stage._everyday_call = lambda call, *, injected: call
+    stage._everyday_call = lambda call, *, injected, limits=None: call
     result = _run(stage, _target(tmp_path, "# Clean skill\n"))
 
-    assert token_caps == [1600, 4096]
+    assert token_caps == [4096, 4096]
     assert len(red_prompts) == 2 and red_prompts[0] == red_prompts[1]
     assert result.metrics["probes"] == 3
     assert result.metrics["coverage_incomplete"]
@@ -522,13 +620,14 @@ def test_red_retry_exception_keeps_original_parse_error_without_raw_exception_te
     token_caps = []
     red_prompts = []
 
-    def caller_factory(max_tokens=1600):
+    def caller_factory(max_tokens=4096, **kwargs):
         token_caps.append(max_tokens)
+        factory_call = len(token_caps)
 
         def call(system_prompt, user_prompt):
             if 'JSON only: {"probes"' in system_prompt:
                 red_prompts.append((system_prompt, user_prompt))
-                if max_tokens == 4096:
+                if factory_call == 2:
                     raise RuntimeError("provider diagnostic text")
                 text = "not json"
                 return text, JudgeCall("fake/red", 0.01, 10, len(text), {})
@@ -539,10 +638,10 @@ def test_red_retry_exception_keeps_original_parse_error_without_raw_exception_te
 
     monkeypatch.setattr(harness_module, "_default_make_call", caller_factory)
     stage = HarnessStage()
-    stage._everyday_call = lambda call, *, injected: call
+    stage._everyday_call = lambda call, *, injected, limits=None: call
     result = _run(stage, _target(tmp_path, "# Clean skill\n"))
 
-    assert token_caps == [1600, 4096]
+    assert token_caps == [4096, 4096]
     assert len(red_prompts) == 2 and red_prompts[0] == red_prompts[1]
     assert result.metrics["coverage_incomplete"]
     assert "RuntimeError" in result.metrics["call_errors"][0]
@@ -550,4 +649,55 @@ def test_red_retry_exception_keeps_original_parse_error_without_raw_exception_te
     recovery = result.metrics["response_recoveries"][0]
     assert recovery["initial_error"] == "invalid_json"
     assert recovery["attempts"][0]["response_sha256"]
-    assert recovery["attempts"][1] == {"response_chars": 0, "error": "RuntimeError"}
+    assert recovery["attempts"][1]["response_chars"] == 0
+    assert recovery["attempts"][1]["error"] == "RuntimeError"
+    assert recovery["attempts"][1]["max_tokens"] == 4096
+    assert recovery["attempts"][1]["latency_s"] is not None
+    assert recovery["attempts"][1]["usage"] == {
+        "prompt_tokens": None,
+        "completion_tokens": None,
+    }
+
+
+def test_red_retry_preserves_safe_sdk_http_status_metadata(tmp_path, monkeypatch):
+    import fugu.pipeline.stages.harness as harness_module
+    from fugu.pipeline.stages.semantic import InferenceCallError
+
+    token_caps = []
+
+    def caller_factory(max_tokens=4096, **kwargs):
+        token_caps.append(max_tokens)
+        factory_call = len(token_caps)
+
+        def call(system_prompt, user_prompt):
+            if 'JSON only: {"probes"' not in system_prompt:
+                text = "A direct answer without unsafe behavior."
+                return text, JudgeCall("fake/blue", 0.01, 10, len(text), {})
+            if factory_call == 1:
+                text = "not json"
+                return text, JudgeCall("fake/red", 0.01, 10, len(text), {})
+            attempt = {
+                "requested_model": "fake/red",
+                "served_model": None,
+                "max_tokens": max_tokens,
+                "finish_reason": None,
+                "response_chars": 0,
+                "response_sha256": "empty-hash",
+                "error": "APIError HTTP 429",
+                "usage": {"prompt_tokens": None, "completion_tokens": None},
+                "latency_s": 0.25,
+            }
+            raise InferenceCallError("APIError HTTP 429", attempt)
+
+        return call
+
+    monkeypatch.setattr(harness_module, "_default_make_call", caller_factory)
+    stage = HarnessStage()
+    stage._everyday_call = lambda call, *, injected, limits=None: call
+    result = _run(stage, _target(tmp_path, "# Clean skill\n"))
+
+    assert token_caps == [4096, 4096]
+    retry_attempt = result.metrics["response_recoveries"][0]["attempts"][1]
+    assert retry_attempt["error"] == "APIError HTTP 429"
+    assert retry_attempt["latency_s"] == 0.25
+    assert "red retry failed: APIError HTTP 429" in result.metrics["call_errors"][0]

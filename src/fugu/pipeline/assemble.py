@@ -126,6 +126,7 @@ def run_audit(
                 include_detonation=include_detonation,
                 include_semantic=include_semantic,
                 include_harness=include_harness,
+                include_reputation=include_reputation,
             ),
         )
     )

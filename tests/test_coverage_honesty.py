@@ -81,10 +81,10 @@ def test_malformed_sibling_cannot_suppress_valid_severe_evidence(tmp_path, inval
 
 def test_semantic_unit_cap_is_explicit_partial_coverage(tmp_path):
     target = _target(tmp_path)
-    for i in range(9):
+    for i in range(24):
         (target / f"{i}.md").write_text("Ordinary file.")
     result = asyncio.run(SemanticStage(make_call=lambda *args: _reply('{"findings": []}')).run(AuditJob(id="cap", source=str(target)), target))
-    assert result.metrics["units_omitted"] == 2
+    assert result.metrics["units_omitted"] == 1
     assert aggregate_verdict([], [result])["coverage_caveats"]
 
 
@@ -229,6 +229,9 @@ def test_fanout_cap_and_coverage_survive_persistence_and_event_replay(tmp_path):
         assert verdict["status"] == "warn"
         assert verdict["omitted_units"] == 1
         assert any("1 skill unit" in c for c in verdict["coverage_caveats"])
+        assert any("two" in c and "omitted" in c for c in verdict["coverage_caveats"])
+        composition = next(result for result in store.get(job.id).stages if result.stage == "composition")
+        assert composition.metrics["omitted_unit_labels"] == ["two"]
         assert store.get(job.id).events[-1].data["verdict"] == verdict
         recovered = JobStore(store=db).get(job.id)
         assert recovered.events[-1].data["verdict"] == verdict
@@ -236,6 +239,40 @@ def test_fanout_cap_and_coverage_survive_persistence_and_event_replay(tmp_path):
         db.close()
 
     asyncio.run(scenario())
+
+
+@pytest.mark.parametrize(("override", "expected"), [(None, 24), ("1", 1), ("24", 24), ("0", 24), ("25", 24), ("oops", 24)])
+def test_auto_fanout_environment_limit_is_validated_and_never_exceeds_24(
+    override, expected, monkeypatch
+):
+    from fugu.server.composition_jobs import configured_auto_max_units
+
+    monkeypatch.delenv("FUGU_FANOUT_MAX", raising=False)
+    assert configured_auto_max_units(override) == expected
+
+
+def test_invalid_fanout_override_uses_safe_default_and_names_omitted_units(tmp_path, monkeypatch):
+    source = tmp_path / "many-skills"
+    source.mkdir()
+    for index in range(25):
+        unit = source / f"skill-{index:02}"
+        unit.mkdir()
+        (unit / "SKILL.md").write_text("ordinary")
+    monkeypatch.setenv("FUGU_FANOUT_MAX", "500")
+    store = JobStore()
+    job = AuditJob(id="invalid-fanout", source=str(source))
+    store.create(job)
+
+    asyncio.run(run_auto_job(job, str(source), [CoverageStage("skipped")], store))
+
+    composition = next(result for result in store.get(job.id).stages if result.stage == "composition")
+    verdict = store.get(job.id).events[-1].data["verdict"]
+    assert composition.metrics["fanout_max_units"] == 24
+    assert composition.metrics["fanout_override_valid"] is False
+    assert composition.metrics["omitted_units"] == 1
+    assert composition.metrics["omitted_unit_labels"] == ["skill-24"]
+    assert any("skill-24" in caveat and "fanout: omitted" in caveat for caveat in verdict["coverage_caveats"])
+    assert verdict["status"] == "warn"
 
 
 def test_parent_coverage_matches_http_sse_replay_after_restart(tmp_path):

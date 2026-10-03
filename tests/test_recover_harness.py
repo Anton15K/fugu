@@ -92,7 +92,7 @@ def test_actual_harness_reuses_probes_and_valid_arms(tmp_path):
             return raw,JudgeCall(model=model,latency_s=1,prompt_chars=len(system)+len(user),completion_chars=len(raw),usage={})
         return call
     class Original(HarnessStage):
-        def _everyday_call(self,call,*,injected):return capture('Super')
+        def _everyday_call(self,call,*,injected,limits=None):return capture('Super')
     job=AuditJob(id='offline',source=str(tmp_path),depth='full')
     initial=asyncio.run(Original(make_call=capture('Ultra')).run(job,tmp_path))
     assert initial.metrics['comparisons_completed']==11

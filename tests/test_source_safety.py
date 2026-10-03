@@ -74,14 +74,17 @@ def test_extraction_rejects_unsafe_local_source(tmp_path, kind):
 @pytest.mark.parametrize("source", ["https://example.test/repo.git", "https://github.com/example/repo/tree/main/skill"])
 def test_cloned_source_rejected_and_local_source_never_deleted(tmp_path, monkeypatch, source):
     target = _unsafe_source(tmp_path, "file")
+    clone_timeouts = []
 
-    async def fake_clone(source, dest, branch=None):
+    async def fake_clone(source, dest, branch=None, *, timeout_s):
+        clone_timeouts.append(timeout_s)
         dest.mkdir(parents=True, exist_ok=True)
         (dest / "SKILL.md").symlink_to(target / "SKILL.md")
 
     monkeypatch.setattr("fugu.server.jobs._git_clone", fake_clone)
     with pytest.raises(ExtractionError, match="symlink"):
         asyncio.run(extract_source(AuditJob(id="clone", source=source)))
+    assert clone_timeouts == [120]
     assert (target / "SKILL.md").exists()
 
 
