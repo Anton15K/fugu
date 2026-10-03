@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "data_release": "qitem-20261003121116-4ba56327",
+  "reviewed_commit": "7a6ed056e5e8e1ee2d220b6b7b7749fefa5eefe1",
+  "plan_sha256": "738c380aa2e3fcdb5910dfcecb0ee8f87a1acf065b8d396c22f0677d40084794",
+  "bootstrap_sha256": "6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd",
+  "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 uv run --no-sync python bench/results/2026-10-03-current-limits/partial-retry-cc58a58/bootstrap.py --approved-plan-sha256 738c380aa2e3fcdb5910dfcecb0ee8f87a1acf065b8d396c22f0677d40084794 --data-release-ref qitem-20261003121116-4ba56327",
+  "exit_code": 0,
+  "stdout": "738c380aa2e3fcdb5910dfcecb0ee8f87a1acf065b8d396c22f0677d40084794\n{'attempts': 29, 'complete': True, 'stop_reason': None}\n",
+  "aggregation_command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync python -m bench.current_limits_partial_retry aggregate --engine-root /tmp/fugu-continuation-engine-cc58a58",
+  "aggregation_exit_code": 0,
+  "accepted_offline_report_sha256": "3369baa10692db0b080e0cdabbf4ca55ea63ec74884684292c594501a028957a"
+}
