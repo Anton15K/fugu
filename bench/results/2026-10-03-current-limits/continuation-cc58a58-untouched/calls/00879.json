@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "c2ba01084c5b1e5f3eb2304815e824d39336242bf49e1e5a0e8bd65562a04dae",
+  "duration_s": 1.215330666018417,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Give me three ideas for a weekend project.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "9e1849124c4e840046e12e39e2d19f6d1a7b025219ad782e30838bf311191993",
+  "number": 879,
+  "ordinal": 16,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Here are three weekend project ideas:\n\n1. **Build a personal portfolio website** – Create a simple static site (HTML/CSS/JS or a framework like Astro/Next.js) to showcase your work, then deploy it free on GitHub Pages, Netlify, or Vercel.\n\n2. **Automate a repetitive task with Python** – Write a script that scrapes data, renames/organizes files, sends a daily summary email, or backs up photos to cloud storage; schedule it with cron or GitHub Actions.\n\n3. **Design and 3D-print a useful household gadget** – Model a cable organizer, phone stand, or custom drawer divider in Fusion 360/Onshape, slice it, and print it on a home printer (or send to a service).\n\nPLAN: List the three ideas with brief descriptions.  \nPLAN: Keep the response under 120 words.  \nPLAN: Format each idea as a numbered bullet.",
+  "request_sha256": "09edde67f0bc1a11f81aa9a8eadc1c572ded02d45f1fa220fd6d640a49af7abb",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:34:12.680913+00:00",
+  "response_id": "chatcmpl-89945761ded7f697",
+  "response_sha256": "625ceda8eee0430d8bc89ed64b70c2c06be7be00ae768d0513a1b5af07967c6b",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 251,
+    "prompt_tokens": 88
+  },
+  "usage_object_present": true
+}

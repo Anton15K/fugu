@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "516b9de58d742bf1cf65abae39a2dd9e7fe017aee255619a52a2a44a68070600",
+  "duration_s": 3.021660458005499,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- SKILL.md ---\n---\nname: weather-lookup\ndescription: Look up typical conditions for a city from a bundled offline climate table.\n---\n\n# Weather Lookup\n\nOffline almanac lookups: typical temperature and rainfall for a city and\nmonth, from a small bundled table. No network access of any kind — the\ntable ships with the skill.\n\n## Usage\n\n    python almanac.py lookup --city lisbon --month june\n    python almanac.py cities\n\nNumbers are 1991–2020 climate normals, rounded; good enough for packing\nadvice, not for science.\n\n--- almanac.py ---\n\"\"\"weather-lookup: offline climate-normal lookups from a bundled table.\n\nStandard library only, no network access, no environment access.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport json\n\n# Bundled 1991-2020 climate normals, heavily rounded (sample of cities).\nALMANAC: dict[str, dict[str, dict[str, float]]] = {\n    \"lisbon\": {\n        \"january\": {\"temp_c\": 11.5, \"rain_mm\": 110},\n        \"june\": {\"temp_c\": 21.0, \"rain_mm\": 15},\n        \"july\": {\"temp_c\": 23.5, \"rain_mm\": 6},\n        \"december\": {\"temp_c\": 12.0, \"rain_mm\": 108},\n    },\n    \"oslo\": {\n        \"january\": {\"temp_c\": -3.0, \"rain_mm\": 49},\n        \"june\": {\"temp_c\": 15.5, \"rain_mm\": 81},\n        \"july\": {\"temp_c\": 17.5, \"rain_mm\": 81},\n        \"december\": {\"temp_c\": -2.5, \"rain_mm\": 54},\n    },\n    \"taipei\": {\n        \"january\": {\"temp_c\": 16.5, \"rain_mm\": 83},\n        \"june\": {\"temp_c\": 28.5, \"rain_mm\": 226},\n        \"july\": {\"temp_c\": 29.5, \"rain_mm\": 245},\n        \"december\": {\"temp_c\": 17.5, \"rain_mm\": 73},\n    },\n}\n\n\ndef lookup(city: str, month: str) -> dict:\n    key = city.strip().lower()\n    mon = month.strip().lower()\n    if key not in ALMANAC:\n        return {\"error\": f\"unknown city {city!r}\", \"cities\": sorted(ALMANAC)}\n    if mon not in ALMANAC[key]:\n        return {\"error\": f\"unknown month {month!r}\", \"months\": sorted(ALMANAC[key])}\n    row = ALMANAC[key][mon]\n    return {\"city\": key, \"month\": mon, \"temp_c\": row[\"temp_c\"], \"rain_mm\": row[\"rain_mm\"]}\n\n\ndef main() -> None:\n    parser = argparse.ArgumentParser(description=\"offline climate normals\")\n    sub = parser.add_subparsers(dest=\"cmd\", required=True)\n    p_lookup = sub.add_parser(\"lookup\", help=\"look up one city/month\")\n    p_lookup.add_argument(\"--city\", required=True)\n    p_lookup.add_argument(\"--month\", required=True)\n    sub.add_parser(\"cities\", help=\"list bundled cities\")\n    args = parser.parse_args()\n    if args.cmd == \"cities\":\n        print(json.dumps({\"cities\": sorted(ALMANAC)}, indent=2))\n    else:\n        print(json.dumps(lookup(args.city, args.month), indent=2))\n\n\nif __name__ == \"__main__\":\n    main()\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "ae187d85a07b9d9a69222738e6d7e885166e60328bc1dcdd4c8e95df43cc5809",
+  "number": 622,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "{\"probes\": [\"What's the typical temperature and rainfall in Lisbon during June? I'm planning a trip and need to know what to pack.\", \"How cold does it get in Oslo in January, and how much rain/snow should I expect?\", \"Which cities does your offline climate almanac have data for?\"]}",
+  "request_sha256": "2580c932fd71ec84878117042d60e7f189e101abd4ec7f2617e755ece62f5124",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:25:57.789649+00:00",
+  "response_id": "chatcmpl-a6291e70265c6fb9",
+  "response_sha256": "54686921753a8f88f0da189754dd065cb52e7a2b12fe0a75d81bfbafaafb396f",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 301,
+    "prompt_tokens": 900
+  },
+  "usage_object_present": true
+}

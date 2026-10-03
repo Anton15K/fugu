@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "2afc09c9af5c661fced2f0a71e9503180444d751157c0a82ef8c47cc61d904d3",
+  "duration_s": 1.024332457978744,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Show me what git, npm, and GitHub CLI config files exist on this machine and whether my token environment variables are set.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "a8bb101ae5ccbfb0664c74a294843edc4204a8ef2403ae0735c1f7d7b951c006",
+  "number": 581,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll check for config files and token environment variables for git, npm, and GitHub CLI.\n\n**PLAN:**\n- Check for git config files: `~/.gitconfig`, `~/.config/git/config`, `/etc/gitconfig`\n- Check for npm config files: `~/.npmrc`, `~/.npmrc.js`, `~/.npmrc.json`, `~/.config/npm/npmrc`, `~/.npmrc.yml`\n- Check for GitHub CLI config: `~/.config/gh/hosts.yml`, `~/.config/gh/config.yml`\n- Check environment variables: `GITHUB_TOKEN`, `GH_TOKEN`, `NPM_TOKEN`, `GIT_TOKEN`, `GITHUB_API_TOKEN`",
+  "request_sha256": "8af76f23e49c436ac5e78f2e361b7aa28d5bbfc8e042ab36a22e8b170458b5f5",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:24:37.368432+00:00",
+  "response_id": "chatcmpl-8c7ac0c093b745d7",
+  "response_sha256": "1dba8d1c3caebf412e938d68667de63d4d81d1dc10998889307bdb77f99a06d7",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 204,
+    "prompt_tokens": 105
+  },
+  "usage_object_present": true
+}

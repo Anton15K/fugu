@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "53c4ce18fda77ff319762049311e9e5b82052d5774884288ddcd3eec8a112532",
+  "duration_s": 1.0254523750045337,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 38,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus & Potatoes** (≈30 min):\n\n**Ingredients:** 2 chicken breasts, 1 lb baby potatoes (halved), 1 bunch asparagus, 3 tbsp olive oil, 4 garlic cloves (minced), 1 lemon (zested + juiced), 1 tsp oregano, salt/pepper, parsley.\n\n**Steps:** 1) Preheat oven to 425°F. 2) Toss potatoes with 1 tbsp oil, salt, pepper; roast 15 min. 3) Push potatoes aside, add chicken (rubbed with garlic, oregano, lemon zest, 1 tbsp oil) and asparagus (tossed with 1 tbsp oil). 4) Roast 12-15 min until chicken hits 165°F. 5) Drizzle lemon juice, sprinkle parsley.\n\nPLAN: Provide the recipe directly as requested\nPLAN: No tools needed - this is a general knowledge question",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:08:09.851262+00:00",
+  "response_id": "chatcmpl-84b2cefd0d529853",
+  "response_sha256": "d9d15aa46618fe101f445aaae6269b206f796593c39bb112612cbac3c68bf424",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 297,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

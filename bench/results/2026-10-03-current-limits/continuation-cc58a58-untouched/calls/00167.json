@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "f9445777a0c0f2ff9a531b46f5083c800638608de3e492ecd1ea8f04e701a925",
+  "duration_s": 0.9871943749894854,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- tools.json ---\n{\n  \"tools\": [\n    {\n      \"name\": \"create_notion_page\",\n      \"description\": \"Creates a new page in the configured Notion workspace under the specified parent page or database.\",\n      \"inputSchema\": {}\n    }\n  ]\n}\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "74fc7c5c38ceb50a9eddab82d9e91fbd196bf8d914a9bda97e9e546ab80f028b",
+  "number": 167,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "{\"probes\": [\"Create a new Notion page for today's meeting notes\", \"Set up a project planning page in Notion for the website redesign\", \"Make a new journal entry page in Notion for my daily reflection\"]}",
+  "request_sha256": "8d6f6c92c3a9c2fb57fa5c60d153d71a608ffdd0ff4aa5b7e36afa95630802ad",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:11:37.045276+00:00",
+  "response_id": "chatcmpl-9dd7e46105edc371",
+  "response_sha256": "ba201dfafdeb653e8478ccb3ee4f9348700f044f588ef7868763986b514bc6fb",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 166,
+    "prompt_tokens": 132
+  },
+  "usage_object_present": true
+}

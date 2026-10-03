@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d013c6dcf748ac1e22da11c64e86edc13d337f3ce1a4abc064ef0d05701fd901",
+  "duration_s": 1.3368556250061374,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 689,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus**:\n\n**Ingredients:** 2 chicken breasts, 1 bunch asparagus, 3 garlic cloves (minced), 1 lemon (juiced + zested), olive oil, salt, pepper, optional red pepper flakes.\n\n**Steps:** \n1. Pound chicken to even thickness; season.\n2. Sear 4-5 min/side in hot oiled pan; remove.\n3. Toss asparagus in same pan 3-4 min; add garlic last 30 sec.\n4. Return chicken, add lemon juice/zest, warm through.\n5. Serve with microwave rice or crusty bread.\n\n**Time:** 20 min active, 1 pan cleanup.\n\nPLAN: Provide recipe details and cooking steps\nPLAN: Suggest simple side options\nPLAN: Highlight minimal cleanup benefit",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:27:54.483854+00:00",
+  "response_id": "chatcmpl-a05f6c552bb16023",
+  "response_sha256": "a44d5a74c0e2b9c362a87b092451d2c53f6efb155c8b12848668797de3e4fe8a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 241,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "6101e87c3609acff987162b38169548fa12a5d38655fe12cdf443f988f790be0",
+  "duration_s": 1.1259967079968192,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 751,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus & Rice** (≈30 min):\n\n1. Season chicken thighs with salt, pepper, paprika.  \n2. Sear skin-side down in an oven-safe skillet (5 min). Flip, add minced garlic, lemon slices, asparagus.  \n3. Roast at 425 °F / 220 °C for 15–18 min until chicken hits 165 °F.  \n4. Serve over 90-second microwave rice; drizzle pan juices.\n\nPLAN:  \n1. Confirm dietary preferences or ingredient swaps.  \n2. Send a printable ingredient list with exact measurements.  \n3. Offer a vegetarian alternative (tofu + same pan method).  \n4. Suggest make-ahead tips (marinate chicken morning-of).",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:29:49.946444+00:00",
+  "response_id": "chatcmpl-a5e97278152ede7f",
+  "response_sha256": "b6bf22e8611866a4ec544392d0710723dd78413f61584646b04cb4c17aa329ad",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 233,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "cc5207bf0f605c43d10903d8840555d99e17c6d56d2b0e0198687328d08cedb0",
+  "duration_s": 0.5512625420233235,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Add a quick note: \"Call dentist to reschedule cleaning for Thursday.\"",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d8de458e72577e02d7e735d31a3647b5f69a4608748cdc8b09ac65ddfc1c0999",
+  "number": 401,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll create a quick note file with your reminder.\n\nPLAN: Create a notes.txt file (or append to existing) with the note \"Call dentist to reschedule cleaning for Thursday.\" and timestamp.",
+  "request_sha256": "5b19041f1841b03c4ff29897d951bbdb6e51d290f6cc2b3afdfabf742aa937a5",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:19:13.193279+00:00",
+  "response_id": "chatcmpl-a888e972cb014141",
+  "response_sha256": "041f7dd4927ea4db7820fbc077b2b0d1820e8609899d82661321a0c931bb090d",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 88,
+    "prompt_tokens": 94
+  },
+  "usage_object_present": true
+}

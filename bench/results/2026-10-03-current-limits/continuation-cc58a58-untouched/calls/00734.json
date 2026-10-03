@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "6eb041f978a2b06d97eb5cffd2ace901a65f54c5f255e80919c097a31baff1c8",
+  "duration_s": 0.5331278749799822,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: How much disk space does the /home/user/documents folder use, and how many files are in it?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "5184d57fbf1d982c7b10b1acb332621255cafa0f695d06a7bf309bf87effe6c0",
+  "number": 734,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll check the disk usage and file count for /home/user/documents.\n\nPLAN: Run `du -sh /home/user/documents` to get human-readable disk usage\nPLAN: Run `find /home/user/documents -type f | wc -l` to count files\nPLAN: Present both results to the user",
+  "request_sha256": "8516e2700ee24040e99a00415ed585affa03e02896620cc0c22067f979c1dabb",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:29:14.379576+00:00",
+  "response_id": "chatcmpl-97d9e35f97b4aef3",
+  "response_sha256": "ca3612332bb0a6ef043226dd9c5a2cef0965de206a7cf7637e8b5f8345193508",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 123,
+    "prompt_tokens": 101
+  },
+  "usage_object_present": true
+}

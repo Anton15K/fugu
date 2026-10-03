@@ -1,0 +1,7 @@
+{
+  "failed_check_script_sha256": "2315a6e2c7e723767ed88c48d8835b7a90667ce8f06eed038f64c466ed74bf11",
+  "measured_files_changed": false,
+  "provider_requests": 0,
+  "reason": "The local verifier compared the saved served_models list with a counts dictionary. Saved models are unique identities; counts are independently reconstructed from numbered requests. Corrected the verifier comparison to sorted identity keys.",
+  "schema": 2
+}

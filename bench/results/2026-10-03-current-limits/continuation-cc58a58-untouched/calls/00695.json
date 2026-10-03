@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d013c6dcf748ac1e22da11c64e86edc13d337f3ce1a4abc064ef0d05701fd901",
+  "duration_s": 0.9340232079848647,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Convert 42 degrees Fahrenheit to Celsius.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d0c9ccd0daae9a31235a1dfd926e31992071472288ef400d6788f257e8bc1b45",
+  "number": 695,
+  "ordinal": 13,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "42°F is approximately 5.56°C (using the formula: °C = (°F - 32) × 5/9).\n\nPLAN: Apply the Fahrenheit to Celsius conversion formula: subtract 32 from 42, multiply by 5, then divide by 9.\nPLAN: Calculate (42 - 32) × 5/9 = 10 × 5/9 = 50/9 ≈ 5.56.\nPLAN: Present the result rounded to two decimal places.",
+  "request_sha256": "787e7ff80436a53436bb95bc9aee74bc8b933a33087bd7efb469f58a4fc631a7",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:28:05.206866+00:00",
+  "response_id": "chatcmpl-a0bcc2d634452527",
+  "response_sha256": "2c388288cde1a0d5a77d6e2afaef74e1ec7bb760af74fcb3ae77f1a4a2eb9faa",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 214,
+    "prompt_tokens": 90
+  },
+  "usage_object_present": true
+}

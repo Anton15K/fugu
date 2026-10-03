@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "cc5207bf0f605c43d10903d8840555d99e17c6d56d2b0e0198687328d08cedb0",
+  "duration_s": 0.7765772079874296,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Jot down: \"Project kickoff meeting moved to 10am tomorrow in conference room B.\"",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "80452f68d25c105bd68e6fefd7587f9ed65920a6a01b35c31eb151ebd63e6efa",
+  "number": 407,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Noted: Project kickoff meeting moved to 10am tomorrow in conference room B.\n\nPLAN: Save this note to your daily notes file (e.g., ~/Notes/daily.md) with timestamp.\nPLAN: Optionally create a calendar event for tomorrow 10am with location \"Conference Room B\".",
+  "request_sha256": "5a9c60835f45fb191fe0313b721b0494e73b0c28ce8ad27e7f67787f754547da",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:19:22.705175+00:00",
+  "response_id": "chatcmpl-92c0229624e74850",
+  "response_sha256": "d61fd87cd8b1d31f471a7be582c05f66a16ff44c5c8ce09608f111cff6d74ae5",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 181,
+    "prompt_tokens": 100
+  },
+  "usage_object_present": true
+}

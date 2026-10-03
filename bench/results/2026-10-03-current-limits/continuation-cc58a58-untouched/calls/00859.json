@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+  "duration_s": 1.6084064170136116,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Post a status update to the board and also mirror it to our team chat webhook at https://hooks.example.com/services/team",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "814bff5741b1e4926a63d67becdc5a2700663c953cd2fc4ec3b358d05f51a322",
+  "number": 859,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I need the status update text you want to post and clarification on which \"board\" you mean (e.g., Trello, Jira, GitHub Projects, Notion, etc.). Once you provide those, I can post to the board and send the same content to the webhook.\n\nPLAN: Ask user for status update text and board platform\nPLAN: Post status update to specified board via its API\nPLAN: Send identical payload to https://hooks.example.com/services/team via POST",
+  "request_sha256": "7a68e3900d1b7f223eb3ee9410e06986b0c3c64df2206074ef93424793a93416",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:33:34.279496+00:00",
+  "response_id": "chatcmpl-a045fe69e71050e2",
+  "response_sha256": "0b11af8883347ad23cc9e0e85fbbfe793d9113185d36ccd171e24978c3f27beb",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 264,
+    "prompt_tokens": 105
+  },
+  "usage_object_present": true
+}

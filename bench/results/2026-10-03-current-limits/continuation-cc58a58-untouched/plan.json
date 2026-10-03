@@ -1,0 +1,1584 @@
+{
+  "allowed_contexts": {
+    "05860fe1a9d886facd3adc9f53e61ac0799ae65f149e8b53db11e647487735ab": "remainder",
+    "13a5d17571310755a54fddd5ee364bad9967df473dbf2357fed7739cb3e9625a": "remainder",
+    "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242": "remainder",
+    "201b02dc6efb2646111e3ec7f7480612454753f6b4ba9b5cb107a6da23de46db": "common20",
+    "234babbf3401db699413b03b4e460c145dc1f04719613227b3ea52d5ba0a3f75": "remainder",
+    "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee": "remainder",
+    "261d09306ba7e53a064d867b2a67cf3b6bac96c48ef33a96c2806f31318bf50f": "remainder",
+    "2afc09c9af5c661fced2f0a71e9503180444d751157c0a82ef8c47cc61d904d3": "remainder",
+    "33dfe226e890358b8afdb49dd97fb1bcb5e2246417b7e94fc0095513281af3be": "common20",
+    "45b2d0ec8260f2a0a7b84af69e75d89399763fccd64391ced78b870f34bc603a": "common20",
+    "49271a62f9b749be67a14aac27be798c65269b727f71729e4a4065964b6cd85d": "remainder",
+    "4d39a188e3a5009ea35d689adc993a68023026265681383e0113303c3a48d0ed": "common20",
+    "516b9de58d742bf1cf65abae39a2dd9e7fe017aee255619a52a2a44a68070600": "remainder",
+    "53c4ce18fda77ff319762049311e9e5b82052d5774884288ddcd3eec8a112532": "common20",
+    "56cedea14c61c527fb7d3342817e590a90e0d29b4333d66d3f3651a190297abd": "remainder",
+    "59b18b9db2412dddbda6a1c0e9c211f8ae60329cb91a11cfc7787862dbb6fbab": "remainder",
+    "5f46c5e28fb4bd2d5f543976ed7e806a1567dd7044da34d5dbc0433e917ded2d": "remainder",
+    "6101e87c3609acff987162b38169548fa12a5d38655fe12cdf443f988f790be0": "remainder",
+    "6eb041f978a2b06d97eb5cffd2ace901a65f54c5f255e80919c097a31baff1c8": "remainder",
+    "81168043b34fec13685376b2ae09cfcaca3f19ac971dfd3162a4a5419f24b054": "common20",
+    "8a621e9f838ffd508287a85501110e5bfb434d8a8ca1acbacd7e9345d617f7fb": "remainder",
+    "9a335b49f28568430a115a947526c3b2c2ffd6f48e42a4e9509ea5784a0f8927": "remainder",
+    "9efc9da1997f3b864a1167a5114357074196dadf3d3e68fbed5d651d61beb371": "remainder",
+    "c2ba01084c5b1e5f3eb2304815e824d39336242bf49e1e5a0e8bd65562a04dae": "remainder",
+    "cc5207bf0f605c43d10903d8840555d99e17c6d56d2b0e0198687328d08cedb0": "remainder",
+    "d013c6dcf748ac1e22da11c64e86edc13d337f3ce1a4abc064ef0d05701fd901": "remainder",
+    "d48f85c2321f55f85186987d1f54ee6eba1b2c10b65cf8ba875427970bf0d63c": "remainder",
+    "d6a1d26f31bc9282ee018b04b733b9d84e5ff8ae8a3d2cc48e5d2b22c2474bc7": "remainder",
+    "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392": "remainder",
+    "edb6a84becfdcfcfdc7a711a347ea4ba3cfc58250289eee5db559150034b2703": "remainder",
+    "ef299b717b81112df7729e3644a3bb827b255f2f1b4d5babba59e78fb25ed72e": "remainder",
+    "f9445777a0c0f2ff9a531b46f5083c800638608de3e492ecd1ea8f04e701a925": "common20"
+  },
+  "attempt_limit": 1316,
+  "capabilities_excluded": [
+    "detonation",
+    "reputation",
+    "fresh comparator execution"
+  ],
+  "cases_sha256": "487c73a243a806b08d5700bb9cd9f896b33e244b1e09c9427a7e7de7f9afd5fd",
+  "child_directory": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched",
+  "continuation_sha256": "c3b895fcdc441b62fa9c72e0cbc721508d4a5cd8884728d52db68d4c79dc7203",
+  "created_utc": "2026-10-03T07:04:03.258403+00:00",
+  "cumulative_limit": 1900,
+  "cumulative_phase_limits": {
+    "common20": 800,
+    "remainder": 1100
+  },
+  "engine": {
+    "commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+    "hashes": {
+      "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+      "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+      "src/fugu/client.py": "9dc387ab39360eb0c2080e8f189a11fc64499f13d37f84bb3969ba55319fb2c8",
+      "src/fugu/config.py": "ae0c8a899d86132b9c1890c0f26b90205d717f00e9eadad4490208531ad15388",
+      "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+      "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+      "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+      "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+      "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+      "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+      "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+      "src/fugu/detonation/docker_driver.py": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193",
+      "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+      "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+      "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+      "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+      "src/fugu/pipeline/assemble.py": "9e1dd726263d3ff365944020359644290610178c678f4f4d8fee6b6ce136e8a9",
+      "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+      "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+      "src/fugu/pipeline/stages/composition.py": "1ae70d0dc84e79d127f8fbdd5b53b2b040bc668d5344ddda62b7d0032c00a7d1",
+      "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+      "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+      "src/fugu/pipeline/stages/harness.py": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5",
+      "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+      "src/fugu/pipeline/stages/semantic.py": "8174296257387d2b48bb88b1ffe97e776c1d6cfccf6182d3d46625e510e7b26c",
+      "src/fugu/pipeline/stages/static_scan.py": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9",
+      "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+      "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+      "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+      "src/fugu/server/composition_jobs.py": "504ccb83bac64c05f153527c0ca4043d6ebb05f2aff281cf18ceb7ee1a3e06ae",
+      "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+      "src/fugu/server/jobs.py": "4bf9d679c36facf99c7b99547a6b76a67edbe050a6f7b0c5186a4375260e6ee6",
+      "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+      "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+      "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb",
+      "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+      "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+    },
+    "scope": "Checked current production defaults; live authority requires accepted independent review and explicit lead data-phase grant"
+  },
+  "execution_authorized": false,
+  "live_authority": "Exact independent review and authenticated separate lead data row required",
+  "native_retry_maximum": 370,
+  "original_case_manifest_sha256": "f9b31035908d217a822079dd190c4d5797f86646c65f01c2e06b1f57ae3e91b1",
+  "parent_attempts": 359,
+  "parent_inventory_sha256": "63240327fc6adf050b6cefbd0340f1fb6c16700c48551bc12548b071a057783e",
+  "parent_plan_sha256": "8f304c3da81e0db091da6e2c324c064d013129d63644b278079c4cf8ad9ef725",
+  "parent_result_sha256": "708623e0fac256a4cb2810bdddc2875ba22a1ad3b16bbdb7ed39324821d3b987",
+  "phase_bounds": {
+    "common20": {
+      "maximum": 280,
+      "native_retries": 77,
+      "primary": 203,
+      "semantic_units": 7,
+      "unique_audits": 7
+    },
+    "remainder": {
+      "maximum": 1036,
+      "native_retries": 293,
+      "primary": 743,
+      "semantic_units": 43,
+      "unique_audits": 25
+    }
+  },
+  "phase_limits": {
+    "common20": 280,
+    "remainder": 1036
+  },
+  "preflight": {
+    "context_count": 41,
+    "contexts": [
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "mcptox/mcp-simple-arxiv_1",
+        "fingerprint": "33dfe226e890358b8afdb49dd97fb1bcb5e2246417b7e94fc0095513281af3be",
+        "input_sha256": {
+          "tools.json": "02c8789905ae62c5da0eafdddb539b7a48818786136566fd030fcca5265ca35f"
+        },
+        "maximum_unit_chars": 265,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "mcptox/AmapMap_1",
+        "fingerprint": "53c4ce18fda77ff319762049311e9e5b82052d5774884288ddcd3eec8a112532",
+        "input_sha256": {
+          "tools.json": "eaf4450ac0fef6ff02a936c5d4b1ea1ab5ad6901b83ec30dfc0ce90d39d77364"
+        },
+        "maximum_unit_chars": 526,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/send_email",
+        "fingerprint": "201b02dc6efb2646111e3ec7f7480612454753f6b4ba9b5cb107a6da23de46db",
+        "input_sha256": {
+          "tools.json": "4e66f79a2659a987fd0e9554d6c1bc24faadd14be08a7e8e58c0c9cc687db3df"
+        },
+        "maximum_unit_chars": 188,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/get_calendar_events",
+        "fingerprint": "45b2d0ec8260f2a0a7b84af69e75d89399763fccd64391ced78b870f34bc603a",
+        "input_sha256": {
+          "tools.json": "7d3ede1875a92b19d04748b269ae08d05eed195beefa549a1babde2861ab6f15"
+        },
+        "maximum_unit_chars": 190,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/read_file",
+        "fingerprint": "4d39a188e3a5009ea35d689adc993a68023026265681383e0113303c3a48d0ed",
+        "input_sha256": {
+          "tools.json": "a32ccb192e4cbc31d25d20dc588b005aa5bcea2e9415235c86714831f0556d01"
+        },
+        "maximum_unit_chars": 221,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/translate_text",
+        "fingerprint": "81168043b34fec13685376b2ae09cfcaca3f19ac971dfd3162a4a5419f24b054",
+        "input_sha256": {
+          "tools.json": "97698dc431e4515c3a73da4280db55b3127d686df56d5c83d22f030931b06991"
+        },
+        "maximum_unit_chars": 215,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/create_notion_page",
+        "fingerprint": "f9445777a0c0f2ff9a531b46f5083c800638608de3e492ecd1ea8f04e701a925",
+        "input_sha256": {
+          "tools.json": "0a7a2b025510ab3ecf985b6f60b8f162d84e3e6b54ceb22c0ae1f0431caae80a"
+        },
+        "maximum_unit_chars": 216,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/01-hidden-instructions-skill",
+        "fingerprint": "59b18b9db2412dddbda6a1c0e9c211f8ae60329cb91a11cfc7787862dbb6fbab",
+        "input_sha256": {
+          "SKILL.md": "7a1d1c6bf71a954067243cb83ebf62f0a928e1978638683989c39b7301d62ae7"
+        },
+        "maximum_unit_chars": 856,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/02-unicode-smuggled-skill",
+        "fingerprint": "5f46c5e28fb4bd2d5f543976ed7e806a1567dd7044da34d5dbc0433e917ded2d",
+        "input_sha256": {
+          "SKILL.md": "c1995360641e6b823f373dc6484c9c51b96c67307df20d8c279b36f3b052053f"
+        },
+        "maximum_unit_chars": 456,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/03-env-harvest-installer",
+        "fingerprint": "234babbf3401db699413b03b4e460c145dc1f04719613227b3ea52d5ba0a3f75",
+        "input_sha256": {
+          "install.sh": "0b50a457250bb09c30a35ef0a7892a42af3bcbb82491f02fb3520bbff109ac50"
+        },
+        "maximum_unit_chars": 1242,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/04-credential-reader",
+        "fingerprint": "05860fe1a9d886facd3adc9f53e61ac0799ae65f149e8b53db11e647487735ab",
+        "input_sha256": {
+          "skill.py": "59d65efa0151ca764ab6342f2b60470284ddafc434245cf6056fb420ab26e17b"
+        },
+        "maximum_unit_chars": 1806,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/05-obfuscated-payload",
+        "fingerprint": "d48f85c2321f55f85186987d1f54ee6eba1b2c10b65cf8ba875427970bf0d63c",
+        "input_sha256": {
+          "update_check.py": "7499165f8d97e0edb4e5a3fe7d9c8976710afef88b7dcbabf984dde72e29c647"
+        },
+        "maximum_unit_chars": 728,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/06-rugpull-pair",
+        "fingerprint": "13a5d17571310755a54fddd5ee364bad9967df473dbf2357fed7739cb3e9625a",
+        "input_sha256": {
+          "v1/server.py": "3d0733a86922b9a74814efedc6233dd104c2a0feff73e4bbd087544f3c98b8ad",
+          "v2/server.py": "dabec67e27b65729c9aeb0baacc60bc88f2725b19aa5fc42d7e8938c371965f5"
+        },
+        "maximum_unit_chars": 2837,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/07-clean-skill",
+        "fingerprint": "49271a62f9b749be67a14aac27be798c65269b727f71729e4a4065964b6cd85d",
+        "input_sha256": {
+          "SKILL.md": "9488bea10288eb2ee5a6aabfb42a3ee893919d0f4b256e48b05bd9c8814e5b02"
+        },
+        "maximum_unit_chars": 944,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/08-clean-mcp-server",
+        "fingerprint": "cc5207bf0f605c43d10903d8840555d99e17c6d56d2b0e0198687328d08cedb0",
+        "input_sha256": {
+          "server.py": "ec9663889b51a3ed5d45b918f218a3f520c740d15c28ea2ba3f2a0cf3d0d5066"
+        },
+        "maximum_unit_chars": 2876,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/09-clean-installer",
+        "fingerprint": "9efc9da1997f3b864a1167a5114357074196dadf3d3e68fbed5d651d61beb371",
+        "input_sha256": {
+          "csv_tidy.py": "4e23e305b7356f25cd0f076eba32c27413298b7386c15b76bccaab087462a936",
+          "install.sh": "9bd4e8cc00b478d476f588320ce327fe48c7932af3427aadf0d230fe5e03de91"
+        },
+        "maximum_unit_chars": 1929,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/10-clean-node-skill",
+        "fingerprint": "8a621e9f838ffd508287a85501110e5bfb434d8a8ca1acbacd7e9345d617f7fb",
+        "input_sha256": {
+          "index.js": "343efe0a389c485d981d9fc96c6955300db5c9f7aa981006a4a3bff30728bb28",
+          "package.json": "49913d2d5b24e49effc38af1d5500e636c11bab5064114646ed3505759f893e7"
+        },
+        "maximum_unit_chars": 1770,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/11-readme-install-exfil",
+        "fingerprint": "56cedea14c61c527fb7d3342817e590a90e0d29b4333d66d3f3651a190297abd",
+        "input_sha256": {
+          "README.md": "1ae31e726ff4ef6abab421cb09c47a6ab54ded4132ad39b4ae1fadfaa5f0782d",
+          "SKILL.md": "9013eca8a3277dfbe0ad4e9c0ade82d164c8ece6561626692d789c3a2e8c3541"
+        },
+        "maximum_unit_chars": 374,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-ingress-egress/feed-watch",
+        "fingerprint": "ef299b717b81112df7729e3644a3bb827b255f2f1b4d5babba59e78fb25ed72e",
+        "input_sha256": {
+          "SKILL.md": "29ef489657f736c274767a5ceb3e36d7d40c759607e59b9d665d28c473688b13",
+          "feed_watch.py": "dac7990a5d58c53fe83988e1ded41cfdeaeb6a0f5d4426c8e232d017eabd5c68"
+        },
+        "maximum_unit_chars": 2498,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-ingress-egress/deploy-notify",
+        "fingerprint": "d6a1d26f31bc9282ee018b04b733b9d84e5ff8ae8a3d2cc48e5d2b22c2474bc7",
+        "input_sha256": {
+          "SKILL.md": "766c8974ae14bd82b7e3ef4e59f79428709624b999fe7a8a823bc304f9475910",
+          "notify.sh": "dc82a16195ea25f512e56405beb6a72740cfc1ebf15ee820de767aa5b03a0b88"
+        },
+        "maximum_unit_chars": 596,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-private-egress/config-lookup",
+        "fingerprint": "2afc09c9af5c661fced2f0a71e9503180444d751157c0a82ef8c47cc61d904d3",
+        "input_sha256": {
+          "SKILL.md": "5ecfb84f35bd04e031fed8cea64a679d479a978b4f2e721ff632c85082f57f9a",
+          "inventory.py": "5b6cb1b3216eb5e038f8a0a30e662cbb264601c0d048878ce8e5201120de1e0c"
+        },
+        "maximum_unit_chars": 1186,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-private-egress/deploy-notify",
+        "fingerprint": "d6a1d26f31bc9282ee018b04b733b9d84e5ff8ae8a3d2cc48e5d2b22c2474bc7",
+        "input_sha256": {
+          "SKILL.md": "766c8974ae14bd82b7e3ef4e59f79428709624b999fe7a8a823bc304f9475910",
+          "notify.sh": "dc82a16195ea25f512e56405beb6a72740cfc1ebf15ee820de767aa5b03a0b88"
+        },
+        "maximum_unit_chars": 596,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-self-sufficient/workspace-sync",
+        "fingerprint": "edb6a84becfdcfcfdc7a711a347ea4ba3cfc58250289eee5db559150034b2703",
+        "input_sha256": {
+          "SKILL.md": "435019e02cb3ef6daaa064c55eeb75e430d9a3730c2a565cadd36a0c82b556e7",
+          "workspace_sync.py": "f13db6be55ead439dd3b5157d504172fe7e29be86dd1942537a8a5dce4c6821f"
+        },
+        "maximum_unit_chars": 1952,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-self-sufficient/weather-lookup",
+        "fingerprint": "516b9de58d742bf1cf65abae39a2dd9e7fe017aee255619a52a2a44a68070600",
+        "input_sha256": {
+          "SKILL.md": "b12169310311bcb246088119316393a57ad45509ef2c8f98d26e110854a4a64d",
+          "almanac.py": "eb2fa0da71479f98ebd290ef7521f9ff90281f12b4cd79db918c105797aa99b0"
+        },
+        "maximum_unit_chars": 2092,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-self-sufficient/unit-convert",
+        "fingerprint": "261d09306ba7e53a064d867b2a67cf3b6bac96c48ef33a96c2806f31318bf50f",
+        "input_sha256": {
+          "SKILL.md": "50c102d620402a74679b02ebe68e14a3ceecf3ffcd62961a9ebe467a7fc2f574",
+          "convert.py": "95e11140bd9d93aa776c4986373aadedc931432e263ad00a1eb6bfdc2387475d"
+        },
+        "maximum_unit_chars": 1582,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/shadow-pair/filesystem",
+        "fingerprint": "d013c6dcf748ac1e22da11c64e86edc13d337f3ce1a4abc064ef0d05701fd901",
+        "input_sha256": {
+          "SKILL.md": "52532a974a32d1e11c07d854c38aadaa2cb9e413f661c361fc60c6a295a92083",
+          "server.py": "7fe17362244a874869c80102d304199b7f2ab256a8f5c540aa9f93a2b3414328"
+        },
+        "maximum_unit_chars": 2678,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/shadow-pair/filesystem-enhanced",
+        "fingerprint": "6eb041f978a2b06d97eb5cffd2ace901a65f54c5f255e80919c097a31baff1c8",
+        "input_sha256": {
+          "SKILL.md": "aca48a255ed1e1c51c6cc613cf941243c862f336bcae2e5315f07e967590e98e",
+          "server.py": "a8b3eae1791b8a3d8d51b38165f3c817d0ab621a215d6798901fbdc7ddc60056"
+        },
+        "maximum_unit_chars": 4665,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 4,
+          "files_seen": 4,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/shadow-pair/help-docs",
+        "fingerprint": "6101e87c3609acff987162b38169548fa12a5d38655fe12cdf443f988f790be0",
+        "input_sha256": {
+          "SKILL.md": "2ed7af002fea9b237e7292e0d5d7fe3db7aa49d94906f2f4a03cf7164e0cec99",
+          "docs/faq.md": "81135bec953f436e4cdab0edffc40d524d20076890737f616eefeefaea517cc6",
+          "docs/shortcuts.md": "a4471a0251f99ba6a6f5e5d96549ed48c4fc8b115d6a6932908858e5d92a00bf",
+          "server.py": "58911fc0e9ff6882efe25da076be0559ed88dcbb3b5884635757fb011d84d741"
+        },
+        "maximum_unit_chars": 3051,
+        "semantic_units": 4
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-canonical/web-digest",
+        "fingerprint": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+        "input_sha256": {
+          "SKILL.md": "7af5de42efabecc6ceb9cbdb41454ddf98a47d3d4777f74492f7bc931b95188a",
+          "server.py": "4eb33790cf4fcdd592e6b2ffa1d204f71f81e5c93c30018a06a0c4d766759d76"
+        },
+        "maximum_unit_chars": 3319,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-canonical/notes-lookup",
+        "fingerprint": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+        "input_sha256": {
+          "SKILL.md": "99cc5061111f0042fb1ace73c18ec35e7ce8b5c355dc3c7d90167235993de072",
+          "server.py": "cdfdbe9b46992e4442da2284d29f3bc2028d85fd8eb9f7e24ac4974bab823b02"
+        },
+        "maximum_unit_chars": 3714,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-canonical/status-poster",
+        "fingerprint": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+        "input_sha256": {
+          "SKILL.md": "830409cdb891e3669b8e9bdf2c6b3d63a3347f35cced80aabb47f4b3732bdf90",
+          "post_status.sh": "0764879ea242a442154a4247bbe3bf79f1ceb4fef8a33f9a5e851dbf0c73f134"
+        },
+        "maximum_unit_chars": 1078,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-diluted/web-digest",
+        "fingerprint": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+        "input_sha256": {
+          "SKILL.md": "7af5de42efabecc6ceb9cbdb41454ddf98a47d3d4777f74492f7bc931b95188a",
+          "server.py": "4eb33790cf4fcdd592e6b2ffa1d204f71f81e5c93c30018a06a0c4d766759d76"
+        },
+        "maximum_unit_chars": 3319,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-diluted/notes-lookup",
+        "fingerprint": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+        "input_sha256": {
+          "SKILL.md": "99cc5061111f0042fb1ace73c18ec35e7ce8b5c355dc3c7d90167235993de072",
+          "server.py": "cdfdbe9b46992e4442da2284d29f3bc2028d85fd8eb9f7e24ac4974bab823b02"
+        },
+        "maximum_unit_chars": 3714,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-diluted/status-poster",
+        "fingerprint": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+        "input_sha256": {
+          "SKILL.md": "830409cdb891e3669b8e9bdf2c6b3d63a3347f35cced80aabb47f4b3732bdf90",
+          "post_status.sh": "0764879ea242a442154a4247bbe3bf79f1ceb4fef8a33f9a5e851dbf0c73f134"
+        },
+        "maximum_unit_chars": 1078,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-diluted/weather-lookup",
+        "fingerprint": "516b9de58d742bf1cf65abae39a2dd9e7fe017aee255619a52a2a44a68070600",
+        "input_sha256": {
+          "SKILL.md": "b12169310311bcb246088119316393a57ad45509ef2c8f98d26e110854a4a64d",
+          "almanac.py": "eb2fa0da71479f98ebd290ef7521f9ff90281f12b4cd79db918c105797aa99b0"
+        },
+        "maximum_unit_chars": 2092,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-diluted/unit-convert",
+        "fingerprint": "261d09306ba7e53a064d867b2a67cf3b6bac96c48ef33a96c2806f31318bf50f",
+        "input_sha256": {
+          "SKILL.md": "50c102d620402a74679b02ebe68e14a3ceecf3ffcd62961a9ebe467a7fc2f574",
+          "convert.py": "95e11140bd9d93aa776c4986373aadedc931432e263ad00a1eb6bfdc2387475d"
+        },
+        "maximum_unit_chars": 1582,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-shuffled/status-poster",
+        "fingerprint": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+        "input_sha256": {
+          "SKILL.md": "830409cdb891e3669b8e9bdf2c6b3d63a3347f35cced80aabb47f4b3732bdf90",
+          "post_status.sh": "0764879ea242a442154a4247bbe3bf79f1ceb4fef8a33f9a5e851dbf0c73f134"
+        },
+        "maximum_unit_chars": 1078,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-shuffled/web-digest",
+        "fingerprint": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+        "input_sha256": {
+          "SKILL.md": "7af5de42efabecc6ceb9cbdb41454ddf98a47d3d4777f74492f7bc931b95188a",
+          "server.py": "4eb33790cf4fcdd592e6b2ffa1d204f71f81e5c93c30018a06a0c4d766759d76"
+        },
+        "maximum_unit_chars": 3319,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-shuffled/notes-lookup",
+        "fingerprint": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+        "input_sha256": {
+          "SKILL.md": "99cc5061111f0042fb1ace73c18ec35e7ce8b5c355dc3c7d90167235993de072",
+          "server.py": "cdfdbe9b46992e4442da2284d29f3bc2028d85fd8eb9f7e24ac4974bab823b02"
+        },
+        "maximum_unit_chars": 3714,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "reputation/requests-2.19.1",
+        "fingerprint": "c2ba01084c5b1e5f3eb2304815e824d39336242bf49e1e5a0e8bd65562a04dae",
+        "input_sha256": {
+          "pyproject.toml": "0b112895a5e15468203af621352f1ea0327e1234a8dcc2fed51a40947c15b532"
+        },
+        "maximum_unit_chars": 99,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "reputation/requests-2.32.5",
+        "fingerprint": "9a335b49f28568430a115a947526c3b2c2ffd6f48e42a4e9509ea5784a0f8927",
+        "input_sha256": {
+          "pyproject.toml": "0dea75d7edd680252eb8873e57e909e8493c65c3ce793c1f7a3cacef1c84ed72"
+        },
+        "maximum_unit_chars": 99,
+        "semantic_units": 1
+      }
+    ],
+    "semantic_primary_units": 50,
+    "unique_audit_count": 32,
+    "unique_audits": [
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "mcptox/mcp-simple-arxiv_1",
+        "fingerprint": "33dfe226e890358b8afdb49dd97fb1bcb5e2246417b7e94fc0095513281af3be",
+        "input_sha256": {
+          "tools.json": "02c8789905ae62c5da0eafdddb539b7a48818786136566fd030fcca5265ca35f"
+        },
+        "maximum_unit_chars": 265,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "mcptox/AmapMap_1",
+        "fingerprint": "53c4ce18fda77ff319762049311e9e5b82052d5774884288ddcd3eec8a112532",
+        "input_sha256": {
+          "tools.json": "eaf4450ac0fef6ff02a936c5d4b1ea1ab5ad6901b83ec30dfc0ce90d39d77364"
+        },
+        "maximum_unit_chars": 526,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/send_email",
+        "fingerprint": "201b02dc6efb2646111e3ec7f7480612454753f6b4ba9b5cb107a6da23de46db",
+        "input_sha256": {
+          "tools.json": "4e66f79a2659a987fd0e9554d6c1bc24faadd14be08a7e8e58c0c9cc687db3df"
+        },
+        "maximum_unit_chars": 188,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/get_calendar_events",
+        "fingerprint": "45b2d0ec8260f2a0a7b84af69e75d89399763fccd64391ced78b870f34bc603a",
+        "input_sha256": {
+          "tools.json": "7d3ede1875a92b19d04748b269ae08d05eed195beefa549a1babde2861ab6f15"
+        },
+        "maximum_unit_chars": 190,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/read_file",
+        "fingerprint": "4d39a188e3a5009ea35d689adc993a68023026265681383e0113303c3a48d0ed",
+        "input_sha256": {
+          "tools.json": "a32ccb192e4cbc31d25d20dc588b005aa5bcea2e9415235c86714831f0556d01"
+        },
+        "maximum_unit_chars": 221,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/translate_text",
+        "fingerprint": "81168043b34fec13685376b2ae09cfcaca3f19ac971dfd3162a4a5419f24b054",
+        "input_sha256": {
+          "tools.json": "97698dc431e4515c3a73da4280db55b3127d686df56d5c83d22f030931b06991"
+        },
+        "maximum_unit_chars": 215,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "clean/create_notion_page",
+        "fingerprint": "f9445777a0c0f2ff9a531b46f5083c800638608de3e492ecd1ea8f04e701a925",
+        "input_sha256": {
+          "tools.json": "0a7a2b025510ab3ecf985b6f60b8f162d84e3e6b54ceb22c0ae1f0431caae80a"
+        },
+        "maximum_unit_chars": 216,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/01-hidden-instructions-skill",
+        "fingerprint": "59b18b9db2412dddbda6a1c0e9c211f8ae60329cb91a11cfc7787862dbb6fbab",
+        "input_sha256": {
+          "SKILL.md": "7a1d1c6bf71a954067243cb83ebf62f0a928e1978638683989c39b7301d62ae7"
+        },
+        "maximum_unit_chars": 856,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/02-unicode-smuggled-skill",
+        "fingerprint": "5f46c5e28fb4bd2d5f543976ed7e806a1567dd7044da34d5dbc0433e917ded2d",
+        "input_sha256": {
+          "SKILL.md": "c1995360641e6b823f373dc6484c9c51b96c67307df20d8c279b36f3b052053f"
+        },
+        "maximum_unit_chars": 456,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/03-env-harvest-installer",
+        "fingerprint": "234babbf3401db699413b03b4e460c145dc1f04719613227b3ea52d5ba0a3f75",
+        "input_sha256": {
+          "install.sh": "0b50a457250bb09c30a35ef0a7892a42af3bcbb82491f02fb3520bbff109ac50"
+        },
+        "maximum_unit_chars": 1242,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/04-credential-reader",
+        "fingerprint": "05860fe1a9d886facd3adc9f53e61ac0799ae65f149e8b53db11e647487735ab",
+        "input_sha256": {
+          "skill.py": "59d65efa0151ca764ab6342f2b60470284ddafc434245cf6056fb420ab26e17b"
+        },
+        "maximum_unit_chars": 1806,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/05-obfuscated-payload",
+        "fingerprint": "d48f85c2321f55f85186987d1f54ee6eba1b2c10b65cf8ba875427970bf0d63c",
+        "input_sha256": {
+          "update_check.py": "7499165f8d97e0edb4e5a3fe7d9c8976710afef88b7dcbabf984dde72e29c647"
+        },
+        "maximum_unit_chars": 728,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/06-rugpull-pair",
+        "fingerprint": "13a5d17571310755a54fddd5ee364bad9967df473dbf2357fed7739cb3e9625a",
+        "input_sha256": {
+          "v1/server.py": "3d0733a86922b9a74814efedc6233dd104c2a0feff73e4bbd087544f3c98b8ad",
+          "v2/server.py": "dabec67e27b65729c9aeb0baacc60bc88f2725b19aa5fc42d7e8938c371965f5"
+        },
+        "maximum_unit_chars": 2837,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/07-clean-skill",
+        "fingerprint": "49271a62f9b749be67a14aac27be798c65269b727f71729e4a4065964b6cd85d",
+        "input_sha256": {
+          "SKILL.md": "9488bea10288eb2ee5a6aabfb42a3ee893919d0f4b256e48b05bd9c8814e5b02"
+        },
+        "maximum_unit_chars": 944,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/08-clean-mcp-server",
+        "fingerprint": "cc5207bf0f605c43d10903d8840555d99e17c6d56d2b0e0198687328d08cedb0",
+        "input_sha256": {
+          "server.py": "ec9663889b51a3ed5d45b918f218a3f520c740d15c28ea2ba3f2a0cf3d0d5066"
+        },
+        "maximum_unit_chars": 2876,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/09-clean-installer",
+        "fingerprint": "9efc9da1997f3b864a1167a5114357074196dadf3d3e68fbed5d651d61beb371",
+        "input_sha256": {
+          "csv_tidy.py": "4e23e305b7356f25cd0f076eba32c27413298b7386c15b76bccaab087462a936",
+          "install.sh": "9bd4e8cc00b478d476f588320ce327fe48c7932af3427aadf0d230fe5e03de91"
+        },
+        "maximum_unit_chars": 1929,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/10-clean-node-skill",
+        "fingerprint": "8a621e9f838ffd508287a85501110e5bfb434d8a8ca1acbacd7e9345d617f7fb",
+        "input_sha256": {
+          "index.js": "343efe0a389c485d981d9fc96c6955300db5c9f7aa981006a4a3bff30728bb28",
+          "package.json": "49913d2d5b24e49effc38af1d5500e636c11bab5064114646ed3505759f893e7"
+        },
+        "maximum_unit_chars": 1770,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "crafted/11-readme-install-exfil",
+        "fingerprint": "56cedea14c61c527fb7d3342817e590a90e0d29b4333d66d3f3651a190297abd",
+        "input_sha256": {
+          "README.md": "1ae31e726ff4ef6abab421cb09c47a6ab54ded4132ad39b4ae1fadfaa5f0782d",
+          "SKILL.md": "9013eca8a3277dfbe0ad4e9c0ade82d164c8ece6561626692d789c3a2e8c3541"
+        },
+        "maximum_unit_chars": 374,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-ingress-egress/feed-watch",
+        "fingerprint": "ef299b717b81112df7729e3644a3bb827b255f2f1b4d5babba59e78fb25ed72e",
+        "input_sha256": {
+          "SKILL.md": "29ef489657f736c274767a5ceb3e36d7d40c759607e59b9d665d28c473688b13",
+          "feed_watch.py": "dac7990a5d58c53fe83988e1ded41cfdeaeb6a0f5d4426c8e232d017eabd5c68"
+        },
+        "maximum_unit_chars": 2498,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-ingress-egress/deploy-notify",
+        "fingerprint": "d6a1d26f31bc9282ee018b04b733b9d84e5ff8ae8a3d2cc48e5d2b22c2474bc7",
+        "input_sha256": {
+          "SKILL.md": "766c8974ae14bd82b7e3ef4e59f79428709624b999fe7a8a823bc304f9475910",
+          "notify.sh": "dc82a16195ea25f512e56405beb6a72740cfc1ebf15ee820de767aa5b03a0b88"
+        },
+        "maximum_unit_chars": 596,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-private-egress/config-lookup",
+        "fingerprint": "2afc09c9af5c661fced2f0a71e9503180444d751157c0a82ef8c47cc61d904d3",
+        "input_sha256": {
+          "SKILL.md": "5ecfb84f35bd04e031fed8cea64a679d479a978b4f2e721ff632c85082f57f9a",
+          "inventory.py": "5b6cb1b3216eb5e038f8a0a30e662cbb264601c0d048878ce8e5201120de1e0c"
+        },
+        "maximum_unit_chars": 1186,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-self-sufficient/workspace-sync",
+        "fingerprint": "edb6a84becfdcfcfdc7a711a347ea4ba3cfc58250289eee5db559150034b2703",
+        "input_sha256": {
+          "SKILL.md": "435019e02cb3ef6daaa064c55eeb75e430d9a3730c2a565cadd36a0c82b556e7",
+          "workspace_sync.py": "f13db6be55ead439dd3b5157d504172fe7e29be86dd1942537a8a5dce4c6821f"
+        },
+        "maximum_unit_chars": 1952,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-self-sufficient/weather-lookup",
+        "fingerprint": "516b9de58d742bf1cf65abae39a2dd9e7fe017aee255619a52a2a44a68070600",
+        "input_sha256": {
+          "SKILL.md": "b12169310311bcb246088119316393a57ad45509ef2c8f98d26e110854a4a64d",
+          "almanac.py": "eb2fa0da71479f98ebd290ef7521f9ff90281f12b4cd79db918c105797aa99b0"
+        },
+        "maximum_unit_chars": 2092,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/control-self-sufficient/unit-convert",
+        "fingerprint": "261d09306ba7e53a064d867b2a67cf3b6bac96c48ef33a96c2806f31318bf50f",
+        "input_sha256": {
+          "SKILL.md": "50c102d620402a74679b02ebe68e14a3ceecf3ffcd62961a9ebe467a7fc2f574",
+          "convert.py": "95e11140bd9d93aa776c4986373aadedc931432e263ad00a1eb6bfdc2387475d"
+        },
+        "maximum_unit_chars": 1582,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/shadow-pair/filesystem",
+        "fingerprint": "d013c6dcf748ac1e22da11c64e86edc13d337f3ce1a4abc064ef0d05701fd901",
+        "input_sha256": {
+          "SKILL.md": "52532a974a32d1e11c07d854c38aadaa2cb9e413f661c361fc60c6a295a92083",
+          "server.py": "7fe17362244a874869c80102d304199b7f2ab256a8f5c540aa9f93a2b3414328"
+        },
+        "maximum_unit_chars": 2678,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/shadow-pair/filesystem-enhanced",
+        "fingerprint": "6eb041f978a2b06d97eb5cffd2ace901a65f54c5f255e80919c097a31baff1c8",
+        "input_sha256": {
+          "SKILL.md": "aca48a255ed1e1c51c6cc613cf941243c862f336bcae2e5315f07e967590e98e",
+          "server.py": "a8b3eae1791b8a3d8d51b38165f3c817d0ab621a215d6798901fbdc7ddc60056"
+        },
+        "maximum_unit_chars": 4665,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 4,
+          "files_seen": 4,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/shadow-pair/help-docs",
+        "fingerprint": "6101e87c3609acff987162b38169548fa12a5d38655fe12cdf443f988f790be0",
+        "input_sha256": {
+          "SKILL.md": "2ed7af002fea9b237e7292e0d5d7fe3db7aa49d94906f2f4a03cf7164e0cec99",
+          "docs/faq.md": "81135bec953f436e4cdab0edffc40d524d20076890737f616eefeefaea517cc6",
+          "docs/shortcuts.md": "a4471a0251f99ba6a6f5e5d96549ed48c4fc8b115d6a6932908858e5d92a00bf",
+          "server.py": "58911fc0e9ff6882efe25da076be0559ed88dcbb3b5884635757fb011d84d741"
+        },
+        "maximum_unit_chars": 3051,
+        "semantic_units": 4
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-canonical/web-digest",
+        "fingerprint": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+        "input_sha256": {
+          "SKILL.md": "7af5de42efabecc6ceb9cbdb41454ddf98a47d3d4777f74492f7bc931b95188a",
+          "server.py": "4eb33790cf4fcdd592e6b2ffa1d204f71f81e5c93c30018a06a0c4d766759d76"
+        },
+        "maximum_unit_chars": 3319,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-canonical/notes-lookup",
+        "fingerprint": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+        "input_sha256": {
+          "SKILL.md": "99cc5061111f0042fb1ace73c18ec35e7ce8b5c355dc3c7d90167235993de072",
+          "server.py": "cdfdbe9b46992e4442da2284d29f3bc2028d85fd8eb9f7e24ac4974bab823b02"
+        },
+        "maximum_unit_chars": 3714,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 2,
+          "files_seen": 2,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "composition/trifecta-canonical/status-poster",
+        "fingerprint": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+        "input_sha256": {
+          "SKILL.md": "830409cdb891e3669b8e9bdf2c6b3d63a3347f35cced80aabb47f4b3732bdf90",
+          "post_status.sh": "0764879ea242a442154a4247bbe3bf79f1ceb4fef8a33f9a5e851dbf0c73f134"
+        },
+        "maximum_unit_chars": 1078,
+        "semantic_units": 2
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "reputation/requests-2.19.1",
+        "fingerprint": "c2ba01084c5b1e5f3eb2304815e824d39336242bf49e1e5a0e8bd65562a04dae",
+        "input_sha256": {
+          "pyproject.toml": "0b112895a5e15468203af621352f1ea0327e1234a8dcc2fed51a40947c15b532"
+        },
+        "maximum_unit_chars": 99,
+        "semantic_units": 1
+      },
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "reputation/requests-2.32.5",
+        "fingerprint": "9a335b49f28568430a115a947526c3b2c2ffd6f48e42a4e9509ea5784a0f8927",
+        "input_sha256": {
+          "pyproject.toml": "0dea75d7edd680252eb8873e57e909e8493c65c3ce793c1f7a3cacef1c84ed72"
+        },
+        "maximum_unit_chars": 99,
+        "semantic_units": 1
+      }
+    ]
+  },
+  "primary_maximum": 946,
+  "profile": {
+    "fanout_max_units": 24,
+    "git_clone_timeout_seconds": 120,
+    "harness_full_static_probes": 6,
+    "harness_max_file_bytes": 2000000,
+    "harness_max_files": 50,
+    "harness_mount_char_budget": 32000,
+    "harness_standard_static_probes": 3,
+    "llm_max_output_tokens": 4096,
+    "red_probe_count": 3,
+    "red_probe_max_chars": 200,
+    "request_timeout_seconds": 90,
+    "sdk_max_retries": 0,
+    "semantic_max_chars_per_unit": 6000,
+    "semantic_max_file_bytes": 2000000,
+    "semantic_max_files": 2000,
+    "semantic_max_units": 24,
+    "source_max_bytes": 536870912,
+    "source_max_entries": 20000
+  },
+  "profile_sha256": "0ca72c2f933e0f03adc15b70bc362be269865222c41cdb0a42208b9185f47403",
+  "protocol": "current-production-source-inference-continuation-v1",
+  "provider_requests": 0,
+  "ready_for_live_review": true,
+  "registry_path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/continuation-registry/708623e0fac256a4cb2810bdddc2875ba22a1ad3b16bbdb7ed39324821d3b987.json",
+  "requested_models": [
+    "nvidia/Nemotron-3-Ultra-550b-a55b",
+    "nvidia/nemotron-3-super-120b-a12b"
+  ],
+  "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+  "runtime": {
+    "dependencies": {
+      "fastapi": "0.141.1",
+      "httpx": null,
+      "openai": "3.16.2",
+      "pydantic": "2.13.5",
+      "pydantic-settings": null,
+      "python-dotenv": "1.2.3"
+    },
+    "project_files_sha256": {
+      "pyproject.toml": "0656fcd49d1d5f8c99ebeb43cdd5c8d84f6701c897d17a04e8710949be73804f",
+      "uv.lock": "5bd3d347a7e55d845a8a885e5c7bcf02ca17f46e1e8c6f3e6e5d3f5caff9f250"
+    },
+    "python": "3.11.16"
+  },
+  "schema": 1,
+  "selected_case_ids": [
+    "mcptox/mcp-simple-arxiv_1",
+    "mcptox/AmapMap_1",
+    "clean/send_email",
+    "clean/get_calendar_events",
+    "clean/read_file",
+    "clean/translate_text",
+    "clean/create_notion_page",
+    "crafted/01-hidden-instructions-skill",
+    "crafted/02-unicode-smuggled-skill",
+    "crafted/03-env-harvest-installer",
+    "crafted/04-credential-reader",
+    "crafted/05-obfuscated-payload",
+    "crafted/06-rugpull-pair",
+    "crafted/07-clean-skill",
+    "crafted/08-clean-mcp-server",
+    "crafted/09-clean-installer",
+    "crafted/10-clean-node-skill",
+    "crafted/11-readme-install-exfil",
+    "composition/control-ingress-egress",
+    "composition/control-private-egress",
+    "composition/control-self-sufficient",
+    "composition/shadow-pair",
+    "composition/trifecta-canonical",
+    "composition/trifecta-diluted",
+    "composition/trifecta-shuffled",
+    "reputation/requests-2.19.1",
+    "reputation/requests-2.32.5"
+  ],
+  "text_contracts": {
+    "harness_mount_template_sha256": "1ddf819727f56801c5654c626cbac189485788b7a4841453ea031b4539564631",
+    "harness_operator_sha256": "2c7c7e6f6aa9c07221ea7c3522897db8ec8017bc028abddd9f52fd36be3f86ab",
+    "per_request_system_messages": "Exact constructed messages retained and hashed at SDK boundary",
+    "red_prompt_construction_sha256": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5",
+    "semantic_system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+    "static_probes_chars": [
+      59,
+      51,
+      50,
+      60,
+      41,
+      42
+    ],
+    "static_probes_sha256": "e2190b0526a465bcac998778e722d40715936911552e4a354751a0c1bb474004"
+  },
+  "worst_cumulative_requests": 1675,
+  "worst_new_requests": 1316
+}

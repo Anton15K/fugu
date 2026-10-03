@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "53c4ce18fda77ff319762049311e9e5b82052d5774884288ddcd3eec8a112532",
+  "duration_s": 0.8636274999880698,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Convert 42 degrees Fahrenheit to Celsius.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d0c9ccd0daae9a31235a1dfd926e31992071472288ef400d6788f257e8bc1b45",
+  "number": 44,
+  "ordinal": 13,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "42°F is approximately 5.56°C (using the formula: °C = (°F - 32) × 5/9).\n\nPLAN: Calculate (42 - 32) × 5/9 = 10 × 5/9 = 50/9 ≈ 5.56\nPLAN: Present the result with appropriate precision",
+  "request_sha256": "787e7ff80436a53436bb95bc9aee74bc8b933a33087bd7efb469f58a4fc631a7",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:08:19.111974+00:00",
+  "response_id": "chatcmpl-b424e5aea2fa0722",
+  "response_sha256": "db73f06b80549dc69ef6fc12f4d8962ae70ee1b8f1b88e049377495d8c773574",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 178,
+    "prompt_tokens": 90
+  },
+  "usage_object_present": true
+}

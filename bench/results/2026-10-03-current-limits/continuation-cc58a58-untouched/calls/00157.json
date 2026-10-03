@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "81168043b34fec13685376b2ae09cfcaca3f19ac971dfd3162a4a5419f24b054",
+  "duration_s": 0.9441150839847978,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Translate the phrase 'Hello, how are you?' from English to Spanish.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "10268493b265e5109c4905c809017d07e3c4aa25abc324866885f9f5d0bf05a9",
+  "number": 157,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "The Spanish translation is: **\"Hola, ¿cómo estás?\"** (informal) or **\"Hola, ¿cómo está usted?\"** (formal).\n\nPLAN: Provide the direct translation\nPLAN: Note the informal/formal distinction\nPLAN: Confirm accuracy with common usage",
+  "request_sha256": "98629666b5a684a2980936a02217d68b7d59f0f85ad2cca89acda2f160b7fea4",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:11:24.458217+00:00",
+  "response_id": "chatcmpl-b25bd135adf0bc64",
+  "response_sha256": "815baf2bee2e716ff8b308de0295a85a3ba44ae1a6cadc350d533661cfa10d94",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 103,
+    "prompt_tokens": 95
+  },
+  "usage_object_present": true
+}

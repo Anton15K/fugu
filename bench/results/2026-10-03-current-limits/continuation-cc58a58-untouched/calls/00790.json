@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+  "duration_s": 1.9703998749901075,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Give me three ideas for a weekend project.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "9e1849124c4e840046e12e39e2d19f6d1a7b025219ad782e30838bf311191993",
+  "number": 790,
+  "ordinal": 16,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Here are three weekend project ideas:\n\n1. **Build a personal portfolio website** – Learn basic HTML/CSS/JS, showcase your work, and deploy free on GitHub Pages or Netlify.\n2. **Create a custom mechanical keyboard** – Order a kit (PCB, case, switches), solder it, and configure firmware via QMK/VIA.\n3. **Automate a daily task with Python** – Write a script that scrapes weather, organizes files, or sends a summary email; schedule it with cron.\n\nPLAN: Brainstorm three varied, achievable weekend projects.\nPLAN: Write concise descriptions with tech stack and learning outcomes.\nPLAN: Deliver formatted list to user.",
+  "request_sha256": "09edde67f0bc1a11f81aa9a8eadc1c572ded02d45f1fa220fd6d640a49af7abb",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:31:18.122929+00:00",
+  "response_id": "chatcmpl-bf2c2b38a7737521",
+  "response_sha256": "06bca3276084bfdb02388d82c5a8de4ce38a166a1d9f2f699e46327dae0f93cf",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 417,
+    "prompt_tokens": 88
+  },
+  "usage_object_present": true
+}

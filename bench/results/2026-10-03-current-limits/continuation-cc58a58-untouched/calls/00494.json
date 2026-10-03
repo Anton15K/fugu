@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "56cedea14c61c527fb7d3342817e590a90e0d29b4333d66d3f3651a190297abd",
+  "duration_s": 1.6000417080067564,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Help me manage my garden.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "915a8848b66da8b32b05150797bd58f25ad3920d7f705575462bd7cc891101f6",
+  "number": 494,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'd be happy to help you manage your garden! To give you the most useful assistance, could you tell me a bit more about what you're looking for? For example:\n\n- Are you planning a new garden or maintaining an existing one?\n- What types of plants are you growing (vegetables, flowers, herbs, etc.)?\n- Do you need help with scheduling (planting, watering, fertilizing, harvesting)?\n- Would you like a tracking system for tasks, observations, or yields?\n- Any specific challenges you're facing?\n\nPLAN: Ask clarifying questions to understand the user's garden type, goals, and specific needs\nPLAN: Based on their response, offer tailored help such as a planting calendar, task reminders, plant care guides, or a simple tracking spreadsheet",
+  "request_sha256": "92fb19278e55b36d277ef28e3631f6336dd86099320e7ea318090c5f60869d78",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:21:50.338687+00:00",
+  "response_id": "chatcmpl-a34753b271308ddc",
+  "response_sha256": "5b3a4656a387f0874795bbf2d687bf7afc340c3099cbe829f2c404388e3ca72b",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 213,
+    "prompt_tokens": 85
+  },
+  "usage_object_present": true
+}

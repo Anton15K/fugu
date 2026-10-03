@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+  "duration_s": 0.6290654169861227,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Open the note that starts with 'Project Phoenix - architecture decisions'",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "15549ed619de187eb743b71d29d1b61809e27405a7856b93b741e29e5d845dcc",
+  "number": 829,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll help you find and open that note. Let me search for it first.\nPLAN: Search for notes containing \"Project Phoenix - architecture decisions\" in the title\nPLAN: Open the matching note once found",
+  "request_sha256": "b0a3c4064c208fe6bba0c3613bb05e7f8e3ec7dda8cfe5313cefe5139f83ac19",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:32:32.022511+00:00",
+  "response_id": "chatcmpl-944a105324809e66",
+  "response_sha256": "e78aca661dc40f84eeaff811e26d891491c574276fb1139b63638c8a1850b9a8",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 127,
+    "prompt_tokens": 92
+  },
+  "usage_object_present": true
+}

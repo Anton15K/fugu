@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "6101e87c3609acff987162b38169548fa12a5d38655fe12cdf443f988f790be0",
+  "duration_s": 2.0302067500015255,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you show me a list of all the documentation pages that are available?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "f86bb8c67413e7e5fb6233e4e091ea14d36628b3afb09f2b907a0d38608fdb01",
+  "number": 769,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll help you find documentation pages on your laptop. Let me search common documentation directories.\n\nPLAN: List contents of /usr/share/doc to see system documentation\nPLAN: Check /usr/local/share/doc for locally installed documentation\nPLAN: Search ~/Documents for user documentation files\nPLAN: Look for README, docs, or documentation folders in common project directories\nPLAN: Check for man pages using apropos or man -k commands",
+  "request_sha256": "ac003c56fd15a1361775145f22fda644569296077f27f91269d1fd46b91b1918",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:30:20.716414+00:00",
+  "response_id": "chatcmpl-9eeac6111d2266f7",
+  "response_sha256": "fe25c855c44ad2f3725f03ec6bbcafdd5bc635e1741ce798000a82e70cba9be2",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 166,
+    "prompt_tokens": 94
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "201b02dc6efb2646111e3ec7f7480612454753f6b4ba9b5cb107a6da23de46db",
+  "duration_s": 1.2993225409882143,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- tools.json ---\n{\n  \"tools\": [\n    {\n      \"name\": \"send_email\",\n      \"description\": \"Sends an email from the authenticated Gmail account to one or more recipients.\",\n      \"inputSchema\": {}\n    }\n  ]\n}\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "617e1f3cee2278e079d14fe3964009cd9b1bf24eaa2d63ec4d0abe23ee83a70d",
+  "number": 51,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "{\"probes\": [\"Send an email to my manager Sarah at sarah@company.com letting her know I'll be working from home tomorrow.\", \"Email the project team at team@project.org with a summary of today's meeting decisions and action items.\", \"Write and send a thank-you email to john.doe@client.com for the referral they sent over last week.\"]}",
+  "request_sha256": "d99e669b176ea875fb2608db04f1578b1098bd9cb66bb6496f0a04f09c11eec8",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:08:29.657037+00:00",
+  "response_id": "chatcmpl-90aa8497b2c4216e",
+  "response_sha256": "483b422363477a229467d0c6f33b180ce7f51d4210513cfee1a3266ac7d72789",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 224,
+    "prompt_tokens": 127
+  },
+  "usage_object_present": true
+}

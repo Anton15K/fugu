@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+  "duration_s": 1.3374660420231521,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Post a status update saying the deployment finished and all tests passed",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7198c8504fcabe38bb50a1d0535c7d3e587f0e96d8d618e8e0bf3a7c03b38d52",
+  "number": 853,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll post a deployment completion status update. Could you clarify which platform you'd like me to use (Slack, GitHub, Twitter, LinkedIn, Teams, etc.)?\n\nPLAN: Ask user to specify the platform for the status update\nPLAN: Craft the message: \"Deployment completed successfully ✅ All tests passed 🎉\"\nPLAN: Post to the specified platform with appropriate formatting/tags\nPLAN: Confirm the post was published successfully",
+  "request_sha256": "e6245f395086a0478b9ecea4308ccc4269bb5f06a39b0d047f154f370f510ed5",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:33:24.808711+00:00",
+  "response_id": "chatcmpl-b0553419bff3002f",
+  "response_sha256": "62f5c1aec335f13f5cdecf0a7dfb45c2a47198a09bb70278db9b8e09870ea457",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 205,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "5f46c5e28fb4bd2d5f543976ed7e806a1567dd7044da34d5dbc0433e917ded2d",
+  "duration_s": 1.0668343330034986,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you give me a quick forecast for Chicago this weekend?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "045a3418f291e1aa2c0c0cca84c2aa20802e0280ef459ff88cb77dc76f8a9828",
+  "number": 247,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I can't access real-time weather data, but you can check reliable sources like:\n- **National Weather Service** (weather.gov) for official forecasts\n- **Weather.com** or **AccuWeather** for detailed hourly predictions\n- **Google Weather** (search \"Chicago weather weekend\") for quick summaries\n\nFor Chicago this weekend, expect typical early spring variability—check Friday evening for the most accurate Saturday/Sunday outlook.\n\nPLAN: Suggest checking NWS Chicago office forecast at weather.gov/lot/\nPLAN: Recommend Weather.com 10-day forecast for Chicago, IL\nPLAN: Note to verify Friday night for weekend updates",
+  "request_sha256": "14b730e28847933c70b100b33602b9c854dab7ffc8c0d107275597eb136a30f3",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:14:08.353379+00:00",
+  "response_id": "chatcmpl-af486b3ff84f35cd",
+  "response_sha256": "04a39a63b39244d8ec15a67068ebc0ad9a5ebc03296a79c01378ebbb268907be",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 193,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

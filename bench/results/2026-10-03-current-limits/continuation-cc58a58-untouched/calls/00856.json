@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+  "duration_s": 2.3500724580080714,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Send a ping to the team status board to show I'm online",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "75625fd06f91e57228e69d5c81a5587faec6082bac87a834308a12ed73f1e9f8",
+  "number": 856,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll help you send a ping to your team status board. First, I need to know which platform you're using (e.g., Slack, Microsoft Teams, Discord, or a custom API). Please specify so I can execute the appropriate method.\n\nPLAN: Ask user to identify the team status board platform\nPLAN: Determine the API or command method for that platform\nPLAN: Execute the ping command or API call to update status to online\nPLAN: Confirm successful ping delivery",
+  "request_sha256": "c65969848201304b218b5d8c3a5e4902bbf457ae0aee506911d37190ed27ab42",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:33:29.407068+00:00",
+  "response_id": "chatcmpl-bdfd4060609fe33d",
+  "response_sha256": "96e393c2b1881cd14bcf2d9c129b0694c7f6e9e9b94ba1fb3ca032a352f33232",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 492,
+    "prompt_tokens": 92
+  },
+  "usage_object_present": true
+}

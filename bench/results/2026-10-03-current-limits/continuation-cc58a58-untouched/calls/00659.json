@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "261d09306ba7e53a064d867b2a67cf3b6bac96c48ef33a96c2806f31318bf50f",
+  "duration_s": 1.261243375018239,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 659,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus & Rice** (≈30 min).\n\n**Ingredients** (serves 2):  \n- 2 boneless chicken breasts  \n- 1 bunch asparagus, trimmed  \n- 1 cup quick-cook rice  \n- 2 tbsp olive oil  \n- 3 garlic cloves, minced  \n- Zest & juice of 1 lemon  \n- ½ tsp dried oregano  \n- Salt & pepper  \n\n**Method**:  \n1. Start rice per package.  \n2. Season chicken; sear 4 min/side in hot oil. Remove.  \n3. Toss asparagus & garlic in pan; cook 3 min.  \n4. Return chicken, add lemon zest/juice & oregano; heat through.  \n5. Serve over rice.\n\nPLAN: Suggest the recipe above with clear steps.  \nPLAN: Offer to adjust portions or swap protein (tofu, shrimp).  \nPLAN: Provide a printable ingredient checklist.  \nPLAN: Set a 30-minute timer reminder for the user.",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:27:00.851196+00:00",
+  "response_id": "chatcmpl-a9f6806bf7b08bb4",
+  "response_sha256": "a2a4bd29bdb8a184577e31725e5da61239e8b1990fba9969b3646672c53cd323",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 294,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

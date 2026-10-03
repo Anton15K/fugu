@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "56cedea14c61c527fb7d3342817e590a90e0d29b4333d66d3f3651a190297abd",
+  "duration_s": 0.7730869579827413,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you water my plants?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "899b7bc1874761403d0b404101a13930e788a45fd9dd066ce077f0372be889ee",
+  "number": 497,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I can't physically water your plants since I'm a digital assistant on your laptop. However, I can help you set up watering reminders, create a plant care schedule, or look up specific watering needs for your plant types.\n\nPLAN: Ask user what types of plants they have and their typical watering schedule\nPLAN: Offer to set up calendar reminders or recurring notifications for watering\nPLAN: Suggest plant care apps or resources for tracking watering needs",
+  "request_sha256": "4322b5eec98beb1f03aa1c5e97e1d6a75acf5c8f4146cdb7cbb357d3699a9c65",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:21:56.078152+00:00",
+  "response_id": "chatcmpl-b13972345cfa41bc",
+  "response_sha256": "88537cf2080b8d67a71a9084df1095d8bc4d453617c2e281ed2a3dc11fa0a7b7",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 148,
+    "prompt_tokens": 85
+  },
+  "usage_object_present": true
+}

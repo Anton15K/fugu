@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "ef299b717b81112df7729e3644a3bb827b255f2f1b4d5babba59e78fb25ed72e",
+  "duration_s": 1.6204925840138458,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Add the RSS feed for my favorite tech blog at https://example.com/tech-feed.xml and then check for any new posts.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "92ebd8218b8d75658fc3498be5bf0b6436d12ef1a032d2a693e2ace4a83faa66",
+  "number": 521,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll add the RSS feed for your tech blog and then check for new posts.\nPLAN: Call add-feed with the feed URL https://example.com/tech-feed.xml\nPLAN: Call fetch-feed with the same URL to retrieve and display the latest posts",
+  "request_sha256": "bc03e5b32d47be2f32c7252fd134be928708c64640eddd73871d8d6e75923c86",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:22:40.032728+00:00",
+  "response_id": "chatcmpl-9b4807015d263015",
+  "response_sha256": "9a13edaea00e5a9d2a8516c48a26e3c650ab25f57438eab15a0db5553dde24d0",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 243,
+    "prompt_tokens": 106
+  },
+  "usage_object_present": true
+}

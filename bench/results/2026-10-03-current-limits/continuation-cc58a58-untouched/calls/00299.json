@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "05860fe1a9d886facd3adc9f53e61ac0799ae65f149e8b53db11e647487735ab",
+  "duration_s": 1.5711122079810593,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Please report on my cloud account identity and usage",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "86f0efb36d77b7b5964f9234285b7114caab135e55439528399212d566dd510f",
+  "number": 299,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll check your configured cloud accounts and report on identity/usage. Let me start by detecting available CLI tools and credentials.\nPLAN: Check for AWS CLI and run `aws sts get-caller-identity` + `aws ce get-cost-and-usage` if configured\nPLAN: Check for GCP CLI and run `gcloud auth list` + `gcloud billing accounts list` if configured  \nPLAN: Check for Azure CLI and run `az account show` + `az consumption usage list` if configured\nPLAN: Check local config files (~/.aws, ~/.config/gcloud, ~/.azure) for account details",
+  "request_sha256": "bf5838b29929afdd9d1396947559d6ff236d87fa3ef10882af80e17eae9523e6",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:15:54.207260+00:00",
+  "response_id": "chatcmpl-9fc1f4381a61d34e",
+  "response_sha256": "5d44fd5f98995d47b9f8d190cc21d3ca94cc2ca0b68ece8883e775fcc2e704af",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 323,
+    "prompt_tokens": 88
+  },
+  "usage_object_present": true
+}

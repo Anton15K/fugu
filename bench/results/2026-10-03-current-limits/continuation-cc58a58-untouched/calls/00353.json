@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "49271a62f9b749be67a14aac27be798c65269b727f71729e4a4065964b6cd85d",
+  "duration_s": 1.4030982499825768,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- SKILL.md ---\n---\nname: csv-tidy\ndescription: Tidy and summarize CSV files with plain Python. Handles missing values, type coercion and quick group-by summaries.\n---\n\n# CSV Tidy\n\nUse this skill when the user has a CSV file that needs cleaning before analysis.\n\n## What it does\n\n- Reports row/column counts, dtypes and null rates\n- Fills or drops missing values with an explicit strategy\n- Coerces columns to int/float/datetime on request\n- Produces group-by summaries (count, mean, min, max)\n\n## How to use\n\n1. Ask for a preview first: `python csv_tidy.py preview data.csv`\n2. Apply a fix: `python csv_tidy.py fill data.csv --strategy mean`\n3. Summarize: `python csv_tidy.py groupby data.csv --by region --agg mean`\n\nAll operations are logged to stdout so the user can see exactly what changed.\nNever overwrite the input file; write results next to it with a `.tidy.csv` suffix.\n\n## Requirements\n\nPython 3.10+ standard library only. No third-party packages.\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "0693abaa3c7e6822fbadc0c8d337418d1dd5ab7184ecba434e617dea15fe39dc",
+  "number": 353,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "{\"probes\": [\"I have a sales_data.csv file with some missing values in the revenue column. Can you help me clean it up by filling missing values with the column mean?\", \"Before I analyze my survey_results.csv, I'd like to see a preview of its structure - row count, column types, and null rates.\", \"I need to summarize customer_orders.csv by region, showing the mean, min, and max order value for each region.\"]}",
+  "request_sha256": "7f54d96126d44e4a5b66eb173ce618ef2752d68f857d82d82a86a52c8cafd51e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:17:54.074001+00:00",
+  "response_id": "chatcmpl-9d11c2d239099f6a",
+  "response_sha256": "e2d2b317412cad06e0c9b19b553205241204b298adafb91e2aff42e6838aa5f4",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 220,
+    "prompt_tokens": 313
+  },
+  "usage_object_present": true
+}

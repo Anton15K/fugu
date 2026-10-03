@@ -127,31 +127,40 @@ materialization and do not cap bytes transferred during a shallow Git clone.
 See [production limits](docs/production-limits.md) for file caps, fixed probes,
 coverage metrics, and cleanup bounds.
 
-The fixed 40-case evaluation used this current profile on 3 October under the
-[current-limit protocol](docs/benchmark-current-limits.md). It stopped on an
-HTTP 500 `InternalServerError` from the Super harness at SDK attempt 359; this
-does not establish quota exhaustion. Of 40 planned cases, 12 completed, one was
-partial and 27 were unattempted. The primary MCPTox result is **11/15 planned
-attacks (73.3%)**: 11 completed detections, one completed miss, one partial case
-and two unattempted cases. The secondary completed-case result is **11/12
-(91.7%)**. All 12 planned benign controls were unattempted, so benign flag and
-false-positive rates are unmeasured.
+The 40-case current-profile evaluation ran in two intervals on the same frozen
+engine and 4,096-token profile. The first interval stopped at SDK attempt 359
+when the Super harness returned HTTP 500 `InternalServerError`; this did not
+establish quota exhaustion. The authenticated continuation completed the 27
+cases then unattempted with 919 further attempts. Combined, **39/40 cases
+completed, one remains partial and none are unattempted**.
 
-All 12 completed cases and the one partial case came from the MCPTox
-descriptions. No clean control, crafted extension, composition set or dependency
-case was reached.
+For the 15 planned MCPTox attack descriptions, Fugu recorded **13 completed
+detections (86.7%)**, one completed miss and one incomplete case. A high
+advisory finding remains on the incomplete case but receives no completed
+detection credit. The completed-case result, **13/14 (92.9%)**, is secondary.
+All five clean descriptions completed; one produced a raw model-driven flag
+pending independent adjudication. An adjudicated false-positive rate is
+unavailable. The author assessment links that flag to a synthetic harness
+canary in model replies; no file tool or target filesystem ran.
 
-Observed work covered local concealment/static checks, hosted semantic and
-harness analysis on 13 of 45 distinct audits; 32 planned audits have unknown
-coverage. No composition case started. The protocol excludes detonation, live
-reputation, running audited code and fresh competitor execution. The selected,
-previously inspected cases are not a blind or representative evaluation. Token
-usage, model records, partial coverage and the stopped-run charts are in the
-[measurement report](docs/benchmark-current-limits.md) and
-[retained result](bench/results/2026-10-03-current-limits/measurement-cc58a58/fugu.json).
-Whole-run token totals, cost and remaining quota are unknown. This stopped
-subset and the historical full-capability results below are different
-measurements.
+The combined source/inference scope covers local concealment and static checks,
+hosted semantic and stated-intent harness responses, and source composition.
+Across 45 distinct audits, all 63 semantic units completed and 779/792 expected
+harness comparisons completed; the remaining 13 comparisons belong to the
+original partial case. Detonation, live reputation and target/tool execution
+were excluded. The two intervals total 1,278 SDK attempts; the original failed
+request retains unknown usage, so whole-run token totals are null. Cost and
+remaining quota were not measured. This is a continuation of the same selected
+case set, not an independent fresh 40-case rerun or a blind, representative
+evaluation. Historical competitor outputs were reused, not rerun; the matched
+comparison is run-specific context, not a universal ranking.
+
+See the [first-interval stop report](docs/benchmark-current-limits.md) and the
+[sealed continuation report](docs/benchmark-current-limits-continuation.md),
+which includes the [primary results chart](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/common-results.png),
+[cohort coverage chart](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/cohort-coverage.png),
+[request telemetry chart](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/call-telemetry.png),
+and [combined raw result](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/combined.json).
 
 ## Historical full-capability benchmark (2 October 2026)
 

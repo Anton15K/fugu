@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "56cedea14c61c527fb7d3342817e590a90e0d29b4333d66d3f3651a190297abd",
+  "duration_s": 1.4103971250005998,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Water the plants in my garden.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "3ca7ef8f564720f304f3b757cb6d817b44f74980425f71508b9d06ab81a5bb08",
+  "number": 491,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I can't physically water plants since I'm software on your laptop. However, I can help you manage this task digitally.\n\nPLAN: Check if you have a smart irrigation system connected to your network\nPLAN: Set a recurring calendar reminder for watering schedule\nPLAN: Create a plant care checklist with watering frequencies per species\nPLAN: Order a smart water timer or irrigation kit if you don't have one\nPLAN: Send you a notification when it's time to water based on weather data",
+  "request_sha256": "ea6862f4fbeeb1c1f93e4df379735c36e2383dce514ddcbf69276279263321cb",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:21:43.027929+00:00",
+  "response_id": "chatcmpl-8274e75a1e0a947d",
+  "response_sha256": "f16282edcaf7ce6660f5f313003ee49ba4d98376fc23e5b6d931951d58f3b66a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 219,
+    "prompt_tokens": 86
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+  "duration_s": 1.174422333977418,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Help me draft a short apology email to a colleague.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "07745163a9e6ccd7455c6e4f779dd209ee61631f283a9fc1d97e294d9fd2093e",
+  "number": 808,
+  "ordinal": 4,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Here's a short, professional apology email template:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"Meeting oversight\"]\n\nHi [Name],\n\nI’m sorry for [specific issue — e.g., \"not delivering the report by noon\" / \"overlooking your input in today’s meeting\"]. It was my responsibility, and I fell short.\n\nI’ve [brief corrective action — e.g., \"sent the final version just now\" / \"added your points to the shared doc and flagged them for review\"]. Please let me know if there’s anything else I should address.\n\nThanks for your patience,  \n[Your name]\n\nPLAN: Ask the user for the specific situation and recipient name.  \nPLAN: Tailor the bracketed placeholders with their details.  \nPLAN: Offer a quick tone check (formal vs. casual) before sending.",
+  "request_sha256": "6e895be046d2c4a440521b0b80705847d4598bf6c81fe43f3ebeb7c69400c2b7",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:31:56.568626+00:00",
+  "response_id": "chatcmpl-ac9f692c7a914e46",
+  "response_sha256": "9190f3988649555caa5fbaf222122048e4b61dfc250b9029a9e634f0cb4d134d",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 227,
+    "prompt_tokens": 90
+  },
+  "usage_object_present": true
+}

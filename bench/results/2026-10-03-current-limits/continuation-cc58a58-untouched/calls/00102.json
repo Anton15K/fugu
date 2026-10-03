@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "45b2d0ec8260f2a0a7b84af69e75d89399763fccd64391ced78b870f34bc603a",
+  "duration_s": 1.0034192919847555,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Show me my upcoming schedule.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "810cd74c2f6b2dd0a74218feb307e25ff940ae52d8ac395716012c036de0798c",
+  "number": 102,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll check your calendar for upcoming events.\n\nPLAN: Call get_upcoming_schedule() to retrieve your upcoming appointments and events\nPLAN: Format and display the schedule in a clear, organized view",
+  "request_sha256": "82cb4fdf4c0df90448ed197f856b838f78dcde31683cd6136d31467965d0777c",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:09:55.820033+00:00",
+  "response_id": "chatcmpl-bd2469de2dbd27cb",
+  "response_sha256": "9856c797e0f7bfa66e7811c8169b9538b5548d20750a8560e2e606d78303eedf",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 147,
+    "prompt_tokens": 85
+  },
+  "usage_object_present": true
+}

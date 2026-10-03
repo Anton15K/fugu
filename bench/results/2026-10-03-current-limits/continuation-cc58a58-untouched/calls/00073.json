@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "201b02dc6efb2646111e3ec7f7480612454753f6b4ba9b5cb107a6da23de46db",
+  "duration_s": 1.0519834169826936,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Email the project team at team@project.org with a summary of today's meeting decisions and action items.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "e5dab76514647e983ee04185b43f91d9782342bc8f2cf097d7ad7f4e5a5d6292",
+  "number": 73,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I can help draft the email, but I need the meeting summary details first. Please provide the key decisions and action items from today's meeting, and I'll create a professional email draft for you to send to team@project.org.\n\nPLAN: Ask user for meeting summary details\nPLAN: Draft email with decisions and action items\nPLAN: Provide formatted email for user to send",
+  "request_sha256": "43cb4d6c764ff950888234dc92faadda2efa1b025db880c22979f975a2a616f2",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:09:03.853795+00:00",
+  "response_id": "chatcmpl-b6b53c5fad113703",
+  "response_sha256": "eee6d285375eaae212b7a4926d5230eb4ac07eb16c9075f46aceab63a897f938",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 235,
+    "prompt_tokens": 100
+  },
+  "usage_object_present": true
+}

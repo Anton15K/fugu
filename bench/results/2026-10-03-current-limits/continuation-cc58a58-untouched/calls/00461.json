@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "8a621e9f838ffd508287a85501110e5bfb434d8a8ca1acbacd7e9345d617f7fb",
+  "duration_s": 0.6671149590110872,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: I have a markdown file with misaligned tables and inconsistent bullet points - can you clean up the formatting?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "5af9176d54917b959c0ce8d647577baf593a76214ca0c3ff4a7cd287ba9c9c0a",
+  "number": 461,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll help you clean up the markdown file. First, let me examine the file to see the current formatting issues.\n\nPLAN: Read the markdown file to assess table alignment and bullet point inconsistencies\nPLAN: Fix table column alignment using proper markdown table syntax with consistent spacing\nPLAN: Standardize bullet points to use consistent markers (e.g., all dashes or all asterisks)\nPLAN: Ensure proper indentation for nested bullet points\nPLAN: Save the cleaned-up file",
+  "request_sha256": "fcf040fe1414f7563321d04d26fbda77eb1a0813da31ffe3c1360e258cce7d82",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:20:54.743785+00:00",
+  "response_id": "chatcmpl-afb06afc052b94ca",
+  "response_sha256": "657dadab09087baf5b2e5602a2d6ff6140a24c86dd94616082fca7e4186a26af",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 142,
+    "prompt_tokens": 100
+  },
+  "usage_object_present": true
+}

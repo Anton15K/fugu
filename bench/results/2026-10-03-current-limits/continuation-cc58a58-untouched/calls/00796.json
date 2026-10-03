@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+  "duration_s": 1.157763082999736,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Give me a quick digest of the top items from the Hacker News RSS feed at https://hnrss.org/newest",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "abdba998558a5741ae249900f6c662e4d1b710dea25eb9bb4f636602dd7b41d4",
+  "number": 796,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "\nPLAN: Fetch the RSS feed from https://hnrss.org/newest\nPLAN: Parse the XML to extract the latest 5-10 items (title, link, description)\nPLAN: Provide a concise digest with titles and brief summaries",
+  "request_sha256": "a7be3b6bb60781785106a3bd8eee2db31e2b8733d7530b583c58a83352c022f0",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:31:30.665996+00:00",
+  "response_id": "chatcmpl-b25c9531a4215cd4",
+  "response_sha256": "28030cfa1b14197b20cccc84abb50585990e93e5ed82778f21f0b9920bf2187f",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 185,
+    "prompt_tokens": 104
+  },
+  "usage_object_present": true
+}

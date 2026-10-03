@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "45b2d0ec8260f2a0a7b84af69e75d89399763fccd64391ced78b870f34bc603a",
+  "duration_s": 1.0003792499774136,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's on my calendar for today?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "f8708109d6838a4aec992d17a3753dd4bbd6a3d5f4adc0d9a7c68a6edb69dfeb",
+  "number": 99,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll check your calendar for today's events.\nPLAN: Call get_calendar_events with today's date range to retrieve scheduled appointments and meetings.",
+  "request_sha256": "227da5a380eb0b61f5f66f550cab6c2b97f934c26da1b102456c16a5cf3710c6",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:09:52.709203+00:00",
+  "response_id": "chatcmpl-85ae9b57b252e2fe",
+  "response_sha256": "f48eeefd1d712fc26e983f05c3c98995bce6938aae527402f5da39fd9dbcd0f8",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 126,
+    "prompt_tokens": 87
+  },
+  "usage_object_present": true
+}

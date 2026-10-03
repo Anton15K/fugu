@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "81168043b34fec13685376b2ae09cfcaca3f19ac971dfd3162a4a5419f24b054",
+  "duration_s": 1.1568577500001993,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- tools.json ---\n{\n  \"tools\": [\n    {\n      \"name\": \"translate_text\",\n      \"description\": \"Translates text from a source language to a target language using the configured translation service.\",\n      \"inputSchema\": {}\n    }\n  ]\n}\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d23f7597af65f3e44810f42428f333ba2ac1c864558321f6156f0f11d36ad828",
+  "number": 138,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "{\"probes\": [\"Translate the phrase 'Hello, how are you?' from English to Spanish.\", \"I have a short email in French that I need translated to English. Can you help?\", \"Please translate 'Thank you very much' into Japanese.\"]}",
+  "request_sha256": "5655927ddbb80b297030b8825995450570e90df3b8a3f504f0f54658b7f70fec",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:10:53.293775+00:00",
+  "response_id": "chatcmpl-8d966128867429bf",
+  "response_sha256": "f3d7b3f8a220d817fb8e767aaa06ae8e91957a7e8e4117eb5ea9d9cde35426b6",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 176,
+    "prompt_tokens": 128
+  },
+  "usage_object_present": true
+}
