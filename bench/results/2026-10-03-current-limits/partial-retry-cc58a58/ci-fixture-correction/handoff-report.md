@@ -1,0 +1,15 @@
+# CI fixture correction handoff
+
+Completed writer2 scope for `qitem-20261003121433-8c77bdf6` at source7a `7a6ed056e5e8e1ee2d220b6b7b7749fefa5eefe1`.
+
+Moved the embedded inert `NATIVE` program from `tests/test_current_limits_partial_retry.py` into `tests/fixtures/partial_retry_native.py`. The program is still loaded using explicit UTF-8 `read_text`. Its executed bytes match the original literal exactly: 5,672 bytes, SHA-256 `960987fe803c525a9c17afcc8e85a79c9456f372af3ce7ed1b8233d591d92309`. A byte comparison against HEAD verified that the test file change replaces only the `NATIVE` right-hand side; other test contracts and literals remain unchanged.
+
+The scoped fake-SDK check passed: `NEBIUS_API_KEY='' PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python -m pytest tests/test_current_limits_partial_retry.py -q` reported `10 passed in 6.77s`. No live bootstrap or provider call was made. AST parsing, exact fixture-byte/read round-trip checks, and Ruff on the test module passed. Ruff over both files reported 41 E401/E701/E702 compact-style diagnostics in the extracted program. Those exact bytes predated extraction and were kept unchanged as required; no formatting or lint suppressions were applied. The initial direct `pytest` console invocation stopped at collection because `bench` was not on its import path; the module invocation above is the successful run.
+
+The original source7a `artifact-manifest.json` remains unchanged at SHA-256 `158addc8a3ea5f4fb3f2bce568ac4554eefd7eb889202e0c0e2628f6950852a6` and still records its 16-file offline baseline. Fourteen entries other than the assigned test and writer1-owned report match the baseline. Accepted hashes remain unchanged: runner/helper `bench/current_limits_partial_retry.py` `14f12e72f49fc03608c3d5689085da7242e004b6b8586b5ee7371eb53bedfdfe`; bootstrap `6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd`; plan `2e3f90f5e9dd4348175ce6cbc689e10dfc434b6c35f0adc906f3f385d7445193`; plan-hash `ac7bdad0a32101f97bbc9441778c30f20cc6ece0e66c6fa6231e6a625f05c471`. The report path owned by writer1 currently hashes to `b48391ac56f4e4972b88bb62bcab48bd664fd8d9396e8ebcb1e0b510ecae1264`; it was not edited in this task.
+
+The separate correction inventory is `bench/results/2026-10-03-current-limits/partial-retry-cc58a58/ci-fixture-correction/correction-inventory.json`, SHA-256 `6374d92452cb2ac26cdbcbb7674c3ca9634bfcf59e68127b028408d7664b1393`. It preserves the source7a manifest as the baseline rather than rewriting it.
+
+Scanner evidence remains limited: GitGuardian check `111197534264` reported “Generic High Entropy Secret,” with no credential-specific detector. The exact flagged span was unavailable in the safe metadata, so this handoff does not claim a verified false positive or incident. The fake queue-reference and all other test data were left unchanged.
+
+Writer2 territory is released. Only the assigned test, new fixture, and correction inventory/report paths were written. No Git mutation, source/plan change, dependency/shared-contract change, service action, target execution, or live call was performed.
