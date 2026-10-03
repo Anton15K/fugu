@@ -8,11 +8,17 @@ requires independent review of the exact candidate and a separate claimed lead
 data row.
 
 The current offline candidate is
-`bench/results/2026-10-03-current-limits/continuation-offline/prepared-v2/plan.json`.
+`bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/plan.json`.
 Its canonical plan digest is
-`0e859af4efdda0c6f8c0ee48664486444563ca3af21a4c2cc2ea4e9bf8e74f74`.
+`ea8cff37184b4dd7efe06d3494643462298b398bebcb471d50ce0d6d76f32835`.
 `execution_authorized` is false. The adjacent release template is also false.
 These files provide review evidence and do not grant access to inference.
+The previous prepared-v2 plan
+`0e859af4efdda0c6f8c0ee48664486444563ca3af21a4c2cc2ea4e9bf8e74f74`
+is preserved byte for byte and superseded for execution by the aggregate
+accounting correction. Independent review of that candidate required rework;
+the changed module binding requires review of this new exact plan and commit
+before any separate data grant.
 The earlier zero-call plan `4e5d5569…f921e` is retained locally and superseded
 because the module was corrected to accept macOS's system `/tmp` alias.
 
@@ -173,8 +179,26 @@ UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 \
   --prepared-dir "$FUGU_CONTINUATION_PREPARED"
 ```
 
-The aggregator takes a shared registry lock, verifies numbered requests against
-their durable hashes and counters, and requires reconciled child accounting.
+The aggregator takes a shared registry lock and verifies numbered requests
+against their durable hashes and counters. It compares all durable child usage
+fields with the ledger and outside registry: errors, orphans, token totals and
+unknown usage, durations, models, finish reasons, phase and cumulative counts,
+and the stop reason. Registry and ledger stop state must agree. An unresolved
+open session or reservation guard requires owner recovery. The saved process
+replay count is validated as a nonnegative integer and retained as a process
+annotation; it consumes no SDK attempts and cannot be reconstructed offline.
+
+A stop recorded after `fugu.json` publication can leave its saved accounting
+stale even when the attempt count has not changed. Aggregation rejects this
+state before writing `combined.json` or `provenance.json`; previously published
+combined artifacts are left untouched. Through the same authorized owner path,
+accounting-only recovery replaces usage and adds `accounted_utc`. It preserves
+every case row and dispatches no inference when the child is stopped or already
+terminal. The stopped child remains stopped. Aggregation then retains the stop
+in both combined usage and the child interval. This recovery does not grant
+execution authority or change the original parent's failed request or partial
+case.
+
 It emits schema 2 with protocol
 `current-production-source-inference-continuation-v1`, the original 40 rows in
 order, two interval records, `row_interval`, and exact parent/child result and
@@ -217,11 +241,27 @@ UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 \
 The native integration fixture uses the exact frozen stages with a fake SDK.
 It exercises 32 audits, nine cached contexts, semantic/RED/Super recovery,
 unchanged terminal rows on restart, original 40-row aggregation, unknown usage,
-and preservation of all 403 parent files. Its 949 fake attempts are synthetic
-test evidence. They are not measured provider calls or a benchmark score.
+and preservation of all 403 parent files. It also exercises the actual aggregate
+path after a post-publication stop at the same 949-request count, rejects stale
+accounting without changing existing combined artifacts, and recovers accounting
+with zero new dispatches. All 27 child rows and 13 carried rows stay unchanged,
+and the chart consumer retains the recovered stop and unknown whole token totals.
+Its 949 fake attempts are synthetic test evidence. They are not measured
+provider calls or a benchmark score.
 The remaining tests cover selector drift, source/profile/runtime/input bindings,
 authenticated release shape, cumulative and phase budgets, exclusive ownership,
-reset rejection, crash/storage/provider stops, and request hash validation.
+reset rejection, crash/storage/provider stops, request hash validation, and stale
+saved or ownership accounting beyond the attempt count.
+
+The R1 offline correction passed 166 scoped tests and Ruff for the runner and
+its tests. Raw fail-first, passing, recovery, preparation and binding evidence is
+retained under
+[`aggregate-accounting-correction/`](../bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/).
+The new candidate uses the same 27 IDs, original input hashes and grouping,
+37 frozen source files, profile, 41 contexts, 32 audits, 50 units, nine reuses,
+and 1,316 / 1,675 / 1,900 request bound. Provider requests remain zero; the real
+child and registry have not been created. Raw pytest logs retain their original
+trailing whitespace; source and documentation whitespace checks are separate.
 
 The accepted parent inventory is
 `63240327fc6adf050b6cefbd0340f1fb6c16700c48551bc12548b071a057783e`.

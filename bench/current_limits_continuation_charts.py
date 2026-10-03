@@ -378,8 +378,9 @@ def render(data: dict, output: Path) -> list[str]:
     )
     fig.text(.025, .025, data["provenance"]["caption"] +
              f"\nSecondary complete paired attacks (same {paired_count} IDs): {paired_summary}. "
-             "Clean-description flags are not an FPR; partial findings are retained.\n"
-             "Partial findings: critical partial evidence retained.", fontsize=8, va="bottom")
+             "Clean-description flags are not an FPR.\n"
+             "Partial findings are retained when present and do not count as completed detections.",
+             fontsize=8, va="bottom")
     fig.subplots_adjust(left=.19, right=.98, top=.9, bottom=.36, wspace=.55)
     save(fig, "common-results")
 

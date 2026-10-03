@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "assignment": "qitem-20261003065017-de9f0691",
+  "owner": "research.security",
+  "checked_utc": "2026-10-03T07:09:07.427755+00:00",
+  "integration_base": "0aca9deeddf6d79e0d7736e0915707dc0ee6db3e",
+  "review_finding": "R1/P2",
+  "status": "ready-for-exact-independent-review",
+  "behavior": "Reject stale complete durable child accounting and unresolved ownership stop state before publishing combined artifacts. Accounting-only owner recovery retains rows and dispatches zero new requests.",
+  "changed_files": [
+    {
+      "path": "bench/current_limits_continuation.py",
+      "sha256": "c3b895fcdc441b62fa9c72e0cbc721508d4a5cd8884728d52db68d4c79dc7203"
+    },
+    {
+      "path": "tests/test_current_limits_continuation.py",
+      "sha256": "5e44df8d3a2d480748381d09fec66756aee8f45ea0da2e576c372f63230ecd87"
+    },
+    {
+      "path": "docs/benchmark-current-limits-continuation.md",
+      "sha256": "ed7752e0fb4e8b1a933b4fecf1947ebfb018856a2edb5433f5104511a7b5b7ba"
+    }
+  ],
+  "new_plan_sha256": "ea8cff37184b4dd7efe06d3494643462298b398bebcb471d50ce0d6d76f32835",
+  "superseded_plan_sha256": "0e859af4efdda0c6f8c0ee48664486444563ca3af21a4c2cc2ea4e9bf8e74f74",
+  "old_plan_bytes_preserved": true,
+  "execution_authorized": false,
+  "red_checks": [
+    {
+      "log": "red-aggregate.log",
+      "result": "28 failed, 1 passed, 73 deselected",
+      "expected_failure": true
+    },
+    {
+      "log": "red-accounting-details.log",
+      "result": "28 failed, 1 passed, 80 deselected",
+      "expected_failure": true
+    }
+  ],
+  "green_checks": [
+    {
+      "log": "green-aggregate.log",
+      "result": "36 passed, 73 deselected"
+    },
+    {
+      "log": "green-scoped.log",
+      "result": "166 passed, no skips"
+    },
+    {
+      "log": "native-recovery.log",
+      "result": "1 passed, 108 deselected"
+    },
+    {
+      "log": "ruff.log",
+      "result": "All checks passed"
+    },
+    {
+      "log": "binding-check.log",
+      "result": "complete protected vector unchanged and exact v3 bindings validated"
+    }
+  ],
+  "native_fake_evidence": {
+    "accounting_recovery_dispatches": 0,
+    "cached_contexts": 9,
+    "carried_rows_preserved": 13,
+    "chart_consumer_accepted": true,
+    "child_rows_preserved": 27,
+    "combined_rows": 40,
+    "fake_sdk_attempts": 949,
+    "preserved_parent_files": 403,
+    "provider_requests": 0,
+    "recovered_stop_reason": "continuation_execution_failure",
+    "restart_dispatches": 0,
+    "stale_stop_rejected": true,
+    "synthetic": true,
+    "unique_audits": 32
+  },
+  "preservation": {
+    "parent_sealed_files_preserved": 403,
+    "protected_files_preserved": 2256,
+    "protected_baseline_sha256": "1dbcd402473e266451c0b4c58ede33dac0e4159298735733d98b084800d3277a",
+    "changed_protected_files": [],
+    "original_regular_files": 81,
+    "copied_regular_files": 68,
+    "frozen_source_files": 37,
+    "original_fields_and_order_preserved": true
+  },
+  "bounds": {
+    "member_contexts": 41,
+    "unique_audits": 32,
+    "semantic_units": 50,
+    "cache_reuses": 9,
+    "new_request_bound": 1316,
+    "cumulative_request_bound": 1675,
+    "cumulative_cap": 1900,
+    "child_phase_caps": {
+      "common20": 280,
+      "remainder": 1036
+    }
+  },
+  "process_replay_annotation": "Nonnegative integer retained from its execution process; not reconstructible offline and not counted as SDK attempts. All durable accounting fields are compared exactly.",
+  "provider_requests": 0,
+  "target_executions": 0,
+  "real_child_created": false,
+  "real_registry_created": false,
+  "remaining": [
+    "Lead integration after both writers release",
+    "Independent review of exact new commit and plan",
+    "Separate authenticated data grant before inference",
+    "R2 chart correction is backend territory"
+  ],
+  "excluded_local_artifacts": [
+    "prepared-v3/targets/**",
+    "/tmp/fugu-continuation-engine-cc58a58/**",
+    "/tmp/fugu-r1-protected-before.json",
+    "temporary fake child and registry journals"
+  ],
+  "root_inventory_edited": false,
+  "git_mutations": 0,
+  "dependencies_changed": false,
+  "native_runtime": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "verified_turn_context_utc": "2026-10-03T06:53:48.633Z"
+  },
+  "raw_log_whitespace_preserved": {
+    "green-aggregate.log": [],
+    "green-scoped.log": [],
+    "native-recovery.log": [],
+    "prepare-v3.log": [],
+    "red-accounting-details.log": [],
+    "red-aggregate.log": [
+      28
+    ],
+    "ruff.log": []
+  }
+}

@@ -239,10 +239,48 @@ def test_synthetic_render_captions_both_intervals_and_keeps_unknown_benign_unava
     assert "SYNTHETIC OFFLINE FIXTURE" in common_svg
     assert "4096" in common_svg
     assert "2026-10-02-full" in common_svg
-    assert "critical partial evidence retained" in common_svg
+    assert "critical partial evidence retained" not in common_svg
+    assert "partial findings are retained when present and do not count as completed detections" in common_svg
     assert "Secondary complete paired attacks (same 11 IDs)" in common_svg
     telemetry_svg = (output / "call-telemetry.svg").read_text(encoding="utf-8")
     assert "Unknown token-usage calls: parent 1" in telemetry_svg
     assert "Combined token totals stay unavailable" in telemetry_svg
     data_file = json.loads((output / "chart-data.json").read_text(encoding="utf-8"))
     assert data_file["benign_adjudication"]["false_positive_rate"] is None
+
+
+@pytest.mark.parametrize("severities, expected_high_or_critical", [
+    pytest.param(["high"], 1, id="high-only"),
+    pytest.param(["critical"], 1, id="critical-only"),
+    pytest.param(["high", "critical"], 2, id="mixed-high-and-critical"),
+    pytest.param([], 0, id="no-findings"),
+])
+def test_partial_findings_caption_never_invents_critical_evidence(
+        severities, expected_high_or_critical):
+    pytest.importorskip("matplotlib")
+    mod = charts()
+    combined, manifest, competitors = synthetic_packet()
+    combined["rows"][12]["findings"] = [
+        {"severity": severity, "title": f"retained {severity} partial evidence"}
+        for severity in severities
+    ]
+    data = mod.chart_data(combined, manifest, competitors,
+                          comparator_snapshot="2026-10-02-full")
+    output = Path("/tmp/fugu-continuation-chart-caption-correction") / (
+        "partial-" + ("-".join(severities) if severities else "no-findings")
+    )
+
+    mod.render(data, output)
+
+    common_svg = (output / "common-results.svg").read_text(encoding="utf-8").lower()
+    assert "critical partial evidence retained" not in common_svg
+    assert "partial findings are retained when present and do not count as completed detections" in common_svg
+    assert data["planned"] == 40
+    assert data["partial_evidence"]["incomplete_case_ids"] == ["mcptox/AlphaVantage_4"]
+    assert data["partial_evidence"]["case_ids"] == (
+        ["mcptox/AlphaVantage_4"] if severities else []
+    )
+    assert data["partial_evidence"]["high_or_critical_findings"] == expected_high_or_critical
+    primary_fugu = data["comparison"]["primary"]["fugu"]
+    assert primary_fugu["attack_detected"] == 1
+    assert primary_fugu["attack_incomplete"] == 1

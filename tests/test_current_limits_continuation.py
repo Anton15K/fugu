@@ -611,7 +611,8 @@ from pathlib import Path
 from types import SimpleNamespace as N
 from bench import current_limits as base
 from bench import current_limits_continuation as mod
-root=Path(sys.argv[1]); engine=base.load_engine(Path(sys.argv[2]))
+root=Path(sys.argv[1]); mod.DEFAULT_CHILD=root/'synthetic-child'; mod.DEFAULT_REGISTRY=root/'synthetic-registry/parent.json'
+engine=base.load_engine(Path(sys.argv[2]))
 parent=mod.load_parent(); before={r['path']:base.sha((base.ROOT/r['path']).read_bytes()) for r in parent.inventory['sha256']}
 before['manifest']=base.sha((parent.directory/'artifact-manifest.json').read_bytes())
 plan=mod.prepare(engine,root/'prepared')
@@ -658,18 +659,45 @@ first=len(sdk.requests)
 with mod.ContinuationJournal(out,**settings) as journal:
  restarted=asyncio.run(mod.evaluate_cases(engine,manifest,out,journal,sdk_factory=lambda *a,**k:sdk))
 assert len(sdk.requests)==first and child['rows']==restarted['rows']
-ledger=mod.read_ledger(out)
-combined, provenance=mod.combine(parent,restarted,ledger.records,plan,
-                               child_result_sha256=base.sha((out/'fugu.json').read_bytes()))
+combined=mod.aggregate(engine,root/'prepared',out)
+provenance=mod.read_json(out/'provenance.json')
 assert combined['rows'][:13]==parent.result['rows'][:13]
 assert combined['usage']['attempts']==1308 and combined['usage']['prompt_tokens_total'] is None
 assert combined['coverage']['unique_audits']==45
 assert len(provenance['sdk_requests'])==1308
+# The run can stop after publishing fugu.json without reserving another request.
+published={name:(out/name).read_bytes() for name in ('combined.json','provenance.json')}
+with mod.ContinuationJournal(out,**settings) as journal:
+ journal._stop('continuation_execution_failure')
+assert mod.read_ledger(out).state['attempts']==949
+try: mod.aggregate(engine,root/'prepared',out)
+except base.EvidenceError as error: assert 'accounting' in str(error)
+else: raise AssertionError('stale child stop was published')
+assert published=={name:(out/name).read_bytes() for name in published}
+assert len(sdk.requests)==first
+with mod.ContinuationJournal(out,**settings) as journal:
+ recovered=asyncio.run(mod.evaluate_cases(engine,manifest,out,journal,sdk_factory=lambda *a,**k:sdk))
+assert len(sdk.requests)==first and recovered['rows']==child['rows']
+assert recovered['usage']['stop_reason']=='continuation_execution_failure'
+combined=mod.aggregate(engine,root/'prepared',out)
+assert combined['usage']['stop_reason']=='continuation_execution_failure'
+assert combined['intervals'][1]['usage']==recovered['usage']
+assert combined['rows'][:13]==parent.result['rows'][:13] and combined['rows'][13:]==child['rows']
+from bench.current_limits_charts import load_competitors
+from bench.current_limits_continuation_charts import chart_data
+data=chart_data(combined,parent.original,load_competitors(parent.original,base.FROZEN/'competitors'),
+                comparator_snapshot='2026-10-02-full')
+assert data['usage']['stop_reason']=='continuation_execution_failure'
+assert data['intervals'][1]['usage']['stop_reason']=='continuation_execution_failure'
+assert data['usage']['prompt_tokens_total'] is None
 after={r['path']:base.sha((base.ROOT/r['path']).read_bytes()) for r in parent.inventory['sha256']}
 after['manifest']=base.sha((parent.directory/'artifact-manifest.json').read_bytes())
 assert before==after and len(before)==403
 print(json.dumps({'synthetic':True,'fake_sdk_attempts':first,'provider_requests':0,'unique_audits':32,
-                  'cached_contexts':9,'preserved_parent_files':403,'combined_rows':40,'restart_dispatches':0}))
+                  'cached_contexts':9,'preserved_parent_files':403,'combined_rows':40,'restart_dispatches':0,
+                  'stale_stop_rejected':True,'accounting_recovery_dispatches':0,
+                  'child_rows_preserved':27,'carried_rows_preserved':13,
+                  'recovered_stop_reason':data['usage']['stop_reason'],'chart_consumer_accepted':True}))
 """
 
 
@@ -691,7 +719,9 @@ def test_native32_audit_reuse_recovery_aggregate_restart_and403_parent_bytes(tmp
         timeout=120,
     )
     assert result.returncode == 0, result.stderr[-5000:]
-    assert json.loads(result.stdout)["provider_requests"] == 0
+    evidence = json.loads(result.stdout)
+    assert evidence["provider_requests"] == 0
+    print(json.dumps(evidence, sort_keys=True))
 
 
 def release_fixture():
@@ -945,3 +975,174 @@ def test_offline_paths_accept_only_the_system_tmp_alias_without_writing(tmp_path
     path.symlink_to(tmp_path / "outside", target_is_directory=True)
     with pytest.raises(base.EvidenceError):
         mod._offline_output(path, ENGINE)
+
+
+@pytest.fixture
+def aggregate_accounting_fixture(tmp_path, monkeypatch):
+    """Real child ledger/registry and aggregate path; skip unrelated preflight."""
+    mod = continuation()
+    parent = mod.load_parent()
+    rows, plan = child_rows_and_plan(parent)
+    prepared, child = tmp_path / "prepared", tmp_path / "child"
+    settings = journal_settings(
+        tmp_path,
+        binding=base.hash_json(plan),
+        parent_usage=parent.usage,
+        limit=mod.CHILD_LIMIT,
+        phase_limits=mod.CHILD_PHASE_LIMITS,
+    )
+    monkeypatch.setattr(mod, "DEFAULT_CHILD", child)
+    monkeypatch.setattr(mod, "DEFAULT_REGISTRY", settings["registry_path"])
+    monkeypatch.setattr(mod, "load_parent", lambda: parent)
+    monkeypatch.setattr(mod, "validate_plan", lambda *args, **kwargs: None)
+    with mod.ContinuationJournal(child, **settings) as journal:
+        with journal.context("context-a", "semantic", "common20"):
+            journal.request(lambda **kwargs: response(), **request())
+        saved = {
+            "rows": rows,
+            "binding": settings["binding"],
+            "planned": 27,
+            "engine": parent.result["engine"],
+            "limits": parent.result["limits"],
+            "scope": parent.result["scope"],
+            "started_utc": "2026-10-03T07:00:00Z",
+            "measured_utc": "2026-10-03T07:01:00Z",
+            "usage": journal.summary(),
+        }
+        base.write_json(child / "fugu.json", saved)
+    base.write_json(prepared / "plan.json", plan)
+    return SimpleNamespace(
+        mod=mod, parent=parent, prepared=prepared, child=child,
+        saved=saved, settings=settings,
+    )
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("provider_errors", 1),
+        ("orphan_attempts", 1),
+        ("output_errors", 1),
+        ("phase_attempts", {"remainder": 1}),
+        ("stop_reason", "provider_error"),
+        ("unknown_usage_calls", 1),
+        ("prompt_tokens_known_subtotal", 100),
+        ("completion_tokens_known_subtotal", 100),
+        ("prompt_tokens_unknown_calls", 1),
+        ("completion_tokens_unknown_calls", 1),
+        ("prompt_tokens_total", None),
+        ("completion_tokens_total", None),
+        ("sum_request_duration_s", -1),
+        ("unknown_duration_calls", 1),
+        ("finish_reasons", {"length": 1}),
+        ("requested_models", ["changed"]),
+        ("served_models", ["changed"]),
+        ("parent_attempts", 0),
+        ("cumulative_attempts", 1),
+        ("registry_reserved_attempts", 0),
+        ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+        ("unexpected_accounting", True),
+        ("replayed_requests_this_process", -1),
+        ("replayed_requests_this_process", True),
+        ("provider_errors", False),
+    ],
+)
+def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+    aggregate_accounting_fixture, field, value
+):
+    f = aggregate_accounting_fixture
+    saved = copy.deepcopy(f.saved)
+    saved["usage"][field] = value
+    assert saved["usage"]["attempts"] == 1
+    base.write_json(f.child / "fugu.json", saved)
+    with pytest.raises(base.EvidenceError, match="accounting"):
+        f.mod.aggregate(None, f.prepared, f.child)
+    assert f.mod.read_json(f.child / "fugu.json")["rows"] == f.saved["rows"]
+    assert not (f.child / "combined.json").exists()
+    assert not (f.child / "provenance.json").exists()
+
+
+@pytest.mark.parametrize("location", ["both", "budget", "registry", "session", "guard"])
+def test_actual_aggregate_rejects_post_publication_ownership_stop_with_same_count(
+    aggregate_accounting_fixture, location
+):
+    f = aggregate_accounting_fixture
+    if location == "both":
+        with f.mod.ContinuationJournal(f.child, **f.settings) as journal:
+            journal._stop("continuation_execution_failure")
+    elif location == "budget":
+        state = f.mod.read_json(f.child / "budget.json")
+        state["stop_reason"] = "continuation_execution_failure"
+        base.write_json(f.child / "budget.json", state)
+    elif location in {"registry", "session"}:
+        registry = f.mod.read_json(f.settings["registry_path"])
+        registry["stop_reason" if location == "registry" else "session_open"] = (
+            "continuation_execution_failure" if location == "registry" else True
+        )
+        base.write_json(f.settings["registry_path"], registry)
+    else:
+        base.write_json(f.settings["registry_path"].with_suffix(".guard.json"), {
+            "binding": f.settings["binding"], "number": 1, "phase": "common20",
+        })
+    assert f.mod.read_ledger(f.child).state["attempts"] == f.saved["usage"]["attempts"]
+    with pytest.raises(base.EvidenceError, match="accounting|ownership|recovery"):
+        f.mod.aggregate(None, f.prepared, f.child)
+    assert f.mod.read_json(f.child / "fugu.json") == f.saved
+    assert not (f.child / "combined.json").exists()
+    assert not (f.child / "provenance.json").exists()
+
+
+def test_actual_aggregate_accepts_reconciled_accounting(aggregate_accounting_fixture):
+    f = aggregate_accounting_fixture
+    combined = f.mod.aggregate(None, f.prepared, f.child)
+    assert combined["usage"]["attempts"] == 360
+    assert combined["rows"][:13] == f.parent.result["rows"][:13]
+    assert combined["intervals"][1]["usage"] == f.saved["usage"]
+
+
+def test_actual_aggregate_retains_process_replay_annotation_without_new_requests(
+    aggregate_accounting_fixture
+):
+    f = aggregate_accounting_fixture
+    with f.mod.ContinuationJournal(f.child, **f.settings) as journal:
+        with journal.context("context-a", "semantic", "common20"):
+            journal.request(
+                lambda **kwargs: pytest.fail("replay dispatched another request"),
+                **request(),
+            )
+        saved = copy.deepcopy(f.saved)
+        saved["usage"] = journal.summary()
+        base.write_json(f.child / "fugu.json", saved)
+    assert saved["usage"]["replayed_requests_this_process"] == 1
+    combined = f.mod.aggregate(None, f.prepared, f.child)
+    assert combined["usage"]["attempts"] == 360
+    assert combined["intervals"][1]["usage"]["replayed_requests_this_process"] == 1
+
+
+@pytest.mark.parametrize("terminal", ["error", "reserved", "unknown_usage"])
+def test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting(
+    aggregate_accounting_fixture, terminal
+):
+    f = aggregate_accounting_fixture
+    # Emulate persisted terminal accounting after the earlier report snapshot.
+    path = f.child / "calls/00001.json"
+    row = f.mod.read_json(path)
+    registry = f.mod.read_json(f.settings["registry_path"])
+    state = f.mod.read_json(f.child / "budget.json")
+    row["usage"] = {"prompt_tokens": None, "completion_tokens": None}
+    if terminal != "unknown_usage":
+        row["state"] = terminal
+        reason = "provider_error" if terminal == "error" else "orphan_attempt_requires_review"
+        state["stop_reason"] = registry["stop_reason"] = reason
+        if terminal == "error":
+            row["error"] = {"classification": reason, "type": "RuntimeError", "status": 500}
+    base.write_json(path, row)
+    registry["calls"][0]["sha256"] = base.sha(path.read_bytes())
+    base.write_json(f.settings["registry_path"], registry)
+    base.write_json(f.child / "budget.json", state)
+    assert f.mod.read_ledger(f.child).state["attempts"] == 1
+    with pytest.raises(base.EvidenceError, match="accounting"):
+        f.mod.aggregate(None, f.prepared, f.child)
+    assert f.mod.read_json(f.child / "fugu.json") == f.saved
+    assert not (f.child / "combined.json").exists()
+    assert not (f.child / "provenance.json").exists()

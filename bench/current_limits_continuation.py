@@ -233,6 +233,18 @@ def load_parent(directory: Path = DEFAULT_PARENT) -> SimpleNamespace:
                            usage=ledger.usage, old_keys=old_keys, inventory=inventory)
 
 
+def _continuation_usage(usage: dict, parent_usage: dict, registry: dict) -> dict:
+    """Use the same durable ownership totals in owner and offline summaries."""
+    result = copy.deepcopy(usage)
+    result.update(parent_attempts=parent_usage["attempts"],
+                  cumulative_attempts=parent_usage["attempts"] + registry["attempts"],
+                  registry_reserved_attempts=registry["attempts"],
+                  cumulative_phase_attempts={k: parent_usage["phase_attempts"].get(k, 0)
+                                            + registry["phase_attempts"].get(k, 0)
+                                            for k in PARENT_PHASE_LIMITS})
+    return result
+
+
 class ContinuationJournal(base.RequestJournal):
     """Reuse native response observation, with an outside-child ownership ledger.
 
@@ -485,14 +497,7 @@ class ContinuationJournal(base.RequestJournal):
                 raise
 
     def summary(self) -> dict:
-        result = super().summary()
-        result.update(parent_attempts=self.parent_usage["attempts"],
-                      cumulative_attempts=self.parent_usage["attempts"] + self.registry["attempts"],
-                      registry_reserved_attempts=self.registry["attempts"],
-                      cumulative_phase_attempts={k: self.parent_usage["phase_attempts"].get(k, 0)
-                                                + self.registry["phase_attempts"].get(k, 0)
-                                                for k in PARENT_PHASE_LIMITS})
-        return result
+        return _continuation_usage(super().summary(), self.parent_usage, self.registry)
 
 
 async def evaluate_cases(engine, manifest: dict, output: Path, journal: ContinuationJournal, *, sdk_factory=None):
@@ -787,6 +792,11 @@ def validate_registry_ledger(registry: dict, ledger, directory: Path, *, binding
         or any(parent_usage["phase_attempts"].get(k, 0) + registry["phase_attempts"].get(k, 0) > v
                for k, v in PARENT_PHASE_LIMITS.items())):
         raise EvidenceError("aggregate child ownership/budget/model/counter binding changed")
+    if (registry.get("journal_initialized") is not True
+        or type(registry.get("session_open")) is not bool
+        or registry.get("stop_reason") != ledger.usage["stop_reason"]
+        or registry["session_open"] and not registry.get("stop_reason")):
+        raise EvidenceError("child ownership stop accounting needs owner recovery")
     if (ledger.usage["phase_attempts"].get("unknown", 0) == 0
         and registry["phase_attempts"] != ledger.usage["phase_attempts"]):
         raise EvidenceError("aggregate phase accounting changed")
@@ -824,8 +834,26 @@ def _aggregate_locked(engine, prepared: Path, output: Path) -> dict:
     ledger = read_ledger(output, allow_orphans=True)
     registry = read_json(DEFAULT_REGISTRY)
     validate_registry_ledger(registry, ledger, output, binding=base.hash_json(plan), parent_usage=parent.usage)
+    guard_path = DEFAULT_REGISTRY.with_suffix(".guard.json")
+    if _has_symlink(guard_path):
+        raise EvidenceError("symlink child ownership guard")
+    if guard_path.exists():
+        guard = read_json(guard_path)
+        if (not isinstance(guard, dict) or set(guard) != {"binding", "number", "phase"}
+            or guard["binding"] != base.hash_json(plan)
+            or not _integer(guard["number"]) or guard["number"] != registry["attempts"]
+            or guard["phase"] not in PARENT_PHASE_LIMITS or not registry["stop_reason"]):
+            raise EvidenceError("child ownership guard accounting needs owner recovery")
     child = read_json(output / "fugu.json")
-    if child.get("usage", {}).get("attempts") != ledger.state["attempts"]:
+    current = _continuation_usage(ledger.usage, parent.usage, registry)
+    saved_usage = child.get("usage")
+    # The process replay annotation is not a durable SDK reservation. Retain its
+    # validated value; every other field must equal the ledger/registry summary.
+    replayed = saved_usage.get("replayed_requests_this_process") if isinstance(saved_usage, dict) else None
+    if type(replayed) is not int or replayed < 0:
+        raise EvidenceError("child result replay accounting is malformed")
+    current["replayed_requests_this_process"] = replayed
+    if base.hash_json(saved_usage) != base.hash_json(current):
         raise EvidenceError("child result accounting needs owner recovery before aggregation")
     combined, provenance = combine(parent, child, ledger.records, plan,
                                   child_result_sha256=base.sha((output / "fugu.json").read_bytes()))
