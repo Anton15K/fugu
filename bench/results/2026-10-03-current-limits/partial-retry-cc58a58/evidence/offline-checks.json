@@ -1,0 +1,50 @@
+{
+  "assignment": "qitem-20261003110854-3eabaae9",
+  "attempt_limit": 80,
+  "bootstrap_sha256": "6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd",
+  "case_ids": [
+    "mcptox/AlphaVantage_4"
+  ],
+  "checked_utc": "2026-10-03T11:49:39.084419+00:00",
+  "doc_links_exist": true,
+  "engine_files_verified": 37,
+  "lint": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync ruff check bench/current_limits_partial_retry.py tests/test_current_limits_partial_retry.py --no-cache",
+    "exit_code": 0
+  },
+  "measurement_absent": true,
+  "output_cap": 4096,
+  "phase": "offline",
+  "plan_sha256": "738c380aa2e3fcdb5910dfcecb0ee8f87a1acf065b8d396c22f0677d40084794",
+  "preservation": {
+    "owner": {
+      "checked": 3,
+      "mismatches": []
+    },
+    "protected": {
+      "checked": 3746,
+      "mismatches": []
+    }
+  },
+  "preservation_baseline_sha256": "8f6044a16d924c67541b7a547b40b07f876dddbd3bed6593da52dc3796676f59",
+  "prior_adjudication_sha256": "e714ec567dedd96c78cbf5ef7c292e9713dfc5f71223c4414a5c18da4b4cc94b",
+  "provider_requests": 0,
+  "remaining": [
+    "Independent review/integration and separate authenticated data grant",
+    "Actual one-case measurement; current baseline remains39/40",
+    "Measured aggregation/report/charts after granted interval"
+  ],
+  "schema": 1,
+  "tests": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_current_limits_partial_retry.py tests/test_current_limits.py -q -s -p no:cacheprovider",
+    "exit_code": 0,
+    "fake_native_stop_requests": 2,
+    "fake_provider_stop_requests": 1,
+    "fake_short_probe_requests": 23,
+    "fake_success_requests": 32,
+    "passed": 67,
+    "provider_requests": 0,
+    "sdk_fixture": "synthetic only"
+  },
+  "wrapper_sha256": "14f12e72f49fc03608c3d5689085da7242e004b6b8586b5ee7371eb53bedfdfe"
+}

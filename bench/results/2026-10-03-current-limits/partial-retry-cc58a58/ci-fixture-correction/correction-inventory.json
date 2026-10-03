@@ -1,0 +1,154 @@
+{
+  "changes": [
+    {
+      "baseline_sha256": "c512a7c9e7ee8075df96b9447ffca36ddd7ef3616b2c7a170797d0e2461d5ba4",
+      "change": "replaced only the NATIVE right-hand-side literal with explicit UTF-8 fixture loading; byte comparison against HEAD verified all other test bytes are unchanged",
+      "current_sha256": "3e5591dcd45d25d0ce32e0d1b3618cfffa1e25bf1445f90d4a919b6090ad5a72",
+      "path": "tests/test_current_limits_partial_retry.py"
+    },
+    {
+      "bytes": 5672,
+      "exact_embedded_Native_bytes_preserved": true,
+      "load": "Path(__file__).parent / \"fixtures\" / \"partial_retry_native.py\" read_text(encoding=\"utf-8\")",
+      "path": "tests/fixtures/partial_retry_native.py",
+      "sha256": "960987fe803c525a9c17afcc8e85a79c9456f372af3ce7ed1b8233d591d92309"
+    }
+  ],
+  "kind": "ci-fixture-correction-inventory",
+  "limits": "No live bootstrap, provider calls, target execution, Git mutation, shared-contract change, or source/plan change was performed. Writer1-owned measurement and report paths were left untouched.",
+  "parent_qitem": "qitem-20261003121433-8c77bdf6",
+  "protected_baseline": {
+    "accepted_hashes_unchanged": {
+      "bench/current_limits_partial_retry.py": "14f12e72f49fc03608c3d5689085da7242e004b6b8586b5ee7371eb53bedfdfe",
+      "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/bootstrap.py": "6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd",
+      "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/plan-hash.json": "ac7bdad0a32101f97bbc9441778c30f20cc6ece0e66c6fa6231e6a625f05c471",
+      "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/plan.json": "2e3f90f5e9dd4348175ce6cbc689e10dfc434b6c35f0adc906f3f385d7445193"
+    },
+    "assigned_test_entry": {
+      "baseline_sha256": "c512a7c9e7ee8075df96b9447ffca36ddd7ef3616b2c7a170797d0e2461d5ba4",
+      "current_sha256": "3e5591dcd45d25d0ce32e0d1b3618cfffa1e25bf1445f90d4a919b6090ad5a72",
+      "path": "tests/test_current_limits_partial_retry.py"
+    },
+    "unchanged_entries": [
+      {
+        "baseline_sha256": "14f12e72f49fc03608c3d5689085da7242e004b6b8586b5ee7371eb53bedfdfe",
+        "current_sha256": "14f12e72f49fc03608c3d5689085da7242e004b6b8586b5ee7371eb53bedfdfe",
+        "path": "bench/current_limits_partial_retry.py"
+      },
+      {
+        "baseline_sha256": "6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd",
+        "current_sha256": "6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/bootstrap.py"
+      },
+      {
+        "baseline_sha256": "94eec66e52e9fcea3e58c1eb8fd098ffb0258afd71bbb106c209b913f80a88c4",
+        "current_sha256": "94eec66e52e9fcea3e58c1eb8fd098ffb0258afd71bbb106c209b913f80a88c4",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/cases.json"
+      },
+      {
+        "baseline_sha256": "bdf5ceaf71a97982fe14883e5a7471253a92f4678f0115cccfc420deebe810c5",
+        "current_sha256": "bdf5ceaf71a97982fe14883e5a7471253a92f4678f0115cccfc420deebe810c5",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/bytecode-cleanup.json"
+      },
+      {
+        "baseline_sha256": "4350a9abc58f3637e22274abe59e89b5238ad9d21fd809b5f1e3e724e1e95ae4",
+        "current_sha256": "4350a9abc58f3637e22274abe59e89b5238ad9d21fd809b5f1e3e724e1e95ae4",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/default-path-red.log"
+      },
+      {
+        "baseline_sha256": "a55b8c638ad3bd76d88688446d7098722a78b609521210688d606ab282268aa5",
+        "current_sha256": "a55b8c638ad3bd76d88688446d7098722a78b609521210688d606ab282268aa5",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/full18-red.log"
+      },
+      {
+        "baseline_sha256": "138c525e14bed235e59ffe6945af84027a5011e81c2205a7bf915730ca18b1e1",
+        "current_sha256": "138c525e14bed235e59ffe6945af84027a5011e81c2205a7bf915730ca18b1e1",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/offline-checks.json"
+      },
+      {
+        "baseline_sha256": "07c0af99426c70a356f16bd676b2b56a78f237f48cadf16b68db105c2dc3e6be",
+        "current_sha256": "07c0af99426c70a356f16bd676b2b56a78f237f48cadf16b68db105c2dc3e6be",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/preparation.log"
+      },
+      {
+        "baseline_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+        "current_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/ruff.log"
+      },
+      {
+        "baseline_sha256": "cc6784b35781989fee1fcc71ac98bf0740e1f3232dfa89552211874d257a3f86",
+        "current_sha256": "cc6784b35781989fee1fcc71ac98bf0740e1f3232dfa89552211874d257a3f86",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/scoped-tests.log"
+      },
+      {
+        "baseline_sha256": "ac7bdad0a32101f97bbc9441778c30f20cc6ece0e66c6fa6231e6a625f05c471",
+        "current_sha256": "ac7bdad0a32101f97bbc9441778c30f20cc6ece0e66c6fa6231e6a625f05c471",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/plan-hash.json"
+      },
+      {
+        "baseline_sha256": "2e3f90f5e9dd4348175ce6cbc689e10dfc434b6c35f0adc906f3f385d7445193",
+        "current_sha256": "2e3f90f5e9dd4348175ce6cbc689e10dfc434b6c35f0adc906f3f385d7445193",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/plan.json"
+      },
+      {
+        "baseline_sha256": "e714ec567dedd96c78cbf5ef7c292e9713dfc5f71223c4414a5c18da4b4cc94b",
+        "current_sha256": "e714ec567dedd96c78cbf5ef7c292e9713dfc5f71223c4414a5c18da4b4cc94b",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/prior-benign-adjudication.json"
+      },
+      {
+        "baseline_sha256": "dd95926ad48b3b8199619a9db87f71ce641437ee704bab8e798c08639e7b2d16",
+        "current_sha256": "dd95926ad48b3b8199619a9db87f71ce641437ee704bab8e798c08639e7b2d16",
+        "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/release-template.json"
+      }
+    ],
+    "unchanged_entry_count": 14,
+    "writer1_owned_report_entry_observed": {
+      "baseline_sha256": "3369baa10692db0b080e0cdabbf4ca55ea63ec74884684292c594501a028957a",
+      "current_sha256": "b48391ac56f4e4972b88bb62bcab48bd664fd8d9396e8ebcb1e0b510ecae1264",
+      "path": "docs/benchmark-current-limits-partial-retry.md"
+    }
+  },
+  "recorded_at_utc": "2026-10-03T12:23:07Z",
+  "scanner_evidence": {
+    "check_id": 111197534264,
+    "conclusion": "span remains unresolved; no verified false-positive or incident conclusion is asserted",
+    "credential_specific_detection_reported": false,
+    "exact_detected_span_available": false,
+    "reported_detection": "Generic High Entropy Secret",
+    "safe_metadata_source": "/tmp/fugu-partial-retry-gitguardian-safe-summary.json"
+  },
+  "schema": 1,
+  "source7a_baseline": {
+    "entry_count": 16,
+    "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/artifact-manifest.json",
+    "phase": "offline",
+    "preserved_unchanged": true,
+    "provider_requests": 0,
+    "schema": 2,
+    "sha256": "158addc8a3ea5f4fb3f2bce568ac4554eefd7eb889202e0c0e2628f6950852a6"
+  },
+  "verification": {
+    "ast_and_fixture": "passed: source and fixture parse; UTF-8 read round-trips exact 5,672 fixture bytes and expected SHA-256",
+    "fake_sdk_tests": {
+      "command": "NEBIUS_API_KEY='' PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync python -m pytest tests/test_current_limits_partial_retry.py -q",
+      "exit_code": 0,
+      "live_bootstrap_or_provider_calls": "none; test scope uses fake SDK and dotenv is disabled",
+      "result": "10 passed in 6.77s"
+    },
+    "initial_pytest_console_entry": {
+      "exit_code": 2,
+      "result": "collection stopped before tests because console entry did not place bench on import path; module invocation above is the passing scoped run"
+    },
+    "ruff_fixture": {
+      "command": "RUFF_CACHE_DIR=/tmp/fugu-ruff-cache UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync ruff check tests/test_current_limits_partial_retry.py tests/fixtures/partial_retry_native.py",
+      "exit_code": 1,
+      "result": "41 compact-style diagnostics in the extracted program (E401/E701/E702); those bytes were already present in the inline fixture and were retained exactly, with no formatter or suppressions"
+    },
+    "ruff_test_module": {
+      "command": "RUFF_CACHE_DIR=/tmp/fugu-ruff-cache UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync ruff check tests/test_current_limits_partial_retry.py",
+      "exit_code": 0,
+      "result": "All checks passed!"
+    },
+    "source_delta": "passed: against HEAD at assigned source7a baseline, the only test-file byte delta is replacement of the NATIVE literal RHS with the path read expression"
+  }
+}
