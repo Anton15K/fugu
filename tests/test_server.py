@@ -402,6 +402,98 @@ def test_git_clone_timeout_kills_and_reaps_fake_process(tmp_path, monkeypatch):
     assert process.communicate_calls == 2
 
 
+@pytest.mark.parametrize(
+    "teardown_mode", ["open-pipe", "drain-error", "already-exited", "wait-hangs"]
+)
+def test_git_clone_timeout_teardown_is_bounded_and_cleans_partial_source(
+    tmp_path, monkeypatch, teardown_mode
+):
+    import time
+
+    import fugu.server.jobs as jobs_module
+
+    class FakeTransport:
+        def __init__(self):
+            self.close_calls = 0
+
+        def close(self):
+            self.close_calls += 1
+
+    class FakeProcess:
+        def __init__(self):
+            self.returncode = None
+            self.communicate_calls = 0
+            self.kill_calls = 0
+            self.wait_calls = 0
+            self._transport = FakeTransport()
+
+        async def communicate(self):
+            self.communicate_calls += 1
+            if self.communicate_calls == 1 or teardown_mode == "open-pipe":
+                await asyncio.Event().wait()
+            if teardown_mode in {"drain-error", "wait-hangs"}:
+                raise OSError("fabricated post-kill pipe drain failure")
+            if teardown_mode == "already-exited":
+                self.returncode = 0
+                await self.wait()
+            return b"", b""
+
+        def kill(self):
+            self.kill_calls += 1
+            if teardown_mode == "already-exited":
+                self.returncode = 0
+                raise ProcessLookupError
+            self.returncode = -9
+
+        async def wait(self):
+            self.wait_calls += 1
+            if teardown_mode == "wait-hangs":
+                await asyncio.Event().wait()
+            return self.returncode
+
+    process = FakeProcess()
+    partial_targets: list[Path] = []
+    workspaces: list[Path] = []
+    original_mkdtemp = jobs_module.tempfile.mkdtemp
+
+    def tracked_mkdtemp(*args, **kwargs):
+        kwargs["dir"] = tmp_path
+        workspace = Path(original_mkdtemp(*args, **kwargs))
+        workspaces.append(workspace)
+        return str(workspace)
+
+    async def fake_subprocess(*args, **kwargs):
+        target = Path(args[-1])
+        target.mkdir(parents=True)
+        (target / "partial.txt").write_text("fabricated partial clone")
+        partial_targets.append(target)
+        return process
+
+    monkeypatch.setattr(jobs_module.tempfile, "mkdtemp", tracked_mkdtemp)
+    monkeypatch.setattr(jobs_module.asyncio, "create_subprocess_exec", fake_subprocess)
+
+    async def scenario():
+        started = time.monotonic()
+        with pytest.raises(ExtractionError, match="timed out"):
+            await asyncio.wait_for(
+                extract_source(
+                    AuditJob(id="bounded-clone-timeout", source="https://example.invalid/repo.git"),
+                    git_timeout_s=0.01,
+                ),
+                timeout=0.75,
+            )
+        return time.monotonic() - started
+
+    elapsed = asyncio.run(scenario())
+    assert elapsed < 0.5
+    assert process.kill_calls == 1
+    assert process.communicate_calls == 2
+    assert process.wait_calls == 1
+    assert process._transport.close_calls >= 1
+    assert partial_targets and not partial_targets[0].exists()
+    assert workspaces and all(not workspace.exists() for workspace in workspaces)
+
+
 def test_git_view_materialization_is_capped_and_slashed_ref_retry_stays_at_two(
     tmp_path, monkeypatch
 ):

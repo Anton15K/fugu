@@ -140,6 +140,7 @@ class RequestJournal:
                 ("expected_models", self.expected_models),
             )):
                 raise EvidenceError("journal binding or budget changed")
+            provider_stop = None
             for number in range(1, self.state["attempts"] + 1):
                 path = self._path(number)
                 row = read_json(path) if path.exists() else {
@@ -147,8 +148,20 @@ class RequestJournal:
                     "stage": None, "phase": None, "ordinal": None,
                     "usage": {"prompt_tokens": None, "completion_tokens": None},
                 }
-                if row["number"] != number:
+                if not isinstance(row, dict) or type(row.get("number")) is not int or row["number"] != number:
                     raise EvidenceError("journal request number mismatch")
+                if row.get("state") not in ("reserved", "returned", "error"):
+                    raise EvidenceError("unknown journal request state")
+                if row["state"] == "error":
+                    error = row.get("error")
+                    if (not isinstance(error, dict)
+                        or error.get("classification") not in (
+                            "provider_quota_exhausted", "provider_auth_failure",
+                            "provider_rate_limit", "provider_error")
+                        or type(error.get("status")) not in (int, type(None))
+                        or not isinstance(error.get("type"), str) or not error["type"]):
+                        raise EvidenceError("invalid saved provider error")
+                    provider_stop = provider_stop or error["classification"]
                 if row["state"] == "returned" and isinstance(row.get("raw_response"), str):
                     if sha(row["raw_response"].encode()) != row.get("response_sha256"):
                         raise EvidenceError("saved response hash mismatch")
@@ -156,6 +169,9 @@ class RequestJournal:
             extra = list((self.directory / "calls").glob("*.json"))
             if len(extra) > self.state["attempts"]:
                 raise EvidenceError("journal contains unowned request records")
+            # A terminal error may have reached disk before its budget stop write.
+            # Recover its original classification before exposing this journal.
+            self.state["stop_reason"] = self.state["stop_reason"] or provider_stop
             if any(r["state"] == "reserved" for r in self.records):
                 self.state["stop_reason"] = self.state["stop_reason"] or "orphan_attempt_requires_review"
             write_json(state_path, self.state)

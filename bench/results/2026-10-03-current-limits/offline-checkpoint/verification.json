@@ -68,6 +68,37 @@
   },
   "fresh_improved_engine_measured": false,
   "fresh_provider_requests": 0,
+  "journal_stop_correction": {
+    "at_utc": "2026-10-03T02:00:56.834815+00:00",
+    "checks_sha256": "826ef3239e37da4c03199cd5b2934584973e1f6b5b01acbbecc3b4b06ad7cbc4",
+    "engines_checked": [
+      "e184128979b3551ff6cb97561cd7822f4a9accd0",
+      "473cc4bb44b26bebdb6082113d99c40030f25f70"
+    ],
+    "evidence": "../journal-stop-correction/checks.json",
+    "live_provider_requests": 0,
+    "new_exact_review_required": true,
+    "new_measurement_plan_required": true,
+    "new_tests_passed": 62,
+    "new_tests_skipped": 0,
+    "offline_plan_sha256": "090042784c1f0b73b2071eb3480d97a80d9828a0a49c36259ac181d49888aea4",
+    "previous_plan_sha256": "9f72d31136369ed582f0bc427ea886697ac54acf5e279d7c800ad616100e6275",
+    "previous_runner_sha256": "f292fc396e3a910a063e0c5a1458ff8eef1bd21be75cdd49d8721469d7ef4416",
+    "prior_bytes_commit": "473cc4bb44b26bebdb6082113d99c40030f25f70",
+    "prior_checks_scope": "Original legacy41-test and chart verification observations remain unchanged below; correction checks are separate.",
+    "prior_checks_sha256_before_log_normalization": "c07cd916f7e37d7201733c872f79f53428fd03b01ba753c7a6c683f67822d06d",
+    "prior_verification_sha256": "022d6b934b9f1edb61c624ee6b5747b30da03f1378879c2ace7f322b20fec8ae",
+    "queue_id": "qitem-20261003014842-6180d14e",
+    "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+    "scope": "Recover durable provider stops after lost budget write; reject malformed error/request states. Offline only; no production/input/score/budget/chart changes. Prior41-test observations retained.",
+    "target_executions": 0,
+    "unfinished": [
+      "Lead integration and exact new candidate review",
+      "New checked-engine preparation and accepted plan",
+      "Explicit later data-phase grant",
+      "Fresh measurement, adjudication, real plots and independent evidence review"
+    ]
+  },
   "limitations": [
     "Synthetic Fugu plot values are not accuracy/cost/latency measurements",
     "Legacy compatibility tests are not improved-production validation",
@@ -76,7 +107,7 @@
     "Manual queue authority verification precedes CLI release reference use"
   ],
   "live_authority_active": false,
-  "offline_plan_sha256": "9f72d31136369ed582f0bc427ea886697ac54acf5e279d7c800ad616100e6275",
+  "offline_plan_sha256": "090042784c1f0b73b2071eb3480d97a80d9828a0a49c36259ac181d49888aea4",
   "queue_id": "qitem-20261002231229-9f41594f",
   "red_green_evidence": [
     {

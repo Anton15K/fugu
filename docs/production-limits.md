@@ -72,9 +72,19 @@ offline no-op is not a security assessment.
 Local sources and selected Git materializations are checked against the
 512 MiB and 20,000-entry limits. These checks apply to the materialized tree;
 they do not cap bytes already transferred while a shallow Git clone is being
-created. Each clone attempt has its own 120-second timeout, and failed
-materializations are cleaned up. Slashed Git refs keep the existing maximum
-of two clone attempts.
+created. Each clone attempt has its own 120-second timeout. After timeout,
+Fugu kills the clone process and allows at most 100 milliseconds for
+`communicate()` to drain its pipes. It then closes the subprocess transport;
+if draining did not finish, `Process.wait()` gets a separate 100-millisecond
+bound. After `asyncio.wait_for()` reports the clone timeout, its cleanup handler
+therefore adds at most 200 milliseconds of awaited cleanup, plus event-loop
+scheduling and synchronous transport-close overhead. This allowance does not
+include cancellation delivery for the initial `communicate()` before
+`wait_for()` reports the timeout. The timeout is returned as an extraction
+error and the failed materialization is removed through the normal cleanup
+path. Reaping is best effort if the operating system or event loop does not
+report process exit within that bound. Slashed Git refs keep the existing
+maximum of two clone attempts.
 
 The API accepts `standard` for compatibility, but currently normalizes it to
 `full`; the request does not select a smaller stage set. Offline assembly can

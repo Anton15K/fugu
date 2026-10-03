@@ -119,6 +119,13 @@ An interrupted reservation is an orphan requiring review. Resume preserves its
 counter and stop latch; it does not reissue the unknown request. The runner has
 no command to clear that latch or reset a budget.
 
+On restart, the journal also reconstructs the stop from a saved terminal provider
+error when its earlier budget stop write failed. It retains the original quota,
+authentication, rate-limit or other-provider classification and attempt count.
+Malformed error records and unknown request states prevent initialization. If
+the recovered stop cannot be persisted, initialization fails and releases its
+owner lock. Valid saved replies can still replay unchanged; error attempts cannot.
+
 All planned rows are written before dispatch. Failed/interrupted runs preserve
 partial stage evidence and account for attempts in a final write. Resuming a
 stopped run preserves earlier completed rows. Source/plan drift is rejected
@@ -200,7 +207,7 @@ for the improved version.
 Run from the checkout root. Use the existing shared environment without syncing:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 UV_CACHE_DIR=/tmp/fugu-uv-cache \
+PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' UV_CACHE_DIR=/tmp/fugu-uv-cache \
   uv run --no-sync python -m pytest tests/test_current_limits.py tests/test_current_limits_charts.py \
   -q -p no:cacheprovider --tb=short
 UV_CACHE_DIR=/tmp/fugu-uv-cache uv run --no-sync ruff check --no-cache \
@@ -215,6 +222,31 @@ lead-provisioned full engine snapshot; otherwise they explicitly skip. Set
 With the new profile the same native test requires every SDK request to use
 4,096 tokens. The checkpoint's 41 passing tests used the legacy snapshot, with
 zero skips; this does not validate the final improved engine.
+
+### Stop-latch correction after review
+
+Review of `473cc4bb44b26bebdb6082113d99c40030f25f70` found that a saved provider
+error could lose its stop latch when the following budget write failed. Restart
+then permitted another request. The correction above addresses that journal
+failure without changing production inference, input labels, budgets or scoring.
+
+The [correction evidence](../bench/results/2026-10-03-current-limits/journal-stop-correction/)
+retains 21 failing pre-fix regressions, their passing rerun, and new full-suite
+logs: **62 passed, zero skipped** against both the unchanged legacy engine and
+the checked `473cc4b` engine with its 4,096-token profile. Fake SDK responses cover
+HTTP 402, 401, 429 and 503, loss of the stop write, repeated restart storage
+failure, malformed/unknown error state, exact saved-response replay and preserved
+completed native rows. Scoped Ruff passed. These checks made zero provider
+requests and zero target executions.
+
+The original 41-test observations, inputs, historical responses, synthetic
+chart data and figures remain byte-identical. The offline plan now binds the
+corrected runner, and the metadata records the amendment separately from the
+earlier checks. The prepared measurement plan
+`bd3edc87293debfec4826ab8c5af290c30c77cf49ec167fcaff2ffe1293fb992` remains
+preserved and was never released. The changed runner invalidates the prior
+review; the lead must integrate, freeze a new candidate, prepare a new plan and
+obtain exact independent review before separately granting the data phase.
 
 The plotting environment is isolated from project dependencies. If absent, a
 lead/operator can provision it with the pinned plotting dependency:
@@ -241,7 +273,7 @@ Local engine copies and copied compatibility-test inputs stay under `/tmp`.
 An offline artifact check is retained as `offline-checkpoint/verify.py`:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 UV_CACHE_DIR=/tmp/fugu-uv-cache \
+PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' UV_CACHE_DIR=/tmp/fugu-uv-cache \
   uv run --no-sync python bench/results/2026-10-03-current-limits/offline-checkpoint/verify.py
 ```
 

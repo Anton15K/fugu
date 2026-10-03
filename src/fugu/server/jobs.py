@@ -58,6 +58,8 @@ __all__ = [
 DEFAULT_MAX_BYTES = DEFAULT_PRODUCTION_LIMITS.source_max_bytes
 DEFAULT_MAX_FILES = DEFAULT_PRODUCTION_LIMITS.source_max_entries
 DEFAULT_GIT_CLONE_TIMEOUT_SECONDS = DEFAULT_PRODUCTION_LIMITS.git_clone_timeout_seconds
+_GIT_CLONE_TIMEOUT_DRAIN_SECONDS = 0.1
+_GIT_CLONE_TIMEOUT_WAIT_SECONDS = 0.1
 
 
 class ExtractionError(Exception):
@@ -488,15 +490,64 @@ async def _git_clone(
         except ProcessLookupError:  # process exited at the timeout boundary
             pass
         try:
-            await proc.communicate()
-        except Exception:  # noqa: BLE001 - reap even if pipe draining failed
-            await proc.wait()
+            drained = await _bounded_process_cleanup(
+                proc.communicate(), _GIT_CLONE_TIMEOUT_DRAIN_SECONDS
+            )
+        finally:
+            _close_subprocess_transport(proc)
+        if not drained:
+            await _bounded_process_cleanup(
+                proc.wait(), _GIT_CLONE_TIMEOUT_WAIT_SECONDS
+            )
         raise ExtractionError(f"git clone timed out after {timeout_s:g} seconds") from None
     if proc.returncode != 0:
         detail = (stderr or b"").decode(errors="replace").strip()
         raise ExtractionError(
             f"git clone failed (exit {proc.returncode}): {detail[:500]}"
         )
+
+
+async def _bounded_process_cleanup(awaitable: Any, timeout_s: float) -> bool:
+    """Run one cleanup awaitable without extending clone timeout indefinitely."""
+    task = asyncio.create_task(awaitable)
+    try:
+        done, _ = await asyncio.wait({task}, timeout=timeout_s)
+        if task not in done:
+            return False
+        try:
+            task.result()
+        except Exception:  # noqa: BLE001 - cleanup is best effort after timeout
+            return False
+        except asyncio.CancelledError:
+            return False
+        return True
+    finally:
+        if not task.done():
+            task.cancel()
+            task.add_done_callback(_consume_task_outcome)
+
+
+def _consume_task_outcome(task: asyncio.Task[Any]) -> None:
+    """Retrieve a late cleanup-task exception without awaiting it indefinitely."""
+    try:
+        task.exception()
+    except asyncio.CancelledError:
+        pass
+
+
+def _close_subprocess_transport(proc: Any) -> None:
+    """Close owned subprocess pipes after a timed-out drain attempt.
+
+    asyncio.Process has no public close method; its SubprocessTransport owns
+    the stdout/stderr pipes and closes them when closed.
+    """
+    transport = getattr(proc, "_transport", None)
+    close = getattr(transport, "close", None)
+    if callable(close):
+        try:
+            close()
+        except Exception:  # noqa: BLE001 - preserve the timeout error
+            pass
 
 
 def _resolve_audit_subdir(root: Path, subpath: str, *, source_display: str) -> Path:

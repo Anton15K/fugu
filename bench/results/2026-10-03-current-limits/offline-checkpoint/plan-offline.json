@@ -52,6 +52,20 @@
     "scope": "Old profile; offline runner compatibility only; not live improved benchmark"
   },
   "frozen_case_manifest_sha256": "f9b31035908d217a822079dd190c4d5797f86646c65f01c2e06b1f57ae3e91b1",
+  "journal_stop_correction": {
+    "at_utc": "2026-10-03T02:00:56.834815+00:00",
+    "evidence": "../journal-stop-correction/checks.json",
+    "live_provider_requests": 0,
+    "new_exact_review_required": true,
+    "new_measurement_plan_required": true,
+    "previous_plan_sha256": "9f72d31136369ed582f0bc427ea886697ac54acf5e279d7c800ad616100e6275",
+    "previous_runner_sha256": "f292fc396e3a910a063e0c5a1458ff8eef1bd21be75cdd49d8721469d7ef4416",
+    "prior_bytes_commit": "473cc4bb44b26bebdb6082113d99c40030f25f70",
+    "queue_id": "qitem-20261003014842-6180d14e",
+    "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+    "scope": "Recover durable provider stops after lost budget write; reject malformed error/request states. Offline only; no production/input/score/budget/chart changes. Prior41-test observations retained.",
+    "target_executions": 0
+  },
   "live_authority": "Requires independent checked candidate review and explicit lead data-phase release",
   "native_retry_maximum": 513,
   "phase_limits": {
@@ -1910,7 +1924,7 @@
     "nvidia/Nemotron-3-Ultra-550b-a55b",
     "nvidia/nemotron-3-super-120b-a12b"
   ],
-  "runner_sha256": "f292fc396e3a910a063e0c5a1458ff8eef1bd21be75cdd49d8721469d7ef4416",
+  "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
   "runtime": {
     "dependencies": {
       "fastapi": "0.141.1",

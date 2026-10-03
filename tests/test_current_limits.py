@@ -98,6 +98,152 @@ def test_error_latch_stops_native_retry_and_next_stage_without_retaining_error_b
     assert row["error"]["status"] == status
 
 
+def save_error_with_lost_budget_stop(tmp_path, monkeypatch, status, *, with_reply=False):
+    mod = runner()
+    settings = {"limit": 5, "binding": "fixed-engine-profile",
+                "phase_limits": {"common20": 3, "remainder": 2},
+                "expected_output_tokens": 4096,
+                "expected_models": [request()["model"]]}
+    error = RuntimeError("synthetic-private-provider-body")
+    error.status_code = status
+    sdk = SDK(([response("  saved\nreply  ")] if with_reply else []) + [error])
+    original_write = mod.write_json
+
+    def fail_stop_write(path, value):
+        if path.name == "budget.json" and value.get("stop_reason"):
+            raise OSError("synthetic-stop-state-storage-failure")
+        original_write(path, value)
+
+    with mod.RequestJournal(tmp_path, **settings) as journal:
+        if with_reply:
+            with journal.context("completed-a", "semantic", "common20"):
+                journal.request(sdk.create, **request("saved inert source"))
+        with monkeypatch.context() as patch:
+            patch.setattr(mod, "write_json", fail_stop_write)
+            with journal.context("failed-b", "semantic", "common20"):
+                with pytest.raises(OSError, match="stop-state-storage"):
+                    journal.request(sdk.create, **request("failed inert source"))
+            assert journal.stop_reason is not None
+    assert mod.read_json(tmp_path / "budget.json")["stop_reason"] is None
+    terminal = mod.read_json(tmp_path / f"calls/{len(sdk.requests):05d}.json")
+    assert terminal["state"] == "error"
+    return settings, sdk, terminal
+
+
+@pytest.mark.parametrize("status,reason", [
+    (402, "provider_quota_exhausted"),
+    (401, "provider_auth_failure"),
+    (429, "provider_rate_limit"),
+    (503, "provider_error"),
+])
+@pytest.mark.parametrize("with_reply", [False, True])
+def test_restart_recovers_provider_stop_after_lost_budget_write(
+    tmp_path, monkeypatch, status, reason, with_reply
+):
+    mod = runner()
+    settings, sdk, terminal = save_error_with_lost_budget_stop(
+        tmp_path, monkeypatch, status, with_reply=with_reply)
+    before = {p.name: p.read_bytes() for p in (tmp_path / "calls").glob("*.json")}
+    unused = SDK([response()])
+    for _ in range(2):
+        with mod.RequestJournal(tmp_path, **settings) as resumed:
+            assert resumed.stop_reason == reason
+            assert mod.read_json(tmp_path / "budget.json")["stop_reason"] == reason
+            if with_reply:
+                with resumed.context("completed-a", "semantic", "common20"):
+                    replay = resumed.request(unused.create, **request("saved inert source"))
+                saved = resumed.records[0]
+                assert replay.choices[0].message.content == saved["raw_response"] == "  saved\nreply  "
+                assert replay.model == saved["served_model"] == "served-synthetic-model"
+                assert replay.id == saved["response_id"] == "synthetic-response"
+                assert vars(replay.usage) == saved["usage"] == {"prompt_tokens": 0, "completion_tokens": 7}
+                assert saved["messages"] == request("saved inert source")["messages"]
+                assert saved["request_sha256"] == mod.hash_json(request("saved inert source"))
+                assert (saved["number"], saved["ordinal"], saved["phase"]) == (1, 0, "common20")
+                native = {"stage": "semantic", "metrics": {"request_attempts": [{
+                    "requested_model": saved["requested_model"], "served_model": saved["served_model"],
+                    "max_tokens": 4096, "finish_reason": "stop",
+                    "response_sha256": saved["response_sha256"], "usage": saved["usage"]}]}}
+                assert mod.link_native_attempts(native, resumed, "completed-a")["native_request_links"] == [
+                    {"native_index": 0, "journal_number": 1, "identity_matches": True}]
+            with resumed.context("failed-b", "semantic", "common20"):
+                with pytest.raises(mod.JournalStopped, match=reason):
+                    resumed.request(unused.create, **request("failed inert source"))
+            with resumed.context("new-c", "harness", "remainder"):
+                with pytest.raises(mod.JournalStopped, match=reason):
+                    resumed.request(unused.create, **request())
+            assert resumed.summary()["attempts"] == len(sdk.requests) == (2 if with_reply else 1)
+            assert resumed.summary()["provider_errors"] == 1
+            assert resumed.summary()["orphan_attempts"] == 0
+            assert resumed.summary()["replayed_requests_this_process"] == int(with_reply)
+            assert resumed.records[-1] == terminal
+    assert unused.requests == []
+    assert {p.name: p.read_bytes() for p in (tmp_path / "calls").glob("*.json")} == before
+
+
+def test_restart_fails_closed_when_recovered_stop_cannot_be_persisted(tmp_path, monkeypatch):
+    mod = runner()
+    settings, sdk, terminal = save_error_with_lost_budget_stop(tmp_path, monkeypatch, 402)
+    original_write = mod.write_json
+
+    def fail_stop_write(path, value):
+        if path.name == "budget.json" and value.get("stop_reason"):
+            raise OSError("synthetic-restart-storage-failure")
+        original_write(path, value)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(mod, "write_json", fail_stop_write)
+        for _ in range(2):
+            with pytest.raises(OSError, match="restart-storage"):
+                with mod.RequestJournal(tmp_path, **settings) as resumed:
+                    with resumed.context("new-c", "harness", "remainder"):
+                        resumed.request(sdk.create, **request())
+    with mod.RequestJournal(tmp_path, **settings) as resumed:
+        assert resumed.stop_reason == "provider_quota_exhausted"
+        assert resumed.summary()["attempts"] == 1
+        assert resumed.records[0] == terminal
+    assert len(sdk.requests) == 1
+
+
+@pytest.mark.parametrize("error_record", [
+    None, [], {},
+    {"classification": "unknown_provider_reason", "status": 402, "type": "RuntimeError"},
+    {"classification": "provider_error", "status": "503", "type": "RuntimeError"},
+    {"classification": "provider_error", "status": 503, "type": None},
+])
+def test_restart_rejects_malformed_terminal_error(tmp_path, monkeypatch, error_record):
+    mod = runner()
+    settings, sdk, terminal = save_error_with_lost_budget_stop(tmp_path, monkeypatch, 402)
+    terminal["error"] = error_record
+    path = tmp_path / "calls/00001.json"
+    mod.write_json(path, terminal)
+    before = path.read_bytes()
+    with pytest.raises(mod.EvidenceError, match="saved provider error"):
+        with mod.RequestJournal(tmp_path, **settings) as resumed:
+            with resumed.context("new-c", "harness", "remainder"):
+                resumed.request(sdk.create, **request())
+    assert len(sdk.requests) == 1
+    assert path.read_bytes() == before
+    # Constructor failure releases the owner lock; repaired evidence still stops.
+    terminal["error"] = {"classification": "provider_quota_exhausted", "status": 402, "type": "RuntimeError"}
+    mod.write_json(path, terminal)
+    with mod.RequestJournal(tmp_path, **settings) as resumed:
+        assert resumed.stop_reason == "provider_quota_exhausted"
+
+
+@pytest.mark.parametrize("state", [None, "unknown_terminal_state"])
+def test_restart_rejects_unknown_request_state(tmp_path, monkeypatch, state):
+    mod = runner()
+    settings, sdk, terminal = save_error_with_lost_budget_stop(tmp_path, monkeypatch, 402)
+    terminal["state"] = state
+    mod.write_json(tmp_path / "calls/00001.json", terminal)
+    with pytest.raises(mod.EvidenceError, match="journal request state"):
+        with mod.RequestJournal(tmp_path, **settings) as resumed:
+            with resumed.context("new-c", "harness", "remainder"):
+                resumed.request(sdk.create, **request())
+    assert len(sdk.requests) == 1
+
+
 def test_response_identity_raw_text_and_null_usage_are_preserved(tmp_path):
     mod = runner()
     original = response("  original \n reply  ", usage=False, finish="length")
@@ -589,6 +735,65 @@ print(json.dumps({'preserved':True}))
                             env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHON_DOTENV_DISABLED="1"),
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 0, result.stderr[-2000:]
+
+
+@pytest.mark.parametrize("status,reason", [
+    (402, "provider_quota_exhausted"),
+    (401, "provider_auth_failure"),
+    (429, "provider_rate_limit"),
+    (503, "provider_error"),
+])
+def test_native_restart_recovers_provider_stop_and_preserves_completed_rows(tmp_path, status, reason):
+    runner()
+    if not (NATIVE_ENGINE / "manifest.json").exists():
+        pytest.skip("Lead frozen compatibility engine is not on this host")
+    script = NATIVE_INTEGRATION.split("sdk=SDK(); out=root/'out'")[0] + r'''
+import bench.current_limits as mod
+status=int(__import__('sys').argv[2]); reason=__import__('sys').argv[3]
+second=root/'second'; second.mkdir()
+(second/'SKILL.md').write_text('Synthetic provider-stop documentation.')
+manifest={'cases':[case,dict(case,id='synthetic-b',target=str(second),input_sha256=input_hashes(second))]}
+sdk=SDK(); create=sdk.create
+def with_error(**kwargs):
+    if 'provider-stop' in kwargs['messages'][1]['content']:
+        sdk.requests.append(kwargs)
+        error=RuntimeError('synthetic-private-provider-body'); error.status_code=status
+        raise error
+    return create(**kwargs)
+sdk.chat.completions.create=with_error; out=root/'out'
+original_write=mod.write_json
+def fail_stop_write(path,value):
+    if path.name=='budget.json' and value.get('stop_reason'):
+        raise OSError('synthetic-stop-state-storage-failure')
+    original_write(path,value)
+with RequestJournal(out,limit=50,binding='native-lost-stop') as journal:
+    mod.write_json=fail_stop_write
+    try: before=asyncio.run(evaluate_cases(engine,manifest,out,journal,sdk_factory=lambda *a,**k:sdk))
+    finally: mod.write_json=original_write
+    assert journal.stop_reason==reason
+assert before['rows'][0]['complete'] is True
+assert before['rows'][1]['complete'] is False
+assert len(sdk.requests)==23, 'Native fallback dispatched after provider error'
+assert read_json(out/'budget.json')['stop_reason'] is None
+saved_calls={p.name:p.read_bytes() for p in (out/'calls').glob('*.json')}
+unused=SDK()
+with RequestJournal(out,limit=50,binding='native-lost-stop') as resumed:
+    assert resumed.stop_reason==reason
+    after=asyncio.run(evaluate_cases(engine,manifest,out,resumed,sdk_factory=lambda *a,**k:unused))
+    assert resumed.summary()['attempts']==23
+    assert resumed.summary()['provider_errors']==1
+assert after['rows'][0]==before['rows'][0], 'Completed row changed on stopped resume'
+assert after['rows'][1]['complete'] is False
+assert unused.requests==[], 'Later native phase/stage dispatched after restart'
+assert {p.name:p.read_bytes() for p in (out/'calls').glob('*.json')}==saved_calls
+print(json.dumps({'fake_dispatches':23,'restart_dispatches':0,'provider_requests':0,'preserved_completed_rows':1}))
+'''
+    result = subprocess.run([sys.executable, "-c", script, str(tmp_path), str(status), reason],
+                            cwd=Path(__file__).resolve().parents[1],
+                            env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHON_DOTENV_DISABLED="1"),
+                            capture_output=True, text=True, timeout=30)
+    assert result.returncode == 0, result.stderr[-3000:]
+    assert json.loads(result.stdout)["restart_dispatches"] == 0
 
 
 def test_native_composition_uses_original_members_and_identical_input_cache(tmp_path):
