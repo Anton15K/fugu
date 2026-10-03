@@ -1,0 +1,26 @@
+.........................................F                               [100%]
+=================================== FAILURES ===================================
+___ test_native32_audit_reuse_recovery_aggregate_restart_and403_parent_bytes ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-205/test_native32_audit_reuse_reco0')
+
+    def test_native32_audit_reuse_recovery_aggregate_restart_and403_parent_bytes(tmp_path):
+        continuation()
+        if not (ENGINE / "manifest.json").exists():
+            pytest.skip("The exact checked cc58a58 engine must be reconstructed first")
+        result = subprocess.run([sys.executable, "-c", NATIVE_CONTINUATION, str(tmp_path), str(ENGINE)],
+                                cwd=base.ROOT, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1",
+                                PYTHON_DOTENV_DISABLED="1", NEBIUS_API_KEY=""),
+                                capture_output=True, text=True, timeout=120)
+>       assert result.returncode == 0, result.stderr[-5000:]
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 53, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/antonkogun/dev/nebius_hack/.venv/bin/python3', '-c', '\nimport asyncio, json, sys\nfrom...e=1, stdout='', stderr='Traceback (most recent call last):\n  File "<string>", line 53, in <module>\nAssertionError\n').returncode
+
+tests/test_current_limits_continuation.py:470: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_native32_audit_reuse_recovery_aggregate_restart_and403_parent_bytes
+1 failed, 41 passed in 18.16s

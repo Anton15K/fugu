@@ -1,0 +1,27 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_offline_paths_accept_only_the_system_tmp_alias_without_writing ______
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-215/test_offline_paths_accept_only0')
+
+    def test_offline_paths_accept_only_the_system_tmp_alias_without_writing(tmp_path):
+        mod = continuation()
+        if not Path('/tmp').is_symlink() or Path('/tmp').resolve() != Path('/private/tmp'):
+            pytest.skip('This host does not use the macOS system temp alias')
+>       mod._offline_output(Path('/tmp/fugu-continuation-portability-probe'), ENGINE)
+
+tests/test_current_limits_continuation.py:640: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+output = PosixPath('/tmp/fugu-continuation-portability-probe')
+engine_root = PosixPath('/tmp/fugu-current-limits-checked-cc58a58d6cea')
+
+    def _offline_output(output: Path, engine_root: Path):
+        if any(p.is_symlink() for p in (output, *output.parents)):
+>           raise EvidenceError("symlink preparation output")
+E           bench.current_limits.EvidenceError: symlink preparation output
+
+bench/current_limits_continuation.py:518: EvidenceError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_offline_paths_accept_only_the_system_tmp_alias_without_writing
+1 failed, 73 deselected in 0.05s

@@ -1,0 +1,485 @@
+...........FFFFFFFFFFFFFFFFFFFF                                          [100%]
+=================================== FAILURES ===================================
+________ test_parent_and_child_reservation_are_durable_before_fake_sdk _________
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_parent_and_child_reservat0')
+
+    def test_parent_and_child_reservation_are_durable_before_fake_sdk(tmp_path):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        observed = []
+        def dispatch(**kwargs):
+            registry = base.read_json(settings["registry_path"])
+            budget = base.read_json(tmp_path / "child/budget.json")
+            row = base.read_json(tmp_path / "child/calls/00001.json")
+            observed.append((registry["attempts"], budget["attempts"], row["state"]))
+            return response()
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:135: AttributeError
+____ test_child_and_original_cumulative_phase_caps_block_before_sdk[child] _____
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_child_and_original_cumula0')
+boundary = 'child'
+
+    @pytest.mark.parametrize("boundary", ["child", "child_phase", "cumulative", "cumulative_phase"])
+    def test_child_and_original_cumulative_phase_caps_block_before_sdk(tmp_path, boundary):
+        mod = continuation()
+        changes = {"limit": 1} if boundary == "child" else {}
+        if boundary == "child_phase":
+            changes["phase_limits"] = {"common20": 1, "remainder": 1}
+        if boundary == "cumulative":
+            changes["parent_usage"] = {"attempts": 1899, "phase_attempts": {"common20": 799, "remainder": 1100}}
+        if boundary == "cumulative_phase":
+            changes["parent_usage"] = {"attempts": 799, "phase_attempts": {"common20": 799}}
+        settings = journal_settings(tmp_path, **changes)
+        calls = []
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            return response()
+        for restart in range(2):
+>           with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:158: AttributeError
+_ test_child_and_original_cumulative_phase_caps_block_before_sdk[child_phase] __
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_child_and_original_cumula1')
+boundary = 'child_phase'
+
+    @pytest.mark.parametrize("boundary", ["child", "child_phase", "cumulative", "cumulative_phase"])
+    def test_child_and_original_cumulative_phase_caps_block_before_sdk(tmp_path, boundary):
+        mod = continuation()
+        changes = {"limit": 1} if boundary == "child" else {}
+        if boundary == "child_phase":
+            changes["phase_limits"] = {"common20": 1, "remainder": 1}
+        if boundary == "cumulative":
+            changes["parent_usage"] = {"attempts": 1899, "phase_attempts": {"common20": 799, "remainder": 1100}}
+        if boundary == "cumulative_phase":
+            changes["parent_usage"] = {"attempts": 799, "phase_attempts": {"common20": 799}}
+        settings = journal_settings(tmp_path, **changes)
+        calls = []
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            return response()
+        for restart in range(2):
+>           with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:158: AttributeError
+__ test_child_and_original_cumulative_phase_caps_block_before_sdk[cumulative] __
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_child_and_original_cumula2')
+boundary = 'cumulative'
+
+    @pytest.mark.parametrize("boundary", ["child", "child_phase", "cumulative", "cumulative_phase"])
+    def test_child_and_original_cumulative_phase_caps_block_before_sdk(tmp_path, boundary):
+        mod = continuation()
+        changes = {"limit": 1} if boundary == "child" else {}
+        if boundary == "child_phase":
+            changes["phase_limits"] = {"common20": 1, "remainder": 1}
+        if boundary == "cumulative":
+            changes["parent_usage"] = {"attempts": 1899, "phase_attempts": {"common20": 799, "remainder": 1100}}
+        if boundary == "cumulative_phase":
+            changes["parent_usage"] = {"attempts": 799, "phase_attempts": {"common20": 799}}
+        settings = journal_settings(tmp_path, **changes)
+        calls = []
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            return response()
+        for restart in range(2):
+>           with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:158: AttributeError
+_ test_child_and_original_cumulative_phase_caps_block_before_sdk[cumulative_phase] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_child_and_original_cumula3')
+boundary = 'cumulative_phase'
+
+    @pytest.mark.parametrize("boundary", ["child", "child_phase", "cumulative", "cumulative_phase"])
+    def test_child_and_original_cumulative_phase_caps_block_before_sdk(tmp_path, boundary):
+        mod = continuation()
+        changes = {"limit": 1} if boundary == "child" else {}
+        if boundary == "child_phase":
+            changes["phase_limits"] = {"common20": 1, "remainder": 1}
+        if boundary == "cumulative":
+            changes["parent_usage"] = {"attempts": 1899, "phase_attempts": {"common20": 799, "remainder": 1100}}
+        if boundary == "cumulative_phase":
+            changes["parent_usage"] = {"attempts": 799, "phase_attempts": {"common20": 799}}
+        settings = journal_settings(tmp_path, **changes)
+        calls = []
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            return response()
+        for restart in range(2):
+>           with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:158: AttributeError
+______ test_one_child_exclusive_owner_rejects_another_directory_or_reset _______
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_one_child_exclusive_owner0')
+
+    def test_one_child_exclusive_owner_rejects_another_directory_or_reset(tmp_path):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as first:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:170: AttributeError
+_ test_deleted_or_changed_state_does_not_reset_a_granted_child[missing_registry] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_deleted_or_changed_state_0')
+change = 'missing_registry'
+
+    @pytest.mark.parametrize("change", ["missing_registry", "missing_budget", "changed_reply", "malformed_registry", "release"])
+    def test_deleted_or_changed_state_does_not_reset_a_granted_child(tmp_path, change):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:189: AttributeError
+_ test_deleted_or_changed_state_does_not_reset_a_granted_child[missing_budget] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_deleted_or_changed_state_1')
+change = 'missing_budget'
+
+    @pytest.mark.parametrize("change", ["missing_registry", "missing_budget", "changed_reply", "malformed_registry", "release"])
+    def test_deleted_or_changed_state_does_not_reset_a_granted_child(tmp_path, change):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:189: AttributeError
+_ test_deleted_or_changed_state_does_not_reset_a_granted_child[changed_reply] __
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_deleted_or_changed_state_2')
+change = 'changed_reply'
+
+    @pytest.mark.parametrize("change", ["missing_registry", "missing_budget", "changed_reply", "malformed_registry", "release"])
+    def test_deleted_or_changed_state_does_not_reset_a_granted_child(tmp_path, change):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:189: AttributeError
+_ test_deleted_or_changed_state_does_not_reset_a_granted_child[malformed_registry] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_deleted_or_changed_state_3')
+change = 'malformed_registry'
+
+    @pytest.mark.parametrize("change", ["missing_registry", "missing_budget", "changed_reply", "malformed_registry", "release"])
+    def test_deleted_or_changed_state_does_not_reset_a_granted_child(tmp_path, change):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:189: AttributeError
+____ test_deleted_or_changed_state_does_not_reset_a_granted_child[release] _____
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_deleted_or_changed_state_4')
+change = 'release'
+
+    @pytest.mark.parametrize("change", ["missing_registry", "missing_budget", "changed_reply", "malformed_registry", "release"])
+    def test_deleted_or_changed_state_does_not_reset_a_granted_child(tmp_path, change):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:189: AttributeError
+_ test_provider_stop_never_retries_and_preserves_exact_successful_replay[402-provider_quota_exhausted] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_provider_stop_never_retri0')
+status = 402, reason = 'provider_quota_exhausted'
+
+    @pytest.mark.parametrize("status,reason", [(402, "provider_quota_exhausted"),
+        (401, "provider_auth_failure"), (429, "provider_rate_limit"), (500, "provider_error")])
+    def test_provider_stop_never_retries_and_preserves_exact_successful_replay(tmp_path, status, reason):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        def success(**kwargs):
+            calls.append(kwargs)
+            return response("  unchanged saved reply\n")
+        def failure(**kwargs):
+            calls.append(kwargs)
+            error = RuntimeError("synthetic-private-provider-body")
+            error.status_code = status
+            raise error
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:223: AttributeError
+_ test_provider_stop_never_retries_and_preserves_exact_successful_replay[401-provider_auth_failure] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_provider_stop_never_retri1')
+status = 401, reason = 'provider_auth_failure'
+
+    @pytest.mark.parametrize("status,reason", [(402, "provider_quota_exhausted"),
+        (401, "provider_auth_failure"), (429, "provider_rate_limit"), (500, "provider_error")])
+    def test_provider_stop_never_retries_and_preserves_exact_successful_replay(tmp_path, status, reason):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        def success(**kwargs):
+            calls.append(kwargs)
+            return response("  unchanged saved reply\n")
+        def failure(**kwargs):
+            calls.append(kwargs)
+            error = RuntimeError("synthetic-private-provider-body")
+            error.status_code = status
+            raise error
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:223: AttributeError
+_ test_provider_stop_never_retries_and_preserves_exact_successful_replay[429-provider_rate_limit] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_provider_stop_never_retri2')
+status = 429, reason = 'provider_rate_limit'
+
+    @pytest.mark.parametrize("status,reason", [(402, "provider_quota_exhausted"),
+        (401, "provider_auth_failure"), (429, "provider_rate_limit"), (500, "provider_error")])
+    def test_provider_stop_never_retries_and_preserves_exact_successful_replay(tmp_path, status, reason):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        def success(**kwargs):
+            calls.append(kwargs)
+            return response("  unchanged saved reply\n")
+        def failure(**kwargs):
+            calls.append(kwargs)
+            error = RuntimeError("synthetic-private-provider-body")
+            error.status_code = status
+            raise error
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:223: AttributeError
+_ test_provider_stop_never_retries_and_preserves_exact_successful_replay[500-provider_error] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_provider_stop_never_retri3')
+status = 500, reason = 'provider_error'
+
+    @pytest.mark.parametrize("status,reason", [(402, "provider_quota_exhausted"),
+        (401, "provider_auth_failure"), (429, "provider_rate_limit"), (500, "provider_error")])
+    def test_provider_stop_never_retries_and_preserves_exact_successful_replay(tmp_path, status, reason):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        def success(**kwargs):
+            calls.append(kwargs)
+            return response("  unchanged saved reply\n")
+        def failure(**kwargs):
+            calls.append(kwargs)
+            error = RuntimeError("synthetic-private-provider-body")
+            error.status_code = status
+            raise error
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:223: AttributeError
+_____ test_storage_failure_is_closed_in_process_and_after_restart[budget] ______
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_storage_failure_is_closed0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10780bc50>
+failure_point = 'budget'
+
+    @pytest.mark.parametrize("failure_point", ["budget", "reservation", "response", "registry", "stop"])
+    def test_storage_failure_is_closed_in_process_and_after_restart(tmp_path, monkeypatch, failure_point):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        write = base.write_json
+        def faulty(path, value):
+            fail = ((failure_point == "budget" and path.name == "budget.json" and value.get("attempts") == 1)
+                or (failure_point == "reservation" and path.name == "00001.json" and value.get("state") == "reserved")
+                or (failure_point == "response" and path.name == "00001.json" and value.get("state") == "returned")
+                or (failure_point == "registry" and path == settings["registry_path"] and value.get("attempts") == 1)
+                or (failure_point == "stop" and path.name == "budget.json" and value.get("stop_reason")))
+            if fail:
+                raise OSError("synthetic storage failure")
+            write(path, value)
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            if failure_point == "stop":
+                error = RuntimeError("synthetic-private-body"); error.status_code = 500
+                raise error
+            return response()
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:266: AttributeError
+___ test_storage_failure_is_closed_in_process_and_after_restart[reservation] ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_storage_failure_is_closed1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x107899f90>
+failure_point = 'reservation'
+
+    @pytest.mark.parametrize("failure_point", ["budget", "reservation", "response", "registry", "stop"])
+    def test_storage_failure_is_closed_in_process_and_after_restart(tmp_path, monkeypatch, failure_point):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        write = base.write_json
+        def faulty(path, value):
+            fail = ((failure_point == "budget" and path.name == "budget.json" and value.get("attempts") == 1)
+                or (failure_point == "reservation" and path.name == "00001.json" and value.get("state") == "reserved")
+                or (failure_point == "response" and path.name == "00001.json" and value.get("state") == "returned")
+                or (failure_point == "registry" and path == settings["registry_path"] and value.get("attempts") == 1)
+                or (failure_point == "stop" and path.name == "budget.json" and value.get("stop_reason")))
+            if fail:
+                raise OSError("synthetic storage failure")
+            write(path, value)
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            if failure_point == "stop":
+                error = RuntimeError("synthetic-private-body"); error.status_code = 500
+                raise error
+            return response()
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:266: AttributeError
+____ test_storage_failure_is_closed_in_process_and_after_restart[response] _____
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_storage_failure_is_closed2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1077c5b10>
+failure_point = 'response'
+
+    @pytest.mark.parametrize("failure_point", ["budget", "reservation", "response", "registry", "stop"])
+    def test_storage_failure_is_closed_in_process_and_after_restart(tmp_path, monkeypatch, failure_point):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        write = base.write_json
+        def faulty(path, value):
+            fail = ((failure_point == "budget" and path.name == "budget.json" and value.get("attempts") == 1)
+                or (failure_point == "reservation" and path.name == "00001.json" and value.get("state") == "reserved")
+                or (failure_point == "response" and path.name == "00001.json" and value.get("state") == "returned")
+                or (failure_point == "registry" and path == settings["registry_path"] and value.get("attempts") == 1)
+                or (failure_point == "stop" and path.name == "budget.json" and value.get("stop_reason")))
+            if fail:
+                raise OSError("synthetic storage failure")
+            write(path, value)
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            if failure_point == "stop":
+                error = RuntimeError("synthetic-private-body"); error.status_code = 500
+                raise error
+            return response()
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:266: AttributeError
+____ test_storage_failure_is_closed_in_process_and_after_restart[registry] _____
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_storage_failure_is_closed3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1077e5290>
+failure_point = 'registry'
+
+    @pytest.mark.parametrize("failure_point", ["budget", "reservation", "response", "registry", "stop"])
+    def test_storage_failure_is_closed_in_process_and_after_restart(tmp_path, monkeypatch, failure_point):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        write = base.write_json
+        def faulty(path, value):
+            fail = ((failure_point == "budget" and path.name == "budget.json" and value.get("attempts") == 1)
+                or (failure_point == "reservation" and path.name == "00001.json" and value.get("state") == "reserved")
+                or (failure_point == "response" and path.name == "00001.json" and value.get("state") == "returned")
+                or (failure_point == "registry" and path == settings["registry_path"] and value.get("attempts") == 1)
+                or (failure_point == "stop" and path.name == "budget.json" and value.get("stop_reason")))
+            if fail:
+                raise OSError("synthetic storage failure")
+            write(path, value)
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            if failure_point == "stop":
+                error = RuntimeError("synthetic-private-body"); error.status_code = 500
+                raise error
+            return response()
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:266: AttributeError
+______ test_storage_failure_is_closed_in_process_and_after_restart[stop] _______
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-197/test_storage_failure_is_closed4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10782bc90>
+failure_point = 'stop'
+
+    @pytest.mark.parametrize("failure_point", ["budget", "reservation", "response", "registry", "stop"])
+    def test_storage_failure_is_closed_in_process_and_after_restart(tmp_path, monkeypatch, failure_point):
+        mod = continuation()
+        settings = journal_settings(tmp_path)
+        calls = []
+        write = base.write_json
+        def faulty(path, value):
+            fail = ((failure_point == "budget" and path.name == "budget.json" and value.get("attempts") == 1)
+                or (failure_point == "reservation" and path.name == "00001.json" and value.get("state") == "reserved")
+                or (failure_point == "response" and path.name == "00001.json" and value.get("state") == "returned")
+                or (failure_point == "registry" and path == settings["registry_path"] and value.get("attempts") == 1)
+                or (failure_point == "stop" and path.name == "budget.json" and value.get("stop_reason")))
+            if fail:
+                raise OSError("synthetic storage failure")
+            write(path, value)
+        def dispatch(**kwargs):
+            calls.append(kwargs)
+            if failure_point == "stop":
+                error = RuntimeError("synthetic-private-body"); error.status_code = 500
+                raise error
+            return response()
+>       with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'ContinuationJournal'
+
+tests/test_current_limits_continuation.py:266: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_parent_and_child_reservation_are_durable_before_fake_sdk
+FAILED tests/test_current_limits_continuation.py::test_child_and_original_cumulative_phase_caps_block_before_sdk[child]
+FAILED tests/test_current_limits_continuation.py::test_child_and_original_cumulative_phase_caps_block_before_sdk[child_phase]
+FAILED tests/test_current_limits_continuation.py::test_child_and_original_cumulative_phase_caps_block_before_sdk[cumulative]
+FAILED tests/test_current_limits_continuation.py::test_child_and_original_cumulative_phase_caps_block_before_sdk[cumulative_phase]
+FAILED tests/test_current_limits_continuation.py::test_one_child_exclusive_owner_rejects_another_directory_or_reset
+FAILED tests/test_current_limits_continuation.py::test_deleted_or_changed_state_does_not_reset_a_granted_child[missing_registry]
+FAILED tests/test_current_limits_continuation.py::test_deleted_or_changed_state_does_not_reset_a_granted_child[missing_budget]
+FAILED tests/test_current_limits_continuation.py::test_deleted_or_changed_state_does_not_reset_a_granted_child[changed_reply]
+FAILED tests/test_current_limits_continuation.py::test_deleted_or_changed_state_does_not_reset_a_granted_child[malformed_registry]
+FAILED tests/test_current_limits_continuation.py::test_deleted_or_changed_state_does_not_reset_a_granted_child[release]
+FAILED tests/test_current_limits_continuation.py::test_provider_stop_never_retries_and_preserves_exact_successful_replay[402-provider_quota_exhausted]
+FAILED tests/test_current_limits_continuation.py::test_provider_stop_never_retries_and_preserves_exact_successful_replay[401-provider_auth_failure]
+FAILED tests/test_current_limits_continuation.py::test_provider_stop_never_retries_and_preserves_exact_successful_replay[429-provider_rate_limit]
+FAILED tests/test_current_limits_continuation.py::test_provider_stop_never_retries_and_preserves_exact_successful_replay[500-provider_error]
+FAILED tests/test_current_limits_continuation.py::test_storage_failure_is_closed_in_process_and_after_restart[budget]
+FAILED tests/test_current_limits_continuation.py::test_storage_failure_is_closed_in_process_and_after_restart[reservation]
+FAILED tests/test_current_limits_continuation.py::test_storage_failure_is_closed_in_process_and_after_restart[response]
+FAILED tests/test_current_limits_continuation.py::test_storage_failure_is_closed_in_process_and_after_restart[registry]
+FAILED tests/test_current_limits_continuation.py::test_storage_failure_is_closed_in_process_and_after_restart[stop]
+20 failed, 11 passed in 0.24s

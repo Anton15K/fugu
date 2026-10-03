@@ -1,0 +1,355 @@
+.FFFFFFFFFFFFFF                                                          [100%]
+=================================== FAILURES ===================================
+___ test_authenticated_release_validates_exact_plan_and_immutable_lead_body ____
+
+    def test_authenticated_release_validates_exact_plan_and_immutable_lead_body():
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:526: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+_______ test_release_ref_or_prose_alone_never_grants_sdk_access[source] ________
+
+mutation = 'source'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+_____ test_release_ref_or_prose_alone_never_grants_sdk_access[destination] _____
+
+mutation = 'destination'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+______ test_release_ref_or_prose_alone_never_grants_sdk_access[unclaimed] ______
+
+mutation = 'unclaimed'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+___ test_release_ref_or_prose_alone_never_grants_sdk_access[not_authorized] ____
+
+mutation = 'not_authorized'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+________ test_release_ref_or_prose_alone_never_grants_sdk_access[plan] _________
+
+mutation = 'plan'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+______ test_release_ref_or_prose_alone_never_grants_sdk_access[namespace] ______
+
+mutation = 'namespace'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+______ test_release_ref_or_prose_alone_never_grants_sdk_access[registry] _______
+
+mutation = 'registry'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+_______ test_release_ref_or_prose_alone_never_grants_sdk_access[budget] ________
+
+mutation = 'budget'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+___ test_release_ref_or_prose_alone_never_grants_sdk_access[missing_review] ____
+
+mutation = 'missing_review'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+______ test_release_ref_or_prose_alone_never_grants_sdk_access[not_json] _______
+
+mutation = 'not_json'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+_ test_release_ref_or_prose_alone_never_grants_sdk_access[old_implementation] __
+
+mutation = 'old_implementation'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+_____ test_release_ref_or_prose_alone_never_grants_sdk_access[extra_field] _____
+
+mutation = 'extra_field'
+
+    @pytest.mark.parametrize("mutation", ["source", "destination", "unclaimed", "not_authorized", "plan",
+        "namespace", "registry", "budget", "missing_review", "not_json", "old_implementation", "extra_field"])
+    def test_release_ref_or_prose_alone_never_grants_sdk_access(mutation):
+>       mod = continuation(); plan, grant, row = release_fixture()
+                                                 ^^^^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def release_fixture():
+        mod = continuation()
+        plan = {"child_directory": str(mod.DEFAULT_CHILD.resolve()), "registry_path": str(mod.DEFAULT_REGISTRY.resolve()),
+                "parent_plan_sha256": mod.PARENT_PLAN_SHA256, "parent_inventory_sha256": mod.PARENT_MANIFEST_SHA256,
+                "parent_result_sha256": mod.PARENT_RESULT_SHA256, "attempt_limit": 1316,
+                "phase_limits": mod.CHILD_PHASE_LIMITS, "cumulative_limit": 1900,
+                "cumulative_phase_limits": mod.PARENT_PHASE_LIMITS}
+>       grant = mod.release_template(plan)
+                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'release_template'
+
+tests/test_current_limits_continuation.py:516: AttributeError
+_ test_run_cli_requires_exact_approval_and_data_release_before_loading_engine_or_writing _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-210/test_run_cli_requires_exact_ap0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x108ff8310>
+
+    def test_run_cli_requires_exact_approval_and_data_release_before_loading_engine_or_writing(tmp_path, monkeypatch):
+        mod = continuation()
+        def forbidden(*args): raise AssertionError("engine/credential loader reached before release gate")
+        monkeypatch.setattr(base, "load_engine", forbidden)
+        with pytest.raises(base.EvidenceError, match="data release"):
+>           mod.main(["run", "--engine-root", str(ENGINE), "--prepared-dir", str(tmp_path),
+            ^^^^^^^^
+                      "--approved-plan-sha256", "a" * 64])
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'main'
+
+tests/test_current_limits_continuation.py:558: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_authenticated_release_validates_exact_plan_and_immutable_lead_body
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[source]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[destination]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[unclaimed]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[not_authorized]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[plan]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[namespace]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[registry]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[budget]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[missing_review]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[not_json]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[old_implementation]
+FAILED tests/test_current_limits_continuation.py::test_release_ref_or_prose_alone_never_grants_sdk_access[extra_field]
+FAILED tests/test_current_limits_continuation.py::test_run_cli_requires_exact_approval_and_data_release_before_loading_engine_or_writing
+14 failed, 1 passed, 50 deselected in 0.12s

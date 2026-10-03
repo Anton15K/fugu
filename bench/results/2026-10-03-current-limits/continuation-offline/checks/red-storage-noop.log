@@ -1,0 +1,52 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_failed_guard_and_all_stop_writes_leave_a_preexisting_closed_session ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-208/test_failed_guard_and_all_stop0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106af74d0>
+
+    def test_failed_guard_and_all_stop_writes_leave_a_preexisting_closed_session(tmp_path, monkeypatch):
+        mod = continuation(); settings = journal_settings(tmp_path); calls = []
+        def dispatch(**kwargs):
+            calls.append(kwargs); return response()
+        journal = mod.ContinuationJournal(tmp_path / "child", **settings)
+        write = base.write_json
+        with monkeypatch.context() as patch:
+            def unavailable(*args): raise OSError("synthetic full storage outage")
+            patch.setattr(base, "write_json", unavailable)
+            with journal.context("context-a", "semantic", "common20"):
+                with pytest.raises(base.JournalStopped): journal.request(dispatch, **request())
+        journal.close()
+        with mod.ContinuationJournal(tmp_path / "child", **settings) as resumed:
+            with resumed.context("context-b", "harness", "remainder"):
+>               with pytest.raises(base.JournalStopped): resumed.request(dispatch, **request())
+E               Failed: DID NOT RAISE JournalStopped
+
+tests/test_current_limits_continuation.py:321: Failed
+____ test_finished_child_result_is_returned_without_rewriting_or_rerunning _____
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-208/test_finished_child_result_is_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106c4f1d0>
+
+    def test_finished_child_result_is_returned_without_rewriting_or_rerunning(tmp_path, monkeypatch):
+        mod = continuation(); settings = journal_settings(tmp_path)
+        cases = {"cases": [{"id": "synthetic-finished", "target": str(tmp_path / "target"),
+                             "input_sha256": {}, "kind": "benign", "cohort": "crafted"}]}
+        (tmp_path / "target").mkdir()
+        with mod.ContinuationJournal(tmp_path / "child", **settings) as journal:
+            result = {"binding": journal.binding, "cases_sha256": base.hash_json(cases),
+                      "planned": 1, "rows": [dict(cases["cases"][0], complete=True, status="completed")],
+                      "usage": journal.summary()}
+            path = tmp_path / "child/fugu.json"; base.write_json(path, result); before = path.read_bytes()
+            async def forbidden(*args, **kwargs): raise AssertionError("valid child result rerun")
+            monkeypatch.setattr(base, "evaluate_cases", forbidden)
+            import asyncio
+>           assert asyncio.run(mod.evaluate_cases(None, cases, tmp_path / "child", journal)) == result
+                               ^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'evaluate_cases'
+
+tests/test_current_limits_continuation.py:338: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_failed_guard_and_all_stop_writes_leave_a_preexisting_closed_session
+FAILED tests/test_current_limits_continuation.py::test_finished_child_result_is_returned_without_rewriting_or_rerunning
+2 failed, 42 deselected in 0.11s

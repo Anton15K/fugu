@@ -1,0 +1,79 @@
+{
+  "accepted_parent_manifest_sha256": "63240327fc6adf050b6cefbd0340f1fb6c16700c48551bc12548b071a057783e",
+  "accepted_parent_plan_sha256": "8f304c3da81e0db091da6e2c324c064d013129d63644b278079c4cf8ad9ef725",
+  "active_live_authority": false,
+  "assignment_queue": "qitem-20261003044059-ee835223",
+  "canonical_plan_sha256": "0e859af4efdda0c6f8c0ee48664486444563ca3af21a4c2cc2ea4e9bf8e74f74",
+  "continuation_sha256": "47823a1b7336c3df9afe7da395470bd3b98d6dc29e6a4f8bda1abb901e70fa8c",
+  "cumulative_attempt_maximum": 1675,
+  "current_and_reconstructed_source_files_match": 37,
+  "limitations": [
+    "No production run or provider availability/quota query",
+    "Fresh child outcomes and benign adjudication unmeasured",
+    "Lead must integrate after both writers release, independently review exact commit/plan, and grant a separate data row",
+    "No Git commands, dependency changes, services or production source edits"
+  ],
+  "member_contexts": 41,
+  "new_attempt_maximum": 1316,
+  "original_cumulative_ceiling": 1900,
+  "original_input_files_checked": 81,
+  "parent_attempts": 359,
+  "parent_files_checked_and_preserved": 403,
+  "portability": {
+    "plan_sha256": "f56ace18698b82893344ed598b4e63693578e58668249ad71fd533a103d5c632",
+    "prepared": "/tmp/fugu-continuation-prepared",
+    "provider_requests": 0,
+    "snapshot": "/tmp/fugu-continuation-engine-cc58a58",
+    "status": "pass after narrowly allowing system /tmp -> /private/tmp alias"
+  },
+  "production_child_created": false,
+  "production_registry_created": false,
+  "provenance": {
+    "hash_vector_402_unchanged": true,
+    "normalized_parent_manifest_sha256": "63240327fc6adf050b6cefbd0340f1fb6c16700c48551bc12548b071a057783e",
+    "original_parent_manifest_sha256": "0aae4a79a057069dfd568d6e06fe01653e046bf5a8fba9868e0257a311aa3835"
+  },
+  "provider_requests": 0,
+  "pytest": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_current_limits_continuation.py tests/test_current_limits.py -q -p no:cacheprovider",
+    "existing_runner_tests": 57,
+    "exit_code": 0,
+    "new_tests": 74,
+    "result": "131 passed in 18.46s",
+    "skipped": 0
+  },
+  "reused_contexts": 9,
+  "schema": 2,
+  "scope": "Offline continuation runner/tests/methodology; no live data authority",
+  "selected_cases": 27,
+  "selected_copied_input_files_checked": 68,
+  "semantic_units": 50,
+  "superseded_local_plan": {
+    "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/continuation-offline/prepared/plan.json",
+    "provider_requests": 0,
+    "reason": "Module hash invalidated by macOS /tmp portability correction before review or data release",
+    "sha256": "4e5d556999f1b90ab78dce4548137f8b01e9456abb8abe5e1c0f501f1c4f921e"
+  },
+  "synthetic_fixture": {
+    "cached_contexts": 9,
+    "carried_parent_rows_unchanged": 13,
+    "combined_rows": 40,
+    "fake_sdk_attempts": 949,
+    "native_unique_audits": 32,
+    "preserved_parent_files": 403,
+    "provider_requests": 0,
+    "restart_dispatches": 0,
+    "token_totals_unknown_retained": true
+  },
+  "tdd_red_results": {
+    "aggregate_binding": 8,
+    "authentication": 14,
+    "journal": 20,
+    "prepare_aggregate": 7,
+    "selection": 11,
+    "storage_terminal_noop": 2,
+    "tmp_alias": 1
+  },
+  "unique_audits": 32,
+  "verified_utc": "2026-10-03T05:57:58.880441+00:00"
+}

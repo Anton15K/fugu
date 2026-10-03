@@ -1,0 +1,267 @@
+FFFFFFFFFFF                                                              [100%]
+=================================== FAILURES ===================================
+_ test_fixed_selection_retains_original_order_and_excludes_every_observed_case _
+
+    def test_fixed_selection_retains_original_order_and_excludes_every_observed_case():
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_ test_selector_rejects_changed_labels_grouping_order_or_observed_rows[label] __
+
+mutation = 'label'
+
+    @pytest.mark.parametrize("mutation", ["label", "order", "fake_unattempted", "grouping"])
+    def test_selector_rejects_changed_labels_grouping_order_or_observed_rows(mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_ test_selector_rejects_changed_labels_grouping_order_or_observed_rows[order] __
+
+mutation = 'order'
+
+    @pytest.mark.parametrize("mutation", ["label", "order", "fake_unattempted", "grouping"])
+    def test_selector_rejects_changed_labels_grouping_order_or_observed_rows(mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_ test_selector_rejects_changed_labels_grouping_order_or_observed_rows[fake_unattempted] _
+
+mutation = 'fake_unattempted'
+
+    @pytest.mark.parametrize("mutation", ["label", "order", "fake_unattempted", "grouping"])
+    def test_selector_rejects_changed_labels_grouping_order_or_observed_rows(mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_ test_selector_rejects_changed_labels_grouping_order_or_observed_rows[grouping] _
+
+mutation = 'grouping'
+
+    @pytest.mark.parametrize("mutation", ["label", "order", "fake_unattempted", "grouping"])
+    def test_selector_rejects_changed_labels_grouping_order_or_observed_rows(mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_______ test_parent_loader_checks_all403_bytes_without_opening_a_journal _______
+
+    def test_parent_loader_checks_all403_bytes_without_opening_a_journal():
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+___ test_read_only_ledger_rejects_extra_missing_or_malformed_requests[extra] ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-195/test_read_only_ledger_rejects_0')
+mutation = 'extra'
+
+    @pytest.mark.parametrize("mutation", ["extra", "missing", "wrong_number", "response_hash", "signature"])
+    def test_read_only_ledger_rejects_extra_missing_or_malformed_requests(tmp_path, mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+__ test_read_only_ledger_rejects_extra_missing_or_malformed_requests[missing] __
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-195/test_read_only_ledger_rejects_1')
+mutation = 'missing'
+
+    @pytest.mark.parametrize("mutation", ["extra", "missing", "wrong_number", "response_hash", "signature"])
+    def test_read_only_ledger_rejects_extra_missing_or_malformed_requests(tmp_path, mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_ test_read_only_ledger_rejects_extra_missing_or_malformed_requests[wrong_number] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-195/test_read_only_ledger_rejects_2')
+mutation = 'wrong_number'
+
+    @pytest.mark.parametrize("mutation", ["extra", "missing", "wrong_number", "response_hash", "signature"])
+    def test_read_only_ledger_rejects_extra_missing_or_malformed_requests(tmp_path, mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_ test_read_only_ledger_rejects_extra_missing_or_malformed_requests[response_hash] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-195/test_read_only_ledger_rejects_3')
+mutation = 'response_hash'
+
+    @pytest.mark.parametrize("mutation", ["extra", "missing", "wrong_number", "response_hash", "signature"])
+    def test_read_only_ledger_rejects_extra_missing_or_malformed_requests(tmp_path, mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+_ test_read_only_ledger_rejects_extra_missing_or_malformed_requests[signature] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-195/test_read_only_ledger_rejects_4')
+mutation = 'signature'
+
+    @pytest.mark.parametrize("mutation", ["extra", "missing", "wrong_number", "response_hash", "signature"])
+    def test_read_only_ledger_rejects_extra_missing_or_malformed_requests(tmp_path, mutation):
+>       mod = continuation()
+              ^^^^^^^^^^^^^^
+
+tests/test_current_limits_continuation.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def continuation():
+>       assert importlib.util.find_spec("bench.current_limits_continuation"), (
+            "Parent-linked continuation is missing"
+        )
+E       AssertionError: Parent-linked continuation is missing
+E       assert None
+E        +  where None = <function find_spec at 0x1054e72e0>('bench.current_limits_continuation')
+E        +    where <function find_spec at 0x1054e72e0> = <module 'importlib.util' (frozen)>.find_spec
+E        +      where <module 'importlib.util' (frozen)> = importlib.util
+
+tests/test_current_limits_continuation.py:22: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_fixed_selection_retains_original_order_and_excludes_every_observed_case
+FAILED tests/test_current_limits_continuation.py::test_selector_rejects_changed_labels_grouping_order_or_observed_rows[label]
+FAILED tests/test_current_limits_continuation.py::test_selector_rejects_changed_labels_grouping_order_or_observed_rows[order]
+FAILED tests/test_current_limits_continuation.py::test_selector_rejects_changed_labels_grouping_order_or_observed_rows[fake_unattempted]
+FAILED tests/test_current_limits_continuation.py::test_selector_rejects_changed_labels_grouping_order_or_observed_rows[grouping]
+FAILED tests/test_current_limits_continuation.py::test_parent_loader_checks_all403_bytes_without_opening_a_journal
+FAILED tests/test_current_limits_continuation.py::test_read_only_ledger_rejects_extra_missing_or_malformed_requests[extra]
+FAILED tests/test_current_limits_continuation.py::test_read_only_ledger_rejects_extra_missing_or_malformed_requests[missing]
+FAILED tests/test_current_limits_continuation.py::test_read_only_ledger_rejects_extra_missing_or_malformed_requests[wrong_number]
+FAILED tests/test_current_limits_continuation.py::test_read_only_ledger_rejects_extra_missing_or_malformed_requests[response_hash]
+FAILED tests/test_current_limits_continuation.py::test_read_only_ledger_rejects_extra_missing_or_malformed_requests[signature]
+11 failed in 0.17s
