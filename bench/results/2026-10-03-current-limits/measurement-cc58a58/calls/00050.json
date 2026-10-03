@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "bf4e435ae2f6055f22fc517284c942d6a883427925889f8e971e62a00a58eb78",
+  "duration_s": 1.055643666011747,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Sync my calendar events.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "52fc3171107dc8e74ea11be0dc8f3864c79cbcc31d4293d2a53be41d4e159f95",
+  "number": 50,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'd be happy to help sync your calendar events! To do this effectively, I need to know:\n\n1. Which calendar service/app you use (Google Calendar, Outlook, Apple Calendar, CalDAV, etc.)\n2. What you mean by \"sync\" - are you looking to:\n   - Sync between devices?\n   - Sync with a specific service?\n   - Import/export events?\n   - Resolve sync conflicts?\n\nCould you clarify which calendar platform you're using and what specific sync action you need?\n\nPLAN: Ask user to specify calendar service and sync requirements\nPLAN: Identify available calendar tools/APIs on the system\nPLAN: Execute appropriate sync command based on user's platform",
+  "request_sha256": "97fdb235918ab73d32cde70ec0031c4249a241d470031113088b7d48935edd26",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:46:58.048701+00:00",
+  "response_id": "chatcmpl-b1fc53a3483422ad",
+  "response_sha256": "b283eed34778a8106276d760f107090a8ebe83226c3ddd988ceae9e7c8d21bbf",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 220,
+    "prompt_tokens": 84
+  },
+  "usage_object_present": true
+}

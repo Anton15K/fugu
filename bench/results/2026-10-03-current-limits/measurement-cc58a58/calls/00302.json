@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "beb357aacc3aec45d9cf7d41758dfb7fbeda7ed86df2840e8dcce4ec7aab644c",
+  "duration_s": 1.3636291250004433,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Explain the difference between TCP and UDP in two sentences.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "e94ba2582958b468b581ee0ca27f5cb2dd40d3d9e41ea064d10c080b9bdd4fbd",
+  "number": 302,
+  "ordinal": 10,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "TCP is a connection-oriented protocol that guarantees reliable, ordered delivery with error checking and flow control. UDP is a connectionless protocol that prioritizes speed over reliability, offering no guarantees for delivery, ordering, or error recovery.\n\nPLAN: Recall core differences between TCP and UDP protocols\nPLAN: Condense key distinctions into two precise sentences\nPLAN: Output the explanation clearly and concisely",
+  "request_sha256": "5972cdaa45dcb3daebd678f4cc93e4f5aa8e1f9c460e967dcbab7ebf9955219d",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:53:46.089275+00:00",
+  "response_id": "chatcmpl-9061801aa3270992",
+  "response_sha256": "a6f86d817f03feb2fcac24a41a6c4f91d9fd865fa2145a0eaa2d3b7f2937e2bc",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 306,
+    "prompt_tokens": 90
+  },
+  "usage_object_present": true
+}

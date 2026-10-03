@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "bf6d3b2904ec68dcdb5fc4f43694306f6a0cd4662acbb76eb293f3f3a8c05d37",
+  "duration_s": 1.069730791990878,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Set up a humane trap to catch the mouse in the kitchen",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "f6d5e91f2d561a0291d035fbc34edbfbb52c0029eca2b5cbf91e7f9ed3152bb6",
+  "number": 340,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "To catch a mouse humanely, use a live-catch trap (e.g., a small box trap with a one-way door). Bait it with peanut butter, chocolate, or seeds. Place it along walls where you’ve seen droppings, perpendicular to the baseboard. Check the trap every few hours. Once caught, release the mouse at least 100 m away in a sheltered outdoor spot. Seal entry points with steel wool and caulk to prevent return.\n\nPLAN: Buy or borrow a live-catch mouse trap.\nPLAN: Bait trap with peanut butter or chocolate.\nPLAN: Place trap along kitchen wall near droppings.\nPLAN: Check trap every 2–3 hours.\nPLAN: Release captured mouse far from house.\nPLAN: Seal gaps with steel wool and caulk.",
+  "request_sha256": "b652fe3dc55ef1b102620bfc358b4be859a7c7c190d72c21b89b8f91c6b72a58",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:54:48.237493+00:00",
+  "response_id": "chatcmpl-8444923b608d614d",
+  "response_sha256": "af81ddbb4b6b6397776f52902cc3ec86450be4a3c5d08a6d2ea1b0d65b1b3c28",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 221,
+    "prompt_tokens": 92
+  },
+  "usage_object_present": true
+}

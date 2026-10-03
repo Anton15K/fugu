@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "0bc24398bce42bb397b9df0565408305b68287ec48a7d338c0ad154913baabc4",
+  "duration_s": 0.6794904579874128,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Calculate 100 - 37 for me.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "12554009c7c3a5cb756231b53a4d3755fbd100195f60b42d32dc13969ed25c8a",
+  "number": 140,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "100 - 37 = 63\n\nPLAN: Perform the subtraction calculation\nPLAN: Verify the result (100 - 30 = 70, 70 - 7 = 63)\nPLAN: Present the final answer to the user",
+  "request_sha256": "e27d2db9e8d061a5f7ead26dda8f6aaa22fea6f1a44d201698cc29198d3836e8",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:49:21.210913+00:00",
+  "response_id": "chatcmpl-8474cbef708e5cf0",
+  "response_sha256": "b45e611c71df5d3bdb15d30b85543151140e26eb0373da0d6632a78ab31f8d9c",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 99,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

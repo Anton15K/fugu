@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "bf4e435ae2f6055f22fc517284c942d6a883427925889f8e971e62a00a58eb78",
+  "duration_s": 1.1026455409883056,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Update my calendar with the latest events.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "a4425a74faaef55068afcf4501cf1f2df3057202e05bd4e31db3d88b3ba1aefa",
+  "number": 53,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'd be happy to help update your calendar! However, I need more information to proceed. Could you please clarify:\n\n1. What specific events would you like me to add?\n2. Are these events from a particular source (email, website, document, etc.)?\n3. Which calendar application do you use (Google Calendar, Apple Calendar, Outlook, etc.)?\n\nOnce you provide these details, I can help you add the events to your calendar.\n\nPLAN: Ask user for clarification on event details and calendar application\nPLAN: Wait for user response with specific event information\nPLAN: Access appropriate calendar application based on user's preference\nPLAN: Add events to calendar with correct dates, times, and details",
+  "request_sha256": "7dd08bfd9f05fbd9183ffdea085ee082247ef4b7e1d9c143a0b6dd8cd2bb86ef",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:47:02.697236+00:00",
+  "response_id": "chatcmpl-b10dcfb47804cc24",
+  "response_sha256": "8667b24991d36f678aea5cfe5f3057dea629fc2abbbf4805cceb5330100283ab",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 253,
+    "prompt_tokens": 87
+  },
+  "usage_object_present": true
+}

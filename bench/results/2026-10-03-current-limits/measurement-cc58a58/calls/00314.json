@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "beb357aacc3aec45d9cf7d41758dfb7fbeda7ed86df2840e8dcce4ec7aab644c",
+  "duration_s": 0.7696259579970501,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you display the diff for the latest commit?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "5ebf59847709795a72e2e050d049f83a601c8e6ada2bd1d9e7a6d1c770eb2b23",
+  "number": 314,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "\nPLAN: Run git command to show diff of latest commit\nPLAN: Execute `git log -p -1` to display the patch/diff for the most recent commit",
+  "request_sha256": "6dd20fe8ff7a79fd498ef15ac09a360cfea558d658a26015352c64f3bc0bef48",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:54:03.515860+00:00",
+  "response_id": "chatcmpl-8e933d7e079ed421",
+  "response_sha256": "f6657f3469916f7e164421db7389d9778901317044026c960a8b71c1de1ab2cf",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 95,
+    "prompt_tokens": 89
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,1633 @@
+{
+  "accepted_plan_sha256": "8f304c3da81e0db091da6e2c324c064d013129d63644b278079c4cf8ad9ef725",
+  "counts": {
+    "ledger_rows": 359,
+    "measured_png": 4,
+    "measured_svg": 4,
+    "native_audits": 13
+  },
+  "created_utc": "2026-10-03T03:33:51.142885+00:00",
+  "excluded_local_artifacts": {
+    "copied_input_files": 81,
+    "engine_copy_included": false,
+    "journal_lock": true,
+    "temporary_inputs_included": false
+  },
+  "files": 402,
+  "fresh_measurement_complete": false,
+  "measurement_status": "blocked",
+  "queue_id": "qitem-20261003023545-501c0320",
+  "schema": 2,
+  "scope": "Exact writer1 measurement-cc58a58 publishable files plus docs/benchmark-current-limits.md; manifest excludes itself",
+  "sha256": [
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/01090289b9028c52c73d44ade8a1d6e283580bfbd673ec2d4e955658fd4205b8.json",
+      "sha256": "c55ef9870f77aba16d8508703196b80d04bde251696fc1660b0de2085009ce38"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/0bc24398bce42bb397b9df0565408305b68287ec48a7d338c0ad154913baabc4.json",
+      "sha256": "d76aa19551b3d76db848616afee9506ee92fe7a280d7dcb230876e1a60abbbb3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd.json",
+      "sha256": "ccee7a917c698d770a586b93e345e84436fd2fee9a5c9be1def1600ec986a4c2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/2bb681087cde27cbb3caf5d203e5adefcc870ca2648addb9e8e2cc09c89eeec0.json",
+      "sha256": "218dd93852f4560a5a37da260eb7ae9f9f3294edf704622bb0a55c6fc380c8b2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/48a7ee56323d71b6b31f79bc8e4e7f94123000f80f25e88af369d9820c038d76.json",
+      "sha256": "82c0eb6c83a26ac4a32df31c7132e430d69235e51d005e9fe127d5fa782bc5b4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/5fdb5f4d59ade6acd51ff579c114f5d3adf45212053a36ea7faaaecea7c6f5e3.json",
+      "sha256": "c20c7e180f1160fe6bd05951834ed681694d5d9596cc7f9da3fbe8c5a5424aea"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/985c030a62586e91c25f9d9b38f0021808ef7ab22047aa6141d3764ba8d172a0.json",
+      "sha256": "bef8e362155315a8d0ca8d92b42ec2417000159b49035946d0b700ba94fc3e62"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/9caefdb16d2687f779836719a737003859920bb5cbb370e33d5de75fb1005b64.json",
+      "sha256": "b6fa6a6abe97fca622843f61183cc0357c34c3786a29116ccba1a579f1c8f8b5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/beb357aacc3aec45d9cf7d41758dfb7fbeda7ed86df2840e8dcce4ec7aab644c.json",
+      "sha256": "7e7bf923cf4c72b74bebf931c256739119d090f2f995e674ef2d6a6e9d6828c5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/bf4e435ae2f6055f22fc517284c942d6a883427925889f8e971e62a00a58eb78.json",
+      "sha256": "6957bd1292d58d66d5266bd02ace9751da531962e92f1ee84399dbe92ecad756"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/bf6d3b2904ec68dcdb5fc4f43694306f6a0cd4662acbb76eb293f3f3a8c05d37.json",
+      "sha256": "dbd4953573abd65f35736734a5ce833b5fbd9fda25d03a9d62a4ae437cce0015"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/c3ebc8cac3d548a5866c65213868de52ed642efdb2e33216fb60878941091d54.json",
+      "sha256": "d588b199f0a61e4b2eed69a5a54741cb399c5509460e36bb7f2d476f31413bc7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/audits/ec38802d92c1a9bb10010bb8739163f634008d8f2b3a3057e472cc9f2eca6034.json",
+      "sha256": "c3eac839379bff90c46dc6358059585cecfcec408424508e7d2e4b67eb9159af"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/benign-adjudication.json",
+      "sha256": "5122d1ab192753ed1e789ad6d8d69aec9d6e513e33f82b1adec8feb1ba649349"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/blocked-handoff.json",
+      "sha256": "8133fa47d94665bd8763a20626d4446e2e957b7bbb708f2c2c64d32b6a0d3d3f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/budget.json",
+      "sha256": "19667af8c5b0b1847cb7d70256e9a2cd136568c9b86ba7ccc1f82d3580864ef2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00001.json",
+      "sha256": "09776a9f58e96eea32d299034fd67f18c40413340b062df0c3526cce487571bf"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00002.json",
+      "sha256": "277ae3061683152f1ab9fcbeb4fe32cd05f1773ede4a6ed4c34617cbbfcc52e8"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00003.json",
+      "sha256": "06b1f33b7dd96ee85a253c1f2b1ad11d29829ddaa85d1064bf275a604f8e548d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00004.json",
+      "sha256": "d4f47fb7bcdc5860dbad5159918892e76958a4425a5dd6ced66f5998ee4f7515"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00005.json",
+      "sha256": "6629ec0c0d2a4d9fa4f358f9965591c4e6259b34f565ee29325b670f9584c003"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00006.json",
+      "sha256": "457d473ca660900f6892ddefc0efc4497a8d3046a1245802a8c68c278fe2987e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00007.json",
+      "sha256": "637a13e6f1829f01fa96e0de973f46ddf263338792b5f6e4381ae24176a87c60"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00008.json",
+      "sha256": "934e464fae90e5df38250aa549c7c725a177865a2315e5ad8d615e79792f8be4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00009.json",
+      "sha256": "18fa82551cf45e5465bc56fb35da92b3aae9ef9d0af2b35b27dc45e28ba27e49"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00010.json",
+      "sha256": "87ff8f3549445bcb0428b9c79d3dac0105de63187cda03e21eb090f4a9985f15"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00011.json",
+      "sha256": "a595da2934eae89c6e92af30289b9553f66352b5d4c678a3b3a8effefa835f95"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00012.json",
+      "sha256": "787c216fb4052912d30de012ec87fa8d679eaa3e50dbc26df0b88c178fa374c7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00013.json",
+      "sha256": "ef8d0075cb7372fd4c7f7977330a9b7adc2318efafba9a10d92a84285cdd357e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00014.json",
+      "sha256": "03a7db22a9802a61371d68a41725cb1100d9ea8ecaa3434c1e8cd995e19da33f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00015.json",
+      "sha256": "21c57b6cb99911af17550578f5ff1e6a35277efec3b27900df6a24d7be4ba928"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00016.json",
+      "sha256": "fbd530631066dd7c4681ed8b2817324d25c6b118cd105cd69aef69696936b231"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00017.json",
+      "sha256": "59da05454c491f310ef34f38bd3147c6a64cdee61fc46c29c64f11c3b0ddd97d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00018.json",
+      "sha256": "0f0df257a10e32646dfb92a5701b7e31c0569ee252edae5e4c031f1b4e1f366e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00019.json",
+      "sha256": "d90d169bf03d1a5b6b10d57448d16ac58110b43a7cf2a3fe530fbae4b2ff31a8"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00020.json",
+      "sha256": "0cc243ba40953b97db178dd6ded2cd122a632a0a4395c76c1ffb5148cd4acf21"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00021.json",
+      "sha256": "6cec7e14f4ea1b64619650187ee3712e220281c9eeb913504b1c93d7282c26da"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00022.json",
+      "sha256": "6fce125dae164cf646faea01cca9acf6cc35fc9f27b71a541497a3440127dcef"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00023.json",
+      "sha256": "3c17a6b0031b2b954993c04a7e2762f4eb217ec068b4b066f76fccfa2d97238c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00024.json",
+      "sha256": "d3941aceaa46c52d5a012339d4fe67d4b8111525451ffcc70aed8994b1ad6b00"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00025.json",
+      "sha256": "02fa7af5c56a96b2cde63fe96f11ad179a8a75a3093ce7a2beb9da93f8718780"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00026.json",
+      "sha256": "8470e177f816c71c29f47c923466354c29e8f15bc39bc37e48902cbe6361f29c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00027.json",
+      "sha256": "60df57e5776b7bff68990e55f531bcdd78fe98f2fc5b98f0c405659f43702a67"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00028.json",
+      "sha256": "92d3c81f65da437a607585e0124a1a85f9a4104fcf456c479a920b4f7960f954"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00029.json",
+      "sha256": "0d9c3042984c106c551a66062343edcf6164de0d12c3982ca968864d651e6a7f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00030.json",
+      "sha256": "7b691f00d44c82f67fb568ffb2b1987064a631a0b6258e5f2d109e4051107b8d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00031.json",
+      "sha256": "773ada5661145bec025624434e81eaec7ef142b4475bac953ba25e4b342cc178"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00032.json",
+      "sha256": "b2b04fef8d29ca6f03f8606435d6c6273e52ee25d99b577b7135d2bec2d37307"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00033.json",
+      "sha256": "9b37b2e994a972f633c5beabdaf695c285cc520b5239c8986d586186ca5f52f5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00034.json",
+      "sha256": "2b752f2e21b67b330fe7e8bb0de3b78e7cf9bf38af847d0bc2be5a8cf6f7d69d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00035.json",
+      "sha256": "52d822afd40f86231f75d8d213fa9b79b6dd05f9fe92b63e7661addc6256949e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00036.json",
+      "sha256": "b5cac7ed7ef4ecddd07df7106f9a2cd58fe84bfefd2ad95899fca65d2bb37e1f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00037.json",
+      "sha256": "e2392d01bd6fc3c8d2eae33f8d95ba81e7560ffd2b4a12ac90711ac47e349d31"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00038.json",
+      "sha256": "12d70a267b79f2c4844e83f21306aaa0e2cbed53e9fca1e1562f37a599c3b470"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00039.json",
+      "sha256": "7458b2366304c7ea2a0ce7eb29c53630665719d84345ff2eb1eb7e9b7bde3c93"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00040.json",
+      "sha256": "12371ab9fc20afd55fa60946ae6539b6054aecc191f87b254611f8e51149e56f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00041.json",
+      "sha256": "f859bb3bff58c8044c683a35f255a20614bed23d71bb86a4b4e626cb0c3f2917"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00042.json",
+      "sha256": "d225bf1178845deb5777e05831f318d93d7c6d4586de1044f611b74b8829de7e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00043.json",
+      "sha256": "757c1a22104b906baef790de69f435d44b22ee409d79977d26b22ebc62e7c763"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00044.json",
+      "sha256": "458cfe1421bdc183196ca5d116d74ca751c8518bcfefb95a46404b90a895e941"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00045.json",
+      "sha256": "0e677d7d6acc56e2d5ecbf61e266ca7a64de8933d997c4ca274b34e14c2c7463"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00046.json",
+      "sha256": "54e6a452ca7b0c16d78a16b5e0dbfe7d06608735b6f756b47780175cb93198f3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00047.json",
+      "sha256": "a27bf97602b242e2ad484b06b53c4dd848792a3cd7ea77cf9e8a16fe10b85a6b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00048.json",
+      "sha256": "357740bef8b891437a524b8a11796af868f6d61c5f8179db4ddfc5c97489c556"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00049.json",
+      "sha256": "bfedc0f9f8562bb5e0d4956bdf88db46dbb9a6351031e2f83eb77949329301ed"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00050.json",
+      "sha256": "96515f7aa672dad2ea6801bca9e02a1e61434a070788ba48c4731e9eff86f075"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00051.json",
+      "sha256": "1af2ffc3d746b275b2c92df6f078a20cd6b299114a7d59363c5c73904a5c45c5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00052.json",
+      "sha256": "7fdf31e304ed48e069a24b67a003a9dacd4014775daf6b3e1743e40f76ec39f7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00053.json",
+      "sha256": "7afde316c447bc2b955a5198f3ccb6673eba1f915eb5f040553134f609dca617"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00054.json",
+      "sha256": "9187cf913d52bd0a066577815db1a3c9c8b179328942dbb0f91d886e75209655"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00055.json",
+      "sha256": "0ae26c23e1ba44ae750aecdbee443e651702e6ac481ea438088fcaf3b51d02df"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00056.json",
+      "sha256": "379a107e6f103585b4792d14de5992c0cd2fe1484fbc7d575dad37bae55f56cf"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00057.json",
+      "sha256": "4c6f3edc02179af36723f5e4c20b13fc38b7a01d2a89d2bbc224232ce4695c0f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00058.json",
+      "sha256": "63e69887143fa45b519745c85b8832c99d5c6a1a3ecf3eae394e593d05b53213"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00059.json",
+      "sha256": "6d2a700ab487c30e134e1bd5d0e67bf0eccfc22dc6d4a28d1b1a22abff113371"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00060.json",
+      "sha256": "f9ab22d8ea65a8a80c193530cd7e943927c4e364a4624d4e5705689a6892e0ee"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00061.json",
+      "sha256": "0b0ba51999034f8817200c394a5bcc2d7028ca074dfd496fe48d16b09969a8ec"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00062.json",
+      "sha256": "7f0e58a4ffd59d6364b21ad36a8f4900efceec0478cd4f9279f69d2deaaada70"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00063.json",
+      "sha256": "ff4735a9438adae7546993bec00cfb3d9aad9a279751e8432d7c32d98003a8ee"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00064.json",
+      "sha256": "6081a092566a0baaae4eca189ccff23afb8e995258a77faa84dc0dfb584d9421"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00065.json",
+      "sha256": "6fe9927e4e1f8effa9be590d4c63c6acd7531c2511abc7f1acc8ce4cb3987381"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00066.json",
+      "sha256": "66a5318489dc72aa57e8825cdc9949c6671d05cd3bcf50cf70278114e546871d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00067.json",
+      "sha256": "9b4d9ea07d0d66f00dab1b8258f886facdcae02b55bde79a590220d51325e2c7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00068.json",
+      "sha256": "83478cbc2047a11fc033e9a45474962ccbe3aa87db9f649079257ad8cb807cd0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00069.json",
+      "sha256": "aa701a2af90cd8b31385fb4e456d2c96cb020b543e93afa62b9c50606e60662f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00070.json",
+      "sha256": "85b5ff94606da54205ec82fb221ac607839ba142feaa0ebd7ec025ea84417622"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00071.json",
+      "sha256": "00b6505ef1fe9dd00ad723aa5c3ad38b6cb519bd768cc41e6cc4780dcd11ef90"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00072.json",
+      "sha256": "a9e94c0c4502e650e3ea115ffce10964dd2829776dcdac2939d451e6f1c31c5c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00073.json",
+      "sha256": "5cc96ab02cf6161c5a7ae2cc5546004b45869a3bdd4f7dc008a908478cdb664a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00074.json",
+      "sha256": "694519a12099856b8eff7fd6ebfa62176bec8418b8834ace0df01bf95fd3febb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00075.json",
+      "sha256": "885659c93420c1ceb5c8851c042f30de142090dad2e918c9ab0212ff24c44f3b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00076.json",
+      "sha256": "e7f9b455b3f5a86c854d94bd4748762fe89a8f803ce70a301b15cab1ad025d3f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00077.json",
+      "sha256": "91eebdaf6d195f67e871380b7dd3f295af00187e204fc40a984b5269e368738f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00078.json",
+      "sha256": "a7545c5431228378a39c0c0c11bd0d09b94a12843f49081e7cc488bf6686a249"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00079.json",
+      "sha256": "7ea8a5483917e4cd377e6a5d9dae46f215b05397e1ce61180162b3ccc370696e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00080.json",
+      "sha256": "76763700dccab6555b4e18d5124dd58f2fd18a54b8973442a2aae97489209bd3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00081.json",
+      "sha256": "ef80915cb998976297fe443088cb59922bfd2649f483a7912606cc782684984c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00082.json",
+      "sha256": "dcfe7a62ac123fac3f99b3c13ff8a069185baca4d1dcc2629e6a4a4d41b8a146"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00083.json",
+      "sha256": "009bf40bb018e2aa3cfb59590016a25efaacbcc76dc1f2e1f48f6bf0cc5bbcce"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00084.json",
+      "sha256": "ec3bfa144f47453e8e045ac65c86053f23457e0d0802dc71242ad1f28c7fa203"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00085.json",
+      "sha256": "863ff925fdff2cf3f92c896eb0aba2f1ef7b4067a8f921fdb455fb500cb10686"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00086.json",
+      "sha256": "e4d0be54192ff15cd890c4241f9b50175fabef06040426a24684afd375985b14"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00087.json",
+      "sha256": "b3544e4db3063c262f2c7525f3918bec62b893306b7671ab703fb2fee24dad49"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00088.json",
+      "sha256": "2c684e533765ffe0f7f7f81e6f66ad6f84e574547877327499733984730f35a2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00089.json",
+      "sha256": "af3a46b362c1ec3aa7509276621959590f954b2d074631ad1e92b19648fdbcb3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00090.json",
+      "sha256": "be0b014d867c8ed1725bf16e4c378a891795f3a22259668ffafd3230e66b4293"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00091.json",
+      "sha256": "932c3cff83c192a3fff022bd88506016cbdf10b2e746311e7b0f8ad861cccc26"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00092.json",
+      "sha256": "59ded125861f2f65315e6f1f473399ac1f209b129dcc93224e98e6e7d4af82e9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00093.json",
+      "sha256": "f28c2e9182174a750b024d5373fa51f0f8888fb627d393ee317ce84d32fa5bf6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00094.json",
+      "sha256": "a64203b61a7e1b3eb85f103c9333835d24f707385d6f199788ed8a6f0b234fc0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00095.json",
+      "sha256": "401f0733467f3976011be9edeef9ae32a86919dd13f5f2a99519158f05430509"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00096.json",
+      "sha256": "a113b33638eb95136a80d84b6f6b31cae0101ac3a3adbbdfcab3fbac61f22e60"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00097.json",
+      "sha256": "52a03e973645e49080b1fba26217b88e9d1bcac31833316f62311cee37f357f0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00098.json",
+      "sha256": "4d19af65601bc6e2722f6e07e6f833499c964815d1bab8beb9641a27306af0cc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00099.json",
+      "sha256": "af3fd866cdda531ce028281595bb64fb6a268e93dc6373afeb32cdcd8324bcc4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00100.json",
+      "sha256": "81ac5a4d6387f61d4af298251b9e1724bf225fb22fe0f9b9ccaa785fd8eee413"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00101.json",
+      "sha256": "061d99b2d0daea18023b7bd43f6850a9b0a7d4c057509ca14c35871adaf55b00"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00102.json",
+      "sha256": "94a39105120f9c8d25e46c41ffbfc64e3eabc7f17f88f6af3076ea682f98d5eb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00103.json",
+      "sha256": "12c0ed753c4b21cf5557e44b1e3d20fb528ec320107beee57795ea3611f691bf"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00104.json",
+      "sha256": "394c44ef45562bee695233655e37ceff4ac47df12a8a70ac71c9ad61bb72321e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00105.json",
+      "sha256": "84258a5634e731d774223ce057ab20736ca0719ecb78e196efec0a80346a6e14"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00106.json",
+      "sha256": "cb933ddf2227d4488d54cb7b6ff23f83e66844d4dfedcd83cb1fb79d91931731"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00107.json",
+      "sha256": "34dc6e51ac584783802e67796c7851f89ef1049ea5b11c01d1ba3400d13f601d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00108.json",
+      "sha256": "4dbfefb61bc678854cb77c3c109e91289f79c45b37a39ae7143a8e5b259ddfba"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00109.json",
+      "sha256": "f87d0251d44752d94fdbef8a4c16f73f0c62538d115230ef9c815b90bb5fce08"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00110.json",
+      "sha256": "49c312c76aa4dff729de6ecf6d428c4669f3e5eb7d7fd52b6dbeb605613db82c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00111.json",
+      "sha256": "8d50ca89ccc3649c448df97a2a7e8b4650a69d7aea4db623b7053d48c3b7181b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00112.json",
+      "sha256": "762910d965b0d6f907f9fe1a854834330dd6a404ebf48197fcbe3aab82120251"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00113.json",
+      "sha256": "62bbd1d806ee83350721516170fb80995802417c1051d1728839726d141c4197"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00114.json",
+      "sha256": "25c3962697ac58d10bb9c5d043000765e6fdd30cd6e7ee6caa6b66e8745d354c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00115.json",
+      "sha256": "b371ff7d3cd4f3f9354277ad1c369c87f9ac36e00d9f9ba14be39ad4716885e6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00116.json",
+      "sha256": "5ddfad4486fbff42e5fe679bd819117adf59c11d1bc9201b5e1bfc7db3f18c00"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00117.json",
+      "sha256": "e89f4ab3e68feaaac627313f0a57bf4abd0c93c9d84abfd2e1da63ca02c30554"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00118.json",
+      "sha256": "15fa471fa6daf658e9f33a220dcfb2ebef6ee97a5b4b8163f429a75634b0a026"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00119.json",
+      "sha256": "6ca6b66ba15aea8d97b66707bc3a44065c30622312cac72d243ccde10b569843"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00120.json",
+      "sha256": "f2f5ddfb1c67e95cc0a8631c322eb3886dd3fa8001a07b2b7abe90484000b6da"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00121.json",
+      "sha256": "d19725c2ae2368d8869b1f30b9dad0b0bbff0322810f0e01dbc1ce38f18d867c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00122.json",
+      "sha256": "bb426650e219c29c4f23e7db4ce464702cdc89862fbea2f46f60bbc77ade7048"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00123.json",
+      "sha256": "dabe5af21eb076a871438d3ac25e7b1af90ac8a7645aafa1eb256f2ba3b3df54"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00124.json",
+      "sha256": "d9393770f870c23fd15e00b6735cd36ead23c3a437dce701ccc3c39ec5db30ef"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00125.json",
+      "sha256": "a5a15be0e92038376e66645232749f233c93ee41945ed71b6f0217140a786df0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00126.json",
+      "sha256": "7eac27bfbe67bf6a057f61959cfa90b1a869dd1f774e6a7781a40d9d405de0d7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00127.json",
+      "sha256": "439960c01c38a466cc2e9c39a03c82c3597911afcc5e69e8f649671f70b74573"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00128.json",
+      "sha256": "2d3cadcbb340f32283a88619d0615b1b307028920fedc8e3c6e6c1a88e5b715f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00129.json",
+      "sha256": "e1f93ed8a56b7ee5f3fcfb41878760091d1805877506a5d5d1423651d5bf69e4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00130.json",
+      "sha256": "14ad88e1ba808992bcbcbb576a8212f6f9ca7d8bc024b0877d2d34726e338264"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00131.json",
+      "sha256": "216b45347443991c6b5f04462fc447f0e3860e4fe8b3c88efc0b45e2c0b23759"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00132.json",
+      "sha256": "44c0a18b4933e59b4431e1b5cc01875595a1ef21e904c991b122e4102deb55c3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00133.json",
+      "sha256": "f11afdff0879c249b484db2c979dee9e721ebc58734ea6e981448bce7215c172"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00134.json",
+      "sha256": "4f1d5ab9d2d1faa06fa254fe164e02ba8e6a465ab38c54ce92d0354ddad7588d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00135.json",
+      "sha256": "fae9d437a313af0dd21860675e13cac08157515471de80e12ff404519752f3f2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00136.json",
+      "sha256": "ced969d4026dd3e22d6ae089b9f0f65ac54408f5da949b9d019a80175a379b7e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00137.json",
+      "sha256": "31ea1d708597fab04b40c451aac45be7361730b45ed2713de93736cdacaeee4a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00138.json",
+      "sha256": "1a5d72d25e50b0cca04b077b358668256fbd1f9f78ccd7f0e4ad521fc34cf1e5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00139.json",
+      "sha256": "c98d8eabeaf72f9631941d8655d1da816fc0daa4c9a3935aff1c0a23f160b47c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00140.json",
+      "sha256": "69b8736edca851d01418c446401a4f0140337736145c49cb040f2509970a2665"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00141.json",
+      "sha256": "015b648288f3dfbaaa662b2068de5fbd6d2d235e7577ffba49f619e9ef06e241"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00142.json",
+      "sha256": "4f958cb8db5b22a9482efa1239cf861fccb8a8f818c7be85b4e29c01877ac5bb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00143.json",
+      "sha256": "16df46f34d31063440475b848dec224a6460984d1a860e66c76fa0e8f8ffc820"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00144.json",
+      "sha256": "db0408fff4c88cc79e53df18530ae44ded6493a593a73ba2ab8c0a38c47a1858"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00145.json",
+      "sha256": "e186da0bafc247e2f08ce2702a53c65a4fd84cec998492756bd670fdb423c428"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00146.json",
+      "sha256": "ca67562925a39853ecf6c011d3ad602b7590b35cc37b536173ced0ebe2a8969b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00147.json",
+      "sha256": "952d714f0ca0ebee4268f1560bb7f0377b47b5866a20e59b53a1e20b0c549da3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00148.json",
+      "sha256": "219eb0fa565943e554becb82888b451e5ee882d0b85ba0269d4b8800d6d77744"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00149.json",
+      "sha256": "03022b1c87942bba731258f287ae429ffe26840123e22e0f6e897385c7aa0990"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00150.json",
+      "sha256": "e15f3a1c62942adc7a278a404ed63928f46cbebee941c25ba30aed66636e8e24"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00151.json",
+      "sha256": "281dd296fe76c77939f901665c3c6aefcc669fce6027cef2ff53513da2f891cd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00152.json",
+      "sha256": "27eda52107e3494899dbac8c4689d4b81ceccb38fd6af0c3f87f963924eabd33"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00153.json",
+      "sha256": "17901e0890b2c25c3692abf70665a8c0393b05cc9f8f25fc0d7865720b5b4885"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00154.json",
+      "sha256": "c01242e7ddeb7ac7c2a06e02235a6c465b11d06af2fbde60add87d2da02d2a51"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00155.json",
+      "sha256": "9e4fbf150bf3d30f02445a690ab834441414c0ab89791d613110af7d32e2d250"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00156.json",
+      "sha256": "ea2a8c8209fa8a90db0d6a4c8fd3ccefc8f9d16130091e2ff36eddb6cc9e10f7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00157.json",
+      "sha256": "0447b9f827246b73da658b9c8adcab9cc72931a7b9a73aa6d1f569953ef4aa8f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00158.json",
+      "sha256": "eaabba2bf043b20ab936c62a723f838d4bb7be749e363b650185102c5e85bfb3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00159.json",
+      "sha256": "018b4d4c8bcf133052feefa2f62ef0df9a3b0b9371a38bbe9087809e454d65ea"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00160.json",
+      "sha256": "b3e727fa054cb1c867483b8b8183e49750d7b0ab57a8ceb4570d33d1f4189989"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00161.json",
+      "sha256": "abe5f15969af1566aa7e8ba4350af2f27862eef3ce85d5f8e16fa654f46b6243"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00162.json",
+      "sha256": "91a2ae007912de9786377fded0d1f5f73b223d34c74c62a973b3c42ebef5be7f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00163.json",
+      "sha256": "e545a49fd1b8831c50010929be3c3bbc4b018b7bfe73a19dc59f316474419b06"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00164.json",
+      "sha256": "3c829673f92cc06370a86c1b1b4b9276255a0c2a516e10f9c38089bb6e9c42dd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00165.json",
+      "sha256": "10e770c4338e15d0f20d4875c76267acfdf2b6c6c51648be86ceb5a8c1f4af0b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00166.json",
+      "sha256": "44c5629963a288260f024226b42d5fb274987e98b63942e98d909d8131d9c6ed"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00167.json",
+      "sha256": "bb1db876a023d2b00705e471d69d5201edd983e79afd147e118e0339002356f2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00168.json",
+      "sha256": "c6d5c1c57271b4e3c4ced58fd1610b9c265b8360b98e37d06f46f5b2f6cadec6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00169.json",
+      "sha256": "b85a0392533255c5e0b13f540862b13dac0dcb885613622237e5309ab5b1d915"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00170.json",
+      "sha256": "3af19f45b5fd42a34e7ddb4321d1495244a3b48d703d2b3bae916719a96ee9a0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00171.json",
+      "sha256": "783c61ebe3bed3e8f04974d5d05435ee0bb4ed1a6494afdcf284f5544ea93881"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00172.json",
+      "sha256": "e46d04776fcbb4566dd410598a7f15916cf7ce56f944046d4f52a53e75891492"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00173.json",
+      "sha256": "9c66277a6400bddfd36dc594e1a517d35f9867dfaa3b495abff0fb722d4c3975"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00174.json",
+      "sha256": "cec412995121469c77080d24e34e9f87d252d82237242ac4457c72e65e604423"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00175.json",
+      "sha256": "ae85f668ee3420a783ee44f8d7330e8c11efb5354ea4ead9110200588ed97fc1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00176.json",
+      "sha256": "96f0cc3da6d65b3811ad29243f9a25f8cbcb016e42ed40ba536fd67d6e2fa7f4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00177.json",
+      "sha256": "8b93779c6456e793c170ca0e133c76bd31271b3bd73615359b19215ac114bcd0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00178.json",
+      "sha256": "319e6c217311df6a0bf9ab6a4dba7c8d27d908bf3f4986055f97cdd81808462a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00179.json",
+      "sha256": "eb53fbdf2e1da8950b2553cd432c3f27be2168d361fff3c6b015cfc5c1dd72db"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00180.json",
+      "sha256": "95c4fa8803dd417cff0c1e87503b185cbcd627acd9a619bce02b9a705a43a111"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00181.json",
+      "sha256": "13c8e0683548f48b8bd6dfe9ed14cae515aecd8c65f960b5c53a435a2a24ef5a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00182.json",
+      "sha256": "932fd80f58ee45db82bcc3d4e13d043b83e18546bbdcb67e99140f13966f786a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00183.json",
+      "sha256": "fe5bdafae3759c5e5925e54f667a3baec2f92a1522950b25930f53265a92f3f2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00184.json",
+      "sha256": "3cf83ac0339a899ecd9f7784056a495f915f60b306c0eb44cc38861c152e1fa9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00185.json",
+      "sha256": "e5f39bc32e83e0ac8bf27b1954bb44f329e6f410cdcf17a2e96f3e68d97e08bc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00186.json",
+      "sha256": "be5fccbf9f1d0019cecd837f75ecf93d60836a12d619e75880250ff4eebd47e4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00187.json",
+      "sha256": "a1d276087fc82b9e5f5efd6fe52e0e2e2771677b7fa250e112b82991e61322a0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00188.json",
+      "sha256": "e1746e5e938555b96c766126c6fcdef8e0a807cfd1e6d5fbd4233609ddbed9d5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00189.json",
+      "sha256": "ae8f3676eab7c6e9bd7f63489144fa410b826b6739fbaf24f9ab19ac8f07c0bd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00190.json",
+      "sha256": "af7264fff5a53da2d2ee3a39701720970e2c94b0c301f66dd6d469a9a48ff38d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00191.json",
+      "sha256": "6cfc907e4a031f1229b4bba96945283b37fafef48578be1b1228fb43d96c811e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00192.json",
+      "sha256": "2cffea9f883fb374ad5dc96d429602bd58159c107f9227ed96017579b4360e73"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00193.json",
+      "sha256": "733053944cdbc4bd2cbeb6cf78d64326eaab86476e71d629b50e5941182d0231"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00194.json",
+      "sha256": "2de444eb8648ce37fad469571bc22ec7b10228aea43c8e9fae56ce9bfcede6cb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00195.json",
+      "sha256": "ef541eba70c5d054aa60a3f8ff8293726ef8c30963071491e2331038dfd34c43"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00196.json",
+      "sha256": "96c9335a9c77c07665b82aa0647ef2a43d5352e802504d7cdec68ac410cd9ded"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00197.json",
+      "sha256": "13b70b3cc2fdd6f9a52e7758adc1d08939ee8bb830780d0c9f7ea99971526245"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00198.json",
+      "sha256": "28b7e785fc77334937edada0e9ad622f7cf39ee112a056a88409c6e500a0660f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00199.json",
+      "sha256": "e6d63546eab77580a0985aebdcc1cad2442feffc2a5ea7897601884deb5e1085"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00200.json",
+      "sha256": "d574e5fd6d910dc409b1969b32536751469a4424e0ce2807117116df19183ea4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00201.json",
+      "sha256": "d776e4db1684c272f93244c3e0be52ea3b068d47b7dabe1df1e3c5a6ea468805"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00202.json",
+      "sha256": "c737eacc03da77803b43f251914adc8284be8451f738caf82edf866fe280d60a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00203.json",
+      "sha256": "4029b2754c29c68d2e29a935210aec9bd36d937e8d5050bb28a574630e4f9e12"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00204.json",
+      "sha256": "f40eca3dc34eddeacfdfaf209d3aae597cd126fcd11fc706503210078b59ea14"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00205.json",
+      "sha256": "611dab1ff973500d10e3e2e6b5cc84a5a859d21c6a3fd4816ab63de66bf8b1a1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00206.json",
+      "sha256": "e3e96cba312a73e5642fcdef361445c31212bf7dc8e7da7b66f63a4d87f2dec2"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00207.json",
+      "sha256": "3f59ed0de858ecaa1a6638dfc675e73e643ed3fd13194866316cdfc80b007335"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00208.json",
+      "sha256": "32c36dea2dc0b8a0dac0e412e41e08ae4233a0b89cd6268c34eab77b726a8f21"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00209.json",
+      "sha256": "c8372725abbffde5b69f76cf074c787b36fcf11afb914003b5ed96699a298532"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00210.json",
+      "sha256": "b8931e8ed8f2fb2dfa48fb3df34fb092b5eb32f806b3db89f133cc4c163fb827"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00211.json",
+      "sha256": "707ec397f5b240f6d7ae54d0cf5c7f7333a612cdcba50e5b7a3f3b49bfb5a7b3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00212.json",
+      "sha256": "81e4849c60ef9f6b8c269bdd882eef9ac60e2836290e564efe861e1fe1043d81"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00213.json",
+      "sha256": "8bc6458a732e4794ea796651153ba5cf3f6fc14a97b3d9080e59122622bfff5f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00214.json",
+      "sha256": "ba3ddb776062d38b723e676621bbe2e5b08f9586f112c5153fe22b7fe12ce76f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00215.json",
+      "sha256": "87085097e03d5476aae72989abf165bf3cc2098d463581ad65ecf46887ae8da5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00216.json",
+      "sha256": "ecbd5a3fced8d582521e6286d2453d2fc7274775b87be56c2433b0097d4a7b3e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00217.json",
+      "sha256": "aefa382116dee254f703a1c8b96c0450b890f33824f34e0602f38933c3824746"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00218.json",
+      "sha256": "917d7ca8359f3fd0406d78cf0845b12ea37a051accda9cc6ff8f87dd49073983"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00219.json",
+      "sha256": "4e5c56fd398ae3f89afac537595204c885e09ccdcb827aa7f2b009b74f6f308f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00220.json",
+      "sha256": "913750e5388c2a14bcb26edaee42ab85b2dae057a301f7369a40aad9725bdf04"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00221.json",
+      "sha256": "ec7df8bc7a7b0c3287ab816914dc0a4e1f43e314b466f874de17fd50249f5baa"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00222.json",
+      "sha256": "39ece02e5974071bfe4e574d8877c0e4be3958ba2505b35a9b5adf94c91b9b1a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00223.json",
+      "sha256": "b962fb4d5357f575cd8ea3a5049a0cc802dd968139b848e4243b82d5e315e9ff"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00224.json",
+      "sha256": "5eb372a82e2d87a5bfbb2c34371c7b4590452e8240c10708690a7daae4c72309"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00225.json",
+      "sha256": "345670e5ddbe504534fcde45e5d6595c3700b0c4801dda418e70ef2228565d69"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00226.json",
+      "sha256": "ca7be8d515782bca6e67a69f8fcb721b4d7c37e1b0e8d53cb46cc1ddb625fd0c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00227.json",
+      "sha256": "3ac3abe419cbfa4f912771d39fc37cedde48debe0e53eff4433bc1d23f5a9bd3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00228.json",
+      "sha256": "b06444407017cc903f55bf4c3a4f5828b49d61bf69a1ae3a1210c3ebe06d2e85"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00229.json",
+      "sha256": "2c9e3038bcc4fbb68c22917b32c644a48f48a76a5a23ce767b30013e78a49f73"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00230.json",
+      "sha256": "83d8d6fdedaab018367c8e1093263f405e2fd12584625b50bc50175cb918596a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00231.json",
+      "sha256": "2d5f78c6676331b3781d5e5d27998cfb79577edef067ecbae465e9eaa8bd1b3a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00232.json",
+      "sha256": "1e15deadc9fc5943197f50baf41e0f567cc438e5b4f4139451c35e7aceded6e1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00233.json",
+      "sha256": "92b4cc8b5cab340a4e578bbd8e3a261ef4cfa2376db480e85f8ebc6790e1e2ac"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00234.json",
+      "sha256": "ca65a75ca46060746d97f4af8c15c1cd97d6161028d84b477abf433d022d8bf5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00235.json",
+      "sha256": "50679c847d70d89c3141d53afdbfdb71fee31387d811c1a91db92a3856ea2233"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00236.json",
+      "sha256": "c221008bf45b067ed5e5932a76c9a2419aaf66edc894a53f0b0f8f6d8feffe95"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00237.json",
+      "sha256": "522454a735b4e70a3a050db52711fe7720aefb864e93e6a9ba11bf40948c7935"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00238.json",
+      "sha256": "1d77ff9944ed55c1cf1cf291d4e5add4abe4f7a312d88cd6ab0d9e5545caba9b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00239.json",
+      "sha256": "5ab8e5f378d283a44bc2fcbb678bb1b28208dc6c3322069d6beefe8ed31f5d22"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00240.json",
+      "sha256": "f68891451ac4c96f20fcf76f65d2b27b2602d002ce111edf3b48cd4e34a502d8"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00241.json",
+      "sha256": "43815813abd557264d400cd7a4dae33a64c50e1b0edb1f47e4384108c80a1a07"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00242.json",
+      "sha256": "2218c0faf451300dac8fa08ba5292f1e0632cdab10c3f065a486e24504910464"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00243.json",
+      "sha256": "a35d7399e663ce879065fce12fc08e294f4bbda084950d0241e47c78145aa9dc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00244.json",
+      "sha256": "9c725bf820633f2ec75d04b5b1edc52a49b58eb0292d1bdfbbe7fb31d5d2c538"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00245.json",
+      "sha256": "86748a9acd010950cc47d13fec8cefeb3b31e926f3ba061abdac494edd3c577c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00246.json",
+      "sha256": "b1ef3a8f63ecb328c973e233452df3d4638a65fb01718e822cf47f5a9bd12b87"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00247.json",
+      "sha256": "e2fb188102e39a58f8b056dcf0d7211ed551b4fa8922ba0f27d3654db50a84a9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00248.json",
+      "sha256": "5caec47478aeec214847231c47eb6c97ebe9c952a0ae1b346759b350acc27ed3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00249.json",
+      "sha256": "f1ab2c1fc2a86213a3ed4f7264a76bee0ea2f329063f48681c9c3e9cf542edbd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00250.json",
+      "sha256": "713f2fe8d949a757b1054ea85d8b060abd00a724ef001998b7221f6107cb0540"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00251.json",
+      "sha256": "d3ed51f955ef28cf0783b9792d141e995c7fa26b11cea879fcd5a357b62b1fb4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00252.json",
+      "sha256": "d90a9029e1f6410eff7f99a1fb75782c71301410845d4fb9b74400404d2c78b6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00253.json",
+      "sha256": "ce61249593c0348eddc2163c9dc62adafd002fa86cea8f74965eecd9da98910f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00254.json",
+      "sha256": "684be4919eeadf9b933eeae1d11753f70f2c87f84db6e8baa8f4361c24dec256"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00255.json",
+      "sha256": "f33f530f064d89f82837ff442d75b337d5d9ef85a0d23ec6091982d0584b78c9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00256.json",
+      "sha256": "1b404bcfe85b5c8099f5601488856bdff5a2976e1872432b5dc3ccc313722ea5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00257.json",
+      "sha256": "7544cc66ea796ba7316dfd50d2e8ba33cdbcb95f4592d5e6f239ba63657f5c2b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00258.json",
+      "sha256": "84b23ae5d473ac7f895c3b9a9ba2ed60b3632d2481c077b50554cae413348b78"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00259.json",
+      "sha256": "41d26fc204b8ecd959683e3895b58bb62fac3c9547e00a60dc309b156dbc10d3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00260.json",
+      "sha256": "10eaa59d6277df08f4f66fb15d5f279fa49da77a7d93b811fe5e3a9d2281b812"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00261.json",
+      "sha256": "4bac27d9f2be74c94ff4412510ff6f2aa2327c038bffc08eb88498516d494454"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00262.json",
+      "sha256": "94e7081f28a852081cf0ab79ff3c7d941db44c1a06600086dab48d76cd6f37ad"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00263.json",
+      "sha256": "7de18a451ad4ebf1dc4c29b5ce6dc9dfe44cdcc23633e8f02b5b4227514e9e26"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00264.json",
+      "sha256": "057ae0053307b0be52cd11fe44ca7c428bd7110e67775db65d420412ea29b9b5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00265.json",
+      "sha256": "fca35f650a9fd5605286ff30106239cd8bd96a78ec54d6d41bdb937e44bfd3e1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00266.json",
+      "sha256": "279c6900266b86d70fe1248f671850b8b9f046b9874ce8de9946cb62667b844f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00267.json",
+      "sha256": "df74522e7690af7f82b617b293dc080508985e4246626d1025d01dd6ba86fdb7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00268.json",
+      "sha256": "97607c65403fc6c99884585213405a01372940fb9c9faf1e0efa82a594baf4d5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00269.json",
+      "sha256": "0ada86f17fb34087fd76039b299ef72700a1d5b20e39a5b25169c889715dddfc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00270.json",
+      "sha256": "8ea62c5456d044728ee8e35095553ab1fb1d011658ac9286fde07cd3891f91f6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00271.json",
+      "sha256": "396a5c2015511fcbe974957efe447c55566faf1acc793502a3c299f320b20d86"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00272.json",
+      "sha256": "ce300115689d3f27dfd8b1c42ae8d7eda03c284997e7a24fab825a08ae0ad952"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00273.json",
+      "sha256": "e37558ccfa99f20004fdf7e9966290242993932dd51ca286ab963cb777bfc5fb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00274.json",
+      "sha256": "943ebaa1f440f508124d92602c80873c11a45df291fabc724aec7f721133aa2c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00275.json",
+      "sha256": "3783b747fd1cb97cdf2c7e3171303738b7b60431c588a30d67de1e5b28c6fbff"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00276.json",
+      "sha256": "e184d4e7bb8315a2c9417a3c072adfd0c93f4f541a83d83700440ebe80f57243"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00277.json",
+      "sha256": "aaacec5372d73cde942b0557a63fed1e2f2838e99ee3e66ed3c1a4aa8edf89ba"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00278.json",
+      "sha256": "862dba944c07b0885c11fbdb9054bad343ee94b4d6310a1e88d50a449348ec16"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00279.json",
+      "sha256": "5263df9d31b3bc68d662ecadebb8c63082304f2d0309aa99099bcf068f1a78a6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00280.json",
+      "sha256": "b96fac847f90bfb52f04b93e0b97b808e716e4e6e154810992a5a5afe70c4995"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00281.json",
+      "sha256": "7022a60a2575f33fb79423041f5934e10b10a263f97fd543c49a1e8c0fc4b3ba"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00282.json",
+      "sha256": "974df0efee3cdac320f67382a26795f1e40deb63edbcbc64f804e5cb425d39d5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00283.json",
+      "sha256": "20742ee521d4cd416afdd1a6f049c7654c7ff0b3bd2ec46eb3d97b36f4c88700"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00284.json",
+      "sha256": "fdb125977fd7c00b76855b1b0addeda448d4c3fcb3dac36812d951bd1900b454"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00285.json",
+      "sha256": "82ad7a8bc4be178da2bdff044c08d7b69d1c84da2fd890eceba100ffea3fadb0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00286.json",
+      "sha256": "fbe73c184464520de5e9a34978a09505cc5f16672a8a0aeb6758c14e6069928c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00287.json",
+      "sha256": "1ecea4ace1178c404b07b36c209b45b2d4691806f38caa21ef6d765c04ed852a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00288.json",
+      "sha256": "0a4db528989e65a6d3e079bdeb0d4e834873635d4a7ff0a4e8d8fc639dce80f3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00289.json",
+      "sha256": "0027f186a1bab698b6ae6a6d04e48cb7850b7c58712ee88ff38a53f68278ca71"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00290.json",
+      "sha256": "5868c8e92dfa940129120821ba6f94bbe5af40a44a7b15b7e888211fcd386bc5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00291.json",
+      "sha256": "0fb571cf352f98628d7bc9aceae116e7d0abe71d967472d8179a2757792741fe"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00292.json",
+      "sha256": "890493b1b66de807e7a9a2f8ec42d8ba151c4188642a10d6a602427906bd3a37"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00293.json",
+      "sha256": "6b953ee516ba4fcf5a807aa0e57f3e4cd55b060f7858b8a429b59b6065dd25ba"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00294.json",
+      "sha256": "64ed6c7eb634948a8810431654d90adbd9572f0499b4d98eee0585525ceb9b80"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00295.json",
+      "sha256": "a7e53c1338a75beadc0b6de6e3439e911a827889ba8cec220b9d32f57417fe4a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00296.json",
+      "sha256": "abb1052116b75d6d834835baa7ac65bd97a85437b4dacebeb79c28fea2eda21c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00297.json",
+      "sha256": "c5244a9591f6c16feb537781a72b1b3b45ed22e10344917b0b77641bd7c40d78"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00298.json",
+      "sha256": "0e70c2c76af8ed79529782c6e0bceb7d4c499ace7c386fdfebadd78cff23f955"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00299.json",
+      "sha256": "b2f9dbcd5e00b49c4bdd5560570d8a8d7f41062704ebdf8439789412c0f5e6f5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00300.json",
+      "sha256": "11c6f58a08a47534d8bad28f7cf9c9a28ea3df4f7b06f8c76d1568d10394a73d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00301.json",
+      "sha256": "f3db7181874449f7e6fb08f6298feb59d9d3283768f1f3f0a27b7080456c2387"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00302.json",
+      "sha256": "b925cce3e3084afe177d1ad0fe32073abb5b9b7a75d4351ad5bcf73d387f3c6f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00303.json",
+      "sha256": "4a5fd9524ec66045c642f75a60fb9f45beec0c16749617f879ed33c54944c40f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00304.json",
+      "sha256": "09a83cd3b0adf0d3a75b99637b3c22ed89796ba1ae92816bacbe03de4e0f3085"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00305.json",
+      "sha256": "d369b0d8e01bc817cdddddc71fcf31e048dc9a3d58efa3aa9b41b129dafccb86"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00306.json",
+      "sha256": "ae284acc2174bb0e0a68d807b15785c2a99153d24dd32f2ddb9c4f94af21da85"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00307.json",
+      "sha256": "ecedf3f4503f5c4052929c3ce205ad388b3177a505e1192454869263a0dbe996"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00308.json",
+      "sha256": "174ee521407d4883e4974565d666e1f8e27fe4bea1d6415a3aa626eb590d19c1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00309.json",
+      "sha256": "601420f266aa7b4e1f0dbe0484343793f83b9298fec81419714b7a18dab6198e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00310.json",
+      "sha256": "66bdaa352d059d90bc2734d9bed6b4495d8085e115ea2aaf10e10a1ab2a30107"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00311.json",
+      "sha256": "6053c3379f9459327de415c0e084b22e841ea851dcf7b8230258d567576dc369"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00312.json",
+      "sha256": "b4e798c0368bf020d4f7b187b1bb2e219d1bc8400d36aad027fa86150a0e67c6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00313.json",
+      "sha256": "0501608d2b30edb623aea15d18ffa2ae5529c5b8be68310a01047511f53ffd42"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00314.json",
+      "sha256": "29d8ab65d0d35cc314c6bdfa6def9ee02fc590c553be695f7855067511302e55"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00315.json",
+      "sha256": "6dc47f8e963ee464aa8dfbf61df469faa04f5271673bae750a7d611b187bd28d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00316.json",
+      "sha256": "dcf29e7fc44ebbc14143ecaa6a4fbe3174021ac9aef92c518e77025680953f88"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00317.json",
+      "sha256": "9405ec812a3fd50aaefae28a5c39da5be92985b465e267f92df109261376bf67"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00318.json",
+      "sha256": "a613ce74366b081de981fcc37ba5098536c1a721b1120add899df3b4f4e38037"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00319.json",
+      "sha256": "4787a34ca2ff693465d7cf97d1b839d3c33a98e48cdcf66f22aeea23b8dc04ce"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00320.json",
+      "sha256": "da7b6178e6689742674f132ac8aba9c3d4cc2aacee47ad9b1716c0628e808c91"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00321.json",
+      "sha256": "ce08755a6cfe8f70b4efcabe40d51bb35934d67d4e9e4fa28e9202b30d30d5b5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00322.json",
+      "sha256": "df79c6f1bb384aa9e73354acd3cfc7f8118f96a601e1a478f569de5425554f6c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00323.json",
+      "sha256": "9a2e61eafa0866cba87e8a91b4dd96bd741507b9c8c9535da9eb88c285415712"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00324.json",
+      "sha256": "09111cbe8c25531a2cad6e76d364cbce0ee7c852d15da638bef67f926336a9e3"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00325.json",
+      "sha256": "a0e1660ddb98b3d4da5dcd38c008cd2bf203c2661f6ef85a66a9a4b0dc7a5d7a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00326.json",
+      "sha256": "11b4561bbfe27cdca846c2b36f1337bb8258f9f42a928f43b070b2a23fd02a31"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00327.json",
+      "sha256": "d87e836bc4d05fd10c6a28fff968a9169ab5d79b4bc24e71ab00eabda0bf79f6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00328.json",
+      "sha256": "dc58c3e1b9a300824af004c8d67ad5126649e420f7074f8fb81cf68d76c71cb6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00329.json",
+      "sha256": "1f99b4e25862651812e83bf5761a12c08ca36c95cc34e17c2aba8592a744cce6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00330.json",
+      "sha256": "3c18aa3831a1d683836f0eb8b46c0dd842bbf09038a77f4b67597d1f1510c7fb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00331.json",
+      "sha256": "75c00649af1076980872bb8f72b18508061c32a5a50bf2840e15b6f4b504253f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00332.json",
+      "sha256": "82b03e5edc2e28d4b1d2a5e6e087d78e8e1b7ba259c6acfb9ae0393303fd46db"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00333.json",
+      "sha256": "b638641fffec6d49e02302de65e5719bff97e2bb15d9f30bcf1b21231ee45801"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00334.json",
+      "sha256": "531724272544a28d459e5807922b6bc9821cf025a54355af36d77884e38bf1fb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00335.json",
+      "sha256": "cb9dad0dcf52340d762015d06cbb6187480f7ed933a31791913d3c946a07ca88"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00336.json",
+      "sha256": "78118680b3d6d4a109cd599facbfda90ab77718e38812a6f5a849eb0adf743ce"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00337.json",
+      "sha256": "3592ceb0ea25e9837344e0723cc4afbaa0ceb0c3935eedb4430fa2bcffa06822"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00338.json",
+      "sha256": "47b21d89e82710ff828bfc01c2c49fdd8e827566a9bfcd3ad5d5cd471aad2ba9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00339.json",
+      "sha256": "1dae3266825e26e8aebf9d2b6321035e3eaafa3aa25b9fabce75a5b61a8addac"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00340.json",
+      "sha256": "b5df1e13f29e76b4cfd97e216b95232be24ee3885fe8d1293574d465efe23d42"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00341.json",
+      "sha256": "adfb10d94cf10ba17d6e367d99ed06d59ecc474c866dca07f574d79b6d1e60d1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00342.json",
+      "sha256": "7e1045ffa1239ae8d15fb6533680d78c38ec6fae26d74a8f2ab3f5a87bc449f5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00343.json",
+      "sha256": "3ed625b9cbb5c97f3f43351723b46941518243cdc98ce00811a06798ca86bbe6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00344.json",
+      "sha256": "12e22ec5a892df53fbc2881c44a98cdb6ee7cc83af54d15819606936694c56ed"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00345.json",
+      "sha256": "5125cefcb128ec37b481a4bae4dec0418d4c785eef4047934c43602b564a16f7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00346.json",
+      "sha256": "e4727f9dcd4e5194624e63d5944587b117269c7ccce0c3fc822e77478cb0d958"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00347.json",
+      "sha256": "8f2a8525f898b93746b0a49009be0f98bb461d0df4f52e744a24d1a47fd15f2c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00348.json",
+      "sha256": "94039bb71ca4d3511cedd79c7aed0236a802f535570371e667bf6c1f2f42d673"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00349.json",
+      "sha256": "d2851dd962d2d832838e8d1017779115703817d385ed22beccdfc2780b5024e8"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00350.json",
+      "sha256": "5167163721c96997c76b3e60e91177e178925f3ff039c585cedd40f3c896878a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00351.json",
+      "sha256": "b0563915ccb2312e0ef6792de21cdffb1381ac7bf5c79c7231ca7cc3011c259b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00352.json",
+      "sha256": "1302f3f1cb4a29ef030cd1372bf043efacc90fb0da2e456c9bb2a20268d276d1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00353.json",
+      "sha256": "a03fee3b727de95e01cf3e38167c3d7dc9290df34c29893aad3f25ff297c9634"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00354.json",
+      "sha256": "841681704379f1d9060975a603ea7ec6c72ae8ab6d3b36a0b7f36d3d657226cf"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00355.json",
+      "sha256": "f54442c71cd5afe854f51fb4f5d6cc1ffc956d9f9eb76a6a5dbcde75896bb73f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00356.json",
+      "sha256": "fb5f6fdd5d14d5ef8451b96d8d9edfe1147f19b74fc51c38c8c42546c1d7b13f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00357.json",
+      "sha256": "a85ca64e76e5f1f54079bed44445faf2bb498671f50547f465627d7cbfeb77e5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00358.json",
+      "sha256": "2c5301dc5d140371753edc359da604e284cf3f4d5054611f32597f3a65ef2cef"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/calls/00359.json",
+      "sha256": "40684dd6d633279da751b98fc02f84d8e3fb9b2748251e3678fd1d13af6f8c06"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/cases.json",
+      "sha256": "2a84872cab32859d397df94e924143d1563aac10e7ea16c343a68a3fc2f7e26f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/call-telemetry.png",
+      "sha256": "dd127e042244a3ebb247aeaedc93bc75cba1ab34aa166f45118c9dba44c03fad"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/call-telemetry.svg",
+      "sha256": "9a1e3edb8b2ae35b436746beaecbec3e7e84190aa982fab95d6b5695b8b02c17"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/chart-data.json",
+      "sha256": "23e474b4be1cf751b8881882b07c2c3625feecf3d705190f7330939709218889"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/cohort-coverage.png",
+      "sha256": "98e25483eaad6f0b2d740d03bbe64a550d2757df0b44e035c0615dd02ae6a7e4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/cohort-coverage.svg",
+      "sha256": "d8d6238fceda413b4ab8d206a4dab66c3c15795e7b0a50b142361b56a58bfe4e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/common-results.png",
+      "sha256": "c616e8ad43483b2cd8c0e09db670889a4c82b1b8006ba6227ddf288281bfc541"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/common-results.svg",
+      "sha256": "39295d4bf08986d1978064d0871e1fd6df43bc3beeb301bf93ec237e66d3bb28"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/input-coverage.png",
+      "sha256": "311a0f3160f504b9ff2d61c2b27e4f3a024fbb6f7bd22f4e6ed3c31d0fcd1bb0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/charts/input-coverage.svg",
+      "sha256": "6a6d318ccf7167e3d7a1fbaaec62927a54d689d8f064e6f2e4a7dcc4584ee815"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/credential-scan.json",
+      "sha256": "33a3e5e6e09c4c7a85bd2e5c7b2e4d7acb0f7f44965bf318ac9f03157135cfb1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/credential-scan.log",
+      "sha256": "807f72006e5af01a00e228539b430bca5861bc9733c5a4332d5eb63e3bab9eee"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/data-release.json",
+      "sha256": "82f8f693967b5381fe22d043f7ecfc61927de3f0393d751308fe15d9934cdacf"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/evidence-checks.json",
+      "sha256": "2f5f1b3d89ef0fb03c9d2dd3400bf21de656d553285719b82188e15dfdf7cc10"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/evidence-checks.log",
+      "sha256": "f26e7a324eb65547a10054f834b743ef7b13f138aadc12c4a7461ee1c0852fc4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/fugu.json",
+      "sha256": "708623e0fac256a4cb2810bdddc2875ba22a1ad3b16bbdb7ed39324821d3b987"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/independent-accounting.json",
+      "sha256": "bb5e038eb38059528a5b2972da7a10a23e5ed270c1f365c3bcfd65d671af0bf9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/input-restoration-verification.json",
+      "sha256": "9c8830a4957e1b13de93f001a971082bfe569243af9e80db8c0f3dc0bb06e099"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/offline-preservation-check.log",
+      "sha256": "47f945d6894e6727cdbb9406beae3350fae59db148e17eaa9488cf1d3ff18c60"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/plan-hash.json",
+      "sha256": "b6d1e40581a8c6d1d4930669a180d7217f99848bfc1f4db72636231159bb83d0"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/plan.json",
+      "sha256": "eb150d1b0310f022abc94e39b49ad3ff18c39af05503e52447e46d410c6e81ec"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/plotting.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/pre-call-verification.json",
+      "sha256": "e56a571500c418d9b9b3afc5d685fefe7a4d1f9535957ca1f13a3faf8ff80d3e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/run.log",
+      "sha256": "e167e3c2af8bd40c8f75d33ef5a58c2eab93832903b532f5c5ccd01fe2769d1c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/verification.json",
+      "sha256": "4c1854261e99fa2e3d7b043e959cf5a7f449556948e05968bcf6bc209800bf97"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/measurement-cc58a58/visual-review.json",
+      "sha256": "9b3320f31dade68bc97c8de85dac4e19c6fc803134e3504aebe48d6730dc25e2"
+    },
+    {
+      "path": "docs/benchmark-current-limits.md",
+      "sha256": "2d8b8a3b9768fde62715ce8aa9c05edaa37c57a0e30d7db1898b2c7b8cf37882"
+    }
+  ],
+  "source_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63"
+}

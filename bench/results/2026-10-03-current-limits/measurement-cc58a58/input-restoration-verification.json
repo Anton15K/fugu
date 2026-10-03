@@ -1,0 +1,82 @@
+{
+  "accepted_files_unchanged": true,
+  "accepted_protected_sha256": {
+    "budget.json": "19667af8c5b0b1847cb7d70256e9a2cd136568c9b86ba7ccc1f82d3580864ef2",
+    "cases.json": "2a84872cab32859d397df94e924143d1563aac10e7ea16c343a68a3fc2f7e26f",
+    "data-release.json": "82f8f693967b5381fe22d043f7ecfc61927de3f0393d751308fe15d9934cdacf",
+    "fugu.json": "708623e0fac256a4cb2810bdddc2875ba22a1ad3b16bbdb7ed39324821d3b987",
+    "plan-hash.json": "b6d1e40581a8c6d1d4930669a180d7217f99848bfc1f4db72636231159bb83d0",
+    "plan.json": "eb150d1b0310f022abc94e39b49ad3ff18c39af05503e52447e46d410c6e81ec"
+  },
+  "additional_provider_requests": 0,
+  "chart_data_change_reason": "Only canonical case-manifest hash differs because temporary target paths relocate; all plotted statistics, raw result binding and comparator hashes match.",
+  "chart_data_changed_keys": [
+    "case_manifest_sha256"
+  ],
+  "distinct_tracked_source_files_verified": 81,
+  "ledger_rows_unchanged": 359,
+  "method": "prepare_inputs from the tracked original40 manifest into an empty temporary root; relocate only prepared target paths; copy raw fugu.json unchanged; run frozen chart generator offline. Existing accepted namespace prepare_inputs check leaves protected files and ledger unchanged.",
+  "original_manifest_sha256": "f9b31035908d217a822079dd190c4d5797f86646c65f01c2e06b1f57ae3e91b1",
+  "original_source_blobs_match_git": true,
+  "publication_excludes": [
+    "targets/",
+    "local engine copies",
+    "temporary restoration inputs"
+  ],
+  "raw_result_bytes_equal": true,
+  "regenerated_chart_data_sha256": "1dd2bdca796f8bba2ffc9823e59325d1bf35678cdb7a85f9dfb5d0bd9b317bb6",
+  "regenerated_pngs": {
+    "call-telemetry": {
+      "equal": true,
+      "sha256": "dd127e042244a3ebb247aeaedc93bc75cba1ab34aa166f45118c9dba44c03fad"
+    },
+    "cohort-coverage": {
+      "equal": true,
+      "sha256": "98e25483eaad6f0b2d740d03bbe64a550d2757df0b44e035c0615dd02ae6a7e4"
+    },
+    "common-results": {
+      "equal": true,
+      "sha256": "c616e8ad43483b2cd8c0e09db670889a4c82b1b8006ba6227ddf288281bfc541"
+    },
+    "input-coverage": {
+      "equal": true,
+      "sha256": "311a0f3160f504b9ff2d61c2b27e4f3a024fbb6f7bd22f4e6ed3c31d0fcd1bb0"
+    }
+  },
+  "regenerated_svgs": {
+    "call-telemetry": {
+      "byte_identity_required": false,
+      "regenerated_sha256": "478f7f3850912699b127f7985670c2b7c28994bb316d9baa3b37c881bd466ac3",
+      "retained_sha256": "9a1e3edb8b2ae35b436746beaecbec3e7e84190aa982fab95d6b5695b8b02c17",
+      "valid_xml": true
+    },
+    "cohort-coverage": {
+      "byte_identity_required": false,
+      "regenerated_sha256": "a1d179250a1412b3aa57211ec5e8e65ae8802177921e56e4222e1387d85f94a8",
+      "retained_sha256": "d8d6238fceda413b4ab8d206a4dab66c3c15795e7b0a50b142361b56a58bfe4e",
+      "valid_xml": true
+    },
+    "common-results": {
+      "byte_identity_required": false,
+      "regenerated_sha256": "c26014e9ed524a06290f39486ff286ec37edcad676e7db8548841e094845dab3",
+      "retained_sha256": "39295d4bf08986d1978064d0871e1fd6df43bc3beeb301bf93ec237e66d3bb28",
+      "valid_xml": true
+    },
+    "input-coverage": {
+      "byte_identity_required": false,
+      "regenerated_sha256": "ed79ca8a3de9d850efc0f4f9ccda068d394ed3a9722bebfb3ffcbece760448c7",
+      "retained_sha256": "6a6d318ccf7167e3d7a1fbaaec62927a54d689d8f064e6f2e4a7dcc4584ee815",
+      "valid_xml": true
+    }
+  },
+  "reproduction_command": "MPLCONFIGDIR=/tmp/fugu-mpl PYTHONDONTWRITEBYTECODE=1 /tmp/fugu-charts-venv/bin/python bench/current_limits_charts.py --source /tmp/fugu-cc58-input-restoration-wjmtht3o --output /tmp/fugu-cc58-input-restoration-wjmtht3o/charts",
+  "restored_cases": 40,
+  "restored_regular_files": 81,
+  "retained_chart_data_sha256": "23e474b4be1cf751b8881882b07c2c3625feecf3d705190f7330939709218889",
+  "schema": 1,
+  "source_commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+  "symlinks": 0,
+  "target_executions": 0,
+  "temporary_restoration_root": "/tmp/fugu-cc58-input-restoration-wjmtht3o",
+  "verified_utc": "2026-10-03T03:16:33.691816+00:00"
+}

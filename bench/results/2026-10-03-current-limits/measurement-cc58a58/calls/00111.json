@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "48a7ee56323d71b6b31f79bc8e4e7f94123000f80f25e88af369d9820c038d76",
+  "duration_s": 0.8336586249934044,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's the current system status?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "061e77796122d14d2c251d37fa98f7108f324213f13cf2a0ffd851ec0c975b3c",
+  "number": 111,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll check the current system status using the `top` command to show resource usage and running processes.\n\nPLAN: Run `top -b -n 1` to get a snapshot of system status including CPU, memory, and top processes",
+  "request_sha256": "2edaf4a94b8c1cdd142f30e3ce0456549ece66042e3027280fc3314e6ecc9f0d",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T02:48:34.836907+00:00",
+  "response_id": "chatcmpl-a3b21a1f69560882",
+  "response_sha256": "7bd3db5812bcf348013162c55a9a24aabad480583cb4abd06a876aece44f5d6a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 130,
+    "prompt_tokens": 86
+  },
+  "usage_object_present": true
+}
