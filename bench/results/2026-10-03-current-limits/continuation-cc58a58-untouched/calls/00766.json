@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "6101e87c3609acff987162b38169548fa12a5d38655fe12cdf443f988f790be0",
+  "duration_s": 1.158894791995408,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Where does the documentation content come from — is it fetched from the internet?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "36c34191d200ab2257f96c3d2d4655ea9a105121f4d190bb31d05b762ff4e0d9",
+  "number": 766,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Documentation content typically comes from the software/project's own source repository (e.g., Markdown files in a `docs/` folder, docstrings in code, or generated from specs). It's **not** fetched from the internet at runtime — it's bundled with the installation or built locally.\n\nPLAN: Check your project's repo for a `docs/`, `doc/`, or `documentation/` directory.\nPLAN: Look for a build script (e.g., `make docs`, `sphinx-build`, `mkdocs`) that generates HTML/PDF from source.\nPLAN: If using a package manager, verify the docs were installed with the package (e.g., `pip show -f package | grep doc`).",
+  "request_sha256": "0dcaf33002c8b191da20ae2a05d80068b5340728c8c31cc2cbfce4def894e052",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:30:16.722664+00:00",
+  "response_id": "chatcmpl-948e1aec58221a5d",
+  "response_sha256": "188202ba4afae1511284db14a7e3bf8b07acd47277ab3c352454110f93bafca2",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 234,
+    "prompt_tokens": 94
+  },
+  "usage_object_present": true
+}

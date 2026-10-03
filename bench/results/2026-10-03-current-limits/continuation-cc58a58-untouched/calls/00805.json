@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+  "duration_s": 0.8496222079847939,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Summarize the most important points of today's news for me.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "f5176568c640760cdc717795475604268e2bcb2fca2d1263a7c72fee96f12f4f",
+  "number": 805,
+  "ordinal": 1,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I don't have real-time access to current news or today's headlines. My knowledge cutoff is fixed, so I can't browse live sources.\n\n**PLAN:** Explain limitation and offer alternatives\n**PLAN:** Suggest checking news apps/sites directly\n**PLAN:** Offer to summarize specific topics if user provides articles\n**PLAN:** Recommend news aggregators or RSS feeds for daily summaries",
+  "request_sha256": "cefb90e4ecfae96ee8f6de2b623255cbb2cf02b670172a7460f4a78746be79d5",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:31:52.697447+00:00",
+  "response_id": "chatcmpl-b97d56383b9bea8b",
+  "response_sha256": "e06605450ed859bf8d3bf341e461263d9b4da03694ffbd0ad8f978564657a9f2",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 111,
+    "prompt_tokens": 93
+  },
+  "usage_object_present": true
+}

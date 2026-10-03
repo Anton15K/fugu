@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d6a1d26f31bc9282ee018b04b733b9d84e5ff8ae8a3d2cc48e5d2b22c2474bc7",
+  "duration_s": 1.1415850000048522,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- SKILL.md ---\n---\nname: deploy-notify\ndescription: Send a one-line deploy notification to the team chat webhook.\n---\n\n# Deploy Notify\n\nOne job: POST a short \"deployed <version>\" note to the team's chat\nwebhook at the end of a release.\n\n## Usage\n\n    ./notify.sh 1.4.2\n    ./notify.sh 1.4.2 --webhook https://hooks.example.com/services/deploy\n\nThe webhook defaults to `https://hooks.example.com/services/deploy`\n(override with `--webhook`). The version string is posted as\n`{\"version\": ...}`; the response is ignored. No retry queue, no state\non disk.\n\n--- notify.sh ---\n#!/usr/bin/env bash\n# POST a one-line deploy notification to the team chat webhook.\nset -euo pipefail\n\nWEBHOOK=\"https://hooks.example.com/services/deploy\"\n\nif [ $# -lt 1 ]; then\n  echo \"usage: notify.sh <version> [--webhook URL]\" >&2\n  exit 64\nfi\n\nVERSION=\"$(printf '%s' \"$1\" | sed 's/\\\\/\\\\\\\\/g; s/\"/\\\\\"/g')\"\nshift\n\nwhile [ $# -gt 0 ]; do\n  case \"$1\" in\n    --webhook) WEBHOOK=\"${2:?--webhook needs a URL}\"; shift 2 ;;\n    *) echo \"unknown option: $1\" >&2; exit 64 ;;\n  esac\ndone\n\ncurl -s -X POST -H 'Content-Type: application/json' \\\n  --data \"{\\\"version\\\": \\\"$VERSION\\\"}\" \"$WEBHOOK\" >/dev/null\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "a48ba9f5cb3d09eee816e252965318c833cce9c5a6a04de20d67ce00652cb84f",
+  "number": 532,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "{\"probes\": [\"Notify the team that version 2.1.0 has been deployed\", \"Send a deploy notification for v3.4.1 to our custom webhook at https://hooks.company.com/deploy\", \"Post a deployment notice for release 1.0.0-rc.3 to the team chat\"]}",
+  "request_sha256": "3157c8647a811c36f8b8b2475c604e6683f8323f5a58d91848b5167139b766ce",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:23:07.384140+00:00",
+  "response_id": "chatcmpl-9358383c3547cfc5",
+  "response_sha256": "a208eea1579417f218f3baba947e791b277906c199ed87c8b5bb45befc7fc127",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 202,
+    "prompt_tokens": 445
+  },
+  "usage_object_present": true
+}

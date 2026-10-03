@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d013c6dcf748ac1e22da11c64e86edc13d337f3ce1a4abc064ef0d05701fd901",
+  "duration_s": 0.3785191670176573,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: List the files in /var/log to see what log files are available.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d4905cccd61561d37d1e941aac2a8db96351b14c21586df5c39c6a0e0db49fcb",
+  "number": 707,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "\nPLAN: Run `ls -la /var/log` to list all files in the log directory with details.",
+  "request_sha256": "5e744fcd78bf78893b8fcc80415cc532681d603772e83dbe1aab1459d6fd9559",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:28:24.853976+00:00",
+  "response_id": "chatcmpl-a1b630f002e15963",
+  "response_sha256": "d73d934b560c6a9ef026e6329fcba9d9a7b4223cf2880a6a45fb2a8da073b07c",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 52,
+    "prompt_tokens": 94
+  },
+  "usage_object_present": true
+}

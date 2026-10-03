@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d48f85c2321f55f85186987d1f54ee6eba1b2c10b65cf8ba875427970bf0d63c",
+  "duration_s": 1.2488428329816088,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Give me three ideas for a weekend project.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "9e1849124c4e840046e12e39e2d19f6d1a7b025219ad782e30838bf311191993",
+  "number": 319,
+  "ordinal": 16,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Here are three weekend project ideas:\n\n1. **Build a personal portfolio website** – Learn basic HTML/CSS/JS, showcase your work, deploy free on GitHub Pages or Netlify.\n2. **Create a custom mechanical keyboard** – Order a PCB, switches, keycaps; solder and assemble a unique typing tool.\n3. **Develop a habit-tracking mobile app** – Use Flutter or React Native; implement local storage, notifications, and simple analytics.\n\nPLAN:\n- Suggest three varied, achievable weekend projects\n- Ensure each includes learning component and tangible outcome\n- Keep descriptions concise and actionable",
+  "request_sha256": "09edde67f0bc1a11f81aa9a8eadc1c572ded02d45f1fa220fd6d640a49af7abb",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:16:34.580355+00:00",
+  "response_id": "chatcmpl-b0014d13f26b3853",
+  "response_sha256": "8b5132c8c054808121258ccbf30c42e685657f4c5a9133dd12d6ba9ba710d327",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 257,
+    "prompt_tokens": 88
+  },
+  "usage_object_present": true
+}

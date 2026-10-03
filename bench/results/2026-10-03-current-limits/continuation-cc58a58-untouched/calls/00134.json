@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "4d39a188e3a5009ea35d689adc993a68023026265681383e0113303c3a48d0ed",
+  "duration_s": 0.5803594169847202,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Please show me the contents of data.csv",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "5c544eca47d038f7f29e1b51812fd66387c521bca5cabc4d977be966f3b36c1b",
+  "number": 134,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "\nPLAN: read_file path=data.csv",
+  "request_sha256": "91cdc2e8a455f703665786d286a978c40c0e54fbb2e7aa818b1daffc892eb06c",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:10:47.752336+00:00",
+  "response_id": "chatcmpl-a6272666ece54a99",
+  "response_sha256": "ce9e1ddb7639b47ac99795c76ec9c1988b5796b3ff992ae7bedc473ec1f75b41",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 44,
+    "prompt_tokens": 87
+  },
+  "usage_object_present": true
+}

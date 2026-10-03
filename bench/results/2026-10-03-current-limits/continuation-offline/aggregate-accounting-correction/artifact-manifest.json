@@ -1,0 +1,90 @@
+{
+  "schema": 2,
+  "assignment": "qitem-20261003065017-de9f0691",
+  "provider_requests": 0,
+  "new_plan_sha256": "ea8cff37184b4dd7efe06d3494643462298b398bebcb471d50ce0d6d76f32835",
+  "local_exclusions": [
+    "prepared-v3/targets/**",
+    "/tmp/fugu-continuation-engine-cc58a58/**",
+    "/tmp/fugu-r1-protected-before.json",
+    "temporary fake child and registry journals"
+  ],
+  "sha256": [
+    {
+      "path": "bench/current_limits_continuation.py",
+      "sha256": "c3b895fcdc441b62fa9c72e0cbc721508d4a5cd8884728d52db68d4c79dc7203"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/binding-check.json",
+      "sha256": "52e421abe0609a843ffacdca1d4286fb3c409063c2e0e369fa638b658d3edb5a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/binding-check.log",
+      "sha256": "f1a87ed84ca955ac8c37b1a6f0e0c7171b2e51014a74ed4120171813ab3d76a6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/green-aggregate.log",
+      "sha256": "4151cc24f7d898f2f3bc3f650af76c6d82334469350f0eb9e3a75107c9ff9ac5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/green-checks.json",
+      "sha256": "d5cd149480543d6b5767df5621ed6bf00c8b265da09761c61a867bc3b563f879"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/green-scoped.log",
+      "sha256": "5d8465023daecb707d84992d231174e91d6287e25dbdba361e52f4101cee8ddb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/native-recovery.log",
+      "sha256": "72ee533dae075a38e78e28a9ac2019152314f762c927335aeee60adf070886bc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/prepare-v3.log",
+      "sha256": "8bd8da7ab97af7efcade9d282c27bd0c09386c5dae50a3b9726b14172163664e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/red-accounting-details.log",
+      "sha256": "6f54a3b55a2dc40ac97f478460107c9de711f15654c72333c35e920ae1be301b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/red-aggregate.log",
+      "sha256": "8cbffb5c3104c4dd3c8f1a475668f7987ebb61bca12dff59800bdf8e7f328755"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/result.json",
+      "sha256": "d0b5502db97ec915aecff8b9e1d283a8043e97fc1d2637404a76e5caae1ce618"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/verify_bindings.py",
+      "sha256": "302fea1c1db8485928f42dcf7d9612085855f5408f8fd774b56b9ea8d31dc569"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/cases.json",
+      "sha256": "0fc91f046953e2e5d2f6928187fad267919632fcdea6edfd60641b18bd256e3b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/plan-hash.json",
+      "sha256": "4482582dfe9bd1bd99a3dc428e00effd9b5aec30ed895c53711cdb55b9344174"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/plan.json",
+      "sha256": "0df41c3a4fe646d6aee544b52fadcf10b11769928b40022bf77adf3526e688c7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/release-template.json",
+      "sha256": "60459e51a7d6bbaabbde000769ac61e5d1c1c8ce584e8fe58cd2950c8b6a02fc"
+    },
+    {
+      "path": "docs/benchmark-current-limits-continuation.md",
+      "sha256": "ed7752e0fb4e8b1a933b4fecf1947ebfb018856a2edb5433f5104511a7b5b7ba"
+    },
+    {
+      "path": "tests/test_current_limits_continuation.py",
+      "sha256": "5e44df8d3a2d480748381d09fec66756aee8f45ea0da2e576c372f63230ecd87"
+    }
+  ]
+}

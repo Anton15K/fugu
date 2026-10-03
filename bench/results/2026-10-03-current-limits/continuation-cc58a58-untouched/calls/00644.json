@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "516b9de58d742bf1cf65abae39a2dd9e7fe017aee255619a52a2a44a68070600",
+  "duration_s": 1.5976782499928959,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: How cold does it get in Oslo in January, and how much rain/snow should I expect?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "112ff6fed12ab52436eaa0a0b6e0ee946e157ad40f677c10063cdc35e1a8cf90",
+  "number": 644,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Oslo in January is cold: average highs around −1 °C (30 °F), lows near −6 °C (21 °F), with frequent dips below −10 °C (14 °F). Precipitation totals ~45 mm, mostly as snow (10–15 snowy days); rain is rare.\n\nPLAN: Check a reliable climate source (e.g., Norwegian Meteorological Institute or WMO) for 30‑year normals.  \nPLAN: Retrieve January mean/max/min temperatures and total precipitation.  \nPLAN: Confirm snow‑vs‑rain split and typical snow‑depth.  \nPLAN: Summarize findings for the user.",
+  "request_sha256": "9ccf418862c67d18e2a74f3b0a09252ec221fc77179cb9772242e75d0af61ce2",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:26:35.437490+00:00",
+  "response_id": "chatcmpl-b570b218beab1a3b",
+  "response_sha256": "2e91395bb58c36960fbff1e54d44617605fd2e06ea9972ebe3e5e5ed45ebdf48",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 299,
+    "prompt_tokens": 99
+  },
+  "usage_object_present": true
+}

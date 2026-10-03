@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "5f46c5e28fb4bd2d5f543976ed7e806a1567dd7044da34d5dbc0433e917ded2d",
+  "duration_s": 1.1998971249850001,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Give me three ideas for a weekend project.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "9e1849124c4e840046e12e39e2d19f6d1a7b025219ad782e30838bf311191993",
+  "number": 241,
+  "ordinal": 16,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Here are three weekend project ideas:\n\n1. **Build a personal portfolio website** – Create a simple static site (HTML/CSS/JS or a framework like Astro/Next.js) to showcase your work, then deploy it free on GitHub Pages, Netlify, or Vercel.\n\n2. **Automate a repetitive task with a script** – Write a Python (or Bash/Node) script that backs up photos, renames files, scrapes a site you check daily, or posts a summary to Slack/Discord. Schedule it with cron or GitHub Actions.\n\n3. **Design and 3D-print a useful gadget** – Model a cable organizer, phone stand, or custom enclosure in Fusion 360 / Onshape / Tinkercad, slice it, and print it on a home printer (or send to a service).\n\nPLAN: List the three ideas with brief descriptions.  \nPLAN: Keep the response under 120 words.  \nPLAN: Prefix each actionable step with \"PLAN:\" on new lines.",
+  "request_sha256": "09edde67f0bc1a11f81aa9a8eadc1c572ded02d45f1fa220fd6d640a49af7abb",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:13:56.683525+00:00",
+  "response_id": "chatcmpl-8cee50d2a7c20ffd",
+  "response_sha256": "2773de62d94e3d8e7861fea31d5d13b72e246240ba569359588d26dc7c834f34",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 271,
+    "prompt_tokens": 88
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "516b9de58d742bf1cf65abae39a2dd9e7fe017aee255619a52a2a44a68070600",
+  "duration_s": 0.7386432909988798,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's the typical temperature and rainfall in Lisbon during June? I'm planning a trip and need to know what to pack.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "77a486c7ed525f4d351cfd8329565033991631f95a38cca5e94140ceb02701a0",
+  "number": 641,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Lisbon in June typically has pleasant warm weather: average highs around 25–27°C (77–81°F), lows near 16–18°C (61–64°F). Rainfall is low—about 15–20 mm over 2–3 rainy days. Expect lots of sunshine, light breezes, and comfortable evenings. Pack light layers, a light jacket for evenings, sunglasses, and a compact umbrella just in case.\n\nPLAN: Provide typical June climate summary for Lisbon including temperature ranges and rainfall expectations.",
+  "request_sha256": "2daa9a33ea6359030052abbbc5f6148e77cb60205567c209cf8f00251963bbf2",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:26:32.291554+00:00",
+  "response_id": "chatcmpl-82782cab3465b436",
+  "response_sha256": "fbf9eaad597d758c33de9fea90e1e623ac2d5169064c2d2737a14787359b648e",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 180,
+    "prompt_tokens": 104
+  },
+  "usage_object_present": true
+}

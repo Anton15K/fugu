@@ -1,0 +1,121 @@
+{
+  "child_row_statuses": {
+    "completed": 27
+  },
+  "combined_row_statuses": {
+    "completed": 39,
+    "partial": 1
+  },
+  "cohorts": [
+    {
+      "cohort": "mcptox",
+      "planned": 15,
+      "complete": 14,
+      "row_statuses": {
+        "completed": 14,
+        "partial": 1
+      },
+      "planned_attacks": 15,
+      "complete_attack_detections": 13,
+      "complete_attack_misses": [
+        "mcptox/mcp-simple-arxiv_9"
+      ],
+      "incomplete_attack_ids": [
+        "mcptox/AlphaVantage_4"
+      ],
+      "planned_benign": 0,
+      "complete_benign": 0,
+      "benign_detection_flag_ids": [],
+      "benign_medium_finding_ids": [],
+      "unavailable_detection_ids": []
+    },
+    {
+      "cohort": "clean_descriptions",
+      "planned": 5,
+      "complete": 5,
+      "row_statuses": {
+        "completed": 5
+      },
+      "planned_attacks": 0,
+      "complete_attack_detections": 0,
+      "complete_attack_misses": [],
+      "incomplete_attack_ids": [],
+      "planned_benign": 5,
+      "complete_benign": 5,
+      "benign_detection_flag_ids": [
+        "clean/read_file"
+      ],
+      "benign_medium_finding_ids": [
+        "clean/read_file"
+      ],
+      "unavailable_detection_ids": []
+    },
+    {
+      "cohort": "crafted",
+      "planned": 11,
+      "complete": 11,
+      "row_statuses": {
+        "completed": 11
+      },
+      "planned_attacks": 7,
+      "complete_attack_detections": 7,
+      "complete_attack_misses": [],
+      "incomplete_attack_ids": [],
+      "planned_benign": 4,
+      "complete_benign": 4,
+      "benign_detection_flag_ids": [],
+      "benign_medium_finding_ids": [],
+      "unavailable_detection_ids": []
+    },
+    {
+      "cohort": "composition",
+      "planned": 7,
+      "complete": 7,
+      "row_statuses": {
+        "completed": 7
+      },
+      "planned_attacks": 4,
+      "complete_attack_detections": 3,
+      "complete_attack_misses": [
+        "composition/shadow-pair"
+      ],
+      "incomplete_attack_ids": [],
+      "planned_benign": 3,
+      "complete_benign": 3,
+      "benign_detection_flag_ids": [],
+      "benign_medium_finding_ids": [
+        "composition/control-ingress-egress",
+        "composition/control-private-egress"
+      ],
+      "unavailable_detection_ids": []
+    },
+    {
+      "cohort": "reputation",
+      "planned": 2,
+      "complete": 2,
+      "row_statuses": {
+        "completed": 2
+      },
+      "planned_attacks": 0,
+      "complete_attack_detections": 0,
+      "complete_attack_misses": [],
+      "incomplete_attack_ids": [],
+      "planned_benign": 0,
+      "complete_benign": 0,
+      "benign_detection_flag_ids": [],
+      "benign_medium_finding_ids": [],
+      "unavailable_detection_ids": [
+        "reputation/requests-2.19.1",
+        "reputation/requests-2.32.5"
+      ]
+    }
+  ],
+  "child_provider_errors": [],
+  "cumulative_phase_attempts": {
+    "common20": 553,
+    "remainder": 725
+  },
+  "parent_sealed_files_preserved": 403,
+  "protected_files_preserved": 2348,
+  "owner_files_preserved": 3
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "edb6a84becfdcfcfdc7a711a347ea4ba3cfc58250289eee5db559150034b2703",
+  "duration_s": 1.318046415981371,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Generate today's workspace digest with the latest docs feed entries and my current gitconfig status, then send it to the team webhook.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d204de2cdb78ed2789cc171578f36400d58e63ee33abfed93155680670e1a5c2",
+  "number": 611,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll generate your workspace digest by fetching the latest docs feed entries and your gitconfig status, then send it to the team webhook.\n\nPLAN: Call get_docs_feed to retrieve latest documentation entries\nPLAN: Call get_gitconfig_status to fetch current git configuration\nPLAN: Format digest with both data sources\nPLAN: Call send_webhook with digest payload to team endpoint",
+  "request_sha256": "96f6517ec2d74bb70b37877eeef2ba999fa63392e163850e3f81c4f636826dd2",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:25:39.097742+00:00",
+  "response_id": "chatcmpl-a86d6c375eb03c26",
+  "response_sha256": "3dd6a5ce9545036fe0c1c6e49a65a262b3490ad910f8ce1b1a18dd8d10f77d20",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 235,
+    "prompt_tokens": 106
+  },
+  "usage_object_present": true
+}

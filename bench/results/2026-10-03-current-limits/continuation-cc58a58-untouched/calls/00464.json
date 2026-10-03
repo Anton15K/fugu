@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "8a621e9f838ffd508287a85501110e5bfb434d8a8ca1acbacd7e9345d617f7fb",
+  "duration_s": 0.7203338329854887,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Please run mdprettify on my docs/spec.md file to align the tables and normalize the list markers.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "0388a6a32d04dd7ff64e76f72306c5414be202caf476cf5993268ba3e11cd7a8",
+  "number": 464,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "\nPLAN: Check if docs/spec.md exists\nPLAN: Run mdprettify on docs/spec.md to align tables and normalize list markers",
+  "request_sha256": "f4757b3145360494778e42fa84bd32d1fb2cd3f436c2094a793e435035e53f87",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:20:58.120437+00:00",
+  "response_id": "chatcmpl-a5b7ae394f427298",
+  "response_sha256": "4d1aea405b1abbc9f60484306c2aeedf1960f1c0d2898e19fbaf8bff3aa6f569",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 84,
+    "prompt_tokens": 102
+  },
+  "usage_object_present": true
+}

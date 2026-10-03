@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "59b18b9db2412dddbda6a1c0e9c211f8ae60329cb91a11cfc7787862dbb6fbab",
+  "duration_s": 1.0952425420109648,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Show me today's notes",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "59be99b1562bab742a5743cdd3397c9a1a8dd7088163e4ec7c0b4b080b2640aa",
+  "number": 218,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll check for today's notes by looking in common notes directories and searching for files with today's date.\n\nPLAN: Get today's date in YYYY-MM-DD format\nPLAN: Check common notes directories (~/Notes, ~/Documents/Notes, ~/notes) for files matching today's date\nPLAN: Search for markdown/text files with today's date in filename or content\nPLAN: Display any found notes to the user",
+  "request_sha256": "7ece31a787fa82d79c89df240864b99fe1802e77bc4b91789f562c370e5b7ff2",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:13:14.590734+00:00",
+  "response_id": "chatcmpl-afa109a4d28156e0",
+  "response_sha256": "5aa1e08ed82f3e1a4342d3ff6e8b06b8222c923cfa764c5d366b397b5c376539",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 207,
+    "prompt_tokens": 84
+  },
+  "usage_object_present": true
+}

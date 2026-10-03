@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "4d39a188e3a5009ea35d689adc993a68023026265681383e0113303c3a48d0ed",
+  "duration_s": 0.5871519170177635,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What does the README.md file say?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "2d581e36b5033edd0be6ce1625147a992eea08199d2ee3b42f2cb3b3ac72425f",
+  "number": 131,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "\nPLAN: read_file(path=\"README.md\")",
+  "request_sha256": "ca4b36fc75c8cbee2de03d2d349a7208994ee7784b6d22a1333eec090fe763ab",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:10:43.007669+00:00",
+  "response_id": "chatcmpl-8e1cb991d3bd9fd5",
+  "response_sha256": "e2cbfb9f096133d4d677b842e75b6f51d9c30a2301f2d86a0302ea257071bd6a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 52,
+    "prompt_tokens": 87
+  },
+  "usage_object_present": true
+}

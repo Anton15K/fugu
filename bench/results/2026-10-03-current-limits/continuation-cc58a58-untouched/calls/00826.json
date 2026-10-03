@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "e931c8adc7caaaee7a9c605d6b2120a3f5687e3b224a580b81849e79f6d45392",
+  "duration_s": 0.8803777499997523,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Search my notes for anything mentioning the quarterly budget review meeting",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "6e37c605cfbdd669962edde3956b3f8d226e352b96af490d0bbb0ef427f1e06c",
+  "number": 826,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "\nPLAN: Search notes for \"quarterly budget review meeting\" using the search tool\nPLAN: Search notes for \"budget review\" and \"quarterly meeting\" as alternative terms\nPLAN: Search notes for \"QBR\" or \"quarterly budget\" as possible abbreviations\nPLAN: Compile and present all relevant findings to the user",
+  "request_sha256": "b61cc604677b49776432d9a770956c20f2dba2eadbb1b40c0ca3d491286a806f",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:32:25.524062+00:00",
+  "response_id": "chatcmpl-8c73399ba29d3676",
+  "response_sha256": "c754c76fca987540f850e1f344133bf171c453bbeb2e86cddf4ca8385256a33a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 119,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

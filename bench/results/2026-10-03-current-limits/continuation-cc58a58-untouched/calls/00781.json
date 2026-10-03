@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+  "duration_s": 2.281890458019916,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 781,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus**:\n\n**Ingredients:** 2 chicken breasts, 1 bunch asparagus, 3 garlic cloves (minced), 1 lemon (juiced + zested), olive oil, salt, pepper, optional red pepper flakes.\n\n**Steps:**\n1. Pound chicken to even thickness; season with salt/pepper.\n2. Heat oil in large skillet over medium-high. Cook chicken 4-5 min/side until golden and 165°F. Remove.\n3. Add asparagus and garlic; sauté 3-4 min until crisp-tender.\n4. Deglaze with lemon juice, zest, and 2 tbsp water. Simmer 1 min.\n5. Return chicken to pan, spoon sauce over. Serve with rice or crusty bread.\n\n**Time:** 20 minutes. **Cleanup:** One pan.\n\nPLAN: Provide recipe details directly to user\nPLAN: Include ingredients, steps, timing, and cleanup notes\nPLAN: Keep response concise and practical for weeknight cooking",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:31:00.033395+00:00",
+  "response_id": "chatcmpl-b83f4c10a4aea55a",
+  "response_sha256": "619707cf15d29577c48f361196faa10564051446a5e09daf626accc878775706",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 284,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

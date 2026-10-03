@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "1e7fd86000b2e56dea467ff5724bf7163c67a13ac1c0af6b13df4ea0aab95242",
+  "duration_s": 0.8391456670069601,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you fetch and summarize the latest post from Paul Graham's blog at paulgraham.com?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "b66f84123d393f50b6a7234d28c5da9ba68055bd7f8d62606324038c382ddee1",
+  "number": 793,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "\nPLAN: Browse to paulgraham.com to locate the latest blog post.\nPLAN: Extract the title, date, and content of the most recent post.\nPLAN: Provide a concise summary of the post's key points.",
+  "request_sha256": "61c4ab48bf1deae31dac04b91a6cc8c41cc30d848a25bec2c76059c2970a6aaf",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:31:23.792232+00:00",
+  "response_id": "chatcmpl-b15bec854b0d821c",
+  "response_sha256": "4ab2e45b8ef8a7cf936122892395ae619e1b3ddbcc8823011df5f3dae1d42667",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 126,
+    "prompt_tokens": 98
+  },
+  "usage_object_present": true
+}

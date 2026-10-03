@@ -1,0 +1,216 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_offline_aggregation_rejects_drift_in_actual_request_registry[request_bytes] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-212/test_offline_aggregation_rejec0')
+mutation = 'request_bytes'
+
+    @pytest.mark.parametrize("mutation", ["request_bytes", "missing_binding", "duplicate_binding", "phase", "budget_binding", "model"])
+    def test_offline_aggregation_rejects_drift_in_actual_request_registry(tmp_path, mutation):
+        mod = continuation(); settings = journal_settings(tmp_path); child = tmp_path / "child"
+        with mod.ContinuationJournal(child, **settings) as journal:
+            with journal.context("context-a", "semantic", "common20"):
+                journal.request(lambda **kwargs: response(), **request())
+        registry = base.read_json(settings["registry_path"])
+        if mutation == "request_bytes":
+            path = child / "calls/00001.json"; row = base.read_json(path)
+            row.update(raw_response="changed", response_sha256=base.sha(b"changed")); base.write_json(path, row)
+        elif mutation == "missing_binding": registry["calls"] = []
+        elif mutation == "duplicate_binding": registry["calls"] *= 2
+        elif mutation == "phase": registry["phase_attempts"] = {"common20": 0}
+        else:
+            state = base.read_json(child / "budget.json")
+            if mutation == "budget_binding": state["binding"] = "changed"
+            else: state["expected_models"] = ["changed"]
+            base.write_json(child / "budget.json", state)
+        with pytest.raises(base.EvidenceError):
+>           mod.validate_registry_ledger(registry, mod.read_ledger(child), child, binding=settings["binding"],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                parent_usage=settings["parent_usage"], limit=settings["limit"], phase_limits=settings["phase_limits"])
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'validate_registry_ledger'
+
+tests/test_current_limits_continuation.py:616: AttributeError
+_ test_offline_aggregation_rejects_drift_in_actual_request_registry[missing_binding] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-212/test_offline_aggregation_rejec1')
+mutation = 'missing_binding'
+
+    @pytest.mark.parametrize("mutation", ["request_bytes", "missing_binding", "duplicate_binding", "phase", "budget_binding", "model"])
+    def test_offline_aggregation_rejects_drift_in_actual_request_registry(tmp_path, mutation):
+        mod = continuation(); settings = journal_settings(tmp_path); child = tmp_path / "child"
+        with mod.ContinuationJournal(child, **settings) as journal:
+            with journal.context("context-a", "semantic", "common20"):
+                journal.request(lambda **kwargs: response(), **request())
+        registry = base.read_json(settings["registry_path"])
+        if mutation == "request_bytes":
+            path = child / "calls/00001.json"; row = base.read_json(path)
+            row.update(raw_response="changed", response_sha256=base.sha(b"changed")); base.write_json(path, row)
+        elif mutation == "missing_binding": registry["calls"] = []
+        elif mutation == "duplicate_binding": registry["calls"] *= 2
+        elif mutation == "phase": registry["phase_attempts"] = {"common20": 0}
+        else:
+            state = base.read_json(child / "budget.json")
+            if mutation == "budget_binding": state["binding"] = "changed"
+            else: state["expected_models"] = ["changed"]
+            base.write_json(child / "budget.json", state)
+        with pytest.raises(base.EvidenceError):
+>           mod.validate_registry_ledger(registry, mod.read_ledger(child), child, binding=settings["binding"],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                parent_usage=settings["parent_usage"], limit=settings["limit"], phase_limits=settings["phase_limits"])
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'validate_registry_ledger'
+
+tests/test_current_limits_continuation.py:616: AttributeError
+_ test_offline_aggregation_rejects_drift_in_actual_request_registry[duplicate_binding] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-212/test_offline_aggregation_rejec2')
+mutation = 'duplicate_binding'
+
+    @pytest.mark.parametrize("mutation", ["request_bytes", "missing_binding", "duplicate_binding", "phase", "budget_binding", "model"])
+    def test_offline_aggregation_rejects_drift_in_actual_request_registry(tmp_path, mutation):
+        mod = continuation(); settings = journal_settings(tmp_path); child = tmp_path / "child"
+        with mod.ContinuationJournal(child, **settings) as journal:
+            with journal.context("context-a", "semantic", "common20"):
+                journal.request(lambda **kwargs: response(), **request())
+        registry = base.read_json(settings["registry_path"])
+        if mutation == "request_bytes":
+            path = child / "calls/00001.json"; row = base.read_json(path)
+            row.update(raw_response="changed", response_sha256=base.sha(b"changed")); base.write_json(path, row)
+        elif mutation == "missing_binding": registry["calls"] = []
+        elif mutation == "duplicate_binding": registry["calls"] *= 2
+        elif mutation == "phase": registry["phase_attempts"] = {"common20": 0}
+        else:
+            state = base.read_json(child / "budget.json")
+            if mutation == "budget_binding": state["binding"] = "changed"
+            else: state["expected_models"] = ["changed"]
+            base.write_json(child / "budget.json", state)
+        with pytest.raises(base.EvidenceError):
+>           mod.validate_registry_ledger(registry, mod.read_ledger(child), child, binding=settings["binding"],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                parent_usage=settings["parent_usage"], limit=settings["limit"], phase_limits=settings["phase_limits"])
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'validate_registry_ledger'
+
+tests/test_current_limits_continuation.py:616: AttributeError
+___ test_offline_aggregation_rejects_drift_in_actual_request_registry[phase] ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-212/test_offline_aggregation_rejec3')
+mutation = 'phase'
+
+    @pytest.mark.parametrize("mutation", ["request_bytes", "missing_binding", "duplicate_binding", "phase", "budget_binding", "model"])
+    def test_offline_aggregation_rejects_drift_in_actual_request_registry(tmp_path, mutation):
+        mod = continuation(); settings = journal_settings(tmp_path); child = tmp_path / "child"
+        with mod.ContinuationJournal(child, **settings) as journal:
+            with journal.context("context-a", "semantic", "common20"):
+                journal.request(lambda **kwargs: response(), **request())
+        registry = base.read_json(settings["registry_path"])
+        if mutation == "request_bytes":
+            path = child / "calls/00001.json"; row = base.read_json(path)
+            row.update(raw_response="changed", response_sha256=base.sha(b"changed")); base.write_json(path, row)
+        elif mutation == "missing_binding": registry["calls"] = []
+        elif mutation == "duplicate_binding": registry["calls"] *= 2
+        elif mutation == "phase": registry["phase_attempts"] = {"common20": 0}
+        else:
+            state = base.read_json(child / "budget.json")
+            if mutation == "budget_binding": state["binding"] = "changed"
+            else: state["expected_models"] = ["changed"]
+            base.write_json(child / "budget.json", state)
+        with pytest.raises(base.EvidenceError):
+>           mod.validate_registry_ledger(registry, mod.read_ledger(child), child, binding=settings["binding"],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                parent_usage=settings["parent_usage"], limit=settings["limit"], phase_limits=settings["phase_limits"])
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'validate_registry_ledger'
+
+tests/test_current_limits_continuation.py:616: AttributeError
+_ test_offline_aggregation_rejects_drift_in_actual_request_registry[budget_binding] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-212/test_offline_aggregation_rejec4')
+mutation = 'budget_binding'
+
+    @pytest.mark.parametrize("mutation", ["request_bytes", "missing_binding", "duplicate_binding", "phase", "budget_binding", "model"])
+    def test_offline_aggregation_rejects_drift_in_actual_request_registry(tmp_path, mutation):
+        mod = continuation(); settings = journal_settings(tmp_path); child = tmp_path / "child"
+        with mod.ContinuationJournal(child, **settings) as journal:
+            with journal.context("context-a", "semantic", "common20"):
+                journal.request(lambda **kwargs: response(), **request())
+        registry = base.read_json(settings["registry_path"])
+        if mutation == "request_bytes":
+            path = child / "calls/00001.json"; row = base.read_json(path)
+            row.update(raw_response="changed", response_sha256=base.sha(b"changed")); base.write_json(path, row)
+        elif mutation == "missing_binding": registry["calls"] = []
+        elif mutation == "duplicate_binding": registry["calls"] *= 2
+        elif mutation == "phase": registry["phase_attempts"] = {"common20": 0}
+        else:
+            state = base.read_json(child / "budget.json")
+            if mutation == "budget_binding": state["binding"] = "changed"
+            else: state["expected_models"] = ["changed"]
+            base.write_json(child / "budget.json", state)
+        with pytest.raises(base.EvidenceError):
+>           mod.validate_registry_ledger(registry, mod.read_ledger(child), child, binding=settings["binding"],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                parent_usage=settings["parent_usage"], limit=settings["limit"], phase_limits=settings["phase_limits"])
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'validate_registry_ledger'
+
+tests/test_current_limits_continuation.py:616: AttributeError
+___ test_offline_aggregation_rejects_drift_in_actual_request_registry[model] ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-212/test_offline_aggregation_rejec5')
+mutation = 'model'
+
+    @pytest.mark.parametrize("mutation", ["request_bytes", "missing_binding", "duplicate_binding", "phase", "budget_binding", "model"])
+    def test_offline_aggregation_rejects_drift_in_actual_request_registry(tmp_path, mutation):
+        mod = continuation(); settings = journal_settings(tmp_path); child = tmp_path / "child"
+        with mod.ContinuationJournal(child, **settings) as journal:
+            with journal.context("context-a", "semantic", "common20"):
+                journal.request(lambda **kwargs: response(), **request())
+        registry = base.read_json(settings["registry_path"])
+        if mutation == "request_bytes":
+            path = child / "calls/00001.json"; row = base.read_json(path)
+            row.update(raw_response="changed", response_sha256=base.sha(b"changed")); base.write_json(path, row)
+        elif mutation == "missing_binding": registry["calls"] = []
+        elif mutation == "duplicate_binding": registry["calls"] *= 2
+        elif mutation == "phase": registry["phase_attempts"] = {"common20": 0}
+        else:
+            state = base.read_json(child / "budget.json")
+            if mutation == "budget_binding": state["binding"] = "changed"
+            else: state["expected_models"] = ["changed"]
+            base.write_json(child / "budget.json", state)
+        with pytest.raises(base.EvidenceError):
+>           mod.validate_registry_ledger(registry, mod.read_ledger(child), child, binding=settings["binding"],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                parent_usage=settings["parent_usage"], limit=settings["limit"], phase_limits=settings["phase_limits"])
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'validate_registry_ledger'
+
+tests/test_current_limits_continuation.py:616: AttributeError
+___________ test_ledger_rejects_discontinuous_stage_request_ordinals ___________
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-212/test_ledger_rejects_discontinu0')
+
+    def test_ledger_rejects_discontinuous_stage_request_ordinals(tmp_path):
+        mod = continuation()
+        with base.RequestJournal(tmp_path, limit=1, binding="inert") as journal:
+            with journal.context("context-a", "semantic", "common20"):
+                journal.request(lambda **kwargs: response(), **request())
+        path = tmp_path / "calls/00001.json"; row = base.read_json(path); row["ordinal"] = 1
+        base.write_json(path, row)
+>       with pytest.raises(base.EvidenceError): mod.read_ledger(tmp_path)
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:627: Failed
+______________ test_release_body_with_duplicate_keys_is_malformed ______________
+
+    def test_release_body_with_duplicate_keys_is_malformed():
+        mod = continuation(); plan, grant, row = release_fixture()
+        row["body"] = json.dumps(grant)[:-1] + ', "execution_authorized": true}'
+>       with pytest.raises(base.EvidenceError): mod.verify_release(row, plan, base.hash_json(plan))
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:633: Failed
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_offline_aggregation_rejects_drift_in_actual_request_registry[request_bytes]
+FAILED tests/test_current_limits_continuation.py::test_offline_aggregation_rejects_drift_in_actual_request_registry[missing_binding]
+FAILED tests/test_current_limits_continuation.py::test_offline_aggregation_rejects_drift_in_actual_request_registry[duplicate_binding]
+FAILED tests/test_current_limits_continuation.py::test_offline_aggregation_rejects_drift_in_actual_request_registry[phase]
+FAILED tests/test_current_limits_continuation.py::test_offline_aggregation_rejects_drift_in_actual_request_registry[budget_binding]
+FAILED tests/test_current_limits_continuation.py::test_offline_aggregation_rejects_drift_in_actual_request_registry[model]
+FAILED tests/test_current_limits_continuation.py::test_ledger_rejects_discontinuous_stage_request_ordinals
+FAILED tests/test_current_limits_continuation.py::test_release_body_with_duplicate_keys_is_malformed
+8 failed, 65 deselected in 0.15s

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d013c6dcf748ac1e22da11c64e86edc13d337f3ce1a4abc064ef0d05701fd901",
+  "duration_s": 0.5655820419779047,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you check what's in the /home/user/projects directory?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "1ba2701260222273d00e4b5b025af2d0309cb2645616cdf5f7bd089659ee33a8",
+  "number": 701,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "\nPLAN: list_directory(path=\"/home/user/projects\")",
+  "request_sha256": "a9da95e1020cbee03c0aedc0c9d3451364632d09ed8c309fa19d87da28218c70",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:28:14.838805+00:00",
+  "response_id": "chatcmpl-8f66840d469e34a3",
+  "response_sha256": "7a79a554af19d1c23a643f426861fa3f72cf9ebbeda38d303c5391f028ddb18a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 48,
+    "prompt_tokens": 92
+  },
+  "usage_object_present": true
+}

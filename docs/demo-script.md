@@ -11,11 +11,15 @@ that recording or publication has happened.
    at `/?mock=0`; confirm **LIVE ANALYSIS** and the API-provided bundled examples.
    Select **Hidden instructions**, then **Start audit**. Do not assume
    a sample exists on every server; use one accepted small source if absent.
-2. Complete the suspicious run and **Benign comparison**. Check actual verdict reasons,
-   coverage and exhibits; counts/timing can differ from the two earlier UI runs.
-   Verify failure, skip and no-trigger language on the final backend build.
-   Those two stored UI audits predate the larger current production profile; do
-   not present them as evidence of the new limits or benchmark behavior.
+2. Complete the suspicious run and one clean-description comparison. Check actual
+   verdict reasons, coverage and exhibits; counts/timing can differ from the two
+   earlier UI runs. If showing the measured `clean/read_file` case, disclose that
+   its raw model flag is pending independent adjudication and came from a
+   synthetic harness canary in model replies; no file tool or target filesystem
+   ran. Do not present that flag as a real extension exploit or a confirmed
+   false positive. Verify failure, skip and no-trigger language on the final
+   backend build. The two stored UI audits predate the current profile; do not
+   present them as evidence of its limits or benchmark behavior.
 3. Expand a decisive finding and the pipeline/history disclosure. Reopen the
    real `/audit/<id>` URL and confirm it restores that run without creating one.
 4. Record desktop and narrow-screen readability. Keep credentials and unrelated
@@ -44,8 +48,9 @@ characters each. Requests time out at 90 seconds and the SDK performs zero
 automatic retries; explicit stage-level response recovery is separately
 recorded. These are product bounds, not a UI depth setting or proof that every
 source file was analyzed. Rehearse against the exact current build and use that
-audit’s omission and completion metrics. See [production limits](production-limits.md)
-and the [current-limit protocol](benchmark-current-limits.md).
+audit’s omission and completion metrics. See [production limits](production-limits.md),
+the [first-interval stop report](benchmark-current-limits.md), and the
+[sealed two-interval continuation report](benchmark-current-limits-continuation.md).
 
 ## Storyboard and narration
 
@@ -55,7 +60,7 @@ and the [current-limit protocol](benchmark-current-limits.md).
 | 0:15–0:35 | Select bundled suspicious example; Start audit | “Fugu decodes concealed text and checks concrete patterns locally. NVIDIA Nemotron on Nebius Token Factory reads supplied text for suspicious instructions when hosted analysis is enabled. Runtime checks depend on the available chamber.” |
 | 0:35–1:15 | Completed report; expand decisive finding | “Here is the reason to stop before installing.” Point to the actual source excerpt and evidence tier. “This source match is deterministic; the model’s interpretation is advisory. The A/B harness compares the agent’s stated plans with and without the extension.” Do not describe plan text as executed actions or a universal exfiltration proof. |
 | 1:15–1:40 | Analysis coverage beside verdict; pipeline disclosure | “These are the checks that completed and the source or probes each could inspect. Fugu reports omissions when a bound or request prevents complete coverage. A missing check is not a clean result. I would investigate this exact behavior before installing this version.” |
-| 1:40–2:05 | New audit; rehearsed clean result | “For this clean example, completed checks found no qualifying issue. A PASS is a scoped result, not a certificate of safety. A skill without runnable triggers was not executed.” |
+| 1:40–2:05 | Clean `read_file` description; show actual coverage and model evidence | “This description asks for ordinary file reading. The mounted model response included our synthetic canary after a probe asked for file contents. No file tool or target filesystem ran. The raw flag is under independent adjudication, so I treat it as a reason to inspect, not proof of malicious behavior.” |
 | 2:05–2:30 | Existing audit API model records; brief sponsor explanation | “The configured Token Factory endpoint supplies NVIDIA Nemotron inference. Ultra handles semantic analysis and the default harness calls; Super supplies the everyday-agent arm. Extension text goes to hosted inference when these checks are enabled.” |
 | 2:30–2:45 | Reopen suspicious audit URL or Continue an audit | “I can return to the same evidence and coverage without starting another audit. Fugu gives me an inspectable reason for an install decision.” |
 
@@ -85,22 +90,39 @@ confirmed false positives use its adjudication contract. Authored
 source/composition/dependency cohorts remain separate. Show the historical
 comparison chart with its task distinctions and unavailable Snyk result.
 
-The [3 October current-limit report](benchmark-current-limits.md) is a stopped
-subset, not a completed 40-case evaluation. It records 12 completed cases, one
-partial and 27 unattempted after an HTTP 500 from the Super harness at SDK
-attempt 359. All 12 completed cases and the one partial case were MCPTox
-descriptions. The primary MCPTox result is 11/15 planned attacks (73.3%); the
-secondary completed-case result is 11/12 (91.7%). One complete miss, one partial
-case and two unattempted attacks remain visible. All 12 benign controls were
-unattempted, so benign flag and false-positive rates are unmeasured. The chart’s
-zero confirmed false-positive records reflect no observed benign cases, not a
-clean-control result. The run observed S0/S1/S2/S4 on 13 of 45 distinct audits;
-32 remain unknown, and no composition case started. Detonation, live reputation,
-target execution and fresh competitor execution are outside this run. The selected,
-previously inspected cases do not establish blind or population performance.
-One failed request has unknown token usage; cost and remaining quota are
-unknown, and quota exhaustion was not established. Do not claim latency or
-cost savings, universal superiority, adoption or complete safety.
+The [3 October first-interval report](benchmark-current-limits.md) records an
+HTTP 500 from the Super harness at attempt 359. The sealed
+[continuation report](benchmark-current-limits-continuation.md) adds 27
+previously unattempted cases completed in a second interval on the same frozen
+40-case plan and production profile. Combined, **39/40 cases completed, one
+original case remains partial, and none are unattempted**. The primary MCPTox
+result is **13/15 planned attacks (86.7%)**, with one completed miss and one
+incomplete case whose high advisory finding is retained but receives no
+completed-detection credit. **13/14 (92.9%)** is secondary and covers completed
+attacks only.
+
+All five clean descriptions completed; the `read_file` description produced one
+raw model-driven flag pending independent adjudication. Its signal came from
+mounted-model replies containing a synthetic harness canary after probes asked
+for ordinary file contents. No file tool, target filesystem, chamber or other
+audited code ran. The adjudicated false-positive rate is unavailable. Do not
+call this a confirmed false positive, real vulnerability, or population rate.
+
+The same 14 completed MCPTox attacks were compared with retained 2 October
+outputs: Fugu 13/14, fuzzd 10/14, and mcp-sec-audit 0/14. Fugu and fuzzd use
+medium-plus findings; mcp-sec-audit uses aggregate risk 25+. Competitors were not rerun and use different risk
+contracts, so present these as fixed-sample context rather than a ranking. The
+current measurement covers S0/S1/S2/S4 and source composition; it excludes
+detonation, live reputation, target/tool execution, and fresh competitor runs.
+The two intervals total 1,278 SDK attempts; the original failed request has
+unknown usage, so whole-run token totals remain null. Cost and remaining quota
+were not measured. Do not claim latency or cost savings, universal superiority,
+adoption, or complete safety.
+
+Show the [primary outcome chart](../bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/common-results.png),
+[cohort coverage](../bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/cohort-coverage.png),
+and [request telemetry](../bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/call-telemetry.png)
+only with their interval, incomplete-case, and adjudication labels visible.
 
 Before publication, confirm the exact reviewed commit, public repo/demo access,
 video duration and permissions for recorded material. Deployment and public video

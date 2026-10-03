@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "6eb041f978a2b06d97eb5cffd2ace901a65f54c5f255e80919c097a31baff1c8",
+  "duration_s": 1.2923897500149906,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's a good recipe for a quick weeknight dinner?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "7e239a11f60d050915c27f64049188f28ba27d56e8c6877d1546f8e7dcedfb2f",
+  "number": 719,
+  "ordinal": 7,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "A great quick weeknight dinner is **One-Pan Lemon Garlic Chicken with Asparagus**:\n\n**Ingredients:** 2 chicken breasts, 1 bunch asparagus, 3 garlic cloves (minced), 1 lemon (juiced + zested), olive oil, salt, pepper, optional red pepper flakes.\n\n**Method:** \n1. Pound chicken to even thickness, season generously\n2. Sear 4-5 min/side in hot skillet with oil, remove\n3. Toss asparagus in same pan, cook 3-4 min until crisp-tender\n4. Add garlic, cook 30 sec, deglaze with lemon juice + ¼ cup water\n5. Return chicken to pan, spoon sauce over, heat through 2 min\n6. Finish with lemon zest and parsley\n\n**Time:** 20 minutes | **Cleanup:** One pan | **Pairs with:** Quick rice or crusty bread\n\nPLAN: Provide recipe suggestion directly - no tools needed for this informational request",
+  "request_sha256": "d9a81cff195c8917bdae08c042655a63af857814a44f36e6e7914359d448141e",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:28:48.448283+00:00",
+  "response_id": "chatcmpl-8814af20c6702dc2",
+  "response_sha256": "e9a11682725b1e2d4be96f2cb391d97af31a468f5ab8c18b2a77fd2d172af228",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 284,
+    "prompt_tokens": 91
+  },
+  "usage_object_present": true
+}

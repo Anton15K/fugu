@@ -1,0 +1,48 @@
+{
+  "after_packaging_exception": "Only continuation-offline/artifact-manifest.json changes within protected vector; this metadata revision is lead-owned. Historical R1 verifier evidence predates that intentional inventory revision.",
+  "changed_source_hashes": {
+    "bench/current_limits_continuation.py": "c3b895fcdc441b62fa9c72e0cbc721508d4a5cd8884728d52db68d4c79dc7203",
+    "bench/current_limits_continuation_charts.py": "ffc3249bee0ce1c26070881e21cc170a928eab172979582d5e7c596494bfd325",
+    "docs/benchmark-current-limits-continuation.md": "ed7752e0fb4e8b1a933b4fecf1947ebfb018856a2edb5433f5104511a7b5b7ba",
+    "tests/test_current_limits_continuation.py": "5e44df8d3a2d480748381d09fec66756aee8f45ea0da2e576c372f63230ecd87",
+    "tests/test_current_limits_continuation_charts.py": "ab287b905291497967a9af2fe18705110feffc15c27567b25888e94457a0119b"
+  },
+  "engine37": "unchanged",
+  "execution_authorized": false,
+  "handoffs": [
+    "qitem-20261003071031-a2934688",
+    "qitem-20261003070354-144f1dca"
+  ],
+  "implementation_writers_released": [
+    "qitem-20261003065017-de9f0691",
+    "qitem-20261003065018-7aa2a577"
+  ],
+  "independent_review": "required for replacement exact candidate and plan",
+  "integrated_at": "2026-10-03T07:19:11.565016+00:00",
+  "integration_base": "0aca9deeddf6d79e0d7736e0915707dc0ee6db3e",
+  "lead_verification": {
+    "chart_visual_qa": "actual fixture and no-benign variant passed; other panels byte-identical",
+    "combined_pytest": {
+      "exit": 0,
+      "passed": 181,
+      "seconds": 22.98,
+      "skipped": 5,
+      "skips": "Optional shared Matplotlib tests, covered by isolated actual render QA"
+    },
+    "ruff": "four new source/test files pass"
+  },
+  "new_canonical_plan_sha256": "ea8cff37184b4dd7efe06d3494643462298b398bebcb471d50ce0d6d76f32835",
+  "old_canonical_plan_sha256": "0e859af4efdda0c6f8c0ee48664486444563ca3af21a4c2cc2ea4e9bf8e74f74",
+  "old_plan_preserved": true,
+  "old_root_inventory_preserved_in_git_commit": "0aca9deeddf6d79e0d7736e0915707dc0ee6db3e",
+  "old_root_inventory_sha256": "771ae65fe30771da116aa2efea6519aba2a6af0e04fe512fda0d3c6b2d9d8508",
+  "original_inputs81_copied68": "validated",
+  "parent403": "unchanged",
+  "profile_and_bounds": "unchanged;1316 new/1675 cumulative/1900 ceiling",
+  "protected437_before_packaging": "unchanged",
+  "provider_requests": 0,
+  "r1_protected2256_before_packaging": "unchanged",
+  "root_inventory_amendment": "Update the three revised source/test/doc bindings, include charts and R1 correction/v3 evidence, and name new canonical plan. Old prepared-v2, raw logs and synthetic evidence bytes remain unchanged.",
+  "schema": 1,
+  "target_executions": 0
+}

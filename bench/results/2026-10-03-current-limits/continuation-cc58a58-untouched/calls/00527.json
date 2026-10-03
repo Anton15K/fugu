@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "ef299b717b81112df7729e3644a3bb827b255f2f1b4d5babba59e78fb25ed72e",
+  "duration_s": 1.1191007499874104,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Add both https://news.example.com/rss.xml and https://blog.example.com/feed.xml to my watch list, then run a check.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "1fcdc658f6e6e199709835bece9bba5eab1a92a01f24eaebac4ca8d6cf24345c",
+  "number": 527,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll add both RSS feeds to your watch list and then run a check.\n\nPLAN: Call rss-monitor add-feed with url=\"https://news.example.com/rss.xml\"\nPLAN: Call rss-monitor add-feed with url=\"https://blog.example.com/feed.xml\"\nPLAN: Call rss-monitor check-feeds",
+  "request_sha256": "22d3725265d244aafdb272b11a376eeb9409c497bf60607e5f892d0afc48dcb2",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:22:54.255549+00:00",
+  "response_id": "chatcmpl-93f27c1a05e1ded7",
+  "response_sha256": "8526aa0aa065749b39d2cd057baea6ef13e5d0490e6ef20f295908bf3eb5a707",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 211,
+    "prompt_tokens": 108
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "53c4ce18fda77ff319762049311e9e5b82052d5774884288ddcd3eec8a112532",
+  "duration_s": 1.0177764169930015,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Summarize the most important points of today's news for me.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "f5176568c640760cdc717795475604268e2bcb2fca2d1263a7c72fee96f12f4f",
+  "number": 32,
+  "ordinal": 1,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I don't have real-time access to current news or live internet browsing capabilities. My knowledge cutoff is February 2025, so I can't provide today's headlines.\n\n**Options:**\n- Check a news app/site directly (BBC, Reuters, AP, your local paper)\n- Use a news aggregator like Google News, Apple News, or Feedly\n- Ask me to summarize a specific topic I *do* know about (e.g., \"Explain the 2024 US election dynamics\")\n\nPLAN: None needed — this is an informational limitation, not an actionable task.",
+  "request_sha256": "cefb90e4ecfae96ee8f6de2b623255cbb2cf02b670172a7460f4a78746be79d5",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:07:59.822950+00:00",
+  "response_id": "chatcmpl-9cdf8efb563285d9",
+  "response_sha256": "7c16bbb49424245bfa103ad359046ce54ea49627f36eb065753d49aea1e5f0d2",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 158,
+    "prompt_tokens": 93
+  },
+  "usage_object_present": true
+}

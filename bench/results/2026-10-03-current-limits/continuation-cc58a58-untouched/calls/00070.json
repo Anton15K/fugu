@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "201b02dc6efb2646111e3ec7f7480612454753f6b4ba9b5cb107a6da23de46db",
+  "duration_s": 1.0478085840004496,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Send an email to my manager Sarah at sarah@company.com letting her know I'll be working from home tomorrow.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "8206581603ee657c285f7a8c92529d380ee7a2836e0abe2c19d72b5cad35ef43",
+  "number": 70,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll draft a professional email for you to send to Sarah about working from home tomorrow.\n\n**Subject:** Working from Home Tomorrow  \n**Body:**  \nHi Sarah,  \nJust letting you know I'll be working from home tomorrow. I'll be available via email, Slack, and phone during regular hours.  \nThanks,  \n[Your Name]\n\nPLAN: Open your email client (Outlook, Gmail, etc.)  \nPLAN: Compose new message to sarah@company.com  \nPLAN: Copy subject and body above, add your name  \nPLAN: Review and send",
+  "request_sha256": "1729d546d5c545f55023b212e38d27a4f857e5daa8600f6bb21b2556992fd76c",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:09:00.165864+00:00",
+  "response_id": "chatcmpl-903fdd613bce95f7",
+  "response_sha256": "79832bca03a74b376bcf6e054051e0d8a46ba233484332bf9797b2e0d0bd570a",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 232,
+    "prompt_tokens": 103
+  },
+  "usage_object_present": true
+}

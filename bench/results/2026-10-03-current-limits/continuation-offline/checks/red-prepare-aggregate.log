@@ -1,0 +1,157 @@
+...................................FFFFFFF                               [100%]
+=================================== FAILURES ===================================
+_ test_combined_rows_preserve13_original_rows_severe_partial_and_unknown_usage _
+
+    def test_combined_rows_preserve13_original_rows_severe_partial_and_unknown_usage():
+        mod = continuation()
+        parent = mod.load_parent()
+        rows, plan = child_rows_and_plan(parent)
+        rows[2].update(detected=True, raw_medium_flag=True, findings=[{"severity": "high", "title": "Synthetic benign flag"}])
+        child = {"rows": rows, "binding": base.hash_json(plan), "planned": 27, "engine": parent.result["engine"],
+                 "limits": parent.result["limits"], "scope": parent.result["scope"],
+                 "started_utc": "2026-10-03T10:00:00Z", "measured_utc": "2026-10-03T10:01:00Z", "usage": {}}
+>       combined, provenance = mod.combine(parent, child, [], plan, child_result_sha256=base.hash_json(child))
+                               ^^^^^^^^^^^
+E       AttributeError: module 'bench.current_limits_continuation' has no attribute 'combine'
+
+tests/test_current_limits_continuation.py:356: AttributeError
+_ test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[partial_parent] _
+
+mutation = 'partial_parent'
+
+    @pytest.mark.parametrize("mutation", ["partial_parent", "order", "labels", "profile", "grouping"])
+    def test_aggregate_rejects_observed_case_replacement_or_changed_child_contract(mutation):
+        mod = continuation()
+        parent = mod.load_parent(); rows, plan = child_rows_and_plan(parent)
+        child = {"rows": rows, "binding": base.hash_json(plan), "planned": 27,
+                 "engine": parent.result["engine"], "limits": copy.deepcopy(parent.result["limits"]),
+                 "scope": parent.result["scope"], "started_utc": "later", "measured_utc": "later", "usage": {}}
+        if mutation == "partial_parent": rows[0] = parent.result["rows"][12]
+        elif mutation == "order": rows[0], rows[1] = rows[1], rows[0]
+        elif mutation == "labels": rows[0]["kind"] = "benign"
+        elif mutation == "profile": child["limits"]["llm_max_output_tokens"] = 600
+        else: rows[18]["members"][0]["label"] = "changed"
+        with pytest.raises(base.EvidenceError):
+>           mod.combine(parent, child, [], plan, child_result_sha256=base.hash_json(child))
+            ^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'combine'
+
+tests/test_current_limits_continuation.py:391: AttributeError
+_ test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[order] _
+
+mutation = 'order'
+
+    @pytest.mark.parametrize("mutation", ["partial_parent", "order", "labels", "profile", "grouping"])
+    def test_aggregate_rejects_observed_case_replacement_or_changed_child_contract(mutation):
+        mod = continuation()
+        parent = mod.load_parent(); rows, plan = child_rows_and_plan(parent)
+        child = {"rows": rows, "binding": base.hash_json(plan), "planned": 27,
+                 "engine": parent.result["engine"], "limits": copy.deepcopy(parent.result["limits"]),
+                 "scope": parent.result["scope"], "started_utc": "later", "measured_utc": "later", "usage": {}}
+        if mutation == "partial_parent": rows[0] = parent.result["rows"][12]
+        elif mutation == "order": rows[0], rows[1] = rows[1], rows[0]
+        elif mutation == "labels": rows[0]["kind"] = "benign"
+        elif mutation == "profile": child["limits"]["llm_max_output_tokens"] = 600
+        else: rows[18]["members"][0]["label"] = "changed"
+        with pytest.raises(base.EvidenceError):
+>           mod.combine(parent, child, [], plan, child_result_sha256=base.hash_json(child))
+            ^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'combine'
+
+tests/test_current_limits_continuation.py:391: AttributeError
+_ test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[labels] _
+
+mutation = 'labels'
+
+    @pytest.mark.parametrize("mutation", ["partial_parent", "order", "labels", "profile", "grouping"])
+    def test_aggregate_rejects_observed_case_replacement_or_changed_child_contract(mutation):
+        mod = continuation()
+        parent = mod.load_parent(); rows, plan = child_rows_and_plan(parent)
+        child = {"rows": rows, "binding": base.hash_json(plan), "planned": 27,
+                 "engine": parent.result["engine"], "limits": copy.deepcopy(parent.result["limits"]),
+                 "scope": parent.result["scope"], "started_utc": "later", "measured_utc": "later", "usage": {}}
+        if mutation == "partial_parent": rows[0] = parent.result["rows"][12]
+        elif mutation == "order": rows[0], rows[1] = rows[1], rows[0]
+        elif mutation == "labels": rows[0]["kind"] = "benign"
+        elif mutation == "profile": child["limits"]["llm_max_output_tokens"] = 600
+        else: rows[18]["members"][0]["label"] = "changed"
+        with pytest.raises(base.EvidenceError):
+>           mod.combine(parent, child, [], plan, child_result_sha256=base.hash_json(child))
+            ^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'combine'
+
+tests/test_current_limits_continuation.py:391: AttributeError
+_ test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[profile] _
+
+mutation = 'profile'
+
+    @pytest.mark.parametrize("mutation", ["partial_parent", "order", "labels", "profile", "grouping"])
+    def test_aggregate_rejects_observed_case_replacement_or_changed_child_contract(mutation):
+        mod = continuation()
+        parent = mod.load_parent(); rows, plan = child_rows_and_plan(parent)
+        child = {"rows": rows, "binding": base.hash_json(plan), "planned": 27,
+                 "engine": parent.result["engine"], "limits": copy.deepcopy(parent.result["limits"]),
+                 "scope": parent.result["scope"], "started_utc": "later", "measured_utc": "later", "usage": {}}
+        if mutation == "partial_parent": rows[0] = parent.result["rows"][12]
+        elif mutation == "order": rows[0], rows[1] = rows[1], rows[0]
+        elif mutation == "labels": rows[0]["kind"] = "benign"
+        elif mutation == "profile": child["limits"]["llm_max_output_tokens"] = 600
+        else: rows[18]["members"][0]["label"] = "changed"
+        with pytest.raises(base.EvidenceError):
+>           mod.combine(parent, child, [], plan, child_result_sha256=base.hash_json(child))
+            ^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'combine'
+
+tests/test_current_limits_continuation.py:391: AttributeError
+_ test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[grouping] _
+
+mutation = 'grouping'
+
+    @pytest.mark.parametrize("mutation", ["partial_parent", "order", "labels", "profile", "grouping"])
+    def test_aggregate_rejects_observed_case_replacement_or_changed_child_contract(mutation):
+        mod = continuation()
+        parent = mod.load_parent(); rows, plan = child_rows_and_plan(parent)
+        child = {"rows": rows, "binding": base.hash_json(plan), "planned": 27,
+                 "engine": parent.result["engine"], "limits": copy.deepcopy(parent.result["limits"]),
+                 "scope": parent.result["scope"], "started_utc": "later", "measured_utc": "later", "usage": {}}
+        if mutation == "partial_parent": rows[0] = parent.result["rows"][12]
+        elif mutation == "order": rows[0], rows[1] = rows[1], rows[0]
+        elif mutation == "labels": rows[0]["kind"] = "benign"
+        elif mutation == "profile": child["limits"]["llm_max_output_tokens"] = 600
+        else: rows[18]["members"][0]["label"] = "changed"
+        with pytest.raises(base.EvidenceError):
+>           mod.combine(parent, child, [], plan, child_result_sha256=base.hash_json(child))
+            ^^^^^^^^^^^
+E           AttributeError: module 'bench.current_limits_continuation' has no attribute 'combine'
+
+tests/test_current_limits_continuation.py:391: AttributeError
+___ test_native32_audit_reuse_recovery_aggregate_restart_and403_parent_bytes ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-204/test_native32_audit_reuse_reco0')
+
+    def test_native32_audit_reuse_recovery_aggregate_restart_and403_parent_bytes(tmp_path):
+        continuation()
+        if not (ENGINE / "manifest.json").exists():
+            pytest.skip("The exact checked cc58a58 engine must be reconstructed first")
+        result = subprocess.run([sys.executable, "-c", NATIVE_CONTINUATION, str(tmp_path), str(ENGINE)],
+                                cwd=base.ROOT, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1",
+                                PYTHON_DOTENV_DISABLED="1", NEBIUS_API_KEY=""),
+                                capture_output=True, text=True, timeout=120)
+>       assert result.returncode == 0, result.stderr[-5000:]
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 10, in <module>
+E         AttributeError: module 'bench.current_limits_continuation' has no attribute 'prepare'. Did you mean: 'argparse'?
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/antonkogun/dev/nebius_hack/.venv/bin/python3', '-c', '\nimport asyncio, json, sys\nfrom...ributeError: module \'bench.current_limits_continuation\' has no attribute \'prepare\'. Did you mean: \'argparse\'?\n').returncode
+
+tests/test_current_limits_continuation.py:470: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_combined_rows_preserve13_original_rows_severe_partial_and_unknown_usage
+FAILED tests/test_current_limits_continuation.py::test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[partial_parent]
+FAILED tests/test_current_limits_continuation.py::test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[order]
+FAILED tests/test_current_limits_continuation.py::test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[labels]
+FAILED tests/test_current_limits_continuation.py::test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[profile]
+FAILED tests/test_current_limits_continuation.py::test_aggregate_rejects_observed_case_replacement_or_changed_child_contract[grouping]
+FAILED tests/test_current_limits_continuation.py::test_native32_audit_reuse_recovery_aggregate_restart_and403_parent_bytes
+7 failed, 35 passed in 1.08s

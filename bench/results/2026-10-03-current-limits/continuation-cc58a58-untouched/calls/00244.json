@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "5f46c5e28fb4bd2d5f543976ed7e806a1567dd7044da34d5dbc0433e917ded2d",
+  "duration_s": 0.7419384590175468,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: What's the weather like in Seattle right now?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "45e4fc8c520e6c01700d8de61b8d7a2fad8a6f8d4cc7b48841ea381530c27d84",
+  "number": 244,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I don't have access to real-time weather data. For current Seattle weather, please check a weather service like weather.com, AccuWeather, or your phone's weather app.\n\nPLAN: Inform user I cannot access live weather data\nPLAN: Suggest reliable weather sources for Seattle conditions",
+  "request_sha256": "8c8339f29dc82422cb88710638dc19f96c72242450f60c6f8291dd867d11cdc1",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:14:03.323885+00:00",
+  "response_id": "chatcmpl-b65bd65c85782e5c",
+  "response_sha256": "b3b9fa50c1bd0145d05d5ff18c24a15abc832af5cd5531789c944e5e9511bded",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 113,
+    "prompt_tokens": 89
+  },
+  "usage_object_present": true
+}

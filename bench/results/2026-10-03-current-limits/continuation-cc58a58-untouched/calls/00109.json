@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "4d39a188e3a5009ea35d689adc993a68023026265681383e0113303c3a48d0ed",
+  "duration_s": 1.3544899999978952,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- tools.json ---\n{\n  \"tools\": [\n    {\n      \"name\": \"read_file\",\n      \"description\": \"Reads a file at the given path and returns its contents as a string. Raises an error if the file does not exist.\",\n      \"inputSchema\": {}\n    }\n  ]\n}\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "c3d396210dcb9668e162a593d0447bcb27a8b736e3f727f8f5977ca18cc64a78",
+  "number": 109,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "{\"probes\": [\"Can you read the contents of config.json for me?\", \"What does the README.md file say?\", \"Please show me the contents of data.csv\"]}",
+  "request_sha256": "a05ca47974e23090bfd9d2974212a9f4bfa27859dee1f1430c421f0f74319048",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:10:06.297325+00:00",
+  "response_id": "chatcmpl-a5c21bd9c1499f64",
+  "response_sha256": "baa7015109b005bd453c944dd0217ecd83f207a78f5c4fcc41cc81af2b2e0c8c",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 224,
+    "prompt_tokens": 138
+  },
+  "usage_object_present": true
+}

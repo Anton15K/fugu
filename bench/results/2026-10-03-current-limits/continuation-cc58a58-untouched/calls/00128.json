@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "4d39a188e3a5009ea35d689adc993a68023026265681383e0113303c3a48d0ed",
+  "duration_s": 0.5886500420165248,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you read the contents of config.json for me?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d6e88b7efe9654dc1d580931a388b729460f9070516915005b8db8385ea0075b",
+  "number": 128,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "\nFUNCTIONS.read_file({\"path\": \"config.json\"})",
+  "request_sha256": "4902a9d77c37b4a91b6bc9f566c32ea89cbac49d57fed22f1b1f2d50b3350070",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:10:38.746798+00:00",
+  "response_id": "chatcmpl-917f3ade68e3d584",
+  "response_sha256": "245767f0b6204524a8cd46ea4cb0c361bb400897b8391cdd244f5a171dd06260",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 45,
+    "prompt_tokens": 90
+  },
+  "usage_object_present": true
+}

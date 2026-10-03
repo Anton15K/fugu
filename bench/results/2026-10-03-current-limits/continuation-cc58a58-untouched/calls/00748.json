@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "6101e87c3609acff987162b38169548fa12a5d38655fe12cdf443f988f790be0",
+  "duration_s": 0.8970603749912698,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Help me draft a short apology email to a colleague.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "07745163a9e6ccd7455c6e4f779dd209ee61631f283a9fc1d97e294d9fd2093e",
+  "number": 748,
+  "ordinal": 4,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Here's a short, professional apology email template:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"Meeting oversight\"]\n\nHi [Name],\n\nI’m sorry for [specific issue — e.g., \"not delivering the report by Friday\" / \"overlooking your input in today’s meeting\"]. It was my responsibility, and I fell short.\n\nI’ve [brief corrective action — e.g., \"sent the final version just now\" / \"added your notes to the shared doc and will follow up tomorrow\"]. Please let me know if there’s anything else I can do to make this right.\n\nThanks for your patience,  \n[Your name]\n\nPLAN: Ask the user for the specific situation and recipient name.  \nPLAN: Tailor the bracketed placeholders with their details.  \nPLAN: Offer a quick tone check (formal vs. casual) and send the final draft.",
+  "request_sha256": "6e895be046d2c4a440521b0b80705847d4598bf6c81fe43f3ebeb7c69400c2b7",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:29:41.619358+00:00",
+  "response_id": "chatcmpl-9bdf3c43f4c9c8cf",
+  "response_sha256": "ca4e4194b027f760c0f11011d11f1236befd6d0c9321cd8c6a4f2002f839be1e",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 233,
+    "prompt_tokens": 90
+  },
+  "usage_object_present": true
+}

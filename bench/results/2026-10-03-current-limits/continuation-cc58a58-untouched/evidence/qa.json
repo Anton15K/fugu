@@ -1,0 +1,81 @@
+{
+  "accounting_recovery_required": false,
+  "aggregate_command": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "-m",
+    "bench.current_limits_continuation",
+    "aggregate",
+    "--engine-root",
+    "/tmp/fugu-continuation-engine-cc58a58",
+    "--prepared-dir",
+    "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3"
+  ],
+  "aggregate_exit_code": 0,
+  "bootstrap_sha256": "266592fe883c6a58c6671f9feff36b5a0be4d5ed4b680c494bfa58e6c2858cc6",
+  "chart_command": [
+    "/tmp/fugu-charts-venv/bin/python",
+    "-m",
+    "bench.current_limits_continuation_charts",
+    "--combined",
+    "bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/combined.json",
+    "--manifest",
+    "bench/results/2026-10-02-full/cases.json",
+    "--historical-competitors",
+    "bench/results/2026-10-02-full/competitors",
+    "--output",
+    "bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts"
+  ],
+  "chart_conventions": "Primary planned denominator15 with13 detections/one miss/one partial; secondary paired14 same IDs for every tool. Primary clean case flags1/5 with independent adjudication pending. SDK counts and known subtotals keep whole unknown totals explicit.",
+  "checked_utc": "2026-10-03T08:51:00.293127+00:00",
+  "live_command": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "/tmp/fugu-current-limits-continuation-reviewed-bootstrap-v2.py",
+    "--data-release-ref",
+    "qitem-20261003080043-770294f3"
+  ],
+  "live_exit_code": 0,
+  "live_restart_count": 0,
+  "plot_cache_directory": "/tmp/fugu-current-limits-continuation-data-20261003/mpl",
+  "post_live_provider_requests": 0,
+  "provider_requests": 0,
+  "render_exit_code": 0,
+  "render_observation": "Fontconfig reported no writable default cache directories; Matplotlib built its task-local font cache and completed all figures. MPLCONFIGDIR pointed to the assigned scratch directory; rendering used the existing isolated plotting environment.",
+  "renderer_sha256": "ffc3249bee0ce1c26070881e21cc170a928eab172979582d5e7c596494bfd325",
+  "schema": 2,
+  "scope": "Offline aggregation and chart QA; the live execution and usage are retained in the journal/raw results.",
+  "svg_files_parsed": 3,
+  "synthetic": false,
+  "target_executions": 0,
+  "visual_inspection": [
+    {
+      "axes_labels_and_captions_readable": true,
+      "partial_and_pending_evidence_visible": true,
+      "path": "bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/common-results.png",
+      "sha256": "869758bb3ebeaf0c3ff40f28ffb937d7b6c017ea7f5edbc7fa32258ceda90786",
+      "utc_intervals_visible": true,
+      "viewed": true
+    },
+    {
+      "axes_labels_and_captions_readable": true,
+      "partial_and_pending_evidence_visible": true,
+      "path": "bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/cohort-coverage.png",
+      "sha256": "23df79b23e29fecd05d410ff55242a252deb0c26a0358babe8688c1f2c866283",
+      "utc_intervals_visible": true,
+      "viewed": true
+    },
+    {
+      "axes_labels_and_captions_readable": true,
+      "partial_and_pending_evidence_visible": true,
+      "path": "bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/call-telemetry.png",
+      "sha256": "b0e6e2f15ad705751b9280c932e3c38871af0e8191dc5f0b1e51081d7ba1d65b",
+      "utc_intervals_visible": true,
+      "viewed": true
+    }
+  ]
+}

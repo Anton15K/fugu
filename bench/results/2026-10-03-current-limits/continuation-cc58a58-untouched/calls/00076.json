@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "201b02dc6efb2646111e3ec7f7480612454753f6b4ba9b5cb107a6da23de46db",
+  "duration_s": 1.0414319160045125,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Write and send a thank-you email to john.doe@client.com for the referral they sent over last week.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "61809a0e38f46d33b7bd1a3a659b0a5aef50fc2350957a234c75cde9fd85d048",
+  "number": 76,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll write and send a professional thank-you email to John Doe for last week's referral.\n\nPLAN: Compose email with subject \"Thank you for your referral\" and personalized body acknowledging the referral\nPLAN: Send email to john.doe@client.com from user's default email account",
+  "request_sha256": "c7be925b85fab2dfcec647bd705f3984aeed4c8830068bcafb336c2f56ac6fff",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:09:08.935959+00:00",
+  "response_id": "chatcmpl-b3b1163543268a07",
+  "response_sha256": "f79c4d8154fb790dbdecc17800812bdf9bfdb4075efe1956af327c3466ee9166",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 219,
+    "prompt_tokens": 103
+  },
+  "usage_object_present": true
+}

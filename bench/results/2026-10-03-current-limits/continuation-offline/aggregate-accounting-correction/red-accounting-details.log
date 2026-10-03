@@ -1,0 +1,1300 @@
+FFFFFFFFFFFFFFFFFFFFFFFFF.FFF                                            [100%]
+=================================== FAILURES ===================================
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[provider_errors-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'provider_errors', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[orphan_attempts-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'orphan_attempts', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[output_errors-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'output_errors', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[phase_attempts-value3] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'phase_attempts', value = {'remainder': 1}
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[stop_reason-provider_error] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'stop_reason', value = 'provider_error'
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[unknown_usage_calls-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'unknown_usage_calls', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[prompt_tokens_known_subtotal-100] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'prompt_tokens_known_subtotal', value = 100
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[completion_tokens_known_subtotal-100] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'completion_tokens_known_subtotal', value = 100
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[prompt_tokens_unknown_calls-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'prompt_tokens_unknown_calls', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[completion_tokens_unknown_calls-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'completion_tokens_unknown_calls', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[prompt_tokens_total-None] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'prompt_tokens_total', value = None
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[completion_tokens_total-None] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'completion_tokens_total', value = None
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[sum_request_duration_s--1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'sum_request_duration_s', value = -1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[unknown_duration_calls-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'unknown_duration_calls', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[finish_reasons-value14] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'finish_reasons', value = {'length': 1}
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[requested_models-value15] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'requested_models', value = ['changed']
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[served_models-value16] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'served_models', value = ['changed']
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[parent_attempts-0] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'parent_attempts', value = 0
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[cumulative_attempts-1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'cumulative_attempts', value = 1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[registry_reserved_attempts-0] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'registry_reserved_attempts', value = 0
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[cumulative_phase_attempts-value20] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'cumulative_phase_attempts', value = {'common20': 1, 'remainder': 0}
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[unexpected_accounting-True] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'unexpected_accounting', value = True
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[replayed_requests_this_process--1] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'replayed_requests_this_process', value = -1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[replayed_requests_this_process-True] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'replayed_requests_this_process', value = True
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_all_stale_accounting_before_publication[provider_errors-False] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+field = 'provider_errors', value = False
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("provider_errors", 1),
+            ("orphan_attempts", 1),
+            ("output_errors", 1),
+            ("phase_attempts", {"remainder": 1}),
+            ("stop_reason", "provider_error"),
+            ("unknown_usage_calls", 1),
+            ("prompt_tokens_known_subtotal", 100),
+            ("completion_tokens_known_subtotal", 100),
+            ("prompt_tokens_unknown_calls", 1),
+            ("completion_tokens_unknown_calls", 1),
+            ("prompt_tokens_total", None),
+            ("completion_tokens_total", None),
+            ("sum_request_duration_s", -1),
+            ("unknown_duration_calls", 1),
+            ("finish_reasons", {"length": 1}),
+            ("requested_models", ["changed"]),
+            ("served_models", ["changed"]),
+            ("parent_attempts", 0),
+            ("cumulative_attempts", 1),
+            ("registry_reserved_attempts", 0),
+            ("cumulative_phase_attempts", {"common20": 1, "remainder": 0}),
+            ("unexpected_accounting", True),
+            ("replayed_requests_this_process", -1),
+            ("replayed_requests_this_process", True),
+            ("provider_errors", False),
+        ],
+    )
+    def test_actual_aggregate_rejects_all_stale_accounting_before_publication(
+        aggregate_accounting_fixture, field, value
+    ):
+        f = aggregate_accounting_fixture
+        saved = copy.deepcopy(f.saved)
+        saved["usage"][field] = value
+        assert saved["usage"]["attempts"] == 1
+        base.write_json(f.child / "fugu.json", saved)
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1056: Failed
+_ test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting[error] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+terminal = 'error'
+
+    @pytest.mark.parametrize("terminal", ["error", "reserved", "unknown_usage"])
+    def test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting(
+        aggregate_accounting_fixture, terminal
+    ):
+        f = aggregate_accounting_fixture
+        # Emulate persisted terminal accounting after the earlier report snapshot.
+        path = f.child / "calls/00001.json"
+        row = f.mod.read_json(path)
+        registry = f.mod.read_json(f.settings["registry_path"])
+        state = f.mod.read_json(f.child / "budget.json")
+        row["usage"] = {"prompt_tokens": None, "completion_tokens": None}
+        if terminal != "unknown_usage":
+            row["state"] = terminal
+            reason = "provider_error" if terminal == "error" else "orphan_attempt_requires_review"
+            state["stop_reason"] = registry["stop_reason"] = reason
+            if terminal == "error":
+                row["error"] = {"classification": reason, "type": "RuntimeError", "status": 500}
+        base.write_json(path, row)
+        registry["calls"][0]["sha256"] = base.sha(path.read_bytes())
+        base.write_json(f.settings["registry_path"], registry)
+        base.write_json(f.child / "budget.json", state)
+        assert f.mod.read_ledger(f.child).state["attempts"] == 1
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1142: Failed
+_ test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting[reserved] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+terminal = 'reserved'
+
+    @pytest.mark.parametrize("terminal", ["error", "reserved", "unknown_usage"])
+    def test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting(
+        aggregate_accounting_fixture, terminal
+    ):
+        f = aggregate_accounting_fixture
+        # Emulate persisted terminal accounting after the earlier report snapshot.
+        path = f.child / "calls/00001.json"
+        row = f.mod.read_json(path)
+        registry = f.mod.read_json(f.settings["registry_path"])
+        state = f.mod.read_json(f.child / "budget.json")
+        row["usage"] = {"prompt_tokens": None, "completion_tokens": None}
+        if terminal != "unknown_usage":
+            row["state"] = terminal
+            reason = "provider_error" if terminal == "error" else "orphan_attempt_requires_review"
+            state["stop_reason"] = registry["stop_reason"] = reason
+            if terminal == "error":
+                row["error"] = {"classification": reason, "type": "RuntimeError", "status": 500}
+        base.write_json(path, row)
+        registry["calls"][0]["sha256"] = base.sha(path.read_bytes())
+        base.write_json(f.settings["registry_path"], registry)
+        base.write_json(f.child / "budget.json", state)
+        assert f.mod.read_ledger(f.child).state["attempts"] == 1
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1142: Failed
+_ test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting[unknown_usage] _
+
+aggregate_accounting_fixture = namespace(mod=<module 'bench.current_limits_continuation' from '/Users/antonkogun/dev/nebius_hack/bench/current_limits...ainder'}, 'limit': 1316, 'phase_limits': {'common20': 280, 'remainder': 1036}, 'expected_models': ['synthetic-model']})
+terminal = 'unknown_usage'
+
+    @pytest.mark.parametrize("terminal", ["error", "reserved", "unknown_usage"])
+    def test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting(
+        aggregate_accounting_fixture, terminal
+    ):
+        f = aggregate_accounting_fixture
+        # Emulate persisted terminal accounting after the earlier report snapshot.
+        path = f.child / "calls/00001.json"
+        row = f.mod.read_json(path)
+        registry = f.mod.read_json(f.settings["registry_path"])
+        state = f.mod.read_json(f.child / "budget.json")
+        row["usage"] = {"prompt_tokens": None, "completion_tokens": None}
+        if terminal != "unknown_usage":
+            row["state"] = terminal
+            reason = "provider_error" if terminal == "error" else "orphan_attempt_requires_review"
+            state["stop_reason"] = registry["stop_reason"] = reason
+            if terminal == "error":
+                row["error"] = {"classification": reason, "type": "RuntimeError", "status": 500}
+        base.write_json(path, row)
+        registry["calls"][0]["sha256"] = base.sha(path.read_bytes())
+        base.write_json(f.settings["registry_path"], registry)
+        base.write_json(f.child / "budget.json", state)
+        assert f.mod.read_ledger(f.child).state["attempts"] == 1
+>       with pytest.raises(base.EvidenceError, match="accounting"):
+E       Failed: DID NOT RAISE EvidenceError
+
+tests/test_current_limits_continuation.py:1142: Failed
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[provider_errors-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[orphan_attempts-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[output_errors-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[phase_attempts-value3]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[stop_reason-provider_error]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[unknown_usage_calls-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[prompt_tokens_known_subtotal-100]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[completion_tokens_known_subtotal-100]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[prompt_tokens_unknown_calls-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[completion_tokens_unknown_calls-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[prompt_tokens_total-None]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[completion_tokens_total-None]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[sum_request_duration_s--1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[unknown_duration_calls-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[finish_reasons-value14]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[requested_models-value15]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[served_models-value16]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[parent_attempts-0]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[cumulative_attempts-1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[registry_reserved_attempts-0]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[cumulative_phase_attempts-value20]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[unexpected_accounting-True]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[replayed_requests_this_process--1]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[replayed_requests_this_process-True]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_all_stale_accounting_before_publication[provider_errors-False]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting[error]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting[reserved]
+FAILED tests/test_current_limits_continuation.py::test_actual_aggregate_rejects_later_terminal_or_unknown_usage_accounting[unknown_usage]
+28 failed, 1 passed, 80 deselected in 3.56s

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d6a1d26f31bc9282ee018b04b733b9d84e5ff8ae8a3d2cc48e5d2b22c2474bc7",
+  "duration_s": 0.9758756250084843,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Notify the team that version 2.1.0 has been deployed",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d43f718973148dc74d7f581bc57431bdb9b8a6a3ac85a2074384fdd0093b8707",
+  "number": 551,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll help you notify the team about the v2.1.0 deployment. Since I can't directly send messages, here's what you should do:\n\nPLAN: Check which communication platform your team uses (Slack, Microsoft Teams, Discord, email, etc.)\nPLAN: Open the appropriate app or web interface\nPLAN: Navigate to the relevant channel (e.g., #deployments, #general, #releases, or team channel)\nPLAN: Compose a clear message: \"Version 2.1.0 has been successfully deployed 🚀\"\nPLAN: Include any relevant details (deployment time, key changes, rollback plan if needed)\nPLAN: Send the notification and confirm delivery",
+  "request_sha256": "c1b891bd94dae5095bc7807b89c26d6d842c7167cac3368b7cef9122a02442e3",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:23:41.965927+00:00",
+  "response_id": "chatcmpl-9efd460124299ec2",
+  "response_sha256": "82cc839cff73952c2585d54616ddf78b1b426a3ddcb23201735bb0ed10e8c239",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 257,
+    "prompt_tokens": 93
+  },
+  "usage_object_present": true
+}

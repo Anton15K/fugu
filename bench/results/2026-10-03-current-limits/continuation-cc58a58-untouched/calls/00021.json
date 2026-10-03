@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "33dfe226e890358b8afdb49dd97fb1bcb5e2246417b7e94fc0095513281af3be",
+  "duration_s": 1.2785867089987732,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Find recent papers on post-quantum cryptography",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "bac5a767400eb452726205e942967d73a3264894f5166b4f3562b5c14984c6d3",
+  "number": 21,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I'll search for recent post-quantum cryptography papers using academic databases and provide you with a curated list.\n\nPLAN: Search arXiv and Semantic Scholar for papers from 2023-2024 on post-quantum/quantum-resistant cryptography\nPLAN: Filter results by relevance, citation count, and venue quality (top conferences like CRYPTO, EUROCRYPT, IEEE S&P)\nPLAN: Compile 5-7 most significant recent papers with titles, authors, venues, and links\nPLAN: Present findings organized by research focus (lattice-based, hash-based, code-based, multivariate, isogeny-based)",
+  "request_sha256": "f39ccb5051994b335dbf5cd3d44b38971d6b7487d76d958af870f6604866826a",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:07:36.953773+00:00",
+  "response_id": "chatcmpl-bb2977cac0f210ef",
+  "response_sha256": "ee9f50ae3099d4f2cf62f170e043e4b478ead44c3a57cfb4f3958586645689d2",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 335,
+    "prompt_tokens": 89
+  },
+  "usage_object_present": true
+}

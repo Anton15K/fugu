@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/evidence/verify_final.py", line 142, in <module>
+    main()
+  File "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/evidence/verify_final.py", line 78, in main
+    require(child['usage']['phase_attempts'] == phases and child['usage']['served_models'] == models, 'Saved phase/model counts disagree')
+  File "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/evidence/verify_final.py", line 26, in require
+    raise AssertionError(message)
+AssertionError: Saved phase/model counts disagree

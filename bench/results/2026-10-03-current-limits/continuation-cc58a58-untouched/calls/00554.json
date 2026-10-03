@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "d6a1d26f31bc9282ee018b04b733b9d84e5ff8ae8a3d2cc48e5d2b22c2474bc7",
+  "duration_s": 0.9366430830268655,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Send a deploy notification for v3.4.1 to our custom webhook at https://hooks.company.com/deploy",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "bbd03ae21d10a9b381bd1b6d51df37ae6bad7b1d071dd4814452772682502b09",
+  "number": 554,
+  "ordinal": 22,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "I'll send a deploy notification for v3.4.1 to your webhook using an HTTP POST request.\n\nPLAN:\n1. Use the make-http-request skill to POST to https://hooks.company.com/deploy with deployment data including version v3.4.1",
+  "request_sha256": "7acf01641f6412361f15be414c1291ad8d7f333c660bc943ead08061f0afa2c3",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:23:46.696436+00:00",
+  "response_id": "chatcmpl-8116c04bd1272739",
+  "response_sha256": "df010033d8580c279fbe14dcd3ad2005ffd4c2d65f3ab9fd2f571de6af53db75",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 141,
+    "prompt_tokens": 103
+  },
+  "usage_object_present": true
+}

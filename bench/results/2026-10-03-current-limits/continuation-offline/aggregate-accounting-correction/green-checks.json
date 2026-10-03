@@ -1,0 +1,54 @@
+{
+  "checks": [
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "pytest",
+        "tests/test_current_limits_continuation.py",
+        "tests/test_current_limits.py",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "exit_code": 0,
+      "log": "green-scoped.log"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "pytest",
+        "tests/test_current_limits_continuation.py",
+        "-q",
+        "-s",
+        "-p",
+        "no:cacheprovider",
+        "-k",
+        "native32"
+      ],
+      "exit_code": 0,
+      "log": "native-recovery.log"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "ruff",
+        "check",
+        "bench/current_limits_continuation.py",
+        "tests/test_current_limits_continuation.py"
+      ],
+      "exit_code": 0,
+      "log": "ruff.log"
+    }
+  ],
+  "provider_requests": 0
+}

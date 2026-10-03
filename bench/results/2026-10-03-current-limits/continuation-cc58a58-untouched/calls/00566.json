@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "2afc09c9af5c661fced2f0a71e9503180444d751157c0a82ef8c47cc61d904d3",
+  "duration_s": 1.3563913330144715,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Help me draft a short apology email to a colleague.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "07745163a9e6ccd7455c6e4f779dd209ee61631f283a9fc1d97e294d9fd2093e",
+  "number": 566,
+  "ordinal": 4,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "Here's a short, professional apology email template:\n\n**Subject:** Apology — [brief context, e.g., \"Missed deadline\" / \"Meeting conflict\"]\n\nHi [Name],\n\nI’m sorry for [specific issue — e.g., \"missing yesterday’s deadline on the Q3 report\" / \"not being able to attend today’s sync\"]. It was [brief reason, no over-explaining — e.g., \"an unexpected priority shift\" / \"a scheduling oversight on my part\"], and I own the impact it had on you/the team.\n\nI’ve [what you’re doing to fix/prevent — e.g., \"submitted the report this morning\" / \"blocked time to review the recording and follow up by EOD\"]. Please let me know if there’s anything else I can do to make this right.\n\nThanks for your understanding,  \n[Your name]\n\n---\n\nPLAN: Ask the user for the specific situation and recipient name to tailor the email.  \nPLAN: Offer 2–3 tone options (formal, casual, brief) based on their relationship.  \nPLAN: Provide a final polished version ready to send.",
+  "request_sha256": "6e895be046d2c4a440521b0b80705847d4598bf6c81fe43f3ebeb7c69400c2b7",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:24:05.547915+00:00",
+  "response_id": "chatcmpl-8d071b3b2936f796",
+  "response_sha256": "aa0a11b74b99fb8dd4aa1f58245ec8e8cc94464442bbfecad0e9cc65eafc2056",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 278,
+    "prompt_tokens": 90
+  },
+  "usage_object_present": true
+}

@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "9a335b49f28568430a115a947526c3b2c2ffd6f48e42a4e9509ea5784a0f8927",
+  "duration_s": 2.2330102499981876,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- pyproject.toml ---\n[project]\nname = \"dependency-review-fixture\"\nversion = \"0.0.0\"\ndependencies = [\"requests==2.32.5\"]\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "de8f60fb18b4892dee9b748db673be39d6c4a4d8c9e219fdfc45e1bd06c86dfc",
+  "number": 892,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "{\"probes\": [\"Can you review the dependencies in this pyproject.toml file for any security vulnerabilities?\", \"I need to check if requests==2.32.5 has any known issues - can you analyze this dependency?\", \"Please examine this Python project's dependency configuration and let me know if there are any concerns with the specified packages.\"]}",
+  "request_sha256": "7c836446a6237e3c18f81fbb7423241c496263d922840435887f1cbab89f1441",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:34:37.655345+00:00",
+  "response_id": "chatcmpl-875221f6f912f589",
+  "response_sha256": "c86274cf0790b522a573906b6a5be10b9bafb131184509db9f6f511e3b3c8cc5",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 270,
+    "prompt_tokens": 114
+  },
+  "usage_object_present": true
+}

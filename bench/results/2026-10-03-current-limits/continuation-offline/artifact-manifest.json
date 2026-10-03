@@ -1,0 +1,231 @@
+{
+  "active_live_authority": false,
+  "assignment_queue": "qitem-20261003044059-ee835223",
+  "canonical_plan_sha256": "ea8cff37184b4dd7efe06d3494643462298b398bebcb471d50ce0d6d76f32835",
+  "created_utc": "2026-10-03T06:00:49.497334+00:00",
+  "excluded_local_artifacts": [
+    "prepared/** superseded v1",
+    "prepared-v2/targets/** 68 copied regular inputs",
+    "/tmp engine copies",
+    "/tmp synthetic journals and copied fixture inputs"
+  ],
+  "files": 51,
+  "integration_base": "0aca9deeddf6d79e0d7736e0915707dc0ee6db3e",
+  "integration_provenance": "bench/results/2026-10-03-current-limits/continuation-offline/lead-integration-correction.json",
+  "latest_assignments": [
+    "qitem-20261003065017-de9f0691",
+    "qitem-20261003065018-7aa2a577"
+  ],
+  "parent403_unchanged": true,
+  "previous_inventory_sha256": "771ae65fe30771da116aa2efea6519aba2a6af0e04fe512fda0d3c6b2d9d8508",
+  "provider_requests": 0,
+  "schema": 2,
+  "sha256": [
+    {
+      "path": "bench/current_limits_continuation.py",
+      "sha256": "c3b895fcdc441b62fa9c72e0cbc721508d4a5cd8884728d52db68d4c79dc7203"
+    },
+    {
+      "path": "bench/current_limits_continuation_charts.py",
+      "sha256": "ffc3249bee0ce1c26070881e21cc170a928eab172979582d5e7c596494bfd325"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/artifact-manifest.json",
+      "sha256": "03be567c159746bb18100c0ac82a868b3ee40004b83728943b150d746f5f751b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/binding-check.json",
+      "sha256": "52e421abe0609a843ffacdca1d4286fb3c409063c2e0e369fa638b658d3edb5a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/binding-check.log",
+      "sha256": "f1a87ed84ca955ac8c37b1a6f0e0c7171b2e51014a74ed4120171813ab3d76a6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/green-aggregate.log",
+      "sha256": "4151cc24f7d898f2f3bc3f650af76c6d82334469350f0eb9e3a75107c9ff9ac5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/green-checks.json",
+      "sha256": "d5cd149480543d6b5767df5621ed6bf00c8b265da09761c61a867bc3b563f879"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/green-scoped.log",
+      "sha256": "5d8465023daecb707d84992d231174e91d6287e25dbdba361e52f4101cee8ddb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/native-recovery.log",
+      "sha256": "72ee533dae075a38e78e28a9ac2019152314f762c927335aeee60adf070886bc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/prepare-v3.log",
+      "sha256": "8bd8da7ab97af7efcade9d282c27bd0c09386c5dae50a3b9726b14172163664e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/red-accounting-details.log",
+      "sha256": "6f54a3b55a2dc40ac97f478460107c9de711f15654c72333c35e920ae1be301b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/red-aggregate.log",
+      "sha256": "8cbffb5c3104c4dd3c8f1a475668f7987ebb61bca12dff59800bdf8e7f328755"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/result.json",
+      "sha256": "d0b5502db97ec915aecff8b9e1d283a8043e97fc1d2637404a76e5caae1ce618"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/aggregate-accounting-correction/verify_bindings.py",
+      "sha256": "302fea1c1db8485928f42dcf7d9612085855f5408f8fd774b56b9ea8d31dc569"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/final-pytest-v2.log",
+      "sha256": "60703868708e115868376977e8c986b0003af82280dbdc6f0d9daafd1b74285d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/final-pytest.log",
+      "sha256": "737de9db51aa68ccc90adc3a2a105d61127a4af7923b146b0eacd1b9e0f07790"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/green-all.log",
+      "sha256": "8fdd83299903315cbc068068c6923223ee872d8ca39c25d9cc922b6cedfd1f06"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/green-bindings.log",
+      "sha256": "869826eaf65d44f848eb62ce2b2711b5e7a68672e8aec9b46e04083ea15c1397"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/green-journal.log",
+      "sha256": "7e254cea4678e6819d661c2309bfec8a025a32fc504882a1ee29df6fb2fa8e77"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/green-prepare-aggregate.log",
+      "sha256": "16aed1f8931ee68df8ed574ce08063ce1e76800cdd3368905bc336b22b568a00"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/green-selection.log",
+      "sha256": "22bd0602e485e21676279c5aedc8d008bea4469ff3deb2b3a7f910f429e6b2dd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/green-storage-native.log",
+      "sha256": "3c6c4326fdb4a1a18a15c22d7d4910eec174f7de1881debb450cc8c2ff431044"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/portability-green.log",
+      "sha256": "50306174a4f762d504d8af559ca5d5880f00d6d854329d6a926dbb95cd90f4ad"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/portability-red.log",
+      "sha256": "f1c09b90e827a4138e61da91990e682c8bb5423d2cf286efbb5667cdbed8b897"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/prepare-v1.log",
+      "sha256": "f90b320a5db33270508633e59afb25b9e7240dadfc7461badb2e433c552d7a25"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/prepare-v2.log",
+      "sha256": "0a0c9139f016d2543226d01b931eddaa3908b2b8d173fed5399ea2d71928292c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/red-aggregate-bindings.log",
+      "sha256": "fdf07acedc03b614dfd9663d6824b089952e80cd9494ed6c368babfd59ee12f8"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/red-auth.log",
+      "sha256": "27b57b4a54db426ec5a6708e0e1c709403644366418555099628a5f70b19bfed"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/red-journal.log",
+      "sha256": "3f0e5a99e4e38bbdbb439dd521214faa8bac655c253c6f172c50540fdffa3d3b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/red-prepare-aggregate.log",
+      "sha256": "fd464485dca850d173332ba1e1db6c2aa78da33645967f94472b1a50b4f40c71"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/red-selection.log",
+      "sha256": "3bee0a273e8e7996f4258e0f1f0f840005f5f88cf3bb949d58e0b861494cea50"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/red-storage-noop.log",
+      "sha256": "6b7e21871f77e389bd91a984fb80ce525af7e157de81203fd8b3aed8e8ffefa8"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/checks/red-tmp-alias.log",
+      "sha256": "352f10db543eb29cab1cc0e40d409be099824c338715ae3242a34f1e09c41ceb"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/lead-integration-correction.json",
+      "sha256": "405972f807b1183ad2676325b460a7ccd0c4b9fd54e9422fadc389c1572433b9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v2/cases.json",
+      "sha256": "94823aa35f3851e2fd000d02a80e2c9d4f1a16102cdf076aa55d7293544fa72e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v2/plan-hash.json",
+      "sha256": "22e3ca820fabd272e882db7beaa03615e644074fc2607dd56bc3fa6441ef5291"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v2/plan.json",
+      "sha256": "18c175791d1a5eb75e7d5df131814e0949b114f5ad5862473d25b15c27e74017"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v2/release-template.json",
+      "sha256": "21b32e93def5ddf6caa72d8995fd81076da496995cc4bd0bd9952a9923cac3b8"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/cases.json",
+      "sha256": "0fc91f046953e2e5d2f6928187fad267919632fcdea6edfd60641b18bd256e3b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/plan-hash.json",
+      "sha256": "4482582dfe9bd1bd99a3dc428e00effd9b5aec30ed895c53711cdb55b9344174"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/plan.json",
+      "sha256": "0df41c3a4fe646d6aee544b52fadcf10b11769928b40022bf77adf3526e688c7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/prepared-v3/release-template.json",
+      "sha256": "60459e51a7d6bbaabbde000769ac61e5d1c1c8ce584e8fe58cd2950c8b6a02fc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/synthetic-child-plan.json",
+      "sha256": "fdbade736c6e530e1696a2583f87a13d38ba1387c608be179ac64830f79b92cc"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/synthetic-child.json",
+      "sha256": "8119cb8b239a639ba6ef44937a3b3fe861b1ef60d809e462d9468b10c0695839"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/synthetic-combined.json",
+      "sha256": "237f4a04efe8924729d8351f61370c8d5e3ae51a70f383772bdf53fad5ec6bb9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/synthetic-provenance.json",
+      "sha256": "51d9cb657045424f4fcb1d3904ac92bc981f662a8c6b581e3017bc27c42b872c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/continuation-offline/verification.json",
+      "sha256": "aef86618923640e64b8a516785262b29a8057930467bb779d696ef272d643770"
+    },
+    {
+      "path": "docs/benchmark-current-limits-continuation.md",
+      "sha256": "ed7752e0fb4e8b1a933b4fecf1947ebfb018856a2edb5433f5104511a7b5b7ba"
+    },
+    {
+      "path": "tests/test_current_limits_continuation.py",
+      "sha256": "5e44df8d3a2d480748381d09fec66756aee8f45ea0da2e576c372f63230ecd87"
+    },
+    {
+      "path": "tests/test_current_limits_continuation_charts.py",
+      "sha256": "ab287b905291497967a9af2fe18705110feffc15c27567b25888e94457a0119b"
+    }
+  ],
+  "superseded_canonical_plan_sha256": "0e859af4efdda0c6f8c0ee48664486444563ca3af21a4c2cc2ea4e9bf8e74f74",
+  "updated_utc": "2026-10-03T07:19:11.565016+00:00"
+}

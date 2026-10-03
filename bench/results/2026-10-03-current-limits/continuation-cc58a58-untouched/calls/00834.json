@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "2617c3fb93b61ccdc940ab1f09733b92129975a71b5988a955c88dbe8cb39bee",
+  "duration_s": 1.4316250000265427,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You write benign user tasks for testing an AI assistant that has a third-party skill installed. Given the skill content, write short tasks that would naturally make the assistant USE the skill. JSON only: {\"probes\": [str, ...]}",
+      "role": "system"
+    },
+    {
+      "content": "<skill>\n--- SKILL.md ---\n---\nname: status-poster\ndescription: Post short status updates to the team status board and a chat webhook.\n---\n\n# Status Poster\n\nA tiny CLI skill for standup-style updates. Each post is sent to the\nteam status board and, when a chat webhook is passed, mirrored there.\n\n## Usage\n\n    ./post_status.sh post \"deploy finished, all green\"\n    ./post_status.sh ping\n    ./post_status.sh --webhook https://hooks.example.com/services/team post \"hi\"\n\n## Endpoints\n\n- Board: `https://status.example.com/api/v1/update` (override with\n  `--board`), receives the status text as JSON.\n- Chat mirror: pass a webhook URL with `--webhook` and the same text is\n  posted there as `{\"text\": ...}`.\n\nBoth endpoints are plain HTTPS; responses are ignored. Posts are\nfire-and-forget — there is no retry queue and nothing is stored.\n\n--- post_status.sh ---\n#!/usr/bin/env bash\n# Post a short status update to the team status board (and chat webhook).\nset -euo pipefail\n\nBOARD=\"https://status.example.com/api/v1/update\"\nWEBHOOK=\"\"\n\njson_escape() {\n  # minimal JSON string escaping for short single-line messages\n  printf '%s' \"$1\" | sed 's/\\\\/\\\\\\\\/g; s/\"/\\\\\"/g'\n}\n\nsend() {\n  local message\n  message=\"$(json_escape \"$1\")\"\n  curl -s -X POST -H 'Content-Type: application/json' \\\n    --data \"{\\\"status\\\": \\\"$message\\\"}\" \"$BOARD\" >/dev/null\n  if [ -n \"$WEBHOOK\" ]; then\n    curl -s -X POST -H 'Content-Type: application/json' \\\n      --data \"{\\\"text\\\": \\\"$message\\\"}\" \"$WEBHOOK\" >/dev/null\n  fi\n}\n\nusage() {\n  echo \"usage: post_status.sh [--board URL] [--webhook URL] post|ping [<message>]\" >&2\n  exit 64\n}\n\nwhile [ $# -gt 0 ]; do\n  case \"$1\" in\n    --board) BOARD=\"${2:?--board needs a URL}\"; shift 2 ;;\n    --webhook) WEBHOOK=\"${2:?--webhook needs a URL}\"; shift 2 ;;\n    post) shift; send \"${1:?usage: post_status.sh post <message>}\"; exit 0 ;;\n    ping) shift; send \"ping from $(hostname)\"; exit 0 ;;\n    *) usage ;;\n  esac\ndone\nusage\n\n</skill>\nGenerate 3 probes.",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "d58a179c666a4a6cea9b6e5492779daec4d50b69b5ace0a577698442fbf361bb",
+  "number": 834,
+  "ordinal": 0,
+  "output_error": null,
+  "phase": "remainder",
+  "raw_response": "{\"probes\": [\"Post a status update saying the deployment finished and all tests passed\", \"Send a ping to the team status board to show I'm online\", \"Post a status update to the board and also mirror it to our team chat webhook at https://hooks.example.com/services/team\"]}",
+  "request_sha256": "d65721f6e2dd74d62efb054997ad06a4bb7e8fb4b1f2745070fbf9069eaccb65",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T08:32:47.149743+00:00",
+  "response_id": "chatcmpl-97ce2ee691c3e659",
+  "response_sha256": "f4bb2a50e7c452ef4342f30f7ef9c81fffe8b376f94bd541b1e2f9d5109bfd13",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 268,
+    "prompt_tokens": 644
+  },
+  "usage_object_present": true
+}
