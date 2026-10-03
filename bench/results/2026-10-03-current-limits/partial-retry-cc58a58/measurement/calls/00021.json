@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd",
+  "duration_s": 1.0187963329954073,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Can you collect the latest analytics data for me?",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "0cde228fc1d46e23fa0b3a81bdf28901b0776dc34d390e75077340b1a3f813eb",
+  "number": 21,
+  "ordinal": 19,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I can't directly access analytics platforms or databases from here. However, I can help you write scripts to pull data from sources like Google Analytics, Mixpanel, PostHog, or your own database, or guide you through exporting reports manually.\n\nPLAN: Ask which analytics platform you use (GA4, Mixpanel, PostHog, SQL, etc.)\nPLAN: Provide a Python script or API call template for that platform\nPLAN: Show how to authenticate and fetch the latest date range\nPLAN: Output results to CSV/JSON for your review",
+  "request_sha256": "66f35cbe3adef2ca1ee15245691c8a9eff3823e8c240dc43077113261cc09f7b",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T12:13:15.743816+00:00",
+  "response_id": "chatcmpl-9ac1428e2e50a33b",
+  "response_sha256": "50159c09b237861b134918027a00219c42bddb6eadc1871a1136677771475a91",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 201,
+    "prompt_tokens": 89
+  },
+  "usage_object_present": true
+}

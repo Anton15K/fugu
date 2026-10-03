@@ -109,27 +109,29 @@ submitting confidential content.
 
 ## Current production profile and measurement status
 
-On the selected 40-case current-profile set, **39/40 cases completed**. Fugu
-detected **13 of 15 planned MCPTox attack descriptions (86.7%)** at the
-medium-or-higher finding threshold (13/14, 92.9%, among completed attacks).
-One completed attack was missed and one case remains partial; the partial
-case’s high advisory finding does not receive completed-detection credit.
+**40/40 selected cases completed.** Fugu detected **14/15 planned MCPTox attack
+descriptions (93.3%)** at the medium-or-higher threshold, with one completed
+miss.
 
-Independent review classified the single clean-description flag as a false flag
-for malicious-extension source classification; see the [sealed continuation
-report](docs/benchmark-current-limits-continuation.md) for the method and result.
+One raw flag among five clean descriptions was independently classified as a
+false flag for malicious-extension source classification; see the [accepted
+adjudication](bench/results/2026-10-03-current-limits/partial-retry-cc58a58/prior-benign-adjudication.json)
+and [three-interval report](docs/benchmark-current-limits-partial-retry.md#accepted-prior-benign-judgment).
 
-Coverage is limited to source and inference checks: local concealment and static
-analysis, hosted semantic review and stated-intent harness responses, and source
+Coverage is source and inference only: local concealment and static analysis,
+hosted semantic review and stated-intent harness responses, and source
 composition. Detonation, live reputation, and actual target/tool execution were
-excluded. This continuation is not an independent fresh 40-case rerun. See the
-[first-interval stop report](docs/benchmark-current-limits.md) and [sealed
-continuation report](docs/benchmark-current-limits-continuation.md) for details
-on method, coverage, and accounting. The continuation report includes the
-[primary results chart](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/common-results.png),
-[cohort coverage chart](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/cohort-coverage.png),
-[request telemetry chart](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/call-telemetry.png),
-and [combined raw result](bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/combined.json).
+excluded. The [three-interval report](docs/benchmark-current-limits-partial-retry.md)
+documents the original run, untouched continuation, and whole-case retry under
+frozen engine `cc58a58` and the 4,096-token profile, with full method and request
+chronology; this is not an independent fresh 40-case rerun. See the [original
+stop report](docs/benchmark-current-limits.md)
+and [two-interval continuation](docs/benchmark-current-limits-continuation.md)
+for sealed history. Comparator results are retained from 2 October; their native
+and normalized thresholds differ, and neither comparator was rerun ([dated
+comparison](docs/benchmark-current-limits-partial-retry.md#dated-figures-and-historical-comparison)).
+
+![3 October current-profile description results: 14 of 15 planned MCPTox attacks detected and one flag among five clean descriptions; comparator results are historical 2 October runs.](bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/common-results.png)
 
 The checked application uses a shared, immutable profile for inference and
 source coverage. Its main bounds are:

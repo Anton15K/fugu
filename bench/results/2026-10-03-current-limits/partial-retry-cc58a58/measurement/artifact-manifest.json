@@ -1,0 +1,234 @@
+{
+  "data_release": "qitem-20261003121116-4ba56327",
+  "excluded_local_execution_artifacts": [
+    "partial-retry-cc58a58/prepared/targets",
+    "/tmp/fugu-continuation-engine-cc58a58"
+  ],
+  "external_correction_reference": {
+    "accepted_by_lead": true,
+    "handoff": "qitem-20261003122605-bc33186e",
+    "inventory_path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/ci-fixture-correction/correction-inventory.json",
+    "inventory_sha256": "6374d92452cb2ac26cdbcbb7674c3ca9634bfcf59e68127b028408d7664b1393",
+    "native_fixture_sha256": "960987fe803c525a9c17afcc8e85a79c9456f372af3ce7ed1b8233d591d92309",
+    "owner": "build-backend@fugu",
+    "research_edits": 0,
+    "runtime_changes": 0
+  },
+  "offline_inventory_sha256": "158addc8a3ea5f4fb3f2bce568ac4554eefd7eb889202e0c0e2628f6950852a6",
+  "phase": "measured-partial-retry",
+  "plan_sha256": "738c380aa2e3fcdb5910dfcecb0ee8f87a1acf065b8d396c22f0677d40084794",
+  "protocol": "current-production-source-inference-partial-retry-v1",
+  "schema": 2,
+  "sha256": [
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/.journal.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/audits/21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd.json",
+      "sha256": "ee7884ba51f8bc5e298327d4899cce96a8f787a95b4591ab9c640add523808e9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/budget.json",
+      "sha256": "90272d54c104ab87bfadf1e3db0e829656f509877ae86884ac61dc2cef39fc36"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00001.json",
+      "sha256": "20bb8f16410bdb2b9b3afdb33ddecb7ed61cb7b9b3cd939660a65c6016430d0c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00002.json",
+      "sha256": "ef8785b04654fd17c12b979029a23dedf9786b91b425af3946654d63efbe38f6"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00003.json",
+      "sha256": "09474415999da817dd7ee51c9641cd9b6f0307dd73ba1518a206f4f5ac6d0250"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00004.json",
+      "sha256": "7300ee08994b09a4009697c2eff86a668f8bd9c1965f584b67801768b31d76aa"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00005.json",
+      "sha256": "ba8a23cc99e949c777d20780f9e2baf470f96497d6cd9a9c78f55d900bd5da9c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00006.json",
+      "sha256": "4a8340a534b2e17665bbd091c3ad30046103286169c9c7bfec804f9cff11d1c5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00007.json",
+      "sha256": "c67ae3ec74872de07e3f3b90169bdb34ecfe1db9e464bd650321b9ed3510442e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00008.json",
+      "sha256": "dd2f405143e065fc97b1b6fe23a338b40aa4f0b2c2577b544f31ae7742278a1b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00009.json",
+      "sha256": "6931de68837c2b1393d164378b56fe64eac89c34e0dd7cde4b3f2d8c162f5d29"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00010.json",
+      "sha256": "a6e20344933cf4f1b59c3f2e1a8e3c32bd61e2b92757cd56fbc15da9c2824ba4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00011.json",
+      "sha256": "1aecaa0023eadb2982afa9ad153f29da0d23a68d2a5dbf9d5e13e56028722602"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00012.json",
+      "sha256": "dc4d0c9ec1986a402cd61b81560d9088df4aa2b5b55834d2c765a6bc07280ba9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00013.json",
+      "sha256": "d07d55fbdc4660c52d2cefb5cf06b39bbb20f317c9710e74b33f99e9dae8ea59"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00014.json",
+      "sha256": "57cde21333d58b9c4af9633ae3fc2aa655df5820abf37dffc7861772f84bff9a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00015.json",
+      "sha256": "4097a6ab5550a1b6d1829c91c7cefbde88ede73e389f9532c6f71c5f279b25fd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00016.json",
+      "sha256": "b2408d7ac03859f785c6598c9cd8afea14a67941b19b6bd7c7187111cecb20ad"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00017.json",
+      "sha256": "b11990a37a414de3ff1b2524e1462750dcea47a04dd7f244b716ddf389a0b77f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00018.json",
+      "sha256": "e71fad3412732f867790856c199069d0ea75680f5eac29eca440226e5658fad5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00019.json",
+      "sha256": "5b449745cb5851e97dee1966c0f38b3134de6821c241d6cb234b1ae71aee76ca"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00020.json",
+      "sha256": "bcd4afc8fc67fc82e87e8fad9799db8cd0ffce01dc8291e1cbf9d0efbfae0486"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00021.json",
+      "sha256": "8342811bdf341b65f7e4aa23319f3dc0451b75ad6700b1c462c8416e550dea96"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00022.json",
+      "sha256": "2a1791555b8a3de1152368d1097468aadbb3c1690141661a578293069899e696"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00023.json",
+      "sha256": "b4c069c5ba22b31aa1ccfa5eaf16dd51f7f9a1618df31825b8bcdbecc21de733"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00024.json",
+      "sha256": "c32dc5a2b78f8c40febfebc597266162ada039b5a03336303d41c70f5f8b4c56"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00025.json",
+      "sha256": "9a7a511549ac1283b2a5d3054b66ecd613f582a0021e74b162c58c829349cbb9"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00026.json",
+      "sha256": "30e67f150ebcf20dca2a78c080588603666ef525c064ca0922dea1e03a9730d4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00027.json",
+      "sha256": "c00a8c14fceec9854d30983fc45a33cec4f9473384d7c07d1e829d4c66365b3c"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00028.json",
+      "sha256": "0b1acad73467e3572555916532921fd50f06a3b9250a69fa473496608bc4e633"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/calls/00029.json",
+      "sha256": "c6c92525f6b8e64f70515b1968f8fcf586a8c51ac415d4b7d7e8d71fbe230fbd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/call-telemetry.png",
+      "sha256": "23bb4dac9466b0ea6f7251662eb1fb0113bcf6f387e69645947d504d58166b7d"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/call-telemetry.svg",
+      "sha256": "a1b6fd13d3b8e0ba2a4ff730db40be46454e997a42c62ad1d73c250035525416"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/chart-data.json",
+      "sha256": "04a646e70a27e26c7f73a16fc37154150a4565a4bec4cbb72e30e7a895a7877e"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/cohort-coverage.png",
+      "sha256": "5f711275c880660e29cfb39c086f3ea673ed664f81d1f87a1a589c7c317a5a30"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/cohort-coverage.svg",
+      "sha256": "5754d8b766abc605aacc0f3a108420f6fd0115478e06df37801b6bd5f5367770"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/common-results.png",
+      "sha256": "8463228a8a4f20defa99668d7363e2559deb4cb1869bfb25e60af0aa07d972b7"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/common-results.svg",
+      "sha256": "e8f4862f02be921edd32d62a9efe92e7393bb8b180c12ca678caaa048ef55911"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/combined.json",
+      "sha256": "6265e8236b4c65fd04381f724991234a856cad79f3d13c18c01644e221bbf4e1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/data-release.json",
+      "sha256": "246ba0d7bb486c2c377cdfa42cb0bf1ee4976ec050f657079fb009244f3b906f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/accepted-offline-report.md",
+      "sha256": "3369baa10692db0b080e0cdabbf4ca55ea63ec74884684292c594501a028957a"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/accepted-source-review.json",
+      "sha256": "a5ab905c680a72cdc1dbeffca6ac861aa72d7389aa8e63e5ffda6352bcede6d5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/ci-test-amendment-provenance.json",
+      "sha256": "491863437421115934c92a342907afdf60337cdfe267658bc3585e6280e48945"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/execution.json",
+      "sha256": "b2d01adc6caf142e5f22cb2b046500aa27817f269461ca753e21288139de018f"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/measured-checks.json",
+      "sha256": "ccd4b424a22937f0630aed98fbab7e94d0aee0b03ce9395e64fc8d849cebc5f4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/fugu.json",
+      "sha256": "bf1d2bbea6748c98289e5a40c79e33b1d76969d70512f630e6cc96421dd9c119"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/provenance.json",
+      "sha256": "b1df8831998df62bc9e0a6e5bed21e28a45c1b01eeadf5fa9643e403c1385111"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/render_charts.py",
+      "sha256": "1025ba01306ccbb93bed1c445c8d5177d5a6cb62332125b6644d755094fb57db"
+    },
+    {
+      "path": "docs/benchmark-current-limits-partial-retry.md",
+      "sha256": "096bbda435a550a9ff8f295b1bada3caf3f594d26b21974228c4356413755962"
+    }
+  ],
+  "packaging_amendment": {
+    "previous_manifest_sha256": "ea225126684273ab15a9774e3b4e4e5814b0788241e0cba2db963f2c63328937",
+    "removed_redundant_diff_path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/external-ci-test-amendment.diff",
+    "original_diff_sha256": "e8b118632955fbd00fd552981a14ba747ac1029bf211c303b1c196ca27e2f76c",
+    "original_diff_commit": "b82bad619c9dd4c3b44b620e2776d821abb52214",
+    "provenance_path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/ci-test-amendment-provenance.json",
+    "provenance_sha256": "491863437421115934c92a342907afdf60337cdfe267658bc3585e6280e48945",
+    "unchanged_measured_bindings": 49,
+    "measured_data_changes": 0
+  }
+}
