@@ -1,0 +1,186 @@
+{
+  "attempt_limit": 80,
+  "bootstrap_sha256": "6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd",
+  "capabilities_excluded": [
+    "detonation",
+    "target execution",
+    "reputation",
+    "fresh competitors"
+  ],
+  "cases_sha256": "400d11032138d23322baa61be7a32b10771e2ed779ebdaa7451ecf5e1d65bfa6",
+  "context": "21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd",
+  "created_utc": "2026-10-03T11:41:11.633703+00:00",
+  "engine": {
+    "commit": "cc58a58d6cea861510980814ae2e70b7bdf24e63",
+    "hashes": {
+      "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+      "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+      "src/fugu/client.py": "9dc387ab39360eb0c2080e8f189a11fc64499f13d37f84bb3969ba55319fb2c8",
+      "src/fugu/config.py": "ae0c8a899d86132b9c1890c0f26b90205d717f00e9eadad4490208531ad15388",
+      "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+      "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+      "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+      "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+      "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+      "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+      "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+      "src/fugu/detonation/docker_driver.py": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193",
+      "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+      "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+      "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+      "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+      "src/fugu/pipeline/assemble.py": "9e1dd726263d3ff365944020359644290610178c678f4f4d8fee6b6ce136e8a9",
+      "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+      "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+      "src/fugu/pipeline/stages/composition.py": "1ae70d0dc84e79d127f8fbdd5b53b2b040bc668d5344ddda62b7d0032c00a7d1",
+      "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+      "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+      "src/fugu/pipeline/stages/harness.py": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5",
+      "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+      "src/fugu/pipeline/stages/semantic.py": "8174296257387d2b48bb88b1ffe97e776c1d6cfccf6182d3d46625e510e7b26c",
+      "src/fugu/pipeline/stages/static_scan.py": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9",
+      "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+      "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+      "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+      "src/fugu/server/composition_jobs.py": "504ccb83bac64c05f153527c0ca4043d6ebb05f2aff281cf18ceb7ee1a3e06ae",
+      "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+      "src/fugu/server/jobs.py": "4bf9d679c36facf99c7b99547a6b76a67edbe050a6f7b0c5186a4375260e6ee6",
+      "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+      "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+      "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb",
+      "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+      "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+    },
+    "scope": "Checked current production defaults; live authority requires accepted independent review and explicit lead data-phase grant"
+  },
+  "engine_root": "/private/tmp/fugu-continuation-engine-cc58a58",
+  "execution_authorized": false,
+  "history_helper_sha256": "c3b895fcdc441b62fa9c72e0cbc721508d4a5cd8884728d52db68d4c79dc7203",
+  "http_error_retries": 0,
+  "measurement_directory": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement",
+  "mounted_comparisons_expected": 18,
+  "namespace": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/partial-retry-cc58a58",
+  "native_repair_maximum": 11,
+  "original_case_manifest_sha256": "f9b31035908d217a822079dd190c4d5797f86646c65f01c2e06b1f57ae3e91b1",
+  "original_combined_sha256": "436b0bd1e0e2bb4504ef82612dc2a5be175731a28718e851a5a29f2b1b05ffc7",
+  "original_inventory_sha256": "a92f16dce0c1c9df95f44d574aacb37c547b152562f527d3915a192d57298d30",
+  "original_partial_row_sha256": "f5857e93f046c83c874872c9147470a55b2499035f67b418a18002e72070f96f",
+  "preflight": {
+    "context_count": 1,
+    "contexts": [
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "mcptox/AlphaVantage_4",
+        "fingerprint": "21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd",
+        "input_sha256": {
+          "tools.json": "5659b7390f3c71ace07ec6cc29d3b2b913c7f3912c9d7b5145895ecddeaeec37"
+        },
+        "maximum_unit_chars": 272,
+        "semantic_units": 1
+      }
+    ],
+    "semantic_primary_units": 1,
+    "unique_audit_count": 1,
+    "unique_audits": [
+      {
+        "collection": {
+          "files_scanned": 1,
+          "files_seen": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_max_files": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0
+        },
+        "context": "mcptox/AlphaVantage_4",
+        "fingerprint": "21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd",
+        "input_sha256": {
+          "tools.json": "5659b7390f3c71ace07ec6cc29d3b2b913c7f3912c9d7b5145895ecddeaeec37"
+        },
+        "maximum_unit_chars": 272,
+        "semantic_units": 1
+      }
+    ]
+  },
+  "previous_attempts": 1278,
+  "primary_maximum": 29,
+  "prior_adjudication_review": "qitem-20261003100222-9c2b92be",
+  "prior_adjudication_sha256": "e714ec567dedd96c78cbf5ef7c292e9713dfc5f71223c4414a5c18da4b4cc94b",
+  "profile": {
+    "fanout_max_units": 24,
+    "git_clone_timeout_seconds": 120,
+    "harness_full_static_probes": 6,
+    "harness_max_file_bytes": 2000000,
+    "harness_max_files": 50,
+    "harness_mount_char_budget": 32000,
+    "harness_standard_static_probes": 3,
+    "llm_max_output_tokens": 4096,
+    "red_probe_count": 3,
+    "red_probe_max_chars": 200,
+    "request_timeout_seconds": 90,
+    "sdk_max_retries": 0,
+    "semantic_max_chars_per_unit": 6000,
+    "semantic_max_file_bytes": 2000000,
+    "semantic_max_files": 2000,
+    "semantic_max_units": 24,
+    "source_max_bytes": 536870912,
+    "source_max_entries": 20000
+  },
+  "profile_sha256": "0ca72c2f933e0f03adc15b70bc362be269865222c41cdb0a42208b9185f47403",
+  "protocol": "current-production-source-inference-partial-retry-v1",
+  "provider_base_url": "https://api.tokenfactory.nebius.com/v1/",
+  "provider_requests": 0,
+  "requested_models": [
+    "nvidia/Nemotron-3-Ultra-550b-a55b",
+    "nvidia/nemotron-3-super-120b-a12b"
+  ],
+  "runner_sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d",
+  "runtime": {
+    "dependencies": {
+      "fastapi": "0.141.1",
+      "httpx": null,
+      "openai": "3.16.2",
+      "pydantic": "2.13.5",
+      "pydantic-settings": null,
+      "python-dotenv": "1.2.3"
+    },
+    "project_files_sha256": {
+      "pyproject.toml": "0656fcd49d1d5f8c99ebeb43cdd5c8d84f6701c897d17a04e8710949be73804f",
+      "uv.lock": "5bd3d347a7e55d845a8a885e5c7bcf02ca17f46e1e8c6f3e6e5d3f5caff9f250"
+    },
+    "python": "3.11.16"
+  },
+  "schema": 1,
+  "sdk_retries": 0,
+  "selected_case_ids": [
+    "mcptox/AlphaVantage_4"
+  ],
+  "temperature": 0.1,
+  "text_contracts": {
+    "harness_mount_template_sha256": "1ddf819727f56801c5654c626cbac189485788b7a4841453ea031b4539564631",
+    "harness_operator_sha256": "2c7c7e6f6aa9c07221ea7c3522897db8ec8017bc028abddd9f52fd36be3f86ab",
+    "per_request_system_messages": "Exact constructed messages retained and hashed at SDK boundary",
+    "red_prompt_construction_sha256": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5",
+    "semantic_system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+    "static_probes_chars": [
+      59,
+      51,
+      50,
+      60,
+      41,
+      42
+    ],
+    "static_probes_sha256": "e2190b0526a465bcac998778e722d40715936911552e4a354751a0c1bb474004"
+  },
+  "timeout_s": 90,
+  "worst_cumulative_attempts": 1358,
+  "wrapper_sha256": "14f12e72f49fc03608c3d5689085da7242e004b6b8586b5ee7371eb53bedfdfe"
+}

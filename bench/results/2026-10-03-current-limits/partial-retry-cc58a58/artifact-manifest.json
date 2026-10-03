@@ -1,0 +1,83 @@
+{
+  "excluded_local_execution_artifacts": [
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/prepared",
+      "reason": "Copied regular pinned input; packet SHA bound in cases and plan"
+    },
+    {
+      "path": "/private/tmp/fugu-continuation-engine-cc58a58",
+      "reason": "Frozen engine snapshot; source37 hash bindings are in plan"
+    }
+  ],
+  "phase": "offline",
+  "plan_sha256": "738c380aa2e3fcdb5910dfcecb0ee8f87a1acf065b8d396c22f0677d40084794",
+  "protocol": "current-production-source-inference-partial-retry-v1",
+  "provider_requests": 0,
+  "schema": 2,
+  "sha256": [
+    {
+      "path": "bench/current_limits_partial_retry.py",
+      "sha256": "14f12e72f49fc03608c3d5689085da7242e004b6b8586b5ee7371eb53bedfdfe"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/bootstrap.py",
+      "sha256": "6c458f8acb2ff8842a401ec3f3ab593d1819df9559e2dfa38e2d8aade90723bd"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/cases.json",
+      "sha256": "94eec66e52e9fcea3e58c1eb8fd098ffb0258afd71bbb106c209b913f80a88c4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/bytecode-cleanup.json",
+      "sha256": "bdf5ceaf71a97982fe14883e5a7471253a92f4678f0115cccfc420deebe810c5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/default-path-red.log",
+      "sha256": "4350a9abc58f3637e22274abe59e89b5238ad9d21fd809b5f1e3e724e1e95ae4"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/full18-red.log",
+      "sha256": "a55b8c638ad3bd76d88688446d7098722a78b609521210688d606ab282268aa5"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/offline-checks.json",
+      "sha256": "138c525e14bed235e59ffe6945af84027a5011e81c2205a7bf915730ca18b1e1"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/preparation.log",
+      "sha256": "07c0af99426c70a356f16bd676b2b56a78f237f48cadf16b68db105c2dc3e6be"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/evidence/scoped-tests.log",
+      "sha256": "cc6784b35781989fee1fcc71ac98bf0740e1f3232dfa89552211874d257a3f86"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/plan-hash.json",
+      "sha256": "ac7bdad0a32101f97bbc9441778c30f20cc6ece0e66c6fa6231e6a625f05c471"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/plan.json",
+      "sha256": "2e3f90f5e9dd4348175ce6cbc689e10dfc434b6c35f0adc906f3f385d7445193"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/prior-benign-adjudication.json",
+      "sha256": "e714ec567dedd96c78cbf5ef7c292e9713dfc5f71223c4414a5c18da4b4cc94b"
+    },
+    {
+      "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/release-template.json",
+      "sha256": "dd95926ad48b3b8199619a9db87f71ce641437ee704bab8e798c08639e7b2d16"
+    },
+    {
+      "path": "docs/benchmark-current-limits-partial-retry.md",
+      "sha256": "3369baa10692db0b080e0cdabbf4ca55ea63ec74884684292c594501a028957a"
+    },
+    {
+      "path": "tests/test_current_limits_partial_retry.py",
+      "sha256": "c512a7c9e7ee8075df96b9447ffca36ddd7ef3616b2c7a170797d0e2461d5ba4"
+    }
+  ]
+}
