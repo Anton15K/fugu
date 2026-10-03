@@ -41,6 +41,31 @@
   },
   "engine_manifest_sha256": "580dc3386c5836809dbfb677518eba60d9fe578c76cd1a458460f8238b0beee6",
   "engine_scope": "Lead frozen e184 legacy engine; offline native compatibility only",
+  "formatting_correction": {
+    "at_utc": "2026-10-03T01:16:48.018617+00:00",
+    "generator": "Matches bench/full_charts.py existing normalization",
+    "normalized_svg_sha256": {
+      "bench/results/2026-10-03-current-limits/offline-checkpoint/charts/call-telemetry.svg": {
+        "normalized_sha256": "c6e7547b4f4ad1719da6a2ee371c473ff1a777bf01f8d9465fed454fa9ec8219",
+        "previous_sha256": "157bf99c3bb765dab53f7b39b598e4527f93c80a38ff63d6e989c0f030922175"
+      },
+      "bench/results/2026-10-03-current-limits/offline-checkpoint/charts/cohort-coverage.svg": {
+        "normalized_sha256": "720a3b1c73bfe12dba86c189ae8d1269289743490c7dfadb200b24c78ccee078",
+        "previous_sha256": "11ae4a28329f3a5c1cc610270d6027eff790bb6bb13a1106223e078ee6e6f09f"
+      },
+      "bench/results/2026-10-03-current-limits/offline-checkpoint/charts/common-results.svg": {
+        "normalized_sha256": "e12099a9480260cfe6ccb2c2fba92394fa864e76ec8e9d921200f87aa4c71211",
+        "previous_sha256": "428dae4c1479ffd2b7aa6d6492dd9e82b790cc043a228edb4377f6a21c9d824e"
+      },
+      "bench/results/2026-10-03-current-limits/offline-checkpoint/charts/input-coverage.svg": {
+        "normalized_sha256": "315c4492042c289d51270bb63a804674e3feab71d419843187d8168ee284260a",
+        "previous_sha256": "e81a95501b97e396fabd2cd7b590b469aa01b90e8282b724bca90dbf6d063023"
+      }
+    },
+    "previous_plan_sha256": "aa9bc3d286b84e3fbc49151882631a12e7c2b4968566243dd616146d6db90540",
+    "prior_bytes_commit": "c33fff1",
+    "scope": "SVG trailing whitespace only; no plotted data, PNG, source engine, raw replies or input changes"
+  },
   "fresh_improved_engine_measured": false,
   "fresh_provider_requests": 0,
   "limitations": [
@@ -51,7 +76,7 @@
     "Manual queue authority verification precedes CLI release reference use"
   ],
   "live_authority_active": false,
-  "offline_plan_sha256": "aa9bc3d286b84e3fbc49151882631a12e7c2b4968566243dd616146d6db90540",
+  "offline_plan_sha256": "9f72d31136369ed582f0bc427ea886697ac54acf5e279d7c800ad616100e6275",
   "queue_id": "qitem-20261002231229-9f41594f",
   "red_green_evidence": [
     {

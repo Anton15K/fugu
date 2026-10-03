@@ -187,7 +187,11 @@ def render(data: dict, output: Path) -> list[str]:
                      f"engine: {engine.get('commit', 'unavailable')[:12]}; "
                      f"output cap: {limits.get('llm_max_output_tokens', 'unavailable')}", fontsize=9)
         fig.savefig(output / (name + ".png"), dpi=180)
-        fig.savefig(output / (name + ".svg"))
+        svg = output / (name + ".svg")
+        fig.savefig(svg)
+        svg.write_text("".join(line.rstrip() + "\n" for line in
+                               svg.read_text(encoding="utf-8").splitlines()),
+                       encoding="utf-8")
         plt.close(fig)
         names.extend([name + ".png", name + ".svg"])
 
