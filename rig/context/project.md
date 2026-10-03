@@ -53,6 +53,9 @@ scripts first rather than assuming every check is hermetic.
 | Security/benchmarks | research.security | research-security@fugu |
 | Reviewer/QA | quality.reviewer | quality-reviewer@fugu |
 | Docs/release/demo | delivery.release | delivery-release@fugu |
+| Showcase MCP hunter | showcase.mcp | showcase-mcp@fugu |
+| Showcase skills hunter | showcase.skills | showcase-skills@fugu |
+| Showcase evidence reviewer | showcase.evidence | showcase-evidence@fugu |
 
 Derive runtime identity with `rig whoami --json`; do not infer your own role
 from shared guidance or another seat's session. Load the relevant OpenRig

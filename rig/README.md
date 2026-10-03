@@ -1,6 +1,6 @@
 # Fugu project rig
 
-Six resident Codex seats cover the entire project. Give the lead an outcome;
+Nine resident Codex seats cover the entire project. Give the lead an outcome;
 it plans, delegates at most two concurrent implementation tasks, obtains
 independent review, and manages the task's PR through merge. Other seats remain
 idle until needed. Quota is consumed when seats actually run tasks and startup.
@@ -13,6 +13,9 @@ idle until needed. Quota is consumed when seats actually run tasks and startup.
 | `research-security@fugu` | Threats, corpus, benchmarks | GPT-6.1-Sol | max |
 | `quality-reviewer@fugu` | Independent review, integration QA | GPT-6.1-Sol | max |
 | `delivery-release@fugu` | Docs, packaging, demo and assigned deployments | GPT-6-Luna | max |
+| `showcase-mcp@fugu` | Continuous MCP discovery and audits | GPT-6.1-Sol | max |
+| `showcase-skills@fugu` | Continuous skills/injection discovery and audits | GPT-6.1-Sol | max |
+| `showcase-evidence@fugu` | Independent finding validation and issue drafts | GPT-6.1-Sol | max |
 
 ## Start and inspect
 
@@ -22,7 +25,7 @@ tools for assigned tasks. This setup was authored against OpenRig 0.6.3 and
 Codex 0.159.3. AgentSpecs import the installed shared resource directory at
 `/opt/homebrew/lib/node_modules/@openrig/cli/daemon/specs/agents/shared`; on a
 different installation, resolve its shared AgentSpec with `rig specs ls --kind
-agent --json` and update the six import paths before validation.
+agent --json` and update the nine import paths before validation.
 
 ```sh
 python3 rig/setup.py
@@ -109,3 +112,22 @@ using targeted recovery. Do not restart or mutate other rigs on this host.
 To undo the profile installation, remove only those two dedicated files if
 they still match the checked-in profiles, after stopping seats that use them.
 Keep your other Codex settings and OpenRig rigs.
+
+## Dedicated showcase campaign
+
+The assigned campaign continues in bounded, event-driven batches until three
+distinct repositories have independently accepted actionable new findings and
+local issue drafts, or actual quota/native blockers stop affected work. The
+whole rig still permits at most two writers; adding seats does not raise that
+limit. No third-party issues or unpublished security details are automatically
+published. See [the campaign contract](context/showcase-campaign.md).
+
+Add the new pod to the existing rig with the exact Fugu rig ID, without
+restarting the six existing seats:
+
+```sh
+rig expand 01M3WTN0J1ZA6T7X8QHJ9DZWFJ rig/showcase-pod.yaml --rig-root /Users/antonkogun/dev/nebius_hack --json
+```
+
+Run that command only when the showcase pod does not already exist. Verify
+startup proof and native model/effort, then let the lead issue durable work.
