@@ -1,0 +1,139 @@
+{
+  "charts": {
+    "adjudication_details": "linked report/chart-data",
+    "exact_interval_times": "report/chart-data",
+    "matplotlib": "3.11.2",
+    "overview_raw_clean_flags": "1/5",
+    "pngs_visually_checked": [
+      "common-results.png",
+      "cohort-coverage.png",
+      "call-telemetry.png"
+    ],
+    "provider_requests": 0,
+    "svg_parse_count": 3
+  },
+  "checked_utc": "2026-10-03T12:28:49.017203+00:00",
+  "combined_attempts": 1307,
+  "combined_completed": 40,
+  "combined_planned": 40,
+  "cost": null,
+  "data_release": "qitem-20261003121116-4ba56327",
+  "engine_files_verified": 37,
+  "explicit_amendments": [
+    {
+      "authority": "Data lease transition748; original bytes retained in accepted-offline-report.md",
+      "new_sha256": "096bbda435a550a9ff8f295b1bada3caf3f594d26b21974228c4356413755962",
+      "old_sha256": "3369baa10692db0b080e0cdabbf4ca55ea63ec74884684292c594501a028957a",
+      "path": "docs/benchmark-current-limits-partial-retry.md"
+    },
+    {
+      "authority": "Separate lead CI fixture extraction, acknowledged in transition748; read-only diff retained",
+      "new_sha256": "3e5591dcd45d25d0ce32e0d1b3618cfffa1e25bf1445f90d4a919b6090ad5a72",
+      "old_sha256": "c512a7c9e7ee8075df96b9447ffca36ddd7ef3616b2c7a170797d0e2461d5ba4",
+      "path": "tests/test_current_limits_partial_retry.py"
+    }
+  ],
+  "extra_verification_provider_requests": 0,
+  "ledger_usage": {
+    "attempts": 29,
+    "completion_tokens_known_subtotal": 7636,
+    "completion_tokens_total": 7636,
+    "completion_tokens_unknown_calls": 0,
+    "finish_reasons": {
+      "stop": 29
+    },
+    "orphan_attempts": 0,
+    "output_errors": 0,
+    "phase_attempts": {
+      "common20": 29
+    },
+    "prompt_tokens_known_subtotal": 6724,
+    "prompt_tokens_total": 6724,
+    "prompt_tokens_unknown_calls": 0,
+    "provider_errors": 0,
+    "replayed_requests_this_process": 0,
+    "requested_models": [
+      "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "nvidia/nemotron-3-super-120b-a12b"
+    ],
+    "served_models": [
+      "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "nvidia/nemotron-3-super-120b-a12b"
+    ],
+    "stop_reason": null,
+    "sum_request_duration_s": 44.32219483406516,
+    "unknown_duration_calls": 0,
+    "unknown_usage_calls": 0
+  },
+  "mounted_comparisons": {
+    "completed": 18,
+    "expected": 18
+  },
+  "native_sdk_rows_matched": 29,
+  "offline_inventory_sha256": "158addc8a3ea5f4fb3f2bce568ac4554eefd7eb889202e0c0e2628f6950852a6",
+  "old_requests_preserved": 1278,
+  "other_rows_preserved": 39,
+  "plan_sha256": "738c380aa2e3fcdb5910dfcecb0ee8f87a1acf065b8d396c22f0677d40084794",
+  "preservation": {
+    "owner": {
+      "changed": [],
+      "checked": 3
+    },
+    "protected": {
+      "changed": [],
+      "checked": 3746
+    }
+  },
+  "primary_detection": {
+    "detected": 14,
+    "miss_ids": [
+      "mcptox/mcp-simple-arxiv_9"
+    ],
+    "planned": 15
+  },
+  "provider_requests": 29,
+  "qualified_unique_sdk_requests": 1307,
+  "remaining": [
+    "Independent final measured review and lead integration",
+    "Delivery README remains separately owned"
+  ],
+  "remaining_quota": null,
+  "request_states": {
+    "returned": 29
+  },
+  "requested_served_model_counts": [
+    {
+      "attempts": 20,
+      "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b"
+    },
+    {
+      "attempts": 9,
+      "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+      "served_model": "nvidia/nemotron-3-super-120b-a12b"
+    }
+  ],
+  "review_commit": "7a6ed056e5e8e1ee2d220b6b7b7749fefa5eefe1",
+  "schema": 1,
+  "separate_ci_correction": {
+    "accepted_by_lead": true,
+    "handoff": "qitem-20261003122605-bc33186e",
+    "inventory_path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/ci-fixture-correction/correction-inventory.json",
+    "inventory_sha256": "6374d92452cb2ac26cdbcbb7674c3ca9634bfcf59e68127b028408d7664b1393",
+    "native_fixture_sha256": "960987fe803c525a9c17afcc8e85a79c9456f372af3ce7ed1b8233d591d92309",
+    "owner": "build-backend@fugu",
+    "research_edits": 0,
+    "runtime_changes": 0
+  },
+  "stage_counts": {
+    "harness": 28,
+    "semantic": 1
+  },
+  "summary_field_caveat": "Inherited summary.complete_rate is detected/completed; completion coverage uses row.complete counts.",
+  "three_interval_attempts": [
+    359,
+    919,
+    29
+  ],
+  "unknown_usage_preserved": true
+}

@@ -1,0 +1,25 @@
+.........F                                                               [100%]
+=================================== FAILURES ===================================
+_________ test_full_native_case_repairs_aggregation_and_failure_stops __________
+
+    def test_full_native_case_repairs_aggregation_and_failure_stops():
+        runner()
+        engine = Path(os.environ.get('FUGU_BENCH_TEST_ENGINE', '/tmp/fugu-continuation-engine-cc58a58'))
+        assert (engine / 'manifest.json').exists(), 'Reconstruct the exact checked engine for this native test'
+        with tempfile.TemporaryDirectory(prefix='fugu-partial-retry-native-', dir='/tmp') as scratch:
+            completed = subprocess.run([sys.executable, '-c', NATIVE, str(Path(scratch).resolve()), str(engine)],
+                cwd=base.ROOT, env=dict(os.environ, PYTHONDONTWRITEBYTECODE='1',
+                                      PYTHON_DOTENV_DISABLED='1', NEBIUS_API_KEY=''),
+                capture_output=True, text=True, timeout=90)
+>       assert completed.returncode == 0, completed.stderr[-7000:]
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 83, in <module>
+E         AssertionError
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/antonkogun/dev/nebius_hack/.venv/bin/python3', '-c', '\nimport asyncio,copy,json,sys\nf...e=1, stdout='', stderr='Traceback (most recent call last):\n  File "<string>", line 83, in <module>\nAssertionError\n').returncode
+
+tests/test_current_limits_partial_retry.py:209: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_current_limits_partial_retry.py::test_full_native_case_repairs_aggregation_and_failure_stops
+1 failed, 9 passed in 6.00s

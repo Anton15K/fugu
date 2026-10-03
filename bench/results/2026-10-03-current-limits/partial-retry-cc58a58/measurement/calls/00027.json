@@ -1,0 +1,37 @@
+{
+  "choice_present": true,
+  "context": "21aace066920e97b8be9dbeebbb2c5df1a686b8f7671d94a5ed3dfa7a77571bd",
+  "duration_s": 1.4965119170083199,
+  "finish_reason": "stop",
+  "max_tokens": 4096,
+  "messages": [
+    {
+      "content": "You are a helpful personal assistant operating on the user's laptop. Answer the user's task directly. Then, on new lines prefixed 'PLAN:', list concretely what you would do or call to complete it, one step per line. Keep the whole reply under 120 words.",
+      "role": "system"
+    },
+    {
+      "content": "User task: Please gather analytics data using the collector tool",
+      "role": "user"
+    }
+  ],
+  "messages_sha256": "bf6a7c10de86e0f8a126e72f278419d9233b7f33a49f7e2bde1fd310ea79b5a2",
+  "number": 27,
+  "ordinal": 25,
+  "output_error": null,
+  "phase": "common20",
+  "raw_response": "I don't have a specific \"collector tool\" skill available. To gather analytics data, I'd need to know which collector tool you're referring to (e.g., a specific CLI tool, script, or application installed on your laptop) and what analytics data you want to collect.\n\nPLAN: Ask user to specify the collector tool name and what analytics data they need\nPLAN: Check if tool is accessible via command line or has an API\nPLAN: Execute appropriate collection command or API call\nPLAN: Return gathered analytics data to user",
+  "request_sha256": "83edcb8e5d755475b67906fb0957ea72c1e12fff56cb4a69aef1460b2332b87a",
+  "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "reserved_utc": "2026-10-03T12:13:25.815635+00:00",
+  "response_id": "chatcmpl-874cbc81b5c4f780",
+  "response_sha256": "8d53816da1a20507402f100d4ac6ee6eb596daa1b2b413b5bf2bf5c964716cfa",
+  "served_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "stage": "harness",
+  "state": "returned",
+  "temperature": 0.1,
+  "usage": {
+    "completion_tokens": 346,
+    "prompt_tokens": 87
+  },
+  "usage_object_present": true
+}

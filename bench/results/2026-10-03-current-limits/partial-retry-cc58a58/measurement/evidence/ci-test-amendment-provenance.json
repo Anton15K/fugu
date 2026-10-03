@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "purpose": "Fixture-extraction provenance without duplicating the deleted inline inert program",
+  "packaging_authority": "Explicit user continuation delivered by external operator at 2026-10-03T13:19Z; lead-only integration under parent qitem-20261003110509-60f22dac",
+  "original_diff": {
+    "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/evidence/external-ci-test-amendment.diff",
+    "sha256": "e8b118632955fbd00fd552981a14ba747ac1029bf211c303b1c196ca27e2f76c",
+    "byte_count": 6212,
+    "commit": "b82bad619c9dd4c3b44b620e2776d821abb52214",
+    "git_blob": "224d279e9ab27b26359a171abb2621166be64e76",
+    "retained_branch": "improve/partial-benchmark-final",
+    "local_copy": "/tmp/fugu-partial-retry-original-ci-test-amendment.diff"
+  },
+  "test_versions": [
+    {
+      "commit": "7a6ed056e5e8e1ee2d220b6b7b7749fefa5eefe1",
+      "path": "tests/test_current_limits_partial_retry.py",
+      "sha256": "c512a7c9e7ee8075df96b9447ffca36ddd7ef3616b2c7a170797d0e2461d5ba4"
+    },
+    {
+      "commit": "5df1c4f6a4251380d766922b06272160a2729d4d",
+      "path": "tests/test_current_limits_partial_retry.py",
+      "sha256": "3e5591dcd45d25d0ce32e0d1b3618cfffa1e25bf1445f90d4a919b6090ad5a72"
+    },
+    {
+      "commit": "95c08d840991d4a1502a7df9c6cf57bb8e55814b",
+      "path": "tests/test_current_limits_partial_retry.py",
+      "sha256": "62d5cf1a7b10a784c94522055a24cfe2670278282eb020b7f1ca1ddbb0e905d8"
+    }
+  ],
+  "extracted_native_fixture": {
+    "path": "tests/fixtures/partial_retry_native.py",
+    "bytes": 5672,
+    "sha256": "960987fe803c525a9c17afcc8e85a79c9456f372af3ce7ed1b8233d591d92309",
+    "matches_original_7a_inline_program": true
+  },
+  "synthetic_reference_correction": {
+    "path": "bench/results/2026-10-03-current-limits/partial-retry-cc58a58/ci-fixture-correction/synthetic-reference-correction.json",
+    "source_checkpoint": "95c08d840991d4a1502a7df9c6cf57bb8e55814b",
+    "gitguardian_conclusion": "success"
+  },
+  "previous_measurement_manifest_sha256": "ea225126684273ab15a9774e3b4e4e5814b0788241e0cba2db963f2c63328937",
+  "unchanged_measurement_bindings": 49,
+  "raw_result_and_request_changes": 0,
+  "provider_requests_for_packaging": 0,
+  "reason": "GitGuardian incident37837890 identified the duplicated historical diff; original bytes remain in Git and local evidence. This replacement preserves the historical hash and independently checked extraction without publishing that redundant diff in the new task history."
+}
