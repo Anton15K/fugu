@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "--no-cache",
+    "bench/current_limits.py",
+    "bench/current_limits_charts.py",
+    "tests/test_current_limits.py",
+    "tests/test_current_limits_charts.py",
+    "bench/results/2026-10-03-current-limits/offline-checkpoint/verify.py"
+  ],
+  "checked_utc": "2026-10-03T00:56:22.013085+00:00",
+  "exit_code": 0,
+  "stderr": "",
+  "stdout": "All checks passed!\n"
+}

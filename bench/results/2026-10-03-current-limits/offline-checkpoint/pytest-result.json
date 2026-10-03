@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Users/antonkogun/dev/nebius_hack/.venv/bin/python3",
+    "-m",
+    "pytest",
+    "tests/test_current_limits.py",
+    "tests/test_current_limits_charts.py",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--tb=short"
+  ],
+  "checked_utc": "2026-10-03T00:56:24.631997+00:00",
+  "exit_code": 0,
+  "scope": "Frozen legacy native engine and fake SDK; zero provider requests/target execution",
+  "stderr": "",
+  "stdout": ".........................................                                [100%]\n41 passed in 2.53s\n"
+}

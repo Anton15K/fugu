@@ -1,0 +1,145 @@
+{
+  "authenticated_startup_proof": {
+    "challenge_id": "5d86ffb3dbc8eb51966ae7fc6085e871",
+    "node_id": "01M3WTPHTJ039VWZHD1480MCE9",
+    "status": "verified"
+  },
+  "checked_utc": "2026-10-03T00:57:37.551319+00:00",
+  "checks": {
+    "artifact_command": [
+      "/Users/antonkogun/dev/nebius_hack/.venv/bin/python3",
+      "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-03-current-limits/offline-checkpoint/verify.py"
+    ],
+    "artifact_stdout": "{\"artifact_checks\": \"pass\", \"cases_checked\": 40, \"preflight\": [40, 54, 45, 63], \"frozen_python_hashes\": 37, \"engine_bytes_checked\": true, \"historical_source_hashes\": 1359, \"plots_checked\": 4, \"documentation_links_checked\": 5, \"live_provider_requests\": 0, \"target_executions\": 0}\n",
+    "artifacts": {
+      "artifact_checks": "pass",
+      "cases_checked": 40,
+      "documentation_links_checked": 5,
+      "engine_bytes_checked": true,
+      "frozen_python_hashes": 37,
+      "historical_source_hashes": 1359,
+      "live_provider_requests": 0,
+      "plots_checked": 4,
+      "preflight": [
+        40,
+        54,
+        45,
+        63
+      ],
+      "target_executions": 0
+    },
+    "pytest": {
+      "evidence": "pytest-result.json",
+      "exit_code": 0,
+      "passed": 41,
+      "skipped": 0
+    },
+    "ruff": {
+      "evidence": "ruff-result.json",
+      "exit_code": 0
+    }
+  },
+  "engine_manifest_sha256": "580dc3386c5836809dbfb677518eba60d9fe578c76cd1a458460f8238b0beee6",
+  "engine_scope": "Lead frozen e184 legacy engine; offline native compatibility only",
+  "fresh_improved_engine_measured": false,
+  "fresh_provider_requests": 0,
+  "limitations": [
+    "Synthetic Fugu plot values are not accuracy/cost/latency measurements",
+    "Legacy compatibility tests are not improved-production validation",
+    "Source/inference scope excludes detonation/live reputation/target execution/Snyk",
+    "Actual effective improved profile hash remains pending",
+    "Manual queue authority verification precedes CLI release reference use"
+  ],
+  "live_authority_active": false,
+  "offline_plan_sha256": "aa9bc3d286b84e3fbc49151882631a12e7c2b4968566243dd616146d6db90540",
+  "queue_id": "qitem-20261002231229-9f41594f",
+  "red_green_evidence": [
+    {
+      "check": "stopped resume preserves completed rows",
+      "green": "Native fake SDK regression passes; no resume dispatch",
+      "observed_red": "Completed output erased"
+    },
+    {
+      "check": "interrupted native stage preserves planned rows, usage and partial evidence",
+      "green": "All planned rows, first two source stages and orphan reservation retained",
+      "observed_red": "Final attempt accounting absent"
+    },
+    {
+      "check": "missing choices replay",
+      "green": "Empty choices remain empty; output error counted",
+      "observed_red": "Replay invented one choice"
+    },
+    {
+      "check": "frozen inventory and prepared label integrity",
+      "green": "Incomplete inventory rejected before import; changed labels rejected",
+      "observed_red": "Incomplete inventory imported; missing case binding guard"
+    },
+    {
+      "check": "storage failure stops native fallback",
+      "green": "One actual dispatch only, persistent stop",
+      "observed_red": "Unlatched OSError"
+    },
+    {
+      "check": "saved response hash drift",
+      "green": "Resume rejects changed raw response hash",
+      "observed_red": "Corrupted reply accepted"
+    },
+    {
+      "check": "reputation outcome unavailable",
+      "green": "No detection/rate, raw source evidence retained",
+      "observed_red": "A zero detection rate represented unavailable outcome"
+    },
+    {
+      "check": "historical ledger hashes with exposure metadata",
+      "green": "All 1359 source hashes retained",
+      "observed_red": "Input hashes replaced SDK record inventory"
+    }
+  ],
+  "runtime": {
+    "dependencies": {
+      "fastapi": "0.141.1",
+      "httpx": null,
+      "openai": "3.16.2",
+      "pydantic": "2.13.5",
+      "pydantic-settings": null,
+      "python-dotenv": "1.2.3"
+    },
+    "project_files_sha256": {
+      "pyproject.toml": "0656fcd49d1d5f8c99ebeb43cdd5c8d84f6701c897d17a04e8710949be73804f",
+      "uv.lock": "5bd3d347a7e55d845a8a885e5c7bcf02ca17f46e1e8c6f3e6e5d3f5caff9f250"
+    },
+    "python": "3.11.16"
+  },
+  "runtime_identity": {
+    "cwd": "/Users/antonkogun/dev/nebius_hack",
+    "effort": "max",
+    "logical_id": "research.security",
+    "model": "gpt-6.1-sol",
+    "native_turn_context_utc": "2026-10-03T00:06:49.163Z",
+    "session": "research-security@fugu"
+  },
+  "schema": 1,
+  "status": "Offline checkpoint ready for independent review; fresh measurement pending",
+  "target_executions": 0,
+  "unfinished": [
+    "Independent exact production and runner review/integration",
+    "Checked improved engine freeze and fake SDK tests against it",
+    "Final fixed pre-call plan/profile acceptance",
+    "Explicit data-phase writer lease and network release",
+    "Fresh run, benign adjudication, actual plots, independent evidence review"
+  ],
+  "visual_review": {
+    "corrections": [
+      "Split synthetic title to prevent clipping",
+      "Keep unavailable coverage labels inside axes",
+      "Annotate all nonzero primary status segments"
+    ],
+    "fixtures_are_measurements": false,
+    "pngs_inspected": [
+      "common-results",
+      "cohort-coverage",
+      "call-telemetry",
+      "input-coverage"
+    ]
+  }
+}
