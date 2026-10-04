@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-10-04T15:48:02.010180+00:00",
+  "task": "qitem-20261004143918-2d0320d0",
+  "base_commit": "6f22bb00eb92bb028e2a03249c95e92034e485cd",
+  "sealed_evidence_checkpoint": {
+    "path": "bench/results/2026-10-04-integration/integration-verification/inventory.json",
+    "sha256": "b34f81b0460cf11c4a1f8d471b1a88d17366673db2663e23440cd4bf212ff18d",
+    "retained_unchanged": true
+  },
+  "source_context_correction": {
+    "handoff": "qitem-20261004154426-697c0b37",
+    "reason": "AST UTF8 byte columns converted to character columns with a cached map for each line; reference spans cannot cover a later read on that line",
+    "source_sha256": "39a015ca634db76eeb27c67f0f5f0656455d062e7596d11bfc1f03f14cb340ea",
+    "test_sha256": "23748e8fb64f6cbc63b0f220d09f5812896a50274ef398d856f8b49eb9b0101d",
+    "owner_tests": {
+      "passed": 158,
+      "warning": "existing Starlette/AnyIO deprecation"
+    },
+    "original45_context_mappings_equal": "backend differential parser check"
+  },
+  "lead_tests": {
+    "passed": 172,
+    "skipped": 0,
+    "warning": "existing Starlette/AnyIO deprecation",
+    "command": "NEBIUS_API_KEY='' PYTHON_DOTENV_DISABLED=1 PYTHONDONTWRITEBYTECODE=1 UV_CACHE_DIR=/tmp/fugu-workflow-uv-cache uv run --no-sync python -m pytest tests/test_static_context.py tests/test_tool_surface.py tests/test_static_scan.py tests/test_source_safety.py tests/test_coverage_honesty.py tests/test_concealment.py tests/test_chamber_workdir.py tests/test_expanded_benchmark.py tests/test_paired_workflow.py -q -p no:cacheprovider"
+  },
+  "earlier_integration_tests": {
+    "passed": 187,
+    "warning": "existing Starlette/AnyIO deprecation",
+    "scope": "API, server, samples, depth, composition, detonation reliability, dedupe, metrics, store, reputation verdict; before final two-file UTF8 correction"
+  },
+  "ruff": "all selected source/wrapper/test/build-tool paths pass",
+  "diff_whitespace": "pass",
+  "static_and_activation": {
+    "recorded_inputs": 45,
+    "all_baseline_decision_signatures_and_ok_match": true,
+    "normal_build_stages_activation": true,
+    "supported_inert_surfaces": 1,
+    "advisory_findings": 5,
+    "omissions": 0,
+    "parse_errors": 0,
+    "new_inference_search_chamber_or_target_calls": 0,
+    "new_image_build": false,
+    "existing_trusted_scanner_execution": true
+  },
+  "final_engine_hashes": {
+    "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+    "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+    "src/fugu/client.py": "9dc387ab39360eb0c2080e8f189a11fc64499f13d37f84bb3969ba55319fb2c8",
+    "src/fugu/config.py": "ae0c8a899d86132b9c1890c0f26b90205d717f00e9eadad4490208531ad15388",
+    "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+    "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+    "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+    "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+    "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+    "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+    "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+    "src/fugu/detonation/docker_driver.py": "43246a112d876ff438d336ce53ee71d55fb65c3a4d0c8b092deed72ecabcf13b",
+    "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+    "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+    "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+    "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+    "src/fugu/pipeline/assemble.py": "9e1dd726263d3ff365944020359644290610178c678f4f4d8fee6b6ce136e8a9",
+    "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+    "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+    "src/fugu/pipeline/stages/composition.py": "1ae70d0dc84e79d127f8fbdd5b53b2b040bc668d5344ddda62b7d0032c00a7d1",
+    "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+    "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+    "src/fugu/pipeline/stages/harness.py": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5",
+    "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+    "src/fugu/pipeline/stages/semantic.py": "8174296257387d2b48bb88b1ffe97e776c1d6cfccf6182d3d46625e510e7b26c",
+    "src/fugu/pipeline/stages/static_context.py": "39a015ca634db76eeb27c67f0f5f0656455d062e7596d11bfc1f03f14cb340ea",
+    "src/fugu/pipeline/stages/static_scan.py": "b4d28cccbe24569794b67f2931d2db80cea6add3420dc724de900eb9f2f0e53b",
+    "src/fugu/pipeline/stages/tool_surface.py": "fcfeb8010910e4f3f7c817acfbb592b4343f17a10595d102d916f997f3c31cc5",
+    "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+    "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+    "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+    "src/fugu/server/composition_jobs.py": "504ccb83bac64c05f153527c0ca4043d6ebb05f2aff281cf18ceb7ee1a3e06ae",
+    "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+    "src/fugu/server/jobs.py": "4bf9d679c36facf99c7b99547a6b76a67edbe050a6f7b0c5186a4375260e6ee6",
+    "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+    "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+    "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb",
+    "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+    "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+  },
+  "preservation": {
+    "immutable_benchmark_files": {
+      "files": 3241,
+      "mismatches": []
+    },
+    "owner_files": {
+      "files": 3,
+      "mismatches": []
+    }
+  },
+  "native_build_limit": {
+    "result": "Denied before build context was read",
+    "path": "/Users/antonkogun/.docker/buildx/activity/.tmp-desktop-linux3284921193",
+    "reason": "Operation not permitted",
+    "attempts": 1,
+    "retry_or_workaround": false,
+    "fresh_final_image_build_and_smoke": "unverified"
+  },
+  "measurement_boundary": "Original paired36/40 plus four partials is unchanged. Final source/installed scanner checks do not constitute a new inference/chamber benchmark."
+}

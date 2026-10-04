@@ -1,0 +1,234 @@
+{
+  "sealed_recount_equal": true,
+  "recount": {
+    "planned": 40,
+    "unique_inputs": 45,
+    "complete": 36,
+    "partial_ids": [
+      "clean/translate_text",
+      "crafted/03-env-harvest-installer",
+      "crafted/08-clean-mcp-server",
+      "crafted/10-clean-node-skill"
+    ],
+    "unattempted": [],
+    "cohorts": [
+      {
+        "variant": "baseline",
+        "cohort": "clean_descriptions",
+        "kind": "benign",
+        "attempted": 5,
+        "complete": 4,
+        "excluded": 1,
+        "flagged_complete": 0,
+        "flagged_partial": 1
+      },
+      {
+        "variant": "baseline",
+        "cohort": "composition",
+        "kind": "benign",
+        "attempted": 3,
+        "complete": 3,
+        "excluded": 0,
+        "flagged_complete": 0,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "baseline",
+        "cohort": "composition",
+        "kind": "malicious",
+        "attempted": 4,
+        "complete": 4,
+        "excluded": 0,
+        "flagged_complete": 3,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "baseline",
+        "cohort": "crafted",
+        "kind": "benign",
+        "attempted": 4,
+        "complete": 2,
+        "excluded": 2,
+        "flagged_complete": 0,
+        "flagged_partial": 1
+      },
+      {
+        "variant": "baseline",
+        "cohort": "crafted",
+        "kind": "malicious",
+        "attempted": 7,
+        "complete": 6,
+        "excluded": 1,
+        "flagged_complete": 6,
+        "flagged_partial": 1
+      },
+      {
+        "variant": "baseline",
+        "cohort": "mcptox",
+        "kind": "malicious",
+        "attempted": 15,
+        "complete": 15,
+        "excluded": 0,
+        "flagged_complete": 12,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "baseline",
+        "cohort": "reputation",
+        "kind": "dependency_control",
+        "attempted": 1,
+        "complete": 1,
+        "excluded": 0,
+        "flagged_complete": 1,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "baseline",
+        "cohort": "reputation",
+        "kind": "vulnerable_dependency",
+        "attempted": 1,
+        "complete": 1,
+        "excluded": 0,
+        "flagged_complete": 1,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "integrated",
+        "cohort": "clean_descriptions",
+        "kind": "benign",
+        "attempted": 5,
+        "complete": 4,
+        "excluded": 1,
+        "flagged_complete": 0,
+        "flagged_partial": 1
+      },
+      {
+        "variant": "integrated",
+        "cohort": "composition",
+        "kind": "benign",
+        "attempted": 3,
+        "complete": 3,
+        "excluded": 0,
+        "flagged_complete": 0,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "integrated",
+        "cohort": "composition",
+        "kind": "malicious",
+        "attempted": 4,
+        "complete": 4,
+        "excluded": 0,
+        "flagged_complete": 3,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "integrated",
+        "cohort": "crafted",
+        "kind": "benign",
+        "attempted": 4,
+        "complete": 2,
+        "excluded": 2,
+        "flagged_complete": 0,
+        "flagged_partial": 1
+      },
+      {
+        "variant": "integrated",
+        "cohort": "crafted",
+        "kind": "malicious",
+        "attempted": 7,
+        "complete": 6,
+        "excluded": 1,
+        "flagged_complete": 6,
+        "flagged_partial": 1
+      },
+      {
+        "variant": "integrated",
+        "cohort": "mcptox",
+        "kind": "malicious",
+        "attempted": 15,
+        "complete": 15,
+        "excluded": 0,
+        "flagged_complete": 14,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "integrated",
+        "cohort": "reputation",
+        "kind": "dependency_control",
+        "attempted": 1,
+        "complete": 1,
+        "excluded": 0,
+        "flagged_complete": 1,
+        "flagged_partial": 0
+      },
+      {
+        "variant": "integrated",
+        "cohort": "reputation",
+        "kind": "vulnerable_dependency",
+        "attempted": 1,
+        "complete": 1,
+        "excluded": 0,
+        "flagged_complete": 1,
+        "flagged_partial": 0
+      }
+    ],
+    "sdk_usage": {
+      "attempts": 1296,
+      "orphan_attempts": 0,
+      "provider_errors": 0,
+      "output_errors": 0,
+      "finish_reasons": {
+        "stop": 1296
+      },
+      "requested_models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/nemotron-3-super-120b-a12b"
+      ],
+      "served_models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/nemotron-3-super-120b-a12b"
+      ],
+      "phase_attempts": {
+        "full-workflow": 1296
+      },
+      "sum_request_duration_s": 2249.273473237001,
+      "unknown_duration_calls": 0,
+      "unknown_usage_calls": 0,
+      "prompt_tokens_known_subtotal": 588053,
+      "prompt_tokens_unknown_calls": 0,
+      "prompt_tokens_total": 588053,
+      "completion_tokens_known_subtotal": 418018,
+      "completion_tokens_unknown_calls": 0,
+      "completion_tokens_total": 418018
+    },
+    "searches": 16,
+    "comparator": {
+      "attack": {
+        "planned": 15,
+        "complete": 15,
+        "risk_ge_25": 0,
+        "native_any_finding": 12
+      },
+      "benign": {
+        "planned": 5,
+        "complete": 5,
+        "risk_ge_25": 0,
+        "native_any_finding": 0
+      }
+    },
+    "separate_static": {
+      "attack": {
+        "planned": 80,
+        "complete": 80,
+        "flagged": 72
+      },
+      "benign": {
+        "planned": 60,
+        "complete": 60,
+        "flagged": 0
+      }
+    },
+    "chart_counts_verified": true
+  }
+}
