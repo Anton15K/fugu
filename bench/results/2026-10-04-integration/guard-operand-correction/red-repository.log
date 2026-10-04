@@ -1,0 +1,190 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_evaluated_denylist_operands_keep_actionable_verdict[(open(path).read(), path)[1]] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-321/test_evaluated_denylist_operan0')
+operand = '(open(path).read(), path)[1]'
+
+    @pytest.mark.parametrize('operand', [
+        '(open(path).read(), path)[1]',
+        'read_path(path)',
+        'path.value',
+        'path[0]',
+        '(selected := open(path).read())',
+        '(await read_path(path))',
+    ])
+    def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
+        import ast
+    
+        from fugu.verdict import aggregate_verdict
+    
+        text = (
+            'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
+            f'    if {operand} in DENY:\n        raise PermissionError()\n'
+        )
+        ast.parse(text)
+        result = scan(tmp_path, 'guard.py', text)
+        findings = matches(result, 'sensitive_path_access')
+>       assert any(f.severity == 'high' and f.confidence == 'deterministic' for f in findings)
+E       assert False
+E        +  where False = any(<generator object test_evaluated_denylist_operands_keep_actionable_verdict.<locals>.<genexpr> at 0x1093760c0>)
+
+tests/test_static_context.py:152: AssertionError
+__ test_evaluated_denylist_operands_keep_actionable_verdict[read_path(path)] ___
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-321/test_evaluated_denylist_operan1')
+operand = 'read_path(path)'
+
+    @pytest.mark.parametrize('operand', [
+        '(open(path).read(), path)[1]',
+        'read_path(path)',
+        'path.value',
+        'path[0]',
+        '(selected := open(path).read())',
+        '(await read_path(path))',
+    ])
+    def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
+        import ast
+    
+        from fugu.verdict import aggregate_verdict
+    
+        text = (
+            'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
+            f'    if {operand} in DENY:\n        raise PermissionError()\n'
+        )
+        ast.parse(text)
+        result = scan(tmp_path, 'guard.py', text)
+        findings = matches(result, 'sensitive_path_access')
+>       assert any(f.severity == 'high' and f.confidence == 'deterministic' for f in findings)
+E       assert False
+E        +  where False = any(<generator object test_evaluated_denylist_operands_keep_actionable_verdict.<locals>.<genexpr> at 0x1089b3030>)
+
+tests/test_static_context.py:152: AssertionError
+_____ test_evaluated_denylist_operands_keep_actionable_verdict[path.value] _____
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-321/test_evaluated_denylist_operan2')
+operand = 'path.value'
+
+    @pytest.mark.parametrize('operand', [
+        '(open(path).read(), path)[1]',
+        'read_path(path)',
+        'path.value',
+        'path[0]',
+        '(selected := open(path).read())',
+        '(await read_path(path))',
+    ])
+    def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
+        import ast
+    
+        from fugu.verdict import aggregate_verdict
+    
+        text = (
+            'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
+            f'    if {operand} in DENY:\n        raise PermissionError()\n'
+        )
+        ast.parse(text)
+        result = scan(tmp_path, 'guard.py', text)
+        findings = matches(result, 'sensitive_path_access')
+>       assert any(f.severity == 'high' and f.confidence == 'deterministic' for f in findings)
+E       assert False
+E        +  where False = any(<generator object test_evaluated_denylist_operands_keep_actionable_verdict.<locals>.<genexpr> at 0x1093053c0>)
+
+tests/test_static_context.py:152: AssertionError
+______ test_evaluated_denylist_operands_keep_actionable_verdict[path[0]] _______
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-321/test_evaluated_denylist_operan3')
+operand = 'path[0]'
+
+    @pytest.mark.parametrize('operand', [
+        '(open(path).read(), path)[1]',
+        'read_path(path)',
+        'path.value',
+        'path[0]',
+        '(selected := open(path).read())',
+        '(await read_path(path))',
+    ])
+    def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
+        import ast
+    
+        from fugu.verdict import aggregate_verdict
+    
+        text = (
+            'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
+            f'    if {operand} in DENY:\n        raise PermissionError()\n'
+        )
+        ast.parse(text)
+        result = scan(tmp_path, 'guard.py', text)
+        findings = matches(result, 'sensitive_path_access')
+>       assert any(f.severity == 'high' and f.confidence == 'deterministic' for f in findings)
+E       assert False
+E        +  where False = any(<generator object test_evaluated_denylist_operands_keep_actionable_verdict.<locals>.<genexpr> at 0x1095d6190>)
+
+tests/test_static_context.py:152: AssertionError
+_ test_evaluated_denylist_operands_keep_actionable_verdict[(selected := open(path).read())] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-321/test_evaluated_denylist_operan4')
+operand = '(selected := open(path).read())'
+
+    @pytest.mark.parametrize('operand', [
+        '(open(path).read(), path)[1]',
+        'read_path(path)',
+        'path.value',
+        'path[0]',
+        '(selected := open(path).read())',
+        '(await read_path(path))',
+    ])
+    def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
+        import ast
+    
+        from fugu.verdict import aggregate_verdict
+    
+        text = (
+            'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
+            f'    if {operand} in DENY:\n        raise PermissionError()\n'
+        )
+        ast.parse(text)
+        result = scan(tmp_path, 'guard.py', text)
+        findings = matches(result, 'sensitive_path_access')
+>       assert any(f.severity == 'high' and f.confidence == 'deterministic' for f in findings)
+E       assert False
+E        +  where False = any(<generator object test_evaluated_denylist_operands_keep_actionable_verdict.<locals>.<genexpr> at 0x108b0a330>)
+
+tests/test_static_context.py:152: AssertionError
+_ test_evaluated_denylist_operands_keep_actionable_verdict[(await read_path(path))] _
+
+tmp_path = PosixPath('/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/pytest-of-antonkogun/pytest-321/test_evaluated_denylist_operan5')
+operand = '(await read_path(path))'
+
+    @pytest.mark.parametrize('operand', [
+        '(open(path).read(), path)[1]',
+        'read_path(path)',
+        'path.value',
+        'path[0]',
+        '(selected := open(path).read())',
+        '(await read_path(path))',
+    ])
+    def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
+        import ast
+    
+        from fugu.verdict import aggregate_verdict
+    
+        text = (
+            'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
+            f'    if {operand} in DENY:\n        raise PermissionError()\n'
+        )
+        ast.parse(text)
+        result = scan(tmp_path, 'guard.py', text)
+        findings = matches(result, 'sensitive_path_access')
+>       assert any(f.severity == 'high' and f.confidence == 'deterministic' for f in findings)
+E       assert False
+E        +  where False = any(<generator object test_evaluated_denylist_operands_keep_actionable_verdict.<locals>.<genexpr> at 0x109271cb0>)
+
+tests/test_static_context.py:152: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_static_context.py::test_evaluated_denylist_operands_keep_actionable_verdict[(open(path).read(), path)[1]]
+FAILED tests/test_static_context.py::test_evaluated_denylist_operands_keep_actionable_verdict[read_path(path)]
+FAILED tests/test_static_context.py::test_evaluated_denylist_operands_keep_actionable_verdict[path.value]
+FAILED tests/test_static_context.py::test_evaluated_denylist_operands_keep_actionable_verdict[path[0]]
+FAILED tests/test_static_context.py::test_evaluated_denylist_operands_keep_actionable_verdict[(selected := open(path).read())]
+FAILED tests/test_static_context.py::test_evaluated_denylist_operands_keep_actionable_verdict[(await read_path(path))]
+6 failed, 54 deselected in 0.07s

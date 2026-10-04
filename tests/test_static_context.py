@@ -129,6 +129,30 @@ def test_denylist_used_only_to_raise_is_reference_evidence(tmp_path):
     assert findings and all(f.severity == 'info' for f in findings)
 
 
+@pytest.mark.parametrize('operand', [
+    '(open(path).read(), path)[1]',
+    'read_path(path)',
+    'path.value',
+    'path[0]',
+    '(selected := open(path).read())',
+    '(await read_path(path))',
+])
+def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
+    import ast
+
+    from fugu.verdict import aggregate_verdict
+
+    text = (
+        'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
+        f'    if {operand} in DENY:\n        raise PermissionError()\n'
+    )
+    ast.parse(text)
+    result = scan(tmp_path, 'guard.py', text)
+    findings = matches(result, 'sensitive_path_access')
+    assert any(f.severity == 'high' and f.confidence == 'deterministic' for f in findings)
+    assert aggregate_verdict(result.findings, [result])['status'] == 'fail'
+
+
 def test_claimed_denylist_also_used_to_read_stays_high(tmp_path):
     text = 'DENY = ["/etc/shadow"]\ndef check(path):\n    if path in DENY:\n        raise PermissionError()\nfor path in DENY:\n    print(open(path).read())\n'
     assert any(f.severity == 'high' for f in matches(scan(tmp_path, 'guard.py', text), 'sensitive_path_access'))

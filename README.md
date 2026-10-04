@@ -175,8 +175,8 @@ partial results and their limits are detailed in the methodology report. The
 Current source checks preserve the baseline S1 decision signatures and stage
 status on all 45 recorded inputs. Regressions cover sensitive reads after
 JavaScript regexes and escaped line breaks, Python exception operands and
-captured names, and UTF-8 source positions. Inert comments and rejection guards
-retain informational evidence. See the [current source verification](bench/results/2026-10-04-integration/context-correction/README.md).
+comparison operands, captured names, and UTF-8 source positions. Inert comments
+and simple rejection guards retain informational evidence. See the [current source verification](bench/results/2026-10-04-integration/guard-operand-correction/README.md).
 
 Normal configured S1 activation on an inert `SKILL.md` returned five advisory
 findings with no scanner omissions or parse errors. That [installed activation

@@ -114,6 +114,7 @@ def source_context(text: str, rel: str) -> dict[int, list[tuple[int, int, str]]]
                     parent = parents.get(use)
                     guard = parents.get(parent)
                     deny_uses.append(isinstance(parent, ast.Compare) and len(parent.ops) == 1
+                                     and isinstance(parent.left, ast.Name)
                                      and isinstance(parent.ops[0], ast.In) and parent.comparators == [use]
                                      and isinstance(guard, ast.If) and guard.test is parent
                                      and safe_denylist_guard(guard))
