@@ -41,13 +41,17 @@ OWASP mapping:
 """
 from __future__ import annotations
 
+import ast
+import json
 import math
+import asyncio
 import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from fugu.pipeline.stages.concealment import collect_text_files
+from fugu.pipeline.stages.static_context import file_role, source_context
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult
 
 # --- secret patterns -------------------------------------------------------------
@@ -186,7 +190,7 @@ _INJECTION_DOC_RES = [re.compile(p) for p in _INJECTION_DOC_PHRASES]
 _INJECTION_RES = [re.compile(p) for p in _INJECTION_PHRASES]
 
 _MARKDOWN_SUFFIXES = (".md", ".markdown", ".txt")
-_SRC_SUFFIXES = (".py", ".js", ".ts", ".tsx", ".jsx", ".mjs", ".cjs", ".sh")
+_SRC_SUFFIXES = (".py", ".js", ".ts", ".tsx", ".jsx", ".mjs", ".cjs", ".sh", ".json")
 
 
 def _edit_distance_at_most_1(a: str, b: str) -> bool:
@@ -284,7 +288,7 @@ def _lines(text: str):
 
 def _regex_hits(regex: re.Pattern, rule_id: str, text: str, group: int = 0) -> list[RuleHit]:
     return [
-        RuleHit(rule_id=rule_id, lineno=n, line=line, match=m.group(group) or "")
+        RuleHit(rule_id=rule_id, lineno=n, line=line, match=m.group(group) or "", extra={"match_column": m.start(group)})
         for n, line in _lines(text)
         for m in regex.finditer(line)
     ]
@@ -314,6 +318,11 @@ def _b64_secret_hits(text: str, rel: str) -> list[RuleHit]:
         for m in _B64_BLOB_RE.finditer(line):
             blob = m.group(1)
             if len(blob) > 200:       # very long runs are data, not keys
+                continue
+            # Exact lockfile integrity fields are data, not authentication.
+            if file_role(rel) == "dependency_lock" and re.search(
+                r'(?:hash|integrity)\s*[=:]\s*[\"\'](?:sha256:|sha512-)?$', line[:m.start()]
+            ):
                 continue
             ctx = line[max(0, m.start() - 60): m.end() + 60]
             if not _SECRET_CONTEXT_RE.search(ctx):
@@ -384,26 +393,27 @@ def _install_script_hits(text: str, rel: str) -> list[RuleHit]:
 def _npm_hook_hits(text: str, rel: str) -> list[RuleHit]:
     if not rel.endswith("package.json"):
         return []
+    try:
+        document = json.loads(text)
+    except (ValueError, RecursionError):
+        return _regex_hits(_NPM_SCRIPT_HOOK_RE, "npm_install_hook", text)
+    scripts = document.get("scripts", {}) if isinstance(document, dict) else {}
+    if not isinstance(scripts, dict):
+        return []
     hits: list[RuleHit] = []
-    for n, line in _lines(text):
-        for m in _NPM_SCRIPT_HOOK_RE.finditer(line):
-            cmd = m.group(2).strip().strip("'\"`")
-            first = cmd.split()[0] if cmd else ""
-            trivial = (
-                first in ("echo", "exit")
-                or cmd in ("node --version", "npm --version", "node -v", "npm -v")
-            )
-            if not cmd or trivial:
-                continue
-            hits.append(
-                RuleHit(
-                    rule_id="npm_install_hook",
-                    lineno=n,
-                    line=line,
-                    match=m.group(0),
-                    extra={"hook": m.group(1).lower(), "command": cmd},
-                )
-            )
+    for hook in ("preinstall", "postinstall"):
+        cmd = scripts.get(hook)
+        if not isinstance(cmd, str) or not cmd.strip():
+            continue
+        cmd = cmd.strip()
+        first = cmd.split()[0]
+        simple_inert = first in ("echo", "exit") and not re.search(r"[\r\n;&|<>`$()]", cmd)
+        if simple_inert or cmd in ("node --version", "npm --version", "node -v", "npm -v"):
+            continue
+        offset = re.search(r'"' + hook + r'"\s*:', text)
+        line = text.count("\n", 0, offset.start()) + 1 if offset else 1
+        hits.append(RuleHit("npm_install_hook", line, f'{hook}: {cmd}', cmd,
+                            extra={"hook": hook, "command": cmd}))
     return hits
 
 
@@ -435,7 +445,7 @@ def _typosquat_hits(text: str, rel: str) -> list[RuleHit]:
     hits: list[RuleHit] = []
     for name, lineno in dep_names:
         bare = name.split("/")[-1]          # @scope/pkg -> pkg
-        if not bare:
+        if not bare or bare.lower() in top:
             continue
         for t in sorted(top):
             if bare.lower() == t:
@@ -462,6 +472,36 @@ def _injection_hits_factory(rule_id: str, suffixes: tuple[str, ...]):
             return []
         regexes = _INJECTION_DOC_RES if doc_mode else _INJECTION_RES
         hits: list[RuleHit] = []
+        if rel.lower().endswith(".json"):
+            try:
+                document = json.loads(text)
+            except (ValueError, RecursionError):
+                return []
+            descriptions: list[str] = []
+            def walk(value: object) -> None:
+                if isinstance(value, dict):
+                    if isinstance(value.get("name"), str) and "inputSchema" in value and isinstance(value.get("description"), str):
+                        descriptions.append(value["description"])
+                    for item in value.values():
+                        walk(item)
+                elif isinstance(value, list):
+                    for item in value:
+                        walk(item)
+            walk(document)
+            for description in descriptions:
+                for rx in regexes:
+                    match = rx.search(description)
+                    if match:
+                        # Locate the encoded original string, not fabricated line 1.
+                        encoded = json.dumps(description, ensure_ascii=False)
+                        offset = text.find(encoded)
+                        if offset < 0:
+                            offset = text.find(json.dumps(description, ensure_ascii=True))
+                        line = text.count("\n", 0, offset) + 1 if offset >= 0 else 1
+                        hits.append(RuleHit(rule_id, line, description, match.group(0),
+                                            extra={"phrase": match.group(0)[:120], "source_context": "tool_description"}))
+                        break
+            return hits
         for n, line in _lines(text):
             for rx in regexes:
                 m = rx.search(line)
@@ -519,22 +559,57 @@ def _mcp_annotation_hits(text: str, rel: str) -> list[RuleHit]:
 
 
 def _mcp_dup_name_hits(text: str, rel: str) -> list[RuleHit]:
-    """Duplicate tool names in one file (73% of servers ship dups -
-    arXiv 2602.18914); name collisions enable tool shadowing. Official OWASP
-    mapping: shadowing lives under MCP03 Tool Poisoning (MCP09 is Shadow MCP
-    *Servers* - ungoverned deployments - a different class)."""
-    if not rel.endswith(_MCP_SRC_SUFFIXES):
+    """Collisions only within one syntactic list of actual tool definitions."""
+    if not rel.endswith(_MCP_SRC_SUFFIXES) or '"inputSchema"' not in text:
         return []
-    seen: dict[str, int] = {}
+    inventories: list[list[tuple[str, int]]] = []
+    try:
+        if rel.endswith(".json"):
+            document = json.loads(text)
+            def walk(value: object) -> None:
+                if isinstance(value, list):
+                    tools = [(item["name"], 1) for item in value if isinstance(item, dict)
+                             and isinstance(item.get("name"), str) and "inputSchema" in item]
+                    if tools:
+                        inventories.append(tools)
+                    for item in value:
+                        walk(item)
+                elif isinstance(value, dict):
+                    for item in value.values():
+                        walk(item)
+            walk(document)
+        elif rel.endswith(".py"):
+            tree = ast.parse(text)
+            for node in ast.walk(tree):
+                if not isinstance(node, (ast.List, ast.Tuple)):
+                    continue
+                tools = []
+                for item in node.elts:
+                    if not isinstance(item, ast.Dict):
+                        continue
+                    fields = {key.value: val for key, val in zip(item.keys, item.values)
+                              if isinstance(key, ast.Constant) and isinstance(key.value, str)}
+                    name = fields.get("name")
+                    if "inputSchema" in fields and isinstance(name, ast.Constant) and isinstance(name.value, str):
+                        tools.append((name.value, name.lineno))
+                if tools:
+                    inventories.append(tools)
+        else:
+            # No JS/JSONC parser: a name-only regex cannot prove a collision.
+            return []
+    except (SyntaxError, ValueError, RecursionError):
+        return []
     hits: list[RuleHit] = []
-    for n, line in _lines(text):
-        for m in _TOOL_NAME_RE.finditer(line):
-            name = m.group(1)
+    lines = text.splitlines()
+    for index, inventory in enumerate(inventories):
+        seen: dict[str, int] = {}
+        for name, line in inventory:
             if name in seen:
-                hits.append(RuleHit("mcp_duplicate_tool_names", n, line, name,
-                                    extra={"first_defined_line": seen[name]}))
+                hits.append(RuleHit("mcp_duplicate_tool_names", line, lines[line - 1], name,
+                                    extra={"first_defined_line": seen[name], "inventory": index,
+                                           "source_context": "tool_inventory"}))
             else:
-                seen[name] = n
+                seen[name] = line
     return hits
 
 
@@ -628,11 +703,14 @@ class StaticScanStage:
         max_files: int = 2_000,
         max_evidence_per_finding: int = 5,
         rules: list[Rule] | None = None,
+        surface_scanner=None,
     ) -> None:
         self.max_file_bytes = max_file_bytes
         self.max_files = max_files
         self.max_evidence_per_finding = max_evidence_per_finding
         self.rules = rules if rules is not None else STATIC_RULES
+        from fugu.pipeline.stages.tool_surface import ToolSurfaceScanner
+        self.surface_scanner = surface_scanner or ToolSurfaceScanner.from_environment()
 
     async def run(self, job: AuditJob, target: Path) -> StageResult:
         t0 = time.perf_counter()
@@ -642,7 +720,10 @@ class StaticScanStage:
             return StageResult(stage=self.name, ok=False, error=f"{type(exc).__name__}: {exc}")
         findings: list[Finding] = []
         hits_total = 0
+        context_counts: dict[str, int] = {}
         for tf in files:
+            context = source_context(tf.text, tf.rel)
+            role = file_role(tf.rel)
             for rule in self.rules:
                 try:
                     hits = rule.apply(tf.text, tf.rel) if rule.apply else []
@@ -652,16 +733,55 @@ class StaticScanStage:
                 if not hits:
                     continue
                 hits_total += len(hits)
-                findings.append(rule.finding_for(tf.rel, hits, self.max_evidence_per_finding))
+                references: list[RuleHit] = []
+                actionable: list[RuleHit] = []
+                for hit in hits:
+                    column = hit.extra.get("match_column", hit.line.find(hit.match))
+                    kind = next((kind for start, end, kind in context.get(hit.lineno, [])
+                                 if start <= column < end), "unresolved")
+                    hit.extra.setdefault("source_context", kind)
+                    hit.extra["file_role"] = role
+                    context_counts[kind] = context_counts.get(kind, 0) + 1
+                    reference_only = (
+                        (rule.rule_id == "sensitive_path_access" and kind in ("comment_reference", "denylist_reference"))
+                        or (rule.rule_id == "tool_description_injection" and kind == "detector_vocabulary")
+                        or (rule.rule_id == "env_harvest" and kind == "single_key_env_lookup")
+                    )
+                    if reference_only:
+                        references.append(hit)
+                    else:
+                        actionable.append(hit)
+                if actionable:
+                    findings.append(rule.finding_for(tf.rel, actionable, self.max_evidence_per_finding))
+                if references:
+                    finding = rule.finding_for(tf.rel, references, self.max_evidence_per_finding)
+                    finding.title = f"Source reference ({rule.title}) in {tf.rel}"
+                    finding.detail = "The matched source is a comment, rejection-list reference, boolean detector vocabulary, or single-key environment lookup. The syntax does not establish the behavior named by this rule. Dynamic access and cross-file data flow are not resolved; review context before assigning malicious intent."
+                    finding.severity = "info"
+                    finding.confidence = "advisory"
+                    finding.owasp_ids = []
+                    findings.append(finding)
+        if self.surface_scanner is not None:
+            added, surface_metrics = await asyncio.to_thread(
+                self.surface_scanner.scan, target, self.max_file_bytes, self.max_files,
+            )
+            findings.extend(added)
+            stats['tool_surface'] = surface_metrics
+            if surface_metrics.get('coverage_incomplete'):
+                stats['coverage_incomplete'] = 'tool/instruction surface analysis incomplete'
+        else:
+            stats['tool_surface'] = {'enabled': False}
         stats.update(
             {
                 "rules": len(self.rules),
+                "match_contexts": context_counts,
                 "hits": hits_total,
                 "findings": len(findings),
                 "duration_s": round(time.perf_counter() - t0, 4),
             }
         )
-        return StageResult(stage=self.name, ok=True, findings=findings, metrics=stats)
+        return StageResult(stage=self.name, ok=not bool(stats.get('coverage_incomplete')),
+                           findings=findings, metrics=stats)
 
 
 __all__ = [

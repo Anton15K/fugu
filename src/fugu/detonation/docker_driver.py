@@ -362,6 +362,7 @@ class DockerDriver:
             "COPY mitmca.pem /usr/local/share/ca-certificates/fugu-mitmca.crt\n"
             "RUN update-ca-certificates\n"
             "COPY target/ /opt/target/\n"
+            "WORKDIR /opt/target\n"
             "RUN chmod -R a+rX /opt/target "
             "&& (chmod +x /opt/target/install.sh || true)\n"
         )
