@@ -1,0 +1,24 @@
+{
+  "checked_utc": "2026-10-04T15:22:44.354734+00:00",
+  "raw_manifest_sha256": "10f768e2efe8710828482abbc12fac2cf3c22d9be42b9e83e90cd5eaf20ab611",
+  "raw_manifest_entries_verified": 1572,
+  "case_order_and_40_row_files_match": true,
+  "unique_audits_verified": 45,
+  "raw_nonstatic_pairing_equal": true,
+  "recorded_masking_only_source_change": true,
+  "sdk_message_request_response_hashes_verified": 1296,
+  "comparator_packets_verified": 20,
+  "credential_pattern_candidate_counts": {
+    "aws_access_key": 0,
+    "github_token": 45,
+    "slack_token": 0,
+    "private_key_header": 0,
+    "bearer_token": 0
+  },
+  "github_candidate_review": {
+    "unique_values": 2,
+    "all_match_authored_fake_fixture_or_synthetic_redaction_test": true
+  },
+  "credential_scan_limit": "Pattern candidate counts only, not proof of absence. No matched values exported or printed. Selected export excludes content payloads.",
+  "new_inference_search_chamber_target_calls": 0
+}

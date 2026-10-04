@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/psf/requests/security/advisories/GHSA-gc5v-m9x4-r6x2",
+  "checked_date_utc": "2026-10-04",
+  "method": "Direct primary maintainer advisory read with browser tool; no Tavily search.",
+  "published_date": "2026-03-25",
+  "cve": "CVE-2026-25645",
+  "affected_versions": "<2.33.0",
+  "patched_version": "2.33.0",
+  "affected_use": "Direct extract_zipped_paths() calls only; ordinary Requests use unaffected.",
+  "interpretation": "Requests2.32.5 is an affected version; application exploitability is not established. Frozen labels preserved."
+}

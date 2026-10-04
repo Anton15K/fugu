@@ -1,0 +1,800 @@
+{
+  "tool": "mcp-sec-audit",
+  "version": "0.1.0",
+  "source_commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+  "rules_sha256": "c7529b02d5ae056f67c6b46eb75616b897107044d1b6bf4a1c38af823fcce1b4",
+  "source_sha256": {
+    "analysis/__init__.py": "27206d408a3258330db733f585e2c831a7b595407024f6b1081cf7782d16b6a9",
+    "analysis/adapters/__init__.py": "5ae5fd14349ccdafa9905268ac5ed8081e5aaba7f799c4465f9c754b2bd412d7",
+    "analysis/adapters/finding_adapter.py": "b37d631a1ad037dd79bfebf3e797e247cd076a82b60cdd9343fd52a1ada62faa",
+    "analysis/engine.py": "4e6b718dfd5d0d84194c6130debfbbdd46066c510fa9035896fe8def5a0398d9",
+    "analysis/extractors/__init__.py": "14c8e4c00f3bf4133ae54ca2081aa9fa53c1912b8561edc70ffd069f7370af60",
+    "analysis/extractors/dynamic.py": "71fdac7927b78f2762545afcdcf29f579132eae8649402b3e3c97b1a3d973b45",
+    "analysis/extractors/javascript_ts_tree_sitter.py": "33048c4839c92b0b604ba389601a00a906707c1f79e275133c9cd24529724b65",
+    "analysis/extractors/python_ast.py": "70ce2d0e3b8fb1857c42da21da093a0200f32563992ff7e4155c1b6d9e856f25",
+    "analysis/facts/__init__.py": "1195fddc5bf1eea05511a9ff5b199410102bd879647531883ed05d2d5e5cf106",
+    "analysis/facts/ids.py": "a39f93251328416d57b05fba5288b84a1f5188ea51d68a45e4bb76b665f93c34",
+    "analysis/facts/schema.py": "bd15fdb02f0b42fbe4117e4f7ec8923f1c3432dfe94a27de3ee70c38f2e3ad50",
+    "analysis/facts/serialization.py": "af24d3171ae47990a03caf8e395d9158ea3c31bd104ab415475c84d68f314a05",
+    "analysis/facts/store.py": "2a059eb82d60f3210740cf1df00e2644939e8c091a7afff6ef872735f7c5fd35",
+    "analysis/passes/__init__.py": "7dcbed93eb06a28ed7f07abab90b16ea76ab36b07fb3981a7bed7bf84cb9f334",
+    "analysis/passes/call_graph.py": "50e3519a7f97de95515d8c0a05fbbbf891d3ed15d423a8177d900fc364c48680",
+    "analysis/passes/dynamic_correlation.py": "e48431b12b8551e666afaf06c58d7016f6fed40ba8f2e82973e8c268666d5bc4",
+    "analysis/passes/finding_builder.py": "40de8f87fd414b9bfb188c7d548e3f040b1a83c8e4944c428d692a4c4fd3875c",
+    "analysis/passes/reverse_sink_trace.py": "568a71f3f071373f97f0b8f2231aa76a0e151ff35aa30f712d98a41335508753",
+    "analysis/passes/taint_lite.py": "e243fab59289ee0343d8f0d77078f4d55b1c33ab744769e0c4dff9a24b349b43",
+    "detection/__init__.py": "63ae2e60fa310a62e72ce6a70ee478d96a3085c8407bdb3ee150cdd004da6bdc",
+    "detection/cli.py": "21f54053eaeb318289a1a2aff50427439b47758ee85ad092ab3183b50c0545ee",
+    "detection/core/__init__.py": "450ae6c72b2010bb2deb497bce115df0936ac0350f6b04afa726b9c0ce59225a",
+    "detection/core/models.py": "6f22c909b1dbc2a9d6b7e2beed554ddbdf4f13a42e3307f0186753d962c6f93b",
+    "detection/core/registry.py": "1deff727d3155c80b6b8ba385e9196533f02edc24470e00b5b68a3b71b39391f",
+    "detection/core/session.py": "2b9bcec70d5b3c85d6ffa4dbe52b0217e3c9ca3c9bb232f841377a24a81001c8",
+    "detection/knowledge/__init__.py": "bcc9d19ca35f603cee00881bf41a7f0c32b6c8bc9d3674d951a1525245760fbd",
+    "detection/knowledge/service.py": "9938a5cce8d3493b6e2feacb52b49d080e072f7446bb853831384bb4d444335a",
+    "detection/mitigation/__init__.py": "d76f809955a3a3867f4cc113f69f18f25cd1a062d55078915b0fcc0ba0c4815a",
+    "detection/mitigation/mitigation_engine.py": "ea8e102634da0263c3a27cc4961eda34c03fe600c9c0c8cf8c282d7ab86377e1",
+    "detection/pipelines/__init__.py": "7fbb48c3d72006c61c359546df00c5e90bb6fec0e596fda76deaf7838278e2e5",
+    "detection/pipelines/dynamic.py": "c9d270b7d2cb709b599becb33aa16ecd1f29c20837ca37098be00a8c6ac1d12a",
+    "detection/pipelines/rag.py": "1bb127f49f65d071b04ba20d6ecb91028998dd4f1953cd9fd2b7047988bc5c07",
+    "detection/pipelines/static.py": "06df5386c955fb18b9dd27f0c2a00bb759807d2e219db6cdc6acd2dc8acddbbd",
+    "detection/plugins/__init__.py": "554427b5342b1f3cf94c387201b6c215ddcac978b57f6e61ef8a7183c29a92fc",
+    "detection/plugins/dynamic/__init__.py": "e557ec3d618f72652d253ebada76e857194afd1ce8518b109a14f2db8faa92a4",
+    "detection/plugins/rag/__init__.py": "97cc9c1146753b5a65ca5571602017f3b4dbc9c15c6392afd72be030bcf71fe9",
+    "detection/plugins/static/__init__.py": "b6ac230175f8fe537f98f69974eca4e1bf10bfca7adea2e0e3be236fb115db8d",
+    "detection/plugins/static/metadata/__init__.py": "94366467cab5526bef0ab4c954d9ff4fc4017630d13fb17cbb708a223beefc81",
+    "detection/plugins/static/python/__init__.py": "07984b3eda04411ab8ecf0e8013477ebc8bd42e047d877fcb6298a424affbf3d",
+    "detection/plugins/static/typescript/__init__.py": "8064bda754b1cf10c0bb4eb4fbe421e0118572f2e5438f94d8d5e55db3f00da0",
+    "detection/reporting/__init__.py": "4b1f9ede28ceb6a53c01d701e519fdb1cc1b0e65ef49fc41bd748b1554155cac",
+    "detection/reporting/cef_formatter.py": "41fb2119e5f2b97ca2f520f7735796afba934a047ca40f6c1ea74f7c914030cc",
+    "detection/reporting/report_builder.py": "b26a183b0a0186f815157dda1cef8865616208618cfb696f3d08f81f6ff23490",
+    "detection/rules/__init__.py": "0855ef3c406d3d3a4fc1dad01ec19e2758e7e97f517484e0fd57a9bdb405b01e",
+    "detection/rules/loader.py": "0962a35634f58112bbc4846f638c7f0a4f5f5624cc5bd09f596bc492508f0977",
+    "detection/sandbox/__init__.py": "782d31d2204790053fadcd80ee53b06dd31e8db2223aabbb6d29778a2c9e5ab1",
+    "detection/sandbox/providers/__init__.py": "9d0eeea84059ab87a3fd12b4c1cc589885130afc1b2185665e7b59b6f15c366b",
+    "detection/sandbox/providers/docker_provider.py": "bab571626010b28e0bebef597bc1b1580d09b76d8bd76172683b1bd595583827",
+    "detection/sandbox/runner.py": "fd7d5bc4f85c0c883507c8e41035e2d0e71b700666e544febf37c0776c2cc18b",
+    "examples/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/benchmarks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/benchmarks/mcptox/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/benchmarks/mcptox/prepare_samples.py": "9392b5469b88d15a1dac6381aa558e18cba29e9197a0ebc4fa99f68c101d8916",
+    "examples/benchmarks/mcptox/run_mcptox_benchmark.py": "b6d2866bdfd4dd8c58f18f0ed84aeb15c24197a3201e6afcbfa07079901ef9b3",
+    "examples/dynamic_analysis_demo.py": "6239af8356596bb492af858c2be40bc43341ac4b3b7e9f08356c9c67de727d60",
+    "examples/static_analysis_test.py": "aa9f899cb89784a2aa3c58957dd080cc4c24dbc52210782a4364e6e03f364e31",
+    "main.py": "890e7c96f7ae78f3b82bfb60f8efec8aec24620bdfc86f48299711159bddef30",
+    "pytest/__init__.py": "8ecb55a045e599204cd766a1456203fdb801d2c2cf711ed2e7076ff2fa74efb7",
+    "pytest/__main__.py": "1619d4cfe3e7acadc6a5319b68a1e1ee48f15d22fa14cd26be59f3289ebee324",
+    "pytest/runner.py": "68e6b9b7f6a440a822c8f4abb8be3b57c7ed709b3922f8aca9cb09edf043e31c",
+    "sandbox/monitors/ebpf_monitor.py": "0d5bf5ae533eb20ed2264f4c184bc97ec7c2c9693556ab1dae00168eca801e98",
+    "sandbox/monitors/fuzzer.py": "2c37520ec88a49aa10ac88c848ab5ff9ef95acedd79906f524b7ac8a6405efa6",
+    "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/benchmark_apifox_supply_chain.py": "000bb3fed31db86f28e9e7c4d3e60be0e644a0774cbfd7c90684376bb024df0d",
+    "tests/integration/test_ast_pipeline_taint_lite.py": "fce2bbfc8e677ba19f682d3fd9fd066da84e6c6b95667482a1a47d572c77a791",
+    "tests/integration/test_dynamic_pipeline.py": "5ab7c38b219d30bf4b1f2f81743027607d84aa77bf0d5ced2ec7bf1754221030",
+    "tests/integration/test_static_pipeline_ast_adapter.py": "3542df01c0df0eadfd06bbccf385c65e81f04816fb2495e5597ed769e36ee3ef",
+    "tests/integration/test_static_pipeline_ast_adapter_jsts.py": "f30b271eaa5b3ce939a6a38423374bf07da111a0aaedcfd62ea115245fe98848",
+    "tests/unit/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/unit/test_call_graph_pass.py": "c61fb2dae549ae06e39f563e1058ea2a7bb288cf8557d14d11dbf5d8f6bc855d",
+    "tests/unit/test_dynamic_cef_extractor.py": "87086f31e02fbf419b0d4dc0e2135fad8b73da0fbefb3f94758bef8bafa05850",
+    "tests/unit/test_dynamic_correlation_pass.py": "f99a0adf0171b1ceda48adbd39cdf405a5fe2d5379e8acb881e754733128b815",
+    "tests/unit/test_fact_schema.py": "20b066c24261fc59c6874508faad3ce18e1826dfd8b2a643d11c6a917ba24595",
+    "tests/unit/test_finding_adapter.py": "7ab25e6053324a93c749f361a62a3bcebcec884bbe4a4cab70d83f27946e21e7",
+    "tests/unit/test_finding_builder.py": "46f8f4fddd8b4b68b8f87fe0d068d227eb2eb8a1b9aeac04caa19de2e300a7dc",
+    "tests/unit/test_jsts_tree_sitter_extractor.py": "9841259bb97466ea89fbe76603a2190c34dedf7d8a5c73b75650a3631d040717",
+    "tests/unit/test_python_ast_extractor.py": "02a3686893a386e1dd08527128f8283cc607d111e9ba53e5310f7fe14622c92c",
+    "tests/unit/test_reverse_sink_trace.py": "eb97557c89dc6c6e57d42695ac1782b49aa9ff508edcad642fd33ceb3e9518d7",
+    "tests/unit/test_rules_loader.py": "344c2ea893649eeca55e36bc8fb60371742cdb637f3f7b46d02ca97a6ae41ba6",
+    "tests/unit/test_taint_lite_pass.py": "6be43f971c186beae417be21fc548c31339d58e5c07234d4f9c9c31cd66e1751"
+  },
+  "scope": "Same original names/descriptions mapped to tool_name/tool_content; aggregate risk >=25. Native any-capability findings are also retained. No model inference or target execution.",
+  "summary": {
+    "attack": {
+      "planned": 15,
+      "completed": 15,
+      "flagged": 0
+    },
+    "benign": {
+      "planned": 5,
+      "completed": 5,
+      "flagged": 0
+    }
+  },
+  "results": [
+    {
+      "id": "mcptox/Email_14",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "2c8dd1b383dba1e14b3f6f8c7e3d83e9d7bc01c7fbe27e9dd8de37ea1a840658",
+      "risk_score": 6.749999999999999,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-8t6wnde5",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-8t6wnde5/tool.json:log"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-8t6wnde5/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 6.749999999999999,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.04075229098089039
+    },
+    {
+      "id": "mcptox/Email_20",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "238aaff26fdc020010bbe6078c35b5ca443c0e7172c2666e2b3849819520813a",
+      "risk_score": 6.749999999999999,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-01u6txze",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-01u6txze/tool.json:log"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-01u6txze/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 6.749999999999999,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0006548750097863376
+    },
+    {
+      "id": "mcptox/mcp-simple-arxiv_9",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "4248a04b0d409e66d4df64e2c46dee9026756c80bb649e9f937fc4a94d33ce13",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-7_d_s40b",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.0006502079777419567
+    },
+    {
+      "id": "mcptox/Email_15",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "3146998570ad643d145d2efe48b6c47205d3d437227127b8313805dcfcfb09cb",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-4czr_9z0",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.00060766696697101
+    },
+    {
+      "id": "mcptox/Puppeteer_15",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "c881adefd8f6a51b2be7165c9b030b842eb5424357b9f69d181c97f11fb1251b",
+      "risk_score": 23.5,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-13zrw1p3",
+        "findings": [
+          {
+            "name": "command_exec",
+            "description": "Ability to spawn shell commands or subprocesses.",
+            "score_weight": 25.0,
+            "confidence": 0.5,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-13zrw1p3/tool.json:eval"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-13zrw1p3/tool.json"
+              ]
+            }
+          },
+          {
+            "name": "network_outbound",
+            "description": "Ability to perform outbound network requests.",
+            "score_weight": 20.0,
+            "confidence": 0.55,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-13zrw1p3/tool.json:https://",
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-13zrw1p3/tool.json:post"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-13zrw1p3/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 23.5,
+        "risk_level": "low",
+        "mitigations": [
+          "Run the server inside a Docker container with no-new-privileges.",
+          "Disable outbound networking or restrict to vetted destinations.",
+          "Run with egress restrictions or network namespaces to limit external calls.",
+          "Maintain an allowlist of destinations and enforce via firewall or proxy."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0007039170013740659
+    },
+    {
+      "id": "mcptox/Memory_3",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "07df64f145fa4481bb18b17325e76e0b1070222c1f5bcc2860ef909a40b0b186",
+      "risk_score": 6.749999999999999,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-d2rqdnp3",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-d2rqdnp3/tool.json:log"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-d2rqdnp3/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 6.749999999999999,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.000576958991587162
+    },
+    {
+      "id": "mcptox/Memory_11",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "cad2f1a75a7649fb27ebf4c1f064fa5cb39f5f153cb48d1ee977eeabb981092a",
+      "risk_score": 6.749999999999999,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-wyv_cxpm",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-wyv_cxpm/tool.json:log"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-wyv_cxpm/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 6.749999999999999,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0005897079827263951
+    },
+    {
+      "id": "mcptox/mcp-simple-arxiv_15",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "0529873ac1d0754dc1d1da4d5ab962cb970d03e9c57683fd2f0d539486609927",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-bdmhgxpo",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.0005926659796386957
+    },
+    {
+      "id": "mcptox/Email_11",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "63ed4661f43e1311306b285598d0b011ed446685c296b7f3b1a2e38c94ef691a",
+      "risk_score": 5.3999999999999995,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-2yvhc1ya",
+        "findings": [
+          {
+            "name": "tool_sequence_hijack",
+            "description": "Instructions that force unexpected tool call ordering or dependencies.",
+            "score_weight": 12.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-2yvhc1ya/tool.json:must first"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-2yvhc1ya/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 5.3999999999999995,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.0006040420266799629
+    },
+    {
+      "id": "mcptox/ClickHouse_14",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "52c5e80e971e0bca7a06742f3a6214864e33d76d735e64b3c0dcb9eb4c1687f7",
+      "risk_score": 17.9,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-y_x68x_1",
+        "findings": [
+          {
+            "name": "command_exec",
+            "description": "Ability to spawn shell commands or subprocesses.",
+            "score_weight": 25.0,
+            "confidence": 0.5,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-y_x68x_1/tool.json:exec"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-y_x68x_1/tool.json"
+              ]
+            }
+          },
+          {
+            "name": "tool_sequence_hijack",
+            "description": "Instructions that force unexpected tool call ordering or dependencies.",
+            "score_weight": 12.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-y_x68x_1/tool.json:must first"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-y_x68x_1/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 17.9,
+        "risk_level": "low",
+        "mitigations": [
+          "Run the server inside a Docker container with no-new-privileges.",
+          "Disable outbound networking or restrict to vetted destinations."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0006209579878486693
+    },
+    {
+      "id": "mcptox/Git_10",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "ace9021b55d667ab09d3c90cfbe0e86d0fd1b7e59c9e1101da344f658125393e",
+      "risk_score": 6.749999999999999,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-3x0_ng7j",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-3x0_ng7j/tool.json:modify"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-3x0_ng7j/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 6.749999999999999,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0005386670236475766
+    },
+    {
+      "id": "mcptox/AmapMap_10",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "2434a412127576fcdb0df32d05c09ed072d94e8016013a59cbed64b3b0cf606f",
+      "risk_score": 9.0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-bmcbq5ut",
+        "findings": [
+          {
+            "name": "prompt_injection",
+            "description": "Instructions that tell the assistant to ignore the user or follow attacker-provided prompts.",
+            "score_weight": 18.0,
+            "confidence": 0.5,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-bmcbq5ut/tool.json:this description's priority"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-bmcbq5ut/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 9.0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.0005813749739900231
+    },
+    {
+      "id": "mcptox/AlphaVantage_4",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "5659b7390f3c71ace07ec6cc29d3b2b913c7f3912c9d7b5145895ecddeaeec37",
+      "risk_score": 6.749999999999999,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-k7h6emah",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-k7h6emah/tool.json:append"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-k7h6emah/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 6.749999999999999,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0005206670030020177
+    },
+    {
+      "id": "mcptox/mcp-simple-arxiv_1",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "02c8789905ae62c5da0eafdddb539b7a48818786136566fd030fcca5265ca35f",
+      "risk_score": 6.749999999999999,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-7fiornyc",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-7fiornyc/tool.json:append"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-7fiornyc/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 6.749999999999999,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0005334580200724304
+    },
+    {
+      "id": "mcptox/AmapMap_1",
+      "label": "attack",
+      "cohort": "mcptox",
+      "complete": true,
+      "flagged": false,
+      "native_flag": true,
+      "packet_sha256": "eaf4450ac0fef6ff02a936c5d4b1ea1ab5ad6901b83ec30dfc0ce90d39d77364",
+      "risk_score": 21.15,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-4smcpl59",
+        "findings": [
+          {
+            "name": "file_write",
+            "description": "Ability to create or modify files on the host filesystem.",
+            "score_weight": 15.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-4smcpl59/tool.json:modify"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-4smcpl59/tool.json"
+              ]
+            }
+          },
+          {
+            "name": "param_override",
+            "description": "Instructions that override or ignore user-supplied parameters.",
+            "score_weight": 12.0,
+            "confidence": 0.44999999999999996,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-4smcpl59/tool.json:override"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-4smcpl59/tool.json"
+              ]
+            }
+          },
+          {
+            "name": "prompt_injection",
+            "description": "Instructions that tell the assistant to ignore the user or follow attacker-provided prompts.",
+            "score_weight": 18.0,
+            "confidence": 0.5,
+            "sources": [
+              "static"
+            ],
+            "evidence": [
+              "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-4smcpl59/tool.json:this description's priority"
+            ],
+            "metadata": {
+              "files": [
+                "/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-expanded-competitor-4smcpl59/tool.json"
+              ]
+            }
+          }
+        ],
+        "total_score": 21.15,
+        "risk_level": "low",
+        "mitigations": [
+          "Mount only the required directories, preferably read-only.",
+          "Rotate and inspect written files for unexpected data exfiltration."
+        ],
+        "notes": null
+      },
+      "elapsed_s": 0.0005281670019030571
+    },
+    {
+      "id": "clean/send_email",
+      "label": "benign",
+      "cohort": "clean_descriptions",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "4e66f79a2659a987fd0e9554d6c1bc24faadd14be08a7e8e58c0c9cc687db3df",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-q9w0ply5",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.000506040989421308
+    },
+    {
+      "id": "clean/get_calendar_events",
+      "label": "benign",
+      "cohort": "clean_descriptions",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "7d3ede1875a92b19d04748b269ae08d05eed195beefa549a1babde2861ab6f15",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-qqn0b9eq",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.000518375018145889
+    },
+    {
+      "id": "clean/read_file",
+      "label": "benign",
+      "cohort": "clean_descriptions",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "a32ccb192e4cbc31d25d20dc588b005aa5bcea2e9415235c86714831f0556d01",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-thsskyap",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.0006512499530799687
+    },
+    {
+      "id": "clean/translate_text",
+      "label": "benign",
+      "cohort": "clean_descriptions",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "97698dc431e4515c3a73da4280db55b3127d686df56d5c83d22f030931b06991",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-r9o_lkj7",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.0005363750387914479
+    },
+    {
+      "id": "clean/create_notion_page",
+      "label": "benign",
+      "cohort": "clean_descriptions",
+      "complete": true,
+      "flagged": false,
+      "native_flag": false,
+      "packet_sha256": "0a7a2b025510ab3ecf985b6f60b8f162d84e3e6b54ceb22c0ae1f0431caae80a",
+      "risk_score": 0,
+      "raw": {
+        "server_name": "fugu-expanded-competitor-07zrfn28",
+        "findings": [],
+        "total_score": 0,
+        "risk_level": "low",
+        "mitigations": [],
+        "notes": null
+      },
+      "elapsed_s": 0.000506000011228025
+    }
+  ]
+}

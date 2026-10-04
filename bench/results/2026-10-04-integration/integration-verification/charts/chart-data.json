@@ -1,0 +1,239 @@
+{
+  "common_complete_ids": [
+    "mcptox/Email_14",
+    "mcptox/Email_20",
+    "mcptox/mcp-simple-arxiv_9",
+    "mcptox/Email_15",
+    "mcptox/Puppeteer_15",
+    "mcptox/Memory_3",
+    "mcptox/Memory_11",
+    "mcptox/mcp-simple-arxiv_15",
+    "mcptox/Email_11",
+    "mcptox/ClickHouse_14",
+    "mcptox/Git_10",
+    "mcptox/AmapMap_10",
+    "mcptox/AlphaVantage_4",
+    "mcptox/mcp-simple-arxiv_1",
+    "mcptox/AmapMap_1",
+    "clean/send_email",
+    "clean/get_calendar_events",
+    "clean/read_file",
+    "clean/create_notion_page"
+  ],
+  "common_planned": 20,
+  "labels": [
+    "Fugu baseline\nS0/S1",
+    "Fugu integrated\nS0/S1",
+    "Fugu baseline\nfull workflow",
+    "Fugu integrated\nfull workflow",
+    "MCP-Sec-Audit\nrisk \u226525",
+    "MCP-Sec-Audit\nany finding"
+  ],
+  "attack_counts": [
+    0,
+    10,
+    12,
+    14,
+    0,
+    12
+  ],
+  "attack_denominator": 15,
+  "clean_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "clean_denominator": 4,
+  "cohorts": [
+    {
+      "variant": "baseline",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "planned": 15,
+      "complete": 15,
+      "flagged": 12
+    },
+    {
+      "variant": "baseline",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "planned": 7,
+      "complete": 6,
+      "flagged": 6
+    },
+    {
+      "variant": "baseline",
+      "cohort": "crafted",
+      "kind": "benign",
+      "planned": 4,
+      "complete": 2,
+      "flagged": 0
+    },
+    {
+      "variant": "baseline",
+      "cohort": "composition",
+      "kind": "malicious",
+      "planned": 4,
+      "complete": 4,
+      "flagged": 3
+    },
+    {
+      "variant": "baseline",
+      "cohort": "composition",
+      "kind": "benign",
+      "planned": 3,
+      "complete": 3,
+      "flagged": 0
+    },
+    {
+      "variant": "baseline",
+      "cohort": "reputation",
+      "kind": "vulnerable_dependency",
+      "planned": 1,
+      "complete": 1,
+      "flagged": 1
+    },
+    {
+      "variant": "baseline",
+      "cohort": "reputation",
+      "kind": "dependency_control",
+      "planned": 1,
+      "complete": 1,
+      "flagged": 1
+    },
+    {
+      "variant": "integrated",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "planned": 15,
+      "complete": 15,
+      "flagged": 14
+    },
+    {
+      "variant": "integrated",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "planned": 7,
+      "complete": 6,
+      "flagged": 6
+    },
+    {
+      "variant": "integrated",
+      "cohort": "crafted",
+      "kind": "benign",
+      "planned": 4,
+      "complete": 2,
+      "flagged": 0
+    },
+    {
+      "variant": "integrated",
+      "cohort": "composition",
+      "kind": "malicious",
+      "planned": 4,
+      "complete": 4,
+      "flagged": 3
+    },
+    {
+      "variant": "integrated",
+      "cohort": "composition",
+      "kind": "benign",
+      "planned": 3,
+      "complete": 3,
+      "flagged": 0
+    },
+    {
+      "variant": "integrated",
+      "cohort": "reputation",
+      "kind": "vulnerable_dependency",
+      "planned": 1,
+      "complete": 1,
+      "flagged": 1
+    },
+    {
+      "variant": "integrated",
+      "cohort": "reputation",
+      "kind": "dependency_control",
+      "planned": 1,
+      "complete": 1,
+      "flagged": 1
+    }
+  ],
+  "stage_names": [
+    "concealment",
+    "static",
+    "semantic",
+    "harness",
+    "detonation",
+    "reputation",
+    "composition"
+  ],
+  "states": [
+    "completed",
+    "not_applicable",
+    "partial",
+    "failed",
+    "unavailable",
+    "unattempted"
+  ],
+  "coverage": [
+    [
+      54,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      54,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      54,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      53,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      20,
+      31,
+      3,
+      0,
+      0,
+      0
+    ],
+    [
+      13,
+      41,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      7,
+      33,
+      0,
+      0,
+      0,
+      0
+    ]
+  ]
+}

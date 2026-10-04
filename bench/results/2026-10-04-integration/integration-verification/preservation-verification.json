@@ -1,0 +1,32 @@
+{
+  "checked_utc": "2026-10-04T15:33:07.302333+00:00",
+  "groups": {
+    "immutable_benchmark_files": {
+      "checked": 3241,
+      "unchanged": 3241,
+      "differences": []
+    },
+    "owner_files": {
+      "checked": 3,
+      "unchanged": 3,
+      "differences": []
+    },
+    "received_copied_delivery": {
+      "checked": 20,
+      "unchanged": 18,
+      "differences": [
+        {
+          "path": "README.md",
+          "original_sha256": "ef5caa71b350bf9cabcb505ac05a0effa5470de864b86dcf5f2b7eb653ae749e",
+          "observed_sha256": "6d42010ad4eb2092aac322eb3632ba6016c6c28d81f28f336e66491b5bd55cb5"
+        },
+        {
+          "path": "docs/benchmark-workflow-integration.md",
+          "original_sha256": "a518fe1b72c602a05551c6a81752e86034e1eedc550635892796bb01794d924e",
+          "observed_sha256": "251a5083876aa64b5a624ceb842587199be65947c5e9df9ef285cb569d3e0fae"
+        }
+      ]
+    }
+  },
+  "authorized_external_changes": "Docs writer1 grant836; exact two paths. Research made no edits to them."
+}
