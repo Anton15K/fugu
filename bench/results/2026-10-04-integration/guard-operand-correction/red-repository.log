@@ -15,9 +15,9 @@ operand = '(open(path).read(), path)[1]'
     ])
     def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
         import ast
-    
+
         from fugu.verdict import aggregate_verdict
-    
+
         text = (
             'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
             f'    if {operand} in DENY:\n        raise PermissionError()\n'
@@ -45,9 +45,9 @@ operand = 'read_path(path)'
     ])
     def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
         import ast
-    
+
         from fugu.verdict import aggregate_verdict
-    
+
         text = (
             'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
             f'    if {operand} in DENY:\n        raise PermissionError()\n'
@@ -75,9 +75,9 @@ operand = 'path.value'
     ])
     def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
         import ast
-    
+
         from fugu.verdict import aggregate_verdict
-    
+
         text = (
             'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
             f'    if {operand} in DENY:\n        raise PermissionError()\n'
@@ -105,9 +105,9 @@ operand = 'path[0]'
     ])
     def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
         import ast
-    
+
         from fugu.verdict import aggregate_verdict
-    
+
         text = (
             'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
             f'    if {operand} in DENY:\n        raise PermissionError()\n'
@@ -135,9 +135,9 @@ operand = '(selected := open(path).read())'
     ])
     def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
         import ast
-    
+
         from fugu.verdict import aggregate_verdict
-    
+
         text = (
             'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
             f'    if {operand} in DENY:\n        raise PermissionError()\n'
@@ -165,9 +165,9 @@ operand = '(await read_path(path))'
     ])
     def test_evaluated_denylist_operands_keep_actionable_verdict(tmp_path, operand):
         import ast
-    
+
         from fugu.verdict import aggregate_verdict
-    
+
         text = (
             'DENY = ["/etc/shadow"]\nasync def guard(path):\n'
             f'    if {operand} in DENY:\n        raise PermissionError()\n'
