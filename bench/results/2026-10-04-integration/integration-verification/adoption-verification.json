@@ -1,0 +1,51 @@
+{
+  "files": [
+    {
+      "path": "bench/expanded_benchmark.py",
+      "delivered_sha256": "0a350fed717016854a064e5eb8f3735dbbb3bf2a1f1d5e86940024b12d0c2c2a",
+      "current_sha256": "0a350fed717016854a064e5eb8f3735dbbb3bf2a1f1d5e86940024b12d0c2c2a",
+      "byte_identical": true
+    },
+    {
+      "path": "bench/expanded_mcp_sec.py",
+      "delivered_sha256": "bac097373ec899508a75f22ff45b4c194e3e45f07ea4f2ac147dd79d25f749bc",
+      "current_sha256": "bac097373ec899508a75f22ff45b4c194e3e45f07ea4f2ac147dd79d25f749bc",
+      "byte_identical": true
+    },
+    {
+      "path": "bench/paired_workflow.py",
+      "delivered_sha256": "6f5ee125c117cd538be49009d22f6f7ce3446c2cb54a1aee6ace8cbbc97263ae",
+      "current_sha256": "6f5ee125c117cd538be49009d22f6f7ce3446c2cb54a1aee6ace8cbbc97263ae",
+      "byte_identical": true
+    },
+    {
+      "path": "bench/render_paired_workflow.py",
+      "delivered_sha256": "0b8584579c2b34fbff96a5bab682855e2426bf14703da9da32ce0bd0c1a1c79f",
+      "current_sha256": "5fccff55667db1e575e4342f2a20eb31da35b0b0d64d5c800617fb334baaddc1",
+      "byte_identical": false
+    },
+    {
+      "path": "bench/verify_static_hardening.py",
+      "delivered_sha256": "d8c15722a8eb3669744f71ec0f0eb8194100bbceb5b876d6269fb31a01efff46",
+      "current_sha256": "b23b81aaad32aa8b40c5ee4a9634117bfbc41ec0b7455a4fc32f66e5d9e2088b",
+      "byte_identical": false
+    },
+    {
+      "path": "tests/test_expanded_benchmark.py",
+      "delivered_sha256": "21196e476d6f7ec1ed228f805f3b28f3c831a43aedf86dd7bd92a343cc41c49b",
+      "current_sha256": "21196e476d6f7ec1ed228f805f3b28f3c831a43aedf86dd7bd92a343cc41c49b",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/test_paired_workflow.py",
+      "delivered_sha256": "aaad7646e20a729d90d02f9379537fc3670c506f41cd789e7588e52acc2f8dc0",
+      "current_sha256": "20835f5288e7036090bbe165b6179086b5ecdbc95f6c7047809093ae78680d24",
+      "byte_identical": false
+    }
+  ],
+  "amendments": [
+    "bench/render_paired_workflow.py: separate output and lazy plotting imports",
+    "bench/verify_static_hardening.py: explicit package/source/output, masking-only scope and loaded-source guard",
+    "tests/test_paired_workflow.py: focused CLI preservation and loaded-source checks"
+  ]
+}

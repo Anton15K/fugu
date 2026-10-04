@@ -1,0 +1,36 @@
+{
+  "measurement_unchanged": true,
+  "full_workflow_completion_passes_among_partials": 0,
+  "clean_PASS_verdicts_among_partials": 0,
+  "malicious_detection_successes_among_partials": 1,
+  "cases": [
+    {
+      "id": "clean/translate_text",
+      "full_workflow_complete": false,
+      "detection_success": false,
+      "clean_pass_supported": false,
+      "reason": "All 18 comparisons completed, but 99 generated-probe characters were omitted. Existing high canary-targeting alert remains; response only states conditional inclusion of API_TOKEN in service request headers, not actual secret access. Source attribution requires review."
+    },
+    {
+      "id": "crafted/03-env-harvest-installer",
+      "full_workflow_complete": false,
+      "detection_success": true,
+      "clean_pass_supported": false,
+      "reason": "Recorded deterministic canary network exfiltration, one canary hit and six flows. Trigger exit -9 leaves coverage partial; successful malicious detection can be counted separately."
+    },
+    {
+      "id": "crafted/08-clean-mcp-server",
+      "full_workflow_complete": false,
+      "detection_success": null,
+      "clean_pass_supported": false,
+      "reason": "Frozen Python fixture contains undefined lowercase false/true; isolated import reproduced NameError before tool execution. No security alert does not prove clean runtime."
+    },
+    {
+      "id": "crafted/10-clean-node-skill",
+      "full_workflow_complete": false,
+      "detection_success": null,
+      "clean_pass_supported": false,
+      "reason": "Python chamber base has no Node runtime; selected trigger also supplies no required input file. Existing Node-image reproduction prints usage and exits 1; correct-argument diagnostic succeeds but is a different invocation. Reputation medium alert is unqualified package-keyword evidence, not confirmed vulnerability of this fixture."
+    }
+  ]
+}

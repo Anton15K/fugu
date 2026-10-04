@@ -1,0 +1,62 @@
+{
+  "checks": [
+    {
+      "name": "scoped-tests",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "pytest",
+        "tests/test_expanded_benchmark.py",
+        "tests/test_paired_workflow.py",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp=/tmp/fugu-workflow-evidence-tests"
+      ],
+      "exit_code": 0,
+      "log": "scoped-tests.log",
+      "log_sha256": "2a90d6320f5e5f95c7802671d4db2609c26fc7e489c78e76f20f334d9b4ee1c6"
+    },
+    {
+      "name": "ruff",
+      "argv": [
+        "ruff",
+        "check",
+        "bench/expanded_benchmark.py",
+        "bench/expanded_mcp_sec.py",
+        "bench/paired_workflow.py",
+        "bench/render_paired_workflow.py",
+        "bench/verify_static_hardening.py",
+        "tests/test_expanded_benchmark.py",
+        "tests/test_paired_workflow.py",
+        "bench/results/2026-10-04-integration/integration-verification/verify_selected.py"
+      ],
+      "exit_code": 0,
+      "log": "ruff.log",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "selected-recount",
+      "argv": [
+        "/opt/homebrew/opt/python@3.13/bin/python3.13",
+        "bench/results/2026-10-04-integration/integration-verification/verify_selected.py",
+        "--output",
+        "bench/results/2026-10-04-integration/integration-verification"
+      ],
+      "exit_code": 0,
+      "log": "selected-recount.log",
+      "log_sha256": "477b66d89fc1608d2cef2473533450c2e3516d38a96212495f975dce29bea5b3"
+    }
+  ],
+  "env_overrides": {
+    "UV_CACHE_DIR": "/tmp/fugu-uv-cache",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHON_DOTENV_DISABLED": "1",
+    "NEBIUS_API_KEY": "",
+    "MPLCONFIGDIR": "/tmp/fugu-mpl"
+  },
+  "scope": "Fake/pure unit tests, lint and selected offline recount only."
+}

@@ -1,0 +1,19 @@
+{
+  "original_labels_preserved": true,
+  "correction": {
+    "case": "reputation/requests-2.32.5",
+    "frozen_label": "dependency_control",
+    "reviewed_label": "known_affected_dependency",
+    "advisory": "CVE-2026-25645",
+    "source": "https://github.com/psf/requests/security/advisories/GHSA-gc5v-m9x4-r6x2",
+    "affected": "<2.33.0",
+    "caveat": "Package-version evidence; application exploitability requires use of extract_zipped_paths().",
+    "duplicate_osv_records": "GHSA and PYSEC refer to the same CVE; not two independent vulnerabilities."
+  },
+  "composition_contract": {
+    "case": "composition/shadow-pair",
+    "legacy_expected": "security shadowing alert",
+    "observed": "two informational tool-name overlaps; no runtime namespace/resolution evidence, so no MCP03 risk alert",
+    "expected_contract_match": false
+  }
+}

@@ -70,10 +70,42 @@ benchmark evidence. Live audit URLs reconnect to their actual server history.
 | Concealment | Decode hidden Unicode instructions | Local, deterministic |
 | Static | Identify concrete source patterns | Local, deterministic |
 | Semantic | Read supplied text for injection and deceptive intent | Hosted Nemotron judgment, advisory |
-| Detonation | Run derived triggers with fake canaries and collectors | Configured chamber; observations limited to executed triggers/collectors |
+| Detonation | Run derived triggers with fake canaries and collectors | Configured chamber runs triggers from `/opt/target`; observations cover executed triggers/collectors only |
 | Harness | Compare baseline and extension-mounted responses | Hosted A/B stated-intent probes with deterministic signal checks; not a complete tool-execution loop |
 | Reputation | Check package/domain context | Source-cited Tavily/OSV lookups |
 | Composition | Analyze relationships in repository fan-out | Member findings and coverage; not proof every possible combination ran |
+
+### Optional static tool-surface scanner
+
+The S1 stage can also run a pinned scanner over literal JSON/Python tool
+definitions and `SKILL.md` instructions. It parses source without importing or
+executing the audited extension. Syntax-only context marks selected comments
+and literal references as informational; uncertain syntax receives no
+exemption. The scanner is advisory: phrase matches need contextual review. The
+existing Fugu S1 rules still run if this optional
+component is absent; its metrics report the tool-surface pass as disabled.
+Scanner errors or omitted surfaces mark S1 coverage incomplete.
+
+To build and install the pinned component locally, use an existing Rust
+toolchain:
+
+```sh
+uv run --no-sync python tools/build_static_rules.py
+```
+
+The build fetches the pinned source and uses `cargo build --locked --release`;
+it does not install Rust. By default the scanner looks for
+`src/fugu/_bin/static-rules`. Set `FUGU_STATIC_RULES_BINARY` to use another
+binary, and optionally set `FUGU_STATIC_RULES_SHA256` to require its expected
+SHA-256. `FUGU_STATIC_RULES_IMAGE` selects an existing trusted container image
+as the scanner's isolated runtime; that invocation uses Docker with networking disabled and
+read-only mounts. If no image is selected, a configured binary runs locally.
+If an image is selected but Docker is unavailable, the invocation fails and
+S1 coverage is marked incomplete; it does not fall back to local execution.
+The application Dockerfile is configured to compile the
+pinned scanner and place it at `/opt/fugu/static-rules`. See
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) for upstream attribution and
+license details.
 
 The verdict policy returns FAIL for critical findings or deterministic/empirical
 highs; WARN for other high/medium findings, failed or partial analysis, or omitted
@@ -107,7 +139,53 @@ compute when selected; live sandbox behavior has not been verified here.
 Fugu is not an entirely local analysis system. Review these flows before
 submitting confidential content.
 
-## Current production profile and measurement status
+## Whole-workflow integration evaluation (4 October 2026)
+
+A paired full-workflow measurement covered 40 planned cases: **36 completed and
+four remain partial**. On 15 external attack descriptions, the added static
+tool-surface checks increased alerts at the medium-or-higher threshold from
+**12/15 (80%) to 14/15 (93.3%)**. Both variants alerted on **0/4 completed clean
+descriptions**; a fifth planned clean case was partial, so this is not a false
+positive rate. These are alerts on a small sample, not confirmed exploits or an
+overall competitor ranking.
+
+Fugu's S1 stage includes the pinned tool-surface scanner, syntax-only source
+context, and chamber working-directory repair. In the paired comparison, both
+variants already include the source-context and working-directory fixes; only
+the additional S1 rules differ. They reuse byte-identical nonstatic stage
+evidence and recompute composition and verdicts. This is not two independent
+model trials. Later source changes mean the measurement is not a fresh
+full-workflow run of the current final source; no end-to-end equivalence is
+claimed.
+
+![Paired full-workflow comparison](bench/results/2026-10-04-integration/integration-verification/charts/same-input-comparison.png)
+
+The detailed [methodology report](docs/benchmark-workflow-integration.md)
+records cohort denominators, partial-case reasons, request accounting, scanner
+setup and the separate source-only diagnostics. See the [sealed evidence
+index](bench/results/2026-10-04-integration/integration-verification/README.md)
+and the [artifact inventory](bench/results/2026-10-04-integration/integration-verification/inventory.json).
+
+**The four partial cases cannot count as fully completed or clean PASS cases.**
+One partial case is separately recorded as a successful malicious detection,
+but its incomplete execution does not count as a completed case. The other
+partial results and their limits are detailed in the methodology report. The
+36/40 completion denominator is unchanged.
+
+Current source checks preserve the baseline S1 decision signatures and stage
+status on all 45 recorded inputs. Regressions cover sensitive reads after
+JavaScript regexes and escaped line breaks, Python exception operands and
+comparison operands, captured names, and UTF-8 source positions. Inert comments
+and simple rejection guards retain informational evidence. See the [current source verification](bench/results/2026-10-04-integration/guard-operand-correction/README.md).
+
+Normal configured S1 activation on an inert `SKILL.md` returned five advisory
+findings with no scanner omissions or parse errors. That [installed activation
+proof](bench/results/2026-10-04-integration/lead-integration-verification/installed-activation.json)
+and the frozen paired results remain unchanged. Source checks do not replace
+the workflow measurement. A fresh final application-image build and deployment
+smoke remain unverified after the recorded Docker Buildx denial.
+
+## 3 October production-profile measurement and limits
 
 **40/40 selected cases completed.** Fugu detected **14/15 planned MCPTox attack
 descriptions (93.3%)** at the medium-or-higher threshold, with one completed

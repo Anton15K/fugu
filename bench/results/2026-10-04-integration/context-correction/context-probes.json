@@ -1,0 +1,583 @@
+{
+  "scope": "Trusted static parser and fake scanner on inert source text; fixtures are never executed; no provider/target/container calls",
+  "source_hashes": {
+    "src/fugu/pipeline/stages/static_context.py": "f91655ccf628ff998e7a636179e378d46db4ec3c4b95fa1e3c1026f4b41c1488",
+    "src/fugu/pipeline/stages/static_scan.py": "b4d28cccbe24569794b67f2931d2db80cea6add3420dc724de900eb9f2f0e53b"
+  },
+  "rows": [
+    {
+      "case": "js_regex_character_class",
+      "expected_status": "fail",
+      "fixture_sha256": "bad0aac3019d477cdb0c1fb608d559cc255510a7ac33c555701c2d4e59b9b8df",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "js_plain_read",
+      "expected_status": "fail",
+      "fixture_sha256": "f6ef9fdd8d08c447f0d9b0ff07b5b449f69cefa188cd0b60521dfdd9559f7841",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "js_inert_comment",
+      "expected_status": "pass",
+      "fixture_sha256": "1e4e1cc238f87aa51367c67712d6bb1e6f3ccb6fc4ca85e7c39ea1e6ff5bc18a",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "pass",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 1
+        },
+        "max_confidence_tier": "advisory",
+        "reasons": [
+          "no findings above low/info severity"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "info",
+          "confidence": "advisory",
+          "contexts": [
+            "comment_reference"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "js_escaped_lf",
+      "expected_status": "fail",
+      "fixture_sha256": "87f1a384bd5873f1c312f41d9c29f77f4a42b668c54f4b7c50ac37f843eaee8b",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "js_escaped_crlf",
+      "expected_status": "fail",
+      "fixture_sha256": "bfa1212cec6b9d4af4de2c0b6bc67f9e96a8f86a0747eb8eac685d026e905c4a",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "js_unicode_separator",
+      "expected_status": "fail",
+      "fixture_sha256": "3aa5702f54b1b4cb56fce4ef78b87654a1b49c8ffb798425454d5853ef71bd06",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "python_raise_operand",
+      "expected_status": "fail",
+      "fixture_sha256": "addc00b96182611bb14d6c427d59cb4fed578cbeb47d75e1a137babe9d7cf345",
+      "syntax": {
+        "parser": "ast.parse",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "literal_collection"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "python_raise_cause",
+      "expected_status": "fail",
+      "fixture_sha256": "9d9b78c50bc4a94d2132d1679bfd2d4550798b37472afea2696563c26a5244b4",
+      "syntax": {
+        "parser": "ast.parse",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "literal_collection"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "python_shadowed_exception",
+      "expected_status": "fail",
+      "fixture_sha256": "a4e2437d69caeebcbe29e34eee6d1e46aa318a498efde0a983c955ac629cc023",
+      "syntax": {
+        "parser": "ast.parse",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "literal_collection"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "python_pattern_bound_exception",
+      "expected_status": "fail",
+      "fixture_sha256": "01297bcebfb060c22272d7f3c02f1e6b24d4f87f9dd4c21037042de215fcaf4f",
+      "syntax": {
+        "parser": "ast.parse",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "literal_collection"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "python_inert_raise",
+      "expected_status": "pass",
+      "fixture_sha256": "53eb763de7d5b83ebcba2d680434285f2ba0c7d361a9921f458d3b0b22704fd7",
+      "syntax": {
+        "parser": "ast.parse",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "pass",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 1
+        },
+        "max_confidence_tier": "advisory",
+        "reasons": [
+          "no findings above low/info severity"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "info",
+          "confidence": "advisory",
+          "contexts": [
+            "denylist_reference"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "js_escaped_cr",
+      "expected_status": "fail",
+      "fixture_sha256": "730bc58de72f40d978894848d74c80f1a76fc5c57f103cd7ef27abbe8c88039d",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "js_escaped_unicode_separator",
+      "expected_status": "fail",
+      "fixture_sha256": "9fde4fc8719ba3cc9092f960b600ec14c8bb7418df08ec3eea13fb9dc1bb0f56",
+      "syntax": {
+        "parser": "node --check",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "python_unicode_coordinate",
+      "expected_status": "fail",
+      "fixture_sha256": "879835de646e9aaf4ed8335dcc02a3d88724c170c831850d5217f2da9de8d270",
+      "syntax": {
+        "parser": "ast.parse",
+        "ok": true
+      },
+      "ok": true,
+      "verdict": {
+        "status": "fail",
+        "total_findings": 1,
+        "severity_counts": {
+          "critical": 0,
+          "high": 1,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "max_confidence_tier": "deterministic",
+        "reasons": [
+          "high-severity finding(s) with deterministic/empirical evidence"
+        ],
+        "coverage_caveats": [],
+        "static_only": false,
+        "partial_coverage": false,
+        "omitted_units": 0
+      },
+      "findings": [
+        {
+          "severity": "high",
+          "confidence": "deterministic",
+          "contexts": [
+            "unresolved"
+          ],
+          "rules": [
+            "sensitive_path_access"
+          ]
+        }
+      ]
+    }
+  ]
+}

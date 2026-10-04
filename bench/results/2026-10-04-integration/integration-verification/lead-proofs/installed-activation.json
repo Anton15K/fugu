@@ -1,0 +1,48 @@
+{
+  "scope": "Normal build_stages activation, existing trusted Linux scanner/image on inert SKILL.md, networking disabled by adapter; no new build/provider/target execution",
+  "stage_names": [
+    "concealment",
+    "static"
+  ],
+  "ok": true,
+  "tool_surface": {
+    "tools": 1,
+    "omitted_tools": 0,
+    "parse_errors": [],
+    "coverage_incomplete": false,
+    "enabled": true,
+    "engine_pin": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "suppressed": 0,
+    "binary_sha256": "85224f942db23733bb4e3ccacbf246fe2cde266ca96321231973bef6d98ea208",
+    "findings": 5,
+    "duration_s": 1.6821
+  },
+  "coverage_incomplete": null,
+  "findings": [
+    {
+      "title": "Tool surface: imperative override",
+      "severity": "high",
+      "confidence": "advisory"
+    },
+    {
+      "title": "Tool surface: message hijacking",
+      "severity": "high",
+      "confidence": "advisory"
+    },
+    {
+      "title": "Tool surface: stealth language",
+      "severity": "high",
+      "confidence": "advisory"
+    },
+    {
+      "title": "Tool surface: message hijacking",
+      "severity": "medium",
+      "confidence": "advisory"
+    },
+    {
+      "title": "Tool surface: message hijacking",
+      "severity": "low",
+      "confidence": "advisory"
+    }
+  ]
+}

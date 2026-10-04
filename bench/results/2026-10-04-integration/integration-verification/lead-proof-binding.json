@@ -1,0 +1,21 @@
+{
+  "proofs": [
+    {
+      "source_path": "/tmp/fugu-workflow-integration-lead-checks/source-only-verification.json",
+      "path": "lead-proofs/source-only-verification.json",
+      "sha256": "7a05c1555b55fb69fed4177faf3d21d60d95014ebd1759ea30d06f67f118ce9a",
+      "producer": "control-lead@fugu",
+      "authorization": "2026-10-04T15:23Z authenticated peer instruction on qitem-20261004144652-870f1b35"
+    },
+    {
+      "source_path": "/tmp/fugu-workflow-integration-lead-checks/installed-activation.json",
+      "path": "lead-proofs/installed-activation.json",
+      "sha256": "e8ab0f68361f392910e0d3d37cbd382f5cbd777dd4891ce5f0ccd1f0fbbfc30e",
+      "producer": "control-lead@fugu",
+      "authorization": "2026-10-04T15:23Z authenticated peer instruction on qitem-20261004144652-870f1b35"
+    }
+  ],
+  "all45_input_fingerprints_match": true,
+  "all39_current_source_hashes_match": true,
+  "scope": "Lead-produced final baseline S1 classification equivalence and distinct inert static activation; no fresh full-workflow or inference/chamber result. Research copied/checked proofs only."
+}

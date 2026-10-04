@@ -1,0 +1,3946 @@
+{
+  "coverage": {
+    "baseline": [
+      {
+        "count": 54,
+        "stage": "concealment",
+        "state": "completed"
+      },
+      {
+        "count": 54,
+        "stage": "static",
+        "state": "completed"
+      },
+      {
+        "count": 54,
+        "stage": "semantic",
+        "state": "completed"
+      },
+      {
+        "count": 53,
+        "stage": "harness",
+        "state": "completed"
+      },
+      {
+        "count": 41,
+        "stage": "reputation",
+        "state": "not_applicable"
+      },
+      {
+        "count": 31,
+        "stage": "detonation",
+        "state": "not_applicable"
+      },
+      {
+        "count": 33,
+        "stage": "composition",
+        "state": "not_applicable"
+      },
+      {
+        "count": 13,
+        "stage": "reputation",
+        "state": "completed"
+      },
+      {
+        "count": 1,
+        "stage": "harness",
+        "state": "partial"
+      },
+      {
+        "count": 3,
+        "stage": "detonation",
+        "state": "partial"
+      },
+      {
+        "count": 20,
+        "stage": "detonation",
+        "state": "completed"
+      },
+      {
+        "count": 7,
+        "stage": "composition",
+        "state": "completed"
+      }
+    ],
+    "integrated": [
+      {
+        "count": 54,
+        "stage": "concealment",
+        "state": "completed"
+      },
+      {
+        "count": 54,
+        "stage": "static",
+        "state": "completed"
+      },
+      {
+        "count": 54,
+        "stage": "semantic",
+        "state": "completed"
+      },
+      {
+        "count": 53,
+        "stage": "harness",
+        "state": "completed"
+      },
+      {
+        "count": 41,
+        "stage": "reputation",
+        "state": "not_applicable"
+      },
+      {
+        "count": 31,
+        "stage": "detonation",
+        "state": "not_applicable"
+      },
+      {
+        "count": 33,
+        "stage": "composition",
+        "state": "not_applicable"
+      },
+      {
+        "count": 13,
+        "stage": "reputation",
+        "state": "completed"
+      },
+      {
+        "count": 1,
+        "stage": "harness",
+        "state": "partial"
+      },
+      {
+        "count": 3,
+        "stage": "detonation",
+        "state": "partial"
+      },
+      {
+        "count": 20,
+        "stage": "detonation",
+        "state": "completed"
+      },
+      {
+        "count": 7,
+        "stage": "composition",
+        "state": "completed"
+      }
+    ]
+  },
+  "dollar_cost": null,
+  "inference": {
+    "attempts": 1296,
+    "completion_tokens_known_subtotal": 418018,
+    "completion_tokens_total": 418018,
+    "completion_tokens_unknown_calls": 0,
+    "finish_reasons": {
+      "stop": 1296
+    },
+    "orphan_attempts": 0,
+    "output_errors": 0,
+    "phase_attempts": {
+      "full-workflow": 1296
+    },
+    "prompt_tokens_known_subtotal": 588053,
+    "prompt_tokens_total": 588053,
+    "prompt_tokens_unknown_calls": 0,
+    "provider_errors": 0,
+    "replayed_requests_this_process": 0,
+    "requested_models": [
+      "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "nvidia/nemotron-3-super-120b-a12b"
+    ],
+    "served_models": [
+      "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "nvidia/nemotron-3-super-120b-a12b"
+    ],
+    "stop_reason": null,
+    "sum_request_duration_s": 2249.273473237001,
+    "unknown_duration_calls": 0,
+    "unknown_usage_calls": 0
+  },
+  "measured_utc": "2026-10-04T11:41:56.583481+00:00",
+  "plan_sha256": "1efa33299625e7a5a096b1a19d72f9c4d059ec286f03313a8db2544c4a6e44ea",
+  "planned": 40,
+  "profile": {
+    "fanout_max_units": 24,
+    "git_clone_timeout_seconds": 120,
+    "harness_full_static_probes": 6,
+    "harness_max_file_bytes": 2000000,
+    "harness_max_files": 50,
+    "harness_mount_char_budget": 32000,
+    "harness_standard_static_probes": 3,
+    "llm_max_output_tokens": 4096,
+    "red_probe_count": 3,
+    "red_probe_max_chars": 200,
+    "request_timeout_seconds": 90,
+    "sdk_max_retries": 0,
+    "semantic_max_chars_per_unit": 6000,
+    "semantic_max_file_bytes": 2000000,
+    "semantic_max_files": 2000,
+    "semantic_max_units": 24,
+    "source_max_bytes": 536870912,
+    "source_max_entries": 20000
+  },
+  "remaining_quota": null,
+  "search_stop_reason": null,
+  "searches": 16,
+  "shared_nonstatic_evidence": true,
+  "started_utc": "2026-10-04T11:00:56.178525+00:00",
+  "summary": [
+    {
+      "attempted": 5,
+      "cohort": "clean_descriptions",
+      "complete": 4,
+      "excluded": 1,
+      "flagged_complete": 0,
+      "flagged_partial": 1,
+      "kind": "benign",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 3,
+      "cohort": "composition",
+      "complete": 3,
+      "excluded": 0,
+      "flagged_complete": 0,
+      "flagged_partial": 0,
+      "kind": "benign",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 4,
+      "cohort": "composition",
+      "complete": 4,
+      "excluded": 0,
+      "flagged_complete": 3,
+      "flagged_partial": 0,
+      "kind": "malicious",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 4,
+      "cohort": "crafted",
+      "complete": 2,
+      "excluded": 2,
+      "flagged_complete": 0,
+      "flagged_partial": 1,
+      "kind": "benign",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 7,
+      "cohort": "crafted",
+      "complete": 6,
+      "excluded": 1,
+      "flagged_complete": 6,
+      "flagged_partial": 1,
+      "kind": "malicious",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 15,
+      "cohort": "mcptox",
+      "complete": 15,
+      "excluded": 0,
+      "flagged_complete": 12,
+      "flagged_partial": 0,
+      "kind": "malicious",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 1,
+      "cohort": "reputation",
+      "complete": 1,
+      "excluded": 0,
+      "flagged_complete": 1,
+      "flagged_partial": 0,
+      "kind": "dependency_control",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 1,
+      "cohort": "reputation",
+      "complete": 1,
+      "excluded": 0,
+      "flagged_complete": 1,
+      "flagged_partial": 0,
+      "kind": "vulnerable_dependency",
+      "variant": "baseline"
+    },
+    {
+      "attempted": 5,
+      "cohort": "clean_descriptions",
+      "complete": 4,
+      "excluded": 1,
+      "flagged_complete": 0,
+      "flagged_partial": 1,
+      "kind": "benign",
+      "variant": "integrated"
+    },
+    {
+      "attempted": 3,
+      "cohort": "composition",
+      "complete": 3,
+      "excluded": 0,
+      "flagged_complete": 0,
+      "flagged_partial": 0,
+      "kind": "benign",
+      "variant": "integrated"
+    },
+    {
+      "attempted": 4,
+      "cohort": "composition",
+      "complete": 4,
+      "excluded": 0,
+      "flagged_complete": 3,
+      "flagged_partial": 0,
+      "kind": "malicious",
+      "variant": "integrated"
+    },
+    {
+      "attempted": 4,
+      "cohort": "crafted",
+      "complete": 2,
+      "excluded": 2,
+      "flagged_complete": 0,
+      "flagged_partial": 1,
+      "kind": "benign",
+      "variant": "integrated"
+    },
+    {
+      "attempted": 7,
+      "cohort": "crafted",
+      "complete": 6,
+      "excluded": 1,
+      "flagged_complete": 6,
+      "flagged_partial": 1,
+      "kind": "malicious",
+      "variant": "integrated"
+    },
+    {
+      "attempted": 15,
+      "cohort": "mcptox",
+      "complete": 15,
+      "excluded": 0,
+      "flagged_complete": 14,
+      "flagged_partial": 0,
+      "kind": "malicious",
+      "variant": "integrated"
+    },
+    {
+      "attempted": 1,
+      "cohort": "reputation",
+      "complete": 1,
+      "excluded": 0,
+      "flagged_complete": 1,
+      "flagged_partial": 0,
+      "kind": "dependency_control",
+      "variant": "integrated"
+    },
+    {
+      "attempted": 1,
+      "cohort": "reputation",
+      "complete": 1,
+      "excluded": 0,
+      "flagged_complete": 1,
+      "flagged_partial": 0,
+      "kind": "vulnerable_dependency",
+      "variant": "integrated"
+    }
+  ],
+  "unattempted_case_ids": [],
+  "unique_inputs": 45,
+  "case_status": [
+    {
+      "id": "mcptox/Email_14",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/Email_20",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/mcp-simple-arxiv_9",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/Email_15",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/Puppeteer_15",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/Memory_3",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/Memory_11",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/mcp-simple-arxiv_15",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/Email_11",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/ClickHouse_14",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/Git_10",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/AmapMap_10",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/AlphaVantage_4",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/mcp-simple-arxiv_1",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcptox/AmapMap_1",
+      "cohort": "mcptox",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean/send_email",
+      "cohort": "clean_descriptions",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean/get_calendar_events",
+      "cohort": "clean_descriptions",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean/read_file",
+      "cohort": "clean_descriptions",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean/translate_text",
+      "cohort": "clean_descriptions",
+      "kind": "benign",
+      "baseline": {
+        "complete": false,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "partial"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": false,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "partial"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean/create_notion_page",
+      "cohort": "clean_descriptions",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/01-hidden-instructions-skill",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/02-unicode-smuggled-skill",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/03-env-harvest-installer",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "baseline": {
+        "complete": false,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "partial"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": false,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "partial"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/04-credential-reader",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/05-obfuscated-payload",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/06-rugpull-pair",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/07-clean-skill",
+      "cohort": "crafted",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/08-clean-mcp-server",
+      "cohort": "crafted",
+      "kind": "benign",
+      "baseline": {
+        "complete": false,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "partial"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": false,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "partial"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/09-clean-installer",
+      "cohort": "crafted",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/10-clean-node-skill",
+      "cohort": "crafted",
+      "kind": "benign",
+      "baseline": {
+        "complete": false,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "partial"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": false,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "partial"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crafted/11-readme-install-exfil",
+      "cohort": "crafted",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composition/control-ingress-egress",
+      "cohort": "composition",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composition/control-private-egress",
+      "cohort": "composition",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composition/control-self-sufficient",
+      "cohort": "composition",
+      "kind": "benign",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composition/shadow-pair",
+      "cohort": "composition",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": false,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composition/trifecta-canonical",
+      "cohort": "composition",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composition/trifecta-diluted",
+      "cohort": "composition",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composition/trifecta-shuffled",
+      "cohort": "composition",
+      "kind": "malicious",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "detonation",
+            "state": "completed"
+          },
+          {
+            "stage": "composition",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reputation/requests-2.19.1",
+      "cohort": "reputation",
+      "kind": "vulnerable_dependency",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reputation/requests-2.32.5",
+      "cohort": "reputation",
+      "kind": "dependency_control",
+      "baseline": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      },
+      "integrated": {
+        "complete": true,
+        "detected": true,
+        "stage_states": [
+          {
+            "stage": "concealment",
+            "state": "completed"
+          },
+          {
+            "stage": "static",
+            "state": "completed"
+          },
+          {
+            "stage": "semantic",
+            "state": "completed"
+          },
+          {
+            "stage": "harness",
+            "state": "completed"
+          },
+          {
+            "stage": "reputation",
+            "state": "completed"
+          },
+          {
+            "stage": "detonation",
+            "state": "not_applicable"
+          },
+          {
+            "stage": "composition",
+            "state": "not_applicable"
+          }
+        ]
+      }
+    }
+  ]
+}

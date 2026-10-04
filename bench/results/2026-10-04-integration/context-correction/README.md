@@ -1,0 +1,13 @@
+# Current source-context correction verification
+
+The corrected source passed **194 scoped tests**, scoped Ruff and Python 3.10 grammar checks. One existing Starlette/AnyIO deprecation warning remains. **14 static-stage/verdict probes** preserve high findings for real reads after regexes, escaped line breaks, exception operands/causes, captured names and quoted Unicode separators, while ordinary inert comments and rejection guards retain informational evidence. Fixtures were parsed and scanned as text; they were never executed.
+
+The source-only replay preserved baseline S1 decision signatures and stage status on **45/45 recorded inputs**. Parsing 600, 1,200 and 6,000 literal collections took about 0.007, 0.015 and 0.084 seconds in this check; these are local observations, not a service latency guarantee. [Verification](verification.json) binds all 39 current source files, the test file, scope and commands. [Probe results](context-probes.json), [source replay](source-only-verification.json), [test log](tests.log) and [inventory](inventory.json) are retained.
+
+Python rejection-list references require an unshadowed built-in exception with constant arguments and an absent or `None` cause. Pattern/exception bindings are indexed once. Ambiguous Python line separators receive no exemption. The conservative JS lexer aligns line coordinates and skips regex literals without interpreting their contents as comments. It is not a complete parser or data-flow analysis.
+
+The earlier [normal installed activation](../lead-integration-verification/installed-activation.json) remains an observed five-advisory-finding result on inert `SKILL.md`, with no omissions or parse errors. The activation consumer, scanner adapter, stage builder and configuration bytes are unchanged; only Python/JS context handling changed. This check carries that evidence rather than rerunning the container. All original measurements and earlier source proofs remain unchanged. The paired **36 complete / four partial** result is not a fresh full-workflow run of this corrected source.
+
+No inference, search, target or container execution occurred in this correction verification. All 3,241 protected historical benchmark files and three owner files matched their prior hashes. The native final-image Buildx denial remains; no fresh image build or deployment smoke is claimed.
+
+The optional replay scripts use the preserved local delivery package and temp scratch paths. The public export supports recount and chart review; it omits raw provider/search payloads. The generated entropy regression is deterministic synthetic data and preserves its positive detector assertion; no credential was used and no scanner suppression was added.

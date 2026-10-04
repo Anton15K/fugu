@@ -1,0 +1,72 @@
+{
+  "js_regex_character_class": [
+    "server.js",
+    "const pattern = /[/*]/;\nconst secret = fs.readFileSync(\"/etc/shadow\");\n",
+    "fail"
+  ],
+  "js_plain_read": [
+    "server.js",
+    "const secret = fs.readFileSync(\"/etc/shadow\");\n",
+    "fail"
+  ],
+  "js_inert_comment": [
+    "server.js",
+    "// denied file example: /etc/shadow\n",
+    "pass"
+  ],
+  "js_escaped_lf": [
+    "server.js",
+    "const label = \"line\\\ncontinued\"; fs.readFileSync(\"/etc/shadow\");\n// ordinary padding comment with no sensitive value at all\n",
+    "fail"
+  ],
+  "js_escaped_crlf": [
+    "server.js",
+    "const label = \"line\\\r\ncontinued\"; fs.readFileSync(\"/etc/shadow\");\r\n// ordinary padding comment with no sensitive value at all\r\n",
+    "fail"
+  ],
+  "js_unicode_separator": [
+    "server.js",
+    "const note = \"ordinary\";\u2028fs.readFileSync(\"/etc/shadow\");\u2028// ordinary padding comment with no sensitive value at all\u2028",
+    "fail"
+  ],
+  "python_raise_operand": [
+    "guard.py",
+    "DENY = [\"/etc/shadow\"]\ndef guard(path):\n    if path in DENY:\n        raise RuntimeError(open(path).read())\n",
+    "fail"
+  ],
+  "python_raise_cause": [
+    "guard.py",
+    "DENY = [\"/etc/shadow\"]\ndef guard(path):\n    if path in DENY:\n        raise PermissionError() from RuntimeError(open(path).read())\n",
+    "fail"
+  ],
+  "python_shadowed_exception": [
+    "guard.py",
+    "DENY = [\"/etc/shadow\"]\ndef guard(path, PermissionError):\n    if path in DENY:\n        raise PermissionError()\n",
+    "fail"
+  ],
+  "python_pattern_bound_exception": [
+    "guard.py",
+    "DENY = [\"/etc/shadow\"]\ndef guard(path, value):\n    match value:\n        case {\"rejector\": PermissionError}:\n            if path in DENY:\n                raise PermissionError()\n",
+    "fail"
+  ],
+  "python_inert_raise": [
+    "guard.py",
+    "DENY = [\"/etc/shadow\"]\ndef guard(path):\n    if path in DENY:\n        raise PermissionError()\n",
+    "pass"
+  ],
+  "js_escaped_cr": [
+    "server.js",
+    "const label = \"line\\\rcontinued\"; fs.readFileSync(\"/etc/shadow\");\r// ordinary padding comment with no sensitive value at all\r",
+    "fail"
+  ],
+  "js_escaped_unicode_separator": [
+    "server.js",
+    "const label = \"line\\\u2028continued\"; fs.readFileSync(\"/etc/shadow\");\u2028// ordinary padding comment with no sensitive value at all\u2028",
+    "fail"
+  ],
+  "python_unicode_coordinate": [
+    "guard.py",
+    "label = \"before\u2028after\"; value = open(\"/etc/shadow\").read()\n# ordinary padded comment with no sensitive value at all and sufficient ordinary text\n",
+    "fail"
+  ]
+}
