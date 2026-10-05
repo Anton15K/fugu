@@ -1,0 +1,284 @@
+{
+  "schema": 2,
+  "data_release_ref": "qitem-20261005103009-2753fe32",
+  "verified_utc": "2026-10-05T13:10:07.425696+00:00",
+  "scope": "offline measured metadata/hash/count/figure verification; no inference, scanner or target rerun",
+  "process_exit_codes": {
+    "fugu": 0,
+    "competitors": 0
+  },
+  "portable_verifier": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 uv run --no-sync --offline python bench/results/2026-10-05-full-workflow/measurement/verify.py",
+    "exit_code": 0,
+    "result": {
+      "verified": true,
+      "fugu_planned": 140,
+      "competitor_planned": 320,
+      "sdk_attempts": 4581,
+      "search_attempts": 46,
+      "paired_n": {
+        "sentinel:malicious": 80,
+        "sentinel:benign": 19,
+        "mcp-sec-audit:malicious": 80,
+        "mcp-sec-audit:benign": 19,
+        "cisco-skill:malicious": 3,
+        "cisco-skill:benign": 6,
+        "cisco-mcp:malicious": 74,
+        "cisco-mcp:benign": 19
+      }
+    }
+  },
+  "tampered_input_hash_rejected": {
+    "exit_code": 1,
+    "exception": "AssertionError",
+    "original_export_unchanged": true
+  },
+  "payload_field_guard": {
+    "results_sdk_provenance": true,
+    "type": "structural field-name rejection; no general credential-pattern scan claim"
+  },
+  "preservation": {
+    "historical_files": 3329,
+    "owner_files": 3,
+    "mismatches": 0,
+    "source_files": 39,
+    "engine_commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+    "original_prefix": 120,
+    "cases": 140,
+    "regular_input_files": 212,
+    "symlinks": 0,
+    "bootstrap_readonly_bindings": 15,
+    "original_checkpoint_files": 19,
+    "original_manifest_sha256": "a66f64a6ce05b43107390832d9b109c9b187386d7d1f2a3597c0769b24a7786a"
+  },
+  "native_analyzer_coverage": {
+    "sentinel": {
+      "planned": 100,
+      "completed": 100,
+      "statuses": {
+        "completed": 100
+      },
+      "analyzer_invocations": {},
+      "analyzer_failures": {}
+    },
+    "mcp-sec-audit": {
+      "planned": 100,
+      "completed": 100,
+      "statuses": {
+        "completed": 100
+      },
+      "analyzer_invocations": {},
+      "analyzer_failures": {}
+    },
+    "cisco-skill": {
+      "planned": 20,
+      "completed": 20,
+      "statuses": {
+        "completed": 20
+      },
+      "analyzer_invocations": {
+        "static_analyzer": 20,
+        "behavioral_analyzer": 20,
+        "llm_analyzer": 20
+      },
+      "analyzer_failures": {}
+    },
+    "cisco-mcp": {
+      "planned": 100,
+      "completed": 94,
+      "statuses": {
+        "completed": 94,
+        "partial": 6
+      },
+      "analyzer_invocations": {
+        "YARA": 120,
+        "LLM": 120
+      },
+      "analyzer_failures": {
+        "LLM": 6
+      }
+    }
+  },
+  "fugu_sdk_hash_checks": {
+    "observed_utc": "2026-10-05T12:53:36.910266+00:00",
+    "scope": "offline validation of final Fugu SDK request/message/response hashes, journal numbering and native status/usage; no calls/imports",
+    "passed": true,
+    "hash_encoding": "json.dumps(sort_keys=True,ensure_ascii=False,separators=(comma,colon)); identical to frozen RequestJournal hash_json",
+    "check_correction": "initial ad-hoc default-separator message hash assertion rejected; source-defined compact Unicode-preserving encoding verified without altering evidence",
+    "journals": [
+      {
+        "journal": "fugu-1",
+        "attempts": 1800,
+        "limit": 1800,
+        "stop_reason": null,
+        "binding": "2e201ff223b2e2af2b8ea26446aa3af47ba453e9bef5dbc949ac670292c0e40c"
+      },
+      {
+        "journal": "fugu-2",
+        "attempts": 1800,
+        "limit": 1800,
+        "stop_reason": null,
+        "binding": "1679703d4c6d0756f0a7e30163ee03d7685edcef24ce813478bc4d96c7daa2b4"
+      },
+      {
+        "journal": "fugu-3",
+        "attempts": 841,
+        "limit": 1800,
+        "stop_reason": null,
+        "binding": "a8a957ee98017bbc50b6727647d77dc477a3015c076706054dc5b32cc7dedf25"
+      }
+    ],
+    "attempts": 4441,
+    "states": {
+      "returned": 4441
+    },
+    "provider_errors": 0,
+    "output_errors": 0,
+    "finish_reasons": {
+      "stop": 4437,
+      "length": 4
+    },
+    "requested_models": {
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 3082,
+      "nvidia/nemotron-3-super-120b-a12b": 1359
+    },
+    "served_models": {
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 3082,
+      "nvidia/nemotron-3-super-120b-a12b": 1359
+    },
+    "usage": {
+      "prompt_tokens": {
+        "subtotal": 1236011,
+        "unknown_calls": 0
+      },
+      "completion_tokens": {
+        "subtotal": 1404386,
+        "unknown_calls": 0
+      }
+    },
+    "requested_output_token_envelope": 18190336,
+    "summed_sdk_duration_s": 7502.8617733963765,
+    "stage_parse_error_entries": 0,
+    "stage_call_error_entries": 1,
+    "stage_request_attempt_entries": 4501,
+    "partial_case_ids": [
+      "clean/get_git_log",
+      "cisco-skill/sql-injection/database-query",
+      "cisco-skill/path-traversal/file-reader",
+      "cisco-skill/backdoor/magic-string-trigger",
+      "cisco-skill/obfuscation/base64-payload",
+      "cisco-skill/unauthorized-tool-use/remote-package-source",
+      "cisco-skill/behavioral-analysis/multi-file-exfiltration",
+      "cisco-skill/command-injection/eval-execution",
+      "cisco-skill/safe-skills-2/file-validator",
+      "cisco-skill/safe-skills/simple-math",
+      "cisco-skill/safe/simple-formatter",
+      "anthropic-skill/skills/web-artifacts-builder",
+      "composition-v2/v2-py-direct-two-member",
+      "composition-v2/v2-schema-derived-ingress",
+      "composition-v2/v2-shell-curl-two-member",
+      "composition-v2/v2-py-urllib-request-body",
+      "composition-v2/v2-shell-curl-post",
+      "composition-v2/v2-py-module-alias-post",
+      "composition-v2/v2-self-sufficient-member-control",
+      "composition-v2/v2-py-direct-no-private-control",
+      "composition-v2/v2-schema-ingress-no-egress-control",
+      "composition-v2/v2-member-files-get-post-no-private-control",
+      "source/cisco-formatter",
+      "source/cisco-environment-secrets",
+      "source/03-env-harvest-installer",
+      "source/04-credential-reader",
+      "source/cisco-math",
+      "source/cisco-validator",
+      "source/csv-tidy",
+      "source/05-obfuscated-payload"
+    ]
+  },
+  "native_sdk_hash_checks": {
+    "at": "2026-10-05T12:58:54.818081+00:00",
+    "scope": "offline exact native request/options/response hashes and SDK numbering/case linkage; no scanners/network/target calls",
+    "passed": true,
+    "attempts": 140,
+    "stop": null,
+    "requested_models": {
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 140
+    },
+    "stages": {
+      "competitor:cisco-skill": 20,
+      "competitor:cisco-mcp": 120
+    },
+    "native_option_hashes": 2,
+    "schema_formats": {
+      "json_schema": 20,
+      "absent": 120
+    },
+    "explicit_repeated_case_dispatches": {},
+    "finish_reasons": {
+      "stop": 135,
+      "length": 5
+    },
+    "empty_reply_count": 0,
+    "provider_errors": 0,
+    "per_analyzer_failures": {
+      "native_infrastructure_diagnostic": 6
+    },
+    "native_statuses": {
+      "completed": 314,
+      "partial": 6
+    },
+    "raw_provenance": {
+      "competitors.json": "4ac6445f2709baffbbffd3a10e455a2f62ff536812fd45f0374c75c50cced267",
+      "hosted-counter/ledger.json": "aea6adef84e04912adc8f2959dd6a5b0b0e5c641c94b9cc339324d64532c1c86"
+    }
+  },
+  "figure_verification": {
+    "matplotlib": "3.11.2",
+    "actual_pngs_visually_inspected": 3,
+    "reproduced_png_svg_files": 6,
+    "files": [
+      {
+        "path": "completion-coverage.png",
+        "sha256": "08a7e8adab4fa155272f1169f4cd0d9ddcb4adbb0b9f9eeb878c1721364865e3"
+      },
+      {
+        "path": "metadata-paired.png",
+        "sha256": "ebc4d6036015f70953383448be628928148023e9d90ebdc5f45f3e317effe9b4"
+      },
+      {
+        "path": "skills-paired.png",
+        "sha256": "5ecf761a43f4c9c19a2ebef32812bd79e405328606154e9fa748d8df8e9817da"
+      },
+      {
+        "path": "completion-coverage.svg",
+        "sha256": "328fc96c6fb20c373e07f08d6ea82ea916afbe6ac1b3873bece4f1886d77a1eb"
+      },
+      {
+        "path": "metadata-paired.svg",
+        "sha256": "af6e90b919a942f27c05ce1fbdb16007aa2e31d6bdaa87ed834d98e60efcc3a9"
+      },
+      {
+        "path": "skills-paired.svg",
+        "sha256": "678e0c1d758bbef76fd9388026d4a4b104096b478fa1201a792449e93cea8f24"
+      }
+    ],
+    "completion_footnote": "No source/composition pairing in these measured modes; no global scanner capability claim"
+  },
+  "raw_inventory": {
+    "sha256": "5928c79a1e8b0df843b5b3340e65088ca24c92f3ebf9b3fdbac5245bcd2d7c18",
+    "files": 5253,
+    "availability": "private; raw requests/replies/finding bodies remain private"
+  },
+  "scoped_ruff": {
+    "exit_code": 0,
+    "summary": "All checks passed; three measurement Python scripts"
+  },
+  "export_check_correction": "numeric metrics.findings count renamed finding_count to distinguish it from raw finding bodies; structural guard unchanged",
+  "limits": [
+    "target execution unavailable;28 chamber-affected Fugu rows plus2 harness shortfalls",
+    "six Cisco MCP infrastructure-diagnostic partial rows excluded",
+    "convenience and shared-server clustering;previously visible sources",
+    "uncalibrated native thresholds;all false-positive adjudications null",
+    "unknown remaining quota and dollar cost",
+    "selected-evidence offline reproduction;no fresh inference/chamber reproduction"
+  ]
+}
