@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-10-05T09:16:52.513330+00:00",
+  "owner": "research-security@fugu",
+  "task": "qitem-20261005074955-950c0451",
+  "status": "OFFLINE CANDIDATE; DATA NOT RELEASED",
+  "checks": [
+    {
+      "name": "scoped-tests",
+      "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_competitive_corpus.py tests/test_competitive_scanners.py -q",
+      "exit_code": 0,
+      "result": "26 passed",
+      "retained_output": {
+        "path": ".fugu-private/full-workflow-20261005/research/tests-final.txt",
+        "sha256": "c42ed92a18bcafcfc9ddc5d45f95f2371e7e3bed3509c7dc3ed169ae2943760a"
+      }
+    },
+    {
+      "name": "scoped-ruff",
+      "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync ruff check bench/competitive_corpus.py bench/competitive_scanners.py tests/test_competitive_corpus.py tests/test_competitive_scanners.py bench/results/2026-10-05-full-workflow/prepare_corpus.py",
+      "exit_code": 0,
+      "result": "All checks passed!",
+      "retained_output": {
+        "path": ".fugu-private/full-workflow-20261005/research/ruff-final.txt",
+        "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      }
+    },
+    {
+      "name": "cached-source-reconstruction",
+      "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync python -m bench.results.2026-10-05-full-workflow.prepare_corpus",
+      "exit_code": 0,
+      "result": "same120 manifest reconstructed",
+      "retained_output": {
+        "path": ".fugu-private/full-workflow-20261005/research/reconstruction-final.txt",
+        "sha256": "39a5e420d5b68fa4eb84c8feb0729e2e8da5567533746ff51b559399102e7100"
+      }
+    }
+  ],
+  "owner_recount": {
+    "path": "bench/results/2026-10-05-full-workflow/offline-recount.json",
+    "sha256": "880de8e1ceee8bb77a1d31732bd2382ef65fc9d1e7c1da31e85156cb28e01a7c",
+    "scope": "ad hoc direct shape/hash recount retained as JSON; independent review remains pending"
+  },
+  "tdd_native_correction": [
+    {
+      "path": ".fugu-private/full-workflow-20261005/research/native-counter-red.txt",
+      "sha256": "0f640df28a8cb48e837f2c40714dbfa7863b7cce6be4678396509158c53d748a"
+    },
+    {
+      "path": ".fugu-private/full-workflow-20261005/research/native-orphan-red.txt",
+      "sha256": "a6605f58fe02951affe55c3c9049f2b0e65babbf0fce9fa1ac56148417a0dcfb"
+    },
+    {
+      "path": ".fugu-private/full-workflow-20261005/research/native-infrastructure-red.txt",
+      "sha256": "7a6e55800eaa56f45364e2086cb120eb77e8af4e7a804c43c9e53bcf53ae9084"
+    }
+  ],
+  "source_verified_native": {
+    "path": "bench/results/2026-10-05-full-workflow/native-contracts.json",
+    "sha256": "7b79856ca78f66cc18e8a68b98e01842617f8d2507578c4c53a6827bc8964c66"
+  },
+  "calls_by_this_research_assignment": {
+    "provider": 0,
+    "tavily": 0,
+    "native_scanner": 0,
+    "target_execution": 0
+  },
+  "separate_lead_prerequisite": {
+    "path": ".fugu-private/full-workflow-20261005/prerequisites/scanner-verification.json",
+    "sha256": "a11dacbdfb7da2699a1037a98987a8a11b417488990a72541f6e836b2664e6ff",
+    "scope": "lead inert native S1 activation only; not selected benchmark measurement"
+  },
+  "limits": [
+    "lead reports installs complete; exact installed file/CEL helper provenance and effective native environment still pending",
+    "target chamber/runtime prerequisites unverified",
+    "only fake SDK/native-style recovery tested",
+    "plan is a draft, no live grant",
+    "Nebius/Tavily balance and dollar cost unknown"
+  ],
+  "provisioning_update": {
+    "path": "bench/results/2026-10-05-full-workflow/provisioning-status.json",
+    "sha256": "15acef72f75b0ec3ef79cb58c27bde6fd4cbb3f79f425e5be5d91911acfe8b92"
+  }
+}

@@ -139,44 +139,70 @@ compute when selected; live sandbox behavior has not been verified here.
 Fugu is not an entirely local analysis system. Review these flows before
 submitting confidential content.
 
-## Whole-workflow integration evaluation (4 October 2026)
+## Full-workflow benchmark (5 October 2026)
 
-A paired full-workflow measurement covered 40 planned cases: **36 completed and
-four remain partial**. On 15 external attack descriptions, the added static
-tool-surface checks increased alerts at the medium-or-higher threshold from
-**12/15 (80%) to 14/15 (93.3%)**. Both variants alerted on **0/4 completed clean
-descriptions**; a fifth planned clean case was partial, so this is not a false
-positive rate. These are alerts on a small sample, not confirmed exploits or an
-overall competitor ranking.
+On frozen workflow snapshot `dbc4f641`, Fugu completed **110/140 cases**; 30
+remain partial. The four native scanner lanes completed **314/320 rows**; six
+remain partial. The run recorded 4,581 SDK dispatches and 46 search calls, with
+no provider errors or quota/budget stop.
 
-Fugu's S1 stage includes the pinned tool-surface scanner, syntax-only source
-context, and chamber working-directory repair. In the paired comparison, both
-variants already include the source-context and working-directory fixes; only
-the additional S1 rules differ. They reuse byte-identical nonstatic stage
-evidence and recompute composition and verdicts. This is not two independent
-model trials. Later source changes mean the measurement is not a fresh
-full-workflow run of the current final source; no end-to-end equivalence is
-claimed.
+The table compares primary flags on identical, completed attack inputs. The
+native thresholds were fixed before measurement and differ by scanner.
 
-![Paired full-workflow comparison](bench/results/2026-10-04-integration/integration-verification/charts/same-input-comparison.png)
+| Native scanner / cohort | Complete attack pairs / planned | Fugu full-workflow flags | Native primary flags |
+|---|---:|---:|---:|
+| Sentinel / metadata (HIGH or CRITICAL) | 80/80 | 80/80 | 11/80 |
+| MCP-Sec / metadata (risk ≥25) | 80/80 | 80/80 | 12/80 |
+| Cisco MCP / metadata (native unsafe finding) | 74/80 | 74/74 | 74/74 |
+| Cisco Skill / skills (HIGH or CRITICAL) | 3/10 | 2/3 | 3/3 |
 
-The detailed [methodology report](docs/benchmark-workflow-integration.md)
-records cohort denominators, partial-case reasons, request accounting, scanner
-setup and the separate source-only diagnostics. See the [sealed evidence
-index](bench/results/2026-10-04-integration/integration-verification/README.md)
-and the [artifact inventory](bench/results/2026-10-04-integration/integration-verification/inventory.json).
+MCP-Sec's secondary any-alert result is 66/80 attacks, distinct from its
+12/80 primary result. Raw flags on completed clean controls were Fugu 1/19
+metadata and 2/6 skills; Sentinel 2/19, MCP-Sec 0/19, Cisco MCP 0/19, and
+Cisco Skill 0/6. These are unadjudicated, not population false-positive rates
+(see the [full methodology and case-level results](docs/benchmark-full-workflow-20261005.md)).
 
-**The four partial cases cannot count as fully completed or clean PASS cases.**
-One partial case is separately recorded as a successful malicious detection,
-but its incomplete execution does not count as a completed case. The other
-partial results and their limits are detailed in the methodology report. The
-36/40 completion denominator is unchanged.
+![Primary flags on identical completed metadata attack and clean-control inputs](bench/results/2026-10-05-full-workflow/measurement/metadata-paired.png)
+
+*Metadata: 80 matched attacks for Sentinel and MCP-Sec, 74 for Cisco MCP, and
+19 matched controls per comparison. Intervals are Wilson 95% intervals.*
+
+![Primary flags on identical completed skill attack and clean-control inputs](bench/results/2026-10-05-full-workflow/measurement/skills-paired.png)
+
+*Fugu completed 3/10 planned skill attacks and 6/10 planned controls; the
+matched complete intersection is n=3 attack pairs and n=6 control pairs. Cisco
+Skill completed its full 20/20 lane. Intervals are Wilson 95% intervals.*
+
+![Completion coverage for Fugu and measured native scanner lanes](bench/results/2026-10-05-full-workflow/measurement/completion-coverage.png)
+
+*Coverage: Fugu 110 complete and 30 partial; native lanes 314 complete and
+6 partial. Twenty-eight Fugu cases were chamber-limited and two had harness
+coverage shortfalls. All six partial Cisco MCP rows had analyzer coverage
+failures; four retain raw alerts but are excluded from complete-case scoring.*
+
+These are clustered, previously visible convenience fixtures, not a blind or
+population sample. The skill comparison is small, thresholds are not calibrated,
+and no overall superiority to Cisco or broad source/composition ranking follows.
+In these measured modes, source and composition have no matching native
+interface; composition controls use a cross-member contract rather than a
+clean-package label. A zero-trigger stage is not evidence of target execution.
+The [full methodology and case-level
+results](docs/benchmark-full-workflow-20261005.md) include exclusions, native
+thresholds, accounting and interpretation; the [sealed measurement inventory](bench/results/2026-10-05-full-workflow/measurement/inventory.json)
+binds the retained artifacts.
+
+Historical methods: [4 October workflow integration](docs/benchmark-workflow-integration.md) ·
+[3 October production-profile measurement](docs/benchmark-current-limits-partial-retry.md) ·
+[2 October full-capability measurement](docs/benchmark-full.md).
+
+## Current-source checks
 
 Current source checks preserve the baseline S1 decision signatures and stage
 status on all 45 recorded inputs. Regressions cover sensitive reads after
 JavaScript regexes and escaped line breaks, Python exception operands and
 comparison operands, captured names, and UTF-8 source positions. Inert comments
-and simple rejection guards retain informational evidence. See the [current source verification](bench/results/2026-10-04-integration/guard-operand-correction/README.md).
+and simple rejection guards retain informational evidence. See the [current
+source verification](bench/results/2026-10-04-integration/guard-operand-correction/README.md).
 
 Normal configured S1 activation on an inert `SKILL.md` returned five advisory
 findings with no scanner omissions or parse errors. That [installed activation
@@ -185,31 +211,7 @@ and the frozen paired results remain unchanged. Source checks do not replace
 the workflow measurement. A fresh final application-image build and deployment
 smoke remain unverified after the recorded Docker Buildx denial.
 
-## 3 October production-profile measurement and limits
-
-**40/40 selected cases completed.** Fugu detected **14/15 planned MCPTox attack
-descriptions (93.3%)** at the medium-or-higher threshold, with one completed
-miss.
-
-One raw flag among five clean descriptions was independently classified as a
-false flag for malicious-extension source classification; see the [accepted
-adjudication](bench/results/2026-10-03-current-limits/partial-retry-cc58a58/prior-benign-adjudication.json)
-and [three-interval report](docs/benchmark-current-limits-partial-retry.md#accepted-prior-benign-judgment).
-
-Coverage is source and inference only: local concealment and static analysis,
-hosted semantic review and stated-intent harness responses, and source
-composition. Detonation, live reputation, and actual target/tool execution were
-excluded. The [three-interval report](docs/benchmark-current-limits-partial-retry.md)
-documents the original run, untouched continuation, and whole-case retry under
-frozen engine `cc58a58` and the 4,096-token profile, with full method and request
-chronology; this is not an independent fresh 40-case rerun. See the [original
-stop report](docs/benchmark-current-limits.md)
-and [two-interval continuation](docs/benchmark-current-limits-continuation.md)
-for sealed history. Comparator results are retained from 2 October; their native
-and normalized thresholds differ, and neither comparator was rerun ([dated
-comparison](docs/benchmark-current-limits-partial-retry.md#dated-figures-and-historical-comparison)).
-
-![3 October current-profile description results: 14 of 15 planned MCPTox attacks detected and one flag among five clean descriptions; comparator results are historical 2 October runs.](bench/results/2026-10-03-current-limits/partial-retry-cc58a58/measurement/charts/common-results.png)
+## Current application limits
 
 The checked application uses a shared, immutable profile for inference and
 source coverage. Its main bounds are:
@@ -228,76 +230,6 @@ those requests are recorded separately. The source-tree caps are checked after
 materialization and do not cap bytes transferred during a shallow Git clone.
 See [production limits](docs/production-limits.md) for file caps, fixed probes,
 coverage metrics, and cleanup bounds.
-
-## Historical full-capability benchmark (2 October 2026)
-
-**40 frozen cases, 40 completed after bounded response recovery**, measured on
-the frozen inputs and application snapshot recorded by that run. Every applicable
-capability ran: concealment, static, semantic, Docker detonation, A/B harness,
-reputation and composition. Detection means a medium-or-higher finding;
-composition scores its cross-extension rules separately. This historical result
-does not measure the current profile above.
-
-Fugu and the local competitors received the same **15 MCPTox attack descriptions
-and five constructed clean descriptions**. Source fixtures, composition and
-dependency probes are separate cohorts rather than extra competitor misses.
-
-| Tool / measured outcome | Attack descriptions flagged | Confirmed false positives |
-|---|---:|---:|
-| **Fugu — medium+ security finding** | **12/15 (80%)** | **0** |
-| fuzzd 0.13.0 — medium+ finding | 10/15 (66.7%) | 0 |
-| fuzzd — any finding | 11/15 (73.3%) | 0 |
-| mcp-sec-audit 0.1.0 — capability hit | 12/15 (80%) | 0 |
-| mcp-sec-audit — aggregate medium+ risk | 0/15 | 0 |
-| Snyk Agent Scan 0.6.8 | Unavailable: hosted daily quota exhausted | Unscored |
-
-Capability hits and aggregate risk are different tasks from malicious-instruction
-detection. Severity labels also differ across tools. These run-specific measurements
-show how the pinned tools behaved on this sample; they do not establish a
-universal ranking or population false-positive rate.
-
-![Historical 2 October comparison on identical descriptions](bench/results/2026-10-02-full/charts/same-input-comparison.png)
-
-| Other Fugu cohorts | Measured result |
-|---|---|
-| Authored source attacks | 7/7 alerted |
-| Historical composition attacks | 4/4 rule alerts |
-| Historical composition controls | 3/3 correctly unflagged (raw alerts: 0/3) |
-| Exact-version dependency probes | 2/2 alerted; both pins have OSV vulnerability records |
-
-Authored fixtures are regression evidence, separate from external attacks.
-These composition counts are preserved from the frozen pre-clarification engine;
-the historical shadow-pair alert came from normalized names without evidence
-of a shared runtime namespace. Current name-only overlaps are informational.
-The expanded [composition coverage report](docs/composition-coverage.md)
-contains new baseline and after results, including development and author-known
-reserved cases. The full historical case breakdown remains in the original
-report and raw results.
-
-For pinned active projects and three reproducible source-analysis demos, see
-the [active-repository showcase](docs/showcase/2026-10-02-active-repos/README.md).
-
-![Actual capability coverage](bench/results/2026-10-02-composition-v2/full-benchmark-charts/charts/capability-coverage.png)
-
-The 40 cases include shared composition members, producing 45 unique audits and
-seven set checks. A completed stage means its bounded checks finished. The A/B
-harness measures stated plans and replies, with up to 4,000 mounted content
-characters; Docker observations depend on which triggers actually execute.
-
-The initial run completed 15/40 cases. Seven malformed structured replies and
-52 missing A/B replies recovered through bounded, identical-prompt retries.
-Every valid original reply was preserved; no unresolved parsing exclusions
-remain. Recovery improved completion within this historical evaluation; the
-application source and defaults for that run were unchanged. The current profile
-is described separately above.
-
-[Full protocol and results](docs/benchmark-full.md) ·
-[Cohort chart](bench/results/2026-10-02-full/charts/cohort-results.svg) ·
-[Stage contribution chart](bench/results/2026-10-02-full/charts/stage-alerts.svg) ·
-[Recovery chart](bench/results/2026-10-02-full/charts/recovery-reliability.svg) ·
-[Final raw results](bench/results/2026-10-02-full/fugu-recovered.json) ·
-[Frozen cases](bench/results/2026-10-02-full/cases.json) ·
-[Competitor versions and results](bench/results/2026-10-02-full/competitors/summary.json).
 
 ## Verification and limits
 

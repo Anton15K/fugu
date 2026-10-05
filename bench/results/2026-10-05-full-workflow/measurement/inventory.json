@@ -1,0 +1,74 @@
+{
+  "schema": 2,
+  "kind": "sealed measured full-workflow safe export",
+  "data_release_ref": "qitem-20261005103009-2753fe32",
+  "sealed_utc": "2026-10-05T13:10:07.439155+00:00",
+  "files": [
+    {
+      "path": "checks.json",
+      "sha256": "385e7c1b86716b48bd31d8e1fac0ac6557cb6f7c0647638dced50cd98f308c8d"
+    },
+    {
+      "path": "completion-coverage.png",
+      "sha256": "08a7e8adab4fa155272f1169f4cd0d9ddcb4adbb0b9f9eeb878c1721364865e3"
+    },
+    {
+      "path": "completion-coverage.svg",
+      "sha256": "328fc96c6fb20c373e07f08d6ea82ea916afbe6ac1b3873bece4f1886d77a1eb"
+    },
+    {
+      "path": "metadata-paired.png",
+      "sha256": "ebc4d6036015f70953383448be628928148023e9d90ebdc5f45f3e317effe9b4"
+    },
+    {
+      "path": "metadata-paired.svg",
+      "sha256": "af6e90b919a942f27c05ce1fbdb16007aa2e31d6bdaa87ed834d98e60efcc3a9"
+    },
+    {
+      "path": "plots.py",
+      "sha256": "d31bf88db29c3dfc527013676a62e6e4edb6a6f6f0a42d6c18b46928faf4393e"
+    },
+    {
+      "path": "provenance.json",
+      "sha256": "a7c57ea5aca8748716ace1253ae82011f00e9d6b4dd50d89d4567fad9736c958"
+    },
+    {
+      "path": "recount.py",
+      "sha256": "39e2aa0cc329646f656fbdf130e8bbe607e92b52b86aaedd7f87a599287403a7"
+    },
+    {
+      "path": "results.json",
+      "sha256": "34bb56623aef0af57b160ff7b7c14f549d22eeee53a2d4b9d1dd85a6d8dedcc2"
+    },
+    {
+      "path": "sdk-calls.jsonl",
+      "sha256": "a7a8b6020c5611612e5c3d13b00b6f11770991515ef35ddd2908b0a7d5cf89d0"
+    },
+    {
+      "path": "skills-paired.png",
+      "sha256": "5ecf761a43f4c9c19a2ebef32812bd79e405328606154e9fa748d8df8e9817da"
+    },
+    {
+      "path": "skills-paired.svg",
+      "sha256": "678e0c1d758bbef76fd9388026d4a4b104096b478fa1201a792449e93cea8f24"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "4f7b4385a3917e163d1d4d7ca8c186c83e4a1809ca6ad0e0836acf0ab3787483"
+    }
+  ],
+  "report": {
+    "path": "docs/benchmark-full-workflow-20261005.md",
+    "sha256": "e924ef60045395cca107fcb9bc0faff4f5e3e66db063157ae78bf65b6d790929"
+  },
+  "raw_provenance": {
+    "fugu.json": "9d3ab74e12cbb55a8516d2c4093ba922787bae99c92479d24a9b8fb2af8c42d3",
+    "competitors.json": "4ac6445f2709baffbbffd3a10e455a2f62ff536812fd45f0374c75c50cced267",
+    "competitor-ledger.json": "aea6adef84e04912adc8f2959dd6a5b0b0e5c641c94b9cc339324d64532c1c86"
+  },
+  "private_raw_inventory": {
+    "sha256": "5928c79a1e8b0df843b5b3340e65088ca24c92f3ebf9b3fdbac5245bcd2d7c18",
+    "files": 5253
+  },
+  "exclusions": "Inventory excludes itself. Raw request/reply/native finding/search/target/source/binary payloads and synthetic layout fixtures remain private. Original checkpoints remain unchanged."
+}

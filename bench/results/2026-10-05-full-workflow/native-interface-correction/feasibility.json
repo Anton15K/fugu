@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "scope": "offline source/shape estimate only; no inference pilot or spending estimate",
+  "cases_v2_sha256": "250aeeeaef812c39e5a10a7caec55bc36d79c1babb0066ce47dd80ede4c21143",
+  "request_budgets": {
+    "fugu_batches": [
+      1800,
+      1800,
+      1800
+    ],
+    "fugu_total": 5400,
+    "competitor_shared": 1800,
+    "tavily": 480,
+    "requested_output_token_ceiling": 36864000
+  },
+  "fugu_conditional": {
+    "native_units": 156,
+    "text_files_assumed_one_semantic_chunk": 212,
+    "max_file_chars": 3861,
+    "nominal_per_unit_harness": 28,
+    "recovery_max_per_unit_harness": 39,
+    "nominal_per_semantic_file": 1,
+    "recovery_max_per_semantic_file": 2,
+    "nominal_by_round_robin_batch": [
+      1527,
+      1527,
+      1526
+    ],
+    "nominal_total": 4580,
+    "recovery_bound_by_round_robin_batch": [
+      2170,
+      2170,
+      2168
+    ],
+    "recovery_bound_total": 6508,
+    "assumptions": "one harness per noncomposition case/member; every bound regular text file included as one semantic chunk; full6 static+3 RED probes, baseline/strong/everyday arms; RED one initial+one parse retry, Super one initial+one empty retry; successful responses with no extra engine/runner routing calls. Final integrated native applicability/expansion may differ.",
+    "conclusion": "nominal envelope fits aggregate and each1800 batch; full bounded native recoveries exceed5400 and can exhaust one batch early. Retain unattempted/partial rows, never reroll or raise cap."
+  },
+  "cisco_conditional": {
+    "metadata_tools": 100,
+    "genuine_schema_tools": 20,
+    "llm_invocations_without_retry": 120,
+    "skill_single_run_without_retry": 20,
+    "nominal_total": 140,
+    "mcp_wire_upper_per_invocation": 16,
+    "mcp_nested_recovery_upper": 1920,
+    "conclusion": "MCP4 transient attempts inside4 empty-response attempts can exceed shared1800 before Skill calls; cap is authoritative, not a promise completion. Skill recognized bounded recovery/schema fallback also consumes this same cap."
+  },
+  "legacy_usage_context": {
+    "path": "bench/results/2026-10-04-integration/integration-verification/selected/sdk-calls.json",
+    "sha256": "d7ca83a5ec96798f79a0c73315c6799d514cd0d4f8f2aee9f77d501edd305812",
+    "sdk_rows": 1296,
+    "distinct_hashed_contexts": 45,
+    "median_requests_per_context": 29,
+    "range": [
+      20,
+      32
+    ],
+    "scope": "historical selected45 contexts, not140 fresh case results; no result re-use or quota/cost forecast"
+  },
+  "native_source_facts": [
+    {
+      "path": "src/fugu/pipeline/stages/semantic.py",
+      "sha256": "8174296257387d2b48bb88b1ffe97e776c1d6cfccf6182d3d46625e510e7b26c"
+    },
+    {
+      "path": "src/fugu/pipeline/stages/harness.py",
+      "sha256": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5"
+    }
+  ],
+  "availability": {
+    "original_applicable_unavailable_detonation": 28,
+    "retained": true,
+    "full_eligible_max": 112,
+    "scope": "lead pre-observation assessment upper bound; not guaranteed completed coverage"
+  },
+  "remaining_quota": null
+}

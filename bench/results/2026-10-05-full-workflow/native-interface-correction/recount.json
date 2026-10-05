@@ -1,0 +1,191 @@
+{
+  "schema": 2,
+  "checked_utc": "2026-10-05T09:48:07.702592+00:00",
+  "scope": "owner offline raw-byte/shape recount, not independent review or measurement",
+  "checkpoint_manifest_sha256": "a66f64a6ce05b43107390832d9b109c9b187386d7d1f2a3597c0769b24a7786a",
+  "original_cases_sha256": "ed49402d1dea336e2781f59c2fbb8e9fbe2dbfab0338ed978e897b129f0d5067",
+  "cases_v2_sha256": "250aeeeaef812c39e5a10a7caec55bc36d79c1babb0066ce47dd80ede4c21143",
+  "original_prefix_identical": true,
+  "planned": 140,
+  "input_files": 212,
+  "max_file_chars": 3861,
+  "original_inventory_records": 19,
+  "original_inventory_records_preserved_current": 14,
+  "original_public_result_records_preserved": 14,
+  "original_manifest_bytes_preserved": true,
+  "original_checkpoint_records_preserved": 19,
+  "authorized_amendments": [
+    {
+      "path": "bench/competitive_corpus.py",
+      "old_sha256": "f267fe8296d924a3ecbd71ef88cf4aded66f5e1a0973a37489da9907f6f6df8d",
+      "new_sha256": "12f3ab12cca6e1465586bf6e9b61eebfa1ef35e8cd91c0e26aa8ab1d9d02d8f5"
+    },
+    {
+      "path": "bench/competitive_scanners.py",
+      "old_sha256": "1fc29bf260ccebeb7f3ac3e0208d29530e988622976bf1a401918fe2604f41be",
+      "new_sha256": "2a869937c2f81d051c101d1fa45f09ffc84a21a4de241f829f19b907f2499efe"
+    },
+    {
+      "path": "docs/benchmark-full-workflow-20261005.md",
+      "old_sha256": "07ec44702fa504ffa58b29b1e2f11eec834a589af49e861b69fca060e2e41747",
+      "new_sha256": "ac90b88f790b282fe906b0874e1127605e23c01a07e9fce1e1aa924565e238ff"
+    },
+    {
+      "path": "tests/test_competitive_corpus.py",
+      "old_sha256": "9de05b99f1b734b57513aef44395d42061c164901977e5fa71ce87f9f0806cd1",
+      "new_sha256": "ca0cc17bab80c8701812720a1155e2b5efed28211d5c993a0a85c0236ea35128"
+    },
+    {
+      "path": "tests/test_competitive_scanners.py",
+      "old_sha256": "5122843e9d4a12c4468e277e5bd6fbc35bcbe567e361d2ab13289ef646d2a779",
+      "new_sha256": "fa7dd64cecb8b88fc60edb5a7300214a3cc48aa9ab1885f0299a2042d885f5d9"
+    }
+  ],
+  "extra_cases": [
+    {
+      "id": "mcptox/Puppeteer-28",
+      "input_sha256": {
+        "tools.json": "8cb444658b39c330d5317aac8ee88bb7585e21d84305589089ff49c7389b15df"
+      },
+      "content_sha256": "96444f35e25688641659c1eb7a1d31938a51750307dd21c70b61fb9d62bb4784"
+    },
+    {
+      "id": "mcptox/mcp-simple-arxiv-5",
+      "input_sha256": {
+        "tools.json": "b52c86aecb8f86f2220c8a52559f4c837897b92918967752554b05811c61f9b4"
+      },
+      "content_sha256": "6e5723e928a5f02f3fcaa5435efff895c806393f81ddf5477958ea169ce84149"
+    },
+    {
+      "id": "mcptox/DumplingAI-27",
+      "input_sha256": {
+        "tools.json": "be69ef3c5ad7a8d75a14aeae45f8e9fb5431517bad90da53c9d86359753e5823"
+      },
+      "content_sha256": "4bedbf08f76b416b65360920072b1b48ea7a1586b563c10fa70af3120ee99721"
+    },
+    {
+      "id": "mcptox/Redis-1",
+      "input_sha256": {
+        "tools.json": "fd7d2e8d2b503a830c20d62c19de45ed770e838874eda220d54267c252219e85"
+      },
+      "content_sha256": "86c2d996272f8de579cb5b0354119638ff86e88e0bebd5eae9b4af1eb006cc3d"
+    },
+    {
+      "id": "mcptox/SQLite-12",
+      "input_sha256": {
+        "tools.json": "3daa4685573096304ca74c2c5159e89a6269da4381225bda666fb344db4e5909"
+      },
+      "content_sha256": "aea38eb7879981e372be8d3ad0b7335e2b34f0b92d32261d6158becafa36da76"
+    },
+    {
+      "id": "mcptox/AgentQL-13",
+      "input_sha256": {
+        "tools.json": "4223e542417ceb18f43576f14558b72b77cb23fed1511f037bcb6f78ca9069e5"
+      },
+      "content_sha256": "45e03404b827dca51ba43e70d9e4836ddeac5cf2ad5956c5401138a0c1db8fc9"
+    },
+    {
+      "id": "mcptox/Git-17",
+      "input_sha256": {
+        "tools.json": "715ebcbafc806af6e25a2914799ad3b48ca76e945b7d9658ce3b2a81c7222cb0"
+      },
+      "content_sha256": "05882f007dc25f1782f8e2ab9b251903d85ac203b2285efa7490be2d44c3fa85"
+    },
+    {
+      "id": "mcptox/FileSystem-62",
+      "input_sha256": {
+        "tools.json": "171b0cbbfb11b3fb38f3e306dd720f89865745681a073922d2417574ad97257b"
+      },
+      "content_sha256": "9a17c94bb5b5db995c28b8689f30eb7e7bec5fa9c3e675fd6ccc8e424574fcb4"
+    },
+    {
+      "id": "mcptox/DoDo Payments-5",
+      "input_sha256": {
+        "tools.json": "da86162ebf0418c0dfe8c5b4155a55338bd2f87fff9950589c6dc140096ad4ef"
+      },
+      "content_sha256": "57d3c0a3b62790367f90992950b1665315fa5aaa57142c6e573d92bae9cd148e"
+    },
+    {
+      "id": "mcptox/FileSystem-41",
+      "input_sha256": {
+        "tools.json": "c3d66f8b5f9154010c45bc1c1f60012a49aeb24b6870534226dfa18bbb0267b9"
+      },
+      "content_sha256": "9e210ac813a43f3ea2ff699527abe4363a8016c72e6c2d8b8f49a8daf70ef28f"
+    },
+    {
+      "id": "mcptox/Prisma-42",
+      "input_sha256": {
+        "tools.json": "f2b7fc9526f1d0677aff4fc13e35516d64ec407ecfcf4212e57460f6067d5446"
+      },
+      "content_sha256": "1b18425374808a469999d1022f03a0620d41f9d6c404f3e08616a7fae81eabd2"
+    },
+    {
+      "id": "mcptox/ClickHouse-58",
+      "input_sha256": {
+        "tools.json": "5ce7ac9df2942c388be829f7406f875ba69c4f0b68ed297ba7979c48040ec2b1"
+      },
+      "content_sha256": "8c4945244b60f49b70f1c70283e64a86fc553529344634990ad4dada524a9132"
+    },
+    {
+      "id": "mcptox/AdFin-14",
+      "input_sha256": {
+        "tools.json": "09f86427ea2f33ec2513f289fe6ee90523455419d32fa09fc62b73aad8a460e9"
+      },
+      "content_sha256": "2172c111544f92a666f738b76539c7f611c82ca24b8420304b9d5c62d7b7d9f2"
+    },
+    {
+      "id": "mcptox/Github-16",
+      "input_sha256": {
+        "tools.json": "61b5f442a91f9e1f4cf72826e3d3957605c9917437db2a8f25c1e586c432b276"
+      },
+      "content_sha256": "43be31331442f36678557df61ee491e9393618c99f7a0d737bc6741b94e2b518"
+    },
+    {
+      "id": "mcptox/ClickHouse-23",
+      "input_sha256": {
+        "tools.json": "252cfbd018a3653e4a851b762344b72aa246c0408347da3a7f600ddf2fed5149"
+      },
+      "content_sha256": "21f0c2363619aa0c519d7559deefb3c57639d1eb2533218c2eb9fc8ce7637f6f"
+    },
+    {
+      "id": "mcptox/Gyazo-1",
+      "input_sha256": {
+        "tools.json": "13a72cf0804b11fb91c2491caeca1e0a6b6e18289604278aceec698eff45f5d1"
+      },
+      "content_sha256": "0250c9036dc524498a961c4d7c3b46979031eb74c7f52a68a51ff69776020b61"
+    },
+    {
+      "id": "mcptox/Git-16",
+      "input_sha256": {
+        "tools.json": "4639e4df300f7e65fed0f13b4db05d57a8cb32028bce856994315a041f489ee6"
+      },
+      "content_sha256": "028fe29f7855f51c34a5bad285ad87714c8e1c3d31d15e397f561ebc174f1e46"
+    },
+    {
+      "id": "mcptox/Slack-28",
+      "input_sha256": {
+        "tools.json": "71ff8514bf8f798026ebd141bf5a821e74a5ebc6938bc28da83a5d5b7ff4bdfd"
+      },
+      "content_sha256": "db685320109f269f51824ad584e1edd7a0844db9338def8018ff15e9b1cf1ef5"
+    },
+    {
+      "id": "mcptox/SQLite-0",
+      "input_sha256": {
+        "tools.json": "8244ab2fecfe582a7e562b6eefb476a6ce77c76bdf8a68b7566d7b514a32d84c"
+      },
+      "content_sha256": "5b4d7767684de30e885cd14be18ea5e35665f27e0d26e6311d5130a27bd77343"
+    },
+    {
+      "id": "mcptox/Sequential Thinking-1",
+      "input_sha256": {
+        "tools.json": "6898ab85a5177a94d109e73ada16068c55a340ceec865e5d1ba0b9abfc39e6aa"
+      },
+      "content_sha256": "8991ce8ab2e995ff70ae73c06ed25ee2f47c201c29f1a336fa9153345bd11f22"
+    }
+  ],
+  "extra_inputs_have_no_schema_or_labels": true,
+  "extra_nonoverlapping_prior_and_existing": true,
+  "preserved_historical": 3329,
+  "preserved_owner": 3,
+  "frozen_engine_files_unchanged": 39
+}

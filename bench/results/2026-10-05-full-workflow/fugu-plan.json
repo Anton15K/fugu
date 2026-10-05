@@ -1,0 +1,168 @@
+{
+  "cache_policy": "same-run content identity only; exact plan and input hashes bound",
+  "case_count": 140,
+  "cases_sha256": "4d6fee44ed2a875dfffad4c15acf3bcbbbea70e1cea0b8268a5721467380683a",
+  "chamber_prerequisite": {
+    "driver": "docker",
+    "evidence_ref": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/prerequisites/status.json",
+    "evidence_sha256": "7940e8e855093191bba4d7b8b6b13a6be336ffe4fa6024f357112b9f749840ae",
+    "known_buildx_denial_retried": false,
+    "reason": "Native Docker chamber unavailable: retained prerequisite records the known Buildx denial; no retry or alternate driver is permitted.",
+    "status": "unavailable",
+    "target_execution": false
+  },
+  "competitor_attempt_limit": 1800,
+  "coverage_policy": "each native stage is completed or genuinely not_applicable; no-trigger detonation retains the native informational result and does not establish full runtime behavior, while trigger-positive detonation is unavailable under the retained Buildx denial; all omissions, errors, and unavailable stages remain incomplete",
+  "created_utc": "2026-10-05T09:57:07.728049+00:00",
+  "data_phase_release_required": true,
+  "driver_selection": {
+    "FUGU_DRIVER": "",
+    "selected": "docker"
+  },
+  "engine": {
+    "commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+    "hashes": {
+      "src/fugu/__init__.py": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d",
+      "src/fugu/api.py": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e",
+      "src/fugu/client.py": "9dc387ab39360eb0c2080e8f189a11fc64499f13d37f84bb3969ba55319fb2c8",
+      "src/fugu/config.py": "ae0c8a899d86132b9c1890c0f26b90205d717f00e9eadad4490208531ad15388",
+      "src/fugu/dedupe.py": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d",
+      "src/fugu/detonation/__init__.py": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216",
+      "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+      "src/fugu/detonation/collectors/__init__.py": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1",
+      "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+      "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+      "src/fugu/detonation/contree_driver.py": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9",
+      "src/fugu/detonation/docker_driver.py": "43246a112d876ff438d336ce53ee71d55fb65c3a4d0c8b092deed72ecabcf13b",
+      "src/fugu/detonation/probe.py": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5",
+      "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+      "src/fugu/model_router.py": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b",
+      "src/fugu/pipeline/__init__.py": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c",
+      "src/fugu/pipeline/assemble.py": "9e1dd726263d3ff365944020359644290610178c678f4f4d8fee6b6ce136e8a9",
+      "src/fugu/pipeline/base.py": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1",
+      "src/fugu/pipeline/stages/__init__.py": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba",
+      "src/fugu/pipeline/stages/composition.py": "1ae70d0dc84e79d127f8fbdd5b53b2b040bc668d5344ddda62b7d0032c00a7d1",
+      "src/fugu/pipeline/stages/concealment.py": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc",
+      "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+      "src/fugu/pipeline/stages/harness.py": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5",
+      "src/fugu/pipeline/stages/reputation.py": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c",
+      "src/fugu/pipeline/stages/semantic.py": "8174296257387d2b48bb88b1ffe97e776c1d6cfccf6182d3d46625e510e7b26c",
+      "src/fugu/pipeline/stages/static_context.py": "bc29606600b448d69e739642db668158b62b25179e7027011248d05caeafc416",
+      "src/fugu/pipeline/stages/static_scan.py": "b4d28cccbe24569794b67f2931d2db80cea6add3420dc724de900eb9f2f0e53b",
+      "src/fugu/pipeline/stages/tool_surface.py": "fcfeb8010910e4f3f7c817acfbb592b4343f17a10595d102d916f997f3c31cc5",
+      "src/fugu/server/__init__.py": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200",
+      "src/fugu/server/__main__.py": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b",
+      "src/fugu/server/app.py": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452",
+      "src/fugu/server/composition_jobs.py": "504ccb83bac64c05f153527c0ca4043d6ebb05f2aff281cf18ceb7ee1a3e06ae",
+      "src/fugu/server/giturls.py": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0",
+      "src/fugu/server/jobs.py": "4bf9d679c36facf99c7b99547a6b76a67edbe050a6f7b0c5186a4375260e6ee6",
+      "src/fugu/source_safety.py": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d",
+      "src/fugu/store/__init__.py": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d",
+      "src/fugu/store/sqlite.py": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb",
+      "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+      "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+    },
+    "source_manifest_path": "/private/tmp/fugu-full-workflow-engine-20261005/engine-manifest.json",
+    "source_manifest_sha256": "1db5633abbad8048f1e8f66128a8bc292c68545ec56c8090c7d1c41ad6cecc7c",
+    "tree": "410198a5a50e1aa4c493699a74035d45babf534e"
+  },
+  "execution_authorized": false,
+  "max_output_tokens": 4096,
+  "native_attempt_limit": 5400,
+  "native_batches": [
+    {
+      "id": "fugu-1",
+      "limit": 1800
+    },
+    {
+      "id": "fugu-2",
+      "limit": 1800
+    },
+    {
+      "id": "fugu-3",
+      "limit": 1800
+    }
+  ],
+  "profile": {
+    "fanout_max_units": 24,
+    "git_clone_timeout_seconds": 120,
+    "harness_full_static_probes": 6,
+    "harness_max_file_bytes": 2000000,
+    "harness_max_files": 50,
+    "harness_mount_char_budget": 32000,
+    "harness_standard_static_probes": 3,
+    "llm_max_output_tokens": 4096,
+    "red_probe_count": 3,
+    "red_probe_max_chars": 200,
+    "request_timeout_seconds": 90,
+    "sdk_max_retries": 0,
+    "semantic_max_chars_per_unit": 6000,
+    "semantic_max_file_bytes": 2000000,
+    "semantic_max_files": 2000,
+    "semantic_max_units": 24,
+    "source_max_bytes": 536870912,
+    "source_max_entries": 20000
+  },
+  "profile_sha256": "0ca72c2f933e0f03adc15b70bc362be269865222c41cdb0a42208b9185f47403",
+  "protocol": "fugu-full-workflow-v1",
+  "requested_models": [
+    "nvidia/Nemotron-3-Ultra-550b-a55b",
+    "nvidia/nemotron-3-super-120b-a12b"
+  ],
+  "runner_sha256": "22d55aac5d9f1138aca6d6d84a3f194b3bdcc4105477be409cd65a88b7b3a077",
+  "runtime": {
+    "dependencies": {
+      "fastapi": "0.141.1",
+      "httpx": null,
+      "openai": "3.16.2",
+      "pydantic": "2.13.5",
+      "pydantic-settings": null,
+      "python-dotenv": "1.2.3"
+    },
+    "project_files_sha256": {
+      "pyproject.toml": "0656fcd49d1d5f8c99ebeb43cdd5c8d84f6701c897d17a04e8710949be73804f",
+      "uv.lock": "5bd3d347a7e55d845a8a885e5c7bcf02ca17f46e1e8c6f3e6e5d3f5caff9f250"
+    },
+    "python": "3.11.16"
+  },
+  "scanner_prerequisite": {
+    "binary": "/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-workflow-integration-g_m1668u/build-artifact/static-rules",
+    "binary_bytes": 9200288,
+    "binary_sha256": "85224f942db23733bb4e3ccacbf246fe2cde266ca96321231973bef6d98ea208",
+    "binding_path": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/static-scanner-binding.json",
+    "binding_sha256": "596286b63024108090bf1e549426108c1367a1b79293881917155068b9f94dbc",
+    "build_attempts": 0,
+    "expected_source_commit": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "image": "sha256:59037199c44290f2befcdd58dcc540164763fc296950255aaefeef096a1866b0",
+    "inert_finding_count": 1,
+    "inert_findings": [
+      {
+        "confidence": "advisory",
+        "owasp_ids": [
+          "LLM01",
+          "MCP03"
+        ],
+        "severity": "low",
+        "title": "Tool surface: argument interception"
+      }
+    ],
+    "inert_ok": true,
+    "inert_surface_count": 1,
+    "provider_calls": 0,
+    "search_calls": 0,
+    "target_execution": false,
+    "verification_path": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/prerequisites/scanner-verification.json",
+    "verification_sha256": "a11dacbdfb7da2699a1037a98987a8a11b417488990a72541f6e836b2664e6ff"
+  },
+  "schema": 1,
+  "sdk_max_retries": 0,
+  "search_limit": 480,
+  "search_provider": "existing Tavily configuration only",
+  "source_case_manifest": {
+    "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-05-full-workflow/cases-v2.json",
+    "schema": 1,
+    "sha256": "250aeeeaef812c39e5a10a7caec55bc36d79c1babb0066ce47dd80ede4c21143",
+    "status": "NOT RELEASED"
+  },
+  "timeout_seconds": 90
+}

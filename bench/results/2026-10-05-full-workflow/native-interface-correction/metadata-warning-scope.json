@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "scope": "pinned native metadata source inspection only; no new native MCP-Sec scan",
+  "source": {
+    "commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+    "path": "detection/detection/plugins/static/metadata/__init__.py",
+    "sha256": "94366467cab5526bef0ab4c954d9ff4fc4017630d13fb17cbb708a223beefc81"
+  },
+  "mapping": "original name/description map to tool_name/tool_content in tool.json; unchanged",
+  "metadata_interface": "_iter_metadata_records(root) reads *.json and yields nonblank string tool_content, including tool.json",
+  "warning_scope": "no supported code files warning is separate AST shadow analysis; no confirmed zero-input metadata defect or invented AST coverage",
+  "activation": "unchanged pinned source-tree via explicit PYTHONPATH; native detection0.1.0 wheel missing subpackages remains unusable",
+  "lead_import_proof": {
+    "path": ".fugu-private/full-workflow-20261005/prerequisites/dependencies-verification.json",
+    "sha256": "1d8e1ac9e630d83984f7cc6a9857bfa58677efb11a1e3726d46bf49f3e697062"
+  },
+  "lead_inert_probe": {
+    "path": "/tmp/fugu-full-workflow-lead-20261005/native-prerequisites/verification.json",
+    "sha256": "00630bbd39262dad86187c500ff7ee11f200439a014e8887b889c7a52f67a10f"
+  },
+  "observed_metadata_record_count": null,
+  "provider_calls_by_this_proof": 0
+}

@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "status": "SOURCE VERIFIED; NOT RELEASED OR INSTALLED",
+  "cisco-skill": {
+    "max_tokens": 8192,
+    "temperature": 0.0,
+    "timeout_seconds": 120,
+    "native_max_retries": 3,
+    "schema_format": "native json_schema; native recognized rejection switches to json_object and adds original schema instructions",
+    "retry_scope": "_make_litellm_request retries recognized rate-limit errors at most3; schema fallback adds an actual request; observer adds no retries",
+    "reasoning_effort": "native resolver reads SKILL_SCANNER_LLM_REASONING_EFFORT when omitted; proposed clean launcher leaves it unset, and emitted options are hash-bound and preserved",
+    "dispatch_seam": "skill_scanner.core.analyzers.llm_request_handler._get_litellm_acompletion -> injected async completion",
+    "sources": [
+      {
+        "source_path": "skill_scanner/core/analyzers/llm_request_handler.py",
+        "sha256": "60a9464fb87bcf73e028fc56a3bee56eec4048d1c44cc482596a7b1f5cebf2c5",
+        "url": "https://github.com/cisco-ai-defense/skill-scanner/blob/669a2cdf64f81f748f6590d421c935c01c5b01b5/skill_scanner/core/analyzers/llm_request_handler.py",
+        "functions": [
+          {
+            "name": "_make_litellm_request",
+            "line": 652,
+            "end_line": 735
+          },
+          {
+            "name": "_should_fallback_to_json_object",
+            "line": 523,
+            "end_line": 555
+          },
+          {
+            "name": "_build_response_format",
+            "line": 500,
+            "end_line": 521
+          }
+        ]
+      },
+      {
+        "source_path": "skill_scanner/core/analyzers/llm_analyzer.py",
+        "sha256": "628954701cd8061d18decdc0a1cfa9cc4a4824cae3aea6dcee079f1fd3220dbe",
+        "url": "https://github.com/cisco-ai-defense/skill-scanner/blob/669a2cdf64f81f748f6590d421c935c01c5b01b5/skill_scanner/core/analyzers/llm_analyzer.py",
+        "functions": [
+          {
+            "name": "__init__",
+            "line": 258,
+            "end_line": 442
+          }
+        ]
+      },
+      {
+        "source_path": "skill_scanner/llm_token_options.py",
+        "sha256": "70c1779eb80ae935c09d352140216dc8b7e9e4551acc55b8d1dd8eeaf8120682",
+        "url": "https://github.com/cisco-ai-defense/skill-scanner/blob/669a2cdf64f81f748f6590d421c935c01c5b01b5/skill_scanner/llm_token_options.py",
+        "functions": []
+      }
+    ]
+  },
+  "cisco-mcp": {
+    "max_tokens": 1000,
+    "temperature": 0.1,
+    "timeout_seconds": 30,
+    "native_max_retries": 3,
+    "retry_scope": "_make_llm_request delegates max_attempts4 to native transient classifier; outer empty-completion loop allows4 calls to that helper, so nested wire attempts can exceed4 and all count under1800",
+    "completion_guard": "INFO ANALYZER INFRASTRUCTURE and UNKNOWN are incomplete, never credited security detections; descriptions and genuine schemas require independently observed analyzer invocations",
+    "dispatch_seam": "mcpscanner.core.analyzers.llm_analyzer.acompletion -> injected async completion",
+    "sources": [
+      {
+        "source_path": "mcpscanner/core/analyzers/llm_analyzer.py",
+        "sha256": "6582da76de865d7db3f2f6fdc940ec811a4d30ed924bd99bbfcb970fd21b7ced",
+        "url": "https://github.com/cisco-ai-defense/mcp-scanner/blob/f817899d9391b099f395acd5ae7ff435dccf2a47/mcpscanner/core/analyzers/llm_analyzer.py",
+        "functions": [
+          {
+            "name": "_make_llm_request",
+            "line": 602,
+            "end_line": 680
+          }
+        ]
+      },
+      {
+        "source_path": "mcpscanner/utils/analyzer_errors.py",
+        "sha256": "1d30401fcfd37a5616071f6dd82ff90c041f5db597b881d61fbc2c9743f3750f",
+        "url": "https://github.com/cisco-ai-defense/mcp-scanner/blob/f817899d9391b099f395acd5ae7ff435dccf2a47/mcpscanner/utils/analyzer_errors.py",
+        "functions": [
+          {
+            "name": "retry_transient_async",
+            "line": 270,
+            "end_line": 301
+          },
+          {
+            "name": "build_infrastructure_error_finding",
+            "line": 304,
+            "end_line": 350
+          }
+        ]
+      },
+      {
+        "source_path": "mcpscanner/config/config.py",
+        "sha256": "67e7b60466004d578599216546f8f56000b78b49713a02b4cc9e5a18040525b4",
+        "url": "https://github.com/cisco-ai-defense/mcp-scanner/blob/f817899d9391b099f395acd5ae7ff435dccf2a47/mcpscanner/config/config.py",
+        "functions": [
+          {
+            "name": "__init__",
+            "line": 43,
+            "end_line": 158
+          }
+        ]
+      },
+      {
+        "source_path": "mcpscanner/config/constants.py",
+        "sha256": "501177f4ef2f459096c3124a1dfa232d1acd0cbc79c8deadf0cd70e61e5829b8",
+        "url": "https://github.com/cisco-ai-defense/mcp-scanner/blob/f817899d9391b099f395acd5ae7ff435dccf2a47/mcpscanner/config/constants.py",
+        "functions": []
+      }
+    ]
+  },
+  "transport": {
+    "function": "hosted_completion(counter, sdk, *, lock, run_id, scanner_id, context_id, model, base_url)",
+    "counter": "NativeRequestCounter(private_root, binding=accepted_plan_sha256, limit=1800), shared by BOTH Cisco lanes; private ledger.json + request/response artifacts",
+    "sdk_max_retries": 0,
+    "native_options": "model routing, native per-lane cap/temperature/timeout, response_format and reasoning_effort preserved; unsupported extras fail before dispatch",
+    "accounting": "durable dispatch reservation includes run/context/stage/ordinal/global number/full request hash/options hash before network; response usage/error class/status/hash/nulls retained",
+    "stops": "quota/auth, cumulative cap, orphan/evidence failure persistent across restart; original non-quota exceptions returned to native bounded recovery; unchanged Fugu journals remain first-error stops",
+    "raw_boundary": "private request/response bytes and exact file SHA256; public safe ledger summaries omit messages/credentials/provider error text",
+    "sdk_timeout_seconds": {
+      "cisco-skill": 120,
+      "cisco-mcp": 30
+    },
+    "environment_requirement": "Freeze sanitized native environment before release; no owner config auto-discovery. Clear native policy/taxonomy/routing/force-JSON/reasoning overrides unless explicitly declared in accepted plan."
+  },
+  "loader_helpers": [
+    {
+      "path": "bench/mcptox/fetch.py",
+      "sha256": "544c5b28b5ddf8a39c2fe1acf91933f21e5383d0d22ad9581fe18e0c2b9181b7",
+      "scope": "original Tool/Description extraction and literal newline/tab normalization; no invented schema"
+    }
+  ],
+  "tests_scope": "fake SDK and native-style bounded recovery only; no native scanner/import/target/provider execution in these scoped tests"
+}

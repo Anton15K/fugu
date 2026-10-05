@@ -1,0 +1,85 @@
+{
+  "scope": "inert installed native interface; not benchmark evidence",
+  "provider_calls": 0,
+  "search_calls": 0,
+  "target_execution": false,
+  "network": "denied",
+  "fake_dispatches": 2,
+  "native_parameters": [
+    {
+      "model": "fixture-model",
+      "max_tokens": 1000,
+      "temperature": 0.1,
+      "timeout": 30
+    },
+    {
+      "model": "fixture-model",
+      "max_tokens": 1000,
+      "temperature": 0.1,
+      "timeout": 30
+    }
+  ],
+  "status": "completed",
+  "complete": true,
+  "reasons": [],
+  "per_analyzer": [
+    {
+      "analyzer": "YARA",
+      "invocation": 0,
+      "success": true,
+      "error_type": null
+    },
+    {
+      "analyzer": "LLM",
+      "invocation": 0,
+      "success": true,
+      "error_type": null
+    },
+    {
+      "analyzer": "YARA",
+      "invocation": 1,
+      "success": true,
+      "error_type": null
+    },
+    {
+      "analyzer": "LLM",
+      "invocation": 1,
+      "success": true,
+      "error_type": null
+    }
+  ],
+  "observed_invocations": {
+    "YARA": 2,
+    "LLM": 2
+  },
+  "native_input_invocations": [
+    {
+      "analyzer": "YARA",
+      "content_type": "description",
+      "content_chars": 24,
+      "content_sha256": "f0bab4025488ddbf1324a29aefac0c9353c52ac957dbd9dd656169f8009fb090"
+    },
+    {
+      "analyzer": "LLM",
+      "content_type": "description",
+      "content_chars": 24,
+      "content_sha256": "f0bab4025488ddbf1324a29aefac0c9353c52ac957dbd9dd656169f8009fb090"
+    },
+    {
+      "analyzer": "YARA",
+      "content_type": "parameters",
+      "content_chars": 151,
+      "content_sha256": "56a56c13be69fe8052ca35df83bacd632b99a0ba5074ddff9ec7a26688dea782"
+    },
+    {
+      "analyzer": "LLM",
+      "content_type": "parameters",
+      "content_chars": 151,
+      "content_sha256": "56a56c13be69fe8052ca35df83bacd632b99a0ba5074ddff9ec7a26688dea782"
+    }
+  ],
+  "native_source": {
+    "path": "/private/tmp/fugu-competitors-20261005/lib/python3.13/site-packages/mcpscanner/core/analyzers/static_analyzer.py",
+    "sha256": "4355008642e554730f5c639ffc09534c04861d9b81ec94eca1453150987c4e22"
+  }
+}

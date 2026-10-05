@@ -1,0 +1,81 @@
+{
+  "schema": 2,
+  "task": "qitem-20261005092830-589f17b9",
+  "data_status": "NOT RELEASED",
+  "parent_inventory": {
+    "path": "bench/results/2026-10-05-full-workflow/manifest.json",
+    "sha256": "a66f64a6ce05b43107390832d9b109c9b187386d7d1f2a3597c0769b24a7786a",
+    "scope": "original inventory unchanged; source/report amendments explicit; original19 files retained privately"
+  },
+  "files": [
+    {
+      "path": "bench/competitive_corpus.py",
+      "sha256": "12f3ab12cca6e1465586bf6e9b61eebfa1ef35e8cd91c0e26aa8ab1d9d02d8f5"
+    },
+    {
+      "path": "bench/competitive_scanners.py",
+      "sha256": "2a869937c2f81d051c101d1fa45f09ffc84a21a4de241f829f19b907f2499efe"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/cases-v2.json",
+      "sha256": "250aeeeaef812c39e5a10a7caec55bc36d79c1babb0066ce47dd80ede4c21143"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/extra-trigger-declarations.json",
+      "sha256": "285e6738c241cd648bd263beb05503af08d8170dea5b1d0fbb89490852de6015"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/checks.json",
+      "sha256": "d0eafc27846b3d27dafd384aa47d6a581173d400bf896ad60e8f21cc12156670"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/extra-syntax.json",
+      "sha256": "5c7ce8c3767e0cfe54bbe355835a1afae4ce1d4f4f04aeeafa176ba22c4f7b07"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/feasibility.json",
+      "sha256": "785e2f902c158cab20093b0d3c26db42ba2b7bfca219a96604d6324e22fc6178"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/metadata-warning-scope.json",
+      "sha256": "1182dd2443b714a77502004e1e2f0bcbe55c53a66fffa02ce81443be9c4606d6"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/native-interface-proof.json",
+      "sha256": "f4f57cc743cb7203f4f2a446007bdfb9c10bc91a0a0d9d2610b3176f279b8859"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/native_mcp_probe.py",
+      "sha256": "117f22ae074d831d4132008cb6dd5f319930dd0a66bbb39230c3318eca8e0534"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/plan-amendment.json",
+      "sha256": "56d673a0c00fc9c0f36cf00ab5a74509a2f077f5ee4463a27815e41281d66d29"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/prepare_extra_cases.py",
+      "sha256": "31fd4732aa14f869f4ad74abc783c2b022f72c50de3995247f57e83f664ca83e"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/recount.json",
+      "sha256": "4bc6dafd4c1604614e65b7a74af788ce3832111627c176a5fe5e86131bf7d218"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/selection-v2.json",
+      "sha256": "879264478c3223700b61518a2054d8aaa866b1e991367e4ce5311d29d25e499f"
+    },
+    {
+      "path": "docs/benchmark-full-workflow-20261005.md",
+      "sha256": "ac90b88f790b282fe906b0874e1127605e23c01a07e9fce1e1aa924565e238ff"
+    },
+    {
+      "path": "tests/test_competitive_corpus.py",
+      "sha256": "ca0cc17bab80c8701812720a1155e2b5efed28211d5c993a0a85c0236ea35128"
+    },
+    {
+      "path": "tests/test_competitive_scanners.py",
+      "sha256": "fa7dd64cecb8b88fc60edb5a7300214a3cc48aa9ab1885f0299a2042d885f5d9"
+    }
+  ],
+  "exclusions": "inventory itself, original unchanged result artifacts and all private payloads/source caches/targets"
+}

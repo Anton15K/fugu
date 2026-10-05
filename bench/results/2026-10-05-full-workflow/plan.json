@@ -1,0 +1,154 @@
+{
+  "schema": 2,
+  "protocol": "fugu-full-workflow-competitive-20261005",
+  "parent": "qitem-20261005074008-c9c49a27",
+  "frozen_before_observation": true,
+  "execution_authorized": false,
+  "cases": {
+    "count": 140,
+    "manifest": "bench/results/2026-10-05-full-workflow/cases-v2.json",
+    "sha256": "250aeeeaef812c39e5a10a7caec55bc36d79c1babb0066ce47dd80ede4c21143",
+    "original120_preserved": true,
+    "allocation": {
+      "mcp_metadata": 100,
+      "skills": 20,
+      "composition": 12,
+      "source": 8
+    },
+    "labels": {
+      "malicious": 100,
+      "benign": 40
+    },
+    "availability_based_extension_chosen_before_observation": 20,
+    "full_completion_eligibility_max": 112
+  },
+  "fugu": {
+    "plan_path": "bench/results/2026-10-05-full-workflow/fugu-plan.json",
+    "plan_file_sha256": "a5e2f365cbbefc89cec3a540075f3a57fcc847d27296a5b1e184819cc59ef1d8",
+    "plan_json_sha256": "8b73703335e1d00d9af72431b7b3f69fee8909a275de5e10cbaeebdb55fda6af",
+    "prepared_output": "/tmp/fugu-full-workflow-backend-20261005/prepared140-frozen",
+    "engine_commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+    "engine_source_files": 39,
+    "profile": {
+      "fanout_max_units": 24,
+      "git_clone_timeout_seconds": 120,
+      "harness_full_static_probes": 6,
+      "harness_max_file_bytes": 2000000,
+      "harness_max_files": 50,
+      "harness_mount_char_budget": 32000,
+      "harness_standard_static_probes": 3,
+      "llm_max_output_tokens": 4096,
+      "red_probe_count": 3,
+      "red_probe_max_chars": 200,
+      "request_timeout_seconds": 90,
+      "sdk_max_retries": 0,
+      "semantic_max_chars_per_unit": 6000,
+      "semantic_max_file_bytes": 2000000,
+      "semantic_max_files": 2000,
+      "semantic_max_units": 24,
+      "source_max_bytes": 536870912,
+      "source_max_entries": 20000
+    },
+    "models": [
+      "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "nvidia/nemotron-3-super-120b-a12b"
+    ],
+    "alert_threshold": "native medium or higher; composition-specific score separately",
+    "journal_assignment": "capacity-based sequential request router; three fixed1800 journals, no assigned case cohorts",
+    "chamber": {
+      "driver": "docker",
+      "evidence_ref": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/prerequisites/status.json",
+      "evidence_sha256": "7940e8e855093191bba4d7b8b6b13a6be336ffe4fa6024f357112b9f749840ae",
+      "known_buildx_denial_retried": false,
+      "reason": "Native Docker chamber unavailable: retained prerequisite records the known Buildx denial; no retry or alternate driver is permitted.",
+      "status": "unavailable",
+      "target_execution": false
+    }
+  },
+  "competitors": {
+    "planned_pairs": 320,
+    "cohorts": {
+      "sentinel": 100,
+      "mcp-sec-audit": 100,
+      "cisco-mcp": 100,
+      "cisco-skill": 20
+    },
+    "source_pins_path": "bench/results/2026-10-05-full-workflow/source-pins.json",
+    "source_pins_sha256": "ccee2ef841f65edfd962a40b5f332721b01348dc663f8e1568c738e73ea13690",
+    "native_contracts_path": "bench/results/2026-10-05-full-workflow/native-contracts.json",
+    "native_contracts_sha256": "7b79856ca78f66cc18e8a68b98e01842617f8d2507578c4c53a6827bc8964c66",
+    "thresholds": {
+      "cisco-skill": "HIGH or CRITICAL native security findings; infrastructure excluded",
+      "cisco-mcp": "Any retained non-infrastructure native security finding under unsafe normalization; boolean is_safe and complete analyzer coverage required",
+      "sentinel": "native HIGH findings",
+      "mcp-sec-audit": "native aggregate risk >=25"
+    },
+    "native_llm": {
+      "cisco-skill": {
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "output_cap": 8192,
+        "temperature": 0,
+        "timeout_s": 120,
+        "native_max_retries": 3
+      },
+      "cisco-mcp": {
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "output_cap": 1000,
+        "temperature": 0.1,
+        "timeout_s": 30,
+        "native_max_retries": 3
+      }
+    },
+    "sdk_max_retries": 0,
+    "native_recognized_schema_fallback_and_nonquota_recovery": "preserved and every dispatch counted",
+    "native_order": [
+      "sentinel",
+      "mcp-sec-audit",
+      "cisco-skill",
+      "cisco-mcp"
+    ],
+    "environment": "/tmp/fugu-competitors-20261005",
+    "dependency_inventory_sha256": "5c69e3d0eed308893ad1bba260d100f6f0fc44ad032f66500fe47b744e836347",
+    "mcp_sec_wheel": "unavailable; unchanged pinned source-tree import used",
+    "secondary_metric": "any_alert: any retained non-infrastructure native security finding; not medium-or-higher",
+    "threshold_label_correction": {
+      "before_observation": true,
+      "code_or_threshold_behavior_changed": false,
+      "previous_plan_file_sha256": "9dacf21b7a0cf0cf48932e009c9397b77333fece7e8d0843fc589979a3c41af6",
+      "reason": "Align advertised labels with accepted normalize_native implementation and native-contracts; primary and any_alert remain unchanged."
+    }
+  },
+  "launcher": {
+    "path": "bench/results/2026-10-05-full-workflow/launch/launch.py",
+    "sha256": "d7937e6bee3bd56bafb14d1951af0ea4815feeab7950b5a8d25ec1152037febd",
+    "bindings_sha256": "af02d71fc24b09e58a19c9f532beac52027dee7833af96a9d039bdc19c8fbda2",
+    "private_execution_path": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/research/launch-preparation/launch.py",
+    "zero_call_proof_sha256": "2957792c15f11d887e013d340c2ec3df1cd7eaab5c567f2625b1e3fef287b5da",
+    "execution_mode": "sequential cold Fugu then native competitors; competitor planned rows initialized first",
+    "private_handoff_missing": []
+  },
+  "bounds": {
+    "fugu_sdk": 5400,
+    "fugu_journals": [
+      1800,
+      1800,
+      1800
+    ],
+    "competitor_sdk_shared": 1800,
+    "all_sdk": 7200,
+    "tavily": 480,
+    "requested_output_tokens_max": 36864000,
+    "remaining_quota": null,
+    "cost": null
+  },
+  "policy": {
+    "fresh_outputs_only": true,
+    "target_host_execution": false,
+    "denied_build_retry": false,
+    "old_artifacts_unchanged": true,
+    "native_campaign_refusal": "preserved",
+    "completed_case_comparison": "pairwise same IDs and input hashes with complete native coverage; exclusions and descriptive Wilson95 intervals shown",
+    "charts": "Fugu full workflow and measured competitors only",
+    "independent_review": "ONE final exact combined code/results/evidence/README candidate, actual CI and normal merge"
+  }
+}

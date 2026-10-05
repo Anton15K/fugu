@@ -1,0 +1,326 @@
+{
+  "schema": 1,
+  "status": "NOT RELEASED",
+  "parent": "qitem-20261005074008-c9c49a27",
+  "owner_task": "qitem-20261005074955-950c0451",
+  "cases_manifest_sha256": "ed49402d1dea336e2781f59c2fbb8e9fbe2dbfab0338ed978e897b129f0d5067",
+  "planned": 120,
+  "engine_manifest_sha256": "9723015b1591f1536eb4b6ab0a614bba22436c2609625c59284376ef4f96039f",
+  "engine_root": "/tmp/fugu-full-workflow-engine-20261005",
+  "models": {
+    "fugu_super": "nvidia/nemotron-3-super-120b-a12b",
+    "fugu_ultra": "nvidia/Nemotron-3-Ultra-550b-a55b",
+    "cisco_both": "nvidia/Nemotron-3-Ultra-550b-a55b"
+  },
+  "provider": {
+    "kind": "existing Nebius OpenAI-compatible endpoint only",
+    "native_cisco_route": "openai/ prefix stripped at SDK boundary",
+    "base_url": "https://api.tokenfactory.nebius.com/v1/",
+    "remaining_quota": null,
+    "dollar_cost": null,
+    "quota_note": "Unknown; lead primary-doc check establishes authenticated console balance, no supported credit API supplied. No guessed endpoint calls."
+  },
+  "requests": {
+    "fugu_batches": [
+      {
+        "id": "fugu-1",
+        "max_sdk_attempts": 1800,
+        "case_ids": [
+          "mcptox/Apify-18",
+          "mcptox/DumplingAI-24",
+          "mcptox/AlphaVantage-25",
+          "mcptox/AgentQL-3",
+          "mcptox/SQLite-10",
+          "mcptox/AlphaVantage-8",
+          "mcptox/EverArt-12",
+          "mcptox/DoDo Payments-12",
+          "mcptox/ClickHouse-26",
+          "mcptox/BraveSearch-15",
+          "mcptox/SQLite-1",
+          "mcptox/mcp-simple-arxiv-22",
+          "mcptox/AWSKnowledgeBase-4",
+          "mcptox/EverArt-7",
+          "mcptox/Commander-49",
+          "mcptox/Git-0",
+          "mcptox/E2B-2",
+          "mcptox/Github-47",
+          "mcptox/Redis-13",
+          "mcptox/EverArt-2",
+          "clean/list_drive_files",
+          "clean/send_slack_message",
+          "clean/send_email",
+          "clean/create_github_issue",
+          "clean/get_git_log",
+          "clean/translate_text",
+          "clean/add_stripe_customer",
+          "cisco-skill/sql-injection/database-query",
+          "cisco-skill/supply-chain-attack/registry-redirect",
+          "cisco-skill/behavioral-analysis/multi-file-exfiltration",
+          "anthropic-skill/skills/brand-guidelines",
+          "cisco-skill/safe/simple-formatter",
+          "anthropic-skill/template",
+          "anthropic-skill/skills/theme-factory",
+          "composition-v2/v2-shell-curl-two-member",
+          "composition-v2/v2-py-module-alias-post",
+          "composition-v2/v2-shell-no-private-control",
+          "composition-v2/v2-member-files-get-post-no-private-control",
+          "source/03-env-harvest-installer",
+          "source/cisco-validator"
+        ]
+      },
+      {
+        "id": "fugu-2",
+        "max_sdk_attempts": 1800,
+        "case_ids": [
+          "mcptox/GoogleDrive-1",
+          "mcptox/AdFin-27",
+          "mcptox/AdFin-25",
+          "mcptox/AlphaVantage-11",
+          "mcptox/ClickHouse-20",
+          "mcptox/Codacy-8",
+          "mcptox/FileSystem-51",
+          "mcptox/Everything-3",
+          "mcptox/Memory-6",
+          "mcptox/ClickHouse-3",
+          "mcptox/Email-31",
+          "mcptox/Slack-14",
+          "mcptox/SQLite-21",
+          "mcptox/Email-17",
+          "mcptox/Git-19",
+          "mcptox/FileSystem-66",
+          "mcptox/Git-22",
+          "mcptox/Claude Post-8",
+          "mcptox/Git-13",
+          "mcptox/Gitlab-22",
+          "clean/run_tests",
+          "clean/search_files",
+          "clean/write_file",
+          "clean/get_calendar_events",
+          "clean/resize_image",
+          "clean/run_shell_command",
+          "clean/get_weather",
+          "cisco-skill/path-traversal/file-reader",
+          "cisco-skill/obfuscation/base64-payload",
+          "cisco-skill/command-injection/eval-execution",
+          "cisco-skill/safe-skills-2/file-validator",
+          "anthropic-skill/skills/web-artifacts-builder",
+          "anthropic-skill/skills/webapp-testing",
+          "composition-v2/v2-py-direct-two-member",
+          "composition-v2/v2-py-urllib-request-body",
+          "composition-v2/v2-self-sufficient-member-control",
+          "composition-v2/v2-py-direct-no-private-control",
+          "source/cisco-formatter",
+          "source/04-credential-reader",
+          "source/csv-tidy"
+        ]
+      },
+      {
+        "id": "fugu-3",
+        "max_sdk_attempts": 1800,
+        "case_ids": [
+          "mcptox/Commander-71",
+          "mcptox/Email-21",
+          "mcptox/ClickHouse-21",
+          "mcptox/Prisma-37",
+          "mcptox/Apify-25",
+          "mcptox/Codacy-4",
+          "mcptox/HyperBrowser-30",
+          "mcptox/Email-33",
+          "mcptox/FileSystem-35",
+          "mcptox/Google Maps-16",
+          "mcptox/ClickHouse-0",
+          "mcptox/Git-24",
+          "mcptox/BaiduMap-5",
+          "mcptox/Fetch-2",
+          "mcptox/Git-8",
+          "mcptox/Financial Dataset-2",
+          "mcptox/Gitlab-24",
+          "mcptox/Google Maps-7",
+          "mcptox/Gyazo-9",
+          "mcptox/Gyazo-4",
+          "clean/create_notion_page",
+          "clean/list_github_repos",
+          "clean/list_directory",
+          "clean/execute_sql",
+          "clean/search_web",
+          "clean/read_file",
+          "cisco-skill/data-exfiltration/config-tunnel-exfil",
+          "cisco-skill/backdoor/magic-string-trigger",
+          "cisco-skill/unauthorized-tool-use/remote-package-source",
+          "cisco-skill/prompt-injection/jailbreak-override",
+          "cisco-skill/safe-skills/simple-math",
+          "cisco-skill/safe-skills-2/registry-default-mirror",
+          "anthropic-skill/skills/internal-comms",
+          "composition-v2/v2-schema-derived-ingress",
+          "composition-v2/v2-shell-curl-post",
+          "composition-v2/v2-name-equal-different-servers-control",
+          "composition-v2/v2-schema-ingress-no-egress-control",
+          "source/cisco-environment-secrets",
+          "source/cisco-math",
+          "source/05-obfuscated-payload"
+        ]
+      }
+    ],
+    "fugu_total_max": 5400,
+    "cisco_shared_max": 1800,
+    "total_max": 7200,
+    "tavily_total_max": 480,
+    "requested_output_token_ceiling": 36864000,
+    "sdk_max_retries": 0,
+    "fugu_max_output_tokens": 4096,
+    "fugu_timeout_seconds": 90,
+    "cisco_native_limits": {
+      "cisco-skill": {
+        "max_tokens": 8192,
+        "temperature": 0.0,
+        "timeout": 120,
+        "max_retries": 3
+      },
+      "cisco-mcp": {
+        "max_tokens": 1000,
+        "temperature": 0.1,
+        "timeout": 30,
+        "max_retries": 3
+      }
+    },
+    "cisco_shared_max_output_tokens_per_dispatch": 8192,
+    "fugu_requested_output_token_ceiling": 22118400,
+    "native_recovery": {
+      "fugu": "unchanged RequestJournal: first provider error persists a stop",
+      "cisco": "separate shared native counter; original non-quota exceptions reach native bounded recovery; quota/auth, cap, orphan/evidence failures sticky; every actual SDK create counted; SDK retries zero"
+    }
+  },
+  "competitors": {
+    "cisco-skill": {
+      "repository": "cisco-ai-defense/skill-scanner",
+      "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+      "package": "cisco-ai-skill-scanner",
+      "version": "VCS-derived; verify installed metadata",
+      "license": "Apache-2.0",
+      "cohorts": [
+        "skills"
+      ],
+      "threshold": "HIGH or CRITICAL",
+      "analyzers": [
+        "static_analyzer",
+        "behavioral_analyzer",
+        "llm_analyzer"
+      ],
+      "native_llm": {
+        "max_tokens": 8192,
+        "temperature": 0.0,
+        "timeout": 120,
+        "max_retries": 3
+      }
+    },
+    "cisco-mcp": {
+      "repository": "cisco-ai-defense/mcp-scanner",
+      "commit": "f817899d9391b099f395acd5ae7ff435dccf2a47",
+      "package": "cisco-ai-mcp-scanner",
+      "version": "4.8.5",
+      "license": "Apache-2.0",
+      "cohorts": [
+        "mcp_metadata"
+      ],
+      "threshold": "native is_safe=false, excluding analyzer infrastructure",
+      "analyzers": [
+        "YARA",
+        "LLM"
+      ],
+      "native_llm": {
+        "max_tokens": 1000,
+        "temperature": 0.1,
+        "timeout": 30,
+        "max_retries": 3
+      }
+    },
+    "sentinel": {
+      "repository": "Ventrova/sentinel-scan-cli",
+      "commit": "5cde4b12221178b0ac41213a6b332f9c03fdccc4",
+      "package": "sentinel-scan-cli",
+      "version": "1.4.16",
+      "license": "MIT",
+      "cohorts": [
+        "mcp_metadata"
+      ],
+      "threshold": "HIGH (--fail-on high recommendation)",
+      "analyzers": [
+        "offline_manifest"
+      ]
+    },
+    "mcp-sec-audit": {
+      "repository": "nyit-vancouver/mcp-sec-audit",
+      "commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+      "package": "detection",
+      "version": "0.1.0",
+      "license": "not established; retain sources privately",
+      "cohorts": [
+        "mcp_metadata"
+      ],
+      "threshold": "native aggregate risk >=25",
+      "analyzers": [
+        "static_pipeline"
+      ]
+    }
+  },
+  "unsupported_competitors": {
+    "snyk": "Unmeasured/unavailable: no confirmed existing CLI authentication/authorized bulk API volume; CI success is insufficient"
+  },
+  "static_scanner": {
+    "repository": "ksek87/fuzzd",
+    "source_commit": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+    "binary_sha256": "85224f942db23733bb4e3ccacbf246fe2cde266ca96321231973bef6d98ea208",
+    "image": "sha256:59037199c44290f2befcdd58dcc540164763fc296950255aaefeef096a1866b0",
+    "shared_upstream": "Fugu embeds fuzzd; no standalone fuzzd ranking in new charts",
+    "env_binding": {
+      "FUGU_STATIC_RULES_BINARY": "/private/var/folders/c7/_wznbvx501d1n5562y9w3l8c0000gn/T/fugu-workflow-integration-g_m1668u/build-artifact/static-rules",
+      "FUGU_STATIC_RULES_IMAGE": "sha256:59037199c44290f2befcdd58dcc540164763fc296950255aaefeef096a1866b0",
+      "FUGU_STATIC_RULES_SHA256": "85224f942db23733bb4e3ccacbf246fe2cde266ca96321231973bef6d98ea208"
+    },
+    "binding_evidence": {
+      "path": ".fugu-private/full-workflow-20261005/static-scanner-binding.json",
+      "sha256": "596286b63024108090bf1e549426108c1367a1b79293881917155068b9f94dbc"
+    }
+  },
+  "applicability": "All native applicable S0-S5 + composition + verdict; native unsupported/error cases remain incomplete; missing runnable resources are never runtime proof.",
+  "prerequisites": [
+    "Lead isolated native dependencies/package/CEL helper verification",
+    "Clean native launcher/effective policy and actual SDK source seam verification; no ambient owner configuration",
+    "Accepted integrated runner/source/plan/source-hash freeze",
+    "Native target chamber/runtime/trigger readiness or exact unavailable statuses",
+    "Independent exact offline release review",
+    "Separate authenticated data-release reference"
+  ],
+  "export_policy": {
+    "private": [
+      "all scanned target bytes",
+      "raw SDK messages/responses",
+      "raw native outputs",
+      "synthetic canary literals"
+    ],
+    "public": [
+      "IDs/input hashes",
+      "planned/completed/partial/unavailable/unattempted",
+      "safe actual SDK row metadata/usage nulls",
+      "per-analyzer coverage/reasons",
+      "matched counts/Wilson95/native thresholds/paired disagreements"
+    ],
+    "no_old_nonstatic_output_reuse": true
+  },
+  "measurement_status": {
+    "new_paid_sdk": 0,
+    "new_tavily": 0,
+    "new_research_native_scanner_runs": 0,
+    "new_target_executions": 0,
+    "lead_inert_scanner_prerequisite": "separate activation-only proof, not selected benchmark row"
+  },
+  "comparison": "Fugu FULL WORKFLOW vs actual measured competitors only; per-supported-cohort, per-label paired completed identical ID/hash intersection. Composition controls are not clean-package negatives.",
+  "draft_revision": 2,
+  "amendment": {
+    "reason": "Lead 2026-10-05 08:51Z accepted source-verified Cisco native caps/recovery and separate counter before freeze; no observations or input changes",
+    "superseded_draft_sha256": "762ceb5a7978a009b514ee330b05e4af9765427b64a4331f97e2a9d251a41cff"
+  },
+  "competitor_execution": "Separate artifacts, shared native 1800 counter; backend runner owns Fugu-only journals; later offline join by case ID and original input hashes",
+  "native_contract_sha256": "7b79856ca78f66cc18e8a68b98e01842617f8d2507578c4c53a6827bc8964c66",
+  "native_environment": "Proposed clean native launcher; no undeclared policy/taxonomy/routing/force-JSON/reasoning overrides or owner configuration. Actual effective settings and loaded installed hashes required before freeze."
+}
