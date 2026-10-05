@@ -69,11 +69,19 @@ with incomplete coverage is not evidence that the source is safe. When no API
 key is configured, semantic and harness explicitly skip inference; their
 offline no-op is not a security assessment.
 
-Local sources and selected Git materializations are checked against the
-512 MiB and 20,000-entry limits. These checks apply to the materialized tree;
-they do not cap bytes already transferred while a shallow Git clone is being
-created. Each clone attempt has its own 120-second timeout. After timeout,
-Fugu kills the clone process and allows at most 100 milliseconds for
+Local sources and selected Git materializations are copied into owned,
+regular-file snapshots before pipeline readers run. A direct descendant link to
+an in-root regular file is materialized as a regular copy; escaping, broken,
+cyclic, chained, directory, or unsupported special-file entries fail intake.
+The extraction event retains each accepted link's original path and target,
+resolved repository-relative path, copied-byte hash, and size. Full policy and
+the concurrent-mutation limitation are described in `docs/source-intake.md`.
+
+The 512 MiB and 20,000-entry limits apply to the resulting snapshot, including
+duplicate bytes for multiple links to one file. They do not cap bytes already
+transferred while a shallow Git clone is being created. Each clone attempt has
+its own 120-second timeout. After timeout, Fugu kills the clone process and
+allows at most 100 milliseconds for
 `communicate()` to drain its pipes. It then closes the subprocess transport;
 if draining did not finish, `Process.wait()` gets a separate 100-millisecond
 bound. After `asyncio.wait_for()` reports the clone timeout, its cleanup handler

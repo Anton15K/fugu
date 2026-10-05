@@ -74,6 +74,11 @@ _HARVEST_SKIP_DIRS = frozenset({".git", "node_modules", "__pycache__", ".venv"})
 _HARVEST_MAX_FILES = 2000
 _HARVEST_MAX_BYTES = 512 * 1024  # per file
 
+# asyncio keeps weak references to tasks. The server schedules run_auto_job
+# with create_task and does not retain the task itself; extraction now awaits
+# an executor-backed snapshot copy, so keep each active run alive until done.
+_ACTIVE_AUTO_JOBS: set[asyncio.Task[Any]] = set()
+
 
 # --- Request normalization -------------------------------------------------------
 
@@ -565,6 +570,11 @@ async def run_auto_job(
     Parent job.source keeps the original ref; a `source` log event names
     the detected units so the UI member strip has something to show.
     """
+    task = asyncio.current_task()
+    if task is not None:
+        _ACTIVE_AUTO_JOBS.add(task)
+        task.add_done_callback(_ACTIVE_AUTO_JOBS.discard)
+
     snap = store.get(job.id)
     if snap is None:  # pragma: no cover - internal wiring bug
         snap = store.create(job)
@@ -576,10 +586,26 @@ async def run_auto_job(
     loop = asyncio.get_running_loop()
     cloned_dir: Path | None = None
     try:
+        link_provenance: list[dict[str, str | int]] = []
         target = await extract_source(
-            job, max_files=max_files, max_bytes=max_bytes, keep_target=True
+            job,
+            max_files=max_files,
+            max_bytes=max_bytes,
+            keep_target=True,
+            link_provenance=link_provenance,
         )
         snap.target_dir = target
+        if link_provenance:
+            _emit(
+                store,
+                job,
+                "log",
+                {
+                    "stage": "extraction",
+                    "message": f"materialized {len(link_provenance)} internal file link(s)",
+                    "source_links": link_provenance,
+                },
+            )
         if target != Path(job.source.strip()).expanduser():
             cloned_dir = target
     except ExtractionError as exc:
