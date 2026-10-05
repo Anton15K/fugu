@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "authority": "control-lead@fugu authenticated session message",
+  "reported_utc": "2026-10-05T09:15:00Z",
+  "scope": "isolated install metadata, no scanner/provider run",
+  "reported_installed_versions": {
+    "cisco-ai-skill-scanner": "2.2.1.dev3+g669a2cdf6",
+    "cisco-ai-mcp-scanner": "4.8.5",
+    "sentinel-scan-cli": "1.4.16",
+    "detection": "0.1.0 wheel built but incomplete"
+  },
+  "mcp_sec_packaging_limit": "native wheel omits subpackages: import fails with missing detection.core",
+  "proposed_source_tree": {
+    "commit": "457057a7dfda6b81622a12ee68b74f76f3fbde85",
+    "PYTHONPATH": "/tmp/fugu-full-workflow-research-20261005/sources/mcp-sec-audit/detection",
+    "status": "lead checking unchanged source-tree import; not verified here"
+  },
+  "proof_path": null,
+  "pending": "actual installed file/CEL helper provenance and native effective environment/source-tree interface verification before data release"
+}

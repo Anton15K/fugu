@@ -1,0 +1,42 @@
+{
+  "attack_servers": 33,
+  "cohorts": {
+    "composition": 12,
+    "mcp_metadata": 80,
+    "skills": 20,
+    "source": 8
+  },
+  "composition_control_scope": "negative cross-member claim only, not clean-package innocence",
+  "exclusions": {
+    "composition_js": [
+      "v2-js-env-enumeration",
+      "v2-js-env-object-entries",
+      "v2-js-single-env-and-get-control"
+    ],
+    "invalid_old_source": "corpus/06-rugpull-pair/v2/server.py contains JSON Boolean Name in Python",
+    "skill_families": [
+      "hardcoded-secrets",
+      "harmful-content",
+      "malware",
+      "resource-exhaustion"
+    ]
+  },
+  "kind_counts": {
+    "benign": 40,
+    "malicious": 80
+  },
+  "planned": 120,
+  "prior_full_same_content": [
+    "clean/create_notion_page",
+    "clean/send_email",
+    "clean/get_calendar_events",
+    "clean/translate_text",
+    "clean/read_file",
+    "source/03-env-harvest-installer",
+    "source/04-credential-reader",
+    "source/csv-tidy",
+    "source/05-obfuscated-payload"
+  ],
+  "source_case_scope": "source risk fixtures, not real-world incidents; imports do not establish function invocation",
+  "status": "NOT RELEASED"
+}

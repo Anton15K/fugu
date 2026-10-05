@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-10-05T09:50:35.065861+00:00",
+  "task": "qitem-20261005092830-589f17b9",
+  "data_status": "NOT RELEASED",
+  "tests": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync python -m pytest tests/test_competitive_corpus.py tests/test_competitive_scanners.py -q",
+    "exit_code": 0,
+    "result": "29 passed",
+    "output": {
+      "path": ".fugu-private/full-workflow-20261005/research/correction-tests-final.txt",
+      "sha256": "e02454d859bc5a80f75d5bda886ffee05165c743db7d362580eb4086bf4b377e"
+    }
+  },
+  "ruff": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync ruff check bench/competitive_corpus.py bench/competitive_scanners.py tests/test_competitive_corpus.py tests/test_competitive_scanners.py bench/results/2026-10-05-full-workflow/native-interface-correction",
+    "exit_code": 0,
+    "result": "All checks passed!",
+    "output": {
+      "path": ".fugu-private/full-workflow-20261005/research/correction-ruff-final.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    }
+  },
+  "append_reconstruction": {
+    "command": "UV_CACHE_DIR=/tmp/fugu-uv-cache PYTHONDONTWRITEBYTECODE=1 PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY='' uv run --no-sync python -m bench.results.2026-10-05-full-workflow.native-interface-correction.prepare_extra_cases",
+    "exit_code": 0,
+    "output": {
+      "path": ".fugu-private/full-workflow-20261005/research/extension-reconstruction.txt",
+      "sha256": "5cf74b3f9c3ea8fd0fe8bfd9ef9898b58bb307f851261c227bc1cd67092d0023"
+    }
+  },
+  "red_regressions": [
+    {
+      "path": ".fugu-private/full-workflow-20261005/research/append-red.txt",
+      "sha256": "293e7af43408da5dee7946e127435cd2d941ce59db320850f226acf516e8c853"
+    },
+    {
+      "path": ".fugu-private/full-workflow-20261005/research/native-import-red.txt",
+      "sha256": "b59fffb127cd96e565b63df445bab725ceebff8de5d0c6f98b624492d0121109"
+    }
+  ],
+  "native_interface": {
+    "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/native-interface-proof.json",
+    "sha256": "f4f57cc743cb7203f4f2a446007bdfb9c10bc91a0a0d9d2610b3176f279b8859",
+    "scope": "real installed coordinator/YARA/LLM on inert greeting; fake completions, sockets/DNS denied; not scored benchmark"
+  },
+  "recount": {
+    "path": "bench/results/2026-10-05-full-workflow/native-interface-correction/recount.json",
+    "sha256": "4bc6dafd4c1604614e65b7a74af788ce3832111627c176a5fe5e86131bf7d218"
+  },
+  "calls": {
+    "selected_benchmark": 0,
+    "provider": 0,
+    "search": 0,
+    "chamber": 0,
+    "target_execution": 0
+  },
+  "source_changes": "StaticAnalyzer import correction only in scanner adapter; deterministic append utility and focused tests/probe/report; no native detector/cap/threshold or production change",
+  "remaining": [
+    "one combined independent freeze/release review pending",
+    "retained chamber denial applies28 original cases",
+    "budget can exhaust before all planned cases complete",
+    "no paid-data grant; provider quotas/actual cost unknown"
+  ]
+}

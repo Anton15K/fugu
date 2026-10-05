@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "status": "PROPOSED LEAD-ONLY; NOT RUN",
+  "environment": "single isolated task environment recommended: adapters and hosted callback run in-process",
+  "commands_argv": [
+    [
+      "uv",
+      "venv",
+      "/tmp/fugu-competitors-20261005",
+      "--python",
+      "3.13"
+    ],
+    [
+      "uv",
+      "pip",
+      "install",
+      "--python",
+      "/tmp/fugu-competitors-20261005/bin/python",
+      "cisco-ai-skill-scanner @ git+https://github.com/cisco-ai-defense/skill-scanner.git@669a2cdf64f81f748f6590d421c935c01c5b01b5",
+      "/tmp/fugu-full-workflow-research-20261005/sources/cisco-mcp",
+      "/tmp/fugu-full-workflow-research-20261005/sources/sentinel",
+      "/tmp/fugu-full-workflow-research-20261005/sources/mcp-sec-audit/detection"
+    ],
+    [
+      "uv",
+      "pip",
+      "freeze",
+      "--python",
+      "/tmp/fugu-competitors-20261005/bin/python"
+    ]
+  ],
+  "requirements": [
+    "Python3.13 chosen to meet MCP-Sec>=3.13 and Cisco Skill<3.15",
+    "Cisco Skill source build requiresGo1.27.1+ and locked native CEL helper; dynamic installed VCS version must be measured",
+    "Record actual dependency resolution, native package/file/helper hashes before freeze; source commit pins do not pin every transitive version",
+    "Do not modify shared .venv/uv.lock/project dependencies",
+    "Any added Fugu runtime dependencies must be lead-selected/frozen in the same isolated environment; source import uses accepted engine snapshot",
+    "MCP-Sec analysis package must resolve from pinned source root/detection; native packaging needs verification, no target-server lab submodule needed",
+    "Compiler/build failure is an unresolved prerequisite, no older/unverified tool substitution",
+    "Per-lane SDK clients have max_retries=0 and native timeout Skill120/MCP30; no unobserved LiteLLM client dispatches. Check installed dispatch seam and native parameters before data release.",
+    "Freeze clean native launcher environment; resolve no ambient policy/taxonomy/provider override. Skill reasoning/force-JSON overrides are unset unless declared. Record installed native effective policy and source path hashes before data release.",
+    "MCP-Sec native detection0.1.0 wheel lacks detection.core/subpackages. Exact unchanged pinned source-tree PYTHONPATH must be independently verified/disclosed; do not claim wheel success."
+  ],
+  "source_catalog_sha256": "ccee2ef841f65edfd962a40b5f332721b01348dc663f8e1568c738e73ea13690",
+  "native_interfaces": {
+    "cisco-skill": "SkillScanner([StaticAnalyzer(), BehavioralAnalyzer(use_alignment_verification=False), LLMAnalyzer(provider=openai-compatible, Ultra,8192,retries3,120s,temp0)]).scan_skill(original_directory); native default policy",
+    "cisco-mcp": "StaticAnalyzer([YaraAnalyzer(), LLMAnalyzer(Config(openai/Ultra,1000,retries3,30s,temp0.1))]).scan_tools_file(original tools.json); equivalent CLI global --analyzers yara,llm --format raw static --tools",
+    "sentinel": "native scan_mcp_manifest(original tools wrapper), equivalent sentinel-scan mcp --manifest tools.json --output raw.json --fail-on high",
+    "mcp-sec-audit": "native run_static_pipeline with original name/description mapped only to tool_name/tool_content; inputSchema ignored by native interface"
+  },
+  "configuration_differences": {
+    "cisco_skill_output_cap": "native8192 retained explicitly",
+    "cisco_mcp_output_cap": "native1000 retained explicitly",
+    "model": "existing Nebius Ultra replaces upstream model defaults through documented OpenAI-compatible route; this is not a default-provider benchmark",
+    "SDK": "direct SDK zero-retry observed transport replaces LiteLLM dispatch; original exceptions/response schema/reasoning options preserved, native retry loops unchanged; unsupported extra options fail before dispatch",
+    "behavioral": "local native dataflow; optional LLM alignment not enabled, as native default"
+  },
+  "observability": "One persisted NativeRequestCounter(limit1800) across both Cisco lanes, separate from Fugu journals. Every actual SDK dispatch/fallback/retry counted before network; full request and options hashes keyed run/context/stage/ordinal/global number. Raw responses private; safe usage/errors/nulls retained. Quota/auth/cap/orphan/evidence stops persist.",
+  "access_limits": {
+    "snyk": "unmeasured; existing CLI/bulk API authorization not demonstrated",
+    "nebius_remaining_balance": null,
+    "tavily_remaining_credits": null
+  },
+  "provisioning_update": {
+    "path": "bench/results/2026-10-05-full-workflow/provisioning-status.json",
+    "sha256": "15acef72f75b0ec3ef79cb58c27bde6fd4cbb3f79f425e5be5d91911acfe8b92"
+  }
+}

@@ -1,0 +1,3238 @@
+{
+  "cases": [
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Apify-18",
+      "input_sha256": {
+        "tools.json": "dc251bd75157137a10c360292975ae673452bdcb757fa9f73b72fb50bad553a9"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Apify",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0000"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/GoogleDrive-1",
+      "input_sha256": {
+        "tools.json": "9267f507fdacaeec85dcfd87822e560199e427abe26ce1c6ac6ad7e5716ff3f9"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "GoogleDrive",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0001"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Commander-71",
+      "input_sha256": {
+        "tools.json": "4c24418818bdfe2282d29149b2c092e6e30c091d1bee017a8807c228327a55e3"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": [
+          "mcptox/Commander-71"
+        ]
+      },
+      "provenance": {
+        "category": "Credential Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Commander",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0002"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/DumplingAI-24",
+      "input_sha256": {
+        "tools.json": "0e3ece2ccae15596ecdb9b04f4ad878920a8fa26a5cf0f0f05d607df0541fa10"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "DumplingAI",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0003"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/AdFin-27",
+      "input_sha256": {
+        "tools.json": "870ad745d99ffe81c2303129722de7a4856e15f37e631d6c008b98ba3da61962"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": [
+          "mcptox/AdFin-27"
+        ]
+      },
+      "provenance": {
+        "category": "Financial Loss",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "AdFin",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0004"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Email-21",
+      "input_sha256": {
+        "tools.json": "1b1283cdb498f47c01653645ead972a41bc6d2ef34de09ceec31ab2635e7c61c"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Email",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0005"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/AlphaVantage-25",
+      "input_sha256": {
+        "tools.json": "36038c2cec52b6ad59d6823ab4b21a85bbd8d3870bdce96cbfaf6e0bb94458d3"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Financial Loss",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "AlphaVantage",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0006"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/AdFin-25",
+      "input_sha256": {
+        "tools.json": "683a43d9f18e79e451114699aa6c9f07e666160bcc8a2453abb5ee873194dd8c"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Financial Loss",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-1",
+        "schema_present": false,
+        "server": "AdFin",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0007"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/ClickHouse-21",
+      "input_sha256": {
+        "tools.json": "6bb107a096e00c1a39131c3d7b92a6aed77daff4d4433906327e09c3f2c5fe0c"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Credential Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "ClickHouse",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0008"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/AgentQL-3",
+      "input_sha256": {
+        "tools.json": "4b3d8eb5a4374c9dd5d31c620e69742d34080cf81e0236ae6314fce426989e71"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Code Injection",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "AgentQL",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0009"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/AlphaVantage-11",
+      "input_sha256": {
+        "tools.json": "a4150da996c027d97efb3ffb1cdef733bb4f3526525a7b8549a86472c626d81e"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "AlphaVantage",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0010"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Prisma-37",
+      "input_sha256": {
+        "tools.json": "29f2901e8a3f4f40789e7cc822247ae6810f1c51829d0f1be583d319cbba9dfd"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Prisma",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0011"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/SQLite-10",
+      "input_sha256": {
+        "tools.json": "0077b9ea5b07064b0125608f8370ce5342fe0525b8177bd761fe067c00f6b877"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Data Tampering",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "SQLite",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0012"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/ClickHouse-20",
+      "input_sha256": {
+        "tools.json": "7645d1e4755d0a03f48e9e8610526629140f4c9b790c44230b3f4ecaae1139c1"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "ClickHouse",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0013"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Apify-25",
+      "input_sha256": {
+        "tools.json": "c7e831e39523792222506497fdb2579da75d1a28934046f735bf9bc2271ac987"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Apify",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0014"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/AlphaVantage-8",
+      "input_sha256": {
+        "tools.json": "18c79e9a2a1380b670e6748880ae7a9f68dc3785f23fb106a5f9ed385af92e90"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "AlphaVantage",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0015"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Codacy-8",
+      "input_sha256": {
+        "tools.json": "e4a7072519332ec08de532a7cc2deef686fb83d0dd96e2768bcbcf470d7302f8"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Codacy",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0016"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Codacy-4",
+      "input_sha256": {
+        "tools.json": "c8355e362096b86706fb4e5b2351b3febe6c9eca1bd900bb04965318340b457a"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-1",
+        "schema_present": false,
+        "server": "Codacy",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0017"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/EverArt-12",
+      "input_sha256": {
+        "tools.json": "ccee060a206b6e59ce8cd55104cc404e40ded976fdad01dad4466cf478ef8a72"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "EverArt",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0018"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/FileSystem-51",
+      "input_sha256": {
+        "tools.json": "c3f06855a13278477230f3bd4561edf07811cea2f083f370ec7f88a11bb4aa92"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Credential Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "FileSystem",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0019"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/HyperBrowser-30",
+      "input_sha256": {
+        "tools.json": "d1b1299fd9cac41d3307676fa3dcaa3408c39677e6d9a8fd7820231623fe839c"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Code Injection",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-1",
+        "schema_present": false,
+        "server": "HyperBrowser",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0020"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/DoDo Payments-12",
+      "input_sha256": {
+        "tools.json": "135dcc662451c86a02392aede26b1d6244e188840fdefdb793f2b18082202c13"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-1",
+        "schema_present": false,
+        "server": "DoDo Payments",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0021"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Everything-3",
+      "input_sha256": {
+        "tools.json": "164da7c9ced370b85f842d4e909c90136965194868dda890076d5333b9d6ec06"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Credential Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Everything",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0022"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Email-33",
+      "input_sha256": {
+        "tools.json": "8358c5d5416341347bb413a8c0fdb0d7c8e6bed23f89d9194161c007efe062a3"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Message Hijacking",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Email",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0023"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/ClickHouse-26",
+      "input_sha256": {
+        "tools.json": "6620e4325852d1dbff8b2af8b6855ef5208347d9f9b9689cb3c4ade8f2a59b6c"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Credential Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-1",
+        "schema_present": false,
+        "server": "ClickHouse",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0024"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Memory-6",
+      "input_sha256": {
+        "tools.json": "e63e710660313b716362f63e8da5e2bb3ca05ba3caeae48d47f76365345b3691"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Memory",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0025"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/FileSystem-35",
+      "input_sha256": {
+        "tools.json": "393494b7c605595460c8fba1adf536c7a641f04b970cc4b172cf7bf338aa1f77"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "FileSystem",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0026"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/BraveSearch-15",
+      "input_sha256": {
+        "tools.json": "70714844677953feda141ab313a4b18627e874618e0e5271cc7409fc6f457532"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": [
+          "mcptox/BraveSearch-15"
+        ]
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "BraveSearch",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0027"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/ClickHouse-3",
+      "input_sha256": {
+        "tools.json": "18a8796d723719189eed2e78371c543b0e752b62b5065a51246920b83bbc4b40"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "ClickHouse",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0028"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Google Maps-16",
+      "input_sha256": {
+        "tools.json": "7c854e4a8f8d3a786da4198f07a7c407da6db736a37cf2b4cc2085063b87fbef"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Google Maps",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0029"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/SQLite-1",
+      "input_sha256": {
+        "tools.json": "a43eb0711c079bec2922de4d9c6576e42d2863997f5328be2675a918248ec51e"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Infrastructure Damage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "SQLite",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0030"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Email-31",
+      "input_sha256": {
+        "tools.json": "a4e74aad160974aa3ad067b1fe1b2132a5227e38bec64f50f821cc66c6fb992b"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Message Hijacking",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Email",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0031"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/ClickHouse-0",
+      "input_sha256": {
+        "tools.json": "b3403095a107fe0636bd40ee07eafd2b9b089c3d47e64b51c7ff4b8b4e33f618"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "ClickHouse",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0032"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/mcp-simple-arxiv-22",
+      "input_sha256": {
+        "tools.json": "4fab55e947e4ffcafc7bde0a83b7b0414c69161f5d138352d86a0a9eaeaf7d00"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "mcp-simple-arxiv",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0033"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Slack-14",
+      "input_sha256": {
+        "tools.json": "3897030936f87f0e21746d2064dc13d66b54bcee578982d75c976d617de765a1"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Slack",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0034"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Git-24",
+      "input_sha256": {
+        "tools.json": "2a3f25d7ef79c0beadde99274a030dcd7c25f85d8d6c2f7e436786c4c2040d6b"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Git",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0035"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/AWSKnowledgeBase-4",
+      "input_sha256": {
+        "tools.json": "b9010366278cfd0cf7bff254d20ea35af26117fe989dc53c36b57178e332be17"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "AWSKnowledgeBase",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0036"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/SQLite-21",
+      "input_sha256": {
+        "tools.json": "fb22e59d97df0eaca43ca1b681095f2381405504725040d351856459891482eb"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "SQLite",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0037"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/BaiduMap-5",
+      "input_sha256": {
+        "tools.json": "4306b0b1bda600b3caeccf1c1a64c7f8605f0947f4255d6593ac5f11f7a2bcca"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Data Tampering",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "BaiduMap",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0038"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/EverArt-7",
+      "input_sha256": {
+        "tools.json": "fcd986fd109dbb52b0e023878efe39382f5a1efc76c9dade589e349fbecc903f"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-1",
+        "schema_present": false,
+        "server": "EverArt",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0039"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Email-17",
+      "input_sha256": {
+        "tools.json": "f2d261d32a4867c4f316f4c19dba96d171623c8a05896e9c9c4d7996e77578fb"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Email",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0040"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Fetch-2",
+      "input_sha256": {
+        "tools.json": "e30c6b7a4d936b510ac3e6665562964b22a5163afcb2837da6690afe15af3d0a"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Instruction Tampering",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Fetch",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0041"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Commander-49",
+      "input_sha256": {
+        "tools.json": "21d7b1cd3e423cdd7fe26d1ffe760d333ed21d3591b4b45966219650a4e11e79"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Commander",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0042"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Git-19",
+      "input_sha256": {
+        "tools.json": "9b9d7415e51936a2a51865eb89aab77735d96578595bdb29cc479dd514806734"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Git",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0043"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Git-8",
+      "input_sha256": {
+        "tools.json": "6f02eebeaff6e89950eea35cfe1225302d62f97616e70fd8a113d0bf11139ffc"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Code Injection",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Git",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0044"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Git-0",
+      "input_sha256": {
+        "tools.json": "aad3bc60c6eeee064abfb7ddb98fd3104c240e992f031b69825b2a4f6f89bbd2"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Credential Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Git",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0045"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/FileSystem-66",
+      "input_sha256": {
+        "tools.json": "e058c75a97e7b89cd9cdcc14f0c3a1eb86372b25991f2f68c8cb63c5bf5f059c"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Infrastructure Damage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-1",
+        "schema_present": false,
+        "server": "FileSystem",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0046"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Financial Dataset-2",
+      "input_sha256": {
+        "tools.json": "cc97d64a607135c9708d4221fccbbf1d1995cbfbc397ed1120b462e517197942"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Financial Loss",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Financial Dataset",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0047"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/E2B-2",
+      "input_sha256": {
+        "tools.json": "5102e6838487a0b3328f7b2a0f936b78551d000cba622f3347c6efbd4b8f1aa4"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Instruction Tampering",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "E2B",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0048"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Git-22",
+      "input_sha256": {
+        "tools.json": "d4a9fe5fada2dc85b463a860901a87b88386f02f0cce7e0c542e90323dbea0c7"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Service Disruption",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "Git",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0049"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Gitlab-24",
+      "input_sha256": {
+        "tools.json": "6779ea6f1415ecbeff548b207b50b1d983559fca33cc4746ec8767845997dcf1"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Code Injection",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "GitLab",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0050"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Github-47",
+      "input_sha256": {
+        "tools.json": "d6a7a038213a80d0e94409be23df8fd8d434896be3d494caed5e84f17e995766"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "GitHub",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0051"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Claude Post-8",
+      "input_sha256": {
+        "tools.json": "4679383408cf3b38dd134ed01f13c0d89c1f6d24590667f4cc81091f9c50c8ee"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Claude Post",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0052"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Google Maps-7",
+      "input_sha256": {
+        "tools.json": "2e2c3b466967df306f0d0704fede11cdb28e9d74ed5e4ac1d58c8e27b9824848"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Data Tampering",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Google Maps",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0053"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Redis-13",
+      "input_sha256": {
+        "tools.json": "1a93261e2b3b9670edc78428179dfea27b7bc1b01e3b5de2af03cefbcefa790d"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Information Manipulation",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Redis",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0054"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Git-13",
+      "input_sha256": {
+        "tools.json": "3382fb48a2e96fe09217ad774228da66f0b96ab5338d17c23f80e9284f893557"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Data Tampering",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Git",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0055"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Gyazo-9",
+      "input_sha256": {
+        "tools.json": "028928bc7693897a045d35f71e8fac7447e4bae288cbe44c9a232692b39e4d7b"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Gyazo",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0056"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/EverArt-2",
+      "input_sha256": {
+        "tools.json": "fc187b689f35d67e254bbb156abcb06422468a71fdc19392cecf4318f7fca72a"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Financial Loss",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "EverArt",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0057"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Gitlab-22",
+      "input_sha256": {
+        "tools.json": "7b4c7e9cadce1213a6cd65e942b559e8097669d7b8e5376c35ca6816c52cccf0"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "category": "Privacy Leakage",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-2",
+        "schema_present": false,
+        "server": "GitLab",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0058"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "mcptox/Gyazo-4",
+      "input_sha256": {
+        "tools.json": "d6ee558960c9dbb5cdb0a459898b82a4a66cbdd1e07d56548e6bb107fa533e32"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "MCPTox source corpus previously visible; not a blind selection",
+        "prior_static_case_ids": [
+          "mcptox/Gyazo-4"
+        ]
+      },
+      "provenance": {
+        "category": "Data Tampering",
+        "commit": "f85189f9ad12504c197c7f920ab818a40657b1fa",
+        "label_source": "benchmark-author attack instance; no detector outcomes used",
+        "paradigm": "Template-3",
+        "schema_present": false,
+        "server": "Gyazo",
+        "source": "MCPTox",
+        "source_path": "response_all.json",
+        "source_sha256": "79a90049be931c59e71446d6180b1d7f0d196d123d08a59bc155d142b5041c03"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0059"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/list_drive_files",
+      "input_sha256": {
+        "tools.json": "f0ca585ecc4b09dc9173b73aea0820a4ed9ef6400265b2296559aaa667ee2a4b"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0060"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/run_tests",
+      "input_sha256": {
+        "tools.json": "e2508d1cde529bf05a5693b5d890d9152991fb7437a8f6a2a1416184929850fb"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0061"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/create_notion_page",
+      "input_sha256": {
+        "tools.json": "662d6a0ebd38912b5525c0790701062a9044853dc31d7d6e6af75b4f8690cffe"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [
+          "clean/create_notion_page"
+        ],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0062"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/send_slack_message",
+      "input_sha256": {
+        "tools.json": "f8b3f2509aa1184a967d52a270247053ba890149f400d813e9f3ba6a41272f0c"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0063"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/search_files",
+      "input_sha256": {
+        "tools.json": "b77b95999d65e3eef4f07a59f5c91b855a4237faf54717fcf9723174e157fceb"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0064"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/list_github_repos",
+      "input_sha256": {
+        "tools.json": "61310cbd33ecfff28088e6d30f750f11250ce1b1f7f51ef9d9a396ceb4e560e6"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0065"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/send_email",
+      "input_sha256": {
+        "tools.json": "30b8667d6f298b0323493da5901f3c025ebda222f0f03212674a295c3056ae84"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [
+          "clean/send_email"
+        ],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0066"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/write_file",
+      "input_sha256": {
+        "tools.json": "5e84e68f5cb16fa69f02cf336b9228a6abbfd98485fe558a841bba4c747499f0"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0067"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/list_directory",
+      "input_sha256": {
+        "tools.json": "55582a39b9a29428ddcd4effb212e2868ba787ec7238dbb684083865ae9bc7ac"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0068"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/create_github_issue",
+      "input_sha256": {
+        "tools.json": "842c0e9d8a238bfb479a66b03d764baa877fe5ad0974ad9a7e994099abcd8b03"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0069"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/get_calendar_events",
+      "input_sha256": {
+        "tools.json": "c7ab679401c560ae0a5047fb323c3629988f1a654d063ea74dd3344cae8c06a5"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [
+          "clean/get_calendar_events"
+        ],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0070"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/execute_sql",
+      "input_sha256": {
+        "tools.json": "5daaad6b5d2639fecd35f8c2713592c3a6c80c873c0b52058f81f9f53fd3ad9c"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0071"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/get_git_log",
+      "input_sha256": {
+        "tools.json": "03e803bfa8f2b8346baf56b943f16eb87b85fed9d1c50de27cae9131865f7e05"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0072"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/resize_image",
+      "input_sha256": {
+        "tools.json": "0dd509f79f91f5f431abf96aa2a47947f384e67c192319424a00a6df3529e2d6"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0073"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/search_web",
+      "input_sha256": {
+        "tools.json": "89beaa3b0dc5e311beaa5e5eb34bc5cf9593d6e166324f76c88a135fbafa7d71"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0074"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/translate_text",
+      "input_sha256": {
+        "tools.json": "26e55494c44de6fa0df0830382390f4f4cfcef5f66a7760054bbfef275d49667"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [
+          "clean/translate_text"
+        ],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0075"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/run_shell_command",
+      "input_sha256": {
+        "tools.json": "d2abc8a89b81244b0b628e5cc3e63d08ed39794f9570f6495fe3678e574d6543"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0076"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/read_file",
+      "input_sha256": {
+        "tools.json": "fa7adbe9937c3bf65137add739f6f41adc1079ea3cde74a7b89a5ecf096f2adf"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [
+          "clean/read_file"
+        ],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0077"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/add_stripe_customer",
+      "input_sha256": {
+        "tools.json": "9db8d7257a92c5c59e5d628bd3225e2bed79e70b70800ca20eadb41be2dbce14"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0078"
+    },
+    {
+      "cohort": "mcp_metadata",
+      "id": "clean/get_weather",
+      "input_sha256": {
+        "tools.json": "3a6070ffff27ed226ce41c0196978341bda9a19eb5f949ae0feeeee6f8ef85e6"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "all20 clean sources previously visible; five prior full controls retained because pool contains20",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "label_source": "original _meta.is_attack=false; label removed from scanned packet",
+        "schema_present": true,
+        "source": "fuzzd retained original clean_tools",
+        "source_path": "bench/real/fuzzd-cache/clean_tools.json",
+        "source_sha256": "38b8fbf265e49147a6865836d1eff3796278625599ee47f3ffb2eb7b5f037348"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0079"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/data-exfiltration/config-tunnel-exfil",
+      "input_sha256": {
+        "SKILL.md": "89f95522531a26186bddfe2daa910db3267e88215ea57b5c9df07508c311b2d8",
+        "config.yaml": "136c9532d6a1116465557951fbb2b7099b96b5c60c340279d9213cd5af0b26e0"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "data-exfiltration",
+        "label_metadata_sha256": "f44df1d8d7cd6a871a2da6b111cd7ad47dfb8bbdf7f65ebaaad29f49f7e70921",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/data-exfiltration/config-tunnel-exfil"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0080"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/sql-injection/database-query",
+      "input_sha256": {
+        "SKILL.md": "ce48fc2a4d26ff6355f8caaeab483c2620885a2bd442251a25509d8f839846cc",
+        "query.py": "1e9829494095581cab241731480dca616f6474252056fb0b41d6a886bd2874c9"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "sql-injection",
+        "label_metadata_sha256": "a94196a2cd7337aecd9a2fbce37c2739df71bdda1194d14f0d56d56e7d2ef57f",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/sql-injection/database-query"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0081"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/path-traversal/file-reader",
+      "input_sha256": {
+        "SKILL.md": "790dd679a2a290030afc3b9d3bb094bdc2beb695f5542709e634affe1dba365a",
+        "read.py": "32edc6c654a6267b1d9113c01baaa1a5c70d1361d1c04e84c51198070741c066"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "path-traversal",
+        "label_metadata_sha256": "f92b1b1ad006adf89be3d05838e31e068dbbed312978d1002bed23485ca3ea81",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/path-traversal/file-reader"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0082"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/backdoor/magic-string-trigger",
+      "input_sha256": {
+        "SKILL.md": "050fa4bbd6863ca1d12e60c9ebda7545793c89f81ea477cd2bed8c967a37d4c8",
+        "process.py": "8a64a5c1daab13b973599aa0ed39b0f69fabdac674d9eecebfb4adee494826f3"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "backdoor",
+        "label_metadata_sha256": "01e0aad6cffa3d7a682d090dc97a287f4545d10a2354e2d2394fd5ba95b0b1d6",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/backdoor/magic-string-trigger"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0083"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/supply-chain-attack/registry-redirect",
+      "input_sha256": {
+        "SKILL.md": "6ade4fc1cb268ccf81752eb30d179f7b773a7f11c853e005606d81c6914b002e",
+        "scripts/bootstrap.sh": "9a64d4545c5a07f62f15cb87804aa327239e16be46f9d4c2ecf8852322a34f8a"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "supply-chain-attack",
+        "label_metadata_sha256": "7e1a54950506d8e5b9f9cd38c20253e1a3082f58707a50f5645e70b0fa9d61df",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/supply-chain-attack/registry-redirect"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0084"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/obfuscation/base64-payload",
+      "input_sha256": {
+        "SKILL.md": "b2c1ae68246e1f8385fd482ffdb777c11b4cfc4f18714129917cfb9c036029e7",
+        "process.py": "dda89bfc07f2534a4342354a5fa1bdcacd86aa517bb361916700c4d33ebe0292"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "obfuscation",
+        "label_metadata_sha256": "5a42501a54f97785e57634bd896eb2d62c6603b1f71d0e1db529df64ee07388e",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/obfuscation/base64-payload"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0085"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/unauthorized-tool-use/remote-package-source",
+      "input_sha256": {
+        "SKILL.md": "6c3b3529650a2002d8186d0e6500c8cf39d501ba07eeeb1d2f912f1e4e706fe8",
+        "install.sh": "38c423d6d6a38b73563bf412343ae1523af96d5e2449d595920846d63f3a9d46"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "unauthorized-tool-use",
+        "label_metadata_sha256": "51260045e452d63594d6e9cb23854e6aa0c2475ef9b6932beb42ffd42cb6eaf6",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/unauthorized-tool-use/remote-package-source"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0086"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/behavioral-analysis/multi-file-exfiltration",
+      "input_sha256": {
+        "SKILL.md": "305c3206f87bd81f5a0a2bf185cebb465d8448ae1a12472760990bb8184cbcb3",
+        "reporter.py": "846c7907cdd5cacf8f20663bbee75e0a7c6b62c08bcc66d05d8960e7c1eb1477"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "behavioral-analysis",
+        "label_metadata_sha256": "a8986c1886e2d0e8c5ac7b2195dfba865adaee519a7aa6654682136fca417048",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/behavioral-analysis/multi-file-exfiltration"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0087"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/command-injection/eval-execution",
+      "input_sha256": {
+        "SKILL.md": "01b2a3820c88764d7d81be369e03dae1dbcd84ab2a67603fc0aaa2bdc318c424",
+        "calculate.py": "362bfa1db0c22bfb5202316489c21bfdd9636847ff9ad145d1d651b9e756a904"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "command-injection",
+        "label_metadata_sha256": "a709d7ef8336ca1179825d524fec97c2221f8be94696976fea5d49eae71d0b47",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/command-injection/eval-execution"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0088"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/prompt-injection/jailbreak-override",
+      "input_sha256": {
+        "SKILL.md": "3deeb657833f0ba0e13b23cdbfa1ff8060d34387a854d678da53119bf6c1d091"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "prompt-injection",
+        "label_metadata_sha256": "322bab6ed5233c55bc42ba0136d413563f57d9d8c5f9b68bc1de0429452c3be1",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/prompt-injection/jailbreak-override"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0089"
+    },
+    {
+      "cohort": "skills",
+      "id": "anthropic-skill/skills/brand-guidelines",
+      "input_sha256": {
+        "SKILL.md": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "family": "published_instruction_packet",
+        "label_source": "manual task-scope review of original instruction packet",
+        "omitted_package_resources": "SKILL.md-only input; complete original bytes, no bundled helper scripts/resources",
+        "packet_only": true,
+        "source": "Anthropic published skill instruction packet",
+        "source_path": "skills/brand-guidelines/SKILL.md"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0090"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/safe-skills-2/file-validator",
+      "input_sha256": {
+        "SKILL.md": "d4e1103bd681a576c9a2ec5a2f7a4565203f257a19ecab33641d1f98538e028f",
+        "validate.py": "e2d295c2a160681b9f53b8511a5124c3dd33c80e5e445fe09cde41ff67900c34"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "safe-skills-2",
+        "label_metadata_sha256": "685ddbf2da3a55144d2a1d69dd3bbf1e22346c65c4eaf08041f90211368baa2c",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/safe-skills-2/file-validator"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0091"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/safe-skills/simple-math",
+      "input_sha256": {
+        "SKILL.md": "7a2f6c7d662abd0d4fef13c4780b8102f8e064d0cb6cf08413c204930c6cd0da",
+        "math_ops.py": "cc8d58a1076c2c9428fd31caedddc3fe62647aae96faa0f8c2c247e71e51ca6e"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "safe-skills",
+        "label_metadata_sha256": "992adc99a87acde3bfd85c56c49da10a164f5bed13b6e1733364fbde7a94cec2",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/safe-skills/simple-math"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0092"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/safe/simple-formatter",
+      "input_sha256": {
+        "SKILL.md": "a122ce0e12afe948f452d3a691ff76d27815f6db50a497bf0061b027926b4be2",
+        "formatter.py": "975885908a9906bbd3496011ba419fd0d702736a2563de890bf2f35e63914a8f"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "label_source": "published clean example plus manual content inspection",
+        "license": "MIT skill declaration; source repository Apache-2.0",
+        "source": "Cisco documented clean formatter example",
+        "source_path": "evals/test_skills/safe/simple-formatter"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0093"
+    },
+    {
+      "cohort": "skills",
+      "id": "anthropic-skill/skills/web-artifacts-builder",
+      "input_sha256": {
+        "SKILL.md": "81c5002c6643b0de7b8710b00e7a9038daa6fb9b68d59870ee6adb12da8d10f8"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "family": "published_instruction_packet",
+        "label_source": "manual task-scope review of original instruction packet",
+        "omitted_package_resources": "SKILL.md-only input; complete original bytes, no bundled helper scripts/resources",
+        "packet_only": true,
+        "source": "Anthropic published skill instruction packet",
+        "source_path": "skills/web-artifacts-builder/SKILL.md"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0094"
+    },
+    {
+      "cohort": "skills",
+      "id": "cisco-skill/safe-skills-2/registry-default-mirror",
+      "input_sha256": {
+        "SKILL.md": "8a3f6101d7dad7e20f8ed359a785a8e9d628a9062ce2d832c0173ea5824fa009",
+        "scripts/bootstrap.sh": "945f046a05a3965c6b2ca62c51f8d9dfbc1a86977ae159844bf2b4efbbcf4ec1"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "family": "safe-skills-2",
+        "label_metadata_sha256": "f4b4c6e2f9ee324c8b92b33ce9063a0df574c33f66b04358afc424a3a7100a9a",
+        "label_scope": "authored unsafe/benign package; not observed wild malware",
+        "label_source": "producer package_label and human-reviewed provenance",
+        "license": "Apache-2.0",
+        "source": "Cisco first-party human-reviewed inert fixture",
+        "source_path": "evals/skills/safe-skills-2/registry-default-mirror"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0095"
+    },
+    {
+      "cohort": "skills",
+      "id": "anthropic-skill/template",
+      "input_sha256": {
+        "SKILL.md": "eb685d91de039ed864fbd790cddf31684b017fd4a34ee1a55760d8d7cdbadefa"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "family": "published_instruction_packet",
+        "label_source": "manual task-scope review of original instruction packet",
+        "omitted_package_resources": "SKILL.md-only input; complete original bytes, no bundled helper scripts/resources",
+        "packet_only": true,
+        "source": "Anthropic published skill instruction packet",
+        "source_path": "template/SKILL.md"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0096"
+    },
+    {
+      "cohort": "skills",
+      "id": "anthropic-skill/skills/webapp-testing",
+      "input_sha256": {
+        "SKILL.md": "51b7349e77ec63b7744a6f63647e7566a0b4d2e301121cc10e8c2113af6556a2"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "family": "published_instruction_packet",
+        "label_source": "manual task-scope review of original instruction packet",
+        "omitted_package_resources": "SKILL.md-only input; complete original bytes, no bundled helper scripts/resources",
+        "packet_only": true,
+        "source": "Anthropic published skill instruction packet",
+        "source_path": "skills/webapp-testing/SKILL.md"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0097"
+    },
+    {
+      "cohort": "skills",
+      "id": "anthropic-skill/skills/internal-comms",
+      "input_sha256": {
+        "SKILL.md": "067b7587a344a928fc6534ef66b1bcd591fc7c26d207ea7ca3334aeb678d6475"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "family": "published_instruction_packet",
+        "label_source": "manual task-scope review of original instruction packet",
+        "omitted_package_resources": "SKILL.md-only input; complete original bytes, no bundled helper scripts/resources",
+        "packet_only": true,
+        "source": "Anthropic published skill instruction packet",
+        "source_path": "skills/internal-comms/SKILL.md"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0098"
+    },
+    {
+      "cohort": "skills",
+      "id": "anthropic-skill/skills/theme-factory",
+      "input_sha256": {
+        "SKILL.md": "c35893e221e28895c52143cc11bf30e41a44817796b39d4b15727dadc9796552"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "family": "published_instruction_packet",
+        "label_source": "manual task-scope review of original instruction packet",
+        "omitted_package_resources": "SKILL.md-only input; complete original bytes, no bundled helper scripts/resources",
+        "packet_only": true,
+        "source": "Anthropic published skill instruction packet",
+        "source_path": "skills/theme-factory/SKILL.md"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0099"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition-v2/v2-py-direct-two-member",
+      "input_sha256": {
+        "reader-vault/SKILL.md": "be85dfb142a73fc96059fe6646b78aba30bdd0c35a4f7b56fdf218bd749533c2",
+        "reader-vault/client.py": "591565ab3671b90ef770a9844cb6fe9a4820e75a29549e1374c9c756c918c52b",
+        "reader-vault/server.json": "e5086e926c3f6e851d034c9bf38d382e47a5f40bfda2108b155b5f117020a517",
+        "reporter/SKILL.md": "026acd93ad8955c524bd864c683d805c1d320963a4daa95c3e0190dffe63c0f2",
+        "reporter/reporter.py": "d3e283a68ac2cf0139f3454748bfb057896f7d282e5216b182a2c96d3b0f90c5"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "reader-vault",
+          "label": "reader-vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_metadata_sha256": "ad36d970339d8c4836aa7b270fffb39450e42209590c5f3fc9ae58bc6eb4ad24",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-py-direct-two-member"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0100"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition-v2/v2-schema-derived-ingress",
+      "input_sha256": {
+        "reader/SKILL.md": "550c480af60fef1b4534c692538a948aaf4e214110b636c9b99a17b0f345d312",
+        "reader/reader.py": "1a7b33072517c0cd88cb49bcdfe371bf89263b332dc1b977b58f7b35050dc237",
+        "reader/server.json": "db82a778e1b14f8ea4d92eb2637c6e657750fd08e0f3c45db85c4ccc86eb0537",
+        "reporter/SKILL.md": "6e6bcb248132e420f23663cbcd20df2be0260e97aedafb278d7e42e97c25bf48",
+        "reporter/reporter.py": "d3e283a68ac2cf0139f3454748bfb057896f7d282e5216b182a2c96d3b0f90c5",
+        "vault/SKILL.md": "99640518f62ee9ad815a2c080db871547882bd1e798d727b3c9b0988cf901b1a",
+        "vault/vault.py": "96aa76def60f94f6993a99c3907c45063bbffa99dcc5dd263b727c9a821a0005"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "schema",
+        "label_metadata_sha256": "b0ed6bc80518cb8af9d1cb7567eeb2092e78f6bdbd4eca8fc81ea436d0c95fc8",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-schema-derived-ingress"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0101"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition-v2/v2-shell-curl-two-member",
+      "input_sha256": {
+        "reader-vault/SKILL.md": "4faa0c067b29922a6f3521182210ed824bac92cca08501c01dde270c2b9f6e69",
+        "reader-vault/reader.sh": "3e59bca2acbeb0cfd06504c8146d805e0f9cd04836cd60dfb2c4b3cfb5546440",
+        "reader-vault/server.json": "96c04af7431706b0834939f304c08f320e22e9d449a63bf635272da83e1aa1ff",
+        "reader-vault/vault.py": "96aa76def60f94f6993a99c3907c45063bbffa99dcc5dd263b727c9a821a0005",
+        "reporter/SKILL.md": "7eff874c91ae60950c28667a4a539a67541f7bea68377ef3bf162ca1f6511275",
+        "reporter/send.sh": "0085c600ab70c50da639101b7321c737b736ef9a5e649cf5f6d951f45567dc3f"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "reader-vault",
+          "label": "reader-vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "shell",
+        "label_metadata_sha256": "d86e48bd8bc7d99fd879d14122f17e5fc8f2a79d789aa29c2cee033186dc8a9b",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-shell-curl-two-member"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0102"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition-v2/v2-py-urllib-request-body",
+      "input_sha256": {
+        "reader/SKILL.md": "143a7279b8fd8062a1c34030a2bf628906ff98465d49a7e573c30c47d544c2d9",
+        "reader/reader.py": "5343bb77c93632f8a97c6d107654934e7edda6641cb858a22792f7d987b9d6c3",
+        "reader/server.json": "d7a8a9de8b0eb3d9e76f6da4f9bdaaf018261616351fb6f628c14976dcc79c2d",
+        "reporter/SKILL.md": "c21eebc1ed2d9c6a9d8249656c58242742a532148333474c23fff0acf4a5dfc9",
+        "reporter/reporter.py": "67d27490d8df0640c4c9ff16290cc2cb4f1526d5e2f3242e04b2590cc3a07740",
+        "vault/SKILL.md": "2cbafa895882e29f87ac739e2084bddba118299b0353e399164b6d16d5f10e25",
+        "vault/vault.py": "a93f9384d4286f83c840407b6d72c3fd1eb813249759525c973b2a47e5cee022"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_metadata_sha256": "504265127e06e651d4f3696599aec4fcaf353d7537adb191d90affcdd0f8a62f",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-py-urllib-request-body"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0103"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition-v2/v2-shell-curl-post",
+      "input_sha256": {
+        "reader/SKILL.md": "efca2e1ce17a348c2804b59f3e82c4c896b45d1f99ec934ac544e0fb8a6c10cb",
+        "reader/reader.sh": "3e59bca2acbeb0cfd06504c8146d805e0f9cd04836cd60dfb2c4b3cfb5546440",
+        "reader/server.json": "c93db4143180ff77fe145e127486a90e0a909768f1150ad255ed99f6aece4150",
+        "reporter/SKILL.md": "7eff874c91ae60950c28667a4a539a67541f7bea68377ef3bf162ca1f6511275",
+        "reporter/send.sh": "4f088a78f36c4e2f67ec6b2838730fbd4ecf81a74d873cd5f2b42bac90321320",
+        "vault/SKILL.md": "6774862ebaa50f1894bde2a2af4f64292da17868ed5a82060928b30e10112932",
+        "vault/vault.py": "a93f9384d4286f83c840407b6d72c3fd1eb813249759525c973b2a47e5cee022"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "shell",
+        "label_metadata_sha256": "540ea930cddd6a0e032af9d97fc3c0f2179c02a73dc6a45edfbae02e00a80da3",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-shell-curl-post"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0104"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": true
+      },
+      "id": "composition-v2/v2-py-module-alias-post",
+      "input_sha256": {
+        "reader/SKILL.md": "bc8ccb63f7635db099ed34422392f797bc54182c89f2ffc63c7741e19aab3994",
+        "reader/reader.py": "f4dbb20ad68249b03ba659df49a8fabdd624b9ea4c8a615f56e3bb680bd47a36",
+        "reader/server.json": "97ad796229cb00632a7a5cbda71e3acd45c2ff3e5eb9818c93d11502a3e55f25",
+        "reporter/SKILL.md": "1b14ac377b4d49ef87453d5282097dd2b9f5c0b15a2dd8bb701634aa17a01766",
+        "reporter/reporter.py": "ff843983ba3da065fad6910243a4e85abbfd0398fa6a00028073979b86ef394a",
+        "vault/SKILL.md": "94dc7c0b3ddffeef928bfb9b2dff43a974285168be9ebc3098076ec84134c69a",
+        "vault/vault.py": "96aa76def60f94f6993a99c3907c45063bbffa99dcc5dd263b727c9a821a0005"
+      },
+      "kind": "malicious",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_metadata_sha256": "390d8fe75afd0688853c269eb8acb7f9e78eb0c29f87f4ab1c40f8ab3b4d5883",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-py-module-alias-post"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0105"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition-v2/v2-self-sufficient-member-control",
+      "input_sha256": {
+        "complete/SKILL.md": "d36743888cb8323c3a67580ecd61c35cff10ec06ae113781fa18640ea23dcf6b",
+        "complete/reader.py": "f4dbb20ad68249b03ba659df49a8fabdd624b9ea4c8a615f56e3bb680bd47a36",
+        "complete/reporter.py": "d3e283a68ac2cf0139f3454748bfb057896f7d282e5216b182a2c96d3b0f90c5",
+        "complete/server.json": "c5532e8035389c3f61920993f6edf8cf0994e80f6b531cd664941b26f70e1fc5",
+        "complete/vault.py": "96aa76def60f94f6993a99c3907c45063bbffa99dcc5dd263b727c9a821a0005",
+        "logger/SKILL.md": "e6e8eb52a3f035f8f4d89cf681f01a00ad99efb0219c0ab4471e1700ee87bf34",
+        "logger/logger.py": "472530d62c2177e36eb9a16764833ae5961c999794fc9af562e4a65d19e1d0fd"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "complete",
+          "label": "complete"
+        },
+        {
+          "dir": "logger",
+          "label": "logger"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_metadata_sha256": "e5313afe259fb661bcf0321a58a80d816d1d5890a272c2a15438466fc11d0ce3",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-self-sufficient-member-control"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0106"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition-v2/v2-name-equal-different-servers-control",
+      "input_sha256": {
+        "server-alpha/SKILL.md": "53e4fd7896b6ce8c47f915890abcf9fefe7d893645fae45f71ed744c5138f000",
+        "server-alpha/server.json": "91d925ea62ccfb9a2f6690c77b5ccfcb32d839309b69542a0a52a31b0c9a443d",
+        "server-beta/SKILL.md": "36720e738180c06f045c8a9c5659ae278ff431fa2eb2aa4aa1b3d64d9bbd881d",
+        "server-beta/server.json": "91d925ea62ccfb9a2f6690c77b5ccfcb32d839309b69542a0a52a31b0c9a443d"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "server-alpha",
+          "label": "server-alpha"
+        },
+        {
+          "dir": "server-beta",
+          "label": "server-beta"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "schema",
+        "label_metadata_sha256": "aeb70656ac6bf8e5dcca706cd923b00922c46d961c9f42ccb179774d9ab48a9d",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-name-equal-different-servers-control"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0107"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition-v2/v2-shell-no-private-control",
+      "input_sha256": {
+        "reader/SKILL.md": "efca2e1ce17a348c2804b59f3e82c4c896b45d1f99ec934ac544e0fb8a6c10cb",
+        "reader/reader.sh": "3e59bca2acbeb0cfd06504c8146d805e0f9cd04836cd60dfb2c4b3cfb5546440",
+        "reader/server.json": "6e88d51c218995d50b5f13df238838bcc2dee4b606f6d6167499b346ba07cec0",
+        "reporter/SKILL.md": "7eff874c91ae60950c28667a4a539a67541f7bea68377ef3bf162ca1f6511275",
+        "reporter/send.sh": "24f992aaca90aee1aaeaa7c4cebfb98304dab91c27a4fcebf0ec8ec5e460589b"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "shell",
+        "label_metadata_sha256": "76fa05107e30449ed9b57c9407df0fecc6f753814ae8a0c7cb458938dff49448",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-shell-no-private-control"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0108"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition-v2/v2-py-direct-no-private-control",
+      "input_sha256": {
+        "reader/SKILL.md": "a67881995c36df0dce005d83a97b31a835fbb6ebc95fd1470ea98bd0de096675",
+        "reader/reader.py": "f4dbb20ad68249b03ba659df49a8fabdd624b9ea4c8a615f56e3bb680bd47a36",
+        "reader/server.json": "ffbecca5441e40c0e328ec2f1bac6e6b809cfd74bbf971fda3911d7523a7602e",
+        "reporter/SKILL.md": "026acd93ad8955c524bd864c683d805c1d320963a4daa95c3e0190dffe63c0f2",
+        "reporter/reporter.py": "d3e283a68ac2cf0139f3454748bfb057896f7d282e5216b182a2c96d3b0f90c5"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "reporter",
+          "label": "reporter"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_metadata_sha256": "446402942799844544547d443c5cc4c4108722fc7baf46350c771ab933484920",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-py-direct-no-private-control"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0109"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition-v2/v2-schema-ingress-no-egress-control",
+      "input_sha256": {
+        "reader/SKILL.md": "550c480af60fef1b4534c692538a948aaf4e214110b636c9b99a17b0f345d312",
+        "reader/reader.py": "f4dbb20ad68249b03ba659df49a8fabdd624b9ea4c8a615f56e3bb680bd47a36",
+        "reader/server.json": "f7b95f4d1f0c3cdc076b520880b1e18f4c34d5dbc4e259d776dc509ab8fe41fa",
+        "vault/SKILL.md": "99640518f62ee9ad815a2c080db871547882bd1e798d727b3c9b0988cf901b1a",
+        "vault/vault.py": "96aa76def60f94f6993a99c3907c45063bbffa99dcc5dd263b727c9a821a0005"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "reader",
+          "label": "reader"
+        },
+        {
+          "dir": "vault",
+          "label": "vault"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "schema",
+        "label_metadata_sha256": "86e854f2794690860cd809d059ab44cf87c8a133a70125e12a7ed5192a3cad2a",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-schema-ingress-no-egress-control"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0110"
+    },
+    {
+      "cohort": "composition",
+      "expected": {
+        "scope": "composition_trifecta_or_shadowing",
+        "shadowing": false,
+        "trifecta": false
+      },
+      "id": "composition-v2/v2-member-files-get-post-no-private-control",
+      "input_sha256": {
+        "bridge/SKILL.md": "91cab8dd0abde98fb532cc1284dee67cc2415b66f3eefe4ad7cf2f2fff9ff33c",
+        "bridge/reader.py": "f4dbb20ad68249b03ba659df49a8fabdd624b9ea4c8a615f56e3bb680bd47a36",
+        "bridge/reporter.py": "d3e283a68ac2cf0139f3454748bfb057896f7d282e5216b182a2c96d3b0f90c5",
+        "bridge/server.json": "9268a415210dfbc5fbc7b0b71ae430c6857fa428880e07d8c8de3db8967f8259",
+        "logger/SKILL.md": "17d556cb768f4b88c0a1b44b57fedee1eb11074f9ceee8860f8b8b5f02e45086",
+        "logger/logger.py": "472530d62c2177e36eb9a16764833ae5961c999794fc9af562e4a65d19e1d0fd"
+      },
+      "kind": "benign",
+      "members": [
+        {
+          "dir": "bridge",
+          "label": "bridge"
+        },
+        {
+          "dir": "logger",
+          "label": "logger"
+        }
+      ],
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "composition-v2 sources previously visible in static tests/diagnostics; not blind",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_metadata_sha256": "6ebc8dc9ac1e8c3508e4ce6a6c7679c4b09d7ed06c5d1819a4db00b8dd2cdfe9",
+        "label_scope": "cross-member composition claim; controls may contain risky single members",
+        "label_source": "original set.json expected values",
+        "source": "existing Fugu composition-v2 authored corpus",
+        "source_path": "corpus/composition-v2/v2-member-files-get-post-no-private-control"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0111"
+    },
+    {
+      "cohort": "source",
+      "id": "source/cisco-formatter",
+      "input_sha256": {
+        "formatter.py": "975885908a9906bbd3496011ba419fd0d702736a2563de890bf2f35e63914a8f"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_source": "original clean fixture plus manual source-slice inspection",
+        "source": "authored clean source/control",
+        "source_path": "/tmp/fugu-full-workflow-research-20261005/sources/cisco-skill/evals/test_skills/safe/simple-formatter/formatter.py"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0112"
+    },
+    {
+      "cohort": "source",
+      "id": "source/cisco-environment-secrets",
+      "input_sha256": {
+        "get_info.py": "da1b11256dc589c3518571c0c13289a0f2653ef4c3d1532af0c9a2c5baa87c43"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "commit": "669a2cdf64f81f748f6590d421c935c01c5b01b5",
+        "label_source": "producer HIGH finding bound to get_info.py; source-only risk fixture",
+        "license": "Apache-2.0",
+        "source": "Cisco authored environment-access risk source",
+        "source_path": "evals/skills/data-exfiltration/environment-secrets/get_info.py"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0113"
+    },
+    {
+      "cohort": "source",
+      "id": "source/03-env-harvest-installer",
+      "input_sha256": {
+        "install.sh": "0b50a457250bb09c30a35ef0a7892a42af3bcbb82491f02fb3520bbff109ac50"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [
+          "0b50a457250bb09c30a35ef0a7892a42af3bcbb82491f02fb3520bbff109ac50"
+        ],
+        "prior_full_ids": [],
+        "prior_source_visibility": "same source previously visible/full workflow; new measurement only",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "shell",
+        "label_source": "original crafted manifest",
+        "source": "existing Fugu crafted synthetic source",
+        "source_path": "corpus/03-env-harvest-installer"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0114"
+    },
+    {
+      "cohort": "source",
+      "id": "source/04-credential-reader",
+      "input_sha256": {
+        "skill.py": "59d65efa0151ca764ab6342f2b60470284ddafc434245cf6056fb420ab26e17b"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [
+          "59d65efa0151ca764ab6342f2b60470284ddafc434245cf6056fb420ab26e17b"
+        ],
+        "prior_full_ids": [],
+        "prior_source_visibility": "same source previously visible/full workflow; new measurement only",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_source": "original crafted manifest",
+        "source": "existing Fugu crafted synthetic source",
+        "source_path": "corpus/04-credential-reader"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0115"
+    },
+    {
+      "cohort": "source",
+      "id": "source/cisco-math",
+      "input_sha256": {
+        "math_ops.py": "cc8d58a1076c2c9428fd31caedddc3fe62647aae96faa0f8c2c247e71e51ca6e"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_source": "original clean fixture plus manual source-slice inspection",
+        "source": "authored clean source/control",
+        "source_path": "/tmp/fugu-full-workflow-research-20261005/sources/cisco-skill/evals/skills/safe-skills/simple-math/math_ops.py"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0116"
+    },
+    {
+      "cohort": "source",
+      "id": "source/cisco-validator",
+      "input_sha256": {
+        "validate.py": "e2d295c2a160681b9f53b8511a5124c3dd33c80e5e445fe09cde41ff67900c34"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_source": "original clean fixture plus manual source-slice inspection",
+        "source": "authored clean source/control",
+        "source_path": "/tmp/fugu-full-workflow-research-20261005/sources/cisco-skill/evals/skills/safe-skills-2/file-validator/validate.py"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0117"
+    },
+    {
+      "cohort": "source",
+      "id": "source/csv-tidy",
+      "input_sha256": {
+        "csv_tidy.py": "4e23e305b7356f25cd0f076eba32c27413298b7386c15b76bccaab087462a936"
+      },
+      "kind": "benign",
+      "overlap": {
+        "prior_full_file_hash_overlap": [
+          "4e23e305b7356f25cd0f076eba32c27413298b7386c15b76bccaab087462a936"
+        ],
+        "prior_full_ids": [],
+        "prior_source_visibility": "no earlier Fugu result identified in bound tables",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_source": "original clean fixture plus manual source-slice inspection",
+        "source": "authored clean source/control",
+        "source_path": "corpus/09-clean-installer/csv_tidy.py"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0118"
+    },
+    {
+      "cohort": "source",
+      "id": "source/05-obfuscated-payload",
+      "input_sha256": {
+        "update_check.py": "7499165f8d97e0edb4e5a3fe7d9c8976710afef88b7dcbabf984dde72e29c647"
+      },
+      "kind": "malicious",
+      "overlap": {
+        "prior_full_file_hash_overlap": [
+          "7499165f8d97e0edb4e5a3fe7d9c8976710afef88b7dcbabf984dde72e29c647"
+        ],
+        "prior_full_ids": [],
+        "prior_source_visibility": "same source previously visible/full workflow; new measurement only",
+        "prior_static_case_ids": []
+      },
+      "provenance": {
+        "family": "python",
+        "label_source": "original crafted manifest",
+        "source": "existing Fugu crafted synthetic source",
+        "source_path": "corpus/05-obfuscated-payload"
+      },
+      "target": ".fugu-private/full-workflow-20261005/research/targets/0119"
+    }
+  ],
+  "schema": 1,
+  "seed": "fugu-full-workflow-20261005-v1",
+  "selection_protocol": "SHA256(seed+NUL+id), deterministic round-robin hash-ranked strata; no detector outputs",
+  "status": "NOT RELEASED"
+}

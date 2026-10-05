@@ -1,0 +1,85 @@
+{
+  "schema": 2,
+  "kind": "offline research candidate inventory",
+  "task": "qitem-20261005074955-950c0451",
+  "data_status": "NOT RELEASED",
+  "files": [
+    {
+      "path": "bench/competitive_corpus.py",
+      "sha256": "f267fe8296d924a3ecbd71ef88cf4aded66f5e1a0973a37489da9907f6f6df8d"
+    },
+    {
+      "path": "bench/competitive_scanners.py",
+      "sha256": "1fc29bf260ccebeb7f3ac3e0208d29530e988622976bf1a401918fe2604f41be"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/cases.json",
+      "sha256": "ed49402d1dea336e2781f59c2fbb8e9fbe2dbfab0338ed978e897b129f0d5067"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/checks.json",
+      "sha256": "515fd39b68447c46d926ffb612e8d5bf46da4b878e90d27d2c47c0c75d6057f6"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/dependency-plan.json",
+      "sha256": "fa8484c595f3f79d165b362181c6535a1b869b8a09b552ef0e80ac3f8532b379"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/engine-source.json",
+      "sha256": "9723015b1591f1536eb4b6ab0a614bba22436c2609625c59284376ef4f96039f"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/native-contracts.json",
+      "sha256": "7b79856ca78f66cc18e8a68b98e01842617f8d2507578c4c53a6827bc8964c66"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/offline-recount.json",
+      "sha256": "880de8e1ceee8bb77a1d31732bd2382ef65fc9d1e7c1da31e85156cb28e01a7c"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/plan-draft.json",
+      "sha256": "970e941a559fc99f26957e2b176b6f562d9618db5a35d85a594924a9bc4869d0"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/prepare_corpus.py",
+      "sha256": "c84da5d7d6a58b7c4a2afcd62c121026c07ff387e7d91af5873e3eeec751febc"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/prior-overlap.json",
+      "sha256": "2732b943df02d561a2ee9c3e25f1c50588b27d33af9ba476eb456e1895439f4a"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/provisioning-status.json",
+      "sha256": "15acef72f75b0ec3ef79cb58c27bde6fd4cbb3f79f425e5be5d91911acfe8b92"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/selection-summary.json",
+      "sha256": "cb2de4eaf133414202e2aa6461f91b560e241f7da40371555e8bba7504f8c42b"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/source-pins.json",
+      "sha256": "ccee2ef841f65edfd962a40b5f332721b01348dc663f8e1568c738e73ea13690"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/syntax-preflight.json",
+      "sha256": "13922244e266e30769854b3a6cc7ad10fd2be558dc9055a468954e3f7e06b1a0"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/trigger-declarations.json",
+      "sha256": "d0e56c38912631b068790a5b11b4efaaa3972836c52dc6d124ef6362bb9f6dbb"
+    },
+    {
+      "path": "docs/benchmark-full-workflow-20261005.md",
+      "sha256": "07ec44702fa504ffa58b29b1e2f11eec834a589af49e861b69fca060e2e41747"
+    },
+    {
+      "path": "tests/test_competitive_corpus.py",
+      "sha256": "9de05b99f1b734b57513aef44395d42061c164901977e5fa71ce87f9f0806cd1"
+    },
+    {
+      "path": "tests/test_competitive_scanners.py",
+      "sha256": "5122843e9d4a12c4468e277e5bd6fbc35bcbe567e361d2ab13289ef646d2a779"
+    }
+  ],
+  "exclusions": "private target/candidate/request/response/source archives, frozen engine copy and unrelated files excluded; this inventory excludes itself"
+}

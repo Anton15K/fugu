@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "state": "zero-call prescription; actual runner/plan hash and authenticated data release supplied later by lead",
+  "owner_task": "qitem-20261005095331-1a1e3054",
+  "parent": "qitem-20261005074008-c9c49a27",
+  "files": [
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/competitive_scanners.py",
+      "sha256": "2a869937c2f81d051c101d1fa45f09ffc84a21a4de241f829f19b907f2499efe"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/competitive_corpus.py",
+      "sha256": "12f3ab12cca6e1465586bf6e9b61eebfa1ef35e8cd91c0e26aa8ab1d9d02d8f5"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/current_limits.py",
+      "sha256": "2e69cd6654ec8158d3de968ad026c56d2e04179574c0667133cac8edadea002d"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-05-full-workflow/cases-v2.json",
+      "sha256": "250aeeeaef812c39e5a10a7caec55bc36d79c1babb0066ce47dd80ede4c21143"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-05-full-workflow/selection-v2.json",
+      "sha256": "879264478c3223700b61518a2054d8aaa866b1e991367e4ce5311d29d25e499f"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-05-full-workflow/engine-source.json",
+      "sha256": "9723015b1591f1536eb4b6ab0a614bba22436c2609625c59284376ef4f96039f"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-05-full-workflow/source-pins.json",
+      "sha256": "ccee2ef841f65edfd962a40b5f332721b01348dc663f8e1568c738e73ea13690"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-05-full-workflow/native-contracts.json",
+      "sha256": "7b79856ca78f66cc18e8a68b98e01842617f8d2507578c4c53a6827bc8964c66"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-05-full-workflow/native-interface-correction/manifest.json",
+      "sha256": "7c5000ac1e9d6991f4bffaae35187809f25e3c032988d7378ba2a51d59870acb"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/prerequisites/dependencies-verification.json",
+      "sha256": "1d8e1ac9e630d83984f7cc6a9857bfa58677efb11a1e3726d46bf49f3e697062"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/static-scanner-binding.json",
+      "sha256": "596286b63024108090bf1e549426108c1367a1b79293881917155068b9f94dbc"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/prerequisites/scanner-verification.json",
+      "sha256": "a11dacbdfb7da2699a1037a98987a8a11b417488990a72541f6e836b2664e6ff"
+    },
+    {
+      "path": "/Users/antonkogun/dev/nebius_hack/.fugu-private/full-workflow-20261005/research/launch-preparation/launch.py",
+      "sha256": "d7937e6bee3bd56bafb14d1951af0ea4815feeab7950b5a8d25ec1152037febd"
+    },
+    {
+      "path": "/tmp/fugu-full-workflow-engine-20261005/engine-manifest.json",
+      "sha256": "1db5633abbad8048f1e8f66128a8bc292c68545ec56c8090c7d1c41ad6cecc7c"
+    },
+    {
+      "path": "/tmp/fugu-toolchains-20261005/dependency-verification.json",
+      "sha256": "5c69e3d0eed308893ad1bba260d100f6f0fc44ad032f66500fe47b744e836347"
+    }
+  ],
+  "dependency_inventory": "/tmp/fugu-toolchains-20261005/dependency-verification.json",
+  "native_order": [
+    "sentinel",
+    "mcp-sec-audit",
+    "cisco-skill",
+    "cisco-mcp"
+  ],
+  "budget": {
+    "fugu_sdk_attempts": 5400,
+    "competitor_sdk_attempts": 1800,
+    "total_sdk_attempts": 7200,
+    "tavily_attempts": 480,
+    "requested_completion_token_envelope": 36864000,
+    "measured_usage": null,
+    "cost": null,
+    "remaining_quota": null
+  },
+  "final_fugu_plan_sha256": null,
+  "data_release_ref": null
+}
