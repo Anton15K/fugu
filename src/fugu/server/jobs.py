@@ -11,16 +11,20 @@ purely in-memory, byte-for-byte the original behavior.
 run_job() drives the injected stages sequentially, publishing
 stage_started / finding / stage_done StageEvents as work happens and a
 final `verdict` (or `error`) event, then marks the job done/failed.
-Source extraction (local dir sanity checks or git clone depth 1) also
-lives here so POST /audits stays thin.
+Source extraction creates an owned regular-file snapshot from local paths or
+a shallow Git clone, so POST /audits stays thin.
 """
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
+import os
 import shutil
+import stat
 import subprocess
 import tempfile
+import threading
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -29,7 +33,11 @@ from typing import Any, Iterable
 
 from fugu.config import DEFAULT_PRODUCTION_LIMITS
 from fugu.store.sqlite import SqliteJobStore
-from fugu.source_safety import SourceSafetyError, validate_source_tree
+from fugu.source_safety import (
+    SourceLinkTarget,
+    SourceSafetyError,
+    inspect_source_tree,
+)
 from fugu.types import (
     AuditJob,
     EvidenceSnippet,
@@ -66,9 +74,56 @@ class ExtractionError(Exception):
     """Source validation / extraction failed (maps to HTTP 422)."""
 
 
-def _validate_source(target: Path) -> None:
+async def _materialize_owned_snapshot(
+    loop: asyncio.AbstractEventLoop, copy_snapshot: Any
+) -> Path:
+    """Transfer the snapshot to the caller or reclaim it if cancellation wins."""
+    cancellation_requested = threading.Event()
+
+    def copy_or_reclaim() -> Path | None:
+        if cancellation_requested.is_set():
+            return None
+        snapshot = copy_snapshot()
+        if cancellation_requested.is_set():
+            shutil.rmtree(snapshot, ignore_errors=True)
+            return None
+        return snapshot
+
+    future = loop.run_in_executor(None, copy_or_reclaim)
     try:
-        validate_source_tree(target)
+        snapshot = await asyncio.shield(future)
+    except asyncio.CancelledError:
+        cancellation_requested.set()
+
+        def reclaim_unclaimed(completed: asyncio.Future[Path | None]) -> None:
+            try:
+                unclaimed = completed.result()
+            except BaseException:
+                return
+            if unclaimed is None:
+                return
+            try:
+                cleanup = loop.run_in_executor(None, shutil.rmtree, unclaimed, True)
+            except RuntimeError:  # loop/executor shutdown; best-effort final cleanup
+                shutil.rmtree(unclaimed, ignore_errors=True)
+                return
+            cleanup.add_done_callback(_consume_task_outcome)
+
+        # Shield preserves the executor result after caller cancellation. The
+        # worker checks the signal before returning; this callback covers the
+        # race where cancellation arrives after that check but before handoff.
+        future.add_done_callback(reclaim_unclaimed)
+        raise
+
+    if snapshot is None:  # pragma: no cover - only cancellation sets the signal
+        raise RuntimeError("snapshot materialization was cancelled before handoff")
+    return snapshot
+
+
+def _validate_source(target: Path) -> tuple[Path, dict[str, SourceLinkTarget]]:
+    """Inspect an intake tree and return its authorized anchor and safe links."""
+    try:
+        return inspect_source_tree(target)
     except (SourceSafetyError, OSError) as exc:
         raise ExtractionError(str(exc)) from exc
 
@@ -327,18 +382,23 @@ async def extract_source(
     max_bytes: int = DEFAULT_MAX_BYTES,
     keep_target: bool = False,
     git_timeout_s: float = DEFAULT_GIT_CLONE_TIMEOUT_SECONDS,
+    link_provenance: list[dict[str, str | int]] | None = None,
 ) -> Path:
-    """Materialize the audited source into a usable target directory.
+    """Materialize the audited source into an owned regular-file snapshot.
 
-    Local sources are used as-is after sanity checks (exists, is a dir,
-    non-empty, under file/size caps). Git sources are cloned with
-    ``--depth 1`` via an asyncio subprocess into a fresh temp dir which
-    the caller should rmtree when done. File views become owned directories
-    containing the original basename. keep_target transfers a successfully
-    extracted target's cleanup to the caller; failed extraction never retains
-    materialized content.
+    The explicit local root may be a symlink. Descendant links are inspected
+    against the resolved root; only direct links to in-root regular files are
+    accepted, and their contents are copied into regular files before any
+    pipeline reader sees the snapshot. Relative references are resolved against
+    the complete Git clone before a selected subdirectory is copied. Materialized
+    entry/byte limits include each duplicate link copy.
 
-    Raises ExtractionError on any validation or clone failure.
+    Git clone directories and returned snapshots are caller-owned cleanup
+    obligations. ``keep_target`` remains a compatibility hint for the runner;
+    successful extraction always returns an owned snapshot. Accepted link
+    provenance is appended to ``link_provenance`` when supplied.
+
+    Raises ExtractionError on any validation, limit, or clone failure.
     """
     source = job.source.strip()
     if not source:
@@ -351,11 +411,9 @@ async def extract_source(
         parts = extract_git_parts(source)
         if parts is not None:
             # Pasted web-UI URL (tree/blob view): clone the REPO at the ref,
-            # then audit the subdirectory the URL pointed at.
+            # then select from its fully inspected root.
             base, ref, subpath = parts
             attempts: list[tuple[str, str]] = [(ref, subpath)]
-            # Refs may contain slashes ("release/1.2"): if the single-segment
-            # ref misses, retry consuming one more segment into the ref.
             if subpath and "/" in subpath and not any(
                 part in (".", "..") for part in subpath.split("/")
             ):
@@ -371,18 +429,26 @@ async def extract_source(
                     await _git_clone(
                         base, root, branch=clone_ref or None, timeout_s=git_timeout_s
                     )
-                    _validate_source(root)
-                    audit_dir = _resolve_audit_subdir(
-                        root, clone_sub, source_display=source
+                    anchor, links = _validate_source(root)
+                    audit_path = _resolve_audit_subdir(
+                        anchor, clone_sub, source_display=source
                     )
-                    return await loop.run_in_executor(
-                        None,
+                    return await _materialize_owned_snapshot(
+                        loop,
                         lambda: _materialize_git_selection(
-                            audit_dir, max_files=max_files, max_bytes=max_bytes
+                            audit_path,
+                            anchor=anchor,
+                            link_targets=links,
+                            max_files=max_files,
+                            max_bytes=max_bytes,
+                            link_provenance=link_provenance,
                         ),
                     )
                 except (ExtractionError, OSError) as exc:
-                    last_err = exc if isinstance(exc, ExtractionError) else ExtractionError(f"source materialization failed: {exc}")
+                    last_err = (
+                        exc if isinstance(exc, ExtractionError)
+                        else ExtractionError(f"source materialization failed: {exc}")
+                    )
                     continue
                 finally:
                     await loop.run_in_executor(None, shutil.rmtree, tmp, True)
@@ -394,13 +460,20 @@ async def extract_source(
         root = Path(tmp) / "clone"
         try:
             await _git_clone(source, root, timeout_s=git_timeout_s)
-            _validate_source(root)
-            return await loop.run_in_executor(
-                None,
+            anchor, links = _validate_source(root)
+            return await _materialize_owned_snapshot(
+                loop,
                 lambda: _materialize_git_selection(
-                    root, max_files=max_files, max_bytes=max_bytes
+                    anchor,
+                    anchor=anchor,
+                    link_targets=links,
+                    max_files=max_files,
+                    max_bytes=max_bytes,
+                    link_provenance=link_provenance,
                 ),
             )
+        except ExtractionError:
+            raise
         except OSError as exc:
             raise ExtractionError(f"source extraction failed: {exc}") from exc
         finally:
@@ -412,15 +485,25 @@ async def extract_source(
         raise ExtractionError(f"local source path does not exist: {source}")
     if not p.is_dir():
         raise ExtractionError(f"local source path is not a directory: {source}")
-    _validate_source(p)
+    anchor, links = _validate_source(p)
     try:
-        if not any(p.iterdir()):
+        if not any(anchor.iterdir()):
             raise ExtractionError(f"local source directory is empty: {source}")
     except PermissionError as exc:
         raise ExtractionError(f"local source not readable: {source} ({exc})") from exc
 
-    _enforce_source_limits(p, max_files=max_files, max_bytes=max_bytes)
-    return p
+    loop = asyncio.get_running_loop()
+    return await _materialize_owned_snapshot(
+        loop,
+        lambda: _materialize_git_selection(
+            anchor,
+            anchor=anchor,
+            link_targets=links,
+            max_files=max_files,
+            max_bytes=max_bytes,
+            link_provenance=link_provenance,
+        ),
+    )
 
 
 def _enforce_source_limits(root: Path, *, max_files: int, max_bytes: int) -> None:
@@ -440,24 +523,200 @@ def _enforce_source_limits(root: Path, *, max_files: int, max_bytes: int) -> Non
             raise ExtractionError(f"source is too large (> {max_bytes} bytes)")
 
 
+@dataclass
+class _MaterializationBudget:
+    entries: int = 0
+    bytes: int = 0
+
+    def add_entry(self, max_files: int) -> None:
+        self.entries += 1
+        if self.entries > max_files:
+            raise ExtractionError(f"source has too many files/entries (> {max_files})")
+
+
+def _copy_regular_file(
+    source: Path,
+    destination: Path,
+    *,
+    budget: _MaterializationBudget,
+    max_files: int,
+    max_bytes: int,
+    source_link: SourceLinkTarget | None = None,
+) -> dict[str, str | int] | None:
+    budget.add_entry(max_files)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    try:
+        fd = os.open(source, flags)
+    except OSError as exc:
+        raise ExtractionError("source changed during materialization; retry intake") from exc
+
+    try:
+        source_stat = os.fstat(fd)
+        if not stat.S_ISREG(source_stat.st_mode):
+            raise ExtractionError("source link target is no longer a regular file")
+        if budget.bytes + source_stat.st_size > max_bytes:
+            raise ExtractionError(f"source is too large (> {max_bytes} bytes)")
+        digest = hashlib.sha256() if source_link is not None else None
+        copied = 0
+        source_file = os.fdopen(fd, "rb")
+        fd = -1
+        try:
+            with source_file, destination.open("xb") as output:
+                while block := source_file.read(1024 * 1024):
+                    copied += len(block)
+                    if budget.bytes + copied > max_bytes:
+                        raise ExtractionError(f"source is too large (> {max_bytes} bytes)")
+                    output.write(block)
+                    if digest is not None:
+                        digest.update(block)
+        except BaseException:
+            destination.unlink(missing_ok=True)
+            raise
+        budget.bytes += copied
+        os.chmod(destination, stat.S_IMODE(source_stat.st_mode))
+    finally:
+        if fd >= 0:
+            os.close(fd)
+
+    if source_link is None:
+        return None
+    return {
+        "link_path": source_link.link_path,
+        "link_target": source_link.link_target,
+        "resolved_path": source_link.resolved_repo_path,
+        "sha256": digest.hexdigest() if digest is not None else "",
+        "size_bytes": copied,
+    }
+
+
+def _copy_directory_contents(
+    source: Path,
+    destination: Path,
+    *,
+    anchor: Path,
+    link_targets: dict[str, SourceLinkTarget],
+    budget: _MaterializationBudget,
+    max_files: int,
+    max_bytes: int,
+    link_records: list[dict[str, str | int]],
+) -> None:
+    try:
+        entries = sorted(os.scandir(source), key=lambda item: item.name)
+    except OSError as exc:
+        raise ExtractionError("source tree cannot be read safely") from exc
+
+    for entry in entries:
+        original = Path(entry.path)
+        output = destination / entry.name
+        try:
+            if entry.is_symlink():
+                rel = original.relative_to(anchor).as_posix()
+                source_link = link_targets.get(rel)
+                if source_link is None:
+                    raise ExtractionError(f"source link changed during materialization: {rel}")
+                record = _copy_regular_file(
+                    source_link.resolved_path,
+                    output,
+                    budget=budget,
+                    max_files=max_files,
+                    max_bytes=max_bytes,
+                    source_link=source_link,
+                )
+                if record is not None:
+                    link_records.append(record)
+            elif entry.is_dir(follow_symlinks=False):
+                budget.add_entry(max_files)
+                output.mkdir()
+                _copy_directory_contents(
+                    original,
+                    output,
+                    anchor=anchor,
+                    link_targets=link_targets,
+                    budget=budget,
+                    max_files=max_files,
+                    max_bytes=max_bytes,
+                    link_records=link_records,
+                )
+                os.chmod(output, stat.S_IMODE(os.stat(original, follow_symlinks=False).st_mode))
+            elif entry.is_file(follow_symlinks=False):
+                _copy_regular_file(
+                    original,
+                    output,
+                    budget=budget,
+                    max_files=max_files,
+                    max_bytes=max_bytes,
+                )
+            else:
+                rel = original.relative_to(anchor).as_posix()
+                raise ExtractionError(f"source contains unsupported special file '{rel}'")
+        except OSError as exc:
+            raise ExtractionError("source tree changed during materialization; retry intake") from exc
+
+
 def _materialize_git_selection(
     selected: Path,
     *,
+    anchor: Path,
+    link_targets: dict[str, SourceLinkTarget],
     max_files: int = DEFAULT_MAX_FILES,
     max_bytes: int = DEFAULT_MAX_BYTES,
+    link_provenance: list[dict[str, str | int]] | None = None,
 ) -> Path:
-    """Give each selected file/tree one directory owned by the caller."""
+    """Copy the selected view into an owned, bounded, link-free directory."""
     target = Path(tempfile.mkdtemp(prefix="fugu-source-"))
+    budget = _MaterializationBudget()
+    records: list[dict[str, str | int]] = []
     try:
-        if selected.is_file():
-            shutil.move(str(selected), str(target / selected.name))
-        elif selected.is_dir():
-            target.rmdir()  # newly created empty directory; move preserves root layout
-            shutil.move(str(selected), str(target))
+        selected = Path(selected)
+        anchor = Path(anchor)
+        try:
+            selected_rel = selected.relative_to(anchor).as_posix()
+            selected_stat = os.lstat(selected)
+        except (OSError, ValueError) as exc:
+            raise ExtractionError("selected source is outside the authorized repository") from exc
+
+        if stat.S_ISLNK(selected_stat.st_mode):
+            source_link = link_targets.get(selected_rel)
+            if source_link is None:
+                raise ExtractionError(f"selected source link changed during materialization: {selected_rel}")
+            record = _copy_regular_file(
+                source_link.resolved_path,
+                target / selected.name,
+                budget=budget,
+                max_files=max_files,
+                max_bytes=max_bytes,
+                source_link=source_link,
+            )
+            if record is not None:
+                records.append(record)
+        elif stat.S_ISREG(selected_stat.st_mode):
+            _copy_regular_file(
+                selected,
+                target / selected.name,
+                budget=budget,
+                max_files=max_files,
+                max_bytes=max_bytes,
+            )
+        elif stat.S_ISDIR(selected_stat.st_mode):
+            _copy_directory_contents(
+                selected,
+                target,
+                anchor=anchor,
+                link_targets=link_targets,
+                budget=budget,
+                max_files=max_files,
+                max_bytes=max_bytes,
+                link_records=records,
+            )
         else:
             raise ExtractionError("selected git source is not a regular file or directory")
-        _validate_source(target)
+
+        # Recheck the concrete output so caps cover the resulting tree, including
+        # every duplicate file created from an accepted internal link.
         _enforce_source_limits(target, max_files=max_files, max_bytes=max_bytes)
+        if link_provenance is not None:
+            link_provenance.extend(records)
         return target
     except BaseException:
         shutil.rmtree(target, ignore_errors=True)
@@ -551,21 +810,16 @@ def _close_subprocess_transport(proc: Any) -> None:
 
 
 def _resolve_audit_subdir(root: Path, subpath: str, *, source_display: str) -> Path:
-    """Resolve the URL's subpath inside the freshly cloned repo.
-
-    Raises ExtractionError with an actionable message when the path doesn't
-    exist (e.g. the pasted URL's ref was misparsed) — the caller retries or
-    surfaces the error to the user.
-    """
+    """Select a lexical path under the clone without dereferencing file links."""
     sub = (subpath or "").strip().strip("/")
     if not sub:
         return root
-    cand = (root / sub).resolve()
-    if not cand.is_relative_to(root.resolve()):
+    cand = Path(os.path.abspath(os.path.normpath(os.fspath(root / sub))))
+    if not cand.is_relative_to(root):
         raise ExtractionError(
             f"git source subpath escapes the repository: {source_display}"
         )
-    if not cand.exists():
+    if not os.path.lexists(cand):
         raise ExtractionError(
             f"cloned repository has no '{sub}' path (from {source_display})"
         )
@@ -686,12 +940,28 @@ async def run_job(
 
     cloned_dir: Path | None = None
     try:
+        link_provenance: list[dict[str, str | int]] = []
         target = await extract_source(
-            job, max_files=max_files, max_bytes=max_bytes, keep_target=keep_target
+            job,
+            max_files=max_files,
+            max_bytes=max_bytes,
+            keep_target=keep_target,
+            link_provenance=link_provenance,
         )
         snap.target_dir = target
+        if link_provenance:
+            _emit(
+                store,
+                job,
+                "log",
+                {
+                    "stage": "extraction",
+                    "message": f"materialized {len(link_provenance)} internal file link(s)",
+                    "source_links": link_provenance,
+                },
+            )
         if target != Path(job.source.strip()).expanduser():
-            cloned_dir = target  # we created it (git clone); clean up later
+            cloned_dir = target  # owned snapshot; clean up after the stage loop
     except ExtractionError as exc:
         job.status = JobStatus.failed
         result = StageResult(

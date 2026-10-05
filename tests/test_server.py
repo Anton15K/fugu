@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import shutil
 import sys
 from pathlib import Path
 from typing import Any
@@ -129,21 +130,21 @@ def test_health_with_and_without_stages() -> None:
 
 def test_app_boots_with_zero_stages_and_completes_job() -> None:
     app = _make_app([])  # explicit empty list: default until stages land
-    client = TestClient(app)
-    job_id = _submit(client, str(FIXTURE_DIR))
-    body = _wait_done(client, job_id)
-    assert body["status"] == "done"
-    assert body["stages"] == []
-    assert body["findings"] == []
+    with TestClient(app) as client:
+        job_id = _submit(client, str(FIXTURE_DIR))
+        body = _wait_done(client, job_id)
+        assert body["status"] == "done"
+        assert body["stages"] == []
+        assert body["findings"] == []
 
 
 def test_create_app_default_stages_is_empty() -> None:
     app = _make_app()  # no stages argument at all
-    client = TestClient(app)
-    job_id = _submit(client, str(FIXTURE_DIR))
-    body = _wait_done(client, job_id)
-    assert body["status"] == "done"
-    assert body["findings"] == []
+    with TestClient(app) as client:
+        job_id = _submit(client, str(FIXTURE_DIR))
+        body = _wait_done(client, job_id)
+        assert body["status"] == "done"
+        assert body["findings"] == []
 
 
 # --- submission validation ----------------------------------------------------------
@@ -173,75 +174,74 @@ def test_get_audit_unknown_id_404() -> None:
 
 def test_full_flow_stages_findings_sse_order() -> None:
     app = _make_app([FakeFindingStage(), FakeBoomStage()])
-    client = TestClient(app)
+    with TestClient(app) as client:
+        job_id = _submit(client, str(FIXTURE_DIR), depth="full")
+        body = _wait_done(client, job_id)
 
-    job_id = _submit(client, str(FIXTURE_DIR), depth="full")
-    body = _wait_done(client, job_id)
+        # job-level assertions
+        assert body["status"] == "done"  # failed stage != failed job
+        assert body["id"] == job_id
+        assert body["depth"] == "full"
+        stage_names = [s["stage"] for s in body["stages"]]
+        assert stage_names == ["static", "semantic"]
 
-    # job-level assertions
-    assert body["status"] == "done"  # failed stage != failed job
-    assert body["id"] == job_id
-    assert body["depth"] == "full"
-    stage_names = [s["stage"] for s in body["stages"]]
-    assert stage_names == ["static", "semantic"]
+        # failed stage → error StageResult, not a 500
+        semantic = body["stages"][1]
+        assert semantic["ok"] is False
+        assert "RuntimeError" in (semantic["error"] or "")
+        assert semantic["findings_count"] == 0
 
-    # failed stage → error StageResult, not a 500
-    semantic = body["stages"][1]
-    assert semantic["ok"] is False
-    assert "RuntimeError" in (semantic["error"] or "")
-    assert semantic["findings_count"] == 0
+        # findings from the good stage survived
+        assert len(body["findings"]) == 2
+        assert body["findings"][0]["severity"] == "high"
+        assert body["findings"][0]["owasp_ids"] == ["MCP06"]
 
-    # findings from the good stage survived
-    assert len(body["findings"]) == 2
-    assert body["findings"][0]["severity"] == "high"
-    assert body["findings"][0]["owasp_ids"] == ["MCP06"]
+        # SSE: replayed after job completion, must contain ordered events
+        resp = client.get(f"/audits/{job_id}/events")
+        assert resp.status_code == 200
+        assert resp.headers["content-type"].startswith("text/event-stream")
+        events = _parse_sse(resp.text)
+        types = [e["type"] for e in events]
+        assert types[0] in ("log", "stage_started")
+        assert "stage_started" in types
+        assert "finding" in types
+        assert "stage_done" in types
+        assert types[-1] == "verdict"
+        # relative order of the stage lifecycle
+        assert types.index("stage_started") < types.index("finding") < types.index("stage_done")
+        # every envelope carries job_id + ts
+        assert all(e["job_id"] == job_id and e["ts"] for e in events)
 
-    # SSE: replayed after job completion, must contain ordered events
-    resp = client.get(f"/audits/{job_id}/events")
-    assert resp.status_code == 200
-    assert resp.headers["content-type"].startswith("text/event-stream")
-    events = _parse_sse(resp.text)
-    types = [e["type"] for e in events]
-    assert types[0] in ("log", "stage_started")
-    assert "stage_started" in types
-    assert "finding" in types
-    assert "stage_done" in types
-    assert types[-1] == "verdict"
-    # relative order of the stage lifecycle
-    assert types.index("stage_started") < types.index("finding") < types.index("stage_done")
-    # every envelope carries job_id + ts
-    assert all(e["job_id"] == job_id and e["ts"] for e in events)
+        # finding event payload shape
+        finding_events = [e for e in events if e["type"] == "finding"]
+        assert finding_events[0]["data"]["stage"] == "static"
+        assert finding_events[0]["data"]["finding"]["severity"] == "high"
 
-    # finding event payload shape
-    finding_events = [e for e in events if e["type"] == "finding"]
-    assert finding_events[0]["data"]["stage"] == "static"
-    assert finding_events[0]["data"]["finding"]["severity"] == "high"
+        # verdict event summarizes severity counts
+        verdict = events[-1]["data"]
+        assert verdict["status"] == "done"
+        assert verdict["total_findings"] == 2
+        assert verdict["severity_counts"] == {"critical": 0, "high": 1, "medium": 0, "low": 0, "info": 1}
+        assert len(verdict["stages"]) == 2
 
-    # verdict event summarizes severity counts
-    verdict = events[-1]["data"]
-    assert verdict["status"] == "done"
-    assert verdict["total_findings"] == 2
-    assert verdict["severity_counts"] == {"critical": 0, "high": 1, "medium": 0, "low": 0, "info": 1}
-    assert len(verdict["stages"]) == 2
-
-    # stage_done of the failed stage carries the error
-    done_events = [e for e in events if e["type"] == "stage_done"]
-    assert done_events[1]["data"]["ok"] is False
-    assert "RuntimeError" in (done_events[1]["data"]["error"] or "")
+        # stage_done of the failed stage carries the error
+        done_events = [e for e in events if e["type"] == "stage_done"]
+        assert done_events[1]["data"]["ok"] is False
+        assert "RuntimeError" in (done_events[1]["data"]["error"] or "")
 
 
 def test_sse_stream_closes_after_verdict() -> None:
     app = _make_app([FakeFindingStage()])
-    client = TestClient(app)
-    job_id = _submit(client, str(FIXTURE_DIR))
-    _wait_done(client, job_id)
+    with TestClient(app) as client:
+        job_id = _submit(client, str(FIXTURE_DIR))
+        _wait_done(client, job_id)
 
-    resp = client.get(f"/audits/{job_id}/events")
-    assert resp.status_code == 200
-    events = _parse_sse(resp.text)
-    types = [e["type"] for e in events]
-    assert "verdict" in types
-    assert types[-1] == "verdict"  # nothing after the terminal event
+        resp = client.get(f"/audits/{job_id}/events")
+        assert resp.status_code == 200
+        events = _parse_sse(resp.text)
+        types = [e["type"] for e in events]
+        assert "verdict" in types
+        assert types[-1] == "verdict"  # nothing after the terminal event
 
 
 # --- CORS ------------------------------------------------------------------------------
@@ -323,7 +323,13 @@ def test_extract_source_local_caps_and_errors() -> None:
     async def scenario() -> None:
         # happy path
         job = AuditJob(id="e1", source=str(FIXTURE_DIR))
-        assert await extract_source(job) == FIXTURE_DIR
+        snapshot = await extract_source(job)
+        try:
+            assert snapshot != FIXTURE_DIR
+            assert snapshot.is_dir()
+            assert (snapshot / "SKILL.md").read_bytes() == (FIXTURE_DIR / "SKILL.md").read_bytes()
+        finally:
+            shutil.rmtree(snapshot, ignore_errors=True)
 
         # nonexistent
         with pytest.raises(ExtractionError):
@@ -700,11 +706,11 @@ def test_git_source_detection() -> None:
 
 def test_static_dir_missing_is_fine() -> None:
     app = _make_app([], static_dir="/definitely/not/web/dist")
-    client = TestClient(app)
-    assert client.get("/health").status_code == 200
-    # API routes still win over any static fallback
-    job_id = _submit(client, str(FIXTURE_DIR))
-    assert _wait_done(client, job_id)["status"] == "done"
+    with TestClient(app) as client:
+        assert client.get("/health").status_code == 200
+        # API routes still win over any static fallback
+        job_id = _submit(client, str(FIXTURE_DIR))
+        assert _wait_done(client, job_id)["status"] == "done"
 
 
 def test_static_dir_mounted_serves_index(tmp_path: Path) -> None:

@@ -323,12 +323,12 @@ def test_extraction_exceptions_remove_all_owned_workspaces(tmp_path, monkeypatch
         if failure == "clone-unexpected":
             raise RuntimeError("fabricated unexpected clone failure")
 
-    def broken_move(*args, **kwargs):
-        raise OSError("fabricated materialization failure")
+    def broken_copy(*args, **kwargs):
+        raise ExtractionError("fabricated materialization failure")
 
     monkeypatch.setattr("fugu.server.jobs._git_clone", clone)
     if failure == "materialization":
-        monkeypatch.setattr("fugu.server.jobs.shutil.move", broken_move)
+        monkeypatch.setattr("fugu.server.jobs._copy_regular_file", broken_copy)
     expected_error = RuntimeError if failure == "clone-unexpected" else ExtractionError
     with pytest.raises(expected_error, match="fabricated"):
         asyncio.run(extract_source(AuditJob(id="extraction-failure", source=source), keep_target=True))

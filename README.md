@@ -241,8 +241,11 @@ chart arithmetic, original evidence preservation and application hashes.
 Current candidate verification and the advisory judging score are in the
 [assessment](docs/hackathon-assessment.md).
 
-Source preflight rejects descendant symlinks before host reads and remote payload
-construction. It is not race-proof isolation of a changing source tree. Execution
+Source intake materializes direct internal file links into an owned regular-file
+snapshot and records their provenance. External, broken, cyclic, chained and
+directory links fail extraction; direct stage calls still reject descendant
+symlinks. See [source intake](docs/source-intake.md). Preflight and copying are
+not race-proof isolation of a changing source tree. Execution
 coverage depends on chamber availability and trigger derivation. The 2 October
 full-capability benchmark exercised the Docker chamber; remote Nebius Sandboxes
 transport remains unverified. Public deployment safety is not established by
