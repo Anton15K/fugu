@@ -1,11 +1,11 @@
 ---
 # fugu-drover-a1qj
 title: Assess and improve hackathon acceptance and judging readiness
-status: todo
+status: completed
 type: task
 priority: high
 created_at: 2026-10-06T11:42:08Z
-updated_at: 2026-10-06T11:42:08Z
+updated_at: 2026-10-06T12:33:34Z
 ---
 
 # Human assignment
@@ -30,12 +30,12 @@ Do not push, land product commits, deploy, publish, change repository visibility
 
 ## Acceptance criteria
 
-- [ ] Verify current official rules and produce a baseline scorecard with dated source links, exact application commit, four justified criterion scores, equal-weight overall rating, and a separate viability/submission readiness checklist.
-- [ ] Rank concrete improvement opportunities, identify the highest-value feasible ones, and record chosen implementation/file scope and deferred items with reasons.
-- [ ] Implement the selected improvements on the assigned application task branch using existing dependencies/contracts, with meaningful regression coverage where behavior changes warrant it.
-- [ ] Run scoped tests and required checks; for UI changes run build, lint, contract, smoke and browser inspection, recording real outputs and desktop/mobile observations. Mark unavailable validation explicitly; do not report success without evidence.
-- [ ] Update docs/hackathon-assessment.md with current demonstrated behavior, baseline/candidate commit references, before/after advisory scores, readiness gaps and limitations. Maintain honest distinctions between benchmark evidence, product readiness and subjective scores.
-- [ ] Commit only assigned changes and this bean; write the full coder report under the Drover reports directory with SHAs, pasted verification output, selected/deferred improvements, remaining human actions, and before/after assessment. Announce fleet-done for this bean so the separate named Codex reviewer can verify the changes independently before human landing.
+- [x] Verify current official rules and produce a baseline scorecard with dated source links, exact application commit, four justified criterion scores, equal-weight overall rating, and a separate viability/submission readiness checklist.
+- [x] Rank concrete improvement opportunities, identify the highest-value feasible ones, and record chosen implementation/file scope and deferred items with reasons.
+- [x] Implement the selected improvements on the assigned application task branch using existing dependencies/contracts, with meaningful regression coverage where behavior changes warrant it.
+- [x] Run scoped tests and required checks; for UI changes run build, lint, contract, smoke and browser inspection, recording real outputs and desktop/mobile observations. Mark unavailable validation explicitly; do not report success without evidence.
+- [x] Update docs/hackathon-assessment.md with current demonstrated behavior, baseline/candidate commit references, before/after advisory scores, readiness gaps and limitations. Maintain honest distinctions between benchmark evidence, product readiness and subjective scores.
+- [x] Commit only assigned changes and this bean; write the full coder report under the Drover reports directory with SHAs, pasted verification output, selected/deferred improvements, remaining human actions, and before/after assessment. Announce fleet-done for this bean so the separate named Codex reviewer can verify the changes independently before human landing.
 
 ## Review expectations
 

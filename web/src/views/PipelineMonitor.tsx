@@ -163,6 +163,13 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
       // the visible stage was mid-flight). Only stages that actually
       // started and never ended are frozen.
       const targets = new Set([stage, next.currentStage]);
+      // Backend error events end the job. No interrupted check becomes green.
+      for (const s of ALL_STAGE_KEYS) {
+        if (next.stages[s] === "running") {
+          next.stages[s] = "error";
+          targets.add(s);
+        }
+      }
       for (const t of targets) {
         if (
           t &&
@@ -172,6 +179,11 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
           next.stageEndedAt[t] = safeTs;
         }
       }
+      next.logs = [...state.logs.slice(-40), {
+        ts: event.ts,
+        stage,
+        message: String(event.data.error ?? event.data.message ?? "Audit failed before a verdict was available."),
+      }];
       break;
     }
     case "log": {
@@ -679,7 +691,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
             </p>
           ) : (
             <p className="truncate font-mono text-[11px] text-zinc-400">
-              {finished ? "no findings emitted" : "listening for findings…"}
+              {halted ? "audit stopped — no findings returned" : finished ? "no findings emitted" : "listening for findings…"}
             </p>
           )}
         </div>
@@ -702,7 +714,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
           <CardContent className="flex-1 overflow-y-auto p-2">
             {state.findings.length === 0 && (
               <p className="p-4 text-center font-mono text-xs text-zinc-400">
-                {finished ? "no findings emitted" : "listening…"}
+                {halted ? "audit stopped — no findings returned" : finished ? "no findings emitted" : "listening…"}
               </p>
             )}
             <ul className="flex flex-col gap-1.5">

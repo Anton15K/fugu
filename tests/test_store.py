@@ -248,41 +248,49 @@ def test_get_audit_survives_server_restart(tmp_path: Path) -> None:
 
     # process 1: run a job to completion
     app1 = create_app(stages=[FakeFindingStage()], db=db_path)
-    c1 = TestClient(app1)
-    resp = c1.post("/audits", json={"source": str(FIXTURE_DIR), "depth": "standard"})
-    assert resp.status_code == 202
-    job_id = resp.json()["job_id"]
-    live = _wait_done(c1, job_id)
-    assert live["status"] == "done" and len(live["findings"]) == 2
+    # Keep the app event loop alive across submission and polling. A client
+    # outside its context cancels the detached task when the POST portal closes.
+    try:
+        with TestClient(app1) as c1:
+            resp = c1.post("/audits", json={"source": str(FIXTURE_DIR), "depth": "standard"})
+            assert resp.status_code == 202
+            job_id = resp.json()["job_id"]
+            live = _wait_done(c1, job_id)
+            assert live["status"] == "done" and len(live["findings"]) == 2
+    finally:
+        app1.state.fugu.store.db.close()
 
     # "restart": a whole new app + JobStore over the same db file
     app2 = create_app(stages=[], db=db_path)
-    c2 = TestClient(app2)
-    body = c2.get(f"/audits/{job_id}")
-    assert body.status_code == 200, body.text
-    recovered = body.json()
-    assert recovered["id"] == job_id
-    assert recovered["status"] == "done"
-    assert recovered["source"] == str(FIXTURE_DIR)
-    assert [s["stage"] for s in recovered["stages"]] == ["static"]
-    assert len(recovered["findings"]) == 2
-    assert recovered["findings"][0]["severity"] == "high"
-    assert recovered["findings"][0]["owasp_ids"] == ["MCP06"]
+    try:
+        with TestClient(app2) as c2:
+            body = c2.get(f"/audits/{job_id}")
+            assert body.status_code == 200, body.text
+            recovered = body.json()
+            assert recovered["id"] == job_id
+            assert recovered["status"] == "done"
+            assert recovered["source"] == str(FIXTURE_DIR)
+            assert [s["stage"] for s in recovered["stages"]] == ["static"]
+            assert len(recovered["findings"]) == 2
+            assert recovered["findings"][0]["severity"] == "high"
+            assert recovered["findings"][0]["owasp_ids"] == ["MCP06"]
 
-    # SSE replay from the recovered history ends at the terminal event
-    sse = c2.get(f"//audits/{job_id}/events".replace("//", "/"))
-    assert sse.status_code == 200
-    events = [
-        json.loads(line[len("data: "):])
-        for line in sse.text.splitlines()
-        if line.startswith("data: ")
-    ]
-    types = [e["type"] for e in events]
-    assert "finding" in types and types[-1] == "verdict"
-    assert all(e["job_id"] == job_id for e in events)
+            # SSE replay from the recovered history ends at the terminal event
+            sse = c2.get(f"//audits/{job_id}/events".replace("//", "/"))
+            assert sse.status_code == 200
+            events = [
+                json.loads(line[len("data: "):])
+                for line in sse.text.splitlines()
+                if line.startswith("data: ")
+            ]
+            types = [e["type"] for e in events]
+            assert "finding" in types and types[-1] == "verdict"
+            assert all(e["job_id"] == job_id for e in events)
 
-    # health counts include the recovered job
-    assert c2.get("/health").json()["jobs"] >= 1
+            # health counts include the recovered job
+            assert c2.get("/health").json()["jobs"] >= 1
+    finally:
+        app2.state.fugu.store.db.close()
 
 
 def test_get_audit_unknown_id_404_with_db(tmp_path: Path) -> None:

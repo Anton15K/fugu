@@ -5,19 +5,16 @@ run_composition_job() fans one parent audit out over 2..8 member sources
 single-source run_job() as its own child AuditJob — members get their own
 SSE streams, findings and verdicts exactly like today. The parent then
 harvests MemberResults (child findings + tool names scanned from each
-child's extracted target with static_scan's tool-name regex), cleans up
-cloned child targets (never the user's local dirs), and runs the
+child's extracted target with static_scan's tool-name regex), and runs the
 CompositionStage as its only stage — the same emit/persist pattern as
 run_job, minus cross-stage dedupe (composition findings are about member
 COMBINATIONS, never echoes). A parent verdict closes the stream.
 
-Known quirk (documented for the lead): with the CURRENT jobs.py,
-run_job's final cleanup deletes a successfully cloned target even when
-keep_target=True — keep_target only preserves a FAILED clone dir inside
-extract_source. This module is written to be correct under either
-semantics: harvest tolerates an already-deleted dir (empty tool_names),
-and the parent-side cleanup mirrors run_job's own "cloned iff it differs
-from the literal source path" rule and is a no-op on missing dirs.
+Successful keep_target children transfer their owned snapshots to the parent.
+Those snapshots include materialized local sources as well as Git sources.
+They must remain readable through composition's code scan, then be reclaimed
+in finally on success, failure or cancellation. Original source dirs are
+never deleted.
 """
 from __future__ import annotations
 
@@ -202,8 +199,10 @@ def harvest_tool_names(target_dir: Path | None) -> list[str]:
 
 
 def _is_cloned_target(ref: str, target: Path | None) -> bool:
-    """Mirror run_job's rule: we created the target iff it differs from
-    the literal (expanded) source path. Local user dirs are never cloned."""
+    """An extracted snapshot is owned iff it differs from the source path.
+
+    Materialized local sources are owned too; original dirs are never removed.
+    """
     if target is None:
         return False
     return Path(target) != Path(ref.strip()).expanduser()
@@ -277,11 +276,12 @@ async def run_composition_job(
        `member <label>: job <child_id> <status>, <N> findings` with a
        child_job_id key.
     2. Harvest MemberResults (findings snapshot + tool names from the
-       child target) and reclaim cloned child targets (never local dirs).
+       child target), retaining targets for composition's code scan.
     3. Run the CompositionStage as the parent's only stage — run_job's
        emit/persist pattern, cross-stage dedupe skipped.
     4. aggregate_verdict → verdict event → status done → close stream.
        Every child failing extraction → parent failed with an error event.
+    Owned child snapshots are reclaimed in finally after composition.
     """
     specs = normalize_sources(sources)
     snap = store.get(job.id)
@@ -316,195 +316,196 @@ async def run_composition_job(
     )
     store._persist_status(job)
 
-    members: list[Any] = []
-    summaries: list[dict[str, Any]] = []
-    for spec in specs:
-        child = AuditJob(id=new_job_id(), source=spec.ref, depth="standard")
-        store.create(child)
-        crashed: str | None = None
-        try:
-            await run_job(
-                child,
-                stages,
-                store,
-                max_files=max_files,
-                max_bytes=max_bytes,
-                keep_target=True,
-            )
-        except Exception as exc:  # noqa: BLE001 - a runner bug must not kill the fan-out
-            crashed = f"{type(exc).__name__}: {exc}"
-        child_snap = store.get(child.id)
-        if child_snap is None:  # pragma: no cover - create() just made it
-            child_snap = store.create(child)
-        status = "failed" if crashed else child_snap.job.status.value
-        n_findings = len(child_snap.findings)
+    owned_targets: list[Path] = []
+    try:
+        members: list[Any] = []
+        summaries: list[dict[str, Any]] = []
+        for spec in specs:
+            child = AuditJob(id=new_job_id(), source=spec.ref, depth="standard")
+            store.create(child)
+            crashed: str | None = None
+            try:
+                await run_job(
+                    child,
+                    stages,
+                    store,
+                    max_files=max_files,
+                    max_bytes=max_bytes,
+                    keep_target=True,
+                )
+            except Exception as exc:  # noqa: BLE001 - a runner bug must not kill the fan-out
+                crashed = f"{type(exc).__name__}: {exc}"
+            child_snap = store.get(child.id)
+            if child_snap is None:  # pragma: no cover - create() just made it
+                child_snap = store.create(child)
+            status = "failed" if crashed else child_snap.job.status.value
+            n_findings = len(child_snap.findings)
 
-        _emit(
-            store,
-            job,
-            "log",
-            {
-                "stage": "composition",
-                "message": f"member {spec.label}: job {child.id} {status}, {n_findings} findings",
-                "child_job_id": child.id,
-            },
-        )
-        if crashed:
             _emit(
                 store,
                 job,
                 "log",
                 {
                     "stage": "composition",
-                    "message": f"member {spec.label}: runner error ({crashed})",
+                    "message": f"member {spec.label}: job {child.id} {status}, {n_findings} findings",
                     "child_job_id": child.id,
                 },
             )
+            if crashed:
+                _emit(
+                    store,
+                    job,
+                    "log",
+                    {
+                        "stage": "composition",
+                        "message": f"member {spec.label}: runner error ({crashed})",
+                        "child_job_id": child.id,
+                    },
+                )
 
-        target_dir = child_snap.target_dir
-        tool_names = harvest_tool_names(target_dir)
-        members.append(
-            MemberResult(
-                label=spec.label,
-                slug=_slugify(spec.label),
-                findings=list(child_snap.findings),
-                tool_names=tool_names,
-                target_dir=target_dir,
+            target_dir = child_snap.target_dir
+            if _is_cloned_target(spec.ref, target_dir) and target_dir is not None:
+                owned_targets.append(Path(target_dir))
+            tool_names = harvest_tool_names(target_dir)
+            members.append(
+                MemberResult(
+                    label=spec.label,
+                    slug=_slugify(spec.label),
+                    findings=list(child_snap.findings),
+                    tool_names=tool_names,
+                    target_dir=target_dir,
+                )
             )
-        )
-        # Reclaim cloned child targets after harvest (git sources). Local
-        # dirs are the user's own — never deleted. No-op if run_job's own
-        # cleanup already removed the clone (current jobs.py behavior).
-        if _is_cloned_target(spec.ref, target_dir) and target_dir is not None:
-            clone = Path(target_dir)
-            await loop.run_in_executor(None, shutil.rmtree, clone, True)
-        summaries.append(
-            {
-                "label": spec.label,
-                "job_id": child.id,
-                "status": status,
-                "findings": n_findings,
-            }
+            summaries.append(
+                {
+                    "label": spec.label,
+                    "job_id": child.id,
+                    "status": status,
+                    "findings": n_findings,
+                }
+            )
+
+        failed = [s for s in summaries if s["status"] == "failed"]
+        if failed and len(failed) == len(summaries):
+            # Every member failed extraction → the parent has nothing to compose.
+            job.status = JobStatus.failed
+            result = StageResult(
+                stage="extraction",
+                ok=False,
+                error="composition failed: all "
+                f"{len(failed)} members failed extraction "
+                f"({', '.join(s['label'] for s in failed)})",
+            )
+            snap.stages.append(result)
+            _emit(
+                store,
+                job,
+                "error",
+                {
+                    "error": result.error,
+                    "stage": "extraction",
+                    "stage_results": [stage_public(r) for r in snap.stages],
+                },
+            )
+            store.close(job.id)
+            return
+        if failed:
+            _emit(
+                store,
+                job,
+                "log",
+                {
+                    "stage": "composition",
+                    "message": (
+                        f"{len(failed)} of {len(summaries)} members failed "
+                        f"extraction; continuing with the remaining "
+                        f"{len(summaries) - len(failed)}"
+                    ),
+                },
+            )
+
+        # --- composition stage: the parent's only stage --------------------------
+        stage = CompositionStage()
+        try:
+            stage._member_results = members  # runner-injected, contracts §2
+        except Exception:  # pragma: no cover - slots/property guard in W1's stage
+            _emit(
+                store,
+                job,
+                "log",
+                {
+                    "stage": "composition",
+                    "message": "could not inject _member_results; stage sees no members",
+                },
+            )
+        name = getattr(stage, "name", "composition")
+        parent_target = next(
+            (m.target_dir for m in members if getattr(m, "target_dir", None) is not None),
+            None,
         )
 
-    failed = [s for s in summaries if s["status"] == "failed"]
-    if failed and len(failed) == len(summaries):
-        # Every member failed extraction → the parent has nothing to compose.
-        job.status = JobStatus.failed
-        result = StageResult(
-            stage="extraction",
-            ok=False,
-            error="composition failed: all "
-            f"{len(failed)} members failed extraction "
-            f"({', '.join(s['label'] for s in failed)})",
-        )
+        _emit(store, job, "stage_started", {"stage": name})
+        started = loop.time()
+        try:
+            result = await stage.run(job, parent_target)
+            if result is None:  # defensive: broken stage returned nothing
+                raise TypeError("stage.run() returned None, expected StageResult")
+        except Exception as exc:  # noqa: BLE001 - stage bugs become results
+            result = StageResult(
+                stage=name,
+                ok=False,
+                error=f"{type(exc).__name__}: {exc}",
+            )
+        elapsed = loop.time() - started
+        result.metrics.setdefault("duration_s", round(elapsed, 3))
+        result.metrics.setdefault("members", len(members))
+        result.metrics["member_coverage"] = _member_coverage(summaries, store)
         snap.stages.append(result)
+        # Cross-stage dedupe is intentionally SKIPPED: composition findings
+        # describe member combinations — they are never echoes of member
+        # findings, and the parent has no earlier stages to echo anyway.
+        snap.findings.extend(result.findings)
+        for finding in result.findings:
+            _emit(
+                store,
+                job,
+                "finding",
+                {"stage": name, "finding": finding_public(finding)},
+            )
         _emit(
             store,
             job,
-            "error",
+            "stage_done",
             {
+                "stage": name,
+                "ok": result.ok,
                 "error": result.error,
-                "stage": "extraction",
-                "stage_results": [stage_public(r) for r in snap.stages],
+                "findings_count": len(result.findings),
+                "metrics": result.metrics,
             },
         )
+
+        from fugu.verdict import aggregate_verdict
+
+        _merge_member_findings(job, snap, members, store)
+        verdict = aggregate_verdict(snap.findings, snap.stages)
+        _emit(
+            store,
+            job,
+            "verdict",
+            {
+                "status": "done",
+                "verdict": verdict,
+                "total_findings": verdict["total_findings"],
+                "severity_counts": verdict["severity_counts"],
+                "stages": [stage_public(r) for r in snap.stages],
+            },
+        )
+        job.status = JobStatus.done
         store.close(job.id)
-        return
-    if failed:
-        _emit(
-            store,
-            job,
-            "log",
-            {
-                "stage": "composition",
-                "message": (
-                    f"{len(failed)} of {len(summaries)} members failed "
-                    f"extraction; continuing with the remaining "
-                    f"{len(summaries) - len(failed)}"
-                ),
-            },
-        )
-
-    # --- composition stage: the parent's only stage --------------------------
-    stage = CompositionStage()
-    try:
-        stage._member_results = members  # runner-injected, contracts §2
-    except Exception:  # pragma: no cover - slots/property guard in W1's stage
-        _emit(
-            store,
-            job,
-            "log",
-            {
-                "stage": "composition",
-                "message": "could not inject _member_results; stage sees no members",
-            },
-        )
-    name = getattr(stage, "name", "composition")
-    parent_target = next(
-        (m.target_dir for m in members if getattr(m, "target_dir", None) is not None),
-        None,
-    )
-
-    _emit(store, job, "stage_started", {"stage": name})
-    started = loop.time()
-    try:
-        result = await stage.run(job, parent_target)
-        if result is None:  # defensive: broken stage returned nothing
-            raise TypeError("stage.run() returned None, expected StageResult")
-    except Exception as exc:  # noqa: BLE001 - stage bugs become results
-        result = StageResult(
-            stage=name,
-            ok=False,
-            error=f"{type(exc).__name__}: {exc}",
-        )
-    elapsed = loop.time() - started
-    result.metrics.setdefault("duration_s", round(elapsed, 3))
-    result.metrics.setdefault("members", len(members))
-    result.metrics["member_coverage"] = _member_coverage(summaries, store)
-    snap.stages.append(result)
-    # Cross-stage dedupe is intentionally SKIPPED: composition findings
-    # describe member combinations — they are never echoes of member
-    # findings, and the parent has no earlier stages to echo anyway.
-    snap.findings.extend(result.findings)
-    for finding in result.findings:
-        _emit(
-            store,
-            job,
-            "finding",
-            {"stage": name, "finding": finding_public(finding)},
-        )
-    _emit(
-        store,
-        job,
-        "stage_done",
-        {
-            "stage": name,
-            "ok": result.ok,
-            "error": result.error,
-            "findings_count": len(result.findings),
-            "metrics": result.metrics,
-        },
-    )
-
-    from fugu.verdict import aggregate_verdict
-
-    _merge_member_findings(job, snap, members, store)
-    verdict = aggregate_verdict(snap.findings, snap.stages)
-    _emit(
-        store,
-        job,
-        "verdict",
-        {
-            "status": "done",
-            "verdict": verdict,
-            "total_findings": verdict["total_findings"],
-            "severity_counts": verdict["severity_counts"],
-            "stages": [stage_public(r) for r in snap.stages],
-        },
-    )
-    job.status = JobStatus.done
-    store.close(job.id)
+    finally:
+        for target in owned_targets:
+            await loop.run_in_executor(None, shutil.rmtree, target, True)
 
 
 # --- Auto fan-out: one source, many skill units ---------------------------------------

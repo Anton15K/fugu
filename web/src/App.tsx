@@ -55,7 +55,7 @@ export default function App() {
           elapsedMs: next.startedAt ? (next.finishedAt ?? next.startedAt) - next.startedAt : 0,
         });
         setPhase("done");
-      } else if (event.type === "error" && event.data.fatal) {
+      } else if (event.type === "error") {
         setPhase("done");
       }
       return next;

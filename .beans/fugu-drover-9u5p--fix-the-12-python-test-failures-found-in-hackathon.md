@@ -1,11 +1,11 @@
 ---
 # fugu-drover-9u5p
 title: Fix the 12 Python test failures found in hackathon assessment
-status: todo
+status: completed
 type: task
 priority: high
 created_at: 2026-10-06T18:30:25Z
-updated_at: 2026-10-06T18:30:25Z
+updated_at: 2026-10-06T18:45:51Z
 ---
 
 # Human assignment
@@ -41,11 +41,11 @@ No product landing, push, deployment, publishing, migrations, external communica
 
 ## Acceptance criteria
 
-- [ ] Reproduce all 12 named cases on current local main in this worktree, record baseline commit/counts and diagnose each failure group with concrete evidence.
-- [ ] Record narrow permitted file claims and implement minimal fixes for composition, continuation isolation/rejection and audit restart behavior; preserve historical evidence and meaningful assertions.
-- [ ] Demonstrate regression behavior: relevant pre-fix files fail and restored fixes pass; verify the continuation rejection still occurs before SDK use and test writes stay in temporary locations.
-- [ ] Run the three affected test modules successfully, then the full Python suite with correct worktree imports and offline/fake provider isolation. Record exact passed/failed/skipped counts, including any newly discovered blocker rather than concealing it.
-- [ ] Run the application orchestration-boundary check and applicable required checks. Keep Python 3.10 compatibility and dependencies/contracts unchanged, or obtain explicit human approval for required scope changes.
-- [ ] Commit assigned repairs and this bean; report all required SHAs, root causes, before/after evidence and pasted test output under /Users/antonkogun/.local/share/drover/reports/. Announce fleet-done for independent reviewer verification before human integration.
+- [x] Reproduce all 12 named cases on current local main in this worktree, record baseline commit/counts and diagnose each failure group with concrete evidence.
+- [x] Record narrow permitted file claims and implement minimal fixes for composition, continuation isolation/rejection and audit restart behavior; preserve historical evidence and meaningful assertions.
+- [x] Demonstrate regression behavior: relevant pre-fix files fail and restored fixes pass; verify the continuation rejection still occurs before SDK use and test writes stay in temporary locations.
+- [x] Run the three affected test modules successfully, then the full Python suite with correct worktree imports and offline/fake provider isolation. Record exact passed/failed/skipped counts, including any newly discovered blocker rather than concealing it.
+- [x] Run the application orchestration-boundary check and applicable required checks. Keep Python 3.10 compatibility and dependencies/contracts unchanged, or obtain explicit human approval for required scope changes.
+- [x] Commit assigned repairs and this bean; report all required SHAs, root causes, before/after evidence and pasted test output under /Users/antonkogun/.local/share/drover/reports/. Announce fleet-done for independent reviewer verification before human integration.
 
 Reviewer: independently apply named non-merge commits to detached current local main, verify the root-cause claims and absence of weakened tests/deleted evidence, run all three affected modules and the full Python suite with worktree-correct imports, and check integration/boundary behavior. Report BEAN: MET|UNMET, LANDABLE: YES|NO and VERDICT: APPROVE|CHANGES. A remaining failure in any of the 12 named cases is not complete.
