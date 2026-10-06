@@ -85,8 +85,9 @@ const check = (name, cond) => { cond ? pass++ : fail++; console.log(`  ${cond ? 
   let s = initialPipelineState();
   s = applyEvent(s, ev("stage_started", { stage: "concealment" }));
   s = applyEvent(s, ev("error", { error: "git clone failed", stage: "extraction" }));
-  // reducer: unknown stage name 'extraction' — must not throw, must mark current
-  check("error event: no throw, state intact", typeof s.stages.concealment === "string");
+  check("terminal error: interrupted stage is failed", s.stages.concealment === "error");
+  check("terminal error: server failure reason retained", s.logs.at(-1)?.message === "git clone failed");
+  check("terminal error: no success verdict manufactured", s.stages.verdict !== "done" && s.finishedAt === null);
 }
 
 // 5. unknown future stage name (e.g. new backend stage) — no crash

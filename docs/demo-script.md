@@ -5,6 +5,10 @@ a developer evaluating a community extension before giving an AI coding assistan
 access to its workspace/tools. This is a proposed recording script, not evidence
 that recording or publication has happened.
 
+Updated **6 October 2026** for application candidate
+`4b66f67e3d20ae4182cd18a74fd081f58bfc4034`. The latest retained benchmark is
+the **5 October** frozen workflow, not a new measurement on this candidate.
+
 ## Rehearse before recording
 
 1. Use the reviewed build and a dedicated persistent database. Open live mode
@@ -34,6 +38,12 @@ that recording or publication has happened.
    waits. `/?mock=1` and **Play simulated audit** are scripted illustrations,
    explicitly labeled **SIMULATED**, not recorded measurements. They make no
    source/model analysis call and do not validate the submitted extension.
+6. On the human-approved demo environment, submit an intentionally missing local
+   source before recording. Confirm analysis interrupted, the actual error in
+   Stream log, stopped empty views and a working **new audit** action. Return
+   to the approved real sample. The 6 October browser fixture proved this UI
+   behavior with controlled responses; it did not exercise extraction or a
+   provider. Do not use that fixture as the functioning judge demonstration.
 
 The 2 October full-capability benchmark includes verified Docker canary
 evidence. A recording that shows a canary must rehearse the chamber on its
@@ -82,48 +92,41 @@ not an established active analysis stage. Optional cloud sandbox code is not
 proof of live Nebius Sandbox deployment. Tavily/OSV reputation lookups cross
 the local boundary when active.
 
-Keep benchmarks brief. The [2 October full-capability report](benchmark-full.md)
-records 40 frozen cases completed after bounded recovery, with Fugu detecting
-12/15 shared attack descriptions versus fuzzd’s 10/15 at medium severity or
-above. Those results belong to that dated frozen run; the reported zero
-confirmed false positives use its adjudication contract. Authored
-source/composition/dependency cohorts remain separate. Show the historical
-comparison chart with its task distinctions and unavailable Snyk result.
+Keep benchmarks brief. The [5 October full-workflow report](benchmark-full-workflow-20261005.md)
+and its charts are the latest retained measurement: **110/140 Fugu cases
+complete and 30 partial**, with **314/320 native comparator rows complete**.
+The engine was frozen at `dbc4f641bfad39f7004e64f08bf8351697f5ae7c`;
+this candidate was not measured. Show planned coverage beside any matched
+comparison, including 28 unavailable applicable detonation cases and two
+harness shortfalls. No source case and no composition attack set completed.
+Target execution remained unavailable.
 
-The [3 October first-interval report](benchmark-current-limits.md) records an
-HTTP 500 from the Super harness at attempt 359. The sealed
-[continuation report](benchmark-current-limits-continuation.md) adds 27
-previously unattempted cases completed in a second interval on the same frozen
-40-case plan and production profile. Combined, **39/40 cases completed, one
-original case remains partial, and none are unattempted**. The primary MCPTox
-result is **13/15 planned attacks (86.7%)**, with one completed miss and one
-incomplete case whose high advisory finding is retained but receives no
-completed-detection credit. **13/14 (92.9%)** is secondary and covers completed
-attacks only.
+If a comparison belongs in the recording, show the complete matched metadata
+intersection and original thresholds: Fugu 80/80 versus Sentinel 11/80 and
+MCP-Sec 12/80 primary attack flags; Cisco MCP and Fugu both 74/74. MCP-Sec
+any-alert is separately 66/80. Cisco Skill's three complete attack pairs give
+Fugu 2/3 and Cisco 3/3; that small intersection supports no broad skill ranking.
+These previously visible convenience fixtures and uncalibrated thresholds
+support no population accuracy or universal scanner superiority claim.
 
-All five clean descriptions completed; the `read_file` description produced one
-raw model-driven flag pending independent adjudication. Its signal came from
-mounted-model replies containing a synthetic harness canary after probes asked
-for ordinary file contents. No file tool, target filesystem, chamber or other
-audited code ran. The adjudicated false-positive rate is unavailable. Do not
-call this a confirmed false positive, real vulnerability, or population rate.
+Keep **raw control flags 1/19 metadata and 2/6 skills** visible. Adjudication is
+null, so no confirmed false-positive rate is established. Composition controls
+can contain risky members and are not clean packages. The recorded 4,581 SDK
+dispatches and 46 searches are historical accounting, not a cost, latency or
+quota forecast. No provider error was recorded in that measurement; it does
+not guarantee today's demo reliability.
 
-The same 14 completed MCPTox attacks were compared with retained 2 October
-outputs: Fugu 13/14, fuzzd 10/14, and mcp-sec-audit 0/14. Fugu and fuzzd use
-medium-plus findings; mcp-sec-audit uses aggregate risk 25+. Competitors were not rerun and use different risk
-contracts, so present these as fixed-sample context rather than a ranking. The
-current measurement covers S0/S1/S2/S4 and source composition; it excludes
-detonation, live reputation, target/tool execution, and fresh competitor runs.
-The two intervals total 1,278 SDK attempts; the original failed request has
-unknown usage, so whole-run token totals remain null. Cost and remaining quota
-were not measured. Do not claim latency or cost savings, universal superiority,
-adoption, or complete safety.
+The [2 October full-capability report](benchmark-full.md) remains dated Docker
+fake-canary evidence. The [3 October continuation](benchmark-current-limits-continuation.md)
+remains a separate bounded-inference history. Do not mix their denominators,
+runtime observations or adjudication into the 5 October charts.
 
-Show the [primary outcome chart](../bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/common-results.png),
-[cohort coverage](../bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/cohort-coverage.png),
-and [request telemetry](../bench/results/2026-10-03-current-limits/continuation-cc58a58-untouched/charts/call-telemetry.png)
-only with their interval, incomplete-case, and adjudication labels visible.
+Suggested one-sentence result explanation: “These are completed checks on
+fixed inputs; the missing runtime and partial cases stay visible, and a model
+flag is a reason to inspect the evidence.” The short recording can omit
+comparators entirely and focus on an actual source exhibit and install decision.
 
-Before publication, confirm the exact reviewed commit, public repo/demo access,
-video duration and permissions for recorded material. Deployment and public video
-publication remain unassigned outcomes. See [readiness](hackathon-assessment.md).
+Before publication, confirm the reviewed commit, real successful rehearsal,
+public repository/demo access, video permissions and actual duration. Human
+recording, publication and submission remain outstanding. See the dated
+[assessment and access checklist](hackathon-assessment.md).
