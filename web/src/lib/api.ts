@@ -1,7 +1,7 @@
 /**
  * API client for the Fugu backend (FastAPI on :8000, proxied as /api in dev).
  *
- * Contract (backend not built yet — mocked by `lib/mockStream.ts`):
+ * Backend contract (scripted replay lives in `lib/mockStream.ts`):
  *   POST /audits            { source, depth } → 202 { job_id }
  *   GET  /audits/:id/events → SSE of StageEvent objects
  *
@@ -115,35 +115,41 @@ const RECONNECT_BASE_MS = 800;
 /**
  * Open the event stream for a job. Never rejects: errors surface as
  * `error` StageEvents via onEvent and through onStatus. Stream ends after
- * a `verdict` event (terminal) — call close() anyway to be safe.
+ * a `verdict` or `error` event (terminal) — call close() anyway to be safe.
  */
 export function openAuditStream(
   jobId: string,
   opts: StreamOptions,
 ): StreamHandle {
   const controllers = new Set<() => void>();
+  const lifetime = new AbortController();
+  const activeOpts: StreamOptions = {
+    ...opts,
+    signal: lifetime.signal,
+    onEvent: event => { if (!lifetime.signal.aborted) opts.onEvent(event); },
+    onStatus: status => { if (!lifetime.signal.aborted) opts.onStatus?.(status); },
+  };
 
   const stop = () => {
+    lifetime.abort();
     controllers.forEach((fn) => fn());
     controllers.clear();
+    opts.signal?.removeEventListener("abort", onAbort);
   };
 
   const handle: StreamHandle = {
     close() {
+      if (lifetime.signal.aborted) return;
       stop();
       opts.onStatus?.({ kind: "closed", transport: "sse" });
     },
   };
+  const onAbort = () => handle.close();
 
-  if (opts.signal) {
-    opts.signal.addEventListener(
-      "abort",
-      () => handle.close(),
-      { once: true },
-    );
-  }
+  opts.signal?.addEventListener("abort", onAbort, { once: true });
+  if (opts.signal?.aborted) handle.close();
 
-  runSse(jobId, opts, controllers, 0).catch(() => {
+  runSse(jobId, activeOpts, controllers, 0).catch(() => {
     /* runSse handles its own errors */
   });
 
@@ -182,27 +188,32 @@ async function runSse(
       }
       opts.onStatus?.({ kind: "reconnecting", attempt, transport: "sse" });
       const delay = RECONNECT_BASE_MS * 2 ** (attempt - 1);
-      setTimeout(() => {
+      const cancelRetry = () => clearTimeout(timer);
+      const timer = setTimeout(() => {
+        controllers.delete(cancelRetry);
         if (!opts.signal?.aborted) {
           runSse(jobId, opts, controllers, attempt).catch(() => {});
         }
       }, delay);
+      controllers.add(cancelRetry);
     };
 
     es.onopen = () => {
+      if (terminal || opts.signal?.aborted) return;
       sawEvent = true;
       failures = 0;
       opts.onStatus?.({ kind: "open", transport: "sse" });
     };
 
     es.onmessage = (msg: MessageEvent<string>) => {
+      if (terminal || opts.signal?.aborted) return;
       sawEvent = true;
       const event = parseEvent(msg.data);
       if (event) opts.onEvent(event);
-      if (event?.type === "verdict") {
+      if (event?.type === "verdict" || event?.type === "error") {
         terminal = true;
-        // Server closes the stream after verdict; give it a beat then close.
-        setTimeout(teardown, 300);
+        teardown();
+        opts.onStatus?.({ kind: "closed", transport: "sse" });
       }
     };
 
@@ -301,12 +312,14 @@ async function fallbackToPolling(
         // The endpoint is normally SSE; accept either a JSON batch of events
         // or a buffered text/event-stream body parsed frame by frame.
         const text = await res.text();
+        if (ctrl.signal.aborted) return;
         const events = parseBatch(text);
         for (const event of events) {
+          if (ctrl.signal.aborted) return;
           cursor = event.ts;
           opts.onEvent(event);
+          if (event.type === "verdict" || event.type === "error") return;
         }
-        if (events.some((e) => e.type === "verdict")) return;
       } catch (err) {
         if (ctrl.signal.aborted) return;
         // Transient poll failure — keep trying on the next tick.
