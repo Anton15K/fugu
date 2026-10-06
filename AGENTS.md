@@ -29,3 +29,8 @@ logs or uncommitted work. Coders/reviewers may commit their assigned changes and
 bean file on their own branch. They must not commit to main, land, push, deploy
 or publish. The human controls landing and pushing. Record evidence in Drover
 reports and announce completion with `fleet-done` as specified in the brief.
+
+This is the setup/drover CONTROL worktree. Application main is at
+`/Users/antonkogun/dev/fugu-main`. Do not implement product tasks on this
+setup branch or merge it wholesale into main. Task records are the only
+Drover data allowed on main; runtime configuration stays outside it.
