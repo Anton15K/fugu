@@ -1,6 +1,7 @@
 """Frozen composition-v2 coverage run through the production job path."""
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
 from pathlib import Path
@@ -104,12 +105,13 @@ def test_case_result_marks_partial_and_failed_member_stages_incomplete_and_keeps
         name = "static"
 
         async def run(self, job, stage_target):
-            if stage_target.name == "reader":
+            # Extraction supplies an owned snapshot, not the original basename.
+            if (stage_target / "reader.py").is_file():
                 return StageResult(
                     stage=self.name, ok=True, findings=[note],
                     metrics={"coverage_incomplete": "one fabricated unit omitted", "units_omitted": 1},
                 )
-            if stage_target.name == "vault":
+            if (stage_target / "vault.py").is_file():
                 return StageResult(
                     stage=self.name, ok=False, findings=[note],
                     metrics={"coverage_incomplete": "fabricated stage failure"},
@@ -418,6 +420,58 @@ def test_failed_composition_stage_keeps_findings_but_marks_detection_unavailable
     assert row["findings"][0]["title"] == note.title
     assert row["complete"] is False
     assert row["correct"] is False
+
+
+@pytest.mark.parametrize("outcome", ["complete", "error", "cancel"])
+def test_member_snapshots_live_until_composition_and_are_always_reclaimed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, outcome: str
+) -> None:
+    from fugu.pipeline.stages.composition import CompositionStage
+    from fugu.pipeline.stages.static_scan import StaticScanStage
+    from fugu.server.composition_jobs import run_composition_job
+    from fugu.server.jobs import JobStore
+    from fugu.types import AuditJob
+
+    case, files = _write_case_sources("snapshot-lifetime", tmp_path / "sources")
+    original_bytes = {path: path.read_bytes() for path in files}
+    sources = [
+        {"ref": str(Path(case["target"]) / member["dir"]), "label": member["label"]}
+        for member in case["members"]
+    ]
+    observed: list[Path] = []
+    live_at_composition: list[bool] = []
+    original_run = CompositionStage.run
+
+    async def observe(self, job, target):
+        observed.extend(member.target_dir for member in self._member_results)
+        live_at_composition.extend(path.is_dir() for path in observed)
+        if outcome == "error":
+            raise RuntimeError("inert composition failure")
+        if outcome == "cancel":
+            raise asyncio.CancelledError()
+        return await original_run(self, job, target)
+
+    monkeypatch.setattr(CompositionStage, "run", observe)
+    store = JobStore()
+    job = AuditJob(id="snapshot-lifetime", source="composition: inert fixtures")
+    run = run_composition_job(job, sources, [StaticScanStage()], store)
+    if outcome == "cancel":
+        with pytest.raises(asyncio.CancelledError):
+            asyncio.run(run)
+    else:
+        asyncio.run(run)
+        composition = next(stage for stage in store.get(job.id).stages if stage.stage == "composition")
+        if outcome == "complete":
+            assert composition.ok
+            assert any("MCP06" in finding.owasp_ids for finding in composition.findings)
+        else:
+            assert not composition.ok
+            assert "inert composition failure" in composition.error
+
+    assert len(observed) == 3
+    assert all(live_at_composition), "member code was removed before composition inspected it"
+    assert all(not path.exists() for path in observed), "owned snapshots leaked"
+    assert {path: path.read_bytes() for path in files} == original_bytes
 
 
 def test_run_suite_persists_cases_around_all_extraction_failure(
