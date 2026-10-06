@@ -165,6 +165,22 @@ class SetupSyncTests(unittest.TestCase):
         self.assertEqual(self.git("rev-parse", "HEAD").stdout.strip(), before)
         self.assertEqual(self.git("status", "--porcelain").stdout, "")
 
+    def test_ignored_local_file_cannot_be_overwritten_by_main(self):
+        self.prepare()
+        self.git("checkout", "main")
+        self.write("runtime.txt", "incoming tracked file\n")
+        self.git("add", "runtime.txt")
+        self.git("commit", "-m", "incoming file collision")
+        self.git("checkout", "setup/openrig")
+        self.write(".git/info/exclude", "runtime.txt\n")
+        self.write("runtime.txt", "ignored owner state\n")
+        before = self.git("rev-parse", "HEAD").stdout.strip()
+        result = self.sync()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual((self.repo / "runtime.txt").read_text(), "ignored owner state\n")
+        self.assertEqual(self.git("rev-parse", "HEAD").stdout.strip(), before)
+        self.assertEqual((self.repo / "AGENTS.md").read_text(), "branch instructions\n")
+
 
 if __name__ == "__main__":
     unittest.main()

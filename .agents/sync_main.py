@@ -70,7 +70,8 @@ def main() -> int:
     backup = f"refs/setup-sync-backups/{branch}/{stamp}-{uuid4().hex[:8]}"
     git("update-ref", backup, before)
     print(f"Setup snapshot: {before}\nBackup ref: {backup}\nApplication main: {source}", flush=True)
-    merged = git("merge", "--no-commit", "--no-ff", source, check=False)
+    merged = git("merge", "--no-commit", "--no-ff", "--no-autostash",
+                 "--no-overwrite-ignore", source, check=False)
     print(text(merged.stdout))
     if merged.stderr:
         print(text(merged.stderr), file=sys.stderr)
