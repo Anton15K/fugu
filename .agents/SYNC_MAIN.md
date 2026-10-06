@@ -38,10 +38,11 @@ Keep other writers idle, and never alter the active original OpenRig checkout.
    python3 -m unittest discover -s .agents/tests -p test_sync_main.py -v
    ```
 
-   On `setup/openrig`, also run its setup checks using the correct worktree imports:
+   On the prepared `setup/openrig` worktree, also run its setup checks using
+   the existing shared environment and the correct worktree imports:
 
    ```sh
-   PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m pytest tests/test_rig_setup.py -q
+   PYTHONPATH="$PWD/src:$PWD" VIRTUAL_ENV=/Users/antonkogun/dev/nebius_hack/.venv uv run --no-sync --active python -m pytest tests/test_rig_setup.py -q
    ```
 
    Run additional application checks appropriate to the imported changes.
