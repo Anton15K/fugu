@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "verified_utc": "2026-10-06T09:53:36.225346+00:00",
+  "status": "owner_verified_ready_for_selected_independent_review",
+  "plan_sha256": "a4f8c6bce43155e237c1d08383af7e7da6723764f62348d5cbc2606f5a45341d",
+  "comparison_sha256": "d5bc0aafb9bc654056bc59eb066f5698ad0857c21d0e8b037c0ecb5880ccd200",
+  "checks_sha256": "8ec3318b2db5de9f0f75e872d33d207b1fdd28da6fab4453b9d41fd164e75265",
+  "recount_byte_identical": true,
+  "python_syntax_passed": [
+    "recount.py",
+    "bind_units.py"
+  ],
+  "report_links_checked": true,
+  "six_selected_rows_and_seven_finding_bindings_checked": true,
+  "all_independent_judgments_remain_null": true,
+  "safe_json_payload_key_check": {
+    "forbidden_keys": [
+      "excerpt",
+      "messages",
+      "raw_completion",
+      "raw_prompt",
+      "raw_reply",
+      "raw_response",
+      "source_text"
+    ],
+    "matches": 0,
+    "scope": "new JSON and JSONL exports; no raw input/prompt/reply/excerpt fields. Not a general secret-absence claim."
+  },
+  "shared_uv_cache_metadata": {
+    "entries_checked": 25106,
+    "modified_since_claim": 0,
+    "scope": "mtime metadata only, checked during task; final command uses dedicated UV scratch cache"
+  },
+  "new_sdk_dispatches": 0,
+  "new_searches": 0,
+  "target_executions": 0,
+  "raw_payloads_copied_to_new_public_exports": false,
+  "limitations": [
+    "Independent correctness/impact/control adjudication pending",
+    "Two older requests have no retained wire hashes/replies/finish/served model",
+    "Public MCP adds no new package-level threshold decision",
+    "No actual install decision, execution or vulnerability confirmation"
+  ]
+}
