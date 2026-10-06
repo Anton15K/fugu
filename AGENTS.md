@@ -1,3 +1,14 @@
+# Preserve this setup branch when syncing main
+
+On `setup/openrig` or `setup/drover`, the lead/operator or assigned Git owner
+must read [.agents/SYNC_MAIN.md](.agents/SYNC_MAIN.md) and use
+`python3 .agents/sync_main.py` for updates from application main. Do not use
+raw pull, merge, or rebase from main: main deliberately deletes agent setup.
+The helper preserves this branch's agent files and AGENTS.md, leaves application
+conflicts for manual resolution, and stages the merge for review before commit.
+Never merge a setup branch wholesale into main. Product task branches start
+from application main and use its instructions instead of this setup overlay.
+
 <!-- BEGIN OpenRig MANAGED BLOCK: CULTURE-default.md -->
 # OpenRig default culture
 
@@ -379,7 +390,6 @@ onboarding steps plus `onboarding-width` are the complete public default mental 
 `openrig-operating-model` at their named trigger moments rather than copying their content elsewhere.
 
 <!-- END OpenRig MANAGED BLOCK: openrig-onboarding-02.md -->
-
 
 
 
