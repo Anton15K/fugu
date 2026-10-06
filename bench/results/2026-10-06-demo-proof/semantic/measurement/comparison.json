@@ -1,0 +1,1447 @@
+{
+  "schema": 1,
+  "protocol": "retained-s0-s1-versus-s2-demo-v1",
+  "plan_sha256": "a4f8c6bce43155e237c1d08383af7e7da6723764f62348d5cbc2606f5a45341d",
+  "new_sdk_dispatches": 0,
+  "new_paid_searches": 0,
+  "actual_target_executions": 0,
+  "canonical_hash": "SHA256 UTF8 JSON sort_keys=True,separators=(',',':'),ensure_ascii=False",
+  "original_canonical_bindings": {
+    "2026-10-05-plan": "8b73703335e1d00d9af72431b7b3f69fee8909a275de5e10cbaeebdb55fda6af",
+    "2026-10-05-cases": "4d6fee44ed2a875dfffad4c15acf3bcbbbea70e1cea0b8268a5721467380683a"
+  },
+  "original_artifacts": [
+    {
+      "path": "bench/results/2026-10-02/semantic.json",
+      "sha256": "56c4eb8c83579dd6b151b313aa503a36930ef5ffbd892b1d8e4eeca5a954caf2"
+    },
+    {
+      "path": "bench/results/2026-10-02/static.json",
+      "sha256": "52e79e82df0a0a77db1149d8e8655c32c5a1dfe99d3390dbadf1c60dcc460eea"
+    },
+    {
+      "path": "bench/results/2026-10-02/source-hashes.json",
+      "sha256": "5635e11871b21af20fb091ed0585b4e99d0e721be261674987e9fa5855825a0e"
+    },
+    {
+      "path": "bench/results/2026-10-02/measured-runner.py",
+      "sha256": "d1f21c6ef1002d648990e327097f90eeb36bda2dba2d048ad4a2c49456c92cc8"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/measured.json",
+      "sha256": "21f74de916043f186e717b3b2ec15891c6705d3c4794ccc65eb1854aad4aca46"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/measurement-plan.json",
+      "sha256": "90927bc6ac97896e9cd353c39712892d1b0a7e12ebff6d7bc6df77fa52725e69"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/call-ledger.json",
+      "sha256": "623fc6dbfe62ea01b1f17a6d602a4147aca3585912c803c3a14cd90e1282816b"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/responses.json",
+      "sha256": "6eb6e7a60ee5c9e47180d8c83a9f631cd9c124cd0d4cd09cdb3d6d30020e42e3"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/adjudication.json",
+      "sha256": "0e02d2387c547a704ba4ca388488bb96a6aa4a1a87b768c9de1585773b95b1e4"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/engine-manifest.json",
+      "sha256": "bba75aeeb4d0d2e710368866ef7bed50b55ac1ed6ad606628e29213b516a72c0"
+    },
+    {
+      "path": "/tmp/fugu-full-workflow-backend-20261005/prepared140-frozen/fugu.json",
+      "sha256": "9d3ab74e12cbb55a8516d2c4093ba922787bae99c92479d24a9b8fb2af8c42d3"
+    },
+    {
+      "path": "/tmp/fugu-full-workflow-backend-20261005/prepared140-frozen/plan.json",
+      "sha256": "a5e2f365cbbefc89cec3a540075f3a57fcc847d27296a5b1e184819cc59ef1d8"
+    },
+    {
+      "path": "/tmp/fugu-full-workflow-backend-20261005/prepared140-frozen/cases.json",
+      "sha256": "ccbbe081b9866489d4851eb29e9cc6772eb9eb650bc96632d804274671c62e9a"
+    }
+  ],
+  "engines": {
+    "2026-10-02-label-free": {
+      "commit": "25a7a4e85bc219ea03da20fd34a09826449c0a9b",
+      "pythonpath": "/Users/antonkogun/dev/nebius_hack/bench/results/2026-10-02/engine",
+      "source_files": [
+        {
+          "path": "bench/fresh_benchmark.py",
+          "sha256": "d1f21c6ef1002d648990e327097f90eeb36bda2dba2d048ad4a2c49456c92cc8"
+        },
+        {
+          "path": "src/fugu/__init__.py",
+          "sha256": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d"
+        },
+        {
+          "path": "src/fugu/api.py",
+          "sha256": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e"
+        },
+        {
+          "path": "src/fugu/client.py",
+          "sha256": "84c05bd7fa3e1b74c4176cff7bd0da3d048b56c6b610e1a3bf54fb79e6c96385"
+        },
+        {
+          "path": "src/fugu/config.py",
+          "sha256": "efc071cbe2b1fc25a8a5769c46a68232efc4261a95768ff4b8090c2fbcc83c4b"
+        },
+        {
+          "path": "src/fugu/dedupe.py",
+          "sha256": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d"
+        },
+        {
+          "path": "src/fugu/detonation/__init__.py",
+          "sha256": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216"
+        },
+        {
+          "path": "src/fugu/detonation/base.py",
+          "sha256": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/__init__.py",
+          "sha256": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/dns_collector.py",
+          "sha256": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/mitm_addon.py",
+          "sha256": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d"
+        },
+        {
+          "path": "src/fugu/detonation/contree_driver.py",
+          "sha256": "b752a23b45b146238ee9e0dabd1a9a40d4d7879e4a3612398ec151eec0276101"
+        },
+        {
+          "path": "src/fugu/detonation/docker_driver.py",
+          "sha256": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193"
+        },
+        {
+          "path": "src/fugu/detonation/probe.py",
+          "sha256": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5"
+        },
+        {
+          "path": "src/fugu/detonation/triggers.py",
+          "sha256": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b"
+        },
+        {
+          "path": "src/fugu/model_router.py",
+          "sha256": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b"
+        },
+        {
+          "path": "src/fugu/pipeline/__init__.py",
+          "sha256": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c"
+        },
+        {
+          "path": "src/fugu/pipeline/assemble.py",
+          "sha256": "6ca8e688388ff0af6bd532a5b040694272bebe554ded449fedfbeed9cac46878"
+        },
+        {
+          "path": "src/fugu/pipeline/base.py",
+          "sha256": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/__init__.py",
+          "sha256": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/composition.py",
+          "sha256": "2a1e8437aa65f3336b590b692ee79cd378d0d4285521c55d565c62837a800d60"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/concealment.py",
+          "sha256": "ce6ee1fe7bb34d145eefedb9f6171033dac94dd87bb55fb9f88cfef7525066d9"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/detonation_stage.py",
+          "sha256": "e9f4759dd5c130f656770fe1356b5888a2c74f5399a74405eaaf946685546f53"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/harness.py",
+          "sha256": "619c40e58c7a343ded8dede6acef876067a396fbe44dfcd45e8602f19961e319"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/reputation.py",
+          "sha256": "8082adcfe8f5e21c069af4d67e9dc06995271184212b5607d38d0727ff1f2052"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/semantic.py",
+          "sha256": "046e7b5ea1e989d087f43bd5c636a2326e09dbac262aa247ada88ee2b105ea2b"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/static_scan.py",
+          "sha256": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9"
+        },
+        {
+          "path": "src/fugu/server/__init__.py",
+          "sha256": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200"
+        },
+        {
+          "path": "src/fugu/server/__main__.py",
+          "sha256": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b"
+        },
+        {
+          "path": "src/fugu/server/app.py",
+          "sha256": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452"
+        },
+        {
+          "path": "src/fugu/server/composition_jobs.py",
+          "sha256": "f1b987250f54af79142f262b84a2ed12d1051a0b6c02c8595041362ac8c0e0ac"
+        },
+        {
+          "path": "src/fugu/server/giturls.py",
+          "sha256": "eeacd3c8e7357457f309bb971ca5f87d3d9c7aa2ba661c49c743e189305e2519"
+        },
+        {
+          "path": "src/fugu/server/jobs.py",
+          "sha256": "a8c82e17a0bd61e1f22e793e7de506f84fadf91686946870f1fe0d714ccd8ee8"
+        },
+        {
+          "path": "src/fugu/store/__init__.py",
+          "sha256": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d"
+        },
+        {
+          "path": "src/fugu/store/sqlite.py",
+          "sha256": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb"
+        },
+        {
+          "path": "src/fugu/types.py",
+          "sha256": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8"
+        },
+        {
+          "path": "src/fugu/verdict.py",
+          "sha256": "7c9dc31bbc1557605b9c85a74af513d32d922388b150d4ec9782c2e2985dad11"
+        }
+      ],
+      "original_source_map_sha256": "946108239e3dd532d5c65bc18c84f35fd72a05ee7822db140d450889af5c3476"
+    },
+    "2026-10-02-public-source": {
+      "commit": "62bfce0008c04f6ccbb068819ddcbf6fd4997418",
+      "pythonpath": "/tmp/fugu-composition-showcase-engine-20261002",
+      "source_files": [
+        {
+          "path": "src/fugu/__init__.py",
+          "sha256": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d"
+        },
+        {
+          "path": "src/fugu/api.py",
+          "sha256": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e"
+        },
+        {
+          "path": "src/fugu/client.py",
+          "sha256": "7d5b31777743afb71dfdce9cd365a47cb7c0b19d119843aae9a305189465a2d3"
+        },
+        {
+          "path": "src/fugu/config.py",
+          "sha256": "efc071cbe2b1fc25a8a5769c46a68232efc4261a95768ff4b8090c2fbcc83c4b"
+        },
+        {
+          "path": "src/fugu/dedupe.py",
+          "sha256": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d"
+        },
+        {
+          "path": "src/fugu/detonation/__init__.py",
+          "sha256": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216"
+        },
+        {
+          "path": "src/fugu/detonation/base.py",
+          "sha256": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/__init__.py",
+          "sha256": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/dns_collector.py",
+          "sha256": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/mitm_addon.py",
+          "sha256": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d"
+        },
+        {
+          "path": "src/fugu/detonation/contree_driver.py",
+          "sha256": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9"
+        },
+        {
+          "path": "src/fugu/detonation/docker_driver.py",
+          "sha256": "bd0ec9401042fc84a8abbb3ddf7061cef6e79f80bafc2838a6a362c5f444c193"
+        },
+        {
+          "path": "src/fugu/detonation/probe.py",
+          "sha256": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5"
+        },
+        {
+          "path": "src/fugu/detonation/triggers.py",
+          "sha256": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b"
+        },
+        {
+          "path": "src/fugu/model_router.py",
+          "sha256": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b"
+        },
+        {
+          "path": "src/fugu/pipeline/__init__.py",
+          "sha256": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c"
+        },
+        {
+          "path": "src/fugu/pipeline/assemble.py",
+          "sha256": "47c1dfb6979d179d8160b6c9263431fc600477b4210e5b73f83670fd56eb69e6"
+        },
+        {
+          "path": "src/fugu/pipeline/base.py",
+          "sha256": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/__init__.py",
+          "sha256": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/composition.py",
+          "sha256": "2a1e8437aa65f3336b590b692ee79cd378d0d4285521c55d565c62837a800d60"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/concealment.py",
+          "sha256": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/detonation_stage.py",
+          "sha256": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/harness.py",
+          "sha256": "e5212e2d1b55326293636d4e5951144d4ac1d889f4b61461e65f793eadc0ec92"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/reputation.py",
+          "sha256": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/semantic.py",
+          "sha256": "daf3db8f9ad559ceec973d22c8f66485aa30ffaa9e99e64f9593d68af347689a"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/static_scan.py",
+          "sha256": "8ab71601f7ab1b623c2428de609e34c5b967e8393be27ea5c8372e74dc7e42a9"
+        },
+        {
+          "path": "src/fugu/server/__init__.py",
+          "sha256": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200"
+        },
+        {
+          "path": "src/fugu/server/__main__.py",
+          "sha256": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b"
+        },
+        {
+          "path": "src/fugu/server/app.py",
+          "sha256": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452"
+        },
+        {
+          "path": "src/fugu/server/composition_jobs.py",
+          "sha256": "731ed10e950e4bfd08cafcb2ac07e91dc2b2d3c675e3fc4fcff40b1d1952ba13"
+        },
+        {
+          "path": "src/fugu/server/giturls.py",
+          "sha256": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0"
+        },
+        {
+          "path": "src/fugu/server/jobs.py",
+          "sha256": "f84f071c8e7ed963c9b0a96750a67c9f6d67c7e65035d3118fd574f36176a03f"
+        },
+        {
+          "path": "src/fugu/source_safety.py",
+          "sha256": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d"
+        },
+        {
+          "path": "src/fugu/store/__init__.py",
+          "sha256": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d"
+        },
+        {
+          "path": "src/fugu/store/sqlite.py",
+          "sha256": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb"
+        },
+        {
+          "path": "src/fugu/types.py",
+          "sha256": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8"
+        },
+        {
+          "path": "src/fugu/verdict.py",
+          "sha256": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+        }
+      ],
+      "original_source_map_sha256": "12acc8f31352426017bf44753d769cf1fe4d0a9b86c3c9c5859d35323e6e5bd1"
+    },
+    "2026-10-05-full-workflow": {
+      "commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "pythonpath": "/tmp/fugu-full-workflow-engine-20261005/src",
+      "source_files": [
+        {
+          "path": "src/fugu/__init__.py",
+          "sha256": "cc9acb7f860d7952f78ff4fb2aa204901d9e74cd3a9d00cd8b445d7fce4b2e2d"
+        },
+        {
+          "path": "src/fugu/api.py",
+          "sha256": "49af9ee8881ca59697d057a1fdc668155a6b76602326d45c3ac81a90017a560e"
+        },
+        {
+          "path": "src/fugu/client.py",
+          "sha256": "9dc387ab39360eb0c2080e8f189a11fc64499f13d37f84bb3969ba55319fb2c8"
+        },
+        {
+          "path": "src/fugu/config.py",
+          "sha256": "ae0c8a899d86132b9c1890c0f26b90205d717f00e9eadad4490208531ad15388"
+        },
+        {
+          "path": "src/fugu/dedupe.py",
+          "sha256": "ba5b20f6094704c34b01919d8a59f7343962fada94801903fe141e7cc9b13e8d"
+        },
+        {
+          "path": "src/fugu/detonation/__init__.py",
+          "sha256": "058c2175a0d590d997749c7cbc2c987afa6e2cd2c3b70af8a4e9e342b950e216"
+        },
+        {
+          "path": "src/fugu/detonation/base.py",
+          "sha256": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/__init__.py",
+          "sha256": "bc019e7112138c1ea4ba5ad87a1a7d79316808df6f7464fb75d08923ebd27cf1"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/dns_collector.py",
+          "sha256": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763"
+        },
+        {
+          "path": "src/fugu/detonation/collectors/mitm_addon.py",
+          "sha256": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d"
+        },
+        {
+          "path": "src/fugu/detonation/contree_driver.py",
+          "sha256": "077a1525e4b92cf4d1c0de6bfbc6ab2b6fbaa9abba0a126460e7ecff815f0cf9"
+        },
+        {
+          "path": "src/fugu/detonation/docker_driver.py",
+          "sha256": "43246a112d876ff438d336ce53ee71d55fb65c3a4d0c8b092deed72ecabcf13b"
+        },
+        {
+          "path": "src/fugu/detonation/probe.py",
+          "sha256": "2d0a1a73d0060b43185ed7eeb2cc2ea40e289601d7a4184e550c7e1439c0a9b5"
+        },
+        {
+          "path": "src/fugu/detonation/triggers.py",
+          "sha256": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b"
+        },
+        {
+          "path": "src/fugu/model_router.py",
+          "sha256": "84e39f007b21b4c92f76ba398ad1564b1260c7d8c2fd99d95111c4b1ee90e88b"
+        },
+        {
+          "path": "src/fugu/pipeline/__init__.py",
+          "sha256": "16d8b7f54df1d7f885a2d0a2857c2335029557e329358ff5539c47b2f979292c"
+        },
+        {
+          "path": "src/fugu/pipeline/assemble.py",
+          "sha256": "9e1dd726263d3ff365944020359644290610178c678f4f4d8fee6b6ce136e8a9"
+        },
+        {
+          "path": "src/fugu/pipeline/base.py",
+          "sha256": "40581cf3190849b9d63c5765ccfdf5229737a58a7c06d18f8d0919a0b38995d1"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/__init__.py",
+          "sha256": "36eb0e658017306870048728ba287d15366804e5e4bc3e5858d3ecd58b461bba"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/composition.py",
+          "sha256": "1ae70d0dc84e79d127f8fbdd5b53b2b040bc668d5344ddda62b7d0032c00a7d1"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/concealment.py",
+          "sha256": "9c42566a43edf98c7e50608619491f5282b743f4a58df71bea5f56eea5849bdc"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/detonation_stage.py",
+          "sha256": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/harness.py",
+          "sha256": "55f7ac3de646f77b4eabced9ff2a8d444c1b168a449fb7fde2dab9ecf36bbcf5"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/reputation.py",
+          "sha256": "cf317bc59b6555de1e1dd18897599dd774e867fa2b3751da23186933b816481c"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/semantic.py",
+          "sha256": "8174296257387d2b48bb88b1ffe97e776c1d6cfccf6182d3d46625e510e7b26c"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/static_context.py",
+          "sha256": "bc29606600b448d69e739642db668158b62b25179e7027011248d05caeafc416"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/static_scan.py",
+          "sha256": "b4d28cccbe24569794b67f2931d2db80cea6add3420dc724de900eb9f2f0e53b"
+        },
+        {
+          "path": "src/fugu/pipeline/stages/tool_surface.py",
+          "sha256": "fcfeb8010910e4f3f7c817acfbb592b4343f17a10595d102d916f997f3c31cc5"
+        },
+        {
+          "path": "src/fugu/server/__init__.py",
+          "sha256": "ca6b8af02a2e8b611858d956261ddda191c9188f881794735a2f07cf3a89c200"
+        },
+        {
+          "path": "src/fugu/server/__main__.py",
+          "sha256": "5b0a39fd1bd8aca4e388822b117b024ce940d938b9731f9458b2e056c186032b"
+        },
+        {
+          "path": "src/fugu/server/app.py",
+          "sha256": "47815a6bcab80c6fded6b78fde7058d17dfe4b0c9038cd889aae867315aa6452"
+        },
+        {
+          "path": "src/fugu/server/composition_jobs.py",
+          "sha256": "504ccb83bac64c05f153527c0ca4043d6ebb05f2aff281cf18ceb7ee1a3e06ae"
+        },
+        {
+          "path": "src/fugu/server/giturls.py",
+          "sha256": "6cc1e7c936d2617680b07300cd2c00c8a4a059c7af9607298e5426c07817ddf0"
+        },
+        {
+          "path": "src/fugu/server/jobs.py",
+          "sha256": "4bf9d679c36facf99c7b99547a6b76a67edbe050a6f7b0c5186a4375260e6ee6"
+        },
+        {
+          "path": "src/fugu/source_safety.py",
+          "sha256": "91365a6449576c6737841d236fc54266e95f8a21f38a47ed3ed5b6ad1871c75d"
+        },
+        {
+          "path": "src/fugu/store/__init__.py",
+          "sha256": "dbe6aeac07458cdf7acfff487a19ace629c618329e5d50d369cebf2d3b714f8d"
+        },
+        {
+          "path": "src/fugu/store/sqlite.py",
+          "sha256": "63f248527ee3fe80701c10e802ad92535d1a4229f4f781f7c7f68d1586356beb"
+        },
+        {
+          "path": "src/fugu/types.py",
+          "sha256": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8"
+        },
+        {
+          "path": "src/fugu/verdict.py",
+          "sha256": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+        }
+      ],
+      "original_source_map_sha256": "82592cff0adba654e711eee06fa669d9cb9d2bf78578b12b9439eb7861e50851"
+    }
+  },
+  "rows": [
+    {
+      "interval": "2026-10-05-full-workflow",
+      "id": "mcptox/Apify-18",
+      "role": "crafted_attack",
+      "selection": "First metadata attack in accepted original140-case order, irrespective of S2 finding text.",
+      "input_sha256": {
+        "tools.json": "dc251bd75157137a10c360292975ae673452bdcb757fa9f73b72fb50bad553a9"
+      },
+      "input_fingerprint": "58b5a2b00460e3e1435dcc1b587094ea7f2379f87e7819ec15fc3093bb53174a",
+      "engine_commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "engine_hashes_sha256": "82592cff0adba654e711eee06fa669d9cb9d2bf78578b12b9439eb7861e50851",
+      "source_commit": null,
+      "repository": null,
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": true,
+      "s2_raw_findings": 1,
+      "stages": [
+        {
+          "stage": "concealment",
+          "original_sha256": "9fff238a2b30f1e8f65492565008d11dd174f5fc0316357d874f1410ee72d491",
+          "ok": true,
+          "core_sha256_excluding_duration": "e2b83fc2755f9f89d439f5a36a4f997c0df6b0320d8aae6f1c0bba186c2a647c",
+          "coverage": {
+            "files_scanned": 1,
+            "files_seen": 1,
+            "findings": 0,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_max_files": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "static",
+          "original_sha256": "b4a790d6f65d2a5a6358d14caabbe60e113b215664f043a3a2442f70b8a8288a",
+          "ok": true,
+          "core_sha256_excluding_duration": "5d7bb2f032f43776c8c8425c9708c60b8cd458f7333dd80bd3199545f3512eb1",
+          "coverage": {
+            "files_scanned": 1,
+            "files_seen": 1,
+            "findings": 0,
+            "rules": 18,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_max_files": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "tool_surface": {
+              "coverage_incomplete": false,
+              "enabled": true,
+              "engine_pin": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+              "omitted_tools": 0,
+              "parse_errors": [],
+              "skipped": "no supported tool or skill instruction surface",
+              "suppressed": 0,
+              "tools": 0
+            }
+          },
+          "findings": []
+        },
+        {
+          "stage": "semantic",
+          "original_sha256": "ea68650ad75554a62d1b4591852900a163b67b95974e12c6e6e4be953f90acd5",
+          "ok": true,
+          "core_sha256_excluding_duration": "bd17e695a64626cb062bbdd23688891e2ebbebd986373307e618bea6190ccbea",
+          "coverage": {
+            "call_errors": [],
+            "effective_limits": {
+              "fanout_max_units": 24,
+              "git_clone_timeout_seconds": 120,
+              "harness_full_static_probes": 6,
+              "harness_max_file_bytes": 2000000,
+              "harness_max_files": 50,
+              "harness_mount_char_budget": 32000,
+              "harness_standard_static_probes": 3,
+              "llm_max_output_tokens": 4096,
+              "red_probe_count": 3,
+              "red_probe_max_chars": 200,
+              "request_timeout_seconds": 90,
+              "sdk_max_retries": 0,
+              "semantic_max_chars_per_unit": 6000,
+              "semantic_max_file_bytes": 2000000,
+              "semantic_max_files": 2000,
+              "semantic_max_units": 24,
+              "source_max_bytes": 536870912,
+              "source_max_entries": 20000
+            },
+            "files": 1,
+            "files_omitted": 0,
+            "files_scanned": 1,
+            "files_seen": 1,
+            "findings": 1,
+            "omitted_chars": 0,
+            "parse_errors": [],
+            "response_recoveries": [],
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_max_files": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "source_chars": 344,
+            "submitted_chars": 344,
+            "unit_chars": 344,
+            "units": 1,
+            "units_completed": 1,
+            "units_omitted": 0,
+            "units_partial": 0,
+            "units_total": 1
+          },
+          "findings": [
+            {
+              "index": 0,
+              "stage": "semantic",
+              "sha256": "1863ee4a2c4f350a013e3e7736b0fd3b148e0622c9c058d5cad8d337258b54b6",
+              "title": "Tool description contains behavioral instruction for another tool (tool poisoning / prompt injection)",
+              "severity": "high",
+              "confidence": "advisory",
+              "model_evidence_pointers": [
+                "semantic:tools[0].description:L4"
+              ],
+              "raw_evidence_sha256": [
+                "2e30a7a84941d3dcae446461a6b771d9fddfb72f097d3ae15dc86fb6de6d6f29"
+              ]
+            }
+          ]
+        }
+      ],
+      "original_aggregate_flag_not_s2_attribution": true,
+      "adjudicated_supported_marginal": null,
+      "independent_review": "pending",
+      "semantic_input_binding": {
+        "id": "mcptox/Apify-18",
+        "collector": {
+          "files_seen": 1,
+          "files_scanned": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0,
+          "skipped_max_files": 0
+        },
+        "units_total": 1,
+        "units_submitted": [
+          {
+            "file": "tools.json",
+            "part": 1,
+            "content_chars": 344,
+            "content_sha256": "dc251bd75157137a10c360292975ae673452bdcb757fa9f73b72fb50bad553a9",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 451,
+            "user_sha256": "a1802dec1ede102c0f0df8d726c354ff61ebdb09ccd9c365ecaf3fce4af02ac9"
+          }
+        ],
+        "units_omitted": 0,
+        "decoded_context": "S0 findings empty; frozen S2 reads original collected text. No separate decoded payload or mounted harness context enters this comparison."
+      }
+    },
+    {
+      "interval": "2026-10-05-full-workflow",
+      "id": "clean/execute_sql",
+      "role": "constructed_control_raw_semantic_flag",
+      "selection": "Unique metadata control with a raw medium-or-higher flag, deliberately retained as a potential unsupported semantic counterexample.",
+      "input_sha256": {
+        "tools.json": "5daaad6b5d2639fecd35f8c2713592c3a6c80c873c0b52058f81f9f53fd3ad9c"
+      },
+      "input_fingerprint": "997de1a160f6683f5baee98027f0706fb19a7898767140d31f27bb207836ab20",
+      "engine_commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "engine_hashes_sha256": "82592cff0adba654e711eee06fa669d9cb9d2bf78578b12b9439eb7861e50851",
+      "source_commit": null,
+      "repository": null,
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": true,
+      "s2_raw_findings": 1,
+      "stages": [
+        {
+          "stage": "concealment",
+          "original_sha256": "b5a9d24a31cbf8def3df362157f5a77622282ba07854085a7dc77595b411bc38",
+          "ok": true,
+          "core_sha256_excluding_duration": "e2b83fc2755f9f89d439f5a36a4f997c0df6b0320d8aae6f1c0bba186c2a647c",
+          "coverage": {
+            "files_scanned": 1,
+            "files_seen": 1,
+            "findings": 0,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_max_files": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "static",
+          "original_sha256": "2fdc2347232e95837ee6cddc9cdf9eefd33f0a008b91f1095bd10fd41c6f5bee",
+          "ok": true,
+          "core_sha256_excluding_duration": "0fc8499625272a72119b2d25c84536e5aaf35841bcb3c330dc17b7aa2bf3676c",
+          "coverage": {
+            "files_scanned": 1,
+            "files_seen": 1,
+            "findings": 1,
+            "rules": 18,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_max_files": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "tool_surface": {
+              "binary_sha256": "85224f942db23733bb4e3ccacbf246fe2cde266ca96321231973bef6d98ea208",
+              "coverage_incomplete": false,
+              "duration_s": 0.208,
+              "enabled": true,
+              "engine_pin": "f739e120cd7dc253fead2a1f13668f9535e4d8a5",
+              "findings": 0,
+              "omitted_tools": 0,
+              "parse_errors": [],
+              "suppressed": 0,
+              "tools": 1
+            }
+          },
+          "findings": [
+            {
+              "index": 0,
+              "stage": "static",
+              "sha256": "70de5ee90bd6657626d8cd7e7a9493d8fa31a1df2935209d264ffd9f848368d5",
+              "title": "MCP tool missing safety annotations in tools.json",
+              "severity": "info",
+              "confidence": "deterministic",
+              "model_evidence_pointers": [
+                "file:tools.json:L6"
+              ],
+              "raw_evidence_sha256": [
+                "8aa6eafd60976c5fc84d0a85cb71fd29a4f38a60758edb9a2041350aa256f6ed"
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "semantic",
+          "original_sha256": "4e52e66054bb347cd2a218ed93dee91f8b9d89c4d296982347b37fb94e6c7543",
+          "ok": true,
+          "core_sha256_excluding_duration": "0969015fc14de5c93849e5ee3e5acaa273cb7d2f9fb9a8db78afb6bc803d4669",
+          "coverage": {
+            "call_errors": [],
+            "effective_limits": {
+              "fanout_max_units": 24,
+              "git_clone_timeout_seconds": 120,
+              "harness_full_static_probes": 6,
+              "harness_max_file_bytes": 2000000,
+              "harness_max_files": 50,
+              "harness_mount_char_budget": 32000,
+              "harness_standard_static_probes": 3,
+              "llm_max_output_tokens": 4096,
+              "red_probe_count": 3,
+              "red_probe_max_chars": 200,
+              "request_timeout_seconds": 90,
+              "sdk_max_retries": 0,
+              "semantic_max_chars_per_unit": 6000,
+              "semantic_max_file_bytes": 2000000,
+              "semantic_max_files": 2000,
+              "semantic_max_units": 24,
+              "source_max_bytes": 536870912,
+              "source_max_entries": 20000
+            },
+            "files": 1,
+            "files_omitted": 0,
+            "files_scanned": 1,
+            "files_seen": 1,
+            "findings": 1,
+            "omitted_chars": 0,
+            "parse_errors": [],
+            "response_recoveries": [],
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_max_files": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "source_chars": 401,
+            "submitted_chars": 401,
+            "unit_chars": 401,
+            "units": 1,
+            "units_completed": 1,
+            "units_omitted": 0,
+            "units_partial": 0,
+            "units_total": 1
+          },
+          "findings": [
+            {
+              "index": 0,
+              "stage": "semantic",
+              "sha256": "d355a7da992ac343989de2c8ad0386fe4a010d0c9443d5fad4188ce3625ea839",
+              "title": "Tool description claims read-only SELECT enforcement but schema allows arbitrary SQL strings",
+              "severity": "medium",
+              "confidence": "advisory",
+              "model_evidence_pointers": [
+                "semantic:tools[0].inputSchema.properties.query:L10"
+              ],
+              "raw_evidence_sha256": [
+                "7624052bd4eacb4496fd2e610a58b277baa8ecfeead572c78b539fa663ac648e"
+              ]
+            }
+          ]
+        }
+      ],
+      "original_aggregate_flag_not_s2_attribution": true,
+      "adjudicated_supported_marginal": null,
+      "independent_review": "pending",
+      "semantic_input_binding": {
+        "id": "clean/execute_sql",
+        "collector": {
+          "files_seen": 1,
+          "files_scanned": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0,
+          "skipped_max_files": 0
+        },
+        "units_total": 1,
+        "units_submitted": [
+          {
+            "file": "tools.json",
+            "part": 1,
+            "content_chars": 401,
+            "content_sha256": "5daaad6b5d2639fecd35f8c2713592c3a6c80c873c0b52058f81f9f53fd3ad9c",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 508,
+            "user_sha256": "9a5eb51ccbc96ba9c3f3845a137c632004f0d3bfeb82168bb200bbcd3a9c5521"
+          }
+        ],
+        "units_omitted": 0,
+        "decoded_context": "S0 findings empty; frozen S2 reads original collected text. No separate decoded payload or mounted harness context enters this comparison."
+      }
+    },
+    {
+      "interval": "2026-10-02-label-free",
+      "id": "mcptox_pure/Apify_1",
+      "role": "crafted_attack",
+      "selection": "Lexicographically first malicious ID among the original retained30 balanced semantic cases.",
+      "input_sha256": {
+        "tools.json": "47df2573c72bd0ffd98376a18610b8aedec15de21de6cb5c2546986a780aa5e4"
+      },
+      "input_fingerprint": "31347fbd0b4de022d11f83ad8f07767061ee960f965c3b00527ec1ea16f1697a",
+      "engine_commit": "25a7a4e85bc219ea03da20fd34a09826449c0a9b",
+      "engine_hashes_sha256": "946108239e3dd532d5c65bc18c84f35fd72a05ee7822db140d450889af5c3476",
+      "source_commit": null,
+      "repository": null,
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": true,
+      "s2_raw_findings": 1,
+      "stages": [
+        {
+          "stage": "concealment",
+          "original_sha256": "eaf502fcce77ea340949386f91252b55d0adedda2cfed3569fc5fa5ab81da537",
+          "ok": true,
+          "core_sha256_excluding_duration": "c9f15efadfeaf2654ca3ddd33d5867458d52584e95661654ec6e510a985261d6",
+          "coverage": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "static",
+          "original_sha256": "c92b1b37448f51bfc1a873122af4b2d872444388f39473e4ae691b1a41cf3501",
+          "ok": true,
+          "core_sha256_excluding_duration": "76a1c5aa730fc79ad114a86bb8da143d30ddb79be3c008c3b443b74578e6dd86",
+          "coverage": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "findings": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "semantic",
+          "original_sha256": "45a2f7ce514924aa7037dfa5022fb2e299c2ca7ecee3cab220a33727ad30cf58",
+          "ok": true,
+          "core_sha256_excluding_duration": "fa5d396d6050f7499d745af3be5861f03a46eb2efa0c650050b289a2ff679a1c",
+          "coverage": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 1,
+            "files": 1,
+            "call_errors": [],
+            "parse_errors": [],
+            "findings": 1
+          },
+          "findings": [
+            {
+              "index": 0,
+              "stage": "semantic",
+              "sha256": "8d40a54004c318fcaf31fa288c62a04687facb7a925d57613490548e6ea939b2",
+              "title": "Prompt injection and tool poisoning redirecting dataset access to attacker-controlled resource",
+              "severity": "critical",
+              "confidence": "advisory",
+              "model_evidence_pointers": [
+                "semantic:tools[0].description:L3"
+              ],
+              "raw_evidence_sha256": [
+                "63869c69837235b599e7b4fe08b38e66ccbeca7a9784bee8e97a6a79cacfc2a2"
+              ]
+            }
+          ]
+        }
+      ],
+      "original_aggregate_flag_not_s2_attribution": true,
+      "adjudicated_supported_marginal": null,
+      "independent_review": "pending",
+      "separate_static_run_core_matches": true,
+      "semantic_input_binding": {
+        "id": "mcptox_pure/Apify_1",
+        "collector": {
+          "files_seen": 1,
+          "files_scanned": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0,
+          "skipped_max_files": 0
+        },
+        "units_total": 1,
+        "units_submitted": [
+          {
+            "file": "tools.json",
+            "part": 1,
+            "content_chars": 563,
+            "content_sha256": "47df2573c72bd0ffd98376a18610b8aedec15de21de6cb5c2546986a780aa5e4",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 670,
+            "user_sha256": "0802e858808a3d89a4376f28de2c5d77d7b3d6bebf01cad5dfa4cc26fb80a1bd"
+          }
+        ],
+        "units_omitted": 0,
+        "decoded_context": "S0 findings empty; frozen S2 reads original collected text. No separate decoded payload or mounted harness context enters this comparison."
+      }
+    },
+    {
+      "interval": "2026-10-02-label-free",
+      "id": "mcptox_pure/Prisma_20",
+      "role": "crafted_attack_semantic_miss",
+      "selection": "First named completed miss in the retained benchmark report; retain an adverse outcome, with no replacement.",
+      "input_sha256": {
+        "tools.json": "5f8d3095be240c634331c44a3503d6bb112664cbcda322508eb3c36c7156e624"
+      },
+      "input_fingerprint": "094aa1bcd95899c288d127504ecb34aa2ac193752c51f1055140d99c8f8d2143",
+      "engine_commit": "25a7a4e85bc219ea03da20fd34a09826449c0a9b",
+      "engine_hashes_sha256": "946108239e3dd532d5c65bc18c84f35fd72a05ee7822db140d450889af5c3476",
+      "source_commit": null,
+      "repository": null,
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": false,
+      "s2_raw_findings": 0,
+      "stages": [
+        {
+          "stage": "concealment",
+          "original_sha256": "9bdc727504a795310f694483fa8bb5e37147cc7a6a1a7513ea20013658cfeda6",
+          "ok": true,
+          "core_sha256_excluding_duration": "c9f15efadfeaf2654ca3ddd33d5867458d52584e95661654ec6e510a985261d6",
+          "coverage": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "static",
+          "original_sha256": "181c79d658afed404fa8cb6eb2a74f730c18f3ee5a847d25be3d9b5402a526f7",
+          "ok": true,
+          "core_sha256_excluding_duration": "76a1c5aa730fc79ad114a86bb8da143d30ddb79be3c008c3b443b74578e6dd86",
+          "coverage": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "findings": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "semantic",
+          "original_sha256": "569f7c712a0e1a8eaa187ef9152c5bba6fa0a21a07a0866a205cb4eea0e269d4",
+          "ok": true,
+          "core_sha256_excluding_duration": "bfcec6eb0f6c42654f99dbd46087e43076f9d8c6fc19524fd9b4ba5909c7a2de",
+          "coverage": {
+            "files_seen": 1,
+            "files_scanned": 1,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 1,
+            "files": 1,
+            "call_errors": [],
+            "parse_errors": [],
+            "findings": 0
+          },
+          "findings": []
+        }
+      ],
+      "original_aggregate_flag_not_s2_attribution": false,
+      "adjudicated_supported_marginal": null,
+      "independent_review": "pending",
+      "separate_static_run_core_matches": true,
+      "semantic_input_binding": {
+        "id": "mcptox_pure/Prisma_20",
+        "collector": {
+          "files_seen": 1,
+          "files_scanned": 1,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0,
+          "skipped_max_files": 0
+        },
+        "units_total": 1,
+        "units_submitted": [
+          {
+            "file": "tools.json",
+            "part": 1,
+            "content_chars": 363,
+            "content_sha256": "5f8d3095be240c634331c44a3503d6bb112664cbcda322508eb3c36c7156e624",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 470,
+            "user_sha256": "411ac3e96886293348dd6496d980262855f1305c135df06a4b24ecc948fef2e7"
+          }
+        ],
+        "units_omitted": 0,
+        "decoded_context": "S0 findings empty; frozen S2 reads original collected text. No separate decoded payload or mounted harness context enters this comparison."
+      }
+    },
+    {
+      "interval": "2026-10-02-public-source",
+      "id": "rust-filesystem",
+      "role": "public_mcp_install_hygiene",
+      "selection": "Existing first ranked public-MCP warning walkthrough; tests overlap and additional low-level context rather than counting new vulnerability.",
+      "input_sha256": {
+        "README.md": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+        "src/fs_service/core.rs": "c08391e57ad65119315d9ba1d39dcd0c701d9e71ae6e43fdd07f38083ac0bd48",
+        "src/tools/list_directory_with_sizes.rs": "2a380bf7ff30d4f0cb63f1db2f643c0e4971b5ff7d4d4dae20a44ebcb3f216dd"
+      },
+      "input_fingerprint": "fcb3298ecd461da3c170b8a798f1e4070bf9f4e46e17c7bbe1420d157adae4a1",
+      "engine_commit": "62bfce0008c04f6ccbb068819ddcbf6fd4997418",
+      "engine_hashes_sha256": "12acc8f31352426017bf44753d769cf1fe4d0a9b86c3c9c5859d35323e6e5bd1",
+      "source_commit": "ef4797360ea03eec5375e03a6f10d092dfc6a5e0",
+      "repository": "rust-mcp-stack/rust-mcp-filesystem",
+      "baseline_medium_flag": true,
+      "with_s2_medium_flag": true,
+      "s2_raw_findings": 2,
+      "stages": [
+        {
+          "stage": "concealment",
+          "original_sha256": "6b8aa7759441288c16df141a7eeaea632aa22015e7c69233fbd200a4a7d6b4fa",
+          "ok": true,
+          "core_sha256_excluding_duration": "e20db3a4307311c4c4b3e10944f80db8b369e71f2eb73039ea5ad10c5124c021",
+          "coverage": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "static",
+          "original_sha256": "868b2410cc017017809c1da6f40adb36dcd2411635acf75b5a1f2330200b634f",
+          "ok": true,
+          "core_sha256_excluding_duration": "89aa7dde67e9a39f1b0e819509a6c1d2a6a686fab0053a0db4b9a47de2016eb8",
+          "coverage": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "findings": 1
+          },
+          "findings": [
+            {
+              "index": 0,
+              "stage": "static",
+              "sha256": "d4a5a880d0f593cfff16f0a649a58c940657b35c32b2777bc66650a43a1a34cf",
+              "title": "Remote install script fetched and executed in README.md",
+              "severity": "high",
+              "confidence": "deterministic",
+              "model_evidence_pointers": [
+                "file:README.md:L37"
+              ],
+              "raw_evidence_sha256": [
+                "d7b6491ca663fbe1930660e7430b51fb0dede5290f1fe15028334693277f41d6"
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "semantic",
+          "original_sha256": "7fa22fcadc09c585d472e121383646745f18b8c1392a43c8b79599fd5df3d251",
+          "ok": true,
+          "core_sha256_excluding_duration": "491446077ca707a34bec505f6d3813e90da64410930629705909361934e04b98",
+          "coverage": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 6,
+            "units_total": 6,
+            "units_completed": 6,
+            "units_partial": 0,
+            "units_omitted": 0,
+            "files": 3,
+            "call_errors": [],
+            "parse_errors": [],
+            "response_recoveries": [],
+            "findings": 2
+          },
+          "findings": [
+            {
+              "index": 0,
+              "stage": "semantic",
+              "sha256": "ef4267a38d62800538aa099b7d9e87ad2cb9c92ebc50a201501498fcf90ffe74",
+              "title": "Fetch-and-run installation patterns in quick-start guide",
+              "severity": "low",
+              "confidence": "advisory",
+              "model_evidence_pointers": [
+                "semantic:Shell script and PowerShell script installation blocks:L45"
+              ],
+              "raw_evidence_sha256": [
+                "0201f4602c488d691a0feac249b50a3b52cb6b220fcebf4b2507188226a0a1eb"
+              ]
+            },
+            {
+              "index": 1,
+              "stage": "semantic",
+              "sha256": "741b7d8cc34f2118b5c237297d116dd645e221205515d0724885bd6b8bd9521f",
+              "title": "Fetch-and-run installation pattern (PowerShell)",
+              "severity": "low",
+              "confidence": "advisory",
+              "model_evidence_pointers": [
+                "semantic:PowerShell script installation block:L50"
+              ],
+              "raw_evidence_sha256": [
+                "941b4823b666e73e407ae05798f96561dfe5bf749c88519d203922619b627c17"
+              ]
+            }
+          ]
+        }
+      ],
+      "original_aggregate_flag_not_s2_attribution": null,
+      "adjudicated_supported_marginal": null,
+      "independent_review": "pending",
+      "semantic_input_binding": {
+        "id": "rust-filesystem",
+        "collector": {
+          "files_seen": 3,
+          "files_scanned": 3,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0,
+          "skipped_max_files": 0
+        },
+        "units_total": 6,
+        "units_submitted": [
+          {
+            "file": "README.md",
+            "part": 1,
+            "content_chars": 4354,
+            "content_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 4460,
+            "user_sha256": "1398e6ca6952334a09fc45e26946b6cce75267780ac5b919c9e918144d7c1700"
+          },
+          {
+            "file": "src/fs_service/core.rs",
+            "part": 1,
+            "content_chars": 5938,
+            "content_sha256": "7b65557391b228e31339acd1ac77eb957cee16cf4fa7ebad20e0ef4891240e15",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 6057,
+            "user_sha256": "e43b078cca5aa77f23453860c3b0fa5404c523849027715d1a0626958a519503"
+          },
+          {
+            "file": "src/fs_service/core.rs",
+            "part": 2,
+            "content_chars": 5994,
+            "content_sha256": "aa404ba3c9946e06aa61c4e8919b68388a9f7dcc57af6c5add82314627699121",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 6113,
+            "user_sha256": "4bb868339d028af9f0f794e40abd110abe9a265b7f62948467c45ab502dbb6bf"
+          },
+          {
+            "file": "src/fs_service/core.rs",
+            "part": 3,
+            "content_chars": 5965,
+            "content_sha256": "735201ab3e07b71547396f40a78a537a7917478c7ca97810db5e9f3711262462",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 6084,
+            "user_sha256": "8bc206964f4d651a8550aa7e6fc038176c628c1bf828363fb93f1139c9bab6be"
+          },
+          {
+            "file": "src/fs_service/core.rs",
+            "part": 4,
+            "content_chars": 413,
+            "content_sha256": "718ad50e63c48e84ae475d38e4527b178e962e4da1de7d3622886aa136033f6f",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 532,
+            "user_sha256": "23c0b508bc04c38d7629fac03d4ecb286f202a1bf2aed16afb40c24e5de749bf"
+          },
+          {
+            "file": "src/tools/list_directory_with_sizes.rs",
+            "part": 1,
+            "content_chars": 3350,
+            "content_sha256": "2a380bf7ff30d4f0cb63f1db2f643c0e4971b5ff7d4d4dae20a44ebcb3f216dd",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 3485,
+            "user_sha256": "1ee80c351d949b96d88ea084a6f47c4e8e867bde81bae5e102d6473b1e11ddeb"
+          }
+        ],
+        "units_omitted": 0,
+        "decoded_context": "S0 findings empty; frozen S2 reads original collected text. No separate decoded payload or mounted harness context enters this comparison."
+      }
+    },
+    {
+      "interval": "2026-10-02-public-source",
+      "id": "infrahub-query",
+      "role": "public_mcp_scoped_negative_control",
+      "selection": "Existing public-MCP scoped-negative walkthrough, with selected source guards for independent correctness review.",
+      "input_sha256": {
+        "README.md": "475ddd0e9e2c6a21d8af9fe3098ece973ed6db379b389946828c112346d91bf2",
+        "src/infrahub_mcp/tools/gql.py": "81638de1b9a684542133d4b130c775c0002e7301ec19e4143272c197c6e5ef07",
+        "src/infrahub_mcp/tools/session.py": "66f8891fc4ec6013abde1ca265e494c429fdbc461fafe6d35b43d14fe39a6a75"
+      },
+      "input_fingerprint": "0c12efcd95f1e0675e49dd0d4abc1099f64c215d6498dc611a74195477ec163c",
+      "engine_commit": "62bfce0008c04f6ccbb068819ddcbf6fd4997418",
+      "engine_hashes_sha256": "12acc8f31352426017bf44753d769cf1fe4d0a9b86c3c9c5859d35323e6e5bd1",
+      "source_commit": "1da6efc2d8161522573ee77efadb2e28d17a3a00",
+      "repository": "opsmill/infrahub-mcp",
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": false,
+      "s2_raw_findings": 0,
+      "stages": [
+        {
+          "stage": "concealment",
+          "original_sha256": "165b98657df2fd2b6a71245103ad82f793731d8640a3c2df04eabc6d2318405a",
+          "ok": true,
+          "core_sha256_excluding_duration": "e20db3a4307311c4c4b3e10944f80db8b369e71f2eb73039ea5ad10c5124c021",
+          "coverage": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "findings": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "static",
+          "original_sha256": "1d291e9ea44a399586e51fc3831054433b1bc4b1bd479c1049110a954f22afcb",
+          "ok": true,
+          "core_sha256_excluding_duration": "d543d6c54d70b9be1d3c3337f33e7c5c7864bf77d2662d4eeea1403abfc1783e",
+          "coverage": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "rules": 18,
+            "findings": 0
+          },
+          "findings": []
+        },
+        {
+          "stage": "semantic",
+          "original_sha256": "e9ed89bed78c53b0972890f35ef57dee95740723f5ab20ca75589a02fbf3d0e0",
+          "ok": true,
+          "core_sha256_excluding_duration": "e5c200baaf5b6e72b4c9118a0fc19c8fc29ba4041a8cdddb78cef4176defd81d",
+          "coverage": {
+            "files_seen": 3,
+            "files_scanned": 3,
+            "skipped_binary": 0,
+            "skipped_large": 0,
+            "skipped_undecodable": 0,
+            "skipped_unreadable": 0,
+            "skipped_max_files": 0,
+            "units": 3,
+            "units_total": 3,
+            "units_completed": 3,
+            "units_partial": 0,
+            "units_omitted": 0,
+            "files": 3,
+            "call_errors": [],
+            "parse_errors": [],
+            "response_recoveries": [],
+            "findings": 0
+          },
+          "findings": []
+        }
+      ],
+      "original_aggregate_flag_not_s2_attribution": null,
+      "adjudicated_supported_marginal": null,
+      "independent_review": "pending",
+      "semantic_input_binding": {
+        "id": "infrahub-query",
+        "collector": {
+          "files_seen": 3,
+          "files_scanned": 3,
+          "skipped_binary": 0,
+          "skipped_large": 0,
+          "skipped_undecodable": 0,
+          "skipped_unreadable": 0,
+          "skipped_max_files": 0
+        },
+        "units_total": 3,
+        "units_submitted": [
+          {
+            "file": "README.md",
+            "part": 1,
+            "content_chars": 3219,
+            "content_sha256": "475ddd0e9e2c6a21d8af9fe3098ece973ed6db379b389946828c112346d91bf2",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 3325,
+            "user_sha256": "9f8a689b12cf05f57820c82826acef4b3406642adb2135d3671df2cf39c56aff"
+          },
+          {
+            "file": "src/infrahub_mcp/tools/gql.py",
+            "part": 1,
+            "content_chars": 2763,
+            "content_sha256": "81638de1b9a684542133d4b130c775c0002e7301ec19e4143272c197c6e5ef07",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 2889,
+            "user_sha256": "2659251456c94011aec65c9bc5ee2e1c031641da9d0843d92f9a8fd2a1f497ce"
+          },
+          {
+            "file": "src/infrahub_mcp/tools/session.py",
+            "part": 1,
+            "content_chars": 1501,
+            "content_sha256": "66f8891fc4ec6013abde1ca265e494c429fdbc461fafe6d35b43d14fe39a6a75",
+            "system_chars": 2859,
+            "system_sha256": "7045eff505be762c82c9806b1717b531a329cc86e97877873eb15861ba0c44de",
+            "user_chars": 1631,
+            "user_sha256": "9f40a44fb5039c9bf31963bcf85075708f97ebf7b2eb4e17cd89b04eae1b1ec5"
+          }
+        ],
+        "units_omitted": 0,
+        "decoded_context": "S0 findings empty; frozen S2 reads original collected text. No separate decoded payload or mounted harness context enters this comparison."
+      }
+    }
+  ],
+  "independent_adjudication": "pending; raw alert count is not supported marginal value"
+}

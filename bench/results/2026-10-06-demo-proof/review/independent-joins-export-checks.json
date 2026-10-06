@@ -1,0 +1,135 @@
+{
+  "engines": [
+    {
+      "interval": "2026-10-02-label-free",
+      "engine_commit": "25a7a4e85bc219ea03da20fd34a09826449c0a9b",
+      "python_sources_matched": 36,
+      "map_sha256": "946108239e3dd532d5c65bc18c84f35fd72a05ee7822db140d450889af5c3476"
+    },
+    {
+      "interval": "2026-10-02-public-source",
+      "engine_commit": "62bfce0008c04f6ccbb068819ddcbf6fd4997418",
+      "python_sources_matched": 37,
+      "map_sha256": "12acc8f31352426017bf44753d769cf1fe4d0a9b86c3c9c5859d35323e6e5bd1"
+    },
+    {
+      "interval": "2026-10-05-full-workflow",
+      "engine_commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "python_sources_matched": 39,
+      "map_sha256": "82592cff0adba654e711eee06fa669d9cb9d2bf78578b12b9439eb7861e50851"
+    }
+  ],
+  "wire_stage_joins": [
+    {
+      "id": "mcptox/Apify-18",
+      "calls": 1,
+      "retained_wire_responses": 1,
+      "stage_findings": 1
+    },
+    {
+      "id": "clean/execute_sql",
+      "calls": 1,
+      "retained_wire_responses": 1,
+      "stage_findings": 1
+    },
+    {
+      "id": "mcptox_pure/Apify_1",
+      "calls": 1,
+      "retained_wire_responses": 0,
+      "stage_findings": 1
+    },
+    {
+      "id": "mcptox_pure/Prisma_20",
+      "calls": 1,
+      "retained_wire_responses": 0,
+      "stage_findings": 0
+    },
+    {
+      "id": "rust-filesystem",
+      "calls": 6,
+      "retained_wire_responses": 6,
+      "stage_findings": 2
+    },
+    {
+      "id": "infrahub-query",
+      "calls": 3,
+      "retained_wire_responses": 3,
+      "stage_findings": 0
+    }
+  ],
+  "publication": {
+    "files_checked": 17,
+    "pattern_hits_without_values": [
+      {
+        "path": "bench/results/2026-10-06-demo-proof/execution/synthetic-coverage-check.py",
+        "pattern": "generic_inert_canary_fixture",
+        "line": 47
+      }
+    ],
+    "relative_links": [
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/execution/inventory.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/execution/trigger-derivation-check.py",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/execution/plan.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/execution/inventory.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/execution/checks.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/semantic/plan.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/semantic/measurement/comparison.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/semantic/assessments.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/semantic/measurement/telemetry.jsonl",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/semantic/measurement/checks.json",
+        "exists": true
+      },
+      {
+        "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+        "target": "../../../../bench/results/2026-10-06-demo-proof/semantic/inventory.json",
+        "exists": true
+      }
+    ],
+    "forbidden_payload_keys": 0,
+    "syntax": "Python 3.10 AST only"
+  },
+  "historical_tokens": {
+    "prompt_tokens": 17639,
+    "completion_tokens": 10686
+  },
+  "historical_sum_latency_s": 40.08,
+  "new_provider_or_target_calls": 0
+}

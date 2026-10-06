@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "protocol": "retained-s0-s1-versus-s2-demo-v1",
+  "created_utc": "2026-10-06T09:35:36.880485+00:00",
+  "owner_queue": "qitem-20261006-demo-semantic",
+  "parent_queue": "qitem-20261006-fugu-demo-proof-nemotron",
+  "fixed_packet": [
+    {
+      "interval": "2026-10-05-full-workflow",
+      "id": "mcptox/Apify-18",
+      "role": "crafted_attack",
+      "selection": "First metadata attack in accepted original140-case order, irrespective of S2 finding text."
+    },
+    {
+      "interval": "2026-10-05-full-workflow",
+      "id": "clean/execute_sql",
+      "role": "constructed_control_raw_semantic_flag",
+      "selection": "Unique metadata control with a raw medium-or-higher flag, deliberately retained as a potential unsupported semantic counterexample."
+    },
+    {
+      "interval": "2026-10-02-label-free",
+      "id": "mcptox_pure/Apify_1",
+      "role": "crafted_attack",
+      "selection": "Lexicographically first malicious ID among the original retained30 balanced semantic cases."
+    },
+    {
+      "interval": "2026-10-02-label-free",
+      "id": "mcptox_pure/Prisma_20",
+      "role": "crafted_attack_semantic_miss",
+      "selection": "First named completed miss in the retained benchmark report; retain an adverse outcome, with no replacement."
+    },
+    {
+      "interval": "2026-10-02-public-source",
+      "id": "rust-filesystem",
+      "role": "public_mcp_install_hygiene",
+      "selection": "Existing first ranked public-MCP warning walkthrough; tests overlap and additional low-level context rather than counting new vulnerability."
+    },
+    {
+      "interval": "2026-10-02-public-source",
+      "id": "infrahub-query",
+      "role": "public_mcp_scoped_negative_control",
+      "selection": "Existing public-MCP scoped-negative walkthrough, with selected source guards for independent correctness review."
+    }
+  ],
+  "packet_size": 6,
+  "new_inference_permitted_for_this_plan": false,
+  "new_sdk_dispatches_planned": 0,
+  "new_searches_planned": 0,
+  "selection_prior_visibility": "All historical results/reports were already visible. Stage counts/titles were inspected before this post-hoc illustrative packet; no blind selection, population rate or favorable-result replacement is claimed. Deliberate negative/flagged-control/public overlap selections are diagnostic strata.",
+  "comparison": "Within each retained interval, subset the same original S0/S1 stage objects and source input; add only original S2. Exclude S3/S4/S5/composition/competitors. Different engines/packets are not pooled into accuracy or causal estimates.",
+  "threshold": "any medium/high/critical finding; original labels remain advisory where recorded; separate source-supported install triage from raw flags.",
+  "raw_policy": "Raw source/prompts/replies/finding bodies stay in original private or existing retained artifacts; new public exports contain hashes, safe summaries, source spans and metadata only.",
+  "review": "Owner assessments provisional; selected lead-dispatched independent review evaluates every selected finding and control after both writer releases.",
+  "no_execution": "No upstream imports, auditee/chamber execution, credential/canary use or inference/search dispatch. Prior native refusals are not resumed."
+}

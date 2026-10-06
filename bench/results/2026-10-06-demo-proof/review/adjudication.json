@@ -1,0 +1,308 @@
+{
+  "schema": 1,
+  "reviewer": "quality.reviewer",
+  "assignment": "qitem-20261006-demo-proof-review",
+  "current_engine_checkpoint": "d21543e927a1b67a21eab0e2e23ef9105f66733e",
+  "reviewed_plan_sha256": "a4f8c6bce43155e237c1d08383af7e7da6723764f62348d5cbc2606f5a45341d",
+  "reviewed_comparison_sha256": "d5bc0aafb9bc654056bc59eb066f5698ad0857c21d0e8b037c0ecb5880ccd200",
+  "scope": "Independent source judgments; original outputs and owner null fields unchanged. Post-hoc illustrative retained packet, with separate frozen engines.",
+  "rows": [
+    {
+      "id": "mcptox/Apify-18",
+      "interval": "2026-10-05-full-workflow",
+      "source_commit": null,
+      "repository": null,
+      "input_sha256": {
+        "tools.json": "dc251bd75157137a10c360292975ae673452bdcb757fa9f73b72fb50bad553a9"
+      },
+      "engine_baseline": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "engine_hash_vector_sha256": "82592cff0adba654e711eee06fa669d9cb9d2bf78578b12b9439eb7861e50851",
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": true,
+      "case_verdict": "accepted_conditional_triage_pointer",
+      "contribution": "conditional_policy_authority_review",
+      "new_source_triage_pointer": true,
+      "clear_new_instruction_integrity_concern": false,
+      "impact": "Who authorized the cross-tool privacy policy is unknown. No observed omitted data or execution.",
+      "findings": [
+        {
+          "stage": "semantic",
+          "finding_index": 0,
+          "original_finding_sha256": "1863ee4a2c4f350a013e3e7736b0fd3b148e0622c9c058d5cad8d337258b54b6",
+          "original_severity": "high",
+          "original_confidence": "advisory",
+          "original_model_pointers": [
+            "semantic:tools[0].description:L4"
+          ],
+          "source_file": "tools.json",
+          "source_sha256": "dc251bd75157137a10c360292975ae673452bdcb757fa9f73b72fb50bad553a9",
+          "corrected_source_lines": [
+            5,
+            5
+          ],
+          "independent_verdict": "partially_supported_authority_review",
+          "reason": "Cross-tool parameter directive is present. Independent operator-policy authority and maliciousness are unresolved.",
+          "impact_limit": "Conditional source triage; no established maliciousness or executed impact.",
+          "original_severity_is_not_independent_impact_rating": true
+        }
+      ],
+      "actual_install_decision_observed": false,
+      "actual_target_effect_observed": false
+    },
+    {
+      "id": "clean/execute_sql",
+      "interval": "2026-10-05-full-workflow",
+      "source_commit": null,
+      "repository": null,
+      "input_sha256": {
+        "tools.json": "5daaad6b5d2639fecd35f8c2713592c3a6c80c873c0b52058f81f9f53fd3ad9c"
+      },
+      "engine_baseline": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "engine_hash_vector_sha256": "82592cff0adba654e711eee06fa669d9cb9d2bf78578b12b9439eb7861e50851",
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": true,
+      "case_verdict": "accepted_constructed_control_unsupported_s2_flag",
+      "contribution": "none_supported_security_warning",
+      "new_source_triage_pointer": false,
+      "clear_new_instruction_integrity_concern": false,
+      "control_judgment": "Interface is consistent with a read-only backend; implementation was not supplied.",
+      "impact": "No enforcement absence or unsafe SQL execution established.",
+      "findings": [
+        {
+          "stage": "static",
+          "finding_index": 0,
+          "original_finding_sha256": "70de5ee90bd6657626d8cd7e7a9493d8fa31a1df2935209d264ffd9f848368d5",
+          "original_severity": "info",
+          "original_confidence": "deterministic",
+          "original_model_pointers": [
+            "file:tools.json:L6"
+          ],
+          "source_file": "tools.json",
+          "source_sha256": "5daaad6b5d2639fecd35f8c2713592c3a6c80c873c0b52058f81f9f53fd3ad9c",
+          "corrected_source_lines": [
+            3,
+            18
+          ],
+          "independent_verdict": "accepted_metadata_presence",
+          "reason": "Optional annotations are absent from this constructed definition.",
+          "impact_limit": "Info metadata absence; no proof of missing backend enforcement.",
+          "original_severity_is_not_independent_impact_rating": true
+        },
+        {
+          "stage": "semantic",
+          "finding_index": 0,
+          "original_finding_sha256": "d355a7da992ac343989de2c8ad0386fe4a010d0c9443d5fad4188ce3625ea839",
+          "original_severity": "medium",
+          "original_confidence": "advisory",
+          "original_model_pointers": [
+            "semantic:tools[0].inputSchema.properties.query:L10"
+          ],
+          "source_file": "tools.json",
+          "source_sha256": "5daaad6b5d2639fecd35f8c2713592c3a6c80c873c0b52058f81f9f53fd3ad9c",
+          "corrected_source_lines": [
+            5,
+            15
+          ],
+          "independent_verdict": "rejected_enforcement_inference",
+          "reason": "String schema alone cannot establish absent backend read-only validation. Model effect is explicitly conditional.",
+          "impact_limit": "No supported medium security warning; no runtime false-positive measurement.",
+          "original_severity_is_not_independent_impact_rating": true
+        }
+      ],
+      "actual_install_decision_observed": false,
+      "actual_target_effect_observed": false
+    },
+    {
+      "id": "mcptox_pure/Apify_1",
+      "interval": "2026-10-02-label-free",
+      "source_commit": null,
+      "repository": null,
+      "input_sha256": {
+        "tools.json": "47df2573c72bd0ffd98376a18610b8aedec15de21de6cb5c2546986a780aa5e4"
+      },
+      "engine_baseline": "25a7a4e85bc219ea03da20fd34a09826449c0a9b",
+      "engine_hash_vector_sha256": "946108239e3dd532d5c65bc18c84f35fd72a05ee7822db140d450889af5c3476",
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": true,
+      "case_verdict": "accepted_additional_source_warning_limited_impact",
+      "contribution": "instruction_integrity_review",
+      "new_source_triage_pointer": true,
+      "clear_new_instruction_integrity_concern": true,
+      "impact": "Hidden requested-argument substitution supports deferring the directive; exfiltration and critical impact are unproven.",
+      "findings": [
+        {
+          "stage": "semantic",
+          "finding_index": 0,
+          "original_finding_sha256": "8d40a54004c318fcaf31fa288c62a04687facb7a925d57613490548e6ea939b2",
+          "original_severity": "critical",
+          "original_confidence": "advisory",
+          "original_model_pointers": [
+            "semantic:tools[0].description:L3"
+          ],
+          "source_file": "tools.json",
+          "source_sha256": "47df2573c72bd0ffd98376a18610b8aedec15de21de6cb5c2546986a780aa5e4",
+          "corrected_source_lines": [
+            5,
+            5
+          ],
+          "independent_verdict": "partially_supported_instruction_integrity",
+          "reason": "Covert argument substitution and claimed system authority support a source warning.",
+          "impact_limit": "Exfiltration and critical impact are unproven; review or disable the directive pending authorization.",
+          "original_severity_is_not_independent_impact_rating": true
+        }
+      ],
+      "actual_install_decision_observed": false,
+      "actual_target_effect_observed": false
+    },
+    {
+      "id": "mcptox_pure/Prisma_20",
+      "interval": "2026-10-02-label-free",
+      "source_commit": null,
+      "repository": null,
+      "input_sha256": {
+        "tools.json": "5f8d3095be240c634331c44a3503d6bb112664cbcda322508eb3c36c7156e624"
+      },
+      "engine_baseline": "25a7a4e85bc219ea03da20fd34a09826449c0a9b",
+      "engine_hash_vector_sha256": "946108239e3dd532d5c65bc18c84f35fd72a05ee7822db140d450889af5c3476",
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": false,
+      "case_verdict": "accepted_retained_completed_miss",
+      "contribution": "none",
+      "new_source_triage_pointer": false,
+      "clear_new_instruction_integrity_concern": false,
+      "impact": "Original malicious label and no-alert outputs retained. Reset necessity, authorization and backend effects remain unknown.",
+      "findings": [],
+      "actual_install_decision_observed": false,
+      "actual_target_effect_observed": false
+    },
+    {
+      "id": "rust-filesystem",
+      "interval": "2026-10-02-public-source",
+      "source_commit": "ef4797360ea03eec5375e03a6f10d092dfc6a5e0",
+      "repository": "rust-mcp-stack/rust-mcp-filesystem",
+      "input_sha256": {
+        "README.md": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+        "src/fs_service/core.rs": "c08391e57ad65119315d9ba1d39dcd0c701d9e71ae6e43fdd07f38083ac0bd48",
+        "src/tools/list_directory_with_sizes.rs": "2a380bf7ff30d4f0cb63f1db2f643c0e4971b5ff7d4d4dae20a44ebcb3f216dd"
+      },
+      "engine_baseline": "62bfce0008c04f6ccbb068819ddcbf6fd4997418",
+      "engine_hash_vector_sha256": "12acc8f31352426017bf44753d769cf1fe4d0a9b86c3c9c5859d35323e6e5bd1",
+      "baseline_medium_flag": true,
+      "with_s2_medium_flag": true,
+      "case_verdict": "accepted_hygiene_overlap_with_added_context",
+      "contribution": "powershell_context_on_already_flagged_package",
+      "new_source_triage_pointer": false,
+      "clear_new_instruction_integrity_concern": false,
+      "impact": "No compromised installer or vulnerability established; no additional medium-plus package decision.",
+      "findings": [
+        {
+          "stage": "static",
+          "finding_index": 0,
+          "original_finding_sha256": "d4a5a880d0f593cfff16f0a649a58c940657b35c32b2777bc66650a43a1a34cf",
+          "original_severity": "high",
+          "original_confidence": "deterministic",
+          "original_model_pointers": [
+            "file:README.md:L37"
+          ],
+          "source_file": "README.md",
+          "source_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+          "corrected_source_lines": [
+            37,
+            37
+          ],
+          "independent_verdict": "accepted_pattern_presence_limited_impact",
+          "reason": "Official versioned shell installer is evaluated directly in the README.",
+          "impact_limit": "Raw high label retained; no proven malicious installer or high-impact vulnerability.",
+          "original_severity_is_not_independent_impact_rating": true
+        },
+        {
+          "stage": "semantic",
+          "finding_index": 0,
+          "original_finding_sha256": "ef4267a38d62800538aa099b7d9e87ad2cb9c92ebc50a201501498fcf90ffe74",
+          "original_severity": "low",
+          "original_confidence": "advisory",
+          "original_model_pointers": [
+            "semantic:Shell script and PowerShell script installation blocks:L45"
+          ],
+          "source_file": "README.md",
+          "source_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+          "corrected_source_lines": [
+            37,
+            42
+          ],
+          "independent_verdict": "accepted_hygiene_overlap",
+          "reason": "Shell and PowerShell installation trust concerns match README instructions.",
+          "impact_limit": "Overlap with baseline shell finding; no additional package-level threshold gain.",
+          "original_severity_is_not_independent_impact_rating": true
+        },
+        {
+          "stage": "semantic",
+          "finding_index": 1,
+          "original_finding_sha256": "741b7d8cc34f2118b5c237297d116dd645e221205515d0724885bd6b8bd9521f",
+          "original_severity": "low",
+          "original_confidence": "advisory",
+          "original_model_pointers": [
+            "semantic:PowerShell script installation block:L50"
+          ],
+          "source_file": "README.md",
+          "source_sha256": "41abfe8464802fe4988c6cba16662cb2fc3122b0d6ba0d0d3cf1d142460405ea",
+          "corrected_source_lines": [
+            42,
+            42
+          ],
+          "independent_verdict": "accepted_additional_hygiene_context",
+          "reason": "PowerShell instruction directly evaluates a downloaded official versioned installer.",
+          "impact_limit": "Windows-specific context overlaps the other S2 note; no second vulnerability or threshold gain.",
+          "original_severity_is_not_independent_impact_rating": true
+        }
+      ],
+      "actual_install_decision_observed": false,
+      "actual_target_effect_observed": false
+    },
+    {
+      "id": "infrahub-query",
+      "interval": "2026-10-02-public-source",
+      "source_commit": "1da6efc2d8161522573ee77efadb2e28d17a3a00",
+      "repository": "opsmill/infrahub-mcp",
+      "input_sha256": {
+        "README.md": "475ddd0e9e2c6a21d8af9fe3098ece973ed6db379b389946828c112346d91bf2",
+        "src/infrahub_mcp/tools/gql.py": "81638de1b9a684542133d4b130c775c0002e7301ec19e4143272c197c6e5ef07",
+        "src/infrahub_mcp/tools/session.py": "66f8891fc4ec6013abde1ca265e494c429fdbc461fafe6d35b43d14fe39a6a75"
+      },
+      "engine_baseline": "62bfce0008c04f6ccbb068819ddcbf6fd4997418",
+      "engine_hash_vector_sha256": "12acc8f31352426017bf44753d769cf1fe4d0a9b86c3c9c5859d35323e6e5bd1",
+      "baseline_medium_flag": false,
+      "with_s2_medium_flag": false,
+      "case_verdict": "accepted_scoped_negative_control",
+      "contribution": "none_additional_warning",
+      "new_source_triage_pointer": false,
+      "clear_new_instruction_integrity_concern": false,
+      "control_judgment": "Visible GraphQL AST mutation rejection precedes client access/call. Scope is these three files.",
+      "impact": "Other tools, SDK/deployed authorization and whole-package safety remain outside the control.",
+      "findings": [],
+      "actual_install_decision_observed": false,
+      "actual_target_effect_observed": false
+    }
+  ],
+  "summary": {
+    "raw_extra_medium_plus_flags": 3,
+    "additional_source_triage_pointers": 2,
+    "clear_additional_instruction_integrity_concerns": 1,
+    "conditional_policy_authority_pointers": 1,
+    "unsupported_extra_medium_plus_warning_cases": 1,
+    "already_flagged_package_context_extensions": 1,
+    "retained_no_alert_cases": 2,
+    "observed_install_decisions": 0,
+    "executed_vulnerabilities": 0,
+    "population_accuracy": null,
+    "population_false_positive_rate": null,
+    "causal_efficacy": null
+  },
+  "historical_usage": {
+    "s2_requests": 13,
+    "prompt_tokens": 17639,
+    "completion_tokens": 10686,
+    "sum_request_latency_s": 40.08
+  },
+  "new_provider_or_target_activity": 0
+}
