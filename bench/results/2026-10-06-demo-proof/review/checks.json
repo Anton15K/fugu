@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "reviewed_engine_checkpoint": "d21543e927a1b67a21eab0e2e23ef9105f66733e",
+  "overall": "accepted_evidence_real_mcp_blocked",
+  "scoped_tests": {
+    "paths": [
+      "tests/test_reliability_detonation.py",
+      "tests/test_readme_triggers.py"
+    ],
+    "passed": 22,
+    "exit_code": 0,
+    "stdout": "22 passed in 0.16s",
+    "pytest_cache_enabled": false,
+    "plugin_autoload": false,
+    "scratch": "/tmp/fugu-demo-proof-review-20261006-run/tmp"
+  },
+  "passive_trigger_replay": "both MarkItDown roots have zero derived triggers; four selected files match acquisition",
+  "synthetic_coverage": {
+    "collector_processes_started": 0,
+    "docker_cli_invocations": 0,
+    "no_trigger": {
+      "coverage_state": "skipped",
+      "driver_calls": 0,
+      "metrics_executed": false,
+      "static_only": true,
+      "verdict": "pass"
+    },
+    "synthetic_collector_hits_by_vector": {
+      "dns": 1,
+      "fs": 1,
+      "http": 1
+    },
+    "synthetic_finding_severities": [
+      "critical",
+      "high"
+    ],
+    "target_processes_started": 0,
+    "whole_driver_failure": {
+      "coverage_state": "failed",
+      "driver_calls": 1,
+      "stage_ok": false,
+      "verdict": "warn"
+    }
+  },
+  "retained_replay_byte_identical": {
+    "comparison.json": true,
+    "telemetry.jsonl": true,
+    "checks.json": true
+  },
+  "original_sources_and_findings_read": {
+    "cases": 6,
+    "source_files": 10,
+    "finding_bodies": 7
+  },
+  "current_git_source_test_bindings": 13,
+  "execution_inventory_bindings": 22,
+  "semantic_inventory_bindings": 10,
+  "original_artifact_bindings": 13,
+  "wire_prompt_response_stage_joins": 11,
+  "older_character_source_only_calls": 2,
+  "runtime_boundary": {
+    "provider_or_search_requests": 0,
+    "new_scanner_invocations": 0,
+    "docker_cli_calls": 0,
+    "builds": 0,
+    "chamber_runs": 0,
+    "target_processes": 0,
+    "collector_processes": 0,
+    "docker_test_module_imported": false
+  },
+  "publication": {
+    "author_files_checked": 17,
+    "forbidden_payload_fields": 0,
+    "raw_originals_copied": false,
+    "relative_report_links_resolve": true,
+    "python_helpers_syntax": "3.10 AST only",
+    "generic_first_party_fixture_permitted_by_lead_transition": 1263,
+    "named_credential_pattern_matches_excluding_fixture": 0,
+    "universal_secret_absence_claim": false
+  },
+  "read_only_boundary": {
+    "authors_rehashed_before_seal": true,
+    "source_tests_git_services_db_read_only": true,
+    "staged_paths": [],
+    "unrelated_existing_dirty_paths_preserved": [
+      "docs/superpowers/plans/2026-10-02-publish-full-benchmark.md",
+      "fugu.db-shm",
+      "fugu.db-wal"
+    ]
+  },
+  "required_author_rework": [],
+  "real_mcp_criterion": "unfulfilled; retain durable blocker",
+  "proof_files": [
+    "binding-checks.json",
+    "independent-joins-export-checks.json",
+    "git-history-checks.json",
+    "selection-quote-checks.json",
+    "original-finding-bindings.json"
+  ]
+}

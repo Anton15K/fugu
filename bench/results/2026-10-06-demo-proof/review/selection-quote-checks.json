@@ -1,0 +1,47 @@
+{
+  "fixed_selection_checked": true,
+  "first_current_metadata_attack": "mcptox/Apify-18",
+  "unique_flagged_metadata_control": [
+    "clean/execute_sql"
+  ],
+  "original_prisma_complete_malicious_label": true,
+  "finding_excerpt_checks": [
+    {
+      "id": "mcptox/Apify-18",
+      "finding_index": 0,
+      "sha256": "1863ee4a2c4f350a013e3e7736b0fd3b148e0622c9c058d5cad8d337258b54b6",
+      "exact_verbatim_substring": true,
+      "whitespace_normalized_substring": true
+    },
+    {
+      "id": "clean/execute_sql",
+      "finding_index": 0,
+      "sha256": "d355a7da992ac343989de2c8ad0386fe4a010d0c9443d5fad4188ce3625ea839",
+      "exact_verbatim_substring": false,
+      "whitespace_normalized_substring": true
+    },
+    {
+      "id": "mcptox_pure/Apify_1",
+      "finding_index": 0,
+      "sha256": "8d40a54004c318fcaf31fa288c62a04687facb7a925d57613490548e6ea939b2",
+      "exact_verbatim_substring": true,
+      "whitespace_normalized_substring": true
+    },
+    {
+      "id": "rust-filesystem",
+      "finding_index": 0,
+      "sha256": "ef4267a38d62800538aa099b7d9e87ad2cb9c92ebc50a201501498fcf90ffe74",
+      "exact_verbatim_substring": true,
+      "whitespace_normalized_substring": true
+    },
+    {
+      "id": "rust-filesystem",
+      "finding_index": 1,
+      "sha256": "741b7d8cc34f2118b5c237297d116dd645e221205515d0724885bd6b8bd9521f",
+      "exact_verbatim_substring": true,
+      "whitespace_normalized_substring": true
+    }
+  ],
+  "historical_full_engine_vector_sha256": "127f0449087ffdb6904f673afa0a2873d02969139806136dc67707b5964bfc0a",
+  "historical_full_has_current_checkpoint_claim": false
+}

@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "status": "permitted_checks_passed; real_target_execution_unfulfilled",
+  "engine_head": "d21543e927a1b67a21eab0e2e23ef9105f66733e",
+  "checks": [
+    {
+      "id": "candidate-pin-and-trigger-derivation",
+      "artifact": "bench/results/2026-10-06-demo-proof/execution/trigger-derivation-check.py",
+      "command": "UV_CACHE_DIR=/tmp/fugu-demo-proof-execution-20261006-scratch/uv-cache PYTHONDONTWRITEBYTECODE=1 uv run --no-sync python bench/results/2026-10-06-demo-proof/execution/trigger-derivation-check.py",
+      "exit_code": 0,
+      "result": {
+        "source_commit": "2b61a335a4bec721144498fe425a61f23e9e3d6e",
+        "archive_sha256": "3233a8112220cf781dd10c869614f4439d6137fc752896775f308c5e22388aae",
+        "selected_files_match_acquisition": {
+          "README.md": true,
+          "packages/markitdown-mcp/README.md": true,
+          "packages/markitdown-mcp/pyproject.toml": true,
+          "packages/markitdown-mcp/src/markitdown_mcp/__main__.py": true
+        },
+        "derived_triggers": {"repository_root": [], "mcp_package_root": []},
+        "target_source_imported_or_executed": false
+      }
+    },
+    {
+      "id": "fake-driver-and-trigger-regressions",
+      "command": "UV_CACHE_DIR=/tmp/fugu-demo-proof-execution-20261006-scratch/uv-cache TMPDIR=/tmp/fugu-demo-proof-execution-20261006-scratch/tmp PYTHONDONTWRITEBYTECODE=1 uv run --no-sync python -m pytest -p no:cacheprovider --basetemp=/tmp/fugu-demo-proof-execution-20261006-scratch/tmp/pytest-final tests/test_reliability_detonation.py tests/test_readme_triggers.py -q",
+      "exit_code": 0,
+      "stdout": "...................... [100%]\n22 passed in 0.12s",
+      "scope": [
+        "test_reliability_detonation.py uses fake drivers and an in-memory JobStore; it checks nonzero exits, timeouts, missing/duplicate/unselected results, retained severe findings, verdict coverage, and parent propagation.",
+        "test_readme_triggers.py performs pure local trigger parsing over authored corpus and temporary files."
+      ]
+    },
+    {
+      "id": "synthetic-canary-and-coverage-check",
+      "artifact": "bench/results/2026-10-06-demo-proof/execution/synthetic-coverage-check.py",
+      "command": "UV_CACHE_DIR=/tmp/fugu-demo-proof-execution-20261006-scratch/uv-cache TMPDIR=/tmp/fugu-demo-proof-execution-20261006-scratch/tmp PYTHONDONTWRITEBYTECODE=1 uv run --no-sync python bench/results/2026-10-06-demo-proof/execution/synthetic-coverage-check.py",
+      "exit_code": 0,
+      "result": {
+        "synthetic_collector_hits_by_vector": {"dns": 1, "fs": 1, "http": 1},
+        "synthetic_finding_severities": ["critical", "high"],
+        "no_trigger": {"coverage_state": "skipped", "driver_calls": 0, "metrics_executed": false, "static_only": true, "verdict": "pass"},
+        "whole_driver_failure": {"coverage_state": "failed", "driver_calls": 1, "stage_ok": false, "verdict": "warn"},
+        "docker_cli_invocations": 0,
+        "target_processes_started": 0,
+        "collector_processes_started": 0
+      },
+      "evidence_limit": "Synthetic records exercise the pure scanner and verdict mapping only; no actual collector or chamber process was started."
+    },
+    {
+      "id": "historical-diagnostic-sanitized-read",
+      "path": "bench/results/2026-10-02-full/chamber-trigger-diagnostics.json",
+      "exit_code": 0,
+      "result": [
+        {"exit_code": 0, "canary_hits": 0, "flows": 0, "dns": 0},
+        {"exit_code": 1, "module_not_found_error": true, "canary_hits": 0, "flows": 0, "dns": 0}
+      ],
+      "handling": "Only numeric counts and a boolean error-class match were emitted; raw stdout/stderr and target text were not printed."
+    }
+  ],
+  "not_run": [
+    {
+      "path": "tests/test_docker_driver.py",
+      "reason": "Module import calls docker info and the module contains image-build/container-run end-to-end tests. The recorded Buildx denial is not retried."
+    },
+    {
+      "path": "tests/test_chamber_workdir.py",
+      "reason": "Not required for the fake-driver coverage claim; no Docker/chamber tests were run."
+    },
+    {
+      "operation": "MarkItDown MCP import, installation, server start, or tool call",
+      "reason": "Forbidden by this assignment; source remains passive evidence only."
+    }
+  ],
+  "activity_counts": {
+    "fresh_chamber_smokes": 0,
+    "docker_cli_calls": 0,
+    "target_processes_started": 0,
+    "collector_processes_started": 0,
+    "paid_inference_or_search_requests": 0
+  }
+}
