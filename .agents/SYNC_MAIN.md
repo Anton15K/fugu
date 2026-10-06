@@ -11,7 +11,9 @@ Keep other writers idle, and never alter the active original OpenRig checkout.
 
 1. Confirm the intended setup worktree and branch with `git status -sb`.
    Commit your assigned changes first. Leave unrelated owner changes alone;
-   the helper refuses dirty tracked or untracked files and never stashes them.
+   the helper refuses dirty tracked or unignored untracked files and never
+   stashes them. Ignored local files may remain; the merge refuses to overwrite
+   them if incoming files collide.
 2. Run from that setup worktree:
 
    ```sh
