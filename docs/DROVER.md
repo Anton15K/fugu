@@ -125,6 +125,14 @@ and PRs to main. Configuration branches never merge wholesale into main; transfe
 only application task commits. Update each setup branch deliberately when main
 changes; resolve root policy/setup guidance differences without landing them.
 
+To update either setup branch from application main, read
+`.agents/SYNC_MAIN.md` and run `python3 .agents/sync_main.py` in that branch's
+clean worktree. It preserves agent setup from the pre-merge commit, imports
+application changes, and leaves the merge staged for review before commit.
+Do not use a raw pull, merge, or rebase from main. Resolve application conflicts
+manually, keep setup files as restored, run the documented checks, then commit.
+Never merge the entire setup branch into main.
+
 Local Drover patches are saved in `~/dev/drover/local-codex-only.patch` and tested
 by `python3 -m unittest discover -s ~/dev/drover/tests -v`. Retain/reapply them
 when updating upstream. The compatibility patch does not claim model diversity.

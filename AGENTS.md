@@ -1,10 +1,23 @@
 # Standalone Fugu Drover team
 
+## Preserve setup when syncing main
+
+The human lead or assigned Git owner must read
+[.agents/SYNC_MAIN.md](.agents/SYNC_MAIN.md) and run
+`python3 .agents/sync_main.py` to update this setup branch from application main.
+Do not use raw pull, merge, or rebase from main: main deliberately deletes
+framework setup. The helper preserves this branch's agent files and AGENTS.md,
+leaves application conflicts for manual resolution, and stages the merge for
+review before commit. Never merge this setup branch wholesale into main.
+Product task branches start from application main and use its instructions.
+
+## Team operation
+
 This checkout is managed by Drover, independently of the OpenRig team in
 `/Users/antonkogun/dev/nebius_hack`. The human is the lead. Do not start OpenRig,
-claim its queue, or control its panes. The project ships historical BOTS.md,
-rig.yaml and rig instructions; this standalone checkout's instructions govern
-team coordination here. Preserve the project culture's secret handling,
+claim its queue, or control its panes. OpenRig setup is preserved separately
+on `setup/openrig`; this checkout's instructions govern team coordination here.
+Preserve the project culture's secret handling,
 Python 3.10 compatibility, independent review and verification requirements.
 
 Before assigned work, run `beans prime` and read
