@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "protocol": "fugu-demo-proof-execution-20261006",
+  "outcome": "partial",
+  "purpose": "Evidence-only diagnosis of the real-MCP execution claim for point 1.",
+  "owner": "build-backend@fugu",
+  "engine": {
+    "current_checkout_head": "d21543e927a1b67a21eab0e2e23ef9105f66733e",
+    "current_relevant_sources": "inventory.json",
+    "comparison_boundary": "The 2026-10-05 full-workflow run used frozen engine dbc4f641bfad39f7004e64f08bf8351697f5ae7c; its measurements are not attributed to this checkout."
+  },
+  "candidate": {
+    "repository": "microsoft/markitdown",
+    "source_url": "https://github.com/microsoft/markitdown",
+    "commit": "2b61a335a4bec721144498fe425a61f23e9e3d6e",
+    "archive_sha256": "3233a8112220cf781dd10c869614f4439d6137fc752896775f308c5e22388aae",
+    "acquisition_record": "bench/results/2026-10-02-wild-audit/acquisition.json",
+    "acquisition_record_sha256": "1914ec0c5ad03a2b173c5cedf66ec33fb125893a3bfd210dcb661e4525dc189b",
+    "retained_cache": "/tmp/fugu-wild-sources-20261002/microsoft--markitdown",
+    "source_imported_or_executed": false,
+    "documented_launch": {
+      "stdio_default": "markitdown-mcp",
+      "streamable_http_or_sse": "markitdown-mcp --http --host 127.0.0.1 --port 3001",
+      "project_script": "markitdown-mcp = markitdown_mcp.__main__:main",
+      "python_requirement": ">=3.10",
+      "dependencies": [
+        "mcp>=2.1.1,<3.0.0",
+        "markitdown[all]>=0.1.1,<0.2.0",
+        "requests>=2.0.0,<3.0.0"
+      ]
+    },
+    "derived_triggers": {
+      "repository_root": [],
+      "packages/markitdown-mcp": []
+    },
+    "interpretation": "Current trigger derivation does not resolve the nested pyproject.toml project.scripts entrypoint or descend through the repository's packages/src layout. No target process can be selected from this retained input by the checked implementation."
+  },
+  "runtime_boundary": {
+    "fresh_chamber_smoke": "not-performed",
+    "execution_authorized_by_this_row": false,
+    "docker_builds": 0,
+    "docker_runs": 0,
+    "target_processes_started": 0,
+    "collector_processes_started": 0,
+    "paid_provider_requests": 0,
+    "reason": "The dispatch grants passive inspection and inert/authored checks only. The retained 2026-10-05 plan records the native Docker chamber as unavailable after a Buildx denial; this task prohibits retrying that build, alternate chamber drivers, owner mounts, and target execution.",
+    "prior_chamber_record": {
+      "path": "bench/results/2026-10-05-full-workflow/plan.json",
+      "sha256": "568166b50a97997ba12667635ac2eef4ca99dc2ddb1caca1306f3eb83aef4b40",
+      "engine_commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "status": "unavailable",
+      "target_execution": false,
+      "known_buildx_denial_retried": false,
+      "prerequisite_evidence_sha256": "7940e8e855093191bba4d7b8b6b13a6be336ffe4fa6024f357112b9f749840ae"
+    }
+  },
+  "historical_authored_evidence": {
+    "2026-10-02_benchmark": {
+      "report": "docs/benchmark-full.md",
+      "report_sha256": "a69756bf5867c704ce27e559c01b98fd033108b0a2764dc2845eae22c074b538",
+      "result": "bench/results/2026-10-02-full/fugu.json",
+      "result_sha256": "0f571320f96af083f31e59d65166d12a6c9982b7bac8dcf9230d4af90f0bda82",
+      "scope": "The authored installer-exfil fixture produced a canary hit and six HTTP flows; this was not a real MCP run and is not a measurement of the current engine."
+    },
+    "supplementary_import_diagnostic": {
+      "path": "bench/results/2026-10-02-full/chamber-trigger-diagnostics.json",
+      "sha256": "2b82de265735645672f895250e77d6419ed959efc837a934d353537385e9a0bd",
+      "records": [
+        {"exit_code": 0, "canary_hits": 0, "flows": 0, "dns": 0},
+        {"exit_code": 1, "module_not_found_error": true, "canary_hits": 0, "flows": 0, "dns": 0}
+      ],
+      "scope": "Historical authored chamber diagnostic only; preserved as an observed activation failure, not fresh target evidence."
+    }
+  },
+  "next_step": "The real-MCP execution criterion remains open. A follow-up requires a separately scoped source/test change for this Python console-script/nested src layout and a permitted chamber prerequisite that does not retry the recorded Buildx denial; the target dependencies and exact invocation must be available inside that chamber."
+}

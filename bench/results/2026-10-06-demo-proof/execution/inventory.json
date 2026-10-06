@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "scope": "Point 1 execution diagnosis; inputs are passive source/history and fake-only current checks.",
+  "current_checkout": {
+    "repository_head": "d21543e927a1b67a21eab0e2e23ef9105f66733e",
+    "relevant_engine_sources": {
+      "src/fugu/detonation/triggers.py": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b",
+      "src/fugu/pipeline/stages/detonation_stage.py": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7",
+      "src/fugu/detonation/docker_driver.py": "43246a112d876ff438d336ce53ee71d55fb65c3a4d0c8b092deed72ecabcf13b",
+      "src/fugu/detonation/collectors/mitm_addon.py": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d",
+      "src/fugu/detonation/collectors/dns_collector.py": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763",
+      "src/fugu/detonation/base.py": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525",
+      "src/fugu/source_safety.py": "a2d89c3c16a974f2792a80c96e5e8cd15d11b10aa9715e31b16d6e73ac4a630b",
+      "src/fugu/types.py": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8",
+      "src/fugu/verdict.py": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+    },
+    "relevant_tests": {
+      "tests/test_reliability_detonation.py": "52092aed9bd1b34f97f33e48ea66addb41c101e0cf82cbc4ac468004661f0e1a",
+      "tests/test_readme_triggers.py": "7a01a0e9628b17aece812777b423316dea621c7ecfa53740ec6dd63ef7db3ea5",
+      "tests/test_docker_driver.py": "420798f422ed57c552702e8dcf365fe1b1f55b7d7480ba60f6b142edf7a12354",
+      "tests/test_chamber_workdir.py": "79f5990c6c7b7e44a6dda94a1c227c90c66b2fbb986962f5a6f55779ef3ab804"
+    },
+    "no_production_or_test_files_changed": true
+  },
+  "retained_public_source": {
+    "repository": "microsoft/markitdown",
+    "commit": "2b61a335a4bec721144498fe425a61f23e9e3d6e",
+    "archive_sha256": "3233a8112220cf781dd10c869614f4439d6137fc752896775f308c5e22388aae",
+    "acquisition_record": "bench/results/2026-10-02-wild-audit/acquisition.json",
+    "acquisition_record_sha256": "1914ec0c5ad03a2b173c5cedf66ec33fb125893a3bfd210dcb661e4525dc189b",
+    "cache_directory": "/tmp/fugu-wild-sources-20261002/microsoft--markitdown",
+    "selected_files": {
+      "README.md": "9f9dc0e582d066e8ac671a1f63b3a73c70a7be9909e8be51a7f5aeb5a7c04af2",
+      "packages/markitdown-mcp/README.md": "6967e98a8c7bc2215cfe26fc8b71e0b6938718f6f29c4a48d4e2bb97b6d88012",
+      "packages/markitdown-mcp/pyproject.toml": "d4ff54c7168abfff9deb210b5df213c5dacf2d7262e426887987c2176359e143",
+      "packages/markitdown-mcp/src/markitdown_mcp/__main__.py": "d4db28dfbe2aa7358f59591639a5296c1d20934a9c31c060addc88281dbd66fe"
+    },
+    "all_selected_hashes_match_acquisition": true
+  },
+  "historical_records": {
+    "docs/benchmark-full.md": "a69756bf5867c704ce27e559c01b98fd033108b0a2764dc2845eae22c074b538",
+    "bench/results/2026-10-02-full/fugu.json": "0f571320f96af083f31e59d65166d12a6c9982b7bac8dcf9230d4af90f0bda82",
+    "bench/results/2026-10-02-full/chamber-trigger-diagnostics.json": "2b82de265735645672f895250e77d6419ed959efc837a934d353537385e9a0bd",
+    "bench/results/2026-10-05-full-workflow/plan.json": "568166b50a97997ba12667635ac2eef4ca99dc2ddb1caca1306f3eb83aef4b40"
+  },
+  "deliverable_sha256": {
+    "docs/rig-work/2026-10-06-demo-proof/execution/report.md": "d67c626c4c7cad159708b208b394c66511028b01d9d4c30db18237d1d275f0f0",
+    "bench/results/2026-10-06-demo-proof/execution/plan.json": "f49ee3f440c75fc26bc4c90cd3a9892f1ceb297f5785ffb2164549e6064a872d",
+    "bench/results/2026-10-06-demo-proof/execution/checks.json": "cdfa2520d432102509edc0c590baf57a59762cd3d47f32458ed0fbd734192d41",
+    "bench/results/2026-10-06-demo-proof/execution/trigger-derivation-check.py": "fddd4d6f3ce0ef2df4f5db6a0f7a6abedb0797819688071ce78b99b32c32c0ec",
+    "bench/results/2026-10-06-demo-proof/execution/synthetic-coverage-check.py": "cd478826dbe3f09b6f3434d4669f14d094242b689eab0eb736a6b94356c9ef40"
+  },
+  "deliverables": [
+    "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+    "bench/results/2026-10-06-demo-proof/execution/plan.json",
+    "bench/results/2026-10-06-demo-proof/execution/checks.json",
+    "bench/results/2026-10-06-demo-proof/execution/inventory.json",
+    "bench/results/2026-10-06-demo-proof/execution/trigger-derivation-check.py",
+    "bench/results/2026-10-06-demo-proof/execution/synthetic-coverage-check.py"
+  ]
+}

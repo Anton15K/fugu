@@ -1,0 +1,40 @@
+{
+  "engine_baseline_joins": [
+    {
+      "interval": "2026-10-02-label-free",
+      "baseline_commit": "25a7a4e85bc219ea03da20fd34a09826449c0a9b",
+      "source_vector_checked": 36,
+      "baseline_differences": [
+        "src/fugu/server/app.py"
+      ]
+    },
+    {
+      "interval": "2026-10-02-public-source",
+      "baseline_commit": "62bfce0008c04f6ccbb068819ddcbf6fd4997418",
+      "source_vector_checked": 37,
+      "baseline_differences": []
+    },
+    {
+      "interval": "2026-10-05-full-workflow",
+      "baseline_commit": "dbc4f641bfad39f7004e64f08bf8351697f5ae7c",
+      "source_vector_checked": 39,
+      "baseline_differences": []
+    }
+  ],
+  "current_engine_and_tests_match_exact_git_checkpoint": true,
+  "historical_authored_fixture": [
+    {
+      "id": "crafted/03-env-harvest-installer",
+      "stage": "detonation",
+      "ok": true,
+      "metrics": {
+        "triggers": 1,
+        "detonations": 1,
+        "canary_hits": 1,
+        "flows": 6,
+        "dns": 0
+      }
+    }
+  ],
+  "chamber_prerequisite": "unverified; known Buildx denial unchanged"
+}

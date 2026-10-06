@@ -1,0 +1,239 @@
+{
+  "assigned_bindings": [
+    {
+      "path": "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+      "sha256": "d67c626c4c7cad159708b208b394c66511028b01d9d4c30db18237d1d275f0f0"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/execution/inventory.json",
+      "sha256": "a30704054d57f741779f78fb8f440775ef8672c68fe767b486bb43ab31ac09fe"
+    },
+    {
+      "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+      "sha256": "9cc8dbb25ddc12f786d9b99312334dabbaa12abb3ae83a8030ac2d9f0aba2da9"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/inventory.json",
+      "sha256": "5b5e80a34a9fa7297b7298bbc0399369a2863f40aaecef0fd957a6be5598a3a6"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/plan.json",
+      "sha256": "a4f8c6bce43155e237c1d08383af7e7da6723764f62348d5cbc2606f5a45341d"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/measurement/comparison.json",
+      "sha256": "d5bc0aafb9bc654056bc59eb066f5698ad0857c21d0e8b037c0ecb5880ccd200"
+    }
+  ],
+  "execution_inventory_records": [
+    {
+      "path": "src/fugu/detonation/triggers.py",
+      "sha256": "c7605643f66faaf0f33a66aca990ce0c8cd44bbcd7386ef8e477d072df68f12b"
+    },
+    {
+      "path": "src/fugu/pipeline/stages/detonation_stage.py",
+      "sha256": "e62c92dc704771a7b1c8a56b4eb92107c05cbc1ab6d1a569e76e91ff0c6d5fa7"
+    },
+    {
+      "path": "src/fugu/detonation/docker_driver.py",
+      "sha256": "43246a112d876ff438d336ce53ee71d55fb65c3a4d0c8b092deed72ecabcf13b"
+    },
+    {
+      "path": "src/fugu/detonation/collectors/mitm_addon.py",
+      "sha256": "5456694cd2365d38378cf1e15ac54e09e2180eeabe9940d92f20cf616553646d"
+    },
+    {
+      "path": "src/fugu/detonation/collectors/dns_collector.py",
+      "sha256": "e0bb43ee2d4dc856e7afa21ef257635ac91e38302e4dc563087c66051844e763"
+    },
+    {
+      "path": "src/fugu/detonation/base.py",
+      "sha256": "f1de4dcaa7a36988b0d20c89a383348b1f5583c2db0839da744c08584d067525"
+    },
+    {
+      "path": "src/fugu/source_safety.py",
+      "sha256": "a2d89c3c16a974f2792a80c96e5e8cd15d11b10aa9715e31b16d6e73ac4a630b"
+    },
+    {
+      "path": "src/fugu/types.py",
+      "sha256": "7e81afbd9321a8cc2ea2b8efd0320b3762b52cc638240029979eab78c94e73a8"
+    },
+    {
+      "path": "src/fugu/verdict.py",
+      "sha256": "c0bdd093815e9268f36570f94c54d58dfabfd9de16ba79be08dea60eac717ef6"
+    },
+    {
+      "path": "tests/test_reliability_detonation.py",
+      "sha256": "52092aed9bd1b34f97f33e48ea66addb41c101e0cf82cbc4ac468004661f0e1a"
+    },
+    {
+      "path": "tests/test_readme_triggers.py",
+      "sha256": "7a01a0e9628b17aece812777b423316dea621c7ecfa53740ec6dd63ef7db3ea5"
+    },
+    {
+      "path": "tests/test_docker_driver.py",
+      "sha256": "420798f422ed57c552702e8dcf365fe1b1f55b7d7480ba60f6b142edf7a12354"
+    },
+    {
+      "path": "tests/test_chamber_workdir.py",
+      "sha256": "79f5990c6c7b7e44a6dda94a1c227c90c66b2fbb986962f5a6f55779ef3ab804"
+    },
+    {
+      "path": "docs/benchmark-full.md",
+      "sha256": "a69756bf5867c704ce27e559c01b98fd033108b0a2764dc2845eae22c074b538"
+    },
+    {
+      "path": "bench/results/2026-10-02-full/fugu.json",
+      "sha256": "0f571320f96af083f31e59d65166d12a6c9982b7bac8dcf9230d4af90f0bda82"
+    },
+    {
+      "path": "bench/results/2026-10-02-full/chamber-trigger-diagnostics.json",
+      "sha256": "2b82de265735645672f895250e77d6419ed959efc837a934d353537385e9a0bd"
+    },
+    {
+      "path": "bench/results/2026-10-05-full-workflow/plan.json",
+      "sha256": "568166b50a97997ba12667635ac2eef4ca99dc2ddb1caca1306f3eb83aef4b40"
+    },
+    {
+      "path": "docs/rig-work/2026-10-06-demo-proof/execution/report.md",
+      "sha256": "d67c626c4c7cad159708b208b394c66511028b01d9d4c30db18237d1d275f0f0"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/execution/plan.json",
+      "sha256": "f49ee3f440c75fc26bc4c90cd3a9892f1ceb297f5785ffb2164549e6064a872d"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/execution/checks.json",
+      "sha256": "cdfa2520d432102509edc0c590baf57a59762cd3d47f32458ed0fbd734192d41"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/execution/trigger-derivation-check.py",
+      "sha256": "fddd4d6f3ce0ef2df4f5db6a0f7a6abedb0797819688071ce78b99b32c32c0ec"
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/execution/synthetic-coverage-check.py",
+      "sha256": "cd478826dbe3f09b6f3434d4669f14d094242b689eab0eb736a6b94356c9ef40"
+    }
+  ],
+  "semantic_inventory_records": [
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/assessments.json",
+      "sha256": "295464c91f52bcf2cdc859e61d231564a6dd09316ef61f986dc7740318f96c52",
+      "bytes": 15622
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/bind_units.py",
+      "sha256": "376b8ce306784547b771cf151796fb36560830125b7b6d2bf0c867b2a190cc5b",
+      "bytes": 2098
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/measurement/checks.json",
+      "sha256": "8ec3318b2db5de9f0f75e872d33d207b1fdd28da6fab4453b9d41fd164e75265",
+      "bytes": 524
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/measurement/comparison.json",
+      "sha256": "d5bc0aafb9bc654056bc59eb066f5698ad0857c21d0e8b037c0ecb5880ccd200",
+      "bytes": 57829
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/measurement/telemetry.jsonl",
+      "sha256": "906a027987f7f18378ead809d55a3b21d94a3acaf92f6f287e7fafee54de403f",
+      "bytes": 8145
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/plan.json",
+      "sha256": "a4f8c6bce43155e237c1d08383af7e7da6723764f62348d5cbc2606f5a45341d",
+      "bytes": 3263
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/recount.py",
+      "sha256": "faea95ae17883e4013f4ac6fa120ea5245a155482e1c915616c6bf7f9ece5bdf",
+      "bytes": 16565
+    },
+    {
+      "path": "bench/results/2026-10-06-demo-proof/semantic/verification.json",
+      "sha256": "60540ada25d8b0e315babb838571d17a2fc8375673ced439996c2a747f66a3a8",
+      "bytes": 1643
+    },
+    {
+      "path": "docs/rig-work/2026-10-06-demo-proof/semantic/handoff.md",
+      "sha256": "7ad0e156526dd583f1081990f96bea6da40e5eb85eb5e67a7790fead4c351eb1",
+      "bytes": 4770
+    },
+    {
+      "path": "docs/rig-work/2026-10-06-demo-proof/semantic/report.md",
+      "sha256": "9cc8dbb25ddc12f786d9b99312334dabbaa12abb3ae83a8030ac2d9f0aba2da9",
+      "bytes": 15425
+    }
+  ],
+  "original_artifacts": [
+    {
+      "path": "bench/results/2026-10-02/semantic.json",
+      "sha256": "56c4eb8c83579dd6b151b313aa503a36930ef5ffbd892b1d8e4eeca5a954caf2"
+    },
+    {
+      "path": "bench/results/2026-10-02/static.json",
+      "sha256": "52e79e82df0a0a77db1149d8e8655c32c5a1dfe99d3390dbadf1c60dcc460eea"
+    },
+    {
+      "path": "bench/results/2026-10-02/source-hashes.json",
+      "sha256": "5635e11871b21af20fb091ed0585b4e99d0e721be261674987e9fa5855825a0e"
+    },
+    {
+      "path": "bench/results/2026-10-02/measured-runner.py",
+      "sha256": "d1f21c6ef1002d648990e327097f90eeb36bda2dba2d048ad4a2c49456c92cc8"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/measured.json",
+      "sha256": "21f74de916043f186e717b3b2ec15891c6705d3c4794ccc65eb1854aad4aca46"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/measurement-plan.json",
+      "sha256": "90927bc6ac97896e9cd353c39712892d1b0a7e12ebff6d7bc6df77fa52725e69"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/call-ledger.json",
+      "sha256": "623fc6dbfe62ea01b1f17a6d602a4147aca3585912c803c3a14cd90e1282816b"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/responses.json",
+      "sha256": "6eb6e7a60ee5c9e47180d8c83a9f631cd9c124cd0d4cd09cdb3d6d30020e42e3"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/adjudication.json",
+      "sha256": "0e02d2387c547a704ba4ca388488bb96a6aa4a1a87b768c9de1585773b95b1e4"
+    },
+    {
+      "path": "bench/results/2026-10-02-showcase/engine-manifest.json",
+      "sha256": "bba75aeeb4d0d2e710368866ef7bed50b55ac1ed6ad606628e29213b516a72c0"
+    },
+    {
+      "path": "/tmp/fugu-full-workflow-backend-20261005/prepared140-frozen/fugu.json",
+      "sha256": "9d3ab74e12cbb55a8516d2c4093ba922787bae99c92479d24a9b8fb2af8c42d3"
+    },
+    {
+      "path": "/tmp/fugu-full-workflow-backend-20261005/prepared140-frozen/plan.json",
+      "sha256": "a5e2f365cbbefc89cec3a540075f3a57fcc847d27296a5b1e184819cc59ef1d8"
+    },
+    {
+      "path": "/tmp/fugu-full-workflow-backend-20261005/prepared140-frozen/cases.json",
+      "sha256": "ccbbe081b9866489d4851eb29e9cc6772eb9eb650bc96632d804274671c62e9a"
+    }
+  ],
+  "execution_source_bindings": {
+    "repository": "microsoft/markitdown",
+    "commit": "2b61a335a4bec721144498fe425a61f23e9e3d6e",
+    "archive_sha256": "3233a8112220cf781dd10c869614f4439d6137fc752896775f308c5e22388aae",
+    "acquisition_record": "bench/results/2026-10-02-wild-audit/acquisition.json",
+    "acquisition_record_sha256": "1914ec0c5ad03a2b173c5cedf66ec33fb125893a3bfd210dcb661e4525dc189b",
+    "cache_directory": "/tmp/fugu-wild-sources-20261002/microsoft--markitdown",
+    "selected_files": {
+      "README.md": "9f9dc0e582d066e8ac671a1f63b3a73c70a7be9909e8be51a7f5aeb5a7c04af2",
+      "packages/markitdown-mcp/README.md": "6967e98a8c7bc2215cfe26fc8b71e0b6938718f6f29c4a48d4e2bb97b6d88012",
+      "packages/markitdown-mcp/pyproject.toml": "d4ff54c7168abfff9deb210b5df213c5dacf2d7262e426887987c2176359e143",
+      "packages/markitdown-mcp/src/markitdown_mcp/__main__.py": "d4db28dfbe2aa7358f59591639a5296c1d20934a9c31c060addc88281dbd66fe"
+    },
+    "all_selected_hashes_match_acquisition": true
+  }
+}
