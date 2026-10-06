@@ -852,7 +852,16 @@ import sys
 from pathlib import Path
 from bench import current_limits as base
 from bench import current_limits_continuation as mod
-engine=base.load_engine(Path(sys.argv[2])); root=Path(sys.argv[1]); plan=mod.prepare(engine,root)
+root=Path(sys.argv[1])
+mod.DEFAULT_CHILD=root.parent/'synthetic-child'
+mod.DEFAULT_REGISTRY=root.parent/'synthetic-registry/parent.json'
+engine=base.load_engine(Path(sys.argv[2])); plan=mod.prepare(engine,root)
+boundary_calls=[]
+def forbidden(*args,**kwargs):
+ boundary_calls.append('credential-or-sdk')
+ raise AssertionError('drift reached credential/SDK boundary')
+engine.modules['config'].get_settings=forbidden
+engine.modules['client'].make_client=forbidden
 cases=base.read_json(root/'cases.json'); mode=sys.argv[3]
 if mode=='input':
  p=base.case_target(cases['cases'][0])/'tools.json'; p.write_text('changed inert fixture')
@@ -867,11 +876,27 @@ else: plan['continuation_sha256']='0'*64
 try: mod.validate_plan(engine,plan,root)
 except base.EvidenceError: pass
 else: raise AssertionError('drift reached SDK gate')
+# Exercise the CLI's rejection ordering with an inert release stub. Real release
+# authentication is tested separately; no queue, credentials or provider is used.
+base.write_json(root/'plan.json',plan)
+base.load_engine=lambda *args:engine
+mod.authenticate_release=lambda *args:None
+try:
+ mod.main(['run','--engine-root',str(engine.root),'--prepared-dir',str(root),
+           '--approved-plan-sha256',base.hash_json(plan),
+           '--data-release-ref','qitem-20260101000000-00000000'])
+except base.EvidenceError: pass
+else: raise AssertionError('CLI drift reached SDK gate')
+assert boundary_calls==[]
 assert not (mod.DEFAULT_CHILD/'data-release.json').exists()
+assert not mod.DEFAULT_CHILD.exists() and not mod.DEFAULT_REGISTRY.exists()
 print('rejected-before-sdk')
 """
     result = subprocess.run(
         [
+            "uv",
+            "run",
+            "--no-sync",
             sys.executable,
             "-c",
             script,
@@ -885,6 +910,7 @@ print('rejected-before-sdk')
             PYTHONDONTWRITEBYTECODE="1",
             PYTHON_DOTENV_DISABLED="1",
             NEBIUS_API_KEY="",
+            PYTHONPATH=f"{base.ROOT / 'src'}{os.pathsep}{base.ROOT}",
         ),
         capture_output=True,
         text=True,
