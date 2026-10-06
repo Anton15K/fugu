@@ -65,6 +65,20 @@ def main() -> int:
     if git("merge-base", "--is-ancestor", source, before, check=False).returncode == 0:
         print("Main is already included; no files changed.")
         return 0
+    # Git's merge strategy can overwrite ignored files even with the CLI flag.
+    # Detect file and directory collisions before starting any merge.
+    incoming_paths = names(git("ls-tree", "-r", "--name-only", "-z", source).stdout)
+    incoming_dirs = {str(parent) for path in incoming_paths
+                     for parent in PurePosixPath(path).parents}
+    ignored_paths = names(git("ls-files", "--others", "--ignored", "--exclude-standard", "-z").stdout)
+    collisions = sorted(path for path in ignored_paths
+                        if path in incoming_paths or path in incoming_dirs
+                        or any(str(parent) in incoming_paths for parent in PurePosixPath(path).parents))
+    if collisions:
+        print("Refusing: incoming main would collide with ignored owner files. Move only your own files before retrying:", file=sys.stderr)
+        for path in collisions:
+            print(f"  {path}", file=sys.stderr)
+        return 1
     snapshot_paths = names(git("ls-tree", "-r", "--name-only", "-z", before).stdout)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     backup = f"refs/setup-sync-backups/{branch}/{stamp}-{uuid4().hex[:8]}"
