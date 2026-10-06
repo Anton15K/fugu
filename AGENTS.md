@@ -17,7 +17,8 @@ reviewer session and worktree; the same harness is explicitly allowed. This
 does not claim model diversity. Keep native approval and sandbox controls.
 Never answer another agent's permission or trust dialog. Notify the human.
 
-Use `uv run --no-sync` for Python. The Python environment and frontend dependency
+Use `PYTHONPATH="$PWD/src:$PWD" uv run --no-sync` for Python so the shared
+editable environment imports THIS worktree, including in subprocesses. The Python environment and frontend dependency
 directories are seeded from the existing local Fugu environment. Do not change
 dependencies or run environment sync without a specific assignment. Run scoped
 tests; reviewers run the appropriate integration checks. UI changes require the

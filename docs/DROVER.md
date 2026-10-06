@@ -17,7 +17,8 @@ clone, with its own Git metadata and task board. The OpenRig checkout is untouch
 No keys, live SQLite WAL/SHM state or uncommitted changes were copied. The committed
 `fugu.db` snapshot is present because it is tracked in the repository; it is independent
 of the original checkout's live database. The Python environment is
-shared via a symlink; commands use `uv run --no-sync`. Frontend dependencies are
+shared via a symlink; Python commands use `PYTHONPATH="$PWD/src:$PWD" uv run --no-sync`
+to select the current worktree source instead of the original editable install. Frontend dependencies are
 copied locally and seeded into new worktrees. Hosted Fugu analysis needs separate
 credential setup if you later assign work that calls those APIs.
 
