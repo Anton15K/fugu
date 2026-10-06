@@ -22,7 +22,8 @@ def violations(paths: list[str]) -> list[str]:
         parts = PurePosixPath(path).parts
         if (path in EXACT or parts and parts[0] in ROOTS
                 or any(part in LOCAL_DIRS for part in parts)
-                or parts and parts[-1] in CONFIG_NAMES):
+                or parts and parts[-1] in CONFIG_NAMES
+                or parts and parts[0] == ".beans" and (len(parts) != 2 or not parts[-1].endswith(".md"))):
             result.append(path)
     return sorted(result)
 

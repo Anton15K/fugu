@@ -48,6 +48,13 @@ class OrchestrationBoundaryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
         self.assertIn("rig/role guidance.md", result.stdout)
 
+    def test_board_accepts_only_direct_markdown_task_records(self):
+        for path in [".beans/config.yaml", ".beans/startup.sh", ".beans/nested/config.md"]:
+            with self.subTest(path=path):
+                result = self.check_tree([path])
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertIn(path, result.stdout)
+
     def test_non_repository_fails_closed(self):
         with tempfile.TemporaryDirectory() as directory:
             result = subprocess.run([sys.executable, str(CHECK), "--repo", directory],
