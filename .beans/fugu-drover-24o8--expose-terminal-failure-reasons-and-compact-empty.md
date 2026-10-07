@@ -1,13 +1,13 @@
 ---
 # fugu-drover-24o8
 title: Expose terminal failure reasons and compact empty mobile panels
-status: todo
+status: completed
 type: task
 priority: high
 tags:
     - parent-fugu-drover-utvh
 created_at: 2026-10-07T15:58:20Z
-updated_at: 2026-10-07T16:08:34Z
+updated_at: 2026-10-07T17:07:24Z
 blocked_by:
     - fugu-drover-utvh
 ---
@@ -28,12 +28,12 @@ Promote the existing terminal error reason into the primary halted alert beside 
 
 ## Acceptance
 
-- [ ] Reproduce the baseline failure with actual rendered production UI; record reason/retry positions and empty-panel sizes at 390x844.
-- [ ] Primary failure alert exposes the actual source-extraction reason; retained log agrees, unknown reason has explicit fallback, no PASS/completed verdict is synthesized.
-- [ ] At 390x844 the short fixture reason and an operable New audit action are visible in the first viewport; empty stopped panels have no 380px forced minimum; populated/long evidence remains reachable with no horizontal page overflow.
-- [ ] New audit clears the reason and old terminal state; successive failure/running/completed fixtures preserve current findings, stop behavior and keyboard access to recovery. Include long text and HTML-looking reason inputs.
-- [ ] Meaningful real-render/reducer regressions fail on owned implementation reversion and pass after restoration; every existing and new UI gate passes, with desktop/mobile screenshots reviewed.
-- [ ] Only allowed application assets and this child record committed; full report and independent named review/third-agent handoff complete.
+- [x] Reproduce the baseline failure with actual rendered production UI; record reason/retry positions and empty-panel sizes at 390x844.
+- [x] Primary failure alert exposes the actual source-extraction reason; retained log agrees, unknown reason has explicit fallback, no PASS/completed verdict is synthesized.
+- [x] At 390x844 the short fixture reason and an operable New audit action are visible in the first viewport; empty stopped panels have no 380px forced minimum; populated/long evidence remains reachable with no horizontal page overflow.
+- [x] New audit clears the reason and old terminal state; successive failure/running/completed fixtures preserve current findings, stop behavior and keyboard access to recovery. Include long text and HTML-looking reason inputs.
+- [x] Meaningful real-render/reducer regressions fail on owned implementation reversion and pass after restoration; every existing and new UI gate passes, with desktop/mobile screenshots reviewed.
+- [x] Only allowed application assets and this child record committed; full report and independent named review/third-agent handoff complete.
 
 ## Sequencing
 
@@ -49,3 +49,13 @@ Coder: fugu-codex-coder. Independent reviewer: fugu-codex-reviewer through exist
 No coder/reviewer push or landing, dependency/environment sync, shared API/dependency/schema/infrastructure changes, owner .env/database/log/credential access, historical benchmark mutation, paid evaluations, deployment, publication, visibility changes, submission or external messages. Python 3.10-compatible; use PYTHONPATH="$PWD/src:$PWD" PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY="" uv run --no-sync. Use temporary agent-owned fixture state; no shared server/database. File-based UI fixture or the explicitly authorized agent-owned loopback fixture on an unused ephemeral port only; close it and your browser afterward. Inspect production source and existing modules before creating files. Broader scope becomes a human-blocked proposal, not an implicit requirement.
 
 Finish by recording exact SHAs, pasted finished checks, limitations and real revert-test-restore proof for any behavior fix, updating only this child checklist/record, and fleet-done for separate named review. Integrator publishes the task PR and merges only after independent approval and every local/CI gate; no direct coder dispatch to peers.
+
+## Summary of Changes
+
+At accepted main ed2c134011689a1c4f3241bee6df7f026f5de214, retained terminal error-event text independently of bounded logs; primary halted alert shows the actual reason or explicit unsupplied fallback beside New audit. Mobile halted cards are content-sized, desktop/running minimum heights retained; arbitrary long reason/log/finding text wraps safely within zero-minimum-width cards. Existing findings, timestamps, stream stop and verdict semantics retained.
+
+Fresh offline built-browser baseline: reason y=1121, retry y=144.75, empty evidence and short log both 380px. Fixed mobile: primary reason y=275.5, New audit y=315.5, panels 115px/138.625px, no horizontal overflow at 390x844. Desktop 1440x1000 retains 380px panels. Long HTML-looking text, 20 retained long findings, 41 bounded log lines, scroll reachability, keyboard reset, successive running/failure and completed simulation verified. Simulated 28.1 seconds/10 findings are scripted UI data, not provider measurements.
+
+Every required UI gate exit 0; 6 stream + 32 reducer + 7 real-render = 45/45 checks (13 added); 36 built-browser assertions pass. Per-file implementation revert makes render/reducer/primary-reason/mobile-height assertions fail; finally restores exact owned bytes and passes render/reducer/build/mobile checks. Source lint retains 11 existing warnings, no new warning. Owned browser and ephemeral loopback fixture closed; no live provider verification or score increase claimed.
+
+Coder-only handoff through fleet-done to named fugu-codex-reviewer, then fugu-codex-integrator after independent approval and all CI. Checklist completion records coder implementation/verification and review handoff, not a child review verdict or landed PR. Those remain pending; coder neither pushes nor lands. Report: /Users/antonkogun/.local/share/drover/reports/fugu-codex-coder-fugu-drover-24o8.md. Only own allowed paths staged; pre-existing logs/ preserved.

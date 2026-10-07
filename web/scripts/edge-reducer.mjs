@@ -149,5 +149,23 @@ for (const stage of ["semantic", "harness"]) {
   check("partial metadata: failure takes precedence", s.stages.semantic === "error");
 }
 
+// Terminal reason is independent of the bounded forensic log, including replay/reset.
+{
+  const reason = '<img src=x onerror=alert(1)> ' + 'x'.repeat(2000);
+  const finding = F("high", "deterministic", "static");
+  let s = applyEvent(initialPipelineState(), ev("finding", { finding }));
+  s = applyEvent(s, ev("error", { stage: "extraction", error: reason }));
+  check("failure reason: arbitrary text retained unchanged", s.failureReason === reason);
+  check("failure reason: original log agrees", s.logs.at(-1)?.message === reason);
+  for (let i = 0; i < 60; i++) s = applyEvent(s, ev("log", { message: `later log ${i}` }));
+  check("failure reason: survives bounded log rollover", s.failureReason === reason && s.logs.length <= 41 && !s.logs.some(l => l.message === reason));
+  check("failure reason: findings retained, no terminal verdict", s.findings[0] === finding && s.finishedAt === null && s.stages.verdict !== "done");
+  check("failure reason: reset clears terminal state", initialPipelineState().failureReason === null && initialPipelineState().findings.length === 0);
+  const replay = [ev("error", {stage:"extraction",message:"message-only reason"})].reduce(applyEvent, initialPipelineState());
+  check("failure reason: message-only replay retained", replay.failureReason === "message-only reason");
+  const blank = applyEvent(initialPipelineState(), ev("error", {stage:"extraction",error:"   "}));
+  check("failure reason: blank is unknown with explicit log fallback", blank.failureReason === null && blank.logs.at(-1)?.message === "The server did not supply a failure reason.");
+}
+
 console.log(`\nedge cases: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
