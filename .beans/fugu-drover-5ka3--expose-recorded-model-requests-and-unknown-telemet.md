@@ -1,13 +1,13 @@
 ---
 # fugu-drover-5ka3
 title: Expose recorded model requests and unknown telemetry in audit reports
-status: todo
+status: completed
 type: task
 priority: high
 tags:
     - parent-fugu-drover-utvh
 created_at: 2026-10-07T15:59:18Z
-updated_at: 2026-10-07T15:59:18Z
+updated_at: 2026-10-07T17:36:08Z
 blocked_by:
     - fugu-drover-utvh
     - fugu-drover-24o8
@@ -29,12 +29,12 @@ Normalize an allowlisted internal view from terminal stages[].metrics and add a 
 
 ## Acceptance
 
-- [ ] Current production metric shapes normalize and render in a completed semantic+harness fixture with distinct requested/served IDs, logical calls/request attempts, usage and selected bounds.
-- [ ] Null/absent/malformed/nonfinite/negative fields, skipped/failed/partial stages and legacy verdicts remain safe, explicitly unknown and scope-limited; actual zero stays zero.
-- [ ] Simulated and parent-only composition data never imply real inference or complete member accounting; no invented provider, cost, latency, safety or raw payload claim.
-- [ ] Literal expected mapper/render assertions cover missing fields, excluded secret-shaped fields and HTML-looking strings as text; new assertions fail on owned implementation reversion and pass after restoration, all old checks retained.
-- [ ] Real built desktop/mobile UI is discoverable and keyboard operable, long model IDs wrap without page overflow and verdict/evidence hierarchy remains intact; screenshots reviewed, all UI gates pass.
-- [ ] Only allowed files/own bean committed; pasted report and separate named review/third-agent handoff complete.
+- [x] Current production metric shapes normalize and render in a completed semantic+harness fixture with distinct requested/served IDs, logical calls/request attempts, usage and selected bounds.
+- [x] Null/absent/malformed/nonfinite/negative fields, skipped/failed/partial stages and legacy verdicts remain safe, explicitly unknown and scope-limited; actual zero stays zero.
+- [x] Simulated and parent-only composition data never imply real inference or complete member accounting; no invented provider, cost, latency, safety or raw payload claim.
+- [x] Literal expected mapper/render assertions cover missing fields, excluded secret-shaped fields and HTML-looking strings as text; new assertions fail on owned implementation reversion and pass after restoration, all old checks retained.
+- [x] Real built desktop/mobile UI is discoverable and keyboard operable, long model IDs wrap without page overflow and verdict/evidence hierarchy remains intact; screenshots reviewed, all UI gates pass.
+- [x] Only allowed files/own bean committed; pasted report and separate named review/third-agent handoff complete.
 
 ## Sequencing
 
@@ -50,3 +50,12 @@ Coder: fugu-codex-coder. Independent reviewer: fugu-codex-reviewer through exist
 No coder/reviewer push or landing, dependency/environment sync, shared API/dependency/schema/infrastructure changes, owner .env/database/log/credential access, historical benchmark mutation, paid evaluations, deployment, publication, visibility changes, submission or external messages. Python 3.10-compatible; use PYTHONPATH="$PWD/src:$PWD" PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY="" uv run --no-sync. Use temporary agent-owned fixture state; no shared server/database. File-based UI fixture or the explicitly authorized agent-owned loopback fixture on an unused ephemeral port only; close it and your browser afterward. Inspect production source and existing modules before creating files. Broader scope becomes a human-blocked proposal, not an implicit requirement.
 
 Finish by recording exact SHAs, pasted finished checks, limitations and real revert-test-restore proof for any behavior fix, updating only this child checklist/record, and fleet-done for separate named review. Integrator publishes the task PR and merges only after independent approval and every local/CI gate; no direct coder dispatch to peers.
+
+
+## Coder delivery — 2026-10-07
+
+Normalized terminal semantic/harness telemetry through an internal allowlist; native Recorded model requests disclosure after findings preserves requested/served distinction, logical-call/attempt counts, supplied token usage and selected bounds. Missing/malformed/null/nonfinite/negative fields remain not reported; zero remains zero. Simulation and parent-only composition caveats prohibit inference/full-accounting claims. Existing valid finding/verdict/coverage behavior preserved. No provider, cost, endpoint, latency or raw payload inferred/displayed.
+
+Merged accepted local main c481fdbc36f844e6ebb27a68e3660d11f04ae2f7 initially and 8ba3d69af391cf92db564e782fc30b6fc0a2d186 after casebook landing. All specified UI gates finished exit 0, 11 unchanged lint warnings; 59 node:test cases (14 new), original 10 mapper checks, contract/smoke retained. 94 built-browser checks; 1440x1000 and 390x844; 11 screenshots reviewed. Per-file mapper revert: 6/6 FAIL then 6/6 PASS restored; Scorecard revert: 8/8 FAIL then 8/8 PASS restored in finally. Agent-owned offline fixture and browser closed. Live providers and cost/performance gains unverified.
+
+Report: /Users/antonkogun/.local/share/drover/reports/fugu-codex-coder-fugu-drover-5ka3.md; evidence sibling -evidence directory. Last acceptance checkbox records coder report/commit and fleet-done routing to named fugu-codex-reviewer / fugu-codex-integrator; independent approval, PR/CI and landing remain pending and are not asserted by coder completion. Pre-existing malformed primitive metrics in stage_done reach the read-only pipeline reducer before terminal mapping; fixture targets assigned terminal metrics. No pipeline reducer change included.
