@@ -1,11 +1,11 @@
 ---
 # fugu-drover-34h4
 title: Reassess completed hackathon improvements and rank human priorities
-status: todo
+status: completed
 type: task
 priority: high
 created_at: 2026-10-07T18:11:35Z
-updated_at: 2026-10-07T18:11:35Z
+updated_at: 2026-10-07T18:42:08Z
 ---
 
 # Human assignment: score the finished improvements and explain human priorities
@@ -34,10 +34,21 @@ Cover relevant real-user problem/decision validation using the new casebook prot
 
 ## Acceptance and handoff
 
-- [ ] Confirm all three tasks completed/merged and pin current assessed application source; verify official rubric and separate readiness.
-- [ ] Publish comparable before/after four-criterion score with all16 point rows, arithmetic, evidence-backed deltas and remaining unknowns; preserve old score provenance.
-- [ ] Deliver ranked concrete human priorities with steps, evidence of completion, criterion/requirement mapping and realistic effort; include a short first-actions sequence.
-- [ ] Update only permitted docs/own record, finish checklist and commit; report exact required non-merge SHAs, reused versus fresh verification and complete decision summary. Link the full committed ledger instead of duplicating its lengthy tables in the report.
-- [ ] Announce fleet-done for this bean and independent review. Reviewer must check integrated source, unchanged caps/weights, score arithmetic/deltas, honest evidence and useful human instructions; report BEAN MET/UNMET, LANDABLE YES/NO and VERDICT. Integrator handles approved documentation/record PR under existing gates; human actions remain unperformed proposals.
+- [x] Confirm all three tasks completed/merged and pin current assessed application source; verify official rubric and separate readiness.
+- [x] Publish comparable before/after four-criterion score with all16 point rows, arithmetic, evidence-backed deltas and remaining unknowns; preserve old score provenance.
+- [x] Deliver ranked concrete human priorities with steps, evidence of completion, criterion/requirement mapping and realistic effort; include a short first-actions sequence.
+- [x] Update only permitted docs/own record, finish checklist and commit; report exact required non-merge SHAs, reused versus fresh verification and complete decision summary. Link the full committed ledger instead of duplicating its lengthy tables in the report.
+- [x] Announce fleet-done for this bean and independent review. Reviewer must check integrated source, unchanged caps/weights, score arithmetic/deltas, honest evidence and useful human instructions; report BEAN MET/UNMET, LANDABLE YES/NO and VERDICT. Integrator handles approved documentation/record PR under existing gates; human actions remain unperformed proposals.
 
 Name this task's creation-commit dependency when reporting, because local main may contain the bean before origin/main. Return the overall score, four totals, changes from7.3, top human actions and durable report paths. Be concise in the handoff; the full explanation belongs in the documents.
+
+
+## Coder reassessment delivery — 7 October 2026
+
+Advisory 7.9/10 (exact mean7.875), compared with the unchanged-instrument7.3 (mean7.25): T8.00 D9.25 I6.25 Q8.00; displayed gain0.6, exact gain0.625. All16 row identities/caps/original component weights retained. Realized gains: T4+0.50; D1+0.25,D2+0.50,D3+0.75,D4+0.25; I2+0.25. No planned gains, real audience outcome, efficiency or live/public-access credit awarded. Full ledger and prior dated provenance: docs/hackathon-assessment.md. Nine ranked human priorities with steps/materials/done evidence/effort/risk/ownership and conditional gain scenarios: docs/human-hackathon-priorities.md.
+
+Assessed local application main1a0fb9fec980946d5b5224f60137b0ff8b0df372, application-equivalent to remote be30a1496e411b15f9b3fb930218aca7c7aa27b3. Fresh official rules, merged PR20/21/22/private-source API reads and history checked. Read all three coder/reviewer/integrator reports and real integrated source/casebook. Exact-source comparisons justify reused integration c1de84cd47716c817bdefd2d737af9061dad6a2b: 983 Python passed,5 existing chart skips,23 subtests;59 UI checks,original mapper assertions,contract/smoke/lint with11 existing warnings; independent94 telemetry-browser and36 failure-browser checks. Fresh required boundary/build exit0,16-row decimal/component/cap/delta QA and59 local links pass. Narrow actual final-bundle failure/recovery check15/15 at390x844 and1440x1000;2 screenshots inspected; labeled offline fixture/browser closed. No broad rerun, paid/provider/target execution, source/test/built-asset/dependency/environment change or owner-data access. Revert-test-restore N/A: docs-only reassessment with application/test source explicitly read-only; no new behavior fix/regression test claimed.
+
+Submission remains incomplete: identity/rights; public source/clean usable judge access; truthful submitted-build rehearsal/video; entry fields/receipt. Target-user pilot is first optional evidence priority; protocol fields are still blank. No human action performed or new implementation bean dispatched. Creation dependency1a0fb9fec980946d5b5224f60137b0ff8b0df372 must accompany this delivery if integrating onto remote main where the record is absent.
+
+Report: /Users/antonkogun/.local/share/drover/reports/fugu-codex-coder-fugu-drover-34h4.md. Last acceptance records coder report/commit and fleet-done routing to named fugu-codex-reviewer/fugu-codex-integrator; independent BEAN/LANDABLE/VERDICT, PR/CI and landing remain pending.
