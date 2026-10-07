@@ -1,0 +1,6 @@
+Authored source-absence scenario; this file is a recipe, not an audited extension.
+Use a nonexistent directory beneath owned temporary state: POST must reject it.
+To exercise the terminal stream, submit an existing owned copy of ordinary/SKILL.md
+and remove that copy immediately before the genuine source extractor reads it.
+Expected decision: restore the source or correct its path, then retry.
+No verdict, source analysis, provider request or target execution is demonstrated.

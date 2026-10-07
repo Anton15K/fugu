@@ -1,13 +1,13 @@
 ---
 # fugu-drover-o04t
 title: Build an offline judge decision casebook and audience validation protocol
-status: todo
+status: completed
 type: task
 priority: normal
 tags:
     - parent-fugu-drover-utvh
 created_at: 2026-10-07T15:59:18Z
-updated_at: 2026-10-07T16:08:34Z
+updated_at: 2026-10-07T17:19:36Z
 blocked_by:
     - fugu-drover-utvh
 ---
@@ -28,13 +28,13 @@ Three authored cases: hidden instructions with source/decoded exhibit -> stop an
 
 ## Acceptance
 
-- [ ] Three inert authored scenario fixtures and intended distinctions documented; label crafted demonstrations, not blind or representative inputs.
-- [ ] Production local-stage/API test proves hidden content yields source/decoded exhibit and severe policy reason; ordinary content discloses hosted-stage skips and a verdict limited to performed checks; absent source emits terminal error without success verdict. Zero paid/network/target-execution calls.
-- [ ] Casebook commands work in existing no-sync environment; record exact observed output, commit/date, exhibit and coverage; no unsupported hardcoded counts/limits.
-- [ ] Demo script separates offline casebook, simulated UI and human-authorized live/provider/chamber rehearsal; preserves dated benchmark limits, public-access/recording gaps. No hosted-demo or NVIDIA-runtime claim for offline cases.
-- [ ] Human audience protocol records decision correctness, reasons/coverage comprehension and confusion; all uncollected outcomes unverified and outreach human-only.
-- [ ] Boundary/build and new casebook/existing server tests pass. No production fix asserted: no artificial mutation or rubric-mirroring tests. Discovered engine changes require a separate task.
-- [ ] Only allowed docs/inert fixtures/test/own bean committed; pasted outputs/limits and separate named review/third-agent handoff complete.
+- [x] Three inert authored scenario fixtures and intended distinctions documented; label crafted demonstrations, not blind or representative inputs.
+- [x] Production local-stage/API test proves hidden content yields source/decoded exhibit and severe policy reason; ordinary content discloses hosted-stage skips and a verdict limited to performed checks; absent source emits terminal error without success verdict. Zero paid/network/target-execution calls.
+- [x] Casebook commands work in existing no-sync environment; record exact observed output, commit/date, exhibit and coverage; no unsupported hardcoded counts/limits.
+- [x] Demo script separates offline casebook, simulated UI and human-authorized live/provider/chamber rehearsal; preserves dated benchmark limits, public-access/recording gaps. No hosted-demo or NVIDIA-runtime claim for offline cases.
+- [x] Human audience protocol records decision correctness, reasons/coverage comprehension and confusion; all uncollected outcomes unverified and outreach human-only.
+- [x] Boundary/build and new casebook/existing server tests pass. No production fix asserted: no artificial mutation or rubric-mirroring tests. Discovered engine changes require a separate task.
+- [x] Only allowed docs/inert fixtures/test/own bean committed; pasted outputs/limits and separate named review/third-agent handoff complete.
 
 ## Verification
 
@@ -54,3 +54,15 @@ Coder: fugu-codex-coder. Independent reviewer: fugu-codex-reviewer through exist
 No coder/reviewer push or landing, dependency/environment sync, shared API/dependency/schema/infrastructure changes, owner .env/database/log/credential access, historical benchmark mutation, paid evaluations, deployment, publication, visibility changes, submission or external messages. Python 3.10-compatible; use PYTHONPATH="$PWD/src:$PWD" PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY="" uv run --no-sync. Use temporary agent-owned fixture state; no shared server/database. File-based UI fixture or the explicitly authorized agent-owned loopback fixture on an unused ephemeral port only; close it and your browser afterward. Inspect production source and existing modules before creating files. Broader scope becomes a human-blocked proposal, not an implicit requirement.
 
 Finish by recording exact SHAs, pasted finished checks, limitations and real revert-test-restore proof for any behavior fix, updating only this child checklist/record, and fleet-done for separate named review. Integrator publishes the task PR and merges only after independent approval and every local/CI gate; no direct coder dispatch to peers.
+
+## Summary of Changes
+
+At accepted application main ed2c134011689a1c4f3241bee6df7f026f5de214, added three authored inert scenario fixtures and production-local-stage/API/SSE casebook tests. Optional tool-surface scanner disabled before real stage assembly; semantic/harness follow their genuine no-key skip paths; reputation/detonation excluded. Temporary owned SQLite/snapshots reclaimed; provider/network/subprocess attempt guards all zero.
+
+Observed 7 October: hidden case has one critical deterministic Tags finding at file:SKILL.md:L5, 59 hidden codepoints and the full decoded invented-marker instruction, with FAIL reason; ordinary case has zero local findings and scoped PASS, static_only/partial_coverage with semantic and harness skips. Missing local input before submission returns 422 without a job; controlled removal of an accepted owned copy before genuine extraction produces failed job/terminal error/no verdict or stage execution. No server or verdict behavior changed.
+
+New docs/judge-casebook.md records the exact no-sync reproduction command, observed counts/exhibit/coverage, source-engine SHA/date, explicit absence boundaries and blank human-only audience protocol. docs/demo-script.md adds an offline 2:45 proposed storyboard and distinguishes simulated UI from unverified human-authorized live/provider/chamber work, preserving dated benchmark denominators, adjudication limits and public-access/recording gaps. No outreach, runtime/provider demonstration, audience outcome, publication or automatic score gain claimed.
+
+Fresh required gates: orchestration boundary and web build exit 0; assigned casebook plus existing server suite 27 passed (3 new + 24 unchanged). Full suite 983 passed, 5 existing matplotlib skips, 23 subtests passed; one existing Starlette/AnyIO warning. New test parses with Python 3.10 grammar; runtime tested in existing Python 3.11 environment. All relative docs links resolve. Production source, existing tests/fixtures, frozen benchmarks and built UI unchanged. No production fix: mutation proof N/A; this bean explicitly disallows artificial mutation tests for unchanged production.
+
+Coder-only named independent-review/third-agent handoff through fleet-done; checklist completion records delivery, not an approval verdict or landed PR. fugu-codex-reviewer independently evaluates; fugu-codex-integrator publishes/lands only after independent approval and all local/CI gates. No coder push or peer message. Full report: /Users/antonkogun/.local/share/drover/reports/fugu-codex-coder-fugu-drover-o04t.md. Only allowed own docs/test/inert fixtures/bean staged; untracked logs/ preserved.
