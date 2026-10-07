@@ -1,11 +1,11 @@
 ---
 # fugu-drover-utvh
 title: Explain current hackathon scores and design fleet improvement tasks
-status: todo
+status: completed
 type: task
 priority: high
 created_at: 2026-10-07T15:42:08Z
-updated_at: 2026-10-07T15:42:08Z
+updated_at: 2026-10-07T16:13:16Z
 ---
 
 # Human assignment — fresh hackathon rating and improvement task design
@@ -42,15 +42,23 @@ Document real child IDs and scope, dependencies, priority, acceptance checks and
 
 ## Acceptance
 
-- [ ] Fresh baseline pinned and current official criteria/eligibility/submission requirements verified; prior completed work acknowledged accurately.
-- [ ] All four advisory criterion scores explained by complete earned/missing point ledgers with evidence, arithmetic, uncertainties and equal-weight overall rating.
-- [ ] Actual current product/evidence reviewed and relevant fresh offline verification recorded, with historical/unverified evidence clearly separated.
-- [ ] Highest-value gaps ranked and finite child tasks fully designed, with concrete scope, measurable acceptance, verification, priorities, dependencies and justified deferrals/human actions.
-- [ ] Real child beans created on the task branch, blocked by this parent; user-facing assessment and improvement-plan docs include their IDs and honest dispatch status.
-- [ ] Only assigned docs/task records committed; report includes every necessary non-merge SHA, exact test output and full score/task explanation, and fleet-done announces this parent for independent review.
+- [x] Fresh baseline pinned and current official criteria/eligibility/submission requirements verified; prior completed work acknowledged accurately.
+- [x] All four advisory criterion scores explained by complete earned/missing point ledgers with evidence, arithmetic, uncertainties and equal-weight overall rating.
+- [x] Actual current product/evidence reviewed and relevant fresh offline verification recorded, with historical/unverified evidence clearly separated.
+- [x] Highest-value gaps ranked and finite child tasks fully designed, with concrete scope, measurable acceptance, verification, priorities, dependencies and justified deferrals/human actions.
+- [x] Real child beans created on the task branch, blocked by this parent; user-facing assessment and improvement-plan docs include their IDs and honest dispatch status.
+- [x] Only assigned docs/task records committed; report includes every necessary non-merge SHA, exact test output and full score/task explanation, and fleet-done announces this parent for independent review.
 
 Write reports under /Users/antonkogun/.local/share/drover/reports/. Report fresh observations only. Finish bean checklists and announce fleet-done as usual. End report with REBASED/VERIFIED/DONE evidence. This is a documentation/task-design change: don't invent implementation tests that merely mirror the rubric; run genuine current integration/product checks to support claims.
 
 ## Independent review expectations
 
 Review exact named commits on detached current local main in the separate reviewer worktree. Independently verify official criteria, point totals/mean, each earned/withheld justification, evidence dates/source correctness, current product claims, and every child design's feasibility/scope/dependencies/verification. Challenge unsupported score inflation and task designs that won't close their claimed gap. Ensure no accidental framework/runtime files, source changes, credential material or historical evidence mutation. Confirm child IDs exist, are blocked-by this parent, and become appropriately ready only on accepted main. Run appropriate genuine integration checks and report BEAN: MET|UNMET, LANDABLE: YES|NO and VERDICT: APPROVE|CHANGES. Approved docs and task designs may then enter the already-authorized third-agent PR/CI merge loop, after which children can be dispatched.
+
+## Summary of Changes
+
+Fresh 2026-10-07 assessment at local main 2d117c1dc8c6358e856c5990a748f33ca628eb16: complete 16-row earned/withheld point ledger; T 7.50, D 7.50, I 6.00, Q 8.00; equal-weight 7.25 rounded half-up to 7.3/10. Current full suite 980 passed, 5 existing matplotlib skips, 23 subtests passed; build and 32 UI regression checks green. Fresh labeled desktop/mobile fixture and simulated flow inspected, owned fixture/browser shut down. Source, dependencies and frozen evidence unchanged.
+
+Created dependency-linked todo children fugu-drover-24o8 (high: terminal reason/mobile), fugu-drover-5ka3 (high: recorded model evidence), fugu-drover-o04t (normal: offline decision casebook/protocol). All blocked_by utvh; 5ka3 also blocked_by 24o8 to serialize generated UI assets. Beans prohibits a task-type structural parent; retained task type and dependency links. No child started or main dispatch claimed. Parent independently reviewed/merged/synced before existing watcher can queue children. Human eligibility, publication, live rehearsal, audience outcomes and submission remain separate; no human action blocks this parent.
+
+Assessment and full task designs are in docs/hackathon-assessment.md and docs/hackathon-improvement-plan.md. Full coder report/evidence under /Users/antonkogun/.local/share/drover/reports/fugu-codex-coder-fugu-drover-utvh.md. Revert proof N/A for this documentation/task-design parent; no production fix or test added.

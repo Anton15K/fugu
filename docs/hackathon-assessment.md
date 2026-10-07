@@ -1,152 +1,115 @@
-# Fugu hackathon assessment — 6 October 2026
+# Current hackathon assessment
 
-**Advisory candidate rating: 7.4/10; submission readiness: incomplete.**
-Fugu has a credible developer-security use case and retained hosted-model
-evidence. This task repairs a demonstrated failure-flow defect; it establishes
-no new detector accuracy, fresh provider reliability or judge access.
+**Advisory rating: 7.3/10. Submission readiness: incomplete.** Assessed **7 October 2026**, baseline local application main **`2d117c1dc8c6358e856c5990a748f33ca628eb16`** (commit time 2026-10-07T18:42:08+03:00). Source is the assigned isolated worktree; application main is `/Users/antonkogun/dev/fugu-main`, never the setup control checkout. This parent changes documentation/task records only; no child improvement is implemented or running.
 
-Assessed **2026-10-06** against local application main
-`2d6d7ca2d8a3437448d2fd63dc8ab7b45f7f21ef` (committed the same day).
-The tested application candidate is
-`4b66f67e3d20ae4182cd18a74fd081f58bfc4034`.
-The documentation/checklist commit follows that candidate. Independent named
-fleet review and human landing remain outstanding. The previous 2–3 October
-7.6 rating is historical, not this baseline.
+PR 17 (`8f30b0d1d7d29a4c373d1041340901e17b09b79a`) and PR 18 (`e9eb60ec7377b53f3c999690242f416cc4d3f67e`) are already in this baseline. Failed-audit transport/recovery and owned composition snapshot repairs remain present. The previously reported 12 failures are **not current**: fresh checks below pass. Historical assessments are provenance, not today’s verification.
 
-The [official rules, §§1, 3, 4 and 6](https://nebiusglobalaihackathon.devpost.com/rules),
-retrieved **2026-10-06**, separate theme/API viability from four equal-weight
-judging dimensions. These subjective 0–10 scores are not official marks or
-predictions of acceptance or winning.
+## Official requirements and separate readiness
 
-## Before and after
+[Official rules](https://nebiusglobalaihackathon.devpost.com/rules), accessed **2026-10-07**, §§1,3,4,6. The following is a compact paraphrase; no rule text is quoted. Stage One tests genuine track fit and meaningful required-technology use. Stage Two weights the four criteria equally. Official numeric scales/subcriterion weights are unspecified; all point allocations below are the fleet’s advisory judgment, not official scores.
 
-| Official criterion | Baseline | Candidate | Evidence and limit |
-|---|---:|---:|---|
-| Technological Implementation | 7.0 | 7.0 | [Hosted client](../src/fugu/client.py), [semantic](../src/fugu/pipeline/stages/semantic.py) and [A/B harness](../src/fugu/pipeline/stages/harness.py) implement real model roles. Retained 5 October measurements support platform use. Fresh build and 24 server tests pass, but the broad suite has 12 failures. Target execution was unavailable in the latest benchmark, and no fresh paid audit ran here. Stream correctness supports a narrow boundary; it does not justify a technical-score increase. |
-| Design | 7.0 | 7.5 | [Entry/result flow](../web/src/App.tsx), coverage, exhibits, saved-run resume and labeled simulation form a coherent install decision. Baseline failure inspection reproduced continued reconnects, missing error detail and misleading listening text. Candidate desktop/mobile inspection shows a stopped stream, retained reason and working retry action. This demonstrated improvement earns 0.5. Long mobile panels, lint warnings, unverified fresh live success and absent public judge materials limit the score. |
-| Potential Impact | 7.0 | 7.0 | Developers vetting community skills, MCP servers and plugins are a specific audience. Source evidence and dated fixture outcomes address the install decision. Small, clustered, previously visible inputs do not establish broad effectiveness; adoption, incident prevention and time savings are unmeasured. |
-| Quality of the Idea | 8.0 | 8.0 | Concealment decoding, local matches, hosted semantic reading, two-model stated-response comparison and cross-member composition yield inspectable evidence. Nemotron has a substantive role. Existing scanners are prior art; no unique-invention or universal-superiority claim follows. |
-
-Baseline mean: **(7.0 + 7.0 + 7.0 + 8.0) / 4 = 7.25 → 7.3/10**
-(nearest tenth, half up). Candidate mean:
-**(7.0 + 7.5 + 7.0 + 8.0) / 4 = 7.375 → 7.4/10**.
-The small increase follows observed failure recovery. Documentation refresh
-alone earns no additional points. The broad-suite failures and current evidence
-gaps explain the lower fresh baseline relative to the old assessment.
-
-## Viability and submission access
-
-The rules require a working app with runtime Token Factory inference or AI Cloud
-execution and an NVIDIA open model. Coding and Agentic Engineering is the
-proposed fit; the human chooses the track. Stage One is an organizer decision.
-Fugu's model-backed developer tool and historical runtime evidence support
-viability; consistent operation of the eventual submitted build is unverified.
-[Official requirements](https://nebiusglobalaihackathon.devpost.com/rules).
-
-| Submission requirement | Current evidence / remaining action |
+| Requirement | Current status / human action |
 |---|---|
-| Public licensed source and setup/model instructions | [MIT license](../LICENSE) and [README](../README.md) exist. Fresh `gh repo view --json nameWithOwner,isPrivate,url` reports `Anton15K/fugu`, `isPrivate: true`. Human publication and public installation check remain. |
-| Working demo/test URL, free judge access through 15 December | No public URL verified. Local fixture QA is insufficient. Human deployment/access planning and rehearsal remain. |
-| English description and public YouTube demonstration under three minutes | [2:45 rehearsal script](demo-script.md) is prepared; final description, recording and URL remain unverified. |
-| Track, platform feedback and significant-update explanation if pre-existing | Submission fields unverified. Describe actual dated changes and model observations. |
-| Eligibility, representative authority, ownership and integration/media permissions | Human confirmation outstanding. |
-| Submission deadline: 30 October 2026, 17:00 UTC | Human submission outstanding. Judging runs 1–15 December. |
+| Majority age; geographic/conflict exclusions; authorized representative | Human confirmation absent. Exclusions include Brazil, Quebec, Russia, Crimea, Cuba, Iran, North Korea and comprehensively sanctioned jurisdictions; consult §3. |
+| Ownership/integration/media rights; no disqualifying sponsor support | Human confirmation absent; do not infer eligibility from source code or timezone. |
+| Working, consistent app; runtime Token Factory or AI Cloud; NVIDIA open model; track fit | Current implementation and dated runtime evidence support Coding and Agentic Engineering fit. Today’s submitted-build inference and consistent live operation unverified. Organizer decides viability. |
+| Registration; English description; track; platform feedback; significant-update account if pre-existing | Submission fields and human approvals unverified. Existing README/model explanation and dated commits are preparatory evidence. |
+| Public licensed repository, source/assets/setup/model guidance | MIT and README exist; fresh `gh repo view --json nameWithOwner,isPrivate,url` returns `isPrivate: true`. Human publication and clean-install check remain. |
+| Demo/test URL; unrestricted free judging access through 15 December, 12:00 Pacific | No public demo/access verified. An offline fixture is not this deliverable. |
+| Public YouTube demonstration under three minutes; permissions | 2:45 [script](demo-script.md) exists; final video/link/permissions unverified. |
+| Deadline 30 October 2026, 10:00 Pacific / 17:00 UTC | Human submission outstanding. Judging: 1–15 December. |
 
-These requirements and dates come from the
-[official rules](https://nebiusglobalaihackathon.devpost.com/rules).
-Neither the rating nor a passing local build completes this checklist.
+Eligibility and mandatory access are independent of the rating. No pass/fail acceptance claim is made, and human-only actions do not block completion of this assess-and-plan parent.
 
-## Evidence ledger
+## Advisory scoring method
 
-| Evidence class | Supported | Not supported |
-|---|---|---|
-| Fresh source/automated checks, 6 October | Boundary check and production build exit 0; source lint exit 0 with 11 warnings; contract and scripted smoke pass; API server 24/24; stream lifecycle 6/6; reducer 25/25; actual React failure view passes. | Paid inference, real chamber execution, fresh successful live end-to-end audit, clean broad suite or public availability. |
-| Fresh browser fixture, 6 October | Real production bundle at 1440×1000 and 390×844, controlled extraction failure. One stream closes, no polls follow; error remains visible, no success verdict is created, empty views stop listening, New audit clears the failure. No horizontal overflow. | The fixture supplies transport responses; it audits no source and calls no provider. LIVE ANALYSIS describes app mode, not a measured live audit. Screenshots carry a QA-fixture label. |
-| Historical 5 October full workflow | Frozen engine `dbc4f641bfad39f7004e64f08bf8351697f5ae7c`: 110/140 Fugu cases complete, 30 partial; 314/320 native rows complete. 4,581 SDK dispatches and 46 searches, no recorded provider stop. | A run at baseline/candidate, target-execution proof, population accuracy, adjudicated false-positive rate, dollar cost or remaining credits. |
-| Historical 2 October full capability | [Dated report](benchmark-full.md) retains Docker fake-canary observation and all-stage run. | Runtime availability on this candidate or activation of every target. Remote Nebius Sandboxes transport remains unverified. |
-| Historical 3 October bounded inference | [Continuation](benchmark-current-limits-continuation.md): 39/40 complete across two intervals, original partial case retained. | An independent rerun or current all-stage result. |
+Each criterion has a ten-point maximum. Row caps reflect our chosen priorities. Earned components sum explicitly to the row award; each describes demonstrated behavior, historical evidence or a stated subjective judgment. Withheld points describe the evidence needed, not a promised task reward. Quarter points indicate assessment resolution, not statistical precision. There is no target score. Confidence is qualitative: medium for code/build/fixture judgments; low for external usefulness, public operation and comparative generalization. The mean is a subjective readiness signal, not a probability of winning.
 
-The [5 October report](benchmark-full-workflow-20261005.md),
-[safe results](../bench/results/2026-10-05-full-workflow/measurement/results.json)
-and [provenance](../bench/results/2026-10-05-full-workflow/measurement/provenance.json)
-retain exact inputs, native thresholds, exclusions and requested/served model
-metadata. Original raw replies remain private.
+| Criterion | Current / 10 | Previous candidate / 10 | Interpretation |
+|---|---:|---:|---|
+| T (ledger below) | 7.50 | 7.00 | Current reliability evidence is stronger; live efficiency/accuracy remain unverified. |
+| D (ledger below) | 7.50 | 7.50 | Existing recovery works; visible mobile detail and model-evidence gaps persist. |
+| I (ledger below) | 6.00 | 7.00 | Explicitly withhold independent audience/outcome credit absent from retained evidence. |
+| Q (ledger below) | 8.00 | 8.00 | Substantive combination persists; no new uniqueness/generalization proof. |
 
-On complete identical inputs, Fugu flagged 80/80 metadata attacks versus
-Sentinel's 11/80 and MCP-Sec's 12/80 at their primary thresholds. Cisco MCP and
-Fugu both flagged 74/74. Cisco Skill flagged 3/3 skill attacks versus Fugu's 2/3;
-only three attack pairs and six control pairs completed. MCP-Sec's any-alert
-result is separately 66/80, not its primary 12/80. Thresholds are uncalibrated;
-these figures do not rank general scanner quality.
+**Technology:** 2.25 + 2.25 + 2.00 + 1.00 = **7.50**.
+**Design:** 2.50 + 2.50 + 1.25 + 1.25 = **7.50**.
+**Impact:** 2.00 + 2.00 + 0.50 + 1.50 = **6.00**.
+**Idea:** 2.00 + 2.25 + 2.25 + 1.50 = **8.00**.
+**Equal-weight mean:** (7.50 + 7.50 + 6.00 + 8.00) / 4 = **7.25 → 7.3/10**, nearest tenth, half up.
 
-Fugu raw control flags are **1/19 metadata** and **2/6 skills**; adjudication
-remains null. All eight source rows are partial, and composition has no complete
-attack sets and only 2/6 complete control sets. Composition controls can include
-risky members and do not form a clean-package denominator. Twenty-eight Fugu
-partials retain unavailable applicable detonation; two retain harness
-shortfalls. A completed process or model-only finding cannot erase these gaps.
+The prior scoped candidate mean was 7.375 → 7.4 (6 October, `4b66f67e3d20ae4182cd18a74fd081f58bfc4034`). It had no component ledger. This is a new explicit advisory subcriterion rubric, so the scores are not an unchanged instrument measuring a 0.1 product decline. The technology increase reflects verified lifecycle/snapshot repair and a green suite, not blanket credit for fixing tests. Lower impact reflects stricter evidence attribution; no evidence of worsened user outcomes was found. Documentation or proposed tasks earn no extra points. The older 7.6 assessment remains historical and is superseded.
 
-The [production limits](production-limits.md) remain unchanged: bounded source
-and probe inputs, 4,096 output tokens, 90-second request timeout and zero SDK
-automatic retries; explicit response recovery is separately counted. Ultra
-handles semantic/default harness calls, Super the everyday-agent arm. Nano is a
-router option, not a demonstrated active analysis stage. Harness response text
-is stated behavior, not executed tool behavior. A missing check is not safety.
+## Complete earned and withheld point ledger
 
-## Selected improvement and deferred work
+Evidence references below name files and baseline line numbers. Current-source tests use inert/fake providers; historical provider records stay dated. A source/model configuration is not proof of a successful runtime request today.
 
-| Rank | Opportunity / likely benefit | Effort and risk | Decision |
-|---|---|---|---|
-| 1 | Terminal failures and stale streams: coherent judge experience | Small frontend change; stale evidence can contaminate later audits | Implemented and regression-tested against existing server `verdict`/`error` contract. No API/dependency changes. |
-| 2 | Current evidence and rehearsal claims: credible explanation | Small documentation change; overclaim risk | Implemented; retain dated partials, raw control flags and human access gaps. |
-| 3 | Public demo, repository and video: submission access | High benefit; owner credentials, deployment and publication decisions | Human-controlled, outside assignment authority. Rehearsal materials prepared. |
-| 4 | Broad-suite failures and mobile panel sizing: reliability/usability | Separate failing contracts and existing layout; larger review surface | Recorded for follow-up; no Python or unrelated layout changes in this bounded fix. |
-| 5 | Reliable chamber activation and raw-flag adjudication: stronger technical evidence | Requires authorized execution, fresh measurement and independent judgment | Deferred; no paid calls or benchmark rerolls authorized here. |
-| 6 | Broad visual redesign | Larger regression surface with less immediate acceptance value | Deferred in favor of a reproduced failure defect. |
+### Technological Implementation
 
-The [server](../src/fugu/server/app.py) already ends streams after `verdict` or
-`error`. The candidate aligns [the browser client](../web/src/lib/api.ts),
-records failure reasons and interrupted stages in
-[the monitor](../web/src/views/PipelineMonitor.tsx), and never synthesizes PASS.
-Completed findings remain available. Owned reconnect timers and late polling
-callbacks cannot outlive a closed audit.
+| ID / advisory subcriterion | Maximum | Earned | Why precisely these points | Evidence | Withheld / what earns them |
+|---|---:|---:|---|---|---|
+| T1 — Substantive hosted model integration | 3.00 | 2.25 | 1.00 adapter/inference path + 0.75 semantic judge + 0.50 two harness model arms. Each has a distinct production role; current integration tests exercise the configured pipeline with fake inference. Historical runtime records corroborate use, not today’s availability. | [client:20](../src/fugu/client.py#L20), [semantic:142](../src/fugu/pipeline/stages/semantic.py#L142), [harness:375](../src/fugu/pipeline/stages/harness.py#L375), [router:35](../src/fugu/model_router.py#L35); tests/test_server.py:546. | 0.75: fresh submitted-build inference and measured usefulness/efficiency of tier choices are absent. Human-authorized live rehearsal and a bounded tier comparison are needed; a UI label earns no runtime credit. |
+| T2 — Engineering and lifecycle reliability | 2.50 | 2.25 | 1.00 actual API/store/engine regressions + 0.75 browser terminal transport regressions + 0.50 owned composition snapshot lifetime/cleanup. Fresh full suite and UI checks pass; the prior 12 failures are fixed. | tests/test_server.py:546, tests/test_store.py; tests/test_composition_expanded.py:426; web/scripts/stream-lifecycle.mjs; fresh 980 Python tests and 32 UI checks. | 0.25: five chart-render tests are skipped and only Python 3.11 was run. Qualify the existing chart tests and a clean supported-runtime installation before claiming complete environment coverage; no environment sync authorized here. |
+| T3 — Evidence policy and security boundaries | 2.50 | 2.00 | 0.75 confidence-aware policy + 0.75 explicit incomplete/omitted coverage + 0.50 honest separation of observation, stated model intent and unadjudicated flags. Missing checks remain visible rather than turning into safety evidence. | [verdict:25](../src/fugu/verdict.py#L25), [policy:84](../src/fugu/verdict.py#L84), [intake:66](../web/src/views/SubmitForm.tsx#L66); README.md:68–76,110–140; benchmark-full-workflow-20261005.md:20,37. | 0.50: current target execution and independent control-flag adjudication are unverified. Obtain authorized chamber evidence and independent adjudication separately; never rewrite frozen raw rows. |
+| T4 — Bounded work and inspectable efficiency | 2.00 | 1.00 | 0.50 immutable resource bounds + 0.50 per-call/attempt metadata persisted by the API. This supports accounting and bounded work, not economical execution or measured performance. | [limits:36](../src/fugu/config.py#L36), [serializer:1032](../src/fugu/server/jobs.py#L1032), [call records:83](../src/fugu/pipeline/stages/semantic.py#L83); harness.py:465–473. | 1.00: reports discard model metadata; current cost, latency and calibration are unknown. Child fugu-drover-5ka3 addresses display/unknowns; human-authorized measurement must establish real efficiency. No dollars inferred from tokens. |
 
-## Reproduction and validation limits
+Maximum: **10.00**; earned: **7.50**; withheld: **2.50**.
 
-From repository root, without synchronizing a reused Python environment:
+### Design
 
-```sh
-python3 tools/check_orchestration_boundary.py && npm --prefix web run build
-PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m pytest tests/test_server.py -q
-cd web
-npm run lint -- --ignore-pattern dist
-npm run contract
-npm run smoke
-node scripts/audit-result.mjs
-node scripts/stream-lifecycle.mjs
-node scripts/edge-reducer.mjs
-node scripts/failed-audit.mjs
-```
+| ID / advisory subcriterion | Maximum | Earned | Why precisely these points | Evidence | Withheld / what earns them |
+|---|---:|---:|---|---|---|
+| D1 — Coherent install-decision journey | 3.00 | 2.50 | 1.00 source/sample intake + 0.75 verdict-first report/exhibits + 0.75 persisted audit/resume path. Entry, controlled failure/retry and simulated result were observed; API persistence is covered by fresh tests. | [intake:52](../web/src/views/SubmitForm.tsx#L52), [report:228](../web/src/App.tsx#L228), [resume:65](../web/src/App.tsx#L65); tests/test_server.py:546–615; fresh browser fixture. | 0.50: no current source-auditing judge casebook or submitted-build live success rehearsal. Child fugu-drover-o04t supplies local-only reproducibility; human live rehearsal remains separate. |
+| D2 — Evidence explanations and truthful scope | 3.00 | 2.50 | 1.00 policy reasons/coverage + 1.00 expandable source/exhibits and confidence tiers + 0.50 visible simulation/data-flow disclosures. Current rendering makes the decision evidence inspectable without calling a fixture real inference. | [Scorecard:189](../web/src/views/Scorecard.tsx#L189), [coverage:221](../web/src/views/Scorecard.tsx#L221), [simulation:200](../web/src/App.tsx#L200), SubmitForm.tsx:66; fresh rendered-view and browser checks. | 0.50: no current-audit requested/served model, attempt/usage/limit view. Child fugu-drover-5ka3 must show only supplied metadata and preserve unknowns, simulation and member-accounting limits. |
+| D3 — Failure recovery and useful feedback | 2.00 | 1.25 | 0.50 stopped terminal transport + 0.50 retained server reason + 0.25 working New audit reset. Fresh fixture: one stream, zero polling, no synthetic verdict; reset clears failure. | [halted alert:492](../web/src/views/PipelineMonitor.tsx#L492), [error reducer:155](../web/src/views/PipelineMonitor.tsx#L155); fresh browser fixture and web/scripts/failed-audit.mjs. | 0.75: primary alert says see log; actual reason is below the first mobile screen, behind tall empty content. Child fugu-drover-24o8 promotes the actual reason, keeps full evidence and makes recovery immediately useful. |
+| D4 — Responsive and accessible presentation | 2.00 | 1.25 | 0.50 no page overflow at the two observed widths + 0.50 named input/buttons, semantic regions and skip link + 0.25 usable wrapped entry/report text. These are observed affordances, not a complete accessibility audit. | SubmitForm.tsx:41–62; App.tsx:198; PipelineMonitor.tsx:702,751; fresh 1440×1000 and 390×844 screenshots/DOM. | 0.75: 0.25 compact stopped-panel layout (child fugu-drover-24o8); 0.50 complete keyboard/screen-reader/contrast validation remains unverified. Broad redesign/accessibility remediation is deferred until the focused changes are reviewed. |
 
-All above completed with exit 0. Plain `npm run lint` also exited 0, but scans
-minified distribution assets and prints substantial generated-code warnings;
-the source-scoped invocation retains 11 existing warnings. The three new or
-extended behavioral scripts each failed after per-file reversion of the source
-fixes and passed after restoration.
+Maximum: **10.00**; earned: **7.50**; withheld: **2.50**.
 
-The broad `PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m pytest -q`
-exited **1: 965 passed, 12 failed, 5 skipped, 23 subtests passed**. Four failures
-are composition expectations, seven are continuation tests asserting absence
-of a historical `data-release.json`, and one stored-run restart test never
-finishes within its five-second window. Repeating those three files produced
-the same 12 failures (124 passed). Python source/tests are unchanged from the
-baseline. Root cause and fixes for composition/restart are not established
-here; do not treat this as a green repository suite.
+### Potential Impact
 
-Desktop failure details and retry fit together; mobile error text wraps without
-horizontal scrolling. Existing tall empty evidence/log panels require extra
-vertical scrolling on mobile. Browser errors were empty in the owned fixture
-session. Live paid success, fresh target execution, public deployment and
-submission-state checks remain unavailable in this task. The coder handoff
-stores pasted outputs, fixture generator and before/after screenshots outside
-the application repository for independent fleet review.
+| ID / advisory subcriterion | Maximum | Earned | Why precisely these points | Evidence | Withheld / what earns them |
+|---|---:|---:|---|---|---|
+| I1 — Specific audience and problem | 2.50 | 2.00 | 0.75 named community-extension users + 0.75 before-install decision + 0.50 explicit file/tool/hosted-data stakes. The problem and moment of use are specific, although priority for users has not been independently established. | [README:3](../README.md#L3), [data flow:133](../README.md#L133), SubmitForm.tsx:43–49. | 0.50: human target-user interviews must confirm this decision occurs and this evidence is useful; no outreach performed. The casebook supplies a protocol, not interview results. |
+| I2 — Demonstrated usefulness for that decision | 3.00 | 2.00 | 0.75 source-backed local detection + 0.75 limited historical matched-input flags + 0.50 evidence/reasons connected to install/investigate advice in the UI. This is inspectability on tested inputs, not prevented incidents. | [verdict:84](../src/fugu/verdict.py#L84), tests/test_server.py:175; Scorecard.tsx:44–64; [matched evidence](benchmark-full-workflow-20261005.md#complete-matched-comparisons); current fake/simulated UI. | 1.00: child fugu-drover-o04t must make local decision cases reproducible; real-user decision improvement and operational prevention still need independent human evidence. Flags alone do not demonstrate those outcomes. |
+| I3 — Independent problem/outcome validation | 2.50 | 0.50 | 0.50 retained externally sourced extension/problem examples with dated provenance; 0.00 user-study or deployment-outcome credit. The clustered convenience corpus supports examples of the problem, not measured audience value. | [corpus:59](benchmark-full-workflow-20261005.md#frozen-cases), [runtime boundary](benchmark-full-workflow-20261005.md#input-validity-and-runtime-boundary); no audience study or deployment outcome verified. | 2.00: independently observed decisions/adoption and measured usefulness are absent. Human-run consented evaluation must collect them. Child fugu-drover-o04t only prepares questions/blank records; it cannot close this gap alone. |
+| I4 — Reproducible access and adoption path | 2.00 | 1.50 | 0.50 MIT source license + 0.50 explicit local setup/model instructions + 0.50 buildable UI and persistent local workflow. Fresh build/integration tests corroborate an existing environment, not a clean public install. | [license](../LICENSE), [setup:17](../README.md#L17), [resume:57](../README.md#L57); fresh build/API tests; fresh GitHub API reports isPrivate=true. | 0.50: clean-install rehearsal and free usable public judge access remain human-only/unverified. Publishing a repository/demo/video is separate from this parent and its runnable children. |
+
+Maximum: **10.00**; earned: **6.0**; withheld: **4.0**.
+
+### Quality of the Idea
+
+| ID / advisory subcriterion | Maximum | Earned | Why precisely these points | Evidence | Withheld / what earns them |
+|---|---:|---:|---|---|---|
+| Q1 — Non-obvious combination and differentiation | 3.00 | 2.00 | 0.75 layered evidence + 0.75 extension-mounted A/B rather than a standalone text score + 0.50 inspectable cross-member risk. Credit is subjective for combining these methods around an install decision; individual scanner methods already have prior art. | README.md:68–76; [harness:375](../src/fugu/pipeline/stages/harness.py#L375); [composition:647](../src/fugu/pipeline/stages/composition.py#L647); benchmark-full-workflow-20261005.md:13–22. | 1.00: blind comparison/ablation and stronger demonstrated differentiation are absent. Casebook explanations may clarify the combination, but no unique-invention or scanner-superiority point follows from writing them. |
+| Q2 — Purposeful use of required models | 2.50 | 2.25 | 1.00 semantic interpretation + 0.75 probe generation/baseline/mounted comparison + 0.50 separate everyday Super arm. Model use is structurally part of the solution, with historical runtime corroboration, not decoration. | client.py:20; semantic.py:142–154; harness.py:375–397,497–545; model_router.py:35–59. Nano is only a router option, not a demonstrated analysis stage. | 0.25: no controlled proof that these tier choices improve quality/resource use on this build. A bounded, separately authorized comparison is needed; no new provider calls are authorized here. |
+| Q3 — Understanding of threat and evidence limits | 2.50 | 2.25 | 0.75 extension/tool threat model + 0.75 separation of stated intent from executed triggers + 0.75 preserved partials and raw-control/adjudication distinctions. Claims match observed boundaries instead of treating no hit as safety. | README.md:73–76,110–140; [detonation:50](../src/fugu/pipeline/stages/detonation_stage.py#L50); benchmark-full-workflow-20261005.md:20,37–41; demo-script.md. | 0.25: control disagreements remain unadjudicated, so the practical review process is incomplete. Human-approved independent adjudication must retain original raw flags/labels and disclose the basis. |
+| Q4 — Cross-member concept demonstrated | 2.00 | 1.50 | 0.75 explicit capability/trifecta mapping + 0.75 current real-source composition and snapshot-lifetime regressions. This demonstrates the concept in authored offline cases; it does not establish general composition accuracy. | [composition:647](../src/fugu/pipeline/stages/composition.py#L647), [trifecta:759](../src/fugu/pipeline/stages/composition.py#L759); tests/test_composition_expanded.py:48,426–474. | 0.50: the frozen workflow has zero complete composition attack sets; broad unseen-member and runtime validation remain absent. Human-authorized future measurement cannot be replaced by passing unit tests. |
+
+Maximum: **10.00**; earned: **8.00**; withheld: **2.00**.
+
+## What was freshly observed
+
+- Required orchestration boundary and production build exit 0; 1,901 modules; unchanged `index-XtRrDgOR.js` application bundle. No dependency sync or source edits.
+- `PYTHONPATH="$PWD/src:$PWD" PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY="" uv run --no-sync python -m pytest -q -rs`: **980 passed, 5 skipped, 23 subtests passed**, exit 0 in 55.37s. Five existing chart tests could not import Matplotlib (tests/test_current_limits_continuation_charts.py:226,260); one Starlette deprecation warning. Python 3.11 used; Python 3.10 execution and clean-install reproduction unverified.
+- Source lint exit 0 with 11 existing warnings; contract, scripted smoke and result mapping exit 0. Production stream checks 6/6, reducer checks 25/25 and real React failure-view check 1/1: **32/32**. These are current commands, not copied historical results.
+- Real compiled app in an owned loopback fixture at 1440×1000 and 390×844: source/sample intake, controlled terminal extraction failure, retained reason, no synthetic verdict, New audit reset and no page overflow. One controlled stream, zero fallback polls. Mobile primary generic alert starts at y=238.5; actual reason is in the lower log at y=1125. The empty evidence feed and two-line stopped log each retain 380px minimum height. Desktop entry/detail is readable; mobile text wraps, but useful failure detail requires scrolling.
+- Existing simulated walkthrough reached SIMULATED RESULT; finding expansion/collapse and visible simulated-evidence/canary labels work, with no stream/API audit. Its displayed 28.0s/ten findings are scripted UI values, not a real audit latency/result. Initial 25s wait expired before the result; later observation confirmed completion. Browser errors were empty. The fixture audits no source and calls no provider. All fixture screenshots carry that label; LIVE ANALYSIS is a mode label only.
+- Read current model adapter/routing, coverage/verdict policy, resource bounds, owned snapshot lifecycle, UI and demo materials. Hosted stages send selected source/prompts; Git/reputation/optional remote chamber boundaries remain as described in README.md:133–140. Harness replies describe behavior; they do not establish executed tool actions.
+- Fresh `PYTHONPATH="$PWD/src:$PWD" PYTHON_DOTENV_DISABLED=1 NEBIUS_API_KEY="" uv run --no-sync --offline python bench/results/2026-10-05-full-workflow/measurement/verify.py` exits 0. This revalidates safe historical exports/identity/accounting, not inference or target execution. No frozen artifact was edited.
+
+No production change/test was introduced in this documentation parent. Revert-test-restore for a new fix is **not applicable**; genuine existing integration/product checks support the assessment. Coder report stores complete pasted outputs and fixture/browser observations outside the repository at `/Users/antonkogun/.local/share/drover/reports/fugu-codex-coder-fugu-drover-utvh.md`; evidence is in its sibling `-evidence` directory. Owned browser and loopback fixture server were closed afterward. No paid/live audit, shared server/database, original credentials/logs or other agent’s native controls were accessed.
+
+## Historical provider/benchmark evidence and material unknowns
+
+The [5 October frozen workflow](benchmark-full-workflow-20261005.md) uses engine `dbc4f641bfad39f7004e64f08bf8351697f5ae7c`, not this baseline. It completed **110/140 Fugu cases**, retained **30 partial**, and completed **314/320 native rows**. Accounting records 4,581 SDK dispatches and 46 searches. Dollar cost/remaining quota are unknown. Raw control flags are **1/19 metadata** and **2/6 skills**, with all adjudications null. All eight source rows and all six composition attack sets are incomplete; 28 applicable detonation cases are unavailable and two harness cases partial.
+
+Complete paired metadata attacks: Fugu/Sentinel 80/80 versus 11/80; Fugu/MCP-Sec 80/80 versus primary 12/80 (any-alert is separately 66/80); Fugu/Cisco MCP both 74/74. The skill intersection is only three attacks (Fugu 2/3, Cisco 3/3) and six controls. Inputs are clustered previously visible convenience fixtures; thresholds are uncalibrated. These are descriptive intersections, not population accuracy, confirmed false positives, universal superiority or source/composition ranking.
+
+The [2 October report](benchmark-full.md) retains dated Docker fake-canary observations. The [3 October continuation](benchmark-current-limits-continuation.md) is separate bounded-inference history. Neither proves a fresh chamber/provider run. Core source still uses Ultra for semantic/default harness and Super for the everyday arm; Nano remains an available router tier. Sponsor catalog availability, current provider latency/cost, functioning public submission, adjudicated detection quality and actual audience outcomes remain unverified.
+
+## Finite improvements and dispatch
+
+Three real task records were created on the parent branch: fugu-drover-24o8 (high: failure detail/mobile), fugu-drover-5ka3 (high: recorded model evidence), fugu-drover-o04t (normal: reproducible offline decision casebook and human evaluation protocol). All are todo and blocked by `fugu-drover-utvh`; fugu-drover-5ka3 additionally depends on fugu-drover-24o8 because both rebuild tracked web/dist assets. They are dependency-linked children, not structural children: Beans disallows a task-type parent for a task. Parent type was preserved.
+
+They are **planned, not running or dispatchable on main**. After independent parent approval and integration, the existing integrator synchronizes completed parent/child records to local application main; the existing fleet watcher can queue ready children. No watcher or peer prompt was started. Parent completion on its task branch alone does not authorize child execution. Full designs, priority, scope, expected checks, gain hypotheses and every missing-point deferral/human action are in the [improvement plan](hackathon-improvement-plan.md). No implementation child repeats the already-merged repair tasks.
