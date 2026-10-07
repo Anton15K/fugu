@@ -30,6 +30,7 @@ import {
   SEVERITIES,
 } from "@/lib/types";
 import type { AuditResult } from "@/lib/auditResult";
+import { AuditProvenance } from "@/components/audit-provenance";
 import { cn } from "@/lib/utils";
 
 const verdictTheme = {
@@ -295,6 +296,7 @@ export function Scorecard({ result, elapsedMs, simulated = false }: ScorecardPro
           </p>
         )}
       </section>
+      <AuditProvenance evidence={result.modelEvidence} simulated={simulated} />
       {/* ── OWASP matrix ─────────────────────────────────────────── */}
       <section
         aria-label="OWASP category matrix"
