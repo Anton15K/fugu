@@ -44,6 +44,8 @@ export interface PipelineState {
   currentStage: StageName | null;
   startedAt: number | null;
   finishedAt: number | null;
+  /** Terminal error-event text, retained even when the bounded log rolls over. */
+  failureReason: string | null;
   /** ADDITIVE view-only bookkeeping (no legacy field depends on it):
    *  server-clock per-stage timing for the duration readout, folded from
    *  event `ts` exactly like startedAt/finishedAt so SSE history replay
@@ -72,6 +74,7 @@ export function initialPipelineState(): PipelineState {
     currentStage: null,
     startedAt: null,
     finishedAt: null,
+    failureReason: null,
     stageStartedAt: {},
     stageEndedAt: {},
     stageCoverageReasons: {},
@@ -179,10 +182,12 @@ export function applyEvent(state: PipelineState, event: StageEvent): PipelineSta
           next.stageEndedAt[t] = safeTs;
         }
       }
+      const reason = event.data.error ?? event.data.message;
+      next.failureReason = reason != null && String(reason).trim() ? String(reason) : null;
       next.logs = [...state.logs.slice(-40), {
         ts: event.ts,
         stage,
-        message: String(event.data.error ?? event.data.message ?? "Audit failed before a verdict was available."),
+        message: next.failureReason ?? "The server did not supply a failure reason.",
       }];
       break;
     }
@@ -339,7 +344,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
   // A run is HALTED when it ended without a verdict: a tracked stage errored
   // and nothing is running, a fatal error named an untracked stage (leaves an
   // extraneous error key — e.g. "extraction"), or the stream closed early.
-  // View-only detection — the reducer is untouched.
+  // View-only detection — no verdict or transport state is synthesized.
   const errorKeys = (Object.keys(state.stages) as StageName[]).filter(
     (k) => state.stages[k] === "error",
   );
@@ -464,7 +469,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
               {finished ? "total" : halted ? "halted at" : "elapsed"}
             </p>
           </div>
-          {(finished || halted) && (
+          {finished && (
             <button
               onClick={onNewAudit}
               className="rounded-md border border-zinc-700 px-3 py-1.5 font-mono text-xs text-zinc-300 transition-colors duration-150 hover:bg-zinc-800"
@@ -493,11 +498,17 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
       {halted && (
         <div
           role="alert"
-          className="flex items-center gap-2 rounded-lg border border-red-800/70 bg-red-950/30 px-4 py-2 font-mono text-xs text-red-300"
+          className="flex items-start gap-2 rounded-lg border border-red-800/70 bg-red-950/30 px-4 py-3 font-mono text-xs text-red-300"
         >
-          <CircleX className="size-3.5 shrink-0" aria-hidden />
-          pipeline halted — {erroredLabels.length > 0 ? erroredLabels.join(", ") : "a stage"} failed
-          and the stream ended without a verdict; see log for details
+          <CircleX className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+          <section className="min-w-0 flex-1 space-y-2">
+            <p>Audit stopped without a verdict{erroredLabels.length > 0 ? ` — ${erroredLabels.join(", ")} failed` : ""}.</p>
+            <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere]">{state.failureReason ?? "The server did not supply a failure reason."}</p>
+            <button
+              onClick={onNewAudit}
+              className="rounded-md border border-red-700 px-3 py-1.5 font-mono text-xs transition-colors duration-150 hover:bg-red-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+            >new audit</button>
+          </section>
         </div>
       )}
 
@@ -699,7 +710,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         {/* ── evidence feed ────────────────────────────────────────── */}
-        <Card className="flex max-h-[560px] min-h-[380px] flex-col">
+        <Card className={cn("flex min-w-0 max-h-[560px] flex-col", halted ? "min-h-0 lg:min-h-[380px]" : "min-h-[380px]")}>
           <CardHeader className="space-y-0 border-b border-zinc-800/70 pb-3">
             <CardTitle className="flex items-center justify-between text-sm">
               <span className="flex items-center gap-2">
@@ -737,7 +748,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                         <SeverityChip severity={f.severity} />
                       </div>
                     </div>
-                    <p className="mt-1.5 text-[13px] font-medium leading-snug text-zinc-200">
+                    <p className="mt-1.5 break-words text-[13px] font-medium leading-snug text-zinc-200 [overflow-wrap:anywhere]">
                       {f.title}
                     </p>
                   </div>
@@ -748,7 +759,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
         </Card>
 
         {/* ── stream log console ───────────────────────────────────── */}
-        <Card className="flex max-h-[560px] min-h-[380px] flex-col">
+        <Card className={cn("flex min-w-0 max-h-[560px] flex-col", halted ? "min-h-0 lg:min-h-[380px]" : "min-h-[380px]")}>
           <CardHeader className="space-y-0 border-b border-zinc-800/70 pb-3">
             <CardTitle className="flex items-center justify-between text-sm">
               <span className="flex items-center gap-2">
@@ -771,7 +782,7 @@ export function PipelineMonitor({ job, state, streamStatus, onNewAudit }: Pipeli
                 .map((l, i) => (
                   <p
                     key={i}
-                    className="animate-feed-in [animation-duration:150ms] border-b border-zinc-900 py-0.5"
+                    className="animate-feed-in [animation-duration:150ms] break-words border-b border-zinc-900 py-0.5 [overflow-wrap:anywhere]"
                   >
                     <span className="tabular-nums text-zinc-500">{l.ts.slice(11, 19)}</span>{" "}
                     <span className="text-zinc-400">[{l.stage ?? "core"}]</span>{" "}
