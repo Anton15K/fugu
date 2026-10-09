@@ -1,67 +1,37 @@
 # 🐡 Fugu — audit before install
 
-**Know what you’re letting in.** Fugu helps developers review community skills,
-MCP servers and plugins before granting an AI agent access to files, credentials
-and tools. Submit an extension, inspect the evidence behind its verdict, and
-review the checks that completed before making an install decision.
-
-A useful report points to decoded instructions, flagged source, or observed
-behavior and distinguishes direct evidence from a model’s judgment. **PASS is
-limited to the performed checks; it does not certify safety.**
+Fugu helps developers review community skills, MCP servers and plugins before
+letting an AI agent use them with files, credentials and tools. Audit a candidate
+extension, inspect the evidence and coverage, then decide whether to install,
+investigate or ask for a fix. The result is a saved, inspectable audit.
 
 Built for the [Nebius × NVIDIA Global AI Hackathon](https://nebiusglobalaihackathon.devpost.com/),
 Coding and Agentic Engineering track. [MIT license](LICENSE).
-A public hosted demo and public YouTube video have not been published. The
-repository is currently private; public judging access remains a submission task.
 
-## Run locally
+**Judge reading path:** [Use case](#use-case) → [Checks and verdicts](#evidence-analysis-and-verdicts) →
+[NVIDIA / Nebius](#nvidia-and-nebius-integration) → [Benchmark and charts](#full-workflow-benchmark-5-october-2026) →
+[Maintainer outcome](#real-world-outcome-9-october-2026) → [Run locally](#run-locally).
+Try the [offline judge casebook](docs/judge-casebook.md) without credentials or paid inference.
 
-Requirements: Python 3.10+, [uv](https://docs.astral.sh/uv/), and Node
-20.19+ within the Node 20 series or Node 22.12+ for the current Vite build.
-Docker is optional for execution checks; without a working chamber, review the
-reported coverage limits. Cloning currently requires repository access.
+## Use case
 
-```sh
-git clone https://github.com/Anton15K/fugu.git
-cd fugu
-uv sync --extra dev
-cp .env.example .env
-```
+You find a community extension that could help your assistant, but want to
+inspect what it asks the agent to do before granting access:
 
-Set `NEBIUS_API_KEY` in your local environment/configuration to enable NVIDIA
-inference on Nebius Token Factory. `TAVILY_API_KEY` is optional for reputation
-queries. Keep both outside source control. Missing model credentials skip hosted
-analysis rather than producing evidence that it ran.
+1. **Submit** one Git URL or directory on the API server; repositories may fan
+   out into member audits.
+2. **Read** the verdict, policy reasons and Analysis coverage. Expand findings
+   for source exhibits and confidence: decoded instructions, concrete patterns,
+   model judgments or observations from checks that actually ran.
+3. **Act** on that evidence: investigate the source, request a fix, or make an
+   install decision with the remaining coverage limits in view.
+4. **Return** to the saved audit and its event history without submitting again.
 
-Build the browser UI, then start the API with a dedicated development database:
-
-```sh
-cd web
-npm ci
-npm run build
-cd ..
-uv run --no-sync python -m fugu.server --port 8000 --db /tmp/fugu-dev.db
-```
-
-Open **http://127.0.0.1:8000/?mock=0** for live analysis. For frontend development,
-run `npm run dev` from `web/` while the API runs; Vite proxies `/api` to port 8000.
-The `/tmp` database is disposable; choose a persistent path for history you need
-to retain. See [web instructions](web/README.md).
-
-1. Select a **bundled example** to fill the source, then choose **Start audit**.
-   Examples are crafted fixtures advertised by the API when available.
-   Alternatively enter one Git URL or one directory on the API server.
-2. Inspect the returned verdict, policy reasons and **Analysis coverage**.
-   Expand a finding to see its source/exhibits and confidence tier. The full
-   pipeline and event history are available below the report.
-3. Reopen the existing `/audit/<id>` URL or choose a run under **Continue an
-   audit**. With the same database, persisted events restore that run without
-   submitting another audit.
-
-Open **http://127.0.0.1:8000/?mock=1** and choose **Play simulated audit** for a
-scripted walkthrough. Its findings, timing and verdict are labeled simulated;
-no extension is fetched or analyzed. It is not a recorded real audit or
-benchmark evidence. Live audit URLs reconnect to their actual server history.
+The [authored offline casebook](docs/judge-casebook.md#inspect-the-evidence-and-decide)
+shows the distinction: hidden Unicode instructions produce a local FAIL with a
+decoded source exhibit; ordinary instructions produce a local-only PASS with
+hosted checks skipped; absent input requires correction and retry, not a clean
+verdict. These are crafted demonstrations, not a user study or population sample.
 
 ## Evidence, analysis and verdicts
 
@@ -75,49 +45,25 @@ benchmark evidence. Live audit URLs reconnect to their actual server history.
 | Reputation | Check package/domain context | Source-cited Tavily/OSV lookups |
 | Composition | Analyze relationships in repository fan-out | Member findings and coverage; not proof every possible combination ran |
 
-### Optional static tool-surface scanner
+The table describes capabilities, not execution order. Deterministic source
+findings and observed behavior are distinct from advisory model judgments.
+The [verdict policy](src/fugu/verdict.py) returns **FAIL** for any critical finding
+or deterministic/empirical high; **WARN** for other high/medium findings,
+failed/partial analysis or omitted skill units; otherwise **PASS**.
 
-The S1 stage can also run a pinned scanner over literal JSON/Python tool
-definitions and `SKILL.md` instructions. It parses source without importing or
-executing the audited extension. Syntax-only context marks selected comments
-and literal references as informational; uncertain syntax receives no
-exemption. The scanner is advisory: phrase matches need contextual review. The
-existing Fugu S1 rules still run if this optional
-component is absent; its metrics report the tool-surface pass as disabled.
-Scanner errors or omitted surfaces mark S1 coverage incomplete.
+**PASS covers only performed checks; it does not certify safety.** Intentional
+skips can accompany PASS, so inspect coverage as well as severity. A target with
+no runnable trigger was **not executed**. No canary hit in a bounded run does not
+prove harmless behavior. Optional scanner configuration is in the
+[developer reference](docs/readme-reference.md#optional-static-tool-surface-scanner).
 
-To build and install the pinned component locally, use an existing Rust
-toolchain:
+## NVIDIA and Nebius integration
 
-```sh
-uv run --no-sync python tools/build_static_rules.py
-```
-
-The build fetches the pinned source and uses `cargo build --locked --release`;
-it does not install Rust. By default the scanner looks for
-`src/fugu/_bin/static-rules`. Set `FUGU_STATIC_RULES_BINARY` to use another
-binary, and optionally set `FUGU_STATIC_RULES_SHA256` to require its expected
-SHA-256. `FUGU_STATIC_RULES_IMAGE` selects an existing trusted container image
-as the scanner's isolated runtime; that invocation uses Docker with networking disabled and
-read-only mounts. If no image is selected, a configured binary runs locally.
-If an image is selected but Docker is unavailable, the invocation fails and
-S1 coverage is marked incomplete; it does not fall back to local execution.
-The application Dockerfile is configured to compile the
-pinned scanner and place it at `/opt/fugu/static-rules`. See
-[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) for upstream attribution and
-license details.
-
-The verdict policy returns FAIL for critical findings or deterministic/empirical
-highs; WARN for other high/medium findings, failed or partial analysis, or omitted
-skill units; otherwise PASS. Intentional skips can accompany PASS, so read
-coverage alongside severity. A target with no runnable trigger was **not
-executed**. No canary hit in a bounded run does not prove harmless behavior.
-
-## Nebius and NVIDIA integration; data flow
-
-The [client](src/fugu/client.py) uses the OpenAI-wire-compatible SDK against the
-configured Nebius Token Factory endpoint. [Configuration](src/fugu/config.py)
-defaults to its EU endpoint and supports `NEBIUS_BASE_URL` overrides.
+NVIDIA Nemotron supplies the semantic reading and extension-mounted A/B model
+responses; Nebius Token Factory hosts that inference. The
+[client](src/fugu/client.py) uses the OpenAI-wire-compatible SDK;
+[configuration](src/fugu/config.py) defaults to the
+[EU endpoint](https://api.tokenfactory.nebius.com/v1/) with `NEBIUS_BASE_URL` overrides.
 
 | NVIDIA model | Current role |
 |---|---|
@@ -125,19 +71,18 @@ defaults to its EU endpoint and supports `NEBIUS_BASE_URL` overrides.
 | `nvidia/nemotron-3-super-120b-a12b` | Harness everyday-agent mounted arm |
 | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | Available router tier; not established as an active pipeline stage |
 
-Token Factory provides runtime inference for the security reading and A/B
-comparisons through the same client interface. The 2 October full-capability
-benchmark retains raw responses, model names and token usage. Dollar cost,
-remaining quota and monetary savings were not measured.
+The dated benchmarks retain real hosted responses, model identities and token
+usage, including the [2 October full-capability run](docs/benchmark-full.md).
+Dollar cost, remaining quota, monetary savings and comparative efficiency were
+not measured; token counts alone do not establish those outcomes.
 
 Concealment and static analysis run locally. **Enabled semantic and harness
 stages send selected extension text and prompts to the configured inference
 provider.** Reputation sends identifiers/queries to Tavily and pinned package
 lookups to OSV; Git sources are fetched remotely. Docker is the default chamber.
-The optional Contree/Nebius Sandboxes driver sends target files to remote
-compute when selected; live sandbox behavior has not been verified here.
-Fugu is not an entirely local analysis system. Review these flows before
-submitting confidential content.
+The optional Contree/Nebius Sandboxes driver sends target files to remote compute
+when selected; live remote sandbox behavior remains unverified. Review these
+data flows before submitting confidential content.
 
 ## Full-workflow benchmark (5 October 2026)
 
@@ -185,71 +130,77 @@ population sample. The skill comparison is small, thresholds are not calibrated,
 and no overall superiority to Cisco or broad source/composition ranking follows.
 In these measured modes, source and composition have no matching native
 interface; composition controls use a cross-member contract rather than a
-clean-package label. A zero-trigger stage is not evidence of target execution.
-The [full methodology and case-level
+clean-package label. The [full methodology and case-level
 results](docs/benchmark-full-workflow-20261005.md) include exclusions, native
 thresholds, accounting and interpretation; the [sealed measurement inventory](bench/results/2026-10-05-full-workflow/measurement/inventory.json)
 binds the retained artifacts.
 
-Historical methods: [4 October workflow integration](docs/benchmark-workflow-integration.md) ·
-[3 October production-profile measurement](docs/benchmark-current-limits-partial-retry.md) ·
-[2 October full-capability measurement](docs/benchmark-full.md).
+## Real-world outcome (9 October 2026)
 
-## Current-source checks
+A **Fugu-assisted source review** identified missing HTTP timeouts in the
+ComfyUI agent skill. The [maintainer confirmed the issue](https://github.com/MieMieeeee/comfyui-agent-skill/issues/3#issuecomment-6082877509)
+and [fixed all seven HTTP calls in the 0.1.13 release commit](https://github.com/MieMieeeee/comfyui-agent-skill/commit/33b5b58b5be8f954f91f9df4508c8d3895a07af4),
+with default connect/read timeouts of **10s / 60s**. This was identified by source
+review during the Fugu-assisted investigation, not automated Fugu detection.
 
-Current source checks preserve the baseline S1 decision signatures and stage
-status on all 45 recorded inputs. Regressions cover sensitive reads after
-JavaScript regexes and escaped line breaks, Python exception operands and
-comparison operands, captured names, and UTF-8 source positions. Inert comments
-and simple rejection guards retain informational evidence. See the [current
-source verification](bench/results/2026-10-04-integration/guard-operand-correction/README.md).
+Four public reports came from that investigation; one is an optional metadata
+improvement. The other reports remain unanswered. This confirms one maintainer
+fix, not four bugs, vulnerabilities or fixes, or measured audience benefit.
 
-Normal configured S1 activation on an inert `SKILL.md` returned five advisory
-findings with no scanner omissions or parse errors. That [installed activation
-proof](bench/results/2026-10-04-integration/lead-integration-verification/installed-activation.json)
-and the frozen paired results remain unchanged. Source checks do not replace
-the workflow measurement. A fresh final application-image build and deployment
-smoke remain unverified after the recorded Docker Buildx denial.
+## Run locally
 
-## Current application limits
+Requirements: Python 3.10+, [uv](https://docs.astral.sh/uv/), and Node
+20.19+ within the Node 20 series or Node 22.12+ for the current Vite build.
+Docker is optional for execution checks; without a working chamber, inspect
+coverage limits. Cloning currently requires repository access.
 
-The checked application uses a shared, immutable profile for inference and
-source coverage. Its main bounds are:
+```sh
+git clone https://github.com/Anton15K/fugu.git
+cd fugu
+uv sync --extra dev
+cp .env.example .env
+```
 
-| Area | Current default |
-|---|---:|
-| Model output | 4,096 tokens per request |
-| SDK timeout / automatic SDK retries | 90 seconds / 0 |
-| Semantic review | Up to 24 units, each at most 6,000 characters |
-| Harness source and RED input packet | 32,000 characters, including file headings and separators |
-| Generated RED probes | First 3 valid probes, at most 200 characters each |
-| Materialized source tree | 512 MiB / 20,000 entries |
+Set `NEBIUS_API_KEY` in your local environment/configuration for NVIDIA inference
+on Nebius Token Factory. `TAVILY_API_KEY` is optional for reputation queries.
+Keep both outside source control. Missing model credentials skip hosted analysis.
 
-The SDK retry count does not include the stages’ bounded response recovery;
-those requests are recorded separately. The source-tree caps are checked after
-materialization and do not cap bytes transferred during a shallow Git clone.
-See [production limits](docs/production-limits.md) for file caps, fixed probes,
-coverage metrics, and cleanup bounds.
+Build the browser UI and start the API with a dedicated development database:
 
-## Verification and limits
+```sh
+cd web
+npm ci
+npm run build
+cd ..
+uv run --no-sync python -m fugu.server --port 8000 --db /tmp/fugu-dev.db
+```
 
-From the repository root: `uv run --no-sync python -m pytest -q`. From `web/`:
-`npm run build`, `npm run lint`, `npm run contract`, `npm run smoke`,
-`node scripts/audit-result.mjs`, and `node scripts/edge-reducer.mjs`.
-The 2 October benchmark's scoped checks and independent artifact review verified
-chart arithmetic, original evidence preservation and application hashes.
-Current candidate verification and the advisory judging score are in the
-[assessment](docs/hackathon-assessment.md).
+Open **http://127.0.0.1:8000/?mock=0** for live analysis. Select a **bundled example**
+to fill the source, then choose **Start audit**, or enter a Git URL/server-local
+directory. Bundled examples are crafted fixtures advertised when available.
+Inspect verdict reasons, findings, confidence and coverage, plus the pipeline
+and event history. Reopen `/audit/<id>` or choose **Continue an audit** to restore
+persisted events with the same database without starting another audit.
 
-Source intake materializes direct internal file links into an owned regular-file
-snapshot and records their provenance. External, broken, cyclic, chained and
-directory links fail extraction; direct stage calls still reject descendant
-symlinks. See [source intake](docs/source-intake.md). Preflight and copying are
-not race-proof isolation of a changing source tree. Execution
-coverage depends on chamber availability and trigger derivation. The 2 October
-full-capability benchmark exercised the Docker chamber; remote Nebius Sandboxes
-transport remains unverified. Public deployment safety is not established by
-local tests or these guards. No deployment target is assigned.
+Open **http://127.0.0.1:8000/?mock=1** and choose **Play simulated audit** for a
+scripted walkthrough. Findings, timing and verdict are labeled simulated; no
+extension is fetched or analyzed. This is not a recorded real audit or benchmark.
+Live audit URLs reconnect to their actual server history.
 
-[User story, advisory rubric and readiness](docs/hackathon-assessment.md) ·
-[Under-three-minute demo script](docs/demo-script.md).
+For frontend development, run `npm run dev` from `web/`; Vite proxies `/api` to
+port 8000. The `/tmp` database is disposable; use a persistent path for history
+you need to retain. See the [web guide](web/README.md), or start with the
+[offline judge casebook](docs/judge-casebook.md) for credential-free source checks.
+
+**Access status:** source remains private; public judge access, hosted demo and
+video remain unverified. These instructions do not establish submission readiness.
+
+## Limits and further reading
+
+Inference, source intake and execution coverage have limits. Consult the
+technical reference before relying on a report beyond its performed checks:
+
+- [Developer reference](docs/readme-reference.md): scanner configuration, current-source checks, bounded coverage and developer commands.
+- [Production limits](docs/production-limits.md) and [source intake](docs/source-intake.md): request/file caps, coverage accounting and snapshot policy.
+- [Dated assessment](docs/hackathon-assessment.md) and [human checklist](docs/human-hackathon-priorities.md): historical 7 October review; not reassessed here.
+- [Under-three-minute demo script](docs/demo-script.md): proposed recording with explicit demonstration modes.
