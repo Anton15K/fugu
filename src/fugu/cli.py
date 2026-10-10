@@ -1,7 +1,7 @@
 """Local CLI entry and BYOK authentication commands.
 
 Help/version parse without importing configuration, providers or native storage.
-Audit dispatch is added by the separate canonical-audit phase.
+Audits delegate to the canonical engine after profile and consent preflight.
 """
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from typing import Sequence
 import warnings
 
 from fugu import __version__
-from fugu.cli_output import CliError, redact
+from fugu.cli_output import CliError, error_report, redact, render_report
 
 
 class _Parser(argparse.ArgumentParser):
@@ -34,6 +34,13 @@ def _parser() -> argparse.ArgumentParser:
     status.add_argument("--verify", action="store_true", help="One bounded Nebius catalog request; no inference")
     logout = actions.add_parser("logout", help="Remove only Fugu's stored provider entries")
     logout.add_argument("--provider", choices=("nebius", "tavily", "all"), default="all")
+    audit = commands.add_parser("audit", help="Audit a local directory or public HTTPS Git source")
+    audit.add_argument("source")
+    audit.add_argument("--mode", choices=("full", "offline"), default="full")
+    audit.add_argument("--format", choices=("text", "json"), default="text")
+    audit.add_argument("--allow-hosted", action="store_true", help="Consent to provider data transfer and billing")
+    audit.add_argument("--reputation", action="store_true", help="Require reputation; allow saved Tavily lookup")
+    audit.add_argument("--detonate", action="store_true", help="Request isolated local Docker execution with fake canaries")
     return parser
 
 
@@ -121,24 +128,98 @@ def _logout(provider: str) -> int:
     return 0
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def _validate_audit_source(source: str, mode: str) -> None:
+    from pathlib import Path
+    from urllib.parse import urlsplit
+
+    if mode not in {"full", "offline"}:
+        raise CliError("usage", "Choose full or offline mode.")
+    if not source.strip():
+        raise CliError("intake", "Provide a source directory or public HTTPS Git URL.")
+    # Existing local directories take precedence even if their name ends .git.
+    if Path(source).expanduser().is_dir():
+        return
     try:
-        args = _parser().parse_args(argv)
-        # Must precede the first import of config.py or an engine/provider module.
+        parts = urlsplit(source)
+        remote = bool(parts.scheme or source.startswith("git@") or source.endswith(".git"))
+        if remote and (mode == "offline" or parts.scheme != "https" or not parts.hostname
+                       or parts.username is not None or parts.password is not None
+                       or parts.query or parts.fragment):
+            raise CliError("intake", "Use a local directory in offline mode, or a public HTTPS Git URL without credentials/query/fragment in full mode.")
+    except ValueError:
+        raise CliError("intake", "Invalid source URL.") from None
+
+
+def _audit(args) -> int:
+    from fugu.credentials import CredentialSet
+    from fugu.cli_audit import run_cli_audit
+
+    if args.mode == "offline" and (args.reputation or args.detonate):
+        raise CliError("usage", "Offline mode excludes reputation and detonation; remove those flags.")
+    _validate_audit_source(args.source, args.mode)
+    keys = CredentialSet()
+    if args.mode == "full":
+        from fugu.credentials import NativeSecretStore, resolve_credentials
+        needs_store = ("NEBIUS_API_KEY" not in os.environ or
+                       (args.reputation and "TAVILY_API_KEY" not in os.environ))
+        keys = resolve_credentials(os.environ, NativeSecretStore() if needs_store else None,
+                                   use_stored_tavily=args.reputation)
+        if not keys.nebius:
+            raise CliError("credential", "Nebius is missing or explicitly disabled. Set NEBIUS_API_KEY or run fugu configure.")
+        if args.reputation and not keys.tavily:
+            raise CliError("credential", "Requested reputation needs TAVILY_API_KEY or a saved Tavily key; an empty environment override disables it.")
+        print("Selected extension text/prompts go to Nebius for NVIDIA inference; usage is billed to your provider project.", file=sys.stderr)
+        if keys.tavily:
+            print("Reputation sends identifiers/search queries to Tavily and pinned-package lookups to OSV.", file=sys.stderr)
+        if args.detonate:
+            print("Detonation requests local Docker execution with fake canaries; coverage covers executed triggers only.", file=sys.stderr)
+        if not args.allow_hosted:
+            if not sys.stdin.isatty():
+                raise CliError("consent", "Noninteractive full audits require --allow-hosted after reviewing provider data transfer and billing.")
+            print("Allow these hosted data flows and billing? [y/N] ", end="", file=sys.stderr, flush=True)
+            try:
+                answer = sys.stdin.readline().strip().lower()
+            except (EOFError, OSError):
+                answer = ""
+            if answer not in {"y", "yes"}:
+                raise CliError("consent", "Hosted audit declined; no source intake or provider call was attempted.")
+    report = run_cli_audit(args.source, args.mode, keys, detonate=args.detonate)
+    sys.stdout.write(render_report(report, args.format, (keys.nebius, keys.tavily)))
+    return report["exit_code"]
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    raw = list(sys.argv[1:] if argv is None else argv)
+    # Preserve a single JSON envelope for parser errors as well as runtime
+    # failures; parser diagnostics never echo unknown arguments.
+    json_audit = bool(raw and raw[0] == "audit" and
+                      ("--format=json" in raw or any(raw[i:i+2] == ["--format", "json"] for i in range(len(raw)))))
+    args = None
+    try:
+        args = _parser().parse_args(raw)
         os.environ["FUGU_NO_DOTENV"] = "1"
+        if args.command == "audit":
+            return _audit(args)
         if args.command == "configure":
             return _configure(args.provider)
         if args.action == "status":
             return _status(args.verify)
         return _logout(args.provider)
     except CliError as error:
-        # Error messages are authored categories; never render backend/SDK bodies.
-        secrets = (os.environ.get("NEBIUS_API_KEY", ""), os.environ.get("TAVILY_API_KEY", ""))
-        print(redact(f"{error.category}: {error}", secrets), file=sys.stderr)
-        return 2
+        return _command_error(error, args, json_audit)
     except KeyboardInterrupt:
-        print("Cancelled.", file=sys.stderr)
-        return 130
+        return _command_error(CliError("cancelled", "Cancelled; owned work was stopped."), args, json_audit)
     except Exception:
-        print("configuration: Command failed; check configuration or native storage. No private error detail is displayed.", file=sys.stderr)
-        return 2
+        return _command_error(CliError("configuration", "Command failed; check configuration or native storage. Private error detail withheld."), args, json_audit)
+
+
+def _command_error(error: CliError, args, json_audit: bool) -> int:
+    secrets = (os.environ.get("NEBIUS_API_KEY", ""), os.environ.get("TAVILY_API_KEY", ""))
+    print(redact(f"{error.category}: {error}", secrets), file=sys.stderr)
+    if json_audit or (args is not None and args.command == "audit"):
+        source = args.source if args is not None else ""
+        mode = args.mode if args is not None else "full"
+        report = error_report(source, mode, error)
+        sys.stdout.write(render_report(report, "json" if json_audit else args.format, secrets))
+        return report["exit_code"]
+    return 130 if error.category == "cancelled" else 2

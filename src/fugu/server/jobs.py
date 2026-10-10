@@ -32,6 +32,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from fugu.config import DEFAULT_PRODUCTION_LIMITS
+from fugu.subprocess_env import credential_free_env
 from fugu.store.sqlite import SqliteJobStore
 from fugu.source_safety import (
     SourceLinkTarget,
@@ -740,10 +741,11 @@ async def _git_clone(
         *cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        env=credential_free_env(),
     )
     try:
         _, stderr = await asyncio.wait_for(proc.communicate(), timeout=timeout_s)
-    except asyncio.TimeoutError:
+    except (asyncio.TimeoutError, asyncio.CancelledError) as stopped:
         try:
             proc.kill()
         except ProcessLookupError:  # process exited at the timeout boundary
@@ -758,6 +760,8 @@ async def _git_clone(
             await _bounded_process_cleanup(
                 proc.wait(), _GIT_CLONE_TIMEOUT_WAIT_SECONDS
             )
+        if isinstance(stopped, asyncio.CancelledError):
+            raise
         raise ExtractionError(f"git clone timed out after {timeout_s:g} seconds") from None
     if proc.returncode != 0:
         detail = (stderr or b"").decode(errors="replace").strip()
