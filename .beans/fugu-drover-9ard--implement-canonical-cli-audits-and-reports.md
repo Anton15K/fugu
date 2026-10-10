@@ -1,11 +1,11 @@
 ---
 # fugu-drover-9ard
 title: Implement canonical CLI audits and reports
-status: in-progress
+status: completed
 type: task
 priority: normal
 created_at: 2026-10-10T08:36:24Z
-updated_at: 2026-10-10T11:36:19Z
+updated_at: 2026-10-10T11:42:18Z
 parent: fugu-drover-p0u7
 ---
 
@@ -25,5 +25,7 @@ Completed implementation only. Product/test/docs commit: caa5bac4f2230a4648b6ccc
 
 ## Required exact-candidate correction — BYOK-IMPL-01
 Independent review of 6821130b4161c0eff53303c323ac3e058cc715f5 is CHANGES: rejected URL query/fragment credentials echo in JSON source.
-- [ ] Mask rejected query/fragment/encoded token URLs, add behavioral regression cases, verify and commit the correction for fresh independent review.
+- [x] Mask rejected query/fragment/encoded token URLs, add behavioral regression cases, verify and commit the correction for fresh independent review.
 Review: /Users/antonkogun/.local/share/drover/reports/fugu-cli-byok-20261010/reviewer-report.md
+
+BYOK-IMPL-01 correction committed as da3d34b14b2c0d3b859b97e75f52f86e531b244a. Verification: initial behavioral red 8 failed / 7 passed; restored green 15/15; guarded CLI/security/API/intake/casebook regression 435/435 plus 23 subtests (one inherited Starlette warning). Actual module-entry tests use URL tokens distinct from provider keys and assert exit 2, one JSON object, no raw/decoded token on stdout/stderr and zero backend/credential-resolution/intake/provider attempts. Userinfo and local/public HTTPS source display controls pass. Only cli_output.py, mapped security tests and this B record changed. Evidence: /Users/antonkogun/.local/share/drover/reports/fugu-cli-byok-20261010/correction-1-evidence/. New exact head and all ordered A+B+correction SHAs are named by candidate.json/coder-report.md after final committed verification; prior evidence is preserved. Fresh exact-candidate independent review under fugu-drover-opb5 is pending; this completed B record covers implementation only and claims no approval.
