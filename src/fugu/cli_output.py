@@ -41,7 +41,10 @@ def public_source(source: str) -> str:
     from urllib.parse import urlsplit
     try:
         parts = urlsplit(source)
-        if parts.username is not None or parts.password is not None:
+        # Queries/fragments may carry credentials unrelated to provider keys.
+        # Local paths can contain literal ?/#, so apply this only to URLs.
+        if (parts.username is not None or parts.password is not None
+                or ((parts.scheme or parts.netloc) and (parts.query or parts.fragment))):
             return '<rejected source URL>'
     except ValueError:
         return '<invalid source URL>'

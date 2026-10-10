@@ -255,3 +255,152 @@ def test_failed_member_private_error_body_not_in_composition_metadata(monkeypatc
     encoded = json.dumps(report)
     assert 'private SDK body' not in encoded and 'fake-nebius' not in encoded
     assert report['exit_code'] == 3
+
+
+@pytest.mark.parametrize('source,token,encoded_token', [
+    ('https://example.invalid/repo?access_token=URL_QUERY_PRIVATE_SENTINEL',
+     'URL_QUERY_PRIVATE_SENTINEL', 'URL_QUERY_PRIVATE_SENTINEL'),
+    ('https://example.invalid/repo#token=URL_FRAGMENT_PRIVATE_SENTINEL',
+     'URL_FRAGMENT_PRIVATE_SENTINEL', 'URL_FRAGMENT_PRIVATE_SENTINEL'),
+    ('https://example.invalid/repo?access_token=URL_QUERY%2FENCODED%2BPRIVATE',
+     'URL_QUERY/ENCODED+PRIVATE', 'URL_QUERY%2FENCODED%2BPRIVATE'),
+    ('https://example.invalid/repo#token=URL_FRAGMENT%2fENCODED%2bPRIVATE',
+     'URL_FRAGMENT/ENCODED+PRIVATE', 'URL_FRAGMENT%2fENCODED%2bPRIVATE'),
+    ('https://example.invalid/repo?access%5Ftoken=URL_QUERY%252FDOUBLE_PRIVATE',
+     'URL_QUERY%2FDOUBLE_PRIVATE', 'URL_QUERY%252FDOUBLE_PRIVATE'),
+    ('https://example.invalid/repo#token=URL_FRAGMENT%252FDOUBLE_PRIVATE',
+     'URL_FRAGMENT%2FDOUBLE_PRIVATE', 'URL_FRAGMENT%252FDOUBLE_PRIVATE'),
+    ('https://user:URL_USERINFO_PRIVATE_SENTINEL@example.invalid/repo',
+     'URL_USERINFO_PRIVATE_SENTINEL', 'URL_USERINFO_PRIVATE_SENTINEL'),
+    ('https://user:URL_USERINFO%2FENCODED_PRIVATE@example.invalid/repo',
+     'URL_USERINFO/ENCODED_PRIVATE', 'URL_USERINFO%2FENCODED_PRIVATE'),
+])
+def test_rejected_url_tokens_never_reach_cli_output(source, token, encoded_token, monkeypatch, capsys):
+    from urllib.parse import unquote
+    import fugu.client as provider
+    import fugu.credentials as credentials
+    import fugu.server.jobs as jobs
+    import fugu.server.composition_jobs as composition
+
+    # URL credentials are distinct from both provider keys: provider-key
+    # redaction cannot satisfy this rejected-source contract accidentally.
+    monkeypatch.setenv('NEBIUS_API_KEY', 'fake-runtime-control-nebius')
+    monkeypatch.setenv('TAVILY_API_KEY', 'fake-runtime-control-tavily')
+    attempts = []
+    def deny(kind):
+        def blocked(*args, **kwargs):
+            attempts.append(kind)
+            raise AssertionError('rejected source attempted ' + kind)
+        return blocked
+    monkeypatch.setattr(credentials, 'NativeSecretStore', deny('backend'))
+    monkeypatch.setattr(credentials, 'resolve_credentials', deny('credential-resolution'))
+    monkeypatch.setattr(provider, 'make_client', deny('provider'))
+    monkeypatch.setattr(jobs, 'extract_source', deny('intake'))
+    monkeypatch.setattr(composition, 'extract_source', deny('auto-intake'))
+
+    assert main(['audit', source, '--allow-hosted', '--format', 'json']) == 2
+    output = capsys.readouterr()
+    report = json.loads(output.out)
+    assert output.out.endswith('\n') and output.out.count('\n') == 1
+    assert report['exit_code'] == 2 and report['verdict'] is None
+    assert report['error']['category'] == 'intake'
+    assert report['source'] != source
+    combined = output.out + output.err
+    assert encoded_token not in combined
+    assert token not in unquote(combined)
+    assert attempts == []
+
+
+@pytest.mark.parametrize('source', [
+    'https://example.invalid/owner/public-repo.git',
+    'https://example.invalid/owner/public-repo/tree/main/skills/ordinary',
+])
+def test_valid_public_https_source_display_survives_preflight_error(source, monkeypatch, capsys):
+    import fugu.credentials as credentials
+    monkeypatch.setenv('NEBIUS_API_KEY', '')
+    monkeypatch.setenv('TAVILY_API_KEY', '')
+    monkeypatch.setattr(credentials, 'NativeSecretStore', lambda: pytest.fail('unexpected backend'))
+    assert main(['audit', source, '--allow-hosted', '--format', 'json']) == 2
+    output = capsys.readouterr()
+    report = json.loads(output.out)
+    assert output.out.count('\n') == 1
+    assert report['source'] == source
+    assert report['error']['category'] == 'credential'
+
+
+@pytest.mark.parametrize('name', ['ordinary', 'ordinary#notes?draft'])
+def test_local_source_display_preserved_in_actual_cli(name, tmp_path, capsys):
+    source = tmp_path / name
+    source.mkdir()
+    (source / 'SKILL.md').write_text('# Ordinary skill\nFormats tables.')
+    assert main(['audit', str(source), '--mode', 'offline', '--format', 'json']) == 0
+    output = capsys.readouterr()
+    report = json.loads(output.out)
+    assert output.out.count('\n') == 1 and report['source'] == str(source)
+    assert report['verdict']['status'] == 'pass'
+
+
+def test_missing_local_source_with_literal_query_characters_is_preserved(tmp_path, capsys):
+    source = tmp_path / 'missing#notes?draft'
+    assert main(['audit', str(source), '--mode', 'offline', '--format', 'json']) == 2
+    report = json.loads(capsys.readouterr().out)
+    assert report['source'] == str(source) and report['error']['category'] == 'intake'
+
+
+@pytest.mark.parametrize('suffix,token', [
+    ('?access_token=MODULE_QUERY%2FPRIVATE', 'MODULE_QUERY/PRIVATE'),
+    ('#token=MODULE_FRAGMENT%2FPRIVATE', 'MODULE_FRAGMENT/PRIVATE'),
+])
+def test_module_cli_omits_rejected_url_tokens_before_all_boundaries(suffix, token, tmp_path):
+    import os
+    import subprocess
+    import sys
+    from urllib.parse import unquote
+
+    boundary_file = tmp_path / 'attempts.json'
+    # Execute the real module entry in an inert interpreter. Authored guards
+    # record every forbidden operation even if CLI exception handling swallows it.
+    script = '''
+import asyncio, json, socket, subprocess, sys
+from pathlib import Path
+import fugu.client as provider
+import fugu.credentials as credentials
+import fugu.server.jobs as jobs
+import fugu.server.composition_jobs as composition
+attempts = []
+def deny(kind):
+    def blocked(*args, **kwargs):
+        attempts.append(kind)
+        raise AssertionError(kind)
+    return blocked
+credentials.NativeSecretStore = deny("backend")
+credentials.resolve_credentials = deny("credential-resolution")
+provider.make_client = deny("provider")
+jobs.extract_source = deny("intake")
+composition.extract_source = deny("auto-intake")
+socket.socket.connect = deny("network")
+socket.create_connection = deny("network")
+asyncio.create_subprocess_exec = deny("subprocess")
+subprocess.Popen = deny("subprocess")
+sys.modules["keyring"] = None
+source, evidence = sys.argv[1:]
+sys.argv = ["fugu", "audit", source, "--allow-hosted", "--format", "json"]
+try:
+    import runpy
+    runpy.run_module("fugu", run_name="__main__")
+finally:
+    Path(evidence).write_text(json.dumps(attempts))
+'''
+    environ = {'PATH': os.defpath, 'HOME': str(tmp_path),
+        'PYTHONPATH': str(Path(__file__).resolve().parents[1] / 'src'),
+        'FUGU_NO_DOTENV': '1', 'PYTHON_DOTENV_DISABLED': '1',
+        'NEBIUS_API_KEY': 'fake-module-control-nebius', 'TAVILY_API_KEY': 'fake-module-control-tavily'}
+    result = subprocess.run([sys.executable, '-c', script,
+        'https://example.invalid/repo' + suffix, str(boundary_file)],
+        cwd=tmp_path, env=environ, capture_output=True, text=True, timeout=10)
+    assert result.returncode == 2
+    report = json.loads(result.stdout)
+    assert result.stdout.endswith('\n') and result.stdout.count('\n') == 1
+    assert report['error']['category'] == 'intake' and report['exit_code'] == 2
+    assert token not in unquote(result.stdout + result.stderr)
+    assert json.loads(boundary_file.read_text()) == []
