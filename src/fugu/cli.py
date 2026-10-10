@@ -74,7 +74,9 @@ def _verify_nebius(keys) -> None:
         with DefaultHttpxClient(timeout=10.0, follow_redirects=False) as transport:
             with OpenAI(api_key=keys.nebius, base_url=keys.base_url,
                         max_retries=0, timeout=10.0, http_client=transport) as client:
-                client.models.list()
+                catalog = client.models.list()
+                if not isinstance(getattr(catalog, "data", None), list):
+                    raise ValueError("catalog data unavailable")
     except Exception:
         raise CredentialError("Nebius authentication/catalog verification failed; check your key and endpoint. No stored-key fallback or inference was attempted.") from None
 

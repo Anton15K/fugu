@@ -5,7 +5,7 @@ status: completed
 type: task
 priority: normal
 created_at: 2026-10-10T08:36:23Z
-updated_at: 2026-10-10T10:56:22Z
+updated_at: 2026-10-10T10:57:26Z
 parent: fugu-drover-p0u7
 ---
 
@@ -29,3 +29,7 @@ Report: /Users/antonkogun/.local/share/drover/reports/fugu-cli-byok-20261010/pha
 ## Phase A Completion
 
 Implementation committed as 4e86ec39fdb8851c89234a7e2a15237a15a8d984. All 85 scoped auth/config/client/reputation tests passed before commit. Exact committed verification and the full required non-merge commit set are recorded in phase-a.json and phase-a-report.md under /Users/antonkogun/.local/share/drover/reports/fugu-cli-byok-20261010/. Phase A implementation is complete; independent candidate review/integration gates remain separate. Phase B awaits its explicit assignment.
+
+## Catalog Verification Hardening
+
+Before the phase-A handoff, an added fake-transport regression showed HTTP 200 without catalog data incorrectly returned success (1 failed, 67 deselected). Verification now requires a catalog data list and fails safely otherwise, still using exactly one bounded request. Final suite: 68 authored auth tests plus 18 touched regressions, 86 passed. This is phase-A auth validation only; phase B remains untouched.

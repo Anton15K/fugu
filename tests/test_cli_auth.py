@@ -332,6 +332,8 @@ class FakeClient(OriginalClient):
             status = int(os.environ.get("FUGU_TEST_HTTP_STATUS", "200"))
             if status == 302:
                 return httpx.Response(302, headers={"location":"https://evil.invalid/stolen"})
+            if os.environ.get("FUGU_TEST_BAD_CATALOG"):
+                return httpx.Response(200, json={"error":{"message":"fake-env-nebius provider detail"}})
             return httpx.Response(status, json={"object":"list","data":[],"error":{"message":"fake-env-nebius provider detail"}})
         kw["transport"] = httpx.MockTransport(respond)
         super().__init__(*a, **kw)
@@ -581,3 +583,11 @@ def test_logout_all_deletes_only_fugu_provider_entries(tmp_path):
     assert "delete:nebius" in events and "delete:tavily" in events
     assert result.stdout.count("remains effective") == 2
     assert "fake-env" not in result.stdout + result.stderr
+
+
+def test_verify_rejects_200_response_without_catalog(tmp_path):
+    result, events = cli_run(tmp_path, ["auth", "status", "--verify"], {"NEBIUS_API_KEY":"fake-env-nebius", "FUGU_TEST_BAD_CATALOG":"1"})
+    assert result.returncode == 2
+    assert [e for e in events if e.startswith("request:")] == ["request:GET:/v1/models"]
+    assert "reachable" not in result.stdout
+    assert "fake-env-nebius" not in result.stdout + result.stderr
