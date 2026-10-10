@@ -12,9 +12,15 @@ streaming) then works unchanged against Nebius-hosted NVIDIA models.
 
 from __future__ import annotations
 
-from openai import OpenAI
+from openai import DefaultHttpxClient, OpenAI
 
-from fugu.config import DEFAULT_PRODUCTION_LIMITS, ProductionLimits, Settings, get_settings
+from fugu.config import (
+    DEFAULT_PRODUCTION_LIMITS,
+    ProductionLimits,
+    Settings,
+    credential_scope_active,
+    get_settings,
+)
 
 
 def make_client(
@@ -29,9 +35,15 @@ def make_client(
     request to the same 90-second timeout used by the full-capability runner.
     """
     settings = settings or get_settings()
+    transport = {}
+    if credential_scope_active():
+        transport["http_client"] = DefaultHttpxClient(
+            timeout=limits.request_timeout_seconds, follow_redirects=False
+        )
     return OpenAI(
         base_url=settings.base_url,
         api_key=settings.api_key,
         max_retries=limits.sdk_max_retries,
         timeout=limits.request_timeout_seconds,
+        **transport,
     )

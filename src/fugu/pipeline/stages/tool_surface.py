@@ -22,6 +22,7 @@ import uuid
 from fugu.pipeline.stages.concealment import collect_text_files
 from fugu.source_safety import validate_source_tree
 from fugu.types import EvidenceSnippet, Finding
+from fugu.subprocess_env import credential_free_env
 
 ENGINE_PIN = 'f739e120cd7dc253fead2a1f13668f9535e4d8a5'
 MAX_TOOLS = 256
@@ -162,12 +163,12 @@ class ToolSurfaceScanner:
                 else:
                     command = [str(self.binary), 'scan', '--schema', str(schema), '--output', 'json']
                 try:
-                    result = subprocess.run(command, cwd=tmp, env=environment,
+                    result = subprocess.run(command, cwd=tmp, env=credential_free_env(environment),
                                             capture_output=True, text=True, timeout=self.timeout_s)
                 finally:
                     if self.image:
                         subprocess.run([docker, 'rm', '-f', name], capture_output=True,
-                                       env=environment, timeout=10, check=False)
+                                       env=credential_free_env(environment), timeout=10, check=False)
             if result.returncode not in (0, 1) or len(result.stdout) > 16_000_000:
                 raise RuntimeError('scanner_execution_failed')
             doc = json.loads(result.stdout)

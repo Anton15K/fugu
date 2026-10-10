@@ -74,6 +74,8 @@ without canaries produce no finding — writing files during install is normal.
 """
 from __future__ import annotations
 
+from fugu.subprocess_env import credential_free_env
+
 import asyncio
 import json
 import logging
@@ -169,12 +171,12 @@ class DockerDriver:
             *args,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            env=credential_free_env(),
         )
         try:
             out, err = await asyncio.wait_for(proc.communicate(), timeout=timeout)
-        except asyncio.TimeoutError:
-            proc.kill()
-            await proc.communicate()
+        except (asyncio.TimeoutError, asyncio.CancelledError):
+            await _reap_process(proc)
             raise
         text = out.decode(errors="replace").strip()
         if check and proc.returncode != 0:
@@ -427,6 +429,7 @@ class DockerDriver:
             "bash", "-lc", trigger,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            env=credential_free_env(),
         )
         # Canary-evidence watchdog: after a grace period, poll collector
         # logs; the moment a canary value (raw or hex-encoded) appears in
@@ -436,21 +439,25 @@ class DockerDriver:
         # handled by scanning only the suffix appended after t0.
         log_sizes_t0 = self._collector_log_sizes(logs_dir)
         killed_by: str | None = None  # None | "timeout" | "evidence"
-        while proc.returncode is None:
-            await asyncio.sleep(0.5)
-            elapsed = time.monotonic() - t0
-            if elapsed >= timeout_s:
-                killed_by = "timeout"
-                break
-            if (
-                elapsed >= self.evidence_grace_s
-                and self._new_log_bytes_contain_canary(logs_dir, log_sizes_t0, canary_values)
-            ):
-                killed_by = "evidence"
-                break
-        if killed_by:
-            proc.kill()
-        out, err = await proc.communicate()
+        try:
+            while proc.returncode is None:
+                await asyncio.sleep(0.5)
+                elapsed = time.monotonic() - t0
+                if elapsed >= timeout_s:
+                    killed_by = "timeout"
+                    break
+                if (
+                    elapsed >= self.evidence_grace_s
+                    and self._new_log_bytes_contain_canary(logs_dir, log_sizes_t0, canary_values)
+                ):
+                    killed_by = "evidence"
+                    break
+            if killed_by:
+                proc.kill()
+            out, err = await proc.communicate()
+        except asyncio.CancelledError:
+            await _reap_process(proc)
+            raise
         if killed_by == "timeout":
             exit_code: int | None = None
         else:
@@ -566,24 +573,26 @@ class DockerDriver:
         logs_dir: Path,
         victim_img: str,
     ) -> None:
-        for name in [*victim_names, dns_container, mitm_container]:
-            await self._run(["rm", "-f", name], check=False)
-        # sweep anything left over by run label (e.g. timeout-killed runs)
+        async def remove(args: list[str]) -> str:
+            try:
+                return await self._run(args, timeout=10, check=False)
+            except Exception:
+                # Infrastructure errors must not abandon the remaining owned
+                # resources or write private subprocess details into logs.
+                log.debug("owned chamber cleanup command unavailable")
+                return ""
+
         try:
-            leftover = await self._run(
-                ["ps", "-aq", "--filter", f"label=fugu.run={run_id}"]
-            )
+            for name in [*victim_names, dns_container, mitm_container]:
+                await remove(["rm", "-f", name])
+            leftover = await remove(["ps", "-aq", "--filter", f"label=fugu.run={run_id}"])
             for cid in leftover.split():
-                await self._run(["rm", "-f", cid], check=False)
-        except Exception:  # pragma: no cover
-            log.debug("label sweep failed for %s", run_id, exc_info=True)
-        await self._run(["network", "rm", net_name], check=False)
-        try:
-            await self._run(["rmi", "-f", victim_img], check=False)
-        except Exception:  # pragma: no cover
-            log.debug("victim image cleanup failed for %s", victim_img, exc_info=True)
-        if not self.keep_logs:
-            shutil.rmtree(logs_dir, ignore_errors=True)
+                await remove(["rm", "-f", cid])
+            await remove(["network", "rm", net_name])
+            await remove(["rmi", "-f", victim_img])
+        finally:
+            if not self.keep_logs:
+                shutil.rmtree(logs_dir, ignore_errors=True)
 
 
 # ---------------------------------------------------------------------------
@@ -757,3 +766,21 @@ def evidence_to_findings(ev: DetonationEvidence) -> list[Finding]:
         )
 
     return findings
+
+
+async def _reap_process(proc) -> None:
+    """Kill/drain only the subprocess owned by this operation, boundedly."""
+    try:
+        proc.kill()
+    except ProcessLookupError:
+        pass
+    try:
+        await asyncio.wait_for(proc.communicate(), timeout=0.1)
+    except Exception:
+        transport = getattr(proc, "_transport", None)
+        if transport is not None:
+            transport.close()
+        try:
+            await asyncio.wait_for(proc.wait(), timeout=0.1)
+        except Exception:
+            pass

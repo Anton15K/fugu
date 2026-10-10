@@ -710,7 +710,8 @@ class StaticScanStage:
         self.max_evidence_per_finding = max_evidence_per_finding
         self.rules = rules if rules is not None else STATIC_RULES
         from fugu.pipeline.stages.tool_surface import ToolSurfaceScanner
-        self.surface_scanner = surface_scanner or ToolSurfaceScanner.from_environment()
+        self.surface_scanner = (ToolSurfaceScanner.from_environment() if surface_scanner is None
+                                else None if surface_scanner is False else surface_scanner)
 
     async def run(self, job: AuditJob, target: Path) -> StageResult:
         t0 = time.perf_counter()

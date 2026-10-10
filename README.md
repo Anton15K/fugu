@@ -147,6 +147,20 @@ Four public reports came from that investigation; one is an optional metadata
 improvement. The other reports remain unanswered. This confirms one maintainer
 fix, not four bugs, vulnerabilities or fixes, or measured audience benefit.
 
+## Local CLI (bring your own key)
+
+Install and configure the CLI using the [CLI guide](docs/cli.md). No Fugu account,
+server or browser is required. Full mode sends selected text/prompts to Nebius
+and bills your provider project; review the guide's data flows and exclusions.
+
+```bash
+fugu audit ./candidate --mode offline
+fugu audit ./candidate --allow-hosted --format json > audit.json
+```
+
+Offline runs local concealment/static checks only. Inspect coverage with every
+verdict; incomplete requested checks return exit 3 even with a PASS verdict.
+
 ## Run locally
 
 Requirements: Python 3.10+, [uv](https://docs.astral.sh/uv/), and Node

@@ -8,11 +8,41 @@ from __future__ import annotations
 
 import os
 import sys
+from contextlib import contextmanager
+from contextvars import ContextVar
 from dataclasses import asdict, dataclass
+from typing import TYPE_CHECKING, Iterator
 
 from dotenv import load_dotenv
 
-load_dotenv()  # reads .env from the working directory, if present
+if os.environ.get("FUGU_NO_DOTENV") != "1":
+    load_dotenv()  # Existing web/server behavior; CLI disables discovery.
+
+if TYPE_CHECKING:
+    from fugu.credentials import CredentialSet
+
+_CREDENTIAL_SCOPE: ContextVar[CredentialSet | None] = ContextVar("fugu_credentials", default=None)
+
+
+@contextmanager
+def credential_scope(keys: CredentialSet) -> Iterator[None]:
+    """Use process-local credentials for this task without mutating environment."""
+    token = _CREDENTIAL_SCOPE.set(keys)
+    try:
+        yield
+    finally:
+        _CREDENTIAL_SCOPE.reset(token)
+
+
+def credential_scope_active() -> bool:
+    """Identify CLI-scoped clients without changing ordinary server clients."""
+    return _CREDENTIAL_SCOPE.get() is not None
+
+
+def get_reputation_api_key() -> str:
+    keys = _CREDENTIAL_SCOPE.get()
+    return keys.tavily if keys is not None else os.environ.get("TAVILY_API_KEY", "").strip()
+
 
 # --- Nebius Token Factory endpoints ---------------------------------------
 # Official base URLs (OpenAI-wire-compatible). Override with NEBIUS_BASE_URL.
@@ -73,6 +103,11 @@ class Settings:
     """Simple env-backed settings holder."""
 
     def __init__(self) -> None:
+        keys = _CREDENTIAL_SCOPE.get()
+        if keys is not None:
+            self.base_url = keys.base_url
+            self.api_key = keys.nebius
+            return
         self.base_url: str = (
             os.environ.get("NEBIUS_BASE_URL", DEFAULT_BASE_URL).strip() or DEFAULT_BASE_URL
         )

@@ -17,6 +17,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Callable
 
+from fugu.config import get_reputation_api_key
 from fugu.pipeline.stages.concealment import collect_text_files
 from fugu.source_safety import validate_source_tree
 from fugu.types import AuditJob, EvidenceSnippet, Finding, StageResult
@@ -224,7 +225,7 @@ class ReputationStage:
 
         t0 = time.perf_counter()
         search = self._search_fn
-        api_key = os.environ.get("TAVILY_API_KEY", "").strip()
+        api_key = get_reputation_api_key()
         if search is None:
             if not api_key:
                 return StageResult(
