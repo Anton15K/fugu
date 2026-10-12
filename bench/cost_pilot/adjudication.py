@@ -73,8 +73,8 @@ def score_case(truth,result,matches):
     return {'case':truth['id'],'workflow':result['workflow'],'tp':tp,'fp':fp,'fn':fn,'unresolved':unresolved,'duplicate':sum(m.state=='duplicate' for m in matches),'precision':precision,'recall':recall,'f1':2*tp/(2*tp+fp+fn) if 2*tp+fp+fn else None,'decision_correct':action==truth['expected_action'] if completed else None,'triage_correct':(action in {'reject','investigate'})==(truth['expected_action'] in {'reject','investigate'}) if completed else None,'critical_misses':[i['id'] for i in issues.values() if i['severity']=='critical' and i['id'] not in matched],'observed_runtime_count':sum(_runtime(f,result) for f in findings.values()),'severity_accuracy':sum(severity)/len(severity) if severity else None,'localization_accuracy':sum(localized)/len(localized) if localized else None}
 
 
-def mask_outputs(root,results,seed):
-    root=Path(root);rng=random.Random(seed);cases={};mapping={}
+def _masked_records(results,seed):
+    rng=random.Random(seed);cases={};mapping={}
     for result in results:
         r=normalized(result);id=r['case']
         if id not in mapping:
@@ -82,6 +82,11 @@ def mask_outputs(root,results,seed):
         masked=next(k for k,v in mapping[id].items() if v==r['arm'])
         view=copy.deepcopy(r);view.pop('arm');cases[id][masked]=view
     record={'schema_version':1,'cases':cases,'masking':'identity masked; structural formatting may reveal systems'}
+    return record,mapping
+
+
+def mask_outputs(root,results,seed):
+    root=Path(root);record,mapping=_masked_records(results,seed)
     immutable_json(root/'private/mask-map.json',mapping);immutable_json(root/'masked/outputs.json',record);return record
 
 
@@ -101,15 +106,21 @@ def prepare_masked(run,measurement_path):
     verify_frozen(run);data=json.loads(Path(measurement_path).read_bytes())
     if data['run_sha256']!=byte_hash(run.path):raise SafetyStop('measurement_run_mismatch')
     path=run.path.parent/'masked/outputs.json'
-    if path.exists():return json.loads(path.read_bytes())
+    if path.exists():
+        expected,mapping=_masked_records(data['rows'],run.doc['seed'])
+        if json.loads(path.read_bytes())!=expected or json.loads((run.path.parent/'private/mask-map.json').read_bytes())!=mapping:raise SafetyStop('masked_measurement_drift')
+        return expected
     return mask_outputs(run.path.parent,data['rows'],run.doc['seed'])
 
 
 def load_adjudication(path,masked,run):
-    review=json.loads(Path(path).read_bytes())
+    verify_frozen(run);root=run.path.parent;review=json.loads(Path(path).read_bytes())
+    bindings={'run_sha256':byte_hash(run.path),'measurement_sha256':byte_hash(root/'measurement.json'),'mask_map_sha256':byte_hash(root/'private/mask-map.json'),'masked_outputs_sha256':byte_hash(root/'masked/outputs.json')}
+    if any(review.get(k)!=v for k,v in bindings.items()):raise SafetyStop('adjudication_input_drift')
+    if masked!=prepare_masked(run,root/'measurement.json'):raise SafetyStop('masked_measurement_drift')
     if review.get('reviewer')!='fugu-codex-reviewer' or review.get('verdict')!='APPROVE' or review.get('masked_outputs_sha256')!=byte_hash(run.path.parent/'masked/outputs.json'):raise SafetyStop('adjudication_not_approved')
     truth_ref=next(r for r in run.doc['references'] if r['kind']=='truth' and r['path'].endswith('truth.json'))
     if review.get('truth_sha256')!=truth_ref['sha256']:raise SafetyStop('adjudication_truth_drift')
     truth=json.loads(Path(truth_ref['path']).read_bytes());matches=[Match(**m) for m in review['matches']]
     validate_matches(truth,masked,matches)
-    return {'schema_version':1,'status':'APPROVE','reviewer':review['reviewer'],'truth':truth,'matches':review['matches'],'mapping':json.loads((run.path.parent/'private/mask-map.json').read_bytes()),'review_path':str(path),'review_sha256':byte_hash(Path(path)),'human_time':review.get('human_time',{})}
+    return {'schema_version':1,'status':'APPROVE','reviewer':review['reviewer'],'truth':truth,'matches':review['matches'],'mapping':json.loads((run.path.parent/'private/mask-map.json').read_bytes()),'review_path':str(path),'review_sha256':byte_hash(Path(path)),'human_time':review.get('human_time',{}),'bindings':bindings}

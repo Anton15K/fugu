@@ -9,7 +9,7 @@ from dataclasses import asdict
 from pathlib import Path
 from .contracts import Match,ReportBundle,SafetyStop
 from .freeze import immutable_json,load_frozen,verify_frozen,byte_hash
-from .adjudication import normalized,score_case
+from .adjudication import normalized,score_case,prepare_masked,load_adjudication
 
 
 def safe_ratio(numerator,denominator):return None if not denominator else numerator/denominator
@@ -76,6 +76,9 @@ def export_report(root,output):
     root=Path(root);run=load_frozen(root/'run-plan.json');verify_frozen(run)
     measurement=json.loads((root/'measurement.json').read_bytes());adjud=json.loads((root/'adjudicated.json').read_bytes())
     if byte_hash(Path(adjud['review_path']))!=adjud['review_sha256']:raise SafetyStop('adjudication_drift')
+    approved=load_adjudication(adjud['review_path'],prepare_masked(run,root/'measurement.json'),run)
+    if adjud!=approved:raise SafetyStop('adjudication_copy_drift')
+    adjud=approved
     from .ledger import Ledger
     with Ledger(root/'ledger/events.jsonl') as ledger:
         summary=ledger.summary();events=ledger.events()
