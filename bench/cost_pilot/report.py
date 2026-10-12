@@ -5,9 +5,11 @@ import io
 import json
 import os
 import statistics
+import math
+import re
 from dataclasses import asdict
 from pathlib import Path
-from .contracts import Match,ReportBundle,SafetyStop
+from .contracts import Match,ReportBundle,SafetyStop,ULTRA,SUPER
 from .freeze import immutable_json,load_frozen,verify_frozen,byte_hash
 from .adjudication import normalized,score_case,prepare_masked,load_adjudication
 
@@ -30,16 +32,47 @@ def _interval(known,unknown,denominator):
     return known/denominator
 
 
+def _public_coverage(value):
+    # Paths, triggers, stage/provider errors and collector prose stay private.
+    public={k:value[k] for k in ('incomplete',) if type(value.get(k)) is bool}
+    for k in ('selected_paths','unconsumed_paths','missing_units','missing_trigger_occurrences',
+              'unexpected_trigger_occurrences','missing_stages','stage_coverage_failures',
+              'inventoried_files','read_paths','searched_paths','omitted_paths','tool_errors','truncations'):
+        if isinstance(value.get(k),list):public[k+'_count']=len(value[k])
+    return public
+
+
+def _public_numbers(value,fields):
+    return {k:value[k] for k in fields if type(value.get(k)) in (int,float)
+            and math.isfinite(value[k]) and value[k]>=0}
+
+
+def _public_usage(value):
+    return {'models':{m:_public_numbers(v,('input','output','cache','reasoning','calls'))
+                      for m,v in value.get('models',{}).items() if m in (ULTRA,SUPER)},
+            'tavily':_public_numbers(value.get('tavily',{}),('observed_credits','contractual_credits'))}
+
+
+def _redact_public(value):
+    # Use already resolved in-process keys only; export never opens credential storage.
+    from .runner import _CREDENTIALS
+    from fugu.cli_output import sanitize_public
+    keys=_CREDENTIALS.get()
+    return sanitize_public(value,(keys.nebius,keys.tavily) if keys else ())
+
+
 def build_report(run,ledger_summary,results,adjudication,output):
     if adjudication.get('status')!='APPROVE' or adjudication.get('reviewer')!='fugu-codex-reviewer':raise SafetyStop('report_unreviewed')
     output=Path(output);truths={t['id']:t for t in adjudication['truth']['cases']};matches=[m if isinstance(m,Match) else Match(**m) for m in adjudication['matches']];lookup={(r['case'],r['arm']):r for r in map(normalized,results)};rows=[];lanes={};mapping=adjudication['mapping']
     for c in run.doc['cases']:
         if c['id'] not in truths:raise SafetyStop('report_truth_missing')
+        if not re.fullmatch(r'c(?:0[0-9]|1[01])',c['id']):raise SafetyStop('report_case_identity')
         for arm in ('agent','fugu'):
             r=lookup.get((c['id'],arm),{'case':c['id'],'arm':arm,'workflow':'unattempted','action':None,'findings':[],'coverage':{}})
             mask=next(k for k,v in mapping[c['id']].items() if v==arm)
             score=score_case(truths[c['id']],r,[m for m in matches if m.case==c['id'] and m.masked_arm==mask])
-            row={**score,'arm':arm,'lane':c['lane'],'action':r['action'],'coverage':r['coverage'],'runtime_capability':'structurally_unavailable' if arm=='agent' else 'native_docker','source_and_web_tools':['list_files','read_file','search_files','search_web'] if arm=='agent' else None,'seconds':r.get('seconds'),'cost':adjudication.get('cost_by_case',{}).get(c['id'],{}).get(arm,{'known_micro':0,'unknown_upper_micro':0})}
+            score['critical_misses']=['issue-'+str(next(i for i,t in enumerate(truths[c['id']]['issues'],1) if t['id']==id)) for id in score['critical_misses']]
+            row={**score,'arm':arm,'lane':c['lane'],'action':r['action'],'coverage':_public_coverage(r['coverage']),'runtime_capability':'structurally_unavailable' if arm=='agent' else 'native_docker','source_and_web_tools':['list_files','read_file','search_files','search_web'] if arm=='agent' else None,'seconds':_public_numbers(r,('seconds',)).get('seconds'),'cost':adjudication.get('cost_by_case',{}).get(c['id'],{}).get(arm,{'known_micro':0,'unknown_upper_micro':0})}
             rows.append(row)
     for lane in ('security','functional'):
         lanes[lane]={}
@@ -57,9 +90,10 @@ def build_report(run,ledger_summary,results,adjudication,output):
     paired=[c['id'] for c in run.doc['cases'] if all(next(r for r in rows if r['case']==c['id'] and r['arm']==a)['workflow']=='complete' for a in ('agent','fugu'))]
     discordant=[c['id'] for c in run.doc['cases'] if len({next(r for r in rows if r['case']==c['id'] and r['arm']==a)['workflow'] for a in ('agent','fugu')})>1]
     pair_costs=[sum(r['cost']['known_micro'] for r in rows if r['case']==c) for c in paired if set(adjudication.get('cost_by_case',{}).get(c,{}))=={'agent','fugu'} and not any(r['cost']['unknown_upper_micro'] for r in rows if r['case']==c)]
-    data={'schema_version':1,'planned_cases':len(run.doc['cases']),'rows':rows,'lanes':lanes,'cost':cost,'completed_matched_pairs':paired,'discordant_pairs':discordant,'median_known_completed_pair_micro':statistics.median(pair_costs) if pair_costs else None,'median_pair_n':len(pair_costs),'usage':adjudication.get('usage',{}),'human_time':adjudication.get('human_time',{}),'resources':'Docker CPU/memory/build/run metrics unpriced','limits':['Single frozen seed, small pilot; completed subset is not all planned cases.','Product-capability comparison: Fugu alone has OSV/Docker.','No equivalence, noninferiority, general superiority or equal-tool causal claim.','Upstream public familiarity and potential model contamination disclosed.','Agent target observations are structurally unavailable and zero.','Identity masking is imperfect due to structural output.'],'models':{'principal':'nvidia/Nemotron-3-Ultra-550b-a55b','reviewer':'nvidia/nemotron-3-super-120b-a12b','temperature':.1,'max_tokens':4096,'attempt_cap':32,'timeout':90,'sdk_retries':0},'reviewer':adjudication['reviewer']}
+    data={'schema_version':1,'planned_cases':len(run.doc['cases']),'rows':rows,'lanes':lanes,'cost':cost,'completed_matched_pairs':paired,'discordant_pairs':discordant,'median_known_completed_pair_micro':statistics.median(pair_costs) if pair_costs else None,'median_pair_n':len(pair_costs),'usage':_public_usage(adjudication.get('usage',{})),'human_time':_public_numbers(adjudication.get('human_time',{}),('seconds','setup_seconds','truth_seconds','adjudication_seconds')),'resources':'Docker CPU/memory/build/run metrics unpriced','limits':['Single frozen seed, small pilot; completed subset is not all planned cases.','Product-capability comparison: Fugu alone has OSV/Docker.','No equivalence, noninferiority, general superiority or equal-tool causal claim.','Upstream public familiarity and potential model contamination disclosed.','Agent target observations are structurally unavailable and zero.','Identity masking is imperfect due to structural output.'],'models':{'principal':'nvidia/Nemotron-3-Ultra-550b-a55b','reviewer':'nvidia/nemotron-3-super-120b-a12b','temperature':.1,'max_tokens':4096,'attempt_cap':32,'timeout':90,'sdk_retries':0},'reviewer':adjudication['reviewer']}
+    data=_redact_public(data)
     immutable_json(output/'results.json',data)
-    buffer=io.StringIO();fields=['case','arm','lane','workflow','tp','fp','fn','unresolved','decision_correct','triage_correct','observed_runtime_count'];writer=csv.DictWriter(buffer,fieldnames=fields,extrasaction='ignore');writer.writeheader();writer.writerows(rows);_immutable_text(output/'results.csv',buffer.getvalue())
+    buffer=io.StringIO();fields=['case','arm','lane','workflow','tp','fp','fn','unresolved','decision_correct','triage_correct','observed_runtime_count'];writer=csv.DictWriter(buffer,fieldnames=fields,extrasaction='ignore');writer.writeheader();writer.writerows(data['rows']);_immutable_text(output/'results.csv',buffer.getvalue())
     markdown='# Cost pilot results\n\nEstimated cost interval: '+str(known/1e6)+'–'+str((known+unknown)/1e6)+' USD. Includes failed attempts; reservations are liability bounds, not measured usage.\n\n'
     markdown+='Completed matched pairs: '+str(len(paired))+'. Planned cases: '+str(len(run.doc['cases']))+'.\n\n'
     for lane in ('security','functional'):
@@ -68,7 +102,7 @@ def build_report(run,ledger_summary,results,adjudication,output):
             v=lanes[lane][arm];markdown+='| '+arm+' | '+' | '.join(str(v[k]) for k in ('planned','attempted','complete','partial','tp','fp','fn','unresolved'))+' |\n'
         markdown+='\n'
     markdown+='\n'.join('- '+s for s in data['limits'])+'\n\nIndependent adjudication and local raw evidence remain separately preserved. No measured outcome is invented by export.\n'
-    _immutable_text(output/'report.md',markdown);immutable_json(output/'adjudication-reasons.json',[asdict(m) for m in matches])
+    _immutable_text(output/'report.md',markdown);immutable_json(output/'adjudication-reasons.json',_redact_public([{'case':m.case,'masked_arm':m.masked_arm,'match_index':i,'state':m.state,'reason':'Private adjudication explanation withheld.'} for i,m in enumerate(matches,1)]))
     return ReportBundle(output,data,output/'results.json',output/'results.csv',output/'report.md')
 
 

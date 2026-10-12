@@ -89,3 +89,38 @@ def test_mask_preparation_refuses_stale_existing_outputs(tmp_path):
     measurement['rows'][0]['raw']['findings']=[]
     (tmp_path/'measurement.json').write_bytes(freeze.canonical(measurement))
     with pytest.raises(SafetyStop): adjudication.prepare_masked(run,tmp_path/'measurement.json')
+
+
+def test_public_export_withholds_private_prose_paths_canaries_and_keys(tmp_path):
+    run, measurement, adj=approved_export(tmp_path)
+    private='PRIVATE_TRUTH_CANARY /private/owner-secret'
+    adj['matches'][0]['reason']=private
+    adj['matches'][0]['truth_id']=private
+    adj['truth']['cases'][0]['issues'][0]['id']=private
+    adj['truth']['cases'][0]['issues'][0]['severity']='critical'
+    adj['human_time']={'seconds':2, 'notes':private}
+    rows=measurement['rows'];rows[0]['coverage']={'incomplete':False,
+        'selected_paths':[private], 'triggers':{'root':[private]}, 'tool_errors':[private]}
+    from bench.cost_pilot import runner
+    from fugu.credentials import CredentialSet
+    keys=CredentialSet('AUTHORED_OWNER_KEY_N','AUTHORED_OWNER_KEY_T')
+    with runner._owner_environment(keys,{'scanner_binary_path':'/FAKE/NOT_EXECUTED','scanner_binary_sha256':'a'*64,'scanner_image_digest':'fake@sha256:'+'b'*64}):
+        rows[0]['coverage']['owner_note']=keys.nebius
+        b=report.build_report(run,{'known_micro':0,'unknown_upper_micro':0},rows,
+            {**adj,'known_cost_by_arm':{'agent':0,'fugu':0},'unknown_by_arm':{'agent':0,'fugu':0}},tmp_path/'publishable')
+    for p in b.root.iterdir():
+        text=p.read_text()
+        assert private not in text and '/private/' not in text
+        assert 'AUTHORED_OWNER_KEY' not in text and 'PRIVATE_REASON' not in text
+    assert b.results['rows'][1]['coverage']['selected_paths_count']==1
+    assert b.results['human_time']=={'seconds':2}
+    reasons=json.loads((b.root/'adjudication-reasons.json').read_bytes())
+    assert reasons[0]['reason']=='Private adjudication explanation withheld.'
+    assert adj['matches'][0]['reason']==private
+
+
+def test_default_public_export_has_safe_reason_placeholder(tmp_path):
+    approved_export(tmp_path)
+    b=report.export_report(tmp_path,tmp_path/'publishable')
+    assert all('PRIVATE_REASON' not in p.read_text() for p in b.root.iterdir())
+    assert json.loads((b.root/'adjudication-reasons.json').read_bytes())[0]['reason']=='Private adjudication explanation withheld.'

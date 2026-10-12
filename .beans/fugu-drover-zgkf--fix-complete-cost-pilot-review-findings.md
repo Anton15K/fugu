@@ -15,7 +15,7 @@ Resolve COST-COMPLETE-01 through 06 against newest exact candidate with red/gree
 
 - [x] COST-COMPLETE-01: independently resolved; fresh actual native factory/proxy executor probe passes, zero storage rereads. Existing context capture retained.
 - [x] COST-COMPLETE-02: actual freeze/mask/review/export binds original approval to frozen run, measurement, mask outputs/map and truth; rejects changed derived copies. Nine initial failures retained; strict binding checks green.
-- [ ] COST-COMPLETE-03: private/public boundary.
+- [x] COST-COMPLETE-03: private reviewer explanations remain private; public placeholders, coverage counts and numeric human time; neutral critical-miss identifiers, pre-write in-process key redaction. No public prose disclosure shortcut.
 - [ ] COST-COMPLETE-04: native normalization.
 - [ ] COST-COMPLETE-05: relevant measured proof.
 - [ ] COST-COMPLETE-06: per-arm timing.
