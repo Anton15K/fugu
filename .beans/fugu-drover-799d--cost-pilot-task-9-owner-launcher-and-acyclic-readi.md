@@ -23,3 +23,5 @@ Implement ONLY Task 9 of docs/superpowers/plans/2026-10-12-whole-system-cost-ben
 ## Summary of Changes
 
 Implemented assigned task with fake-only behavioral red/green evidence. Scoped files: bench/cost_pilot/runner.py, bench/cost_pilot/cli.py, bench/cost_pilot/__main__.py, tests/cost_pilot/test_runner.py, docs/benchmark-cost-pilot.md. Durable task report: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-09-report.md. No providers/native keys/Docker/target execution or shared sync. Independent review routed by root.
+
+Final self-review correction: persist immutable preparation blockers before returning failure. Behavioral red/green and exact scoped commit preserved at /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-09-correction-report.md.

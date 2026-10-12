@@ -75,7 +75,7 @@ def _verify_refs(inputs):
     freeze._verify_inputs(doc)
 
 
-def preflight_preparation(root,*,pricing_path,truth_review_path,operator_path,plan_path,engine_root,chamber_smoke,owner_credentials,store=None):
+def _preflight_preparation(root,*,pricing_path,truth_review_path,operator_path,plan_path,engine_root,chamber_smoke,owner_credentials,store=None):
     root=Path(root);prepared_path=root/'prepared-sources.json';prepared=_read(prepared_path)
     if prepared.get('kind')!='prepared_sources' or prepared.get('status')!='prepared' or len(prepared['cases'])!=12:raise SafetyStop('sources_incomplete')
     tr=_approval(truth_review_path,'truth_approval','fugu-codex-reviewer')
@@ -252,3 +252,13 @@ def _resource_guards(run,ledger):
     DockerDriver._run=guarded
     try:yield
     finally:DockerDriver._run=original
+
+
+def preflight_preparation(root,*,pricing_path,truth_review_path,operator_path,plan_path,engine_root,chamber_smoke,owner_credentials,store=None):
+    try:
+        return _preflight_preparation(root,pricing_path=pricing_path,truth_review_path=truth_review_path,operator_path=operator_path,plan_path=plan_path,engine_root=engine_root,chamber_smoke=chamber_smoke,owner_credentials=owner_credentials,store=store)
+    except Exception as exc:
+        reason=exc.reason if isinstance(exc,SafetyStop) else 'preparation_input_or_prerequisite'
+        freeze.immutable_json(Path(root)/'preflight'/('blocked-'+uuid.uuid4().hex+'.json'),{'schema_version':1,'kind':'preparation_blocker','status':'blocked','reason':reason,'created_unix':time.time(),'paid_attempts':0})
+        if isinstance(exc,SafetyStop):raise
+        raise SafetyStop(reason) from None

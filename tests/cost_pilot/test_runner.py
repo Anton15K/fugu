@@ -238,3 +238,11 @@ def test_cancelled_attempt_retained_as_partial_with_all_planned_rows(tmp_path,mo
     assert result['rows'][0]['workflow']=='partial'
     assert result['rows'][1]['workflow']=='unattempted'
     assert result['ledger']['unknown_upper_micro']==17000
+
+
+def test_preparation_failure_preserves_durable_blocker(tmp_path):
+    with pytest.raises(SafetyStop):
+        runner.preflight_preparation(tmp_path,pricing_path=tmp_path/'p',truth_review_path=tmp_path/'t',operator_path=tmp_path/'o',plan_path=tmp_path/'plan',engine_root=tmp_path/'e',chamber_smoke=False,owner_credentials=False)
+    files=list((tmp_path/'preflight').glob('blocked-*.json'))
+    assert len(files)==1 and json.loads(files[0].read_text())['status']=='blocked'
+    assert not (tmp_path/'run-plan.json').exists()
