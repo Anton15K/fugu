@@ -113,15 +113,23 @@ class GuardedTransport:
         value={'ticket':asdict(ticket),'request':request,'response':response,'seconds':seconds,'sdk_max_retries':0}
         immutable_json(self.evidence/(ticket.id+'.json'),safe_artifact(value,[self.keys.nebius,self.keys.tavily]))
 
+    def validate_client(self,client):
+        from fugu.config import BASE_URL_EU,BASE_URL_US
+        retries=getattr(client,'max_retries',None)
+        if type(retries) is not int or retries!=0:raise SafetyStop('sdk_retry_policy')
+        timeout=getattr(client,'timeout',None)
+        values=[timeout] if type(timeout) in (int,float) else [getattr(timeout,k,None) for k in ('connect','read','write','pool')]
+        if any(type(v) not in (int,float) or not math.isfinite(v) or not 0<v<=90 for v in values):raise SafetyStop('sdk_timeout')
+        endpoint=str(getattr(client,'base_url',''))
+        if endpoint not in {BASE_URL_EU,BASE_URL_US} or endpoint!=self.keys.base_url:raise SafetyStop('sdk_endpoint')
+        if self.pricing.tariffs.get('endpoint',endpoint)!=endpoint:raise SafetyStop('sdk_endpoint')
+        if getattr(getattr(client,'_client',None),'follow_redirects',None) is not False:raise SafetyStop('sdk_redirect_policy')
+
     def sdk_proxy(self,client,attribution):
-        if hasattr(client,'max_retries') and client.max_retries!=0:raise SafetyStop('sdk_retry_policy')
-        if hasattr(client,'timeout'):
-            timeout=client.timeout
-            values=[timeout] if isinstance(timeout,(int,float)) else [timeout.connect,timeout.read,timeout.write,timeout.pool]
-            if any(v is None or v>90 for v in values):raise SafetyStop('sdk_timeout')
-        if hasattr(client,'base_url') and str(client.base_url) not in {'https://api.tokenfactory.nebius.com/v1/','https://api.tokenfactory.us-central1.nebius.com/v1/'}:raise SafetyStop('sdk_endpoint')
+        self.validate_client(client)
         context=contextvars.copy_context()
         def create(**request):
+            self.validate_client(client)
             with self._mutex:
                 key=(attribution.pair,attribution.arm,attribution.member,attribution.stage)
                 turn=self._turns.get(key,0)+1;self._turns[key]=turn

@@ -12,7 +12,7 @@ from bench.cost_pilot.ledger import Ledger
 from bench.cost_pilot.pricing import Pricing
 from bench.cost_pilot.transport import GuardedTransport
 from bench.cost_pilot.contracts import ULTRA,SUPER,SafetyStop
-from tests.cost_pilot.support import fake_tariffs
+from tests.cost_pilot.support import fake_client,fake_tariffs
 SPEC=Path('docs/superpowers/specs/2026-10-12-whole-system-cost-benchmark-design.md')
 
 
@@ -28,7 +28,7 @@ def setup(tmp_path,mode='normal'):
         elif kw['model']==SUPER:message['content']=json.dumps({'critiques':[],'additional_candidates':[],'unknowns':[],'coverage':{}}) if mode!='bad-review' else '{}'
         elif mode=='bad-final' and n>=4:message['content']='not JSON'
         return ChatCompletion.model_validate({'id':f'r{n}','object':'chat.completion','created':1,'model':kw['model'],'choices':[{'index':0,'finish_reason':finish,'message':message}],'usage':{'prompt_tokens':100,'completion_tokens':20,'total_tokens':120}})
-    client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+    client=fake_client(create)
     tools=ToolRegistry(s,'c0',tree_manifest(s)['sha256'],tmp_path/'tools',lambda q:{'results':[]})
     return client,tools,calls
 

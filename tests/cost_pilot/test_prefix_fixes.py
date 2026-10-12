@@ -163,3 +163,89 @@ def test_prefix03_supported_explicit_limits_dispatch_once(tmp_path, limit):
         assert calls == [request]
         assert len([e for e in ledger.events() if e['kind'] == 'reserve']) == 1
         assert len([e for e in ledger.events() if e['kind'] == 'dispatch']) == 1
+
+
+def policy_client(create, **overrides):
+    values = {'max_retries': 0, 'timeout': 90,
+              'base_url': 'https://api.tokenfactory.nebius.com/v1/',
+              '_client': SimpleNamespace(follow_redirects=False),
+              'chat': SimpleNamespace(completions=SimpleNamespace(create=create))}
+    return SimpleNamespace(**{**values, **overrides})
+
+
+@pytest.mark.parametrize('policy', [
+    {'max_retries': 2}, {'max_retries': True}, {'max_retries': None},
+    {'timeout': 300}, {'timeout': None}, {'timeout': float('nan')}, {'timeout': -1},
+    {'timeout': SimpleNamespace(connect=90, read=None, write=90, pool=90)},
+    {'base_url': 'https://wrong.example/v1/'},
+    {'base_url': 'https://api.tokenfactory.us-central1.nebius.com/v1/'},
+    {'base_url': 'https://api.tokenfactory.nebius.com/v1/?route=other'},
+    {'_client': SimpleNamespace(follow_redirects=True)}, {'_client': None},
+])
+@pytest.mark.parametrize('role', ['principal', 'reviewer'])
+def test_prefix06_bad_policy_never_dispatches_role(tmp_path, policy, role):
+    from bench.cost_pilot.agent import run_agent
+    from bench.cost_pilot.prompts import extract_prompts
+    from tests.cost_pilot.test_agent import setup
+    client, tools, calls = setup(tmp_path)
+    original = client.chat.completions.create
+    configured = policy_client(original)
+    if role == 'principal':
+        for key, value in policy.items(): setattr(configured, key, value)
+    else:
+        def create(**request):
+            result = original(**request)
+            # Drift after the draft: Super must not use an unbounded client.
+            if len(calls) == 2:
+                for key, value in policy.items(): setattr(configured, key, value)
+            return result
+        configured.chat.completions.create = create
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path)
+        result = run_agent('c0', 'security', tools, transport, configured,
+            extract_prompts(Path('docs/superpowers/specs/2026-10-12-whole-system-cost-benchmark-design.md')), tmp_path / 'agent')
+        assert result.workflow == 'partial'
+        assert len(calls) == (0 if role == 'principal' else 2)
+        assert not any(request['model'] == SUPER for request in calls)
+        assert len([e for e in ledger.events() if e['kind'] == 'dispatch']) == len(calls)
+
+
+@pytest.mark.parametrize('missing', ['max_retries', 'timeout', 'base_url', '_client'])
+def test_prefix06_missing_policy_refused_before_direct_attempt(tmp_path, missing):
+    from bench.cost_pilot.agent import run_agent
+    from bench.cost_pilot.prompts import extract_prompts
+    from tests.cost_pilot.test_agent import setup
+    client, tools, calls = setup(tmp_path); client = policy_client(client.chat.completions.create)
+    delattr(client, missing)
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path)
+        result = run_agent('c0', 'security', tools, transport, client,
+            extract_prompts(Path('docs/superpowers/specs/2026-10-12-whole-system-cost-benchmark-design.md')), tmp_path / 'agent')
+        assert result.workflow == 'partial' and result.raw['attempts'] == 0 and not calls
+        assert not any(e['kind'] in {'reserve', 'dispatch'} for e in ledger.events())
+
+
+@pytest.mark.parametrize('endpoint', ['https://api.tokenfactory.nebius.com/v1/',
+    'https://api.tokenfactory.us-central1.nebius.com/v1/'])
+def test_prefix06_real_sdk_safe_policy_is_accepted_without_network(tmp_path, endpoint):
+    from openai import OpenAI, DefaultHttpxClient
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0')
+        transport = guarded(ledger, tmp_path, keys=CredentialSet(base_url=endpoint))
+        with OpenAI(api_key='FAKE-ONLY', base_url=endpoint, max_retries=0, timeout=90,
+                    http_client=DefaultHttpxClient(timeout=90, follow_redirects=False, trust_env=False)) as client:
+            wrapped = transport.sdk_proxy(client, fake_attribution())
+            assert wrapped.base_url == client.base_url
+        assert not any(e['kind'] in {'reserve', 'dispatch'} for e in ledger.events())
+
+
+def test_prefix06_native_proxy_rechecks_changed_policy_before_reservation(tmp_path):
+    calls = []
+    client = policy_client(lambda **kw: (calls.append(kw), response())[1])
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path)
+        wrapped = transport.sdk_proxy(client, fake_attribution('fugu'))
+        client._client.follow_redirects = True
+        with pytest.raises(SafetyStop, match='sdk_redirect_policy'):
+            wrapped.chat.completions.create(**REQ)
+        assert not calls and not any(e['kind'] == 'reserve' for e in ledger.events())

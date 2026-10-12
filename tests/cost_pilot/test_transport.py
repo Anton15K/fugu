@@ -8,7 +8,7 @@ from bench.cost_pilot.transport import GuardedTransport,serialize_response,safe_
 from bench.cost_pilot.ledger import Ledger
 from bench.cost_pilot.pricing import Pricing
 from bench.cost_pilot.contracts import ULTRA,SafetyStop
-from tests.cost_pilot.support import fake_tariffs,fake_attribution
+from tests.cost_pilot.support import fake_client,fake_tariffs,fake_attribution
 
 
 def response():
@@ -76,7 +76,7 @@ def test_guard_rechecked_before_dispatch(tmp_path):
 
 def test_native_factory_captures_executor_attribution(tmp_path,monkeypatch):
     import fugu.client
-    client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **kw:response())))
+    client=fake_client(lambda **kw:response())
     monkeypatch.setattr(fugu.client,'make_client',lambda *a,**k:client)
     with Ledger(tmp_path/'ledger') as l:
         l.open_pair('c0');t=transport(l,tmp_path/'e')
@@ -115,7 +115,7 @@ def test_owner_admission_context_survives_native_worker(tmp_path,monkeypatch):
     import contextvars
     import fugu.client
     presence=contextvars.ContextVar('fake_owner_presence',default=False)
-    client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **kw:response())))
+    client=fake_client(lambda **kw:response())
     monkeypatch.setattr(fugu.client,'make_client',lambda *a,**k:client)
     with Ledger(tmp_path/'ledger') as l:
         l.open_pair('c0')

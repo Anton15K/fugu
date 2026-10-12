@@ -8,7 +8,7 @@ from bench.cost_pilot.ledger import Ledger
 from bench.cost_pilot.pricing import Pricing
 from bench.cost_pilot.transport import GuardedTransport
 from fugu.credentials import CredentialSet
-from tests.cost_pilot.support import fake_tariffs
+from tests.cost_pilot.support import fake_client,fake_tariffs
 
 
 def test_native_omissions_not_upgraded():
@@ -57,7 +57,7 @@ def test_actual_canonical_fake_boundary_full_depth_six_probes(tmp_path,monkeypat
         calls.append(kw);system=kw['messages'][0]['content']
         text='{"findings":[]}' if 'security auditor' in system.lower() or 'findings' in system else ('{"probes":[]}' if 'probes' in system else 'Direct answer. PLAN: answer task')
         return ChatCompletion.model_validate({'id':f'r{len(calls)}','object':'chat.completion','created':1,'model':kw['model'],'choices':[{'index':0,'finish_reason':'stop','message':{'role':'assistant','content':text}}],'usage':{'prompt_tokens':10,'completion_tokens':5,'total_tokens':15}})
-    client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+    client=fake_client(create)
     monkeypatch.setattr(fugu.client,'make_client',lambda *a,**kw:client)
     source=tmp_path/'source';source.mkdir();files=[];members=[]
     for n in range(units):

@@ -14,3 +14,12 @@ def fake_tariffs():
 
 def fake_attribution(arm='agent'):
     return Attribution('c0', arm, 'root', 'test', 'principal', 1)
+
+
+def fake_client(create):
+    """Explicit safe policy at the fake SDK boundary; never a live authority."""
+    from types import SimpleNamespace
+    return SimpleNamespace(max_retries=0, timeout=90,
+        base_url='https://api.tokenfactory.nebius.com/v1/',
+        _client=SimpleNamespace(follow_redirects=False),
+        chat=SimpleNamespace(completions=SimpleNamespace(create=create)))

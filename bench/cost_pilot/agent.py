@@ -61,6 +61,7 @@ def run_agent(snapshot_id,lane,tools,transport,client,prompts,evidence:Path):
     def attr(role):return Attribution(snapshot_id,'agent','root','agent',role,attempts+1)
     def outbound(messages,model,role,earmark=None):
         nonlocal attempts
+        transport.validate_client(client)
         if attempts>=32:raise SafetyStop('attempt_cap')
         request={'model':model,'messages':copy.deepcopy(messages),'tools':tools.schemas(),'max_tokens':4096,'temperature':.1}
         attempts+=1
@@ -81,6 +82,7 @@ def run_agent(snapshot_id,lane,tools,transport,client,prompts,evidence:Path):
         try:return json.loads(message['content'])
         except (ValueError,TypeError):messages.append({'role':'user','content':'Output was invalid JSON. Return the requested JSON schema; retain all limitations.'});return None
     try:
+        transport.validate_client(client)
         review_bound=transport.pricing.bound('nebius',SUPER);final_bound=transport.pricing.bound('nebius',ULTRA)
         transport.ledger.earmark(attr('reviewer'),'critique',review_bound)
         transport.ledger.earmark(attr('principal'),'final',final_bound)
