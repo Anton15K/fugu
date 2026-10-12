@@ -142,7 +142,7 @@ JSON encoding everywhere is UTF-8, `ensure_ascii=False`, `sort_keys=True`, separ
 
 **Files:** All Task 1 paths in the locked map.
 
-**Interfaces:** Produces the dataclasses/constants above; `canonical(value: Any) -> bytes`, `digest(value: Any) -> str`, `tree_manifest(root: Path) -> Record`, `pair_order(cases: list[Record], seed: int) -> list[Record]`, `freeze_run(path: Path, doc: Record) -> FrozenRun`, `load_frozen(path: Path) -> FrozenRun`, `verify_frozen(run: FrozenRun) -> None`. Test support produces `fake_tariffs() -> Record` and `fake_attribution(arm: Arm = "agent") -> Attribution`. Later tests create sources under pytest's `tmp_path`; no host fixtures/provider access.
+**Interfaces:** Produces the dataclasses/constants above; `canonical(value: Any) -> bytes`, `digest(value: Any) -> str`, `tree_manifest(root: Path) -> Record`, `engine_identity(engine_root: Path) -> Record`, `pair_order(cases: list[Record], seed: int) -> list[Record]`, `freeze_run(path: Path, doc: Record) -> FrozenRun`, `load_frozen(path: Path) -> FrozenRun`, `verify_frozen(run: FrozenRun) -> None`. Test support produces `fake_tariffs() -> Record` and `fake_attribution(arm: Arm = "agent") -> Attribution`. Later tests create sources under pytest's `tmp_path`; no host fixtures/provider access.
 
 - [ ] **Step 1: Add concrete red tests.**
 
@@ -184,7 +184,9 @@ def digest(value):
     return hashlib.sha256(canonical(value)).hexdigest()
 ```
 
-`tree_manifest` enumerates sorted regular snapshot files, rejects symlinks/special files/traversal, records each relative path, byte length and SHA256 plus aggregate digest; never follows `.git` or any directory outside the explicitly prepared export. Keep omission records, not silent filtering of relevant tracked files. Write with O_EXCL, 0600, flush/fsync file and parent directory. Freeze keys: schema_version, run_id, seed, cap_micro=10000000, arm_cap_micro=2000000, pair_cap_micro=4000000, engine_commit/tree_hash, harness_commit/tree_hash, spec_hash, implementation_plan_hash, prompt_hashes, tool_schema_hash, result_schema_hash, tariff_hash/provenance, scanner binary/image hash, Docker base/collector digests, credential_endpoint (no keys), source manifests, private truth hash/proof hash, reviewed applicability, case order and arm order, reviewer approval hashes, preflight hash, timing policy and explicit baseline capabilities. Refuse dirty tracked implementation source when freezing; ignored research is neither hashed nor read.
+`tree_manifest` enumerates sorted regular snapshot files, rejects symlinks/special files/traversal, records each relative path, byte length and SHA256 plus aggregate digest; never follows `.git` or any directory outside the explicitly prepared export. Keep omission records, not silent filtering of relevant tracked files. Write with O_EXCL, 0600, flush/fsync file and parent directory. Freeze keys: schema_version, run_id, seed, cap_micro=10000000, arm_cap_micro=2000000, pair_cap_micro=4000000, engine_commit/tree_hash, harness_commit/tree_hash, spec_hash, implementation_plan_hash, prompt_hashes, tool_schema_hash, result_schema_hash, tariff_hash/provenance, scanner binary/image hash, Docker base/collector digests, credential_endpoint (no keys), source manifests, private truth hash/proof hash, reviewed applicability, case order and arm order, truth/code/readiness approval hashes, prepared-inputs hash and preparation-preflight report hash, timing policy and explicit baseline capabilities. Refuse dirty tracked implementation source when freezing; ignored research is neither hashed nor read.
+
+COST-PLAN-01 bootstrap clarification: Task 1's `freeze_run` is the final immutable writer, not a prerequisite of preparation preflight. `engine_identity(engine_root: Path) -> Record` belongs to Task 1 and returns commit, tracked tree and source byte-manifest hashes after rejecting dirty tracked/index state; Task 9 calls it through the `freeze` module so fake tests can replace this external Git boundary. `verify_frozen` rechecks the final run's referenced source, pricing, engine, prompts, prepared-inputs, preparation-report and approval bytes. It does not require an admission artifact or a readiness approval referring to the final run hash. See Task 9's acyclic artifact graph and successful bootstrap test.
 
 `pair_order` selects the uniquely designated neutral benign/adverse smoke IDs from reviewer-owned preparation metadata, shuffles remaining security IDs with `random.Random(seed)`, appends shuffled functional IDs, assigns alternating arm orders with seed-selected first arm. Agents receive IDs/lane/source hashes only; smoke/truth classifications remain private. `verify_frozen` recomputes every referenced byte hash, denies relocated truth inside source roots and never silently repairs a manifest. Prefix/seed can never be rerolled on resume.
 
@@ -379,7 +381,7 @@ git commit -m "feat: gate paired audits with a crash-safe cost ledger"
 
 **Files:** `bench/cost_pilot/transport.py`; `tests/cost_pilot/test_transport.py`.
 
-**Interfaces:** `GuardedTransport(ledger: Ledger, pricing: Pricing, evidence: Path, keys: CredentialSet)`, `sdk(request: Record, call: Callable[[], Any], attribution: Attribution, *, earmark: str | None = None) -> Any`, `tavily(query: str, attribution: Attribution) -> Record`, `native_scope(attribution: Attribution) -> ContextManager[None]`, `sdk_proxy(client: Any, attribution: Attribution) -> Any`. Produces `serialize_response(response: Any) -> Record`, `safe_artifact(value: Any, secrets: list[str]) -> Record`, `validate_web_query(query: str) -> str`. SDK proxy exposes native client's attributes except wrapped chat.completions.create. Preserve native returned objects/exceptions; persistent ledger stop gates the next call regardless of catches. HTTP interception is benchmark-owned and restored on exit.
+**Interfaces:** `GuardedTransport(ledger: Ledger, pricing: Pricing, evidence: Path, keys: CredentialSet, admission_check: Callable[[], Record])`, `sdk(request: Record, call: Callable[[], Any], attribution: Attribution, *, earmark: str | None = None) -> Any`, `tavily(query: str, attribution: Attribution) -> Record`, `native_scope(attribution: Attribution) -> ContextManager[None]`, `sdk_proxy(client: Any, attribution: Attribution) -> Any`. Produces `serialize_response(response: Any) -> Record`, `safe_artifact(value: Any, secrets: list[str]) -> Record`, `validate_web_query(query: str) -> str`. SDK proxy exposes native client's attributes except wrapped chat.completions.create. Preserve native returned objects/exceptions; persistent ledger stop gates the next call regardless of catches. HTTP interception is benchmark-owned and restored on exit.
 
 - [ ] **Step 1: Test cross-boundary stop after a native-style catch.**
 
@@ -401,7 +403,8 @@ def test_unknown_stops_sdk_and_urllib_after_catch(tmp_path):
     with Ledger(tmp_path / "ledger.jsonl") as ledger:
         ledger.open_pair("c0")
         transport = GuardedTransport(ledger, Pricing(fake_tariffs(), test_only=True),
-                                     tmp_path / "events", CredentialSet("FAKE-N", "FAKE-T"))
+                                     tmp_path / "events", CredentialSet("FAKE-N", "FAKE-T"),
+                                     lambda: {"status": "admitted", "verification": "FAKE-UNIT-BOUNDARY"})
         req = {"model": ULTRA, "messages": [{"role": "user", "content": "audit"}],
                "max_tokens": 4096, "temperature": 0.1}
         with pytest.raises(TimeoutError):
@@ -424,8 +427,14 @@ import time
 
 def observed_sdk(transport, request, call, attribution, earmark=None):
     transport.ledger.assert_admitted()
+    transport.admission_check()
     bound = transport.pricing.bound("nebius", request["model"])
     ticket = transport.ledger.reserve(attribution, bound, earmark=earmark)
+    try:
+        transport.admission_check()
+    except BaseException:
+        transport.ledger.retain_unknown(ticket, "admission_blocked_before_dispatch")
+        raise
     transport.ledger.mark_dispatch(ticket)
     started = time.monotonic()
     try:
@@ -441,6 +450,8 @@ def observed_sdk(transport, request, call, attribution, earmark=None):
 ```
 
 Define `write_response(ticket: Ticket, request: Record, response: Record, seconds: float) -> None` as private implementation on GuardedTransport; O_EXCL/fsync safe request/response artifact, full messages, requested/served model, response/request IDs, finish reasons, usage/reasoning/cache fields, role/member/stage/turn, retries=0. If artifact persistence fails after paid dispatch, stop instead of losing evidence or redispatching. Redact exact key strings plus Authorization fields before serialization; account tokens from unmodified response. Preserve unknown provider extras unless containing forbidden credential fields.
+
+For COST-PLAN-01, `admission_check` is a mandatory callback on every GuardedTransport, invoked before reservation and again immediately before each SDK/Tavily dispatch. Task 9 binds the actual `check_frozen_admission`; SDK and urllib paths use it even after native catches. The unit-test snippets supply an explicit fake callback because they test isolated transport behavior; owner CLI has no fake/missing-guard option. A blocked guard after reservation latches stop and retains liability conservatively, with no network attempt. No admission report is added back into the frozen manifest.
 
 Owner SDK construction is timeout90/max_retries0 with redirect-disabled transport. Wrap `fugu.client.make_client` only in native scope; capture context at factory time, not thread-local-only lookup at response time. Native closures import this factory inside setup, so canonical clients receive proxy; native request parameters stay unchanged. SDK lower boundary verifies selected official Nebius origin, no redirects/proxies selected by source, zero retry and known model/tariff. No streaming live path unless accounting bound/serialization supports it; canonical native calls are non-streaming.
 
@@ -654,7 +665,8 @@ def test_loop_keeps_tool_ids_and_exact_registry(tmp_path):
     with Ledger(tmp_path / "ledger.jsonl") as ledger:
         ledger.open_pair("c0")
         transport = GuardedTransport(ledger, Pricing(fake_tariffs(), test_only=True),
-                                     tmp_path / "events", CredentialSet("FAKE-N", "FAKE-T"))
+                                     tmp_path / "events", CredentialSet("FAKE-N", "FAKE-T"),
+                                     lambda: {"status": "admitted", "verification": "FAKE-UNIT-BOUNDARY"})
         result = run_agent("c0", "security", tools, transport, client,
             extract_prompts(Path("docs/superpowers/specs/2026-10-12-whole-system-cost-benchmark-design.md")),
             tmp_path / "agent")
@@ -863,7 +875,16 @@ git commit -m "feat: prepare neutral pilot sources and private truth handoff"
 
 **Files:** Task 9 paths in locked map.
 
-**Interfaces:** `owner_credentials(environ: Mapping[str, str], store: SecretStore | None = None) -> CredentialSet`; `sanitize_owner_env(environ: Mapping[str, str]) -> dict[str, str]`; `preflight(root: Path, *, chamber_smoke: bool, hosted: bool, store: SecretStore | None = None) -> Record`; `measure(run: FrozenRun, *, allow_hosted: bool, consent_id: str, resume: bool = False) -> Record`; `main(argv: list[str] | None = None) -> int`. Consumes prior tasks. CLI dispatch map is exactly prepare/preflight/freeze/measure/adjudicate/export; truth freeze/review input is supplied by named reviewer, not generated by measured agents. `__main__` sets no-dotenv before importing CLI.
+**Interfaces:** Consumes `FrozenRun`, `Record`, `Ledger`, `freeze.engine_identity`, Task 8 `prepare_corpus`, Task 1 `freeze_run/load_frozen/verify_frozen`, and Task 4 mandatory admission callback. Task 9 produces:
+
+- `prepare_run(root: Path, upstream_dir: Path, seed: int) -> Record`: writes only the prepared source inventory/order; no FrozenRun or approvals needed.
+- `preflight_preparation(root: Path, *, pricing_path: Path, truth_review_path: Path, operator_path: Path, plan_path: Path, engine_root: Path, chamber_smoke: bool, owner_credentials: bool, store: SecretStore | None = None) -> Record`: writes candidate inputs and preparation-preflight report, without loading/requiring a FrozenRun and without paid calls.
+- `probe_prerequisites(root: Path, inputs: Record, *, chamber_smoke: bool, owner_credentials: bool, store: SecretStore | None = None) -> Record`: the Task 9 external scanner/Docker/credential/billing-provenance boundary. Returns safe presence/identity/check records, never secrets. Preparation permits assigned inert chamber smoke; admission sets chamber_smoke=False and only rechecks existing prerequisites. Tests replace this boundary, never production gate logic.
+- `freeze_prepared(root: Path, *, preparation_report_path: Path, truth_review_path: Path, readiness_review_path: Path) -> FrozenRun`: validates exact preparation input/report/approval hashes, constructs final document and calls Task 1 `freeze_run`.
+- `check_frozen_admission(run: FrozenRun, ledger: Ledger, *, allow_hosted: bool, consent_id: str, store: SecretStore | None = None) -> Record`: revalidates frozen bytes/prerequisites/consent/ledger ownership, writes a new immutable admission observation and returns `admitted` or raises SafetyStop before I/O. It never edits preparation/freeze/approval artifacts.
+- Existing `owner_credentials(environ: Mapping[str, str], store: SecretStore | None = None) -> CredentialSet`, `sanitize_owner_env(environ: Mapping[str, str]) -> dict[str, str]`, `measure(run: FrozenRun, *, allow_hosted: bool, consent_id: str, resume: bool = False) -> Record`, `main(argv: list[str] | None = None) -> int` remain.
+
+CLI dispatch stays prepare/preflight/freeze/measure/adjudicate/export. `preflight --mode preparation` calls preflight_preparation; `preflight --mode admission` requires an existing FrozenRun and opens the same ledger owner for a check with no paid request. No implicit mode or skip/fake gate option. Reviewer supplies truth/readiness approvals; neither measured arm creates them. `__main__` sets no-dotenv before importing CLI.
 
 - [ ] **Step 1: Fake credentials, consent and denied-prerequisite tests.**
 
@@ -892,9 +913,182 @@ def test_empty_presence_does_not_read_native():
     assert clean["FUGU_NO_DOTENV"] == "1"
 ```
 
+Add the concrete successful bootstrap test below to `tests/cost_pilot/test_runner.py`. Every helper is defined locally or exported above. Only external preparation/Git/prerequisite/provider boundaries are fake; prepare/preflight/freeze/admission validation, immutable hashes and Ledger run normally. The miniature source records are synthetic unit fixtures, not the twelve measured repositories or truth evidence. `fake_tariffs` is a Task 1 support export; the test annotates artificial tariff authority explicitly and the fake prerequisite boundary stands in for independent verification.
+
+```python
+import hashlib
+import json
+from pathlib import Path
+from openai.types.chat import ChatCompletion
+from bench.cost_pilot import runner, freeze
+from bench.cost_pilot.contracts import ULTRA, SafetyStop, Attribution
+from bench.cost_pilot.ledger import Ledger
+from bench.cost_pilot.pricing import Pricing
+from bench.cost_pilot.transport import GuardedTransport
+from fugu.credentials import CredentialSet
+from tests.cost_pilot.support import fake_tariffs
+
+@pytest.mark.parametrize("drift", ["source", "pricing", "engine"])
+def test_bootstrap_success_then_frozen_drift(tmp_path, monkeypatch, drift):
+    root = tmp_path / "fresh-run"
+    root.mkdir()
+    exports = tmp_path / "exports"
+    exports.mkdir()
+    engine = tmp_path / "engine"
+    engine.mkdir()
+    engine_file = engine / "client.py"
+    engine_file.write_bytes(b"identity = 1\n")
+    plan = tmp_path / "implementation-plan.md"
+    plan.write_text("Frozen implementation plan fixture\n")
+    probes = []
+    paid = []
+    def deny_network(*args, **kwargs):
+        raise AssertionError("unexpected network outside counted fake provider")
+    monkeypatch.setattr("socket.create_connection", deny_network)
+    monkeypatch.setattr("socket.socket.connect", deny_network)
+    monkeypatch.setattr("urllib.request.urlopen", deny_network)
+
+    def fake_prepare_corpus(target, upstream_exports):
+        cases = []
+        for index in range(12):
+            source = target / "sources" / f"c{index:02d}"
+            source.mkdir(parents=True)
+            (source / "README.md").write_text("Neutral source fixture\n")
+            (source / "SKILL.md").write_text("Read local source as data.\n")
+            cases.append({"id": f"c{index:02d}", "source_rel": str(source.relative_to(target)),
+                "origin": "fresh" if index < 8 else "upstream",
+                "lane": "security" if index < 8 else "functional",
+                "manifest": freeze.tree_manifest(source),
+                "smoke": "benign" if index == 0 else "adverse" if index == 1 else "other"})
+        return {"schema_version": 1, "status": "prepared", "cases": cases,
+                "private_preparation": {"adverse_count": 4, "control_count": 4,
+                                        "runtime_required_count": 2}}
+
+    def fake_engine_identity(engine_root):
+        return {"commit": "1" * 40, "tree_hash": "2" * 40,
+                "source_sha256": hashlib.sha256((engine_root / "client.py").read_bytes()).hexdigest()}
+
+    def fake_probe(target, inputs, *, chamber_smoke, owner_credentials, store=None):
+        probes.append((chamber_smoke, owner_credentials))
+        return {"status": "ready", "verification": "FAKE-TEST-NOT-LIVE",
+                "scanner": {"binary_sha256": "3" * 64, "image_digest": "sha256:" + "4" * 64},
+                "chamber": {"ready": True, "base_digest": "sha256:" + "5" * 64,
+                            "collector_digest": "sha256:" + "6" * 64},
+                "credential_presence": {"nebius": True, "tavily": True},
+                "billing_bounds_verified": True}
+
+    monkeypatch.setattr(runner, "prepare_corpus", fake_prepare_corpus)
+    monkeypatch.setattr(freeze, "engine_identity", fake_engine_identity)
+    monkeypatch.setattr(runner, "probe_prerequisites", fake_probe)
+    prepared = runner.prepare_run(root, exports, 20261012)
+    assert prepared["status"] == "prepared" and len(prepared["cases"]) == 12
+    assert paid == [] and not (root / "run-plan.json").exists()
+
+    private = root / "private"
+    private.mkdir(exist_ok=True)
+    pricing_path = private / "pricing.json"
+    tariffs = fake_tariffs()
+    tariffs["account_verified"] = True
+    for model in tariffs["models"].values():
+        model["authority"] = "https://nebius.com/services/token-factory/models/nvidia-nemotron-models-inference"
+    pricing_path.write_bytes(freeze.canonical(tariffs))
+    proofs = []
+    for case_id in ("c01", "c04"):
+        proof_path = private / f"{case_id}-proof.json"
+        proof_path.write_bytes(freeze.canonical({"case": case_id, "inert": True,
+            "trigger_occurrences": 1, "collector_observations": ["synthetic-owned-canary"],
+            "verification": "FAKE-TEST-NOT-LIVE"}))
+        proofs.append({"case": case_id, "path": str(proof_path),
+                       "sha256": hashlib.sha256(proof_path.read_bytes()).hexdigest()})
+    truth_path = private / "truth.json"
+    truth_cases = []
+    for case in prepared["cases"]:
+        case_id = case["id"]
+        adverse = case_id in {"c01", "c02", "c04", "c06"}
+        runtime = case_id in {"c01", "c04"}
+        truth_cases.append({"id": case_id, "lane": case["lane"],
+            "expected_action": "reject" if adverse else "accept",
+            "issues": [{"id": case_id + "-issue", "severity": "high",
+                "proof": "runtime_required" if runtime else "source_allowed"}] if adverse else []})
+    truth_path.write_bytes(freeze.canonical({"schema_version": 1,
+        "cases": truth_cases, "proofs": proofs, "verification": "FAKE-TEST-NOT-LIVE"}))
+    truth_review = private / "truth-review.json"
+    truth_review.write_bytes(freeze.canonical({"schema_version": 1, "kind": "truth_approval",
+        "reviewer": "fugu-codex-reviewer", "verdict": "APPROVE",
+        "source_inventory_sha256": hashlib.sha256((root / "prepared-sources.json").read_bytes()).hexdigest(),
+        "truth_path": str(truth_path), "truth_sha256": hashlib.sha256(truth_path.read_bytes()).hexdigest(),
+        "proofs": proofs, "verification": "FAKE-TEST-NOT-LIVE"}))
+    code_approval = private / "code-review.json"
+    code_approval.write_bytes(freeze.canonical({"schema_version": 1, "kind": "code_approval",
+        "reviewer": "fugu-codex-reviewer", "verdict": "APPROVE", "candidate_head": "1" * 40,
+        "candidate_tree": "2" * 40, "findings": [], "verification": "FAKE-TEST-NOT-LIVE"}))
+    code_hash = hashlib.sha256(code_approval.read_bytes()).hexdigest()
+    operator = private / "operator-inputs.json"
+    operator.write_bytes(freeze.canonical({"schema_version": 1,
+        "credential_endpoint": "https://api.tokenfactory.nebius.com/v1/",
+        "scanner_binary_sha256": "3" * 64, "scanner_image_digest": "sha256:" + "4" * 64,
+        "docker_base_digest": "sha256:" + "5" * 64, "collector_digest": "sha256:" + "6" * 64,
+        "code_approval_path": str(code_approval), "code_approval_sha256": code_hash,
+        "verification": "FAKE-TEST-NOT-LIVE"}))
+    report = runner.preflight_preparation(root, pricing_path=pricing_path,
+        truth_review_path=truth_review, operator_path=operator, plan_path=plan, engine_root=engine,
+        chamber_smoke=True, owner_credentials=True)
+    report_path = root / "preflight" / "preparation.json"
+    assert report["kind"] == "preparation_preflight" and report["status"] == "ready"
+    assert paid == [] and not (root / "run-plan.json").exists()
+    assert "frozen_run_sha256" not in report
+    assert probes == [(True, True)]
+
+    readiness_path = private / "readiness-review.json"
+    readiness_path.write_bytes(freeze.canonical({"schema_version": 1, "kind": "readiness_approval",
+        "reviewer": "fugu-codex-integrator", "verdict": "APPROVE",
+        "prepared_inputs_sha256": report["prepared_inputs_sha256"],
+        "preparation_report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
+        "truth_review_sha256": hashlib.sha256(truth_review.read_bytes()).hexdigest(),
+        "code_approval_sha256": code_hash, "verification": "FAKE-TEST-NOT-LIVE"}))
+    run = runner.freeze_prepared(root, preparation_report_path=report_path,
+        truth_review_path=truth_review, readiness_review_path=readiness_path)
+    assert paid == [] and run.path == root / "run-plan.json"
+    assert run.doc["preparation_report_sha256"] == hashlib.sha256(report_path.read_bytes()).hexdigest()
+    evidence = [root / "prepared-sources.json", root / "prepared-inputs.json", report_path,
+                truth_review, readiness_path, run.path]
+    immutable_before = {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in evidence}
+
+    with Ledger(root / "ledger" / "events.jsonl") as ledger:
+        ledger.open_pair("c00")
+        def admission():
+            return runner.check_frozen_admission(run, ledger, allow_hosted=True,
+                consent_id="fugu-cost-pilot-usd10-native-approved")
+        assert admission()["status"] == "admitted" and paid == []
+        assert probes[-1] == (False, True)
+        def provider():
+            paid.append("sdk")
+            return ChatCompletion.model_validate({"id": "fake-r1", "object": "chat.completion",
+                "created": 1, "model": ULTRA,
+                "choices": [{"index": 0, "finish_reason": "stop",
+                             "message": {"role": "assistant", "content": "fixture"}}],
+                "usage": {"prompt_tokens": 100, "completion_tokens": 20, "total_tokens": 120}})
+        transport = GuardedTransport(ledger, Pricing(tariffs, test_only=True), root / "events",
+                                     CredentialSet("FAKE-N", "FAKE-T"), admission)
+        request = {"model": ULTRA, "messages": [{"role": "user", "content": "fixture"}],
+                   "max_tokens": 4096, "temperature": 0.1}
+        transport.sdk(request, provider, Attribution("c00", "agent", "root", "test", "principal", 1))
+        assert paid == ["sdk"]
+        assert all(hashlib.sha256(Path(path).read_bytes()).hexdigest() == value
+                   for path, value in immutable_before.items())
+        target = {"source": root / "sources" / "c00" / "README.md",
+                  "pricing": pricing_path, "engine": engine_file}[drift]
+        target.write_bytes(target.read_bytes() + b"\nchanged\n")
+        with pytest.raises(SafetyStop, match=f"{drift}_drift"):
+            transport.sdk(request, provider, Attribution("c00", "agent", "root", "test", "principal", 1))
+        assert paid == ["sdk"]
+```
+
+The fixture truth/probe/code records explicitly declare fake verification. The production probe verifies actual code-review provenance, independent truth proofs, native readiness and billing authority; fabricated observations cannot pass that real boundary. For this unit test, only that external verification boundary is replaced with a successful fake. Final freeze/admission still verify the real temporary file references, hashes, approval verdicts and ownership; they never claim these synthetic inputs are live readiness evidence. No production test flag or CLI fixture mode is introduced. Tests also reject missing/CHANGES/mismatched readiness approval, absence of preparation report and attempts to run admission mode before freeze; do not fix those failures by creating run-plan.json automatically.
+
 Add actual CLI subprocess tests (same source PYTHONPATH, fake entry dependencies) with no consent, locked/unsupported native backend, wrong endpoint, missing scanner/Buildx, denied chamber smoke and drifted input; all exit2 with one safe JSON blocker and zero provider attempts. Test authenticated presence alone cannot consent. Patch all fake stage SDK/urllib/subprocess/keyring boundaries and verify benchmark source path current. Cancel after a fake paid response: cleanup invoked, unfinished ticket retained, no second-arm dispatch. Unknown first arm stage caught by native still stops second arm. Three pairs at known 0.1M each can release envelope incrementally; cap requiring 4M admission prevents next pair when insufficient even if nominal remainder might buy one arm. All12planned rows survive early stop.
 
-- [ ] **Step 2: Red.** `PYTHONPATH="$PWD/src:$PWD" uv run --no-sync pytest tests/cost_pilot/test_runner.py -q`; environment-only credential strip fails OTHER_SECRET assertion, keys-as-consent implementation fails zero-attempt assertion.
+- [ ] **Step 2: Red.** `PYTHONPATH="$PWD/src:$PWD" uv run --no-sync pytest tests/cost_pilot/test_runner.py -q`; add targeted command `PYTHONPATH="$PWD/src:$PWD" uv run --no-sync pytest tests/cost_pilot/test_runner.py -k bootstrap_success_then_frozen_drift -q`: expected three failed parametrizations against a preflight requiring run-plan.json before freeze. The successful bootstrap must not be replaced with a blocker-only test. Environment-only credential strip fails OTHER_SECRET assertion, keys-as-consent implementation fails zero-attempt assertion.
 - [ ] **Step 3: Implement bootstrap/owner flow and commands.**
 
 ```python
@@ -909,7 +1103,23 @@ raise SystemExit(main())
 
 Native `credential_free_env` currently removes only NEBIUS_API_KEY/TAVILY_API_KEY, so owner launcher sanitizes its parent environment **after resolution and before native code/subprocesses**. Allow only vetted infrastructure keys PATH, HOME (owner home, never repurposed), TMPDIR, LANG/LC_ALL, PYTHONPATH current source, selected Docker config/context and SSL cert path (no proxy/auth/key fields), no-dotenv and exact frozen scanner binary/image identity variables. Inspect Docker configuration presence without dumping auth contents; credential-helper/proxy routes to paid/unknown service block readiness. Keys stay in CredentialSet/context, not rewritten to os.environ. Save/restore owner env around run and keep test subprocesses on explicit allowlist. Native child credential-free helper now receives sanitized parent; fake tests inspect scanner/Docker argv+env for distinct sentinel secrets. Provider keys never become target canaries.
 
-Preflight order: verify source/engine/freeze/truth integrity; exact tool schema/prompt/prices/output/cache/reasoning/account tariff; owner consent scope; credential presence; trusted scanner executable outside sources + SHA and network-none pinned image; Docker/Buildx server reachable and configured; complete inert native chamber smoke and reviewer runtime truth; finally hosted ready. Paid generation cannot precede these. No original .env reads or provider test calls to check key validity. A key may fail on first measured request; that attempt retains liability and stops.
+### COST-PLAN-01: acyclic bootstrap states and artifact schemas
+
+| State / producer | Required inputs | Immutable output and hash references |
+|---|---|---|
+| Prepared / prepare_run | Assigned source exports, seed, no FrozenRun, preflight or readiness approval | `prepared-sources.json`, kind `prepared_sources`, schema_version 1: status `prepared`, seed, complete cases/source manifests and private preparation/order metadata |
+| Preparation checked / preflight_preparation | Prepared sources; existing independent truth/proof approval, code approval, candidate pricing/operator configuration, engine identity, exact spec/plan/prompts/schemas | `prepared-inputs.json`, kind `prepared_inputs`, schema_version 1; then `preflight/preparation.json`, kind `preparation_preflight`, schema_version 1. Neither references final frozen-run/admission/readiness-review hash |
+| Readiness approved / named integrator | Exact prepared-inputs bytes and successful preparation report, independent truth/code approval | `private/readiness-review.json`, kind `readiness_approval`, schema_version 1, verdict `APPROVE` and reviewer identity; references input/report/truth/code hashes, never final run-plan hash |
+| Frozen / freeze_prepared | Exact candidate inputs, ready preparation report and named truth/code/readiness approvals | `run-plan.json`, final Task 1 FrozenRun, contains all prior immutable reference hashes; no admission output/hash needed |
+| Admitted / check_frozen_admission | FrozenRun, explicit hosted consent, current prerequisites and exclusive Ledger owner | New O_EXCL `admission/<unique-id>.json`, kind `frozen_admission`, schema_version 1: final run SHA256, current verified input hashes, safe live checks, consent ID and owner identity. No prior artifact is rewritten to incorporate this output |
+
+Arrow order is sources → candidate inputs → preparation report → readiness approval → final freeze → admission. Truth/code approval already exists after independent preparation/review and before preparation preflight; it binds its own reviewed inputs, not final freeze. An approval's own file hash is calculated externally, never stored recursively as its own content field. No earlier artifact references a later artifact. Earlier input and approval hashes are read by later states only.
+
+`preparation.json` exposes `prepared_inputs_sha256` and `prepared_inputs_path`; `run-plan.json` exposes `preparation_report_sha256` and the corresponding path. These exact field names are used in the successful test. `prepared-inputs.json` records run ID/root/seed/caps, source inventory path+byte SHA256 and perfile hashes, pricing path+byte SHA256 and verified semantics, truth/proofs/truth-review references, reviewed applicability, operator-inputs and code approval references, engine/harness paths+commit/tree/source hashes, immutable spec/plan/prompt/schema hashes, selected official endpoint and candidate scanner/chamber identities. `preparation.json` records those input path/hash references, status `ready` or `blocked`, enumerated prerequisite results, runtime proof/evidence hashes, safe identity/presence results and timestamps. No credentials or final freeze hash. `readiness-review.json` minimally requires schema_version, kind, reviewer, verdict, prepared_inputs_sha256, preparation_report_sha256, truth_review_sha256 and code_approval_sha256. Review-owned provenance validates named reviewers and actual approval artifacts; a bare copied hash does not constitute approval.
+
+Preparation preflight first verifies prepared source bytes and candidate engine/truth/proof/code/pricing/spec/plan/schema inputs. It then verifies owner scope, credential presence without paid validity requests, trusted external scanner SHA/pinned network-none image, Docker/Buildx and assigned native inert chamber smoke. It persists the exact input manifest and successful report with O_EXCL/0600/fsync. Probes are strictly unpaid; there is no model/Tavily transport available in this path. Failure emits a separate blocked report, never synthesizes FrozenRun or readiness approval. Rerunning on changed inputs requires a new explicitly assigned preparation artifact/run ID; no overwrite. No original dotenv access. A key that fails on the first later measured call retains liability and stops.
+
+`freeze_prepared` compares every input/report/approval hash, verifies all required checks/independent proofs and verdict `APPROVE`, rereads current input hashes to reject drift since preparation, then calls freeze_run once. It cannot invoke preparation probes to fill missing approval or mutate older artifacts. `check_frozen_admission` requires an existing run and ledger ownership; calls verify_frozen, validates hosted consent/caps and unchanged approval references, uses probe_prerequisites with chamber_smoke=False for read-only current identity/presence/billing checks, verifies ledger stop/unknown/orphan state, and appends its own immutable observation. No builds, new truth, approval edits or paid calls here. Every measured SDK/urllib paid callback calls this gate before reservation and immediately before dispatch under ledger serialization; it is required even when native stages catch exceptions. Source/pricing/engine drift is rejected as source_drift/pricing_drift/engine_drift before the next network attempt. Existing native observations/resources/cleanup policy remains unchanged.
 
 Document exact future owner commands in `docs/benchmark-cost-pilot.md` (not run now):
 
@@ -917,20 +1127,23 @@ Document exact future owner commands in `docs/benchmark-cost-pilot.md` (not run 
 PILOT_RUN=/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/measured-run-01
 PILOT_PREP=/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/source-preparation
 FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot prepare --root "$PILOT_RUN" --upstream-dir "$PILOT_PREP" --seed 20261012
-FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot preflight --root "$PILOT_RUN" --chamber-smoke --owner-credentials
-FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot freeze --root "$PILOT_RUN" --truth-review "$PILOT_RUN/private/truth-review.json" --readiness-review "$PILOT_RUN/private/readiness-review.json" --pricing "$PILOT_RUN/private/pricing.json" --plan docs/superpowers/plans/2026-10-12-whole-system-cost-benchmark.md
+FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot preflight --mode preparation --root "$PILOT_RUN" --pricing "$PILOT_RUN/private/pricing.json" --truth-review "$PILOT_RUN/private/truth-review.json" --operator-config "$PILOT_RUN/private/operator-inputs.json" --plan docs/superpowers/plans/2026-10-12-whole-system-cost-benchmark.md --engine-root "$PWD" --chamber-smoke --owner-credentials
+FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot freeze --root "$PILOT_RUN" --preparation-report "$PILOT_RUN/preflight/preparation.json" --truth-review "$PILOT_RUN/private/truth-review.json" --readiness-review "$PILOT_RUN/private/readiness-review.json"
+FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot preflight --mode admission --root "$PILOT_RUN" --allow-hosted --consent-id fugu-cost-pilot-usd10-native-approved --owner-credentials
 FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot measure --root "$PILOT_RUN" --allow-hosted --consent-id fugu-cost-pilot-usd10-native-approved --cap-usd 10
 FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot adjudicate --root "$PILOT_RUN" --review "$PILOT_RUN/private/adjudication.json"
 FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot export --root "$PILOT_RUN" --output "$PILOT_RUN/publishable"
 ```
 
+Between prepare and preparation preflight, the assigned reviewer freezes source/truth/proofs and the owner supplies candidate pricing/operator inputs. Between preparation preflight and freeze, the named integrator writes the readiness approval bound to that report/input hashes. These are review handoffs, not commands that measured agents can fabricate. `preflight --mode admission` is an optional standalone readiness observation after freeze, not an approval required by freeze; measure independently repeats admission and every transport dispatch gate. Omitting the standalone observation never omits a measured guard. All preflight modes issue zero paid requests.
+
 `--owner-credentials` authorizes presence-only bridge for an assigned owner, not a coder permission. Preflight's chamber smoke calls actual `DockerDriver.detonate` on an owned inert test repository without any hosted calls, recording native build/run/cleanup, collector and canary evidence, exact image digests, Docker resource metrics. No substitute driver, native-stage fake or direct host target command. Native builds use python3.11-slim/mitmproxy latest internally: record base+collector resolved digests, check unchanged before each native build/run, abort if drift; never modify driver or use a bypass build command. Read-only `docker version --format '{{json .Server}}'`, `docker buildx version`, `docker image inspect <frozen-image>` are owner prerequisites; root observed server28.3.3 linuxaarch64/Buildx0.27.0 but **actual Fugu build/run is unverified**. Historical denied build is a blocker: no repeat until human-owned native approval state is explicitly resolved by owner; no agent answers dialog, changes driver or evades denial. Approved future build may still fail; record before any paid work.
 
 Scanner image/binary identities and supported rules/surfaces must be pinned independently. The trusted scanner image uses network-none/read-only/capdropall as native code; unpriced host scanner/service path preflight-blocks. Docker Hub pull/build resource time is recorded unpriced local/infrastructure metadata; no new paid cloud resources.
 
-Measure loads byte-frozen plan, preflight/readiness hashes and named approval, obtains in-process credentials, opens single ledger owner, admits next4M pair, invokes arms in frozen order sequentially, records state after every stage/attempt, closes terminal pair and stops on any unknown/drift/cap. Recheck infrastructure and source hashes before each pair; context or price drift stops before next call. `--resume` can reopen a terminal clean prefix only after hash equality; orphan/unknown/corrupt bytes refuse automatically, no rerun/recovery-force. No selective case/arm/repeat flags for paid run. `--cap-usd` must equal10; decimal conversion uses Decimal not float. Return JSON summary and exit0 complete/adjudicated,3 partial/stopped,2 readiness/consent failure. Preserve every request/source/native evidence on cancellation; cleanup finally permitted even after paid stop.
+Measure loads the existing FrozenRun and preparation/readiness approval hashes, obtains in-process credentials, opens the single ledger owner, calls check_frozen_admission, admits the next USD4 pair, invokes arms in frozen order sequentially, and binds every GuardedTransport to a callback calling check_frozen_admission with that same run/ledger/consent. Revalidate frozen bytes, live read-only prerequisites and ownership before each paid SDK/urllib dispatch, not merely before each pair. Record new immutable admission observations without changing run-plan/preparation/approval bytes. Record state after every stage/attempt, close the terminal pair and stop on any unknown/drift/cap. `--resume` can reopen a terminal clean prefix only after hash equality; orphan/unknown/corrupt bytes refuse automatically, no rerun/recovery-force. No selective case/arm/repeat flags for paid run. `--cap-usd` must equal10; decimal conversion uses Decimal not float. Return JSON summary and exit0 complete/adjudicated,3 partial/stopped,2 readiness/consent failure. Preserve every request/source/native evidence on cancellation; cleanup finally permitted even after paid stop.
 
-Layout: `run-plan.json`, `ledger/events.jsonl`, `ledger/owner.lock`, `sources/c00`–`c11`, `private/{truth,truth-review,pricing,readiness-review,adjudication}.json`, `preflight/`, `arms/<case>/{fugu,agent}/`, `masked/`, `publishable/{results.json,results.csv,report.md,charts/}`, `renderer/`. Private truth and other arm directories are not source handles; baseline only gets tools, never owner Path objects outside snapshot. Freeze includes actual git commit/tree of engine/harness; JSON runtime manifest avoids self-referential hash by excluding its own digest field when computing digest.
+Layout: `prepared-sources.json`, `prepared-inputs.json`, `preflight/preparation.json`, `admission/`, `run-plan.json`, `ledger/events.jsonl`, `ledger/owner.lock`, `sources/c00`–`c11`, `private/{truth,truth-review,pricing,readiness-review,adjudication}.json`, `preflight/`, `arms/<case>/{fugu,agent}/`, `masked/`, `publishable/{results.json,results.csv,report.md,charts/}`, `renderer/`. Private truth and other arm directories are not source handles; baseline only gets tools, never owner Path objects outside snapshot. Freeze includes actual git commit/tree of engine/harness; JSON runtime manifest avoids self-referential hash by excluding its own digest field when computing digest.
 
 - [ ] **Step 4: Green.** Run `PYTHONPATH="$PWD/src:$PWD" uv run --no-sync pytest tests/cost_pilot/test_runner.py -q`. Repeat scoped runner/native/agent/tool/transport/ledger tests with fake boundaries. Integrator later verifies actual inert Docker prerequisites; do not label fake tests full workflow evidence. Python3.10 real-interpreter execution is a readiness check if available; otherwise report syntax-only compatibility and block any assertion that3.10runtime was tested.
 - [ ] **Step 5: Commit.**
@@ -1108,3 +1321,8 @@ Writer corrections made inline: (a) SDK-only accounting expanded to actual urlli
 Type/interface check: each exported type/function above has an owning task; exact names `run_agent`, `run_native`, `GuardedTransport.sdk/tavily`, `Ledger.reserve/earmark`, `ToolRegistry.dispatch/coverage`, `score_case`, `build_report` and `plot_results` are shared unchanged. Record payload schemas are enumerated within owning task rather than inventing production models. Test snippets use only defined exports,pytest fixtures or local fakes; actual SDK response objects used for conversation tests. Critical Review Focus five each has a named behavioral test owner. Implementation algorithms include sequence/error invariants and exact scoped commits. No placeholder implementation or vague error policy remains; public metadata is verification only, not paid runtime evidence.
 
 Current known **execution readiness limitations, not plan blockers**: native Fugu Docker build/run and trusted scanner configuration unverified; endpoint billable/cache/reasoning/account bounds require authoritative owner freeze; four real original source pins/independent reproductions remain preparation outputs; existing renderer unavailable until separately assigned isolated setup; real Python 3.10 runtime not tested. These stop paid admission when unresolved. No implementation/code/corpus/install/credential/provider/chamber action happened while writing this plan. Human plan review and named independent review remain pending; return READY_FOR_PLAN_REVIEW and idle.
+
+
+### Revision 2 narrow self-review: COST-PLAN-01
+
+Only bootstrap/admission contracts, related call sites and the successful test changed. Task 1 owns engine identity and final frozen reference validation; Task 9 owns preparation report/readiness/freeze/admission functions; Task 4 requires the bound admission callback for both paid transports. No new module, tool, model, corpus methodology or budget is introduced. Preparation preflight has no FrozenRun input; readiness approval has no final run-plan hash; final freeze references earlier bytes; admission alone references final freeze and is never a freeze prerequisite. The concrete fresh-directory test preserves zero paid calls through prepare/preflight/approval/freeze/admission, then permits one fake SDK response and rejects source/pricing/engine drift before any further callback. Existing preparation/report/approval/freeze bytes are checked unchanged by admission. The test is written Markdown only and remains unexecuted. Independent review and human plan review remain pending; prior artifacts are preserved.

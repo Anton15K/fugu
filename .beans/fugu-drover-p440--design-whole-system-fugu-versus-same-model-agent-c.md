@@ -5,7 +5,7 @@ status: in-progress
 type: task
 priority: normal
 created_at: 2026-10-12T13:06:29Z
-updated_at: 2026-10-12T14:57:27Z
+updated_at: 2026-10-12T15:20:21Z
 ---
 
 User requests an end-to-end cost and correctness benchmark against direct repository auditing by an agent, preferably with the same models. User selected a USD 10 total pilot cap. Whole-system production execution, independent ground truth, matched source access, explicit model roles, all attempts/services/completion accounting and non-cherry-picked results required. Design approval precedes implementation under brainstorming skill.
@@ -47,3 +47,16 @@ Prepared and self-reviewed `docs/superpowers/plans/2026-10-12-whole-system-cost-
 Durable evidence: `/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/plan-candidate.json`, `plan-coder-report.md`, `plan-doc-checks.json`, and `plan-matplotlib-provenance.json`. Candidate identifies the actual plan commit plus all three existing ordered nonmerge spec commits above pinned application base `f8a996807c5619a3965e7b1d25bcd5d827b48302`. Previous v1/v2/v3 candidates/reports remain intact. Root routes review; READY_FOR_PLAN_REVIEW is not completion of the parent bean.
 
 Only this bean and the assigned plan changed. Documentation checks and public/local package metadata reads do not constitute implementation tests or runtime evidence. No product code, corpus generation, installs/sync, real credential/native storage access, paid requests, Docker builds/runs, target execution, push or landing. Untracked research/logs preserved without reading. Readiness prerequisites for later measurement remain explicit in the plan: authoritative billing bounds, configured trusted scanner, actual native chamber evidence, independent real-source pins/truth and assigned isolated renderer setup.
+
+
+## Plan revision 2: COST-PLAN-01 bootstrap correction
+
+- [x] Resolve the independent MEDIUM COST-PLAN-01 finding in the plan only.
+- [x] Define acyclic prepared-source, candidate-input/preparation-preflight, readiness-approval, freeze and dispatch-admission contracts and artifacts.
+- [x] Add a concrete fake successful-sequence test with source/pricing/engine drift rejection and zero paid attempts before the last gate; snippets remain unexecuted.
+
+Finding source: `/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/plan-review.md` and `plan-review.json`, exact reviewed candidate `ee840849b27f4896fc10384b3c7560fedac52462`. Preparation preflight no longer requires FrozenRun; readiness approval binds immutable candidate inputs/report/truth/code bytes without a final freeze hash. Final freeze references earlier evidence, while every later SDK/urllib admission revalidates frozen prerequisites and ownership without rewriting earlier artifacts. Named readiness/human review gates remain intact; no methodology/tool/model/budget change.
+
+Revision evidence: `plan-candidate-v2.json`, `plan-coder-report-v2.md`, `plan-doc-checks-v2.json`, and `prior-plan-artifact-hashes-v2.json` under `/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/`. Full five ordered nonmerge commits are recorded in the new candidate. All prior spec/plan/review artifacts are preserved, and approved revision 3 spec SHA256 remains `634e0fda03d87460d04c76f4105bbcced0307080a006b0ad6e4c87314c430017`.
+
+Parent remains in-progress; human implementation-plan review and fresh named independent review remain pending. Only the assigned plan and this bean changed. No implementation, corpus creation, package/environment change, native credential/provider/paid request, Docker/target execution, new beans, push, landing or fleet DONE dispatch. Return READY_FOR_PLAN_REVIEW and idle; root routes the reviewer.
