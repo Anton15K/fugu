@@ -88,7 +88,10 @@ class Ledger:
             if k=='dispatch' and t['state']!='reserved':raise SafetyStop('transition')
             if k=='settle' and t['state']!='dispatched':raise SafetyStop('transition')
             if k=='unknown' and t['state'] not in {'reserved','dispatched'}:raise SafetyStop('transition')
-            if k=='settle':integer(r['actual']);t['actual']=r['actual']
+            if k=='settle':
+                integer(r['actual'])
+                if r['actual']>t['bound']['microdollars']:raise SafetyStop('settlement_bound')
+                t['actual']=r['actual']
             t['state']={'dispatch':'dispatched','settle':'settled','unknown':'unknown'}[k]
             if k=='unknown':self._stop=r['reason']
         elif k=='close':

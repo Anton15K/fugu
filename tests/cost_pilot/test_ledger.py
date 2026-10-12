@@ -109,3 +109,40 @@ def test_reserve_and_dispatch_fsynced_before_callback(tmp_path,monkeypatch):
         assert calls[-2]=='fsync'
         assert [e['kind'] for e in l.events()][-2:]==['reserve','dispatch']
         l.settle(t,1,{})
+
+
+def test_semantically_invalid_settlement_refused_on_replay(tmp_path):
+    from bench.cost_pilot.freeze import digest,canonical
+    p=tmp_path/'ledger'
+    with Ledger(p) as l:
+        l.open_pair('c0');t=l.reserve(fake_attribution(),bound());l.mark_dispatch(t);l.settle(t,1,{})
+    rows=p.read_bytes().splitlines(keepends=True);last=json.loads(rows[-1]);last['actual']=bound().microdollars+1
+    body={k:v for k,v in last.items() if k!='event_hash'};last['event_hash']=digest(body);rows[-1]=canonical(last)+b'\n';p.write_bytes(b''.join(rows))
+    with pytest.raises(SafetyStop,match='ledger_corrupt'):
+        with Ledger(p):pass
+
+
+def test_two_process_owner_race_one_append(tmp_path):
+    import time
+    script='''import sys,time
+from pathlib import Path
+from bench.cost_pilot.ledger import Ledger
+from bench.cost_pilot.contracts import SafetyStop
+p=Path(sys.argv[1]);identity=sys.argv[2]
+while not (p/'start').exists():time.sleep(.005)
+try:
+ with Ledger(p/'ledger') as l:
+  (p/identity).write_text('owned')
+  while not (p/'release').exists():time.sleep(.005)
+except SafetyStop as e:(p/identity).write_text(e.reason)
+'''
+    env={'PATH':os.environ['PATH'],'PYTHONPATH':os.environ['PYTHONPATH']}
+    children=[subprocess.Popen([sys.executable,'-c',script,str(tmp_path),str(i)],env=env) for i in range(2)]
+    try:
+        (tmp_path/'start').touch();deadline=time.monotonic()+5
+        while not all((tmp_path/str(i)).exists() for i in range(2)) and time.monotonic()<deadline:time.sleep(.01)
+        assert sorted((tmp_path/str(i)).read_text() for i in range(2))==['concurrent_owner','owned']
+        assert len((tmp_path/'ledger').read_text().splitlines())==1
+    finally:
+        (tmp_path/'release').touch()
+        for child in children:child.wait(timeout=5)
