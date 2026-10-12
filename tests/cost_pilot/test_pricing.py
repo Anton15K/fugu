@@ -68,3 +68,16 @@ def test_integer_rounding_rejects_unsafe_numbers(tokens):
 
 def test_rounds_one_fractional_token_up():
     assert token_charge(1, 300000) == 1
+
+
+def test_unpriced_extra_fee_blocks():
+    t=fake_tariffs();t['extra_fee_bound_micro']=1
+    with pytest.raises(SafetyStop,match='extra_fee_contract'):Pricing(t,test_only=True)
+
+
+def test_live_official_us_endpoint(tmp_path):
+    import hashlib
+    p=tmp_path/'authority';p.write_text('FAKE local authority boundary, no live account verification')
+    t=fake_tariffs();t.update(account_verified=True,verified_at='2026-10-12',endpoint='https://api.tokenfactory.us-central1.nebius.com/v1/',authority_documents=[{'url':'https://docs.nebius.com/pricing','path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}])
+    for m in t['models'].values():m.update(authority='https://docs.nebius.com/pricing',context_unit='tokens',output_unit='billable_tokens',reasoning_contract_verified=True,cache_contract_verified=True)
+    assert Pricing(t).bound('nebius',ULTRA).microdollars>0

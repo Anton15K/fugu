@@ -35,7 +35,7 @@ class Pricing:
                     byte_hash(Path(d['path'])) == d['sha256'] for d in documents):
                 raise SafetyStop('tariff_authority')
             if t.get('endpoint') not in {'https://api.tokenfactory.nebius.com/v1/',
-                                         'https://api.tokenfactory.us.nebius.com/v1/'}:
+                                         'https://api.tokenfactory.us-central1.nebius.com/v1/'}:
                 raise SafetyStop('tariff_endpoint')
         for model in t['models'].values():
             if not self.test_only and ('FAKE' in model.get('authority', '') or
@@ -56,6 +56,8 @@ class Pricing:
                 raise SafetyStop('reasoning_contract')
         for key in ('tavily_micro_per_credit', 'basic_credit_bound', 'extra_fee_bound_micro'):
             integer(t.get(key), 'tariff_bounds')
+        if t['extra_fee_bound_micro']:
+            raise SafetyStop('extra_fee_contract')
         if t['basic_credit_bound'] != 1:
             raise SafetyStop('tavily_contract')
 

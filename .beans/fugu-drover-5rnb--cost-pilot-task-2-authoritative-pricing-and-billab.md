@@ -23,3 +23,5 @@ Implement ONLY Task 2 of docs/superpowers/plans/2026-10-12-whole-system-cost-ben
 ## Summary of Changes
 
 Implemented assigned task with fake-only behavioral red/green evidence. Scoped files: bench/cost_pilot/pricing.py, tests/cost_pilot/test_pricing.py. Durable task report: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-02-report.md. No providers/native keys/Docker/target execution or shared sync. Independent review routed by root.
+
+Final self-review correction: reject unpriced fees and align official US origin. Behavioral red/green and exact scoped commit preserved at /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-02-correction-report.md.
