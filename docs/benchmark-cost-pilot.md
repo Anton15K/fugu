@@ -12,10 +12,12 @@ The reviewer supplies complete source exports and independently frozen truth/pro
 
 ## Future assigned owner commands
 
+`PILOT_UPSTREAM` must name a verified export-bundle directory with `c08`, `c09`, `c10` and `c11` children. Each child contains `export.json` and its complete `source/` tree, with verified pinned provenance and matching source manifest. A preparation report root or a direct source tree is not this input. Existing private exports are under `/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/corpus-preparation/export-bundles`; use the verified bundles, not the older prepared corpus labels. Corrected corpus preparation must use a new directory and preserve earlier artifacts.
+
 ```bash
 PILOT_RUN=/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/measured-run-01
-PILOT_PREP=/Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/source-preparation
-FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot prepare --root "$PILOT_RUN" --upstream-dir "$PILOT_PREP" --seed 20261012
+PILOT_UPSTREAM=/absolute/path/to/verified-export-bundles
+FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot prepare --root "$PILOT_RUN" --upstream-dir "$PILOT_UPSTREAM" --seed 20261012
 FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot preflight --mode preparation --root "$PILOT_RUN" --pricing "$PILOT_RUN/private/pricing.json" --truth-review "$PILOT_RUN/private/truth-review.json" --operator-config "$PILOT_RUN/private/operator-inputs.json" --plan docs/superpowers/plans/2026-10-12-whole-system-cost-benchmark.md --engine-root "$PWD" --chamber-smoke --owner-credentials
 FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot freeze --root "$PILOT_RUN" --preparation-report "$PILOT_RUN/preflight/preparation.json" --truth-review "$PILOT_RUN/private/truth-review.json" --readiness-review "$PILOT_RUN/private/readiness-review.json"
 FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cost_pilot preflight --mode admission --root "$PILOT_RUN" --allow-hosted --consent-id fugu-cost-pilot-usd10-native-approved --owner-credentials
@@ -25,6 +27,14 @@ FUGU_NO_DOTENV=1 PYTHONPATH="$PWD/src:$PWD" uv run --no-sync python -m bench.cos
 ```
 
 Set the preparation and admission modes explicitly. `--allow-hosted` and the exact consent ID are required for every measurement; credential presence alone never consents. No force, reroll, selective case, retry-after-orphan or fixture gate is available. Resume requires explicit `--resume` and refuses any orphan/unfinished pair; previously closed cases cannot be redispatched. Unknown errors retain the full request bound and stop both arms. All planned rows remain in terminal output, distinguishing partial attempts from unattempted cases.
+
+## Preparation criteria
+
+The accepted corpus correction replaces the original c04 marker-only rejection criterion, before any measurement, with unauthorized deletion of the fixed synthetic input `/opt/target/input.txt` in an owned chamber. The inert marker is only an installation trace; its creation or encoding does not establish persistence or security harm. Fresh independent proofs must bind the input's prior bytes and the actual deletion to the selected trigger occurrence.
+
+The minimal standard-library MCP fixture deliberately pins the legacy `2025-11-25` tools/stdio subset. It makes no latest-version or full production conformance claim. Private authored examples include genuine public Python runtime references; these references imply neither official Python authorship nor ownership of public packages.
+
+Proposed four-adverse/four-control counts remain hypotheses until fresh independent truth review and required runtime proofs. Never inherit labels from an older rejected or unfrozen corpus. Fake tests prove neither native readiness nor cost or correctness outcomes.
 
 ## Operator and price inputs
 
@@ -39,5 +49,7 @@ The bridge sets FUGU_NO_DOTENV before config imports and resolves only owner-aut
 Native run_cli_audit receives the complete local snapshot, full mode and detonateTrue with canonical automatic composition. Source/stage/trigger observations are passive; native verdicts, public exit codes, omissions and selected-trigger failures remain unchanged. Hosted A/B probes are not target execution. Native collectors show attempted transfers; NXDOMAIN does not prove successful HTTP delivery and filesystem paths do not prove file contents. Truth owner reproductions remain separate from measured arms.
 
 The direct agent has exactly list_files/read_file/search_files/search_web. Reads preserve source bytes after strict UTF8 decode with opaque bound continuation inside long lines, at most200 lines and8192 serialized Unicode characters per page. Searches never become OSV queries or arbitrary fetches. Both agent roles have identical permissions, max4096 output tokens, temperature0.1, SDK retries0/timeout90 and32 outbound attempts including explicit recovery. Coverage comes from actual returned ranges, not model claims.
+
+Public adjudication reasons are withheld by default: `adjudication-reasons.json` contains placeholders, and private reason prose is never automatically published. Any separate disclosure requires explicit independent approval bound to the exact run, measurement, mask and truth artifacts, plus redaction. The current exporter has no reason-prose opt-in.
 
 Exports require independent masked adjudication. Security and functional lanes, attempted/all-planned/completed denominators, unresolved claims, runtime requirements, failed request costs and unknown liability intervals remain separate. There are no claims of superiority, noninferiority or published README outcomes before measured review. Matplotlib is report-only in a separately reviewed renderer environment; no main environment dependency is added. Python3.10 syntax compatibility is checked separately from actual runtime compatibility; current fake tests use Python3.11 and POSIX ledger ownership. Windows live ledger remains unsupported.
