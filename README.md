@@ -10,7 +10,7 @@ Coding and Agentic Engineering track. [MIT license](LICENSE).
 
 **Judge reading path:** [Use case](#use-case) → [Checks and verdicts](#evidence-analysis-and-verdicts) →
 [NVIDIA / Nebius](#nvidia-and-nebius-integration) → [Benchmark and charts](#full-workflow-benchmark-5-october-2026) →
-[Maintainer outcome](#real-world-outcome-9-october-2026) → [Run locally](#run-locally).
+[Maintainer outcomes](#real-world-outcomes-updated-12-october-2026) → [Run locally](#run-locally).
 Try the [offline judge casebook](docs/judge-casebook.md) without credentials or paid inference.
 
 ## Use case
@@ -135,7 +135,7 @@ results](docs/benchmark-full-workflow-20261005.md) include exclusions, native
 thresholds, accounting and interpretation; the [sealed measurement inventory](bench/results/2026-10-05-full-workflow/measurement/inventory.json)
 binds the retained artifacts.
 
-## Real-world outcome (9 October 2026)
+## Real-world outcomes (updated 12 October 2026)
 
 A **Fugu-assisted source review** identified missing HTTP timeouts in the
 ComfyUI agent skill. The [maintainer confirmed the issue](https://github.com/MieMieeeee/comfyui-agent-skill/issues/3#issuecomment-6082877509)
@@ -143,9 +143,17 @@ and [fixed all seven HTTP calls in the 0.1.13 release commit](https://github.com
 with default connect/read timeouts of **10s / 60s**. This was identified by source
 review during the Fugu-assisted investigation, not automated Fugu detection.
 
-Four public reports came from that investigation; one is an optional metadata
-improvement. The other reports remain unanswered. This confirms one maintainer
-fix, not four bugs, vulnerabilities or fixes, or measured audience benefit.
+The same Fugu-assisted investigation reported a GOPROXY lookup failure in
+**package-version-check-mcp**, identified by source review, not automated Fugu
+detection. Maintainer **MShekow** [replied “Thanks for reporting!”](https://github.com/MShekow/package-version-check-mcp/issues/257#issuecomment-6095670010)
+and merged [PR #262](https://github.com/MShekow/package-version-check-mcp/pull/262)
+on **10 October 2026 at 08:26:40Z**; issue #257 was then closed as completed.
+The merged PR confirms the fix: case encoding for uppercase Go module paths
+while preserving canonical module names. It also documents the prior lookup failure.
+
+Four public reports came from the investigation, with **two upstream fixes**.
+Two reports remain open and unanswered as of **12 October 2026**; one is an
+optional metadata improvement.
 
 ## Local CLI (bring your own key)
 
