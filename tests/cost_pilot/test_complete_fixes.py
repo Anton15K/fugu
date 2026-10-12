@@ -315,3 +315,85 @@ def test_actual_canonical_observer_retains_bound_native_collector_proof(tmp_path
         'source':'mitm.flow[0].path','canary':'github_token','host':'collector.pilot.invalid',
         'method':'GET','path_prefix':'/observe?'}}}]}
     assert adjudication.score_case(t,n,[Match('c00','B',f['id'],'t1','tp','Actual native fake collector boundary','fugu-codex-reviewer')])['tp']==1
+
+
+def timed_measure_fixture(root,monkeypatch,order,*,cancel_arm=None,partial_arm=None,resume_closed=False):
+    import openai
+    from bench.cost_pilot import runner,native,agent
+    from bench.cost_pilot.contracts import FrozenRun
+    from bench.cost_pilot.pricing import Pricing
+    from bench.cost_pilot.ledger import Ledger
+    from fugu.credentials import CredentialSet
+    from tests.cost_pilot.support import fake_tariffs
+    clock=[0.0];calls=[]
+    class Client:
+        def __init__(self,**kw):pass
+        def __enter__(self):clock[0]+=5;return self
+        def __exit__(self,*a):pass
+    monkeypatch.setattr(openai,'OpenAI',Client)
+    monkeypatch.setattr(openai,'DefaultHttpxClient',lambda **kw:None)
+    monkeypatch.setattr(runner,'owner_credentials',lambda *a,**kw:CredentialSet('FAKE-N','FAKE-T'))
+    monkeypatch.setattr(runner,'Pricing',lambda t:Pricing(t,test_only=True))
+    monkeypatch.setattr(freeze,'verify_frozen',lambda run:None)
+    monkeypatch.setattr(runner,'check_frozen_admission',lambda *a,**kw:clock.__setitem__(0,clock[0]+2))
+    monkeypatch.setattr(runner.time,'monotonic',lambda:clock[0])
+    cases=[]
+    for i in range(12):
+        source=root/f'source{i}';source.mkdir();(source/'main.py').write_text('inert source data\n')
+        cases.append({'id':f'c{i:02}', 'lane':'security' if i<8 else 'functional',
+            'arms':list(order if i%2==0 else reversed(order)), 'root':str(source), 'manifest':freeze.tree_manifest(source)})
+    run=FrozenRun(root/'run-plan.json',{'cases':cases,'tariffs':fake_tariffs(),
+        'operator':{'scanner_binary_path':'/FAKE/NOT_EXECUTED','scanner_binary_sha256':'a'*64,
+                    'scanner_image_digest':'fake@sha256:'+'b'*64},
+        'reviewed_applicability':{c['id']:{} for c in cases}})
+    run.path.write_text('{}')
+    def work(id,arm,path):
+        calls.append((id,arm));clock[0]+=9 if arm==cancel_arm else 10 if arm=='fugu' else 20
+        if arm==cancel_arm:raise KeyboardInterrupt()
+        return ArmResult(id,arm,'partial' if arm==partial_arm else 'complete',{}, {},path)
+    monkeypatch.setattr(native,'run_native',lambda source,id,keys,transport,path,expected:work(id,'fugu',path))
+    monkeypatch.setattr(agent,'run_agent',lambda id,lane,tools,transport,client,prompts,path:work(id,'agent',path))
+    if resume_closed:
+        freeze.immutable_json(root/'measurement-start.json',{'run_sha256':freeze.byte_hash(run.path)})
+        with Ledger(root/'ledger/events.jsonl') as ledger:ledger.open_pair('c00');ledger.close_pair('c00','terminal')
+        freeze.immutable_json(root/'arms/c00/pair-timing.json',{'case':'c00','seconds':30})
+        for arm,seconds in [('fugu',10),('agent',20)]:
+            freeze.immutable_json(root/'arms/c00'/arm/'arm-result.json',
+                {'snapshot_id':'c00','arm':arm,'lane':'security','workflow':'complete','raw':{},
+                 'coverage':{},'evidence_path':str(root/'arms/c00'/arm),'seconds':seconds})
+    return runner.measure(run,allow_hosted=True,consent_id=runner.CONSENT,resume=resume_closed),calls
+
+
+@pytest.mark.parametrize('order',[('fugu','agent'),('agent','fugu')])
+@pytest.mark.parametrize('partial',[None,'fugu','agent'])
+def test_per_arm_timing_is_independent_in_both_orders(tmp_path,monkeypatch,order,partial):
+    result,calls=timed_measure_fixture(tmp_path,monkeypatch,order,partial_arm=partial)
+    assert len(result['rows'])==24
+    assert {(r['arm'],r['seconds']) for r in result['rows']}=={('fugu',10),('agent',20)}
+    assert all(r['workflow']==('partial' if r['arm']==partial else 'complete') for r in result['rows'])
+    assert result['timing']['invocation_setup_seconds']==7
+    assert all(p['seconds']==30 for p in result['timing']['pairs'])
+
+
+@pytest.mark.parametrize('order',[('fugu','agent'),('agent','fugu')])
+@pytest.mark.parametrize('cancel_arm',['fugu','agent'])
+def test_cancelled_arm_retains_own_elapsed_seconds(tmp_path,monkeypatch,order,cancel_arm):
+    result,calls=timed_measure_fixture(tmp_path,monkeypatch,order,cancel_arm=cancel_arm)
+    assert len(result['rows'])==24
+    first=result['rows'][:2]
+    cancelled=next(r for r in first if r['arm']==cancel_arm)
+    assert cancelled['workflow']=='partial' and cancelled['seconds']==9
+    other=next(r for r in first if r['arm']!=cancel_arm)
+    if order[0]==cancel_arm:assert other['workflow']=='unattempted' and other['seconds'] is None
+    else:assert other['seconds']==(10 if other['arm']=='fugu' else 20)
+    assert result['timing']['pairs'][0]['seconds']==sum(r['seconds'] or 0 for r in first)
+
+
+def test_resuming_closed_pair_preserves_prior_arm_times(tmp_path,monkeypatch):
+    result,calls=timed_measure_fixture(tmp_path,monkeypatch,('fugu','agent'),resume_closed=True)
+    assert not any(id=='c00' for id,arm in calls)
+    assert {(r['arm'],r['seconds']) for r in result['rows']}=={('fugu',10),('agent',20)}
+    assert result['timing']['invocation_setup_seconds']==7
+    assert len(result['timing']['pairs'])==12
+    assert next(p for p in result['timing']['pairs'] if p['case']=='c00')['seconds']==30
+    assert result['timing']['invocation_seconds']==337

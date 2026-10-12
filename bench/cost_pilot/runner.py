@@ -196,6 +196,7 @@ def measure(run,*,allow_hosted,consent_id,resume=False):
     _consent(allow_hosted,consent_id);freeze.verify_frozen(run);root=run.path.parent
     if (root/'measurement.json').exists():raise SafetyStop('measurement_already_terminal')
     if (root/'measurement-start.json').exists() and not resume:raise SafetyStop('explicit_resume_required')
+    invocation_started=time.monotonic();setup_seconds=None
     keys=owner_credentials(os.environ);pricing=Pricing(run.doc['tariffs']);prompts=extract_prompts(SPEC);results=[];stop=None
     from .transport import GuardedTransport
     from .tools import ToolRegistry
@@ -209,23 +210,36 @@ def measure(run,*,allow_hosted,consent_id,resume=False):
             if resume and ledger.summary()['active_pair']:raise SafetyStop('unfinished_pair_no_redispatch')
             transport=GuardedTransport(ledger,pricing,root/'requests',keys,lambda:check_frozen_admission(run,ledger,allow_hosted=allow_hosted,consent_id=consent_id))
             with _resource_guards(run,ledger),OpenAI(api_key=keys.nebius,base_url=keys.base_url,max_retries=0,timeout=90,http_client=DefaultHttpxClient(timeout=90,follow_redirects=False,trust_env=False)) as client:
+                setup_seconds=time.monotonic()-invocation_started
                 closed={e['pair'] for e in ledger.events() if e['kind']=='close'}
                 for case in run.doc['cases']:
                     if case['id'] in closed:continue
-                    ledger.open_pair(case['id']);started=time.monotonic()
+                    ledger.open_pair(case['id']);pair_started=time.monotonic()
                     try:
                         for arm in case['arms']:
                             ledger.assert_admitted();path=root/'arms'/case['id']/arm
+                            arm_started=time.monotonic()
                             freeze.immutable_json(path/'attempt.json',{'case':case['id'],'arm':arm,'started_unix':time.time()})
-                            if arm=='fugu':
-                                expected={'files':[f['path'] for f in case['manifest']['files']],**run.doc['reviewed_applicability'][case['id']]}
-                                result=run_native(Path(case['root']),case['id'],keys,transport,path,expected)
-                            else:
-                                tools=ToolRegistry(Path(case['root']),case['id'],case['manifest']['sha256'],path/'tools',lambda q:transport.tavily(q,__import__('bench.cost_pilot.contracts',fromlist=['Attribution']).Attribution(case['id'],'agent','root','web','agent',0)))
-                                result=run_agent(case['id'],case['lane'],tools,transport,client,prompts,path)
-                            record={**asdict(result),'evidence_path':str(result.evidence_path),'lane':case['lane'],'seconds':time.monotonic()-started}
+                            try:
+                                if arm=='fugu':
+                                    expected={'files':[f['path'] for f in case['manifest']['files']],**run.doc['reviewed_applicability'][case['id']]}
+                                    result=run_native(Path(case['root']),case['id'],keys,transport,path,expected)
+                                else:
+                                    tools=ToolRegistry(Path(case['root']),case['id'],case['manifest']['sha256'],path/'tools',lambda q:transport.tavily(q,__import__('bench.cost_pilot.contracts',fromlist=['Attribution']).Attribution(case['id'],'agent','root','web','agent',0)))
+                                    result=run_agent(case['id'],case['lane'],tools,transport,client,prompts,path)
+                            except BaseException as exc:
+                                reason=exc.reason if isinstance(exc,SafetyStop) else 'measurement_interrupted_or_failed'
+                                freeze.immutable_json(path/'arm-result.json',{'snapshot_id':case['id'],
+                                    'arm':arm,'lane':case['lane'],'workflow':'partial','raw':{'stop':reason},
+                                    'coverage':{'incomplete':True},'evidence_path':str(path),
+                                    'seconds':time.monotonic()-arm_started})
+                                raise
+                            record={**asdict(result),'evidence_path':str(result.evidence_path),'lane':case['lane'],'seconds':time.monotonic()-arm_started}
                             freeze.immutable_json(path/'arm-result.json',record);results.append(record);ledger.assert_admitted()
-                    finally:ledger.close_pair(case['id'],'terminal')
+                    finally:
+                        ledger.close_pair(case['id'],'terminal')
+                        freeze.immutable_json(root/'arms'/case['id']/'pair-timing.json',
+                            {'case':case['id'],'seconds':time.monotonic()-pair_started})
         except BaseException as exc:stop=exc.reason if isinstance(exc,SafetyStop) else 'measurement_interrupted_or_failed'
         summary=ledger.summary()
     existing=[]
@@ -236,7 +250,9 @@ def measure(run,*,allow_hosted,consent_id,resume=False):
             else:
                 attempted=(path.parent/'attempt.json').exists()
                 existing.append({'snapshot_id':case['id'],'arm':arm,'lane':case['lane'],'workflow':'partial' if attempted else 'unattempted','raw':{'stop':stop} if attempted else {},'coverage':{'incomplete':True} if attempted else {},'evidence_path':str(path.parent) if attempted else None,'seconds':None})
-    record={'schema_version':1,'kind':'measurement','status':'stopped' if stop else 'terminal','stop':stop,'rows':existing,'ledger':summary,'run_sha256':freeze.byte_hash(run.path),'label':'actual owner measurement; dollar estimates require validated usage','planned_cases':12}
+    pair_times=[_read(root/'arms'/case['id']/'pair-timing.json') for case in run.doc['cases'] if (root/'arms'/case['id']/'pair-timing.json').exists()]
+    timing={'invocation_seconds':time.monotonic()-invocation_started,'invocation_setup_seconds':setup_seconds,'pairs':pair_times}
+    record={'timing':timing,'schema_version':1,'kind':'measurement','status':'stopped' if stop else 'terminal','stop':stop,'rows':existing,'ledger':summary,'run_sha256':freeze.byte_hash(run.path),'label':'actual owner measurement; dollar estimates require validated usage','planned_cases':12}
     freeze.immutable_json(root/'measurement.json',record);return record
 
 

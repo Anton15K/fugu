@@ -18,7 +18,7 @@ Resolve COST-COMPLETE-01 through 06 against newest exact candidate with red/gree
 - [x] COST-COMPLETE-03: private reviewer explanations remain private; public placeholders, coverage counts and numeric human time; neutral critical-miss identifiers, pre-write in-process key redaction. No public prose disclosure shortcut.
 - [x] COST-COMPLETE-04: actual native Finding reconstructed from corresponding measured collector row; qualified observed runtime classification without invented shared model fields.
 - [x] COST-COMPLETE-05: case/source/arm/member/trigger/occurrence and collector requirements bound to measured journal hashes, finding identity and independently frozen criteria. Reject unrelated, altered, truth-owner and cumulative prior observations. Native HTTP/DNS attempts and canary paths never imply HTTP delivery or file contents.
-- [ ] COST-COMPLETE-06: per-arm timing.
+- [x] COST-COMPLETE-06: monotonic clock per attempted arm, interrupted attempts preserve own seconds; shared invocation setup and pair durations separate. Both orders, partial, cancellation and closed-pair resume tested.
 - [ ] Terminal guarded suites and candidate handoff.
 - [ ] Independent exact-head review (root routes; not self-approved).
 
