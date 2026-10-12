@@ -23,3 +23,5 @@ Implement ONLY Task 10 of docs/superpowers/plans/2026-10-12-whole-system-cost-be
 ## Summary of Changes
 
 Implemented assigned task with fake-only behavioral red/green evidence. Scoped files: bench/cost_pilot/adjudication.py, bench/cost_pilot/report.py, tests/cost_pilot/test_report.py. Durable task report: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-10-report.md. No providers/native keys/Docker/target execution or shared sync. Independent review routed by root.
+
+Final self-review correction: leave unknown pair medians undefined and expose planned case count. Behavioral red/green and exact scoped commit preserved at /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-10-correction-report.md.

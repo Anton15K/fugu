@@ -56,3 +56,13 @@ def test_report_all_planned_rows_and_inclusive_unknown_costs(tmp_path):
 
 def test_export_refuses_unreviewed(tmp_path):
     with pytest.raises(SafetyStop):build_report(FrozenRun(tmp_path/'x',{'cases':[]}),{},[],{'status':'pending'},tmp_path/'out')
+
+
+def test_no_measured_pair_median_without_case_costs(tmp_path):
+    t={'id':'c00','lane':'security','expected_action':'accept','issues':[]}
+    rs=[ArmResult('c00',a,'complete',{'final':{'action':'accept','findings':[]}} if a=='agent' else {'verdict':{'status':'pass'},'findings':[]},{},tmp_path) for a in ('agent','fugu')]
+    run=FrozenRun(tmp_path/'run',{'seed':1,'cases':[{'id':'c00','lane':'security'}]})
+    adj={'status':'APPROVE','reviewer':'fugu-codex-reviewer','truth':{'cases':[t]},'matches':[],'mapping':{'c00':{'A':'agent','B':'fugu'}},'known_cost_by_arm':{'agent':100,'fugu':200},'unknown_by_arm':{}}
+    report=build_report(run,{'known_micro':300,'unknown_upper_micro':0},rs,adj,tmp_path/'out').results
+    assert report['median_pair_n']==0 and report['median_known_completed_pair_micro'] is None
+    assert report['planned_cases']==1
