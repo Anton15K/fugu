@@ -483,3 +483,22 @@ def test_prefix04_altered_origins_rejected_consistently_without_callbacks(tmp_pa
         with pytest.raises(SafetyStop, match='sdk_endpoint'):
             transport.sdk_proxy(policy_client(lambda **kw: pytest.fail('provider entered'), base_url=endpoint), fake_attribution())
         assert not any(e['kind'] in {'reserve', 'dispatch'} for e in ledger.events())
+
+
+def test_prefix05_missing_reply_does_not_redispatch_cached_web(tmp_path):
+    calls = []
+    fresh, journal = source_tools(tmp_path, web=lambda q: (calls.append(q), {'results': []})[1])
+    first = fresh().dispatch('search_web', {'query': 'ordinary advisory'})
+    (journal / 'replies' / (first.evidence_id + '.json')).unlink()
+    with pytest.raises(SafetyStop): fresh().dispatch('search_web', {'query': 'ordinary advisory'})
+    assert calls == ['ordinary advisory']
+
+
+def test_prefix05_missing_owner_key_never_reinitializes_existing_evidence(tmp_path):
+    fresh, journal = source_tools(tmp_path)
+    first = fresh().dispatch('read_file', {'path': 'a.py'})
+    original = (journal / 'replies' / (first.evidence_id + '.json')).read_bytes()
+    (journal / 'owner-integrity.json').unlink()
+    with pytest.raises(SafetyStop, match='journal_integrity'): fresh()
+    assert not (journal / 'owner-integrity.json').exists()
+    assert (journal / 'replies' / (first.evidence_id + '.json')).read_bytes() == original

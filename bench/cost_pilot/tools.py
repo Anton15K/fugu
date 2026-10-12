@@ -60,7 +60,9 @@ class ToolRegistry:
         self.journal.mkdir(parents=True,exist_ok=True,mode=0o700)
         self._private(self.journal,directory=True)
         owner=self.journal/'owner-integrity.json'
-        if not owner.exists():immutable_json(owner,{'snapshot':self.id,'hash':self.hash,'key':os.urandom(32).hex()})
+        if not owner.exists():
+            if any(self.journal.iterdir()):raise SafetyStop('journal_integrity')
+            immutable_json(owner,{'snapshot':self.id,'hash':self.hash,'key':os.urandom(32).hex()})
         value=self._owner_json(owner)
         try:
             self._key=bytes.fromhex(value['key'])
@@ -158,6 +160,7 @@ class ToolRegistry:
                 body={'binding':binding,'cursor':a.get('cursor'),'evidence_id':evidence,'payload':payload}
                 if not isinstance(record,dict) or not isinstance(record.get('mac'),str) or not hmac.compare_digest(self._mac(body),record['mac']):raise SafetyStop('reply_integrity')
             else:
+                if signature.exists() or signature.is_symlink():raise SafetyStop('reply_integrity')
                 payload={**self._page(name,a,binding,state),'evidence_id':evidence}
                 if not fits(payload):raise SafetyStop('tool_metadata_limit')
                 self._persist(cache,payload)
