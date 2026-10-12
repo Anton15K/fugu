@@ -101,7 +101,11 @@ class Pricing:
         m = self.tariffs['models'][bound.model]
         prompt = integer(usage.get('prompt_tokens')); completion = integer(usage.get('completion_tokens'))
         cached = integer((usage.get('prompt_tokens_details') or {}).get('cached_tokens', 0))
-        reasoning = integer((usage.get('completion_tokens_details') or {}).get('reasoning_tokens', 0))
+        details = usage.get('completion_tokens_details')
+        if details is None and m['reasoning_in_output_total']: details = {}
+        if not isinstance(details, dict): raise SafetyStop('usage_unknown')
+        reasoning = integer(details.get('reasoning_tokens', 0) if m['reasoning_in_output_total']
+                            else details.get('reasoning_tokens'))
         if prompt > bound.max_input or completion > bound.max_output or cached > prompt:
             raise SafetyStop('usage_exceeds_bound')
         if m['reasoning_in_output_total'] and reasoning > completion:

@@ -5,7 +5,7 @@ status: in-progress
 type: bug
 priority: high
 created_at: 2026-10-12T17:00:48Z
-updated_at: 2026-10-12T17:11:27Z
+updated_at: 2026-10-12T17:18:50Z
 parent: fugu-drover-5vox
 ---
 
@@ -15,7 +15,7 @@ Resolve COST-PREFIX-01 through 07 with meaningful red/green tests: nested search
 
 - [x] Reproduce all seven against full initial candidate 98d4fe6: seven failures for six IDs, COST-PREFIX-04 already green after prior Task2 correction.
 - [x] COST-PREFIX-01: nested/top-level credit validation, observed/contractual distinction and persistent stop; prefix01-red.log 14 failed/2 passed, prefix01-green.log 48 passed.
-- [ ] COST-PREFIX-02 separately billed reasoning.
+- [x] COST-PREFIX-02 separately billed reasoning: prefix02-red.log 3 failed/10 passed; prefix02-green.log 61 passed. Missing required counter retains 21000micro and stops; inclusive details remain optional.
 - [ ] COST-PREFIX-03 outbound request bounds.
 - [ ] COST-PREFIX-04 endpoint consistency regression.
 - [ ] COST-PREFIX-05 cached source/cursor integrity.
