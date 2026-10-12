@@ -44,7 +44,7 @@ def range_union(ranges):
     return merged
 
 
-def fits(payload):return len(canonical(payload).decode())<=8192
+def fits(payload):return len(canonical({'evidence_id':'0'*64,**payload}).decode())<=8192
 
 
 class ToolRegistry:
@@ -79,7 +79,13 @@ class ToolRegistry:
 
     def _text(self,p):
         _,path=self._path(p,file=True)
-        try:return path.read_bytes().decode('utf-8')
+        raw=path.read_bytes()
+        import hashlib
+        if hashlib.sha256(raw).hexdigest()!=self.files[p]['sha256']:raise SafetyStop('source_drift')
+        if b'\x00' in raw[:4096]:
+            self._omissions[p]={'path':p,'reason':'binary','bytes':len(raw)}
+            raise SafetyStop('binary_file')
+        try:return raw.decode('utf-8')
         except UnicodeDecodeError:
             self._omissions[p]={'path':p,'reason':'undecodable','bytes':self.files[p]['bytes']};raise SafetyStop('undecodable')
 
@@ -105,7 +111,7 @@ class ToolRegistry:
             evidence=digest({'binding':binding,'cursor':a.get('cursor')});cache=self.journal/'replies'/(evidence+'.json')
             if cache.exists():payload=json.loads(cache.read_text())
             else:
-                payload=self._page(name,a,binding,state)
+                payload={**self._page(name,a,binding,state),'evidence_id':evidence}
                 if not fits(payload):raise SafetyStop('tool_metadata_limit')
                 immutable_json(cache,payload)
             self._coverage(name,a,payload,evidence)

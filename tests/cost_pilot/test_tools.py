@@ -82,3 +82,16 @@ def test_empty_undecodable_and_range_limit(tmp_path):
     t=ToolRegistry(s,'c0',tree_manifest(s)['sha256'],tmp_path/'other',lambda q:{})
     with pytest.raises(SafetyStop,match='undecodable'):t.dispatch('read_file',{'path':'bad'})
     assert t.coverage()['omissions']
+
+
+def test_visible_evidence_identifier(tmp_path):
+    s,t=registry(tmp_path)
+    r=t.dispatch('read_file',{'path':'main.txt'})
+    assert r.payload['evidence_id']==r.evidence_id
+    assert json.loads(r.text)['evidence_id']==r.evidence_id
+
+
+def test_binary_omission_not_claimed_read(tmp_path):
+    s,t=registry(tmp_path,'text\x00binary')
+    with pytest.raises(SafetyStop,match='binary'):t.dispatch('read_file',{'path':'main.txt'})
+    assert not t.coverage()['fully_read_paths'];assert t.coverage()['omissions'][0]['reason']=='binary'
