@@ -17,6 +17,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from .contracts import SafetyStop,SUPER
 from .freeze import immutable_json
+from .pricing import integer
 
 
 def serialize_response(response):
@@ -76,16 +77,25 @@ class GuardedTransport:
         try:
             self._admit();self.ledger.mark_dispatch(ticket);started=time.monotonic()
             response=call();data=serialize_response(response)
-            usage=data.get('usage',{}) if service=='nebius' else {'credits':data.get('credits')}
-            if service=='tavily' and usage['credits'] is None:
-                if self.pricing.tariffs.get('basic_success_exact_credit_contract_verified') is not True:raise SafetyStop('usage_unknown')
-                usage={'credits':1,'credit_source':'frozen_contract'}
+            usage=data.get('usage',{}) if service=='nebius' else self._tavily_usage(data)
             actual=self.pricing.settle(bound,usage,data.get('model',''))
             self.write_response(ticket,request,data,time.monotonic()-started)
             self.ledger.settle(ticket,actual,usage)
             return response
         except BaseException:
             self.ledger.retain_unknown(ticket,'response_or_usage_unknown');raise
+
+    def _tavily_usage(self,data):
+        observed=[]
+        if 'credits' in data:observed.append(integer(data['credits']))
+        if 'usage' in data:
+            if not isinstance(data['usage'],dict):raise SafetyStop('usage_unknown')
+            if 'credits' in data['usage']:observed.append(integer(data['usage']['credits']))
+        if observed:
+            if len(set(observed))!=1:raise SafetyStop('usage_conflict')
+            return {'credits':observed[0],'credit_source':'observed'}
+        if self.pricing.tariffs.get('basic_success_exact_credit_contract_verified') is not True:raise SafetyStop('usage_unknown')
+        return {'credits':1,'credit_source':'frozen_contract'}
 
     def sdk(self,request,call,attribution,*,earmark=None):
         if request.get('stream') or request.get('max_tokens',0)>4096:raise SafetyStop('request_parameters')
