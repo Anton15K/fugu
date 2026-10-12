@@ -106,7 +106,7 @@ def run_agent(snapshot_id,lane,tools,transport,client,prompts,evidence:Path):
                 except SafetyStop as exc:errors.append(exc.reason);history.append({'role':'user','content':'Final report schema/evidence validation failed. Resolve against the required contract.'})
     except (SafetyStop,Exception) as exc:
         errors.append(exc.reason if isinstance(exc,SafetyStop) else 'agent_failed')
-    coverage=tools.coverage();complete=final is not None and critique is not None and not coverage['incomplete'] and not errors
+    coverage=tools.coverage();complete=draft is not None and final is not None and critique is not None and not coverage['incomplete'] and not errors
     raw={'final':final,'draft':draft,'critique':critique,'attempts':attempts,'errors':errors,'evidence_ids':sorted(evidence_ids),'runtime_capability':'structurally_unavailable','observed_runtime_count':0}
     immutable_json(evidence/'result.json',safe_artifact(raw,[transport.keys.nebius,transport.keys.tavily]))
     return ArmResult(snapshot_id,'agent','complete' if complete else 'partial',raw,coverage,evidence)

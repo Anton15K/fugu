@@ -23,7 +23,7 @@ def setup(tmp_path,mode='normal'):
     s=tmp_path/'source';s.mkdir();(s/'a.py').write_text('value=1\n');calls=[]
     def create(**kw):
         calls.append(copy.deepcopy(kw));n=len(calls);message={'role':'assistant','content':json.dumps(final())};finish='stop'
-        if n==1 or mode=='endless':
+        if n==1 or mode=='endless' or (mode=='no-draft' and n<=24):
             finish='tool_calls';message={'role':'assistant','content':None,'reasoning_content':'inspect source','tool_calls':[{'id':f'call-{n}','type':'function','function':{'name':'read_file','arguments':'{"path":"a.py"}'}}]}
         elif kw['model']==SUPER:message['content']=json.dumps({'critiques':[],'additional_candidates':[],'unknowns':[],'coverage':{}}) if mode!='bad-review' else '{}'
         elif mode=='bad-final' and n>=4:message['content']='not JSON'
@@ -81,3 +81,13 @@ def test_budget_preflight_leaves_zero_paid_attempts(tmp_path):
         r=run_agent('c0','security',t,tr,c,extract_prompts(SPEC),tmp_path/'a')
         assert r.workflow=='partial' and not calls
         assert not [e for e in l.events() if e['kind']=='dispatch']
+
+
+def test_no_draft_after_investigation_cannot_complete(tmp_path):
+    c,t,calls=setup(tmp_path,'no-draft')
+    with Ledger(tmp_path/'ledger') as l:
+        l.open_pair('c0');tr=GuardedTransport(l,Pricing(fake_tariffs(),test_only=True),tmp_path/'e',CredentialSet(),lambda:{'status':'admitted'})
+        result=run_agent('c0','security',t,tr,c,extract_prompts(SPEC),tmp_path/'a')
+        assert len(calls)==26
+        assert result.raw['draft'] is None
+        assert result.workflow=='partial'
