@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 import json
 import random
+import re
+from collections import Counter
 from dataclasses import asdict
 from pathlib import Path
 from .contracts import Match,ArmResult,SafetyStop
@@ -16,30 +18,137 @@ def normalized(result):
     verdict=raw.get('verdict');status=verdict.get('status','') if isinstance(verdict,dict) else str(verdict or '')
     action=final.get('action') if arm=='agent' else {'fail':'reject','warn':'investigate','pass':'accept'}.get(status.lower())
     findings=copy.deepcopy(final.get('findings',[]))
-    for child in raw.get('children',[]):findings.extend(copy.deepcopy(child.get('findings',[])))
+    if arm=='fugu':
+        for f in findings:f['member']='root'
+    for child in raw.get('children',[]):
+        added=copy.deepcopy(child.get('findings',[]))
+        for f in added:f['member']=child.get('label')
+        findings.extend(added)
+    view={'case':r.get('snapshot_id',r.get('case')),'arm':arm,'workflow':r['workflow'],
+          'action':action,'findings':findings,'coverage':r.get('coverage',{}),
+          'seconds':r.get('seconds'),'evidence_path':r.get('evidence_path'),
+          'native_verdict':verdict,'runtime_capability':'native_docker' if arm=='fugu' else 'structurally_unavailable'}
     for i,f in enumerate(findings):
         f.setdefault('id',f'finding-{i+1}');f.setdefault('observed_runtime',False)
         f.setdefault('evidence_strength','source_deduction' if f.get('stage')!='detonation' else 'unresolved')
-        if arm=='fugu' and f.get('stage')=='detonation' and r.get('evidence_path'):
-            proofs=[]
-            for p in sorted(Path(r['evidence_path']).glob('docker-result-*.json')):
-                data=json.loads(p.read_bytes())
-                if any(row.get('exit_code') is not None and (row.get('canary_hits') or row.get('flows') or row.get('dns') or row.get('fs_changes')) for row in data.get('results',[])):
-                    proofs.append({'path':str(p),'sha256':byte_hash(p)})
-            if proofs:f['runtime_proofs']=proofs;f['observed_runtime']=True
-    return {'case':r.get('snapshot_id',r.get('case')),'arm':arm,'workflow':r['workflow'],'action':action,'findings':findings,'coverage':r.get('coverage',{}),'seconds':r.get('seconds'),'evidence_path':r.get('evidence_path'),'native_verdict':verdict}
+        if arm=='fugu' and f.get('stage')=='detonation':
+            f['observed_runtime']=False;f['evidence_strength']='unresolved';f.pop('runtime_proofs',None)
+            receipts=_receipts(f,view)
+            if len(receipts)==1:
+                proof,row,mechanism=receipts[0]
+                f.update(runtime_proofs=[proof],observed_runtime=True,
+                         evidence_strength='runtime_observation',mechanism=mechanism)
+    return view
 
 
-def _runtime(f,result):
-    if f.get('observed_runtime') is not True or result.get('arm')=='agent':return False
-    root=Path(result.get('evidence_path','')).resolve();proofs=f.get('runtime_proofs',[])
-    if not proofs:return False
-    for proof in proofs:
-        p=Path(proof['path'])
-        if not p.resolve().is_relative_to(root) or byte_hash(p)!=proof['sha256']:return False
-        record=json.loads(p.read_bytes())
-        if not any(row.get('trigger') and (row.get('canary_hits') or row.get('flows') or row.get('dns') or row.get('fs_changes')) for row in record.get('results',[])):return False
-    return True
+_NATIVE_FIELDS=('owasp_ids','title','detail','severity','confidence','stage','evidence')
+_MECHANISMS={'Canary credential exfiltrated over the network':'credential_network_attempt',
+             'Canary credential persisted to disk':'credential_path_disclosure',
+             'Unexpected network egress during trigger execution':'network_attempt'}
+
+
+def _native_findings(row):
+    from fugu.types import DetonationEvidence,EvidenceSnippet,FlowRecord,DnsRecord
+    from fugu.detonation.docker_driver import evidence_to_findings
+    ev=DetonationEvidence(trigger=row['trigger'],exit_code=row['exit_code'],duration_s=row['duration_s'],
+        flows=[FlowRecord(**v) for v in row.get('flows',[])],
+        dns=[DnsRecord(**v) for v in row.get('dns',[])],fs_changes=row.get('fs_changes',[]),
+        canary_hits=[EvidenceSnippet(**v) for v in row.get('canary_hits',[])],metrics=row.get('metrics',{}))
+    return [asdict(f) for f in evidence_to_findings(ev)]
+
+
+def _receipts(f,result):
+    """Reconstruct native findings from hash-bound, same-arm collector records.
+
+    Native collectors are cumulative within a chamber: a repeated observation
+    cannot prove that a later trigger caused it. No HTTP response status or file
+    content is collected; those stronger claims cannot be inferred here.
+    """
+    if result.get('arm')=='agent' or result.get('runtime_capability')!='native_docker':return []
+    root=Path(result.get('evidence_path') or '').resolve();coverage=result.get('coverage',{})
+    source=coverage.get('source_sha256')
+    if not isinstance(source,str) or not re.fullmatch('[a-f0-9]{64}',source):return []
+    receipts=[]
+    for ref in coverage.get('runtime_journals',[]):
+        try:
+            p=Path(ref['path'])
+            if not p.resolve().is_relative_to(root) or not p.name.startswith('docker-result-') or byte_hash(p)!=ref['sha256']:continue
+            record=json.loads(p.read_bytes())
+            if (record.get('schema_version')!=1 or record.get('kind')!='measured_native_observation'
+                or record.get('arm')!='fugu' or record.get('snapshot_id')!=result['case']
+                or record.get('source_sha256')!=source or record.get('member')!=f.get('member')
+                or record.get('collector_scope')!='cumulative_per_chamber'):continue
+            rows=record['results'];selected=record['selected_triggers'];occurrences=record['occurrences']
+            if len(rows)!=len(selected) or len(rows)!=len(occurrences):continue
+            counts=Counter();earlier=[]
+            for index,row in enumerate(rows):
+                trigger=row['trigger'];counts[trigger]+=1
+                if (selected[index]!=trigger or type(occurrences[index]) is not int
+                    or occurrences[index]!=counts[trigger]):continue
+                generated=_native_findings(row)
+                if type(row.get('exit_code')) is not int or row['exit_code']!=0:
+                    earlier.extend(e for native in generated for e in native['evidence'])
+                    continue
+                for native in generated:
+                    if any(native.get(k)!=f.get(k) for k in _NATIVE_FIELDS):continue
+                    if any(e in earlier for e in native['evidence']):continue
+                    mechanism=_MECHANISMS.get(native['title'])
+                    if not mechanism:continue
+                    proof={**ref,'row_index':index,'member':record['member'],'trigger':trigger,
+                           'occurrence':occurrences[index],'source_sha256':source}
+                    receipts.append((proof,row,mechanism))
+                earlier.extend(e for native in generated for e in native['evidence'])
+        except (OSError,ValueError,KeyError,TypeError,SafetyStop):continue
+    return receipts
+
+
+def _collector_matches(requirement,row,f):
+    """Only native request/DNS/path observations; never delivery/content success."""
+    if not isinstance(requirement,dict):return False
+    kind=requirement.get('kind');source=requirement.get('source')
+    if kind not in {'canary_http_attempt','canary_dns_attempt','canary_path','http_request','dns_attempt'}:return False
+    pattern={'canary_http_attempt':r'mitm\.flow\[(\d+)\]\.(host|path|body)',
+             'http_request':r'mitm\.flow\[(\d+)\]',
+             'canary_dns_attempt':r'dns\.query\[(\d+)\]',
+             'dns_attempt':r'dns\.query\[(\d+)\]',
+             'canary_path':r'fs\.change\[(\d+)\]'}[kind]
+    match=re.fullmatch(pattern,source or '')
+    if not match or not any(e.get('source')==source for e in f.get('evidence',[])):return False
+    index=int(match[1]);vector='http' if 'http' in kind else 'dns' if 'dns' in kind else 'fs'
+    hits=[e for e in row.get('canary_hits',[]) if e.get('source')==source]
+    if kind.startswith('canary_'):
+        if not isinstance(requirement.get('canary'),str) or not any(
+            e.get('meta',{}).get('vector')==vector and e.get('meta',{}).get('canary')==requirement['canary'] for e in hits):return False
+    allowed={'kind','source','canary'}
+    try:
+        if vector=='http':
+            allowed|={'host','method','path_prefix'};flow=row['flows'][index]
+            if not all(isinstance(requirement.get(k),str) and requirement[k] for k in ('host','method','path_prefix')):return False
+            if flow['host']!=requirement['host'] or flow['method']!=requirement['method'] or not flow['path'].startswith(requirement['path_prefix']):return False
+        elif vector=='dns':
+            allowed|={'query'}
+            if not isinstance(requirement.get('query'),str) or not requirement['query'] or row['dns'][index]['query']!=requirement['query']:return False
+        else:
+            allowed|={'path'}
+            if not isinstance(requirement.get('path'),str) or row['fs_changes'][index]!=requirement['path']:return False
+    except (KeyError,IndexError,TypeError):return False
+    return not (set(requirement)-allowed)
+
+
+def _runtime(f,result,issue=None,truth=None):
+    if f.get('observed_runtime') is not True:return False
+    receipts=_receipts(f,result)
+    if len(receipts)!=1 or f.get('runtime_proofs')!=[receipts[0][0]]:return False
+    proof,row,mechanism=receipts[0]
+    if f.get('mechanism')!=mechanism:return False
+    if issue is None:return True
+    req=issue.get('runtime_requirement')
+    if (not isinstance(req,dict) or truth.get('source_hash')!=proof['source_sha256']
+        or set(req)!={'member','trigger','occurrence','mechanism','collector'}
+        or type(req.get('occurrence')) is not int
+        or any(req.get(k)!=proof[k] for k in ('member','trigger','occurrence'))
+        or req.get('mechanism')!=mechanism):return False
+    return _collector_matches(req['collector'],row,f)
 
 
 def _validate_case_matches(truth,result,matches):
@@ -51,7 +160,7 @@ def _validate_case_matches(truth,result,matches):
         if m.state=='tp':
             if not m.truth_id or m.truth_id in tp:raise SafetyStop('adjudication_duplicate_tp')
             f=findings[m.finding_id];issue=issues[m.truth_id]
-            if issue['proof']=='runtime_required' and not _runtime(f,result):raise SafetyStop('adjudication_missing_runtime')
+            if issue['proof']=='runtime_required' and not _runtime(f,result,issue,truth):raise SafetyStop('adjudication_missing_runtime')
             if f.get('evidence_strength')=='unresolved':raise SafetyStop('adjudication_unresolved_tp')
             if issue.get('mechanism') and issue['mechanism'] not in f.get('mechanism',f.get('detail','')):raise SafetyStop('adjudication_mechanism')
             if issue.get('location'):

@@ -9,7 +9,7 @@ from contextlib import contextmanager,ExitStack
 from dataclasses import asdict
 from pathlib import Path
 from .contracts import Attribution,ArmResult
-from .freeze import immutable_json
+from .freeze import immutable_json,tree_manifest,byte_hash
 from .transport import safe_artifact
 
 
@@ -52,11 +52,13 @@ def observe_native(transport,expected,evidence):
     from fugu.detonation.docker_driver import DockerDriver
     import fugu.detonation.triggers as triggers_module
     from fugu.server.jobs import stage_public
-    observations={'units':[],'selected_paths':[],'triggers':{},'stage_records':[],'file_selections':[],'docker_results':[]};mutex=threading.RLock()
+    observations={'units':[],'selected_paths':[],'triggers':{},'stage_records':[],'file_selections':[],'docker_results':[],'runtime_journals':[],'source_sha256':expected['source_sha256']};mutex=threading.RLock()
     snapshot_id=expected.get('snapshot_id',transport.ledger.summary()['active_pair'])
     def member(target):return target.name if target.name in expected.get('units',[]) else 'root'
     def journal(kind,value):
-        immutable_json(Path(evidence)/(kind+'-'+uuid.uuid4().hex+'.json'),safe_artifact(value,[transport.keys.nebius,transport.keys.tavily]))
+        path=Path(evidence)/(kind+'-'+uuid.uuid4().hex+'.json')
+        immutable_json(path,safe_artifact(value,[transport.keys.nebius,transport.keys.tavily]))
+        return {'path':str(path),'sha256':byte_hash(path)}
     with ExitStack() as stack:
         def patch(obj,name,value):
             original=getattr(obj,name);setattr(obj,name,value);stack.callback(setattr,obj,name,original);return original
@@ -98,15 +100,20 @@ def observe_native(transport,expected,evidence):
         original_detonate=DockerDriver.detonate
         async def detonate(driver,target,triggers,*a,**kw):
             rows=await original_detonate(driver,target,triggers,*a,**kw)
-            value={'member':member(Path(target)),'selected_triggers':list(triggers),'results':[asdict(r) for r in rows],'collector_scope':'cumulative_per_chamber','dns_reply':'NXDOMAIN; attempt evidence','fs_changes':'paths, not file contents'}
-            observations['docker_results'].append(value);journal('docker-result',value);return rows
+            counts=Counter();occurrences=[]
+            for row in rows:counts[row.trigger]+=1;occurrences.append(counts[row.trigger])
+            value={'schema_version':1,'kind':'measured_native_observation','snapshot_id':snapshot_id,
+                   'arm':'fugu','source_sha256':expected['source_sha256'],'occurrences':occurrences,
+                   'member':member(Path(target)),'selected_triggers':list(triggers),'results':[asdict(r) for r in rows],'collector_scope':'cumulative_per_chamber','dns_reply':'NXDOMAIN; attempt evidence','fs_changes':'paths, not file contents'}
+            observations['docker_results'].append(value)
+            observations['runtime_journals'].append(journal('docker-result',value));return rows
         patch(DockerDriver,'detonate',detonate)
         with transport.native_scope(Attribution(snapshot_id,'fugu','root','native','native',0)):yield observations
 
 
 def run_native(snapshot,snapshot_id,keys,transport,evidence,expected):
     from fugu.cli_audit import run_cli_audit
-    expected={**expected,'snapshot_id':snapshot_id}
+    expected={**expected,'snapshot_id':snapshot_id,'source_sha256':tree_manifest(snapshot)['sha256']}
     with observe_native(transport,expected,evidence) as observed:
         raw=run_cli_audit(str(snapshot.resolve()),'full',keys,detonate=True)
     coverage=reconcile_native(raw,observed,expected)

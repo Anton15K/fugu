@@ -124,3 +124,194 @@ def test_default_public_export_has_safe_reason_placeholder(tmp_path):
     b=report.export_report(tmp_path,tmp_path/'publishable')
     assert all('PRIVATE_REASON' not in p.read_text() for p in b.root.iterdir())
     assert json.loads((b.root/'adjudication-reasons.json').read_bytes())[0]['reason']=='Private adjudication explanation withheld.'
+
+
+def native_runtime_fixture(root, *, vector='http', children=False):
+    from fugu.types import DetonationEvidence, EvidenceSnippet, FlowRecord, DnsRecord
+    from fugu.detonation.docker_driver import evidence_to_findings
+    arm=root/'arms/c00/fugu';arm.mkdir(parents=True)
+    hit=EvidenceSnippet('mitm.flow[0].path' if vector=='http' else 'dns.query[0]',
+        'OWNED_CANARY_EXCERPT', {'vector':vector,'canary':'github_token','field':'path'} if vector=='http' else {'vector':vector,'canary':'github_token'})
+    ev=DetonationEvidence('owned-inert-trigger',0,.1,
+        flows=[FlowRecord('collector.pilot.invalid','GET','/observe?canary=OWNED_CANARY')]
+            if vector=='http' else [],
+        dns=[DnsRecord('encoded.collector.pilot.invalid')] if vector=='dns' else [],canary_hits=[hit])
+    f=asdict(evidence_to_findings(ev)[0]); f['id']='f1'
+    member='child' if children else 'root'; source_hash=freeze.digest('owned exact source')
+    record={'schema_version':1,'kind':'measured_native_observation','snapshot_id':'c00',
+        'arm':'fugu','source_sha256':source_hash,'member':member,
+        'selected_triggers':[ev.trigger], 'occurrences':[1],
+        'results':[asdict(ev)], 'collector_scope':'cumulative_per_chamber'}
+    path=arm/'docker-result-fixture.json';freeze.immutable_json(path,record)
+    coverage={'source_sha256':source_hash,'runtime_journals':[{'path':str(path),'sha256':freeze.byte_hash(path)}]}
+    raw={'verdict':{'status':'fail'},'findings':[] if children else [f],
+        'children':[{'label':'child','findings':[f]}] if children else []}
+    result=ArmResult('c00','fugu','complete',raw,coverage,arm)
+    requirement={'member':member,'trigger':ev.trigger,'occurrence':1,
+        'mechanism':'credential_network_attempt',
+        'collector':{'kind':'canary_http_attempt' if vector=='http' else 'canary_dns_attempt',
+                     'source':hit.source,'canary':'github_token',
+                     **({'host':'collector.pilot.invalid','method':'GET','path_prefix':'/observe?'} if vector=='http' else {'query':'encoded.collector.pilot.invalid'})}}
+    truth={'id':'c00','source_hash':source_hash,'expected_action':'reject',
+        'issues':[{'id':'t1','severity':'critical','proof':'runtime_required',
+                   'mechanism':'credential_network_attempt','runtime_requirement':requirement}]}
+    return result,truth,path,record
+
+
+@pytest.mark.parametrize('vector',['http','dns'])
+@pytest.mark.parametrize('children',[False,True])
+def test_actual_native_runtime_normalization_mask_score_and_report(tmp_path,vector,children):
+    result,t,path,record=native_runtime_fixture(tmp_path,vector=vector,children=children)
+    n=adjudication.normalized(result)
+    assert n['findings'][0]['evidence_strength']=='runtime_observation'
+    assert n['findings'][0]['observed_runtime'] is True
+    masked=adjudication.mask_outputs(tmp_path,[result],1)
+    mapping=json.loads((tmp_path/'private/mask-map.json').read_bytes())
+    mask=next(k for k,v in mapping['c00'].items() if v=='fugu')
+    match=Match('c00',mask,'f1','t1','tp','Private exact collector match','fugu-codex-reviewer')
+    assert adjudication.validate_matches({'cases':[t]},masked,[match])['status']=='validated'
+    score=adjudication.score_case(t,n,[match]);assert score['tp']==1 and score['critical_misses']==[]
+    assert score['observed_runtime_count']==1
+    from bench.cost_pilot.contracts import FrozenRun
+    bundle=report.build_report(FrozenRun(tmp_path/'plan',{'cases':[{'id':'c00','lane':'security'}]}),
+        {'known_micro':0,'unknown_upper_micro':0},[result],{'status':'APPROVE',
+        'reviewer':'fugu-codex-reviewer','truth':{'cases':[t]},'matches':[asdict(match)],
+        'mapping':mapping},tmp_path/'publishable')
+    assert bundle.results['lanes']['security']['fugu']['tp']==1
+
+
+@pytest.mark.parametrize('bad',['missing','other_member','other_case','other_source','other_arm',
+    'wrong_trigger','wrong_occurrence','wrong_collector','wrong_canary','wrong_host','wrong_method',
+    'wrong_path','wrong_dns','http_success','file_content','path_only','truth_owner','tampered',
+    'rehash_tampered','outside','symlink','irrelevant_finding','cumulative_later','failed_cumulative_later','missing_requirement'])
+def test_runtime_proof_must_match_frozen_finding_and_collector(tmp_path,bad):
+    result,t,path,record=native_runtime_fixture(tmp_path)
+    req=t['issues'][0]['runtime_requirement']
+    if bad=='missing':path.unlink();result.coverage['runtime_journals']=[]
+    elif bad=='other_member':record['member']='unrelated-child'
+    elif bad=='other_case':record['snapshot_id']='c01'
+    elif bad=='other_source':record['source_sha256']='0'*64
+    elif bad=='other_arm':record['arm']='agent'
+    elif bad=='wrong_trigger':req['trigger']='benign-setup'
+    elif bad=='wrong_occurrence':req['occurrence']=2
+    elif bad=='wrong_collector':req['collector']['source']='mitm.flow[99].body'
+    elif bad=='wrong_canary':req['collector']['canary']='aws_secret'
+    elif bad=='wrong_host':req['collector']['host']='unrelated.invalid'
+    elif bad=='wrong_method':req['collector']['method']='POST'
+    elif bad=='wrong_path':req['collector']['path_prefix']='/other/'
+    elif bad=='wrong_dns':req['collector']={'kind':'canary_dns_attempt','source':'dns.query[0]','canary':'github_token','query':'wrong.invalid'}
+    elif bad in {'http_success','file_content'}:req['collector']['kind']=bad
+    elif bad=='path_only':record['results'][0].update(canary_hits=[],flows=[],fs_changes=['A cache.tmp'])
+    elif bad=='truth_owner':record['kind']='truth_owner_reproduction'
+    elif bad in {'tampered','rehash_tampered'}:record['results'][0]['canary_hits'][0]['excerpt']='FORGED_CANARY'
+    elif bad in {'outside','symlink'}:
+        outside=tmp_path/'truth-owner-proof.json';outside.write_bytes(path.read_bytes());path.unlink()
+        if bad=='symlink':path.symlink_to(outside)
+        else:result.coverage['runtime_journals'][0]['path']=str(outside)
+    elif bad=='irrelevant_finding':result.raw['findings'][0]['evidence'][0]['excerpt']='DIFFERENT_CANARY'
+    elif bad in {'cumulative_later','failed_cumulative_later'}:
+        prior=copy.deepcopy(record['results'][0]);prior['trigger']='earlier-trigger'
+        if bad=='failed_cumulative_later':prior['exit_code']=1
+        record['results'].insert(0,prior);record['selected_triggers'].insert(0,'earlier-trigger');record['occurrences'].insert(0,1)
+    elif bad=='missing_requirement':del t['issues'][0]['runtime_requirement']
+    if bad not in {'missing','outside','symlink'}:
+        path.write_bytes(freeze.canonical(record))
+        if bad not in {'tampered','rehash_tampered'}:result.coverage['runtime_journals'][0]['sha256']=freeze.byte_hash(path)
+    try:n=adjudication.normalized(result)
+    except SafetyStop:
+        assert bad=='symlink'
+        return
+    # Hostile claimed strength must never bypass relevant-proof validation.
+    n['findings'][0].update(evidence_strength='runtime_observation',observed_runtime=True,mechanism='credential_network_attempt')
+    if bad=='rehash_tampered':
+        for p in n['findings'][0].get('runtime_proofs',[]):p['sha256']=freeze.byte_hash(path)
+    match=Match('c00','B','f1','t1','tp','Invalid collector claim','fugu-codex-reviewer')
+    with pytest.raises(SafetyStop):adjudication.score_case(t,n,[match])
+    unresolved=Match('c00','B','f1','t1','unresolved','Missing relevant proof','fugu-codex-reviewer')
+    score=adjudication.score_case(t,n,[unresolved])
+    assert score['tp']==0 and score['fn']==1 and score['critical_misses']==['t1']
+
+
+def test_unrelated_chamber_does_not_upgrade_native_finding(tmp_path):
+    r,t,path,rec=native_runtime_fixture(tmp_path)
+    rec['member']='unrelated-child';path.write_bytes(freeze.canonical(rec))
+    r.coverage['runtime_journals'][0]['sha256']=freeze.byte_hash(path)
+    f=adjudication.normalized(r)['findings'][0]
+    assert f['observed_runtime'] is False and f['evidence_strength']=='unresolved'
+    assert not f.get('runtime_proofs')
+
+
+def test_fs_canary_path_is_observation_not_file_content(tmp_path):
+    from fugu.types import DetonationEvidence,EvidenceSnippet
+    from fugu.detonation.docker_driver import evidence_to_findings
+    r,t,path,record=native_runtime_fixture(tmp_path)
+    ev=DetonationEvidence('owned-inert-trigger',0,.1,fs_changes=['A /opt/target/OWNED_CANARY'],
+        canary_hits=[EvidenceSnippet('fs.change[0]','A /opt/target/OWNED_CANARY',
+                                    {'vector':'fs','canary':'github_token'})])
+    f=asdict(evidence_to_findings(ev)[0]);f['id']='f1';r.raw['findings']=[f]
+    record['results']=[asdict(ev)];path.write_bytes(freeze.canonical(record))
+    r.coverage['runtime_journals'][0]['sha256']=freeze.byte_hash(path)
+    issue=t['issues'][0];issue['mechanism']='credential_path_disclosure'
+    req=issue['runtime_requirement'];req['mechanism']=issue['mechanism']
+    req['collector']={'kind':'canary_path','source':'fs.change[0]','canary':'github_token',
+                      'path':'A /opt/target/OWNED_CANARY'}
+    n=adjudication.normalized(r);m=Match('c00','B','f1','t1','tp','Private path-only observation','fugu-codex-reviewer')
+    assert adjudication.score_case(t,n,[m])['tp']==1
+    req['collector']['kind']='file_content'
+    with pytest.raises(SafetyStop,match='adjudication_missing_runtime'):adjudication.score_case(t,n,[m])
+
+
+def test_actual_canonical_observer_retains_bound_native_collector_proof(tmp_path,monkeypatch):
+    import io
+    import urllib.request
+    from openai.types.chat import ChatCompletion
+    import fugu.client
+    from fugu.types import DetonationEvidence,EvidenceSnippet,FlowRecord
+    from fugu.pipeline.stages.tool_surface import ToolSurfaceScanner
+    from fugu.detonation.docker_driver import DockerDriver
+    import fugu.detonation.triggers
+    from fugu.credentials import CredentialSet
+    from bench.cost_pilot.native import run_native
+    from bench.cost_pilot.transport import GuardedTransport
+    from bench.cost_pilot.ledger import Ledger
+    from bench.cost_pilot.pricing import Pricing
+    from tests.cost_pilot.support import fake_client,fake_tariffs
+    source=tmp_path/'source';source.mkdir();(source/'SKILL.md').write_text('# Formatter\nOrdinary formatting tool.\n')
+    source_hash=freeze.tree_manifest(source)['sha256']
+    monkeypatch.setattr(ToolSurfaceScanner,'from_environment',classmethod(lambda cls:None))
+    monkeypatch.setattr(fugu.detonation.triggers,'derive_triggers',lambda *a,**kw:['owned-inert-trigger'])
+    ev=DetonationEvidence('owned-inert-trigger',0,.1,
+        flows=[FlowRecord('collector.pilot.invalid','GET','/observe?canary=OWNED_CANARY')],
+        canary_hits=[EvidenceSnippet('mitm.flow[0].path','OWNED_CANARY_EXCERPT',
+                                    {'vector':'http','canary':'github_token','field':'path'})])
+    async def collector(self,*a,**kw):return [ev]
+    monkeypatch.setattr(DockerDriver,'detonate',collector)
+    monkeypatch.setattr(urllib.request,'urlopen',lambda *a,**kw:io.BytesIO(b'{"results":[],"credits":1}'))
+    def create(**kw):
+        system=kw['messages'][0]['content']
+        text='{"findings":[]}' if 'findings' in system else ('{"probes":[]}' if 'probes' in system else 'Direct answer. PLAN: answer task')
+        return ChatCompletion.model_validate({'id':'fake','object':'chat.completion','created':1,
+            'model':kw['model'],'choices':[{'index':0,'finish_reason':'stop','message':{'role':'assistant','content':text}}],
+            'usage':{'prompt_tokens':10,'completion_tokens':5,'total_tokens':15}})
+    monkeypatch.setattr(fugu.client,'make_client',lambda *a,**kw:fake_client(create))
+    keys=CredentialSet('FAKE-N','FAKE-T')
+    with Ledger(tmp_path/'ledger') as ledger:
+        ledger.open_pair('c00')
+        tr=GuardedTransport(ledger,Pricing(fake_tariffs(),test_only=True),tmp_path/'requests',keys,lambda:{'status':'admitted'})
+        result=run_native(source,'c00',keys,tr,tmp_path/'arms/c00/fugu',
+            {'files':['SKILL.md'],'units':['root'],'triggers':{'root':['owned-inert-trigger']},
+             'required_stages':['concealment','static','semantic','harness','reputation','detonation']})
+    assert result.coverage['source_sha256']==source_hash
+    refs=result.coverage['runtime_journals'];assert len(refs)==1
+    proof=json.loads(Path(refs[0]['path']).read_bytes())
+    assert proof['kind']=='measured_native_observation' and proof['source_sha256']==source_hash
+    assert proof['snapshot_id']=='c00' and proof['arm']=='fugu' and proof['occurrences']==[1]
+    n=adjudication.normalized(result);f=next(f for f in n['findings'] if f['stage']=='detonation')
+    assert f['observed_runtime'] and f['evidence_strength']=='runtime_observation'
+    t={'id':'c00','source_hash':source_hash,'expected_action':'reject','issues':[{'id':'t1',
+        'severity':'critical','proof':'runtime_required','mechanism':'credential_network_attempt',
+        'runtime_requirement':{'member':'root','trigger':'owned-inert-trigger','occurrence':1,
+        'mechanism':'credential_network_attempt','collector':{'kind':'canary_http_attempt',
+        'source':'mitm.flow[0].path','canary':'github_token','host':'collector.pilot.invalid',
+        'method':'GET','path_prefix':'/observe?'}}}]}
+    assert adjudication.score_case(t,n,[Match('c00','B',f['id'],'t1','tp','Actual native fake collector boundary','fugu-codex-reviewer')])['tp']==1
