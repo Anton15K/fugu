@@ -381,3 +381,58 @@ def test_prefix05_recomputed_cursor_digest_not_owner_issued(tmp_path):
     path = journal / 'cursors' / (forged + '.json'); path.write_text(json.dumps(entry)); path.chmod(0o600)
     with pytest.raises(SafetyStop):
         fresh().dispatch('read_file', {'path': 'a.py', 'cursor': forged})
+
+
+def test_prefix07_final_history_keeps_each_original_tool_pair_once(tmp_path):
+    from bench.cost_pilot.agent import run_agent
+    from bench.cost_pilot.prompts import extract_prompts
+    from tests.cost_pilot.test_agent import setup
+    client, tools, calls = setup(tmp_path)
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path)
+        result = run_agent('c0', 'security', tools, transport, client,
+            extract_prompts(Path('docs/superpowers/specs/2026-10-12-whole-system-cost-benchmark-design.md')), tmp_path / 'agent')
+    assert result.workflow == 'complete'
+    messages = calls[-1]['messages']
+    assert [m['tool_call_id'] for m in messages if m['role'] == 'tool'] == ['call-1']
+    assert [c['id'] for m in messages for c in (m.get('tool_calls') or [])] == ['call-1']
+    assert messages[2:4] == calls[1]['messages'][2:4]
+
+
+def test_prefix07_super_new_tools_and_critique_append_in_exact_order(tmp_path):
+    from bench.cost_pilot.agent import run_agent
+    from bench.cost_pilot.prompts import extract_prompts
+    from tests.cost_pilot.test_agent import final
+    fresh, journal = source_tools(tmp_path, 'value=1\n'); tools = fresh(); calls = []; responses = []
+    def create(**request):
+        calls.append(copy.deepcopy(request)); n = len(calls)
+        if n in (1, 3):
+            message = {'role': 'assistant', 'content': None, 'reasoning_content': 'preserve-' + str(n),
+                'tool_calls': [{'id': 'principal-1' if n == 1 else 'super-1', 'type': 'function',
+                    'function': {'name': 'read_file' if n == 1 else 'search_files',
+                        'arguments': json.dumps({'path': 'a.py'} if n == 1 else {'query': 'value'})}}]}
+        else:
+            value = {'critiques': [], 'additional_candidates': [], 'unknowns': [],
+                     'coverage': {'reviewed_search': True}} if n == 4 else final()
+            message = {'role': 'assistant', 'content': json.dumps(value)}
+        result = {'model': request['model'], 'id': 'r' + str(n),
+            'choices': [{'finish_reason': 'tool_calls' if n in (1, 3) else 'stop', 'message': message}],
+            'usage': {'prompt_tokens': 10, 'completion_tokens': 5}}
+        responses.append(copy.deepcopy(result)); return result
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path)
+        result = run_agent('c0', 'security', tools, transport, policy_client(create),
+            extract_prompts(Path('docs/superpowers/specs/2026-10-12-whole-system-cost-benchmark-design.md')), tmp_path / 'agent')
+    assert result.workflow == 'complete' and len(calls) == 5
+    messages = calls[-1]['messages']
+    assert [m['role'] for m in messages] == ['system', 'user', 'assistant', 'tool', 'assistant',
+        'user', 'assistant', 'tool', 'assistant', 'user']
+    assert [m['tool_call_id'] for m in messages if m['role'] == 'tool'] == ['principal-1', 'super-1']
+    assert [c['id'] for m in messages for c in (m.get('tool_calls') or [])] == ['principal-1', 'super-1']
+    assert messages[:4] == calls[1]['messages']
+    assert messages[4] == responses[1]['choices'][0]['message']
+    assert messages[5:8] == calls[3]['messages'][5:8]
+    assert messages[8] == responses[3]['choices'][0]['message']
+    evidence = [json.loads(m['content'])['evidence_id'] for m in messages if m['role'] == 'tool']
+    assert len(set(evidence)) == 2 and set(evidence) == set(result.raw['evidence_ids'])
+    assert json.dumps(result.raw['critique']) in messages[-1]['content']

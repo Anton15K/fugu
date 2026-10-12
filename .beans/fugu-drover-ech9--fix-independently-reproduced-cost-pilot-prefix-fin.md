@@ -5,7 +5,7 @@ status: in-progress
 type: bug
 priority: high
 created_at: 2026-10-12T17:00:48Z
-updated_at: 2026-10-12T17:24:45Z
+updated_at: 2026-10-12T17:25:32Z
 parent: fugu-drover-5vox
 ---
 
@@ -20,7 +20,7 @@ Resolve COST-PREFIX-01 through 07 with meaningful red/green tests: nested search
 - [ ] COST-PREFIX-04 endpoint consistency regression.
 - [x] COST-PREFIX-05 cached source/cursor integrity: prefix05-red.log 10 failures; source-validation-red 8 failures; owner-path-red 4 failures; prefix05-final-green.log 133 passed. Owner HMAC/private storage plus independent exact source/range/cursor validation, no replay web dispatch.
 - [x] COST-PREFIX-06 direct client policy for both roles: prefix06-red.log 30 failures; prefix06-green.log 112 passed; prefix06-policy-characterization.log 33 passed. Policy is mandatory and rechecked per role/native dispatch; fake fixtures explicitly carry policy.
-- [ ] COST-PREFIX-07 unique transcript with Super additions.
+- [x] COST-PREFIX-07 unique transcript with Super additions: prefix07-red.log 2 failures; prefix07-green.log 124 passed. Final principal preserves original assistant/tool pairs once and only appends new review coverage/tools/critique.
 - [ ] Combined fake-only regressions and durable candidate/report.
 
 Evidence directory: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/prefix-fixes-evidence/. Original candidate/report and approved documents preserved. Independent review remains pending under root routing.

@@ -94,12 +94,13 @@ def run_agent(snapshot_id,lane,tools,transport,client,prompts,evidence:Path):
                 raise
             if draft is not None:break
         review_history=[{'role':'system','content':prompts['reviewer']},{'role':'user','content':task},*copy.deepcopy(history[2:]),{'role':'user','content':json.dumps({'draft':draft,'computed_coverage':tools.coverage()})}]
+        review_additions=len(history)
         for n in range(6):
             value=outbound(review_history,SUPER,'reviewer','critique' if n==0 else None)
             if value is not None:
                 try:critique_ids=_critique(value,evidence_ids);critique=value;break
                 except SafetyStop:review_history.append({'role':'user','content':'Critique schema was invalid; use the required schema.'})
-        history.extend(copy.deepcopy(review_history[2:]))
+        history.extend(copy.deepcopy(review_history[review_additions:]))
         history.append({'role':'user','content':json.dumps({'critique':critique,'computed_coverage':tools.coverage()})+'\n'+prompts['finalization']+'\n'+prompts['report_contract']})
         for n in range(min(2,32-attempts)):
             value=outbound(history,ULTRA,'principal','final' if n==0 else None)
