@@ -28,14 +28,14 @@ class Pricing:
         if t.get('schema_version') != 1 or set(t.get('models', {})) != {ULTRA, SUPER}:
             raise SafetyStop('tariff_models')
         if not self.test_only:
+            from fugu.config import BASE_URL_EU, BASE_URL_US
             if t.get('account_verified') is not True or not t.get('verified_at'):
                 raise SafetyStop('tariff_authority')
             documents = t.get('authority_documents', [])
             if not documents or not all(d.get('url', '').startswith('https://') and
                     byte_hash(Path(d['path'])) == d['sha256'] for d in documents):
                 raise SafetyStop('tariff_authority')
-            if t.get('endpoint') not in {'https://api.tokenfactory.nebius.com/v1/',
-                                         'https://api.tokenfactory.us-central1.nebius.com/v1/'}:
+            if t.get('endpoint') not in {BASE_URL_EU, BASE_URL_US}:
                 raise SafetyStop('tariff_endpoint')
         for model in t['models'].values():
             if not self.test_only and ('FAKE' in model.get('authority', '') or

@@ -436,3 +436,50 @@ def test_prefix07_super_new_tools_and_critique_append_in_exact_order(tmp_path):
     evidence = [json.loads(m['content'])['evidence_id'] for m in messages if m['role'] == 'tool']
     assert len(set(evidence)) == 2 and set(evidence) == set(result.raw['evidence_ids'])
     assert json.dumps(result.raw['critique']) in messages[-1]['content']
+
+
+def endpoint_tariffs(tmp_path, endpoint):
+    authority = tmp_path / 'authority.txt'
+    authority.write_text('SYNTHETIC structural fixture; not real account or public tariff evidence')
+    tariffs = fake_tariffs()
+    tariffs.update(account_verified=True, verified_at='SYNTHETIC-ONLY', endpoint=endpoint,
+        authority_documents=[{'url': 'https://example.org/synthetic', 'path': str(authority),
+                              'sha256': hashlib.sha256(authority.read_bytes()).hexdigest()}])
+    for model in tariffs['models'].values():
+        model.update(authority='SYNTHETIC UNIT STRUCTURE ONLY', context_unit='tokens',
+            output_unit='billable_tokens', reasoning_contract_verified=True, cache_contract_verified=True)
+    return tariffs
+
+
+@pytest.mark.parametrize('endpoint', ['https://api.tokenfactory.nebius.com/v1/',
+    'https://api.tokenfactory.us-central1.nebius.com/v1/'])
+def test_prefix04_official_origins_consistent_across_pricing_credentials_transport(tmp_path, endpoint):
+    from fugu.credentials import validated_base_url
+    assert validated_base_url({'NEBIUS_BASE_URL': endpoint}) == endpoint
+    pricing = Pricing(endpoint_tariffs(tmp_path, endpoint))
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0')
+        transport = GuardedTransport(ledger, pricing, tmp_path / 'e',
+                                    CredentialSet(base_url=endpoint), lambda: {'status': 'admitted'})
+        transport.validate_client(policy_client(lambda **kw: pytest.fail('outbound forbidden'), base_url=endpoint))
+        assert not any(e['kind'] == 'dispatch' for e in ledger.events())
+
+
+@pytest.mark.parametrize('endpoint', [
+    'https://api.tokenfactory.us.nebius.com/v1/',
+    'https://user@api.tokenfactory.nebius.com/v1/',
+    'https://api.tokenfactory.nebius.com:443/v1/',
+    'https://api.tokenfactory.nebius.com/v1/?x=1',
+    'https://api.tokenfactory.nebius.com/v1/#x',
+    'https://api.tokenfactory.nebius.com/v1//',
+    'http://api.tokenfactory.nebius.com/v1/',
+])
+def test_prefix04_altered_origins_rejected_consistently_without_callbacks(tmp_path, endpoint):
+    from fugu.credentials import validated_base_url, CredentialError
+    with pytest.raises(CredentialError): validated_base_url({'NEBIUS_BASE_URL': endpoint})
+    with pytest.raises(SafetyStop, match='tariff_endpoint'): Pricing(endpoint_tariffs(tmp_path, endpoint))
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path, keys=CredentialSet(base_url=endpoint))
+        with pytest.raises(SafetyStop, match='sdk_endpoint'):
+            transport.sdk_proxy(policy_client(lambda **kw: pytest.fail('provider entered'), base_url=endpoint), fake_attribution())
+        assert not any(e['kind'] in {'reserve', 'dispatch'} for e in ledger.events())
