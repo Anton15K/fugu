@@ -109,3 +109,28 @@ def test_proxy_rejects_unbounded_timeout_and_retries(tmp_path):
         try:
             with pytest.raises(SafetyStop,match='sdk_timeout'):t.sdk_proxy(client,fake_attribution())
         finally:client.close()
+
+
+def test_owner_admission_context_survives_native_worker(tmp_path,monkeypatch):
+    import contextvars
+    import fugu.client
+    presence=contextvars.ContextVar('fake_owner_presence',default=False)
+    client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **kw:response())))
+    monkeypatch.setattr(fugu.client,'make_client',lambda *a,**k:client)
+    with Ledger(tmp_path/'ledger') as l:
+        l.open_pair('c0')
+        def guard():
+            if not presence.get():raise SafetyStop('credential_context_missing')
+            return {'status':'admitted'}
+        t=GuardedTransport(l,Pricing(fake_tariffs(),test_only=True),tmp_path/'e',CredentialSet('FAKE-N','FAKE-T'),guard)
+        token=presence.set(True)
+        try:
+            with t.native_scope(fake_attribution('fugu')):
+                c=fugu.client.make_client()
+                with ThreadPoolExecutor() as pool:assert pool.submit(c.chat.completions.create,**REQ).result().id=='fake-id'
+        finally:presence.reset(token)
+
+
+@pytest.mark.parametrize('q',[r'\u0061pi.osv.dev',r'\u0072un_sandbox','api . osv . dev'])
+def test_encoded_structured_routes_do_not_pass(q):
+    with pytest.raises(SafetyStop):validate_web_query(q)

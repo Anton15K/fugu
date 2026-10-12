@@ -23,3 +23,5 @@ Implement ONLY Task 4 of docs/superpowers/plans/2026-10-12-whole-system-cost-ben
 ## Summary of Changes
 
 Implemented assigned task with fake-only behavioral red/green evidence. Scoped files: bench/cost_pilot/transport.py, tests/cost_pilot/test_transport.py. Durable task report: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-04-report.md. No providers/native keys/Docker/target execution or shared sync. Independent review routed by root.
+
+Final self-review correction: carry admission context across workers and normalize encoded routes. Behavioral red/green and exact scoped commit preserved at /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/task-04-correction-report.md.

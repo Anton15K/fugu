@@ -7,14 +7,15 @@ import io
 import json
 import re
 import time
+import threading
 import unicodedata
 import urllib.parse
 import urllib.request
 from contextlib import contextmanager
-from dataclasses import asdict
+from dataclasses import asdict,replace
 from pathlib import Path
 from types import SimpleNamespace
-from .contracts import SafetyStop
+from .contracts import SafetyStop,SUPER
 from .freeze import immutable_json
 
 
@@ -38,10 +39,13 @@ def validate_web_query(query):
     if not isinstance(query,str) or not query.strip() or len(query)>500:raise SafetyStop('web_query')
     normalized=unicodedata.normalize('NFKC',html.unescape(query))
     for _ in range(8):
-        decoded=urllib.parse.unquote(normalized)
+        decoded=urllib.parse.unquote(html.unescape(normalized))
+        decoded=re.sub(r'\\u([a-fA-F0-9]{4})',lambda m:chr(int(m[1],16)),decoded)
+        decoded=unicodedata.normalize('NFKC',decoded)
         if decoded==normalized:break
         normalized=decoded
-    if re.search(r'api\.osv\.dev|/v1/query|docker\s+(exec|run)|mcp\s+call|sandbox[./_:]|chamber[./_:]',normalized,re.I):raise SafetyStop('structured_tool_route')
+    normalized=re.sub(r'\s*\.\s*','.',normalized)
+    if re.search(r'run_sandbox|query_osv|run_chamber|api\.osv\.dev|/v1/query|docker\s+(exec|run)|mcp\s+call|sandbox[./_:]|chamber[./_:]',normalized,re.I):raise SafetyStop('structured_tool_route')
     return query
 
 
@@ -60,7 +64,7 @@ class GuardedTransport:
         self.ledger=ledger;self.pricing=pricing;self.evidence=Path(evidence);self.keys=keys;self.admission_check=admission_check
         self._attr=contextvars.ContextVar('cost_pilot_attribution',default=None)
         self._inside=contextvars.ContextVar('cost_pilot_http',default=False)
-        self._open=None;self._scope_depth=0;self._osv_count=0
+        self._open=None;self._scope_depth=0;self._osv_count=0;self._turns={};self._mutex=threading.RLock()
 
     def _admit(self):
         self.ledger.assert_admitted()
@@ -98,7 +102,13 @@ class GuardedTransport:
             values=[timeout] if isinstance(timeout,(int,float)) else [timeout.connect,timeout.read,timeout.write,timeout.pool]
             if any(v is None or v>90 for v in values):raise SafetyStop('sdk_timeout')
         if hasattr(client,'base_url') and str(client.base_url) not in {'https://api.tokenfactory.nebius.com/v1/','https://api.tokenfactory.us-central1.nebius.com/v1/'}:raise SafetyStop('sdk_endpoint')
-        def create(**request):return self.sdk(request,lambda:client.chat.completions.create(**request),attribution)
+        context=contextvars.copy_context()
+        def create(**request):
+            with self._mutex:
+                key=(attribution.pair,attribution.arm,attribution.member,attribution.stage)
+                turn=self._turns.get(key,0)+1;self._turns[key]=turn
+            attr=replace(attribution,turn=turn,role='reviewer' if request.get('model')==SUPER else attribution.role)
+            return context.copy().run(self.sdk,request,lambda:client.chat.completions.create(**request),attr)
         return _Proxy(client,chat=_Proxy(client.chat,completions=_Proxy(client.chat.completions,create=create)))
 
     def _perform_http(self,req,timeout):
