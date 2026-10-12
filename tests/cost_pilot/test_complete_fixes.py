@@ -471,7 +471,7 @@ def test_resolved_owner_context_survives_actual_factory_worker_admission(tmp_pat
   def create(**kw):
    assert 'NEBIUS_API_KEY' not in os.environ and 'TAVILY_API_KEY' not in os.environ
    calls.append('fake');return {'model':ULTRA,'usage':{'prompt_tokens':1,'completion_tokens':1}}
-  fake_client=SimpleNamespace(max_retries=0,timeout=90,base_url=keys.base_url,_client=SimpleNamespace(follow_redirects=False),chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+  fake_client=SimpleNamespace(max_retries=0,timeout=90,base_url=keys.base_url,_client=SimpleNamespace(follow_redirects=False, trust_env=False),chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
   monkeypatch.setattr(fugu.client,'make_client',lambda *a,**kw:fake_client)
   with transport.native_scope(Attribution('c0','fugu','root','semantic','semantic',1)):
    client=fugu.client.make_client()

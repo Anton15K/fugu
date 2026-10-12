@@ -169,7 +169,7 @@ def test_prefix03_supported_explicit_limits_dispatch_once(tmp_path, limit):
 def policy_client(create, **overrides):
     values = {'max_retries': 0, 'timeout': 90,
               'base_url': 'https://api.tokenfactory.nebius.com/v1/',
-              '_client': SimpleNamespace(follow_redirects=False),
+              '_client': SimpleNamespace(follow_redirects=False, trust_env=False),
               'chat': SimpleNamespace(completions=SimpleNamespace(create=create))}
     return SimpleNamespace(**{**values, **overrides})
 

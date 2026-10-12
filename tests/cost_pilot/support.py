@@ -21,5 +21,5 @@ def fake_client(create):
     from types import SimpleNamespace
     return SimpleNamespace(max_retries=0, timeout=90,
         base_url='https://api.tokenfactory.nebius.com/v1/',
-        _client=SimpleNamespace(follow_redirects=False),
+        _client=SimpleNamespace(follow_redirects=False, trust_env=False),
         chat=SimpleNamespace(completions=SimpleNamespace(create=create)))

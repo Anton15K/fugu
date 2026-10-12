@@ -125,6 +125,7 @@ class GuardedTransport:
         if endpoint not in {BASE_URL_EU,BASE_URL_US} or endpoint!=self.keys.base_url:raise SafetyStop('sdk_endpoint')
         if self.pricing.tariffs.get('endpoint',endpoint)!=endpoint:raise SafetyStop('sdk_endpoint')
         if getattr(getattr(client,'_client',None),'follow_redirects',None) is not False:raise SafetyStop('sdk_redirect_policy')
+        if getattr(getattr(client,'_client',None),'trust_env',None) is not False:raise SafetyStop('sdk_trust_env_policy')
 
     def sdk_proxy(self,client,attribution):
         self.validate_client(client)
@@ -166,10 +167,16 @@ class GuardedTransport:
             return
         import fugu.client
         original_factory=fugu.client.make_client;original_open=urllib.request.urlopen;original_direct=urllib.request.OpenerDirector.open
+        original_http_client=fugu.client.DefaultHttpxClient
         self._scope_depth+=1
         # A preinstalled recording fake is retained for unit boundaries. Actual
         # urllib gets a fresh proxy-free, redirect-denying opener.
         self._open=original_open if original_open.__module__!='urllib.request' else None
+        def proxy_free_http_client(*args,**kw):
+            # Set policy before httpx constructs its transports/proxy mounts.
+            # This adaptation applies only to the benchmark's native scope.
+            kw['trust_env']=False
+            return original_http_client(*args,**kw)
         def factory(*args,**kw):
             attr=self._attr.get()
             if attr is None:raise SafetyStop('native_attribution_missing')
@@ -191,9 +198,11 @@ class GuardedTransport:
         def direct(opener,req,*args,**kw):
             if self._inside.get():return original_direct(opener,req,*args,**kw)
             return guarded(req,*args,**kw)
+        fugu.client.DefaultHttpxClient=proxy_free_http_client
         fugu.client.make_client=factory;urllib.request.urlopen=guarded;urllib.request.OpenerDirector.open=direct
         try:
             with self.bind(attribution):yield
         finally:
             fugu.client.make_client=original_factory;urllib.request.urlopen=original_open;urllib.request.OpenerDirector.open=original_direct
+            fugu.client.DefaultHttpxClient=original_http_client
             self._scope_depth-=1;self._open=None

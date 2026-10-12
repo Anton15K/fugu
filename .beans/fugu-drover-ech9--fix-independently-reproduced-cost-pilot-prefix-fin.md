@@ -5,7 +5,7 @@ status: completed
 type: bug
 priority: high
 created_at: 2026-10-12T17:00:48Z
-updated_at: 2026-10-12T17:36:11Z
+updated_at: 2026-10-12T18:23:12Z
 parent: fugu-drover-5vox
 ---
 
@@ -40,3 +40,26 @@ Review evidence: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-2
 Correction candidate: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/prefix-fixes-candidate.json.
 
 Report: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/prefix-fixes-coder-report.md.
+
+## Residual trust-env continuation
+
+Reopened for independent COST-PREFIX-06-TRUST-ENV against preserved complete candidate 4524fb51adf39d42e0597996e820ebe2c929d1e2. Only benchmark client policy/construction, relevant tests and this record; integrator owns corpus generator/tests.
+
+- [x] Reproduce independent unsafe/unverified trust-env callbacks and native factory default: original independent terminal 22 failed/62 passed against 4524fb5; focused behavioral red 48 failed/2 passed.
+- [x] Enforce exact False before initial liability and per callback; construct canonical native benchmark client proxy-free and restore scoped adapter. Focused green 50 passed (both endpoints; principal/reviewer/final drift; raw native drift; real SDK MockTransport; native constructor and callback exceptions; nested scope restoration).
+- [x] Preserve prior evidence and run guarded focused/benchmark/native regressions: 113 captured references unchanged; benchmark 346 passed/3 existing plot skips, guarded CLI/API 264 passed/1 existing warning, retained prefix 16 passed, orchestration 6 passed and boundary passed. Renderer unaffected and not rerun.
+- [x] Prepare durable exact-head trust-env candidate/report for root-routed independent review (refreshed after this scoped commit).
+
+### Summary of Changes — trust-env continuation
+
+Resolved the residual COST-PREFIX-06-TRUST-ENV implementation gap. Benchmark validation requires the actual underlying transport's trust_env to be exactly False, including initial preflight and every direct role/native proxy callback. Existing scoped native adapter constructs DefaultHttpxClient with trust_env=False before any HTTP transport/proxy mounts exist and restores its constructor and other adaptations on success/failure. No postconstruction policy mutation. Production settings/factory/limits, corpus and shared schemas remain unchanged; safe fake-client metadata explicitly records False without changing helper signatures or tariff contracts.
+
+Original independent82 cases pass unchanged; two native factory probes run inside benchmark native_scope (84 total green), with original source and adaptation diff preserved. Production default True outside benchmark is deliberately retained and tested. This record completes assigned implementation only; independent exact-head review remains pending under root routing. No whole-branch, measured-runtime or landing approval is claimed.
+
+Source: [transport](../bench/cost_pilot/transport.py), [focused tests](../tests/cost_pilot/test_trust_env.py).
+Reviewer evidence: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/prefix-fixes-independent-check.md and prefix-fixes-independent-check.json.
+Candidate: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/trust-env-fixes-candidate.json.
+Report: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/trust-env-fixes-coder-report.md.
+Evidence: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/trust-env-fixes-evidence/.
+
+Only own corpus-specific claim released; integrator owns corpus work. All prior complete/prefix candidates and immutable evidence preserved; research/logs remain unread/unmodified. No real keys/storage/provider/target/Docker execution, installs, shared sync, peer prompts, native approvals, main/setup merge or publication. Return TRUST_ENV_FIXES_READY_FOR_REVIEW then idle.
