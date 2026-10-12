@@ -137,7 +137,9 @@ def native_runtime_fixture(root, *, vector='http', children=False):
             if vector=='http' else [],
         dns=[DnsRecord('encoded.collector.pilot.invalid')] if vector=='dns' else [],canary_hits=[hit])
     f=asdict(evidence_to_findings(ev)[0]); f['id']='f1'
-    member='child' if children else 'root'; source_hash=freeze.digest('owned exact source')
+    member='child' if children else 'root'
+    source=root/'sources/c00';source.mkdir(parents=True);(source/'main.py').write_text('owned inert source data\n')
+    source_hash=freeze.tree_manifest(source)['sha256']
     record={'schema_version':1,'kind':'measured_native_observation','snapshot_id':'c00',
         'arm':'fugu','source_sha256':source_hash,'member':member,
         'selected_triggers':[ev.trigger], 'occurrences':[1],
@@ -397,3 +399,85 @@ def test_resuming_closed_pair_preserves_prior_arm_times(tmp_path,monkeypatch):
     assert len(result['timing']['pairs'])==12
     assert next(p for p in result['timing']['pairs'] if p['case']=='c00')['seconds']==30
     assert result['timing']['invocation_seconds']==337
+
+
+def test_runtime_scoring_exports_through_actual_frozen_approval(tmp_path):
+    r,t,path,record=native_runtime_fixture(tmp_path)
+    source=tmp_path/'sources/c00';manifest=freeze.tree_manifest(source)
+    freeze.immutable_json(tmp_path/'private/truth.json',{'cases':[t]})
+    case={'id':'c00','lane':'security','root':str(source),'manifest':manifest}
+    run=freeze.freeze_run(tmp_path/'run-plan.json',{'schema_version':1,'kind':'frozen_run',
+        'cap_micro':10000000,'arm_cap_micro':2000000,'pair_cap_micro':4000000,
+        'sources':[case],'cases':[case],'seed':1,'references':[{'kind':'truth',
+        'path':str(tmp_path/'private/truth.json'),'sha256':freeze.byte_hash(tmp_path/'private/truth.json')}]})
+    rows=[r,ArmResult('c00','agent','unattempted',{}, {},tmp_path/'arms/c00/agent')]
+    freeze.immutable_json(tmp_path/'measurement.json',{'run_sha256':freeze.byte_hash(run.path),
+        'rows':[{**asdict(x),'evidence_path':str(x.evidence_path)} for x in rows]})
+    masked=adjudication.prepare_masked(run,tmp_path/'measurement.json')
+    mapping=json.loads((tmp_path/'private/mask-map.json').read_bytes())
+    mask=next(k for k,v in mapping['c00'].items() if v=='fugu')
+    review={'reviewer':'fugu-codex-reviewer','verdict':'APPROVE',
+        'matches':[asdict(Match('c00',mask,'f1','t1','tp','PRIVATE_CANARY_REASON','fugu-codex-reviewer'))],
+        'truth_sha256':freeze.byte_hash(tmp_path/'private/truth.json'),
+        'run_sha256':freeze.byte_hash(run.path),
+        'masked_outputs_sha256':freeze.byte_hash(tmp_path/'masked/outputs.json'),
+        'measurement_sha256':freeze.byte_hash(tmp_path/'measurement.json'),
+        'mask_map_sha256':freeze.byte_hash(tmp_path/'private/mask-map.json')}
+    freeze.immutable_json(tmp_path/'private/approved-review.json',review)
+    adj=adjudication.load_adjudication(tmp_path/'private/approved-review.json',masked,run)
+    freeze.immutable_json(tmp_path/'adjudicated.json',adj)
+    bundle=report.export_report(tmp_path,tmp_path/'publishable')
+    assert bundle.results['lanes']['security']['fugu']['tp']==1
+    assert bundle.results['lanes']['security']['fugu']['critical_misses']==[]
+    assert all('PRIVATE_CANARY_REASON' not in p.read_text() and 'OWNED_CANARY' not in p.read_text()
+               and str(tmp_path) not in p.read_text() for p in bundle.root.iterdir())
+    path.write_bytes(freeze.canonical({**record,'source_sha256':'0'*64}))
+    with pytest.raises(SafetyStop):report.export_report(tmp_path,tmp_path/'second-publication')
+    assert not (tmp_path/'second-publication').exists()
+
+
+def test_resolved_owner_context_survives_actual_factory_worker_admission(tmp_path,monkeypatch):
+ import concurrent.futures,os
+ from types import SimpleNamespace
+ from bench.cost_pilot import runner
+ from bench.cost_pilot.contracts import FrozenRun,Attribution,ULTRA,SPEC_SHA256,PLAN_SHA256
+ from bench.cost_pilot.ledger import Ledger
+ from bench.cost_pilot.pricing import Pricing
+ from bench.cost_pilot.transport import GuardedTransport
+ from tests.cost_pilot.support import fake_tariffs
+ from fugu.credentials import CredentialSet
+ checks=[]
+ keys=CredentialSet('FAKE-N','FAKE-T');store_attempts=[]
+ monkeypatch.setenv('DOCKER_CONFIG',str(tmp_path/'owned-empty-docker'))
+ monkeypatch.setattr(runner,'Pricing',lambda t:Pricing(t,test_only=True))
+ def fallback(*a,**k):store_attempts.append('worker fallback');raise SafetyStop('review_fake_native_store_forbidden')
+ monkeypatch.setattr(runner,'owner_credentials',fallback)
+ binary=tmp_path/'owned-scanner';binary.write_bytes(b'FAKE inert binary identity only')
+ source=tmp_path/'source';source.mkdir()
+ operator={'scanner_binary_path':str(binary),'scanner_binary_sha256':freeze.byte_hash(binary),'scanner_image_digest':'fake@sha256:'+'a'*64,'docker_base_digest':'sha256:'+'b'*64,'collector_digest':'sha256:'+'c'*64,'credential_endpoint':keys.base_url}
+ inputs={'operator':operator,'tariffs':{**fake_tariffs(),'endpoint':keys.base_url},'sources':[{'root':str(source)}],'references':[],'spec_hash':SPEC_SHA256,'implementation_plan_hash':PLAN_SHA256}
+ digests={operator['scanner_image_digest']:'sha256:'+'a'*64,'python:3.11-slim':'sha256:'+'b'*64,'mitmproxy/mitmproxy:latest':'sha256:'+'c'*64}
+ monkeypatch.setattr(runner,'_docker_read',lambda args,env:json.dumps([{'RepoDigests':['fake@'+digests[args[2]]]}]) if args[:2]==['image','inspect'] else '{}')
+ freeze.immutable_json(tmp_path/'preflight/chamber-smoke.json',{'verification':'actual_owned_inert_native_docker','identities':{'scanner':'sha256:'+'a'*64,'base':'sha256:'+'b'*64,'collector':'sha256:'+'c'*64},'results':[{'exit_code':0}]})
+ run=FrozenRun(tmp_path/'run-plan.json',inputs);run.path.write_text('{}')
+ monkeypatch.setattr(freeze,'verify_frozen',lambda run:checks.append('freeze'))
+ with runner._owner_environment(keys,operator),Ledger(tmp_path/'ledger') as ledger:
+  inputs.update(cap_micro=10000000,arm_cap_micro=2000000)
+  inputs['preparation_checks']=runner.probe_prerequisites(tmp_path,inputs,chamber_smoke=False,owner_credentials=True)
+  ledger.open_pair('c0')
+  transport=GuardedTransport(ledger,Pricing(fake_tariffs(),test_only=True),tmp_path/'requests',keys,lambda:runner.check_frozen_admission(run,ledger,allow_hosted=True,consent_id=runner.CONSENT))
+  calls=[]
+  import fugu.client
+  def create(**kw):
+   assert 'NEBIUS_API_KEY' not in os.environ and 'TAVILY_API_KEY' not in os.environ
+   calls.append('fake');return {'model':ULTRA,'usage':{'prompt_tokens':1,'completion_tokens':1}}
+  fake_client=SimpleNamespace(max_retries=0,timeout=90,base_url=keys.base_url,_client=SimpleNamespace(follow_redirects=False),chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+  monkeypatch.setattr(fugu.client,'make_client',lambda *a,**kw:fake_client)
+  with transport.native_scope(Attribution('c0','fugu','root','semantic','semantic',1)):
+   client=fugu.client.make_client()
+   def request():
+    try:client.chat.completions.create(model=ULTRA,max_tokens=4096);return None
+    except SafetyStop as e:return e.reason
+   with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:stop=pool.submit(request).result()
+ assert store_attempts==[] and calls==['fake'],'Native worker lost owner ContextVar and tried credential fallback before callback'
+ assert checks==['freeze','freeze']
