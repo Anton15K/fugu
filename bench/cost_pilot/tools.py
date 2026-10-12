@@ -1,6 +1,10 @@
 """Four declarative tools. No auditee imports, execution or arbitrary fetch."""
 from __future__ import annotations
 import json
+import hashlib
+import hmac
+import os
+import stat
 import uuid
 import html
 import unicodedata
@@ -54,6 +58,42 @@ class ToolRegistry:
         if self.manifest['sha256']!=snapshot_hash:raise SafetyStop('source_drift')
         self.files={f['path']:f for f in self.manifest['files']};self._ranges={};self._seen=set();self._omissions={};self._errors=[];self._search=set();self._pending=set()
         self.journal.mkdir(parents=True,exist_ok=True,mode=0o700)
+        self._private(self.journal,directory=True)
+        owner=self.journal/'owner-integrity.json'
+        if not owner.exists():immutable_json(owner,{'snapshot':self.id,'hash':self.hash,'key':os.urandom(32).hex()})
+        value=self._owner_json(owner)
+        try:
+            self._key=bytes.fromhex(value['key'])
+            if value['snapshot']!=self.id or value['hash']!=self.hash or len(self._key)!=32:raise ValueError()
+        except (KeyError,TypeError,ValueError):raise SafetyStop('journal_integrity')
+
+    def _private(self,path,*,directory=False):
+        try:
+            info=path.lstat()
+            regular=stat.S_ISDIR(info.st_mode) if directory else stat.S_ISREG(info.st_mode)
+            if not regular or info.st_uid!=os.getuid() or info.st_mode&0o077:raise ValueError()
+        except (OSError,ValueError):raise SafetyStop('journal_integrity')
+
+    def _owner_json(self,path):
+        self._private(path.parent,directory=True);self._private(path)
+        def invalid_constant(value):raise ValueError('nonfinite')
+        try:return json.loads(path.read_bytes(),parse_constant=invalid_constant)
+        except (OSError,ValueError):raise SafetyStop('journal_integrity')
+
+    def _persist(self,path,value):
+        path.parent.mkdir(parents=True,exist_ok=True,mode=0o700)
+        self._private(path.parent,directory=True)
+        immutable_json(path,value)
+
+    def _mac(self,value):return hmac.new(self._key,canonical(value),hashlib.sha256).hexdigest()
+
+    def _cursor_entry(self,c,binding):
+        if not isinstance(c,str) or len(c)!=32 or any(ch not in '0123456789abcdef' for ch in c):raise SafetyStop('cursor')
+        entry=self._owner_json(self.journal/'cursors'/(c+'.json'))
+        if not isinstance(entry,dict) or set(entry)!={'nonce','binding','state','mac'}:raise SafetyStop('cursor_binding')
+        body={k:v for k,v in entry.items() if k!='mac'}
+        if digest(entry)[:32]!=c or entry['binding']!=binding or not isinstance(entry['mac'],str) or not hmac.compare_digest(self._mac(body),entry['mac']):raise SafetyStop('cursor_binding')
+        return entry
 
     def schemas(self):
         result=[]
@@ -64,6 +104,11 @@ class ToolRegistry:
         return result
 
     def _verify(self):
+        self._private(self.journal,directory=True)
+        for name in ('cursors','replies','integrity'):
+            path=self.journal/name
+            if path.exists() or path.is_symlink():self._private(path,directory=True)
+        if self._owner_json(self.journal/'owner-integrity.json')!={'snapshot':self.id,'hash':self.hash,'key':self._key.hex()}:raise SafetyStop('journal_integrity')
         try:current=tree_manifest(self.snapshot)
         except SafetyStop:raise SafetyStop('source_drift')
         if current['sha256']!=self.hash:raise SafetyStop('source_drift')
@@ -93,8 +138,9 @@ class ToolRegistry:
 
     def _cursor(self,binding,state):
         entry={'nonce':uuid.uuid4().hex,'binding':binding,'state':state}
+        entry['mac']=self._mac(entry)
         c=digest(entry)[:32]
-        immutable_json(self.journal/'cursors'/(c+'.json'),entry)
+        self._persist(self.journal/'cursors'/(c+'.json'),entry)
         return c
 
     def dispatch(self,name,arguments):
@@ -103,21 +149,49 @@ class ToolRegistry:
             binding=self._binding(name,a);state=None
             if a.get('cursor'):
                 c=a['cursor']
-                if len(c)!=32 or any(ch not in '0123456789abcdef' for ch in c):raise SafetyStop('cursor')
-                try:entry=json.loads((self.journal/'cursors'/(c+'.json')).read_text())
-                except (OSError,ValueError):raise SafetyStop('cursor')
-                if digest(entry)[:32]!=c or entry['binding']!=binding:raise SafetyStop('cursor_binding')
+                entry=self._cursor_entry(c,binding)
                 state=entry['state']
             evidence=digest({'binding':binding,'cursor':a.get('cursor')});cache=self.journal/'replies'/(evidence+'.json')
-            if cache.exists():payload=json.loads(cache.read_text())
+            signature=self.journal/'integrity'/(evidence+'.json')
+            if cache.exists():
+                payload=self._owner_json(cache);record=self._owner_json(signature)
+                body={'binding':binding,'cursor':a.get('cursor'),'evidence_id':evidence,'payload':payload}
+                if not isinstance(record,dict) or not isinstance(record.get('mac'),str) or not hmac.compare_digest(self._mac(body),record['mac']):raise SafetyStop('reply_integrity')
             else:
                 payload={**self._page(name,a,binding,state),'evidence_id':evidence}
                 if not fits(payload):raise SafetyStop('tool_metadata_limit')
-                immutable_json(cache,payload)
+                self._persist(cache,payload)
+                self._persist(signature,{'mac':self._mac({'binding':binding,'cursor':a.get('cursor'),'evidence_id':evidence,'payload':payload})})
+            if not isinstance(payload,dict) or payload.get('evidence_id')!=evidence or not fits(payload):raise SafetyStop('reply_integrity')
+            if payload.get('next_cursor'):self._cursor_entry(payload['next_cursor'],binding)
+            if name=='read_file':self._validate_read(a,binding,state,payload)
             self._coverage(name,a,payload,evidence)
             return ToolReply(canonical(payload).decode(),evidence,payload)
         except SafetyStop as exc:
             self._errors.append({'tool':name,'reason':exc.reason});raise
+
+    def _validate_read(self,a,binding,state,p):
+        """Validate actual source slices independently of owner cache signatures."""
+        try:
+            keys={'snapshot_id','path','file_hash','encoding','requested_range','total_lines','segments','next_cursor','eof','range_complete','omissions','evidence_id'}
+            lines=self._text(a['path']).splitlines(keepends=True);end=min(a['end_line'],len(lines))
+            line=state['line'] if state else a['start_line'];offset=state['offset'] if state else 0
+            if type(line) is not int or type(offset) is not int or line<a['start_line'] or offset<0:raise ValueError()
+            if state and (set(state)!={'line','offset'} or line>end or offset>=len(lines[line-1])):raise ValueError()
+            if set(p)!=keys or p['snapshot_id']!=self.id or p['path']!=a['path'] or p['file_hash']!=self.files[a['path']]['sha256'] or p['encoding']!='utf-8' or p['requested_range']!=[a['start_line'],a['end_line']] or type(p['total_lines']) is not int or p['total_lines']!=len(lines) or p['omissions']!=[] or not isinstance(p['segments'],list):raise ValueError()
+            for s in p['segments']:
+                if set(s)!={'line','char_start','char_end','line_chars','text'} or any(type(s[k]) is not int for k in ('line','char_start','char_end','line_chars')):raise ValueError()
+                if line>end or s['line']!=line or s['char_start']!=offset:raise ValueError()
+                text=lines[line-1]
+                if s['line_chars']!=len(text) or not offset<s['char_end']<=len(text) or s['text']!=text[offset:s['char_end']]:raise ValueError()
+                offset=s['char_end']
+                if offset==len(text):line+=1;offset=0
+            done=line>end
+            if p['range_complete'] is not done or p['eof'] is not (done and end==len(lines)):raise ValueError()
+            if done:
+                if p['next_cursor'] is not None:raise ValueError()
+            elif not p['segments'] or self._cursor_entry(p['next_cursor'],binding)['state']!={'line':line,'offset':offset}:raise ValueError()
+        except (KeyError,TypeError,IndexError,ValueError):raise SafetyStop('reply_source_integrity')
 
     def _page(self,name,a,binding,state):
         if name=='search_web':

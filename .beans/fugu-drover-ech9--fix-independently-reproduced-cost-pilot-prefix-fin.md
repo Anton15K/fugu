@@ -5,7 +5,7 @@ status: in-progress
 type: bug
 priority: high
 created_at: 2026-10-12T17:00:48Z
-updated_at: 2026-10-12T17:21:10Z
+updated_at: 2026-10-12T17:24:45Z
 parent: fugu-drover-5vox
 ---
 
@@ -18,7 +18,7 @@ Resolve COST-PREFIX-01 through 07 with meaningful red/green tests: nested search
 - [x] COST-PREFIX-02 separately billed reasoning: prefix02-red.log 3 failed/10 passed; prefix02-green.log 61 passed. Missing required counter retains 21000micro and stops; inclusive details remain optional.
 - [x] COST-PREFIX-03 outbound request bounds: prefix03-red-valid-response.log 20 failed/5 passed; prefix03-green.log 86 passed. Reject n/ambiguous output/default/override/malformed requests before admission and reservation; retain canonical settings.
 - [ ] COST-PREFIX-04 endpoint consistency regression.
-- [ ] COST-PREFIX-05 cached source/cursor integrity.
+- [x] COST-PREFIX-05 cached source/cursor integrity: prefix05-red.log 10 failures; source-validation-red 8 failures; owner-path-red 4 failures; prefix05-final-green.log 133 passed. Owner HMAC/private storage plus independent exact source/range/cursor validation, no replay web dispatch.
 - [x] COST-PREFIX-06 direct client policy for both roles: prefix06-red.log 30 failures; prefix06-green.log 112 passed; prefix06-policy-characterization.log 33 passed. Policy is mandatory and rechecked per role/native dispatch; fake fixtures explicitly carry policy.
 - [ ] COST-PREFIX-07 unique transcript with Super additions.
 - [ ] Combined fake-only regressions and durable candidate/report.

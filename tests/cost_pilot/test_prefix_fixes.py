@@ -249,3 +249,135 @@ def test_prefix06_native_proxy_rechecks_changed_policy_before_reservation(tmp_pa
         with pytest.raises(SafetyStop, match='sdk_redirect_policy'):
             wrapped.chat.completions.create(**REQ)
         assert not calls and not any(e['kind'] == 'reserve' for e in ledger.events())
+
+
+def source_tools(tmp_path, text='ordinary\r\n', web=None):
+    from bench.cost_pilot.tools import ToolRegistry
+    from bench.cost_pilot.freeze import tree_manifest
+    source = tmp_path / 'source'; source.mkdir(); (source / 'a.py').write_bytes(text.encode())
+    journal = tmp_path / 'tools'; manifest = tree_manifest(source)
+    def fresh(): return ToolRegistry(source, 'c0', manifest['sha256'], journal, web or (lambda q: {'results': []}))
+    return fresh, journal
+
+
+@pytest.mark.parametrize('mutation', ['text', 'range', 'line', 'file_hash', 'path',
+    'next_cursor', 'total_lines', 'evidence_id', 'self_declared_hash', 'malformed'])
+def test_prefix05_cached_source_tamper_never_returns_or_earns_coverage(tmp_path, mutation):
+    fresh, journal = source_tools(tmp_path); tool = fresh()
+    first = tool.dispatch('read_file', {'path': 'a.py'})
+    path = journal / 'replies' / (first.evidence_id + '.json'); value = json.loads(path.read_bytes())
+    if mutation == 'text': value['segments'][0]['text'] = 'FORGED!!\r\n'
+    elif mutation == 'range': value['segments'][0]['char_end'] = 100000
+    elif mutation == 'line': value['segments'][0]['line'] = 2
+    elif mutation == 'file_hash': value['file_hash'] = 'f' * 64
+    elif mutation == 'path': value['path'] = '../other'
+    elif mutation == 'next_cursor': value['next_cursor'] = 'f' * 32
+    elif mutation == 'total_lines': value['total_lines'] = 0
+    elif mutation == 'evidence_id': value['evidence_id'] = 'f' * 64
+    elif mutation == 'self_declared_hash':
+        value['segments'][0]['text'] = 'FORGED!!\r\n'
+        value['payload_sha256'] = hashlib.sha256(json.dumps(value).encode()).hexdigest()
+    path.write_text('not JSON' if mutation == 'malformed' else json.dumps(value))
+    tool = fresh()
+    with pytest.raises(SafetyStop): tool.dispatch('read_file', {'path': 'a.py'})
+    assert tool.coverage()['fully_read_paths'] == []
+    assert tool.coverage()['returned_ranges'] == {}
+    assert tool.coverage()['incomplete']
+
+
+def test_prefix05_repeat_and_reopen_idempotent_web_no_redispatch(tmp_path):
+    web_calls = []
+    fresh, journal = source_tools(tmp_path, 'α😀' * 7000 + '\r\n',
+        lambda q: (web_calls.append(q), {'results': [{'title': 'advisory'}]})[1])
+    tool = fresh(); args = {'path': 'a.py'}; first = tool.dispatch('read_file', args)
+    second = tool.dispatch('read_file', {**args, 'cursor': first.payload['next_cursor']})
+    assert first.payload['next_cursor'] is not None
+    assert fresh().dispatch('read_file', args) == first
+    assert fresh().dispatch('read_file', {**args, 'cursor': first.payload['next_cursor']}) == second
+    web = tool.dispatch('search_web', {'query': 'ordinary advisory'})
+    assert fresh().dispatch('search_web', {'query': 'ordinary advisory'}) == web
+    assert web_calls == ['ordinary advisory']
+
+
+def test_prefix05_changed_owner_cursor_rejected_without_coverage(tmp_path):
+    fresh, journal = source_tools(tmp_path, 'x' * 18000); tool = fresh()
+    first = tool.dispatch('read_file', {'path': 'a.py'}); cursor = first.payload['next_cursor']
+    path = journal / 'cursors' / (cursor + '.json'); entry = json.loads(path.read_bytes())
+    entry['state']['offset'] += 10; path.write_text(json.dumps(entry))
+    tool = fresh()
+    with pytest.raises(SafetyStop): tool.dispatch('read_file', {'path': 'a.py', 'cursor': cursor})
+    assert not tool.coverage()['returned_ranges']
+
+
+def resign_owned_fixture(journal, payload, evidence, cursor=None):
+    """Fixture simulates owner cache corruption; source checks must be independent."""
+    import hmac
+    from bench.cost_pilot.freeze import canonical
+    owner = json.loads((journal / 'owner-integrity.json').read_bytes())
+    binding = {'snapshot': 'c0', 'hash': owner['hash'], 'name': 'read_file',
+               'arguments': {'path': 'a.py', 'start_line': 1, 'end_line': 200}}
+    body = {'binding': binding, 'cursor': cursor, 'evidence_id': evidence, 'payload': payload}
+    mac = hmac.new(bytes.fromhex(owner['key']), canonical(body), hashlib.sha256).hexdigest()
+    (journal / 'replies' / (evidence + '.json')).write_text(json.dumps(payload))
+    (journal / 'integrity' / (evidence + '.json')).write_text(json.dumps({'mac': mac}))
+
+
+@pytest.mark.parametrize('mutation', ['text', 'gap', 'overlap', 'range', 'file_hash',
+    'range_complete', 'eof', 'total_lines', 'cursor_state'])
+def test_prefix05_source_validation_independent_of_cache_signature(tmp_path, mutation):
+    fresh, journal = source_tools(tmp_path, 'x' * 18000 + '\r\n'); tool = fresh()
+    first = tool.dispatch('read_file', {'path': 'a.py'}); payload = copy.deepcopy(first.payload)
+    if mutation == 'text': payload['segments'][0]['text'] = 'FORGED'
+    elif mutation == 'gap': payload['segments'][0]['char_start'] += 1
+    elif mutation == 'overlap': payload['segments'].append(copy.deepcopy(payload['segments'][0]))
+    elif mutation == 'range': payload['segments'][0]['char_end'] = 18003
+    elif mutation == 'file_hash': payload['file_hash'] = 'f' * 64
+    elif mutation == 'range_complete': payload['range_complete'] = True
+    elif mutation == 'eof': payload['eof'] = True
+    elif mutation == 'total_lines': payload['total_lines'] = 2
+    elif mutation == 'cursor_state':
+        # Valid owner-issued cursor from a later page still cannot skip source.
+        second = tool.dispatch('read_file', {'path': 'a.py', 'cursor': first.payload['next_cursor']})
+        payload['next_cursor'] = second.payload['next_cursor']
+    resign_owned_fixture(journal, payload, first.evidence_id)
+    tool = fresh()
+    with pytest.raises(SafetyStop): tool.dispatch('read_file', {'path': 'a.py'})
+    assert tool.coverage()['returned_ranges'] == {}
+
+
+def test_prefix05_owner_integrity_permissions_rechecked_on_live_registry(tmp_path):
+    fresh, journal = source_tools(tmp_path); tool = fresh()
+    tool.dispatch('read_file', {'path': 'a.py'})
+    (journal / 'owner-integrity.json').chmod(0o644)
+    with pytest.raises(SafetyStop, match='journal_integrity'):
+        tool.dispatch('read_file', {'path': 'a.py'})
+
+
+def test_prefix05_nonfinite_cache_is_safe_integrity_error(tmp_path):
+    fresh, journal = source_tools(tmp_path); tool = fresh()
+    first = tool.dispatch('read_file', {'path': 'a.py'})
+    path = journal / 'replies' / (first.evidence_id + '.json')
+    path.write_text('{"invalid":NaN}')
+    with pytest.raises(SafetyStop): fresh().dispatch('read_file', {'path': 'a.py'})
+
+
+@pytest.mark.parametrize('directory', ['replies', 'cursors', 'integrity'])
+def test_prefix05_owner_journal_never_writes_through_symlink(tmp_path, directory):
+    fresh, journal = source_tools(tmp_path, 'x' * 18000); tool = fresh()
+    outside = tmp_path / 'outside'; outside.mkdir()
+    (journal / directory).symlink_to(outside, target_is_directory=True)
+    with pytest.raises(SafetyStop, match='journal_integrity'):
+        tool.dispatch('read_file', {'path': 'a.py'})
+    assert list(outside.iterdir()) == []
+
+
+def test_prefix05_recomputed_cursor_digest_not_owner_issued(tmp_path):
+    from bench.cost_pilot.freeze import canonical
+    fresh, journal = source_tools(tmp_path, 'x' * 18000); tool = fresh()
+    first = tool.dispatch('read_file', {'path': 'a.py'})
+    entry = json.loads((journal / 'cursors' / (first.payload['next_cursor'] + '.json')).read_bytes())
+    entry['state']['offset'] += 1
+    forged = hashlib.sha256(canonical(entry)).hexdigest()[:32]
+    path = journal / 'cursors' / (forged + '.json'); path.write_text(json.dumps(entry)); path.chmod(0o600)
+    with pytest.raises(SafetyStop):
+        fresh().dispatch('read_file', {'path': 'a.py', 'cursor': forged})
