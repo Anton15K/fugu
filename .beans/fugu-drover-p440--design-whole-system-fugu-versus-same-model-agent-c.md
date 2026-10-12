@@ -5,7 +5,7 @@ status: in-progress
 type: task
 priority: normal
 created_at: 2026-10-12T13:06:29Z
-updated_at: 2026-10-12T14:07:20Z
+updated_at: 2026-10-12T14:14:52Z
 ---
 
 User requests an end-to-end cost and correctness benchmark against direct repository auditing by an agent, preferably with the same models. User selected a USD 10 total pilot cap. Whole-system production execution, independent ground truth, matched source access, explicit model roles, all attempts/services/completion accounting and non-cherry-picked results required. Design approval precedes implementation under brainstorming skill.
@@ -28,3 +28,9 @@ Human direction: only Fugu may query OSV or run_sandbox. Both direct-agent roles
 Reconciled truth, native required runtime, baseline workflow completion versus evidence strength, unresolved/source-based findings, cost/subprocess accounting, reports, acceptance and roles/stories. Frozen per-finding evidence standards apply before outputs; absent forbidden tools alone never makes the baseline incomplete/incorrect, but missing issues remain misses. Source/allowed-tool failures and malformed/missing review/finalization still mark incomplete. Written spec only: no implementation, credentials, provider requests, tests or paid run. Parent remains in-progress, human written-spec review and implementation handoff pending. Root routes fresh exact-commit review.
 
 Prior candidate/report/evidence preserved. Revised handoff: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/candidate-v2.json and coder-report-v2.md. Both ordered task commits above pinned f8a996807c5619a3965e7b1d25bcd5d827b48302 are required; no branch/base change, push or landing.
+
+## Long-line reader contract correction (revision 3)
+
+Named-review defect: line-only read_file pagination plus the 8192-character response cap made long-line tails unreachable. Added an opaque continuation cursor bound to run/snapshot/file hash, canonical path and effective requested line range, with next line/within-line offset, tamper/stale/mismatch rejection and explicit returned character segments. Lossless continuation stays within 200 requested lines and 8192 serialized result characters, including metadata. Coverage is based on returned ranges, not opening a file; partial tails and pending cursors remain visible. Tool description supplies the continuation rule identically to Ultra/Super; all six exact prompt text blocks remain unchanged. Future verification prose covers these requirements, but no controls/tests were implemented.
+
+Only the assigned written spec and this bean changed. All four tool names, Fugu-only OSV/chamber and v2 semantics persist; human written-spec review/handoff remain pending and parent stays in-progress. Original/v2 candidates and reports are preserved. Revised evidence: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/candidate-v3.json and coder-report-v3.md. Full ordered set above pinned f8a996807c5619a3965e7b1d25bcd5d827b48302: fe32736924f16775ee5ade5e4c0c3d2d85768855, 3d225d9294576cc8e63b943263d44781c6e2b36b, and the correction commit named in candidate-v3.json. No broad source/pricing review, implementation, tests, credentials, requests or publication.
