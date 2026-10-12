@@ -40,6 +40,7 @@ def test_prefix01_valid_credits_keep_observed_contractual_distinction(tmp_path, 
 
 @pytest.mark.parametrize('metadata', [
     {'usage': {'credits': 2}}, {'credits': 1, 'usage': {'credits': 2}},
+    {'usage': {'credits': 0}}, {'credits': 0},
     {'credits': None}, {'usage': {'credits': None}}, {'usage': {'credits': True}},
     {'usage': {'credits': '1'}}, {'usage': {'credits': -1}},
     {'usage': {'credits': 1.5}}, {'usage': []}, {'usage': None},

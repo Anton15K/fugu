@@ -5,7 +5,7 @@ status: in-progress
 type: bug
 priority: high
 created_at: 2026-10-12T17:00:48Z
-updated_at: 2026-10-12T17:30:18Z
+updated_at: 2026-10-12T17:33:16Z
 parent: fugu-drover-5vox
 ---
 
@@ -26,3 +26,5 @@ Resolve COST-PREFIX-01 through 07 with meaningful red/green tests: nested search
 Evidence directory: /Users/antonkogun/.local/share/drover/reports/fugu-cost-pilot-20261012/implementation/prefix-fixes-evidence/. Original candidate/report and approved documents preserved. Independent review remains pending under root routing.
 
 COST-PREFIX-05 self-review: missing cached reply must not cause a second web dispatch, and missing owner integrity key must not reinitialize existing evidence. Additional red 2 failed, green 138 passed; exact logs prefix05-incomplete-journal-{red,green}.log preserved.
+
+COST-PREFIX-01 self-review: an observed zero-credit success conflicting with a frozen authoritative exact-one-credit contract must stop rather than report free structural cost. Red 2 failed/11 passed; green 161 passed. This adds no authority or fallback; prior positive/missing/malformed cases retained.

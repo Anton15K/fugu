@@ -94,6 +94,7 @@ class GuardedTransport:
             if 'credits' in data['usage']:observed.append(integer(data['usage']['credits']))
         if observed:
             if len(set(observed))!=1:raise SafetyStop('usage_conflict')
+            if self.pricing.tariffs.get('basic_success_exact_credit_contract_verified') is True and observed[0]!=1:raise SafetyStop('usage_contract_drift')
             return {'credits':observed[0],'credit_source':'observed'}
         if self.pricing.tariffs.get('basic_success_exact_credit_contract_verified') is not True:raise SafetyStop('usage_unknown')
         return {'credits':1,'credit_source':'frozen_contract'}
