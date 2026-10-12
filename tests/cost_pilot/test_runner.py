@@ -231,7 +231,7 @@ def test_cancelled_attempt_retained_as_partial_with_all_planned_rows(tmp_path,mo
     run=FrozenRun(path,{'tariffs':tariffs,'operator':{'scanner_binary_path':'/fake/scanner','scanner_binary_sha256':'a'*64,'scanner_image_digest':'fake@sha256:'+'b'*64},'cases':cases,'reviewed_applicability':{c['id']:{} for c in cases}})
     def cancelled(source,id,k,transport,evidence,expected):
         def call():attempts.append(id);raise KeyboardInterrupt()
-        transport.sdk({'model':ULTRA},call,Attribution(id,'fugu','root','semantic','semantic',1))
+        transport.sdk({'model':ULTRA,'max_tokens':4096,'temperature':.1,'messages':[]},call,Attribution(id,'fugu','root','semantic','semantic',1))
     monkeypatch.setattr(native,'run_native',cancelled)
     result=runner.measure(run,allow_hosted=True,consent_id=runner.CONSENT)
     assert attempts==['c00'];assert len(result['rows'])==24

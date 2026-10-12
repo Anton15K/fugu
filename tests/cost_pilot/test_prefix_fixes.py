@@ -110,3 +110,56 @@ def test_prefix02_separate_reasoning_observed_zero_or_positive(tokens, want):
     pricing = Pricing(tariffs, test_only=True)
     assert pricing.settle(pricing.bound('nebius', ULTRA), {'prompt_tokens': 100,
         'completion_tokens': 10, 'completion_tokens_details': {'reasoning_tokens': tokens}}, ULTRA) == want
+
+
+@pytest.mark.parametrize('override', [
+    {'n': 2}, {'n': True}, {'n': None}, {'n': 0}, {'n': '1'},
+    {'max_tokens': None}, {'max_tokens': True}, {'max_tokens': -1},
+    {'max_tokens': 4097}, {'max_tokens': 1.5}, {'max_tokens': '4096'},
+    {'max_completion_tokens': 1000000}, {'max_completion_tokens': None},
+    {'stream': True}, {'stream': 'false'}, {'stream': None},
+    {'extra_body': {'max_tokens': 1000000}}, {'extra_headers': {'x-route': 'other'}},
+    {'timeout': 300}, {'temperature': True}, {'temperature': float('nan')},
+])
+def test_prefix03_unsafe_request_rejected_before_admission_reservation_or_callback(tmp_path, override):
+    admissions = []; callbacks = []
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0')
+        transport = GuardedTransport(ledger, Pricing(fake_tariffs(), test_only=True),
+            tmp_path / 'e', CredentialSet(), lambda: (admissions.append(1), {'status': 'admitted'})[1])
+        with pytest.raises(SafetyStop, match='request_parameters'):
+            transport.sdk({**REQ, **override}, lambda: (callbacks.append(1), response())[1], fake_attribution())
+        assert not admissions and not callbacks
+        assert not any(e['kind'] in {'reserve', 'dispatch'} for e in ledger.events())
+
+
+def test_prefix03_missing_output_limit_never_uses_provider_default(tmp_path):
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path)
+        request = {k: v for k, v in REQ.items() if k != 'max_tokens'}
+        with pytest.raises(SafetyStop, match='request_parameters'):
+            transport.sdk(request, lambda: pytest.fail('provider entered'), fake_attribution())
+        assert not any(e['kind'] == 'reserve' for e in ledger.events())
+
+
+def test_prefix03_requested_output_must_fit_frozen_bound(tmp_path):
+    tariffs = fake_tariffs(); tariffs['models'][ULTRA]['billable_output_bound'] = 100
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path, tariffs)
+        with pytest.raises(SafetyStop, match='request_parameters'):
+            transport.sdk(REQ, lambda: pytest.fail('provider entered'), fake_attribution())
+        assert not any(e['kind'] == 'reserve' for e in ledger.events())
+
+
+@pytest.mark.parametrize('limit', [0, 4096])
+def test_prefix03_supported_explicit_limits_dispatch_once(tmp_path, limit):
+    calls = []
+    with Ledger(tmp_path / 'ledger') as ledger:
+        ledger.open_pair('c0'); transport = guarded(ledger, tmp_path)
+        request = {**REQ, 'max_tokens': limit, 'n': 1, 'stream': False}
+        def call():
+            calls.append(copy.deepcopy(request)); return response()
+        transport.sdk(request, call, fake_attribution())
+        assert calls == [request]
+        assert len([e for e in ledger.events() if e['kind'] == 'reserve']) == 1
+        assert len([e for e in ledger.events() if e['kind'] == 'dispatch']) == 1

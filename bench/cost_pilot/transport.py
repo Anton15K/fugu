@@ -5,6 +5,7 @@ import copy
 import html
 import io
 import json
+import math
 import re
 import time
 import threading
@@ -98,7 +99,14 @@ class GuardedTransport:
         return {'credits':1,'credit_source':'frozen_contract'}
 
     def sdk(self,request,call,attribution,*,earmark=None):
-        if request.get('stream') or request.get('max_tokens',0)>4096:raise SafetyStop('request_parameters')
+        allowed={'model','messages','max_tokens','temperature','tools','tool_choice','response_format','n','stream'}
+        if not isinstance(request,dict) or set(request)-allowed:raise SafetyStop('request_parameters')
+        limit=request.get('max_tokens');choices=request.get('n',1)
+        if type(limit) is not int or not 0<=limit<=4096 or type(choices) is not int or choices!=1 or request.get('stream',False) is not False:raise SafetyStop('request_parameters')
+        temperature=request.get('temperature',.1)
+        if type(temperature) not in (int,float) or not math.isfinite(temperature) or not 0<=temperature<=2:raise SafetyStop('request_parameters')
+        bound=self.pricing.bound('nebius',request.get('model',''))
+        if limit>bound.max_output:raise SafetyStop('request_parameters')
         return self._observed('nebius',request.get('model',''),request,call,attribution,earmark)
 
     def write_response(self,ticket,request,response,seconds):
