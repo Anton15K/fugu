@@ -71,10 +71,12 @@ responses; Nebius Token Factory hosts that inference. The
 | `nvidia/nemotron-3-super-120b-a12b` | Harness everyday-agent mounted arm |
 | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | Available router tier; not established as an active pipeline stage |
 
-The dated benchmarks retain real hosted responses, model identities and token
-usage, including the [2 October full-capability run](docs/benchmark-full.md).
-Dollar cost, remaining quota, monetary savings and comparative efficiency were
-not measured; token counts alone do not establish those outcomes.
+The earlier dated benchmarks retain real hosted responses, model identities and
+token usage, including the [2 October full-capability run](docs/benchmark-full.md).
+Those runs did not measure dollar cost, remaining quota or monetary savings;
+token counts alone do not establish those outcomes. The
+[14 October cost pilot](#fugu-vs-base-agent-cost-pilot-14-october-2026) below reports
+estimated provider cost for its selected attempts.
 
 Concealment and static analysis run locally. **Enabled semantic and harness
 stages send selected extension text and prompts to the configured inference
@@ -83,6 +85,32 @@ lookups to OSV; Git sources are fetched remotely. Docker is the default chamber.
 The optional Contree/Nebius Sandboxes driver sends target files to remote compute
 when selected; live remote sandbox behavior remains unverified. Review these
 data flows before submitting confidential content.
+
+## Fugu vs. base agent: cost pilot (14 October 2026)
+
+On the latest twelve pilot cases, Fugu's final decision matched the frozen
+expected action on **7/12 cases (58.3%)**, compared with **6/12 (50.0%)** for a
+direct base agent. Estimated provider cost averaged **$0.141212 versus
+$0.521577 per task**: **72.9% less for Fugu** on the selected latest attempts.
+
+| Metric | Fugu | Base agent |
+|---|---:|---:|
+| Correct final decisions / all planned cases | 7/12 (58.3%) | 6/12 (50.0%) |
+| Average estimated provider cost per task | $0.141212 | $0.521577 |
+
+![Correct final decisions and average estimated provider cost per task](bench/results/2026-10-14-cost-pilot/decision-cost-comparison.png)
+
+All 24 outputs have final answers, but six Fugu and eleven base-agent audits
+remain partial. Exact action agreement is separate from the GPT-6.1-Sol judge's
+broader diagnostic quality score: **5.58/10 for Fugu versus 5.71/10 for the base
+agent**. This small sample does not establish higher general accuracy.
+
+Costs include retries in the selected attempts and the base agent's required
+finalization calls, but exclude superseded runs, fleet/judge inference and
+infrastructure. The results combine several engine versions and one judge
+with prior familiarity. See the [full report, per-test decisions and cost
+accounting](docs/benchmark-cost-pilot-results-20261014.md) and
+[reduced results data](bench/results/2026-10-14-cost-pilot/results.json).
 
 ## Full-workflow benchmark (5 October 2026)
 
