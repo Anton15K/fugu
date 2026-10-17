@@ -86,31 +86,46 @@ The optional Contree/Nebius Sandboxes driver sends target files to remote comput
 when selected; live remote sandbox behavior remains unverified. Review these
 data flows before submitting confidential content.
 
-## Fugu vs. base agent: cost pilot (14 October 2026)
+<a id="fugu-vs-base-agent-cost-pilot-14-october-2026"></a>
 
-On the latest twelve pilot cases, Fugu's final decision matched the frozen
-expected action on **7/12 cases (58.3%)**, compared with **6/12 (50.0%)** for a
-direct base agent. Estimated provider cost averaged **$0.141212 versus
-$0.521577 per task**: **72.9% less for Fugu** on the selected latest attempts.
+## Benchmark comparisons (14 and 17 October 2026)
 
-| Metric | Fugu | Base agent |
-|---|---:|---:|
-| Correct final decisions / all planned cases | 7/12 (58.3%) | 6/12 (50.0%) |
-| Average estimated provider cost per task | $0.141212 | $0.521577 |
+Two dated studies compare **the same 12 frozen, narrow cases**. Study A compares
+Fugu with a direct base agent; Study B compares saved Fugu outputs with native
+AI SkillSpector. These are historical cohorts, not a simultaneous three-way trial.
 
-![Correct final decisions and average estimated provider cost per task](bench/results/2026-10-14-cost-pilot/decision-cost-comparison.png)
+| Dated cohort | Approach | Expected final decisions /12 | Judged quality /10 | Average estimated provider USD/task |
+|---|---|---:|---:|---:|
+| A · 14 Oct 2026 | Fugu | 7/12 | 5.58 | $0.141212 |
+| A · 14 Oct 2026 | Base agent | 6/12 | 5.71 | $0.521577 |
+| B · 17 Oct 2026 | Saved Fugu | 7/12 | 5.58 | $0.1418875 |
+| B · 17 Oct 2026 | Native AI SkillSpector | 4/12 | 4.29 | $0.4016474 known + $0.0884053 unresolved |
 
-All 24 outputs have final answers, but six Fugu and eleven base-agent audits
-remain partial. Exact action agreement is separate from the GPT-6.1-Sol judge's
-broader diagnostic quality score: **5.58/10 for Fugu versus 5.71/10 for the base
-agent**. This small sample does not establish higher general accuracy.
+![Two dated cohorts: expected final decisions and average estimated provider cost per planned case, including a hatched unresolved SkillSpector estimate](bench/results/2026-10-17-comparison/decision-cost-comparison.png)
 
-Costs include retries in the selected attempts and the base agent's required
-finalization calls, but exclude superseded runs, fleet/judge inference and
-infrastructure. The results combine several engine versions and one judge
-with prior familiarity. See the [full report, per-test decisions and cost
-accounting](docs/benchmark-cost-pilot-results-20261014.md) and
-[reduced results data](bench/results/2026-10-14-cost-pilot/results.json).
+Every average and decision count includes **all 12 planned cases**, including
+failures. Study B has 6 complete / 6 partial Fugu workflows and 2 complete /
+7 partial / 3 failed SkillSpector scans, with native finals on 9/12. No report
+means unassessed, never clean. Study A retains 1 complete / 11 partial base-agent
+workflows and all 12 finals. The hatched cost is a held unresolved estimate,
+not a confidence interval or guaranteed invoice ceiling; costs exclude judging,
+infrastructure and human effort.
+
+The cases cover eight security and four functional checks; broad functional
+correctness lies outside SkillSpector's primary security scope. Both use the same
+Ultra main model on Nebius with AI enabled, but Fugu adds Super critique and
+native OSV/runtime; SkillSpector uses offline OSV without Fugu's sandbox.
+Eight saved Fugu outputs use older product versions; only three match the
+exact current full engine. Fugu produced false alarms; both approaches missed
+the two nominated functional bugs. A matching action can have the wrong reason.
+Mean quality is a judge's rating, not an accuracy probability. Mixed generations and
+single-panel judging in each study, with prior familiarity and imperfect masking,
+prevent claims about the latest product, general accuracy or savings at equal
+correctness.
+
+See the unchanged [14 October report and accounting](docs/benchmark-cost-pilot-results-20261014.md),
+[17 October methods and per-case results](docs/benchmark-skillspector-results-20261017.md)
+and [reduced two-study data](bench/results/2026-10-17-comparison/results.json).
 
 ## Full-workflow benchmark (5 October 2026)
 
