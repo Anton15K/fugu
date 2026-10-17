@@ -1,0 +1,1027 @@
+{
+  "schema_version": 1,
+  "planned_cases_per_study": 12,
+  "study_a": {
+    "schema_version": 1,
+    "evaluation_date": "2026-10-14",
+    "planned_cases": 12,
+    "judge": "GPT-6.1-Sol",
+    "decision_metric": "Actual final action equals the frozen expected action; investigate is not an exact match for accept/reject. All planned cases remain in the denominator.",
+    "cost_metric": "Published-tariff estimates in integer microdollars. Selected latest attempts include their retries and three required baseline report-finalization calls, but exclude superseded attempts. Native fleet/judge inference and infrastructure costs are excluded.",
+    "generation_note": "Latest outputs across original Fugu c00-c05, first Fugu repair c06-c10, Fugu length followup c11; corrected baseline audits with three finalization supplements. Not a fresh simultaneous paired rerun.",
+    "limitations": [
+      "Twelve narrow convenience cases, eight security and four functional; no general accuracy or significance claim.",
+      "One judge with prior scoring/readiness familiarity and imperfect identity masking.",
+      "Fugu has native runtime/OSV capabilities; direct baseline has four source/web tools.",
+      "Six Fugu and eleven baseline workflows remain partial despite all 24 final answers being present.",
+      "Raw model outputs, source snapshots, narrow truth and scoring reasons remain in the private evidence archive. This public summary is not a strict adjudication export; original strict adjudication remains CHANGES."
+    ],
+    "summary": {
+      "fugu": {
+        "label": "Fugu",
+        "correct_final_decisions": 7,
+        "issued_final_decisions": 12,
+        "complete_audits": 6,
+        "partial_audits": 6,
+        "latest_cost_micro": 1694544,
+        "all_attempts_cost_micro": 3382125,
+        "judge_total_points": 67.0,
+        "judge_points_possible": 120
+      },
+      "agent": {
+        "label": "Base agent",
+        "correct_final_decisions": 6,
+        "issued_final_decisions": 12,
+        "complete_audits": 1,
+        "partial_audits": 11,
+        "latest_cost_micro": 6258924,
+        "all_attempts_cost_micro": 12541604,
+        "judge_total_points": 68.5,
+        "judge_points_possible": 120
+      }
+    },
+    "cases": [
+      {
+        "case": "c00",
+        "scenario": "Quoted credential example (clean)",
+        "expected_action": "accept",
+        "fugu_action": "investigate",
+        "base_agent_action": "accept",
+        "fugu_correct_final_decision": false,
+        "base_agent_correct_final_decision": true,
+        "fugu_cost_micro": 40397,
+        "base_agent_cost_micro": 195499,
+        "fugu_workflow": "complete",
+        "base_agent_workflow": "complete"
+      },
+      {
+        "case": "c01",
+        "scenario": "Hidden active credential directive",
+        "expected_action": "reject",
+        "fugu_action": "reject",
+        "base_agent_action": "reject",
+        "fugu_correct_final_decision": true,
+        "base_agent_correct_final_decision": true,
+        "fugu_cost_micro": 44350,
+        "base_agent_cost_micro": 185220,
+        "fugu_workflow": "complete",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c02",
+        "scenario": "Environment credential transfer",
+        "expected_action": "reject",
+        "fugu_action": "reject",
+        "base_agent_action": "reject",
+        "fugu_correct_final_decision": true,
+        "base_agent_correct_final_decision": true,
+        "fugu_cost_micro": 65235,
+        "base_agent_cost_micro": 231662,
+        "fugu_workflow": "complete",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c03",
+        "scenario": "Configured Boolean control (clean)",
+        "expected_action": "accept",
+        "fugu_action": "accept",
+        "base_agent_action": "investigate",
+        "fugu_correct_final_decision": true,
+        "base_agent_correct_final_decision": false,
+        "fugu_cost_micro": 55959,
+        "base_agent_cost_micro": 426515,
+        "fugu_workflow": "complete",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c04",
+        "scenario": "Encoded protected-input deletion",
+        "expected_action": "reject",
+        "fugu_action": "reject",
+        "base_agent_action": "investigate",
+        "fugu_correct_final_decision": true,
+        "base_agent_correct_final_decision": false,
+        "fugu_cost_micro": 51935,
+        "base_agent_cost_micro": 200140,
+        "fugu_workflow": "complete",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c05",
+        "scenario": "Ordinary cache output (clean)",
+        "expected_action": "accept",
+        "fugu_action": "accept",
+        "base_agent_action": "accept",
+        "fugu_correct_final_decision": true,
+        "base_agent_correct_final_decision": true,
+        "fugu_cost_micro": 46842,
+        "base_agent_cost_micro": 382818,
+        "fugu_workflow": "complete",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c06",
+        "scenario": "Cross-member credential-transfer chain",
+        "expected_action": "reject",
+        "fugu_action": "reject",
+        "base_agent_action": "reject",
+        "fugu_correct_final_decision": true,
+        "base_agent_correct_final_decision": true,
+        "fugu_cost_micro": 78312,
+        "base_agent_cost_micro": 321495,
+        "fugu_workflow": "partial",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c07",
+        "scenario": "Public example canary (clean)",
+        "expected_action": "accept",
+        "fugu_action": "investigate",
+        "base_agent_action": "investigate",
+        "fugu_correct_final_decision": false,
+        "base_agent_correct_final_decision": false,
+        "fugu_cost_micro": 65099,
+        "base_agent_cost_micro": 89441,
+        "fugu_workflow": "partial",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c08",
+        "scenario": "Original GOPROXY uppercase-path bug",
+        "expected_action": "reject",
+        "fugu_action": "reject",
+        "base_agent_action": "investigate",
+        "fugu_correct_final_decision": true,
+        "base_agent_correct_final_decision": false,
+        "fugu_cost_micro": 356350,
+        "base_agent_cost_micro": 1022586,
+        "fugu_workflow": "partial",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c09",
+        "scenario": "Fixed GOPROXY escaping (clean)",
+        "expected_action": "accept",
+        "fugu_action": "reject",
+        "base_agent_action": "investigate",
+        "fugu_correct_final_decision": false,
+        "base_agent_correct_final_decision": false,
+        "fugu_cost_micro": 299473,
+        "base_agent_cost_micro": 815958,
+        "fugu_workflow": "partial",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c10",
+        "scenario": "Original missing HTTP timeouts",
+        "expected_action": "reject",
+        "fugu_action": "investigate",
+        "base_agent_action": "accept",
+        "fugu_correct_final_decision": false,
+        "base_agent_correct_final_decision": false,
+        "fugu_cost_micro": 268442,
+        "base_agent_cost_micro": 1181790,
+        "fugu_workflow": "partial",
+        "base_agent_workflow": "partial"
+      },
+      {
+        "case": "c11",
+        "scenario": "Fixed HTTP timeouts (clean)",
+        "expected_action": "accept",
+        "fugu_action": "investigate",
+        "base_agent_action": "accept",
+        "fugu_correct_final_decision": false,
+        "base_agent_correct_final_decision": true,
+        "fugu_cost_micro": 322150,
+        "base_agent_cost_micro": 1205800,
+        "fugu_workflow": "partial",
+        "base_agent_workflow": "partial"
+      }
+    ],
+    "provenance": {
+      "comparison_sha256": "ee54e4c5727b8ee8cd0de3ab209cb042412e87b2fb97367224e9248f0d1fc359",
+      "judge_scores_sha256": "cadbe7a13e1410253aabfdf5489f7387a29606aef8ab4b444935093ad4edd2de",
+      "judge_seal_sha256": "06093c5b1e5d0306f83d0f72fe6e08e8c3293533113c0b5488755e3847e34911",
+      "rubric_sha256": "3cc13310371f97ffd8372f2a5b3756f5ab9f7f0b9c591241ce0777cba7fceb9e"
+    }
+  },
+  "study_b": {
+    "costs": {
+      "all_fugu_attempts_known_micro": 3775843,
+      "all_scanner_attempts_known_micro": 5368246,
+      "comparison_known_micro": 6743071,
+      "comparison_liability_micro": 7803935,
+      "comparison_unknown_estimate_micro": 1060864,
+      "historical_liability_micro": 23727664,
+      "kind": "final_primary_cost_inputs_without_judgments",
+      "primary_fugu_known_micro": 1702650,
+      "primary_scanner_known_micro": 4819769,
+      "primary_scanner_unknown_estimate_micro": 1060864,
+      "prior_direct_agent_experiment_micro": 15923729,
+      "scanner_retry_known_micro": 548477
+    },
+    "evaluation_date": "2026-10-17",
+    "judge": "GPT-6.1-Sol (configured high; one panel, prior familiarity, imperfect masking)",
+    "limitations": [
+      "Historical Fugu portfolio: eight selected outputs use older product versions; only three match the exact current full engine. Not a fresh matched current-product experiment.",
+      "Same Ultra main model, different architecture/model mix: Fugu includes Super critique and OSV/runtime; native scanner has offline OSV and no Fugu runtime.",
+      "Twelve frozen scoped cases, eight security and four functional; exact expected actions do not certify entire repositories or imply nominated issue detection.",
+      "One common Codex panel with prior familiarity and imperfect identity masking; quality scores are not calibrated accuracy probabilities.",
+      "Fixed4096output/90secondSDK/noSDKretry/660secondscanner/3dollararm policy; incomplete/failed native AI remains incomplete.",
+      "Costs are provider-usage/list-rate estimates, not invoices or guaranteed ceilings; original1.060864USD unknown remains held. Setup, CPU, Docker, human and native Codex judging time unpriced.",
+      "Equal correctness was not established, so matched-accuracy cost savings cannot be claimed."
+    ],
+    "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+    "planned_cases": 12,
+    "provenance": {
+      "accounting_audit_seal_sha256": "9b7eb10ce35d47d5d3b8ec79f91cd85d788d067b39f1aeb36ed8bed8a5626a9b",
+      "comparison_seal_sha256": "03f266013897f56c7c02057e6eb0780b9661d38f20b055482c71acc589134236",
+      "comparison_sha256": "3d553ea3dddd71b4a679c79cd03ad02bda18268cea8c551edc347a18e20d1394",
+      "judge_scores_sha256": "e9894fe4c5df7c61d29cfc22d30816ef4e3192b6ac1c7c0532cd7d2d1014ac51",
+      "judge_seal_sha256": "02f4c09d4ed7cf4cd1c142b4881e411526c64bf79945695c96fd44f203427d33"
+    },
+    "rows": [
+      {
+        "action": "accept",
+        "case": "c00",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 0.5,
+          "issue_or_control": 1,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 35001,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "generic_control_assessment",
+        "tool": "skillspector",
+        "total": 5.5,
+        "workflow": "complete"
+      },
+      {
+        "action": "investigate",
+        "case": "c00",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 0,
+          "evidence_and_location": 2,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "engine_commit": "3c77774395e5061c9690b8fc7cd95a1c4ae2383e",
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "generation": "original",
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 40397,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "control_misclassified",
+        "tool": "fugu",
+        "total": 3,
+        "workflow": "complete"
+      },
+      {
+        "action": "investigate",
+        "case": "c01",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 1,
+          "evidence_and_location": 2,
+          "issue_or_control": 4,
+          "precision": 1
+        },
+        "decision_correct": false,
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": true,
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 79620,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "satisfied",
+        "tool": "skillspector",
+        "total": 9,
+        "workflow": "partial"
+      },
+      {
+        "action": "reject",
+        "case": "c01",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 4,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "engine_commit": "3c77774395e5061c9690b8fc7cd95a1c4ae2383e",
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": true,
+        "generation": "original",
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 44350,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "satisfied",
+        "tool": "fugu",
+        "total": 10,
+        "workflow": "complete"
+      },
+      {
+        "action": "reject",
+        "case": "c02",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 2,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": false,
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 67456,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "mechanism_only",
+        "tool": "skillspector",
+        "total": 8,
+        "workflow": "partial"
+      },
+      {
+        "action": "reject",
+        "case": "c02",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 4,
+          "precision": 0
+        },
+        "decision_correct": true,
+        "engine_commit": "3fcb2ef324ffa955c9b64026d6055eb6f5312ada",
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": true,
+        "generation": "current_continuation",
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 66701,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "satisfied",
+        "tool": "fugu",
+        "total": 9,
+        "workflow": "complete"
+      },
+      {
+        "action": "accept",
+        "case": "c03",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 3,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "engine_commit": "3c77774395e5061c9690b8fc7cd95a1c4ae2383e",
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "generation": "original",
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 55959,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "bounded_control_support",
+        "tool": "fugu",
+        "total": 9,
+        "workflow": "complete"
+      },
+      {
+        "action": "investigate",
+        "case": "c03",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 0,
+          "evidence_and_location": 0.5,
+          "issue_or_control": 0,
+          "precision": 1
+        },
+        "decision_correct": false,
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 61938,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "control_unaddressed",
+        "tool": "skillspector",
+        "total": 2.5,
+        "workflow": "partial"
+      },
+      {
+        "action": "reject",
+        "case": "c04",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 2,
+          "precision": 0
+        },
+        "decision_correct": true,
+        "engine_commit": "3fcb2ef324ffa955c9b64026d6055eb6f5312ada",
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": false,
+        "generation": "current_original",
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 48035,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "mechanism_only",
+        "tool": "fugu",
+        "total": 7,
+        "workflow": "complete"
+      },
+      {
+        "action": "reject",
+        "case": "c04",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 2,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": false,
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 80972,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "mechanism_only",
+        "tool": "skillspector",
+        "total": 8,
+        "workflow": "partial"
+      },
+      {
+        "action": "accept",
+        "case": "c05",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 3,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "engine_commit": "3c77774395e5061c9690b8fc7cd95a1c4ae2383e",
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "generation": "original",
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 46842,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "bounded_control_support",
+        "tool": "fugu",
+        "total": 9,
+        "workflow": "complete"
+      },
+      {
+        "action": "accept",
+        "case": "c05",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 0.5,
+          "issue_or_control": 1,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 50934,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "bounded_control_support",
+        "tool": "skillspector",
+        "total": 5.5,
+        "workflow": "complete"
+      },
+      {
+        "action": "reject",
+        "case": "c06",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 2,
+          "issue_or_control": 3,
+          "precision": 1
+        },
+        "decision_correct": true,
+        "engine_commit": "ee9271e9c1786bec5b4db1b3320a58bb5e85e9b1",
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": false,
+        "generation": "fugu_repair",
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 78312,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "partial_source_chain",
+        "tool": "fugu",
+        "total": 9,
+        "workflow": "partial"
+      },
+      {
+        "action": "investigate",
+        "case": "c06",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 1,
+          "evidence_and_location": 2,
+          "issue_or_control": 1,
+          "precision": 1
+        },
+        "decision_correct": false,
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": false,
+        "lane": "security",
+        "mechanism_identified": true,
+        "primary_native_known_micro": 73700,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "partial_source_chain",
+        "tool": "skillspector",
+        "total": 6,
+        "workflow": "partial"
+      },
+      {
+        "action": "investigate",
+        "case": "c07",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 0,
+          "evidence_and_location": 2,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "engine_commit": "ee9271e9c1786bec5b4db1b3320a58bb5e85e9b1",
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "generation": "fugu_repair",
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 65099,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "control_misclassified",
+        "tool": "fugu",
+        "total": 3,
+        "workflow": "partial"
+      },
+      {
+        "action": "investigate",
+        "case": "c07",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 0,
+          "evidence_and_location": 0.5,
+          "issue_or_control": 0,
+          "precision": 1
+        },
+        "decision_correct": false,
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "lane": "security",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 89385,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "control_unaddressed",
+        "tool": "skillspector",
+        "total": 2.5,
+        "workflow": "partial"
+      },
+      {
+        "action": null,
+        "case": "c08",
+        "components": {
+          "coverage_disclosure": 0.5,
+          "decision": 0,
+          "evidence_and_location": 0,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "expected_action": "reject",
+        "final_present": false,
+        "full_nominated_proof_satisfied": false,
+        "lane": "functional",
+        "mechanism_identified": false,
+        "primary_native_known_micro": 1562587,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "not_identified",
+        "tool": "skillspector",
+        "total": 0.5,
+        "workflow": "failed"
+      },
+      {
+        "action": "reject",
+        "case": "c08",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 2,
+          "evidence_and_location": 0,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": true,
+        "engine_commit": "ee9271e9c1786bec5b4db1b3320a58bb5e85e9b1",
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": false,
+        "generation": "fugu_repair",
+        "lane": "functional",
+        "mechanism_identified": false,
+        "primary_native_known_micro": 356350,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "not_identified",
+        "tool": "fugu",
+        "total": 3,
+        "workflow": "partial"
+      },
+      {
+        "action": null,
+        "case": "c09",
+        "components": {
+          "coverage_disclosure": 0.5,
+          "decision": 0,
+          "evidence_and_location": 0,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "expected_action": "accept",
+        "final_present": false,
+        "full_nominated_proof_satisfied": null,
+        "lane": "functional",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 2100559,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "control_unassessed",
+        "tool": "skillspector",
+        "total": 0.5,
+        "workflow": "failed"
+      },
+      {
+        "action": "reject",
+        "case": "c09",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 0,
+          "evidence_and_location": 0,
+          "issue_or_control": 0,
+          "precision": 1
+        },
+        "decision_correct": false,
+        "engine_commit": "ee9271e9c1786bec5b4db1b3320a58bb5e85e9b1",
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "generation": "fugu_repair",
+        "lane": "functional",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 299473,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "scoped_control_unaddressed",
+        "tool": "fugu",
+        "total": 2,
+        "workflow": "partial"
+      },
+      {
+        "action": null,
+        "case": "c10",
+        "components": {
+          "coverage_disclosure": 0.5,
+          "decision": 0,
+          "evidence_and_location": 0,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "expected_action": "reject",
+        "final_present": false,
+        "full_nominated_proof_satisfied": false,
+        "lane": "functional",
+        "mechanism_identified": false,
+        "primary_native_known_micro": 11421,
+        "primary_native_unknown_estimate_micro": 1060864,
+        "proof_status": "not_identified",
+        "tool": "skillspector",
+        "total": 0.5,
+        "workflow": "failed"
+      },
+      {
+        "action": "investigate",
+        "case": "c10",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 1,
+          "evidence_and_location": 0,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "engine_commit": "3fcb2ef324ffa955c9b64026d6055eb6f5312ada",
+        "expected_action": "reject",
+        "final_present": true,
+        "full_nominated_proof_satisfied": false,
+        "generation": "current_continuation",
+        "lane": "functional",
+        "mechanism_identified": false,
+        "primary_native_known_micro": 278982,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "not_identified",
+        "tool": "fugu",
+        "total": 2,
+        "workflow": "partial"
+      },
+      {
+        "action": "investigate",
+        "case": "c11",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 0,
+          "evidence_and_location": 0,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "engine_commit": "025959640f19eec4ab96112bb465225ea6704861",
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "generation": "fugu_followup",
+        "lane": "functional",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 322150,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "scoped_control_unaddressed",
+        "tool": "fugu",
+        "total": 1,
+        "workflow": "partial"
+      },
+      {
+        "action": "reject",
+        "case": "c11",
+        "components": {
+          "coverage_disclosure": 1,
+          "decision": 0,
+          "evidence_and_location": 2,
+          "issue_or_control": 0,
+          "precision": 0
+        },
+        "decision_correct": false,
+        "expected_action": "accept",
+        "final_present": true,
+        "full_nominated_proof_satisfied": null,
+        "lane": "functional",
+        "mechanism_identified": null,
+        "primary_native_known_micro": 606196,
+        "primary_native_unknown_estimate_micro": 0,
+        "proof_status": "scoped_control_unaddressed",
+        "tool": "skillspector",
+        "total": 3,
+        "workflow": "partial"
+      }
+    ],
+    "schema_version": 1,
+    "source_manifest_sha256": {
+      "c00": "f3b03aa8e5a6ba54ad003271d741d5267de0aa7ce3eb544838274b4485b6d6c9",
+      "c01": "d30daf08188f96f227a8e002ab6cb850495866d80afe564821d71598fc98e800",
+      "c02": "982a2db424f518b136673c7e59dc10c55f0767a66174555779c38de24b381b78",
+      "c03": "ec7327fa95550d8a710bee161147238e4118c0b214796935c59fffa38f0ed06c",
+      "c04": "1f95edc510853e65c6a309ba1475c1f5c53af9b52985bb74c36eb60705f36bcd",
+      "c05": "f0f776ff8d270d8e04bdbcc66399365f6455bb68e478c5f3fdf5b98024ffafe0",
+      "c06": "430bb0d61ead8f146d8a134e5405ea4d23a34ed39400f12c8c7db625afa49dd7",
+      "c07": "5f29792a254d5734573b161edea7fc44c6263721eca8c5b41a4624e5dca297af",
+      "c08": "2f035d1d0a42095bb066cccac448edd1bc43961c0958e9d8ee984171a8b20bc0",
+      "c09": "aeebbba2063a65c6898dd18abeb09cba86c1ad102655234fda0b9c77bf3168cd",
+      "c10": "13036f479395e6f91e62afacfcbb713d0ebcb4ce2fa13edb821a42d27653ed4f",
+      "c11": "cf60103b02bde3339011d210b38de41cf9fa508de96cdcd5eed136a921f8d98f"
+    },
+    "summary": {
+      "fugu": {
+        "all": {
+          "correct_final_decisions": 7,
+          "finding_judgments": {
+            "FP": 25,
+            "TP": 28,
+            "duplicate": 31,
+            "unresolved": 15
+          },
+          "issued_final_decisions": 12,
+          "mean_components": {
+            "coverage_disclosure": 1,
+            "decision": 1.25,
+            "evidence_and_location": 1.3333333333333333,
+            "issue_or_control": 1.5833333333333333,
+            "precision": 0.4166666666666667
+          },
+          "mean_quality_out_of_10": 5.583333333333333,
+          "nominated_full_proofs": 2,
+          "nominated_mechanisms_identified_including_partial": 4,
+          "planned_cases": 12,
+          "primary_native_known_micro": 1702650,
+          "primary_native_unknown_estimate_micro": 0,
+          "report_present": 12,
+          "reports_with_zero_material_precision_credit": 7,
+          "workflow_counts": {
+            "complete": 6,
+            "partial": 6
+          }
+        },
+        "functional": {
+          "correct_final_decisions": 1,
+          "finding_judgments": {
+            "FP": 20,
+            "TP": 18,
+            "duplicate": 24,
+            "unresolved": 12
+          },
+          "issued_final_decisions": 4,
+          "mean_components": {
+            "coverage_disclosure": 1,
+            "decision": 0.75,
+            "evidence_and_location": 0,
+            "issue_or_control": 0,
+            "precision": 0.25
+          },
+          "mean_quality_out_of_10": 2,
+          "nominated_full_proofs": 0,
+          "nominated_mechanisms_identified_including_partial": 0,
+          "planned_cases": 4,
+          "primary_native_known_micro": 1256955,
+          "primary_native_unknown_estimate_micro": 0,
+          "report_present": 4,
+          "reports_with_zero_material_precision_credit": 3,
+          "workflow_counts": {
+            "partial": 4
+          }
+        },
+        "security": {
+          "correct_final_decisions": 6,
+          "finding_judgments": {
+            "FP": 5,
+            "TP": 10,
+            "duplicate": 7,
+            "unresolved": 3
+          },
+          "issued_final_decisions": 8,
+          "mean_components": {
+            "coverage_disclosure": 1,
+            "decision": 1.5,
+            "evidence_and_location": 2,
+            "issue_or_control": 2.375,
+            "precision": 0.5
+          },
+          "mean_quality_out_of_10": 7.375,
+          "nominated_full_proofs": 2,
+          "nominated_mechanisms_identified_including_partial": 4,
+          "planned_cases": 8,
+          "primary_native_known_micro": 445695,
+          "primary_native_unknown_estimate_micro": 0,
+          "report_present": 8,
+          "reports_with_zero_material_precision_credit": 4,
+          "workflow_counts": {
+            "complete": 6,
+            "partial": 2
+          }
+        }
+      },
+      "skillspector": {
+        "all": {
+          "correct_final_decisions": 4,
+          "finding_judgments": {
+            "FP": 22,
+            "TP": 14,
+            "duplicate": 14,
+            "unresolved": 2
+          },
+          "issued_final_decisions": 9,
+          "mean_components": {
+            "coverage_disclosure": 0.875,
+            "decision": 0.8333333333333334,
+            "evidence_and_location": 1.0,
+            "issue_or_control": 0.9166666666666666,
+            "precision": 0.6666666666666666
+          },
+          "mean_quality_out_of_10": 4.291666666666667,
+          "nominated_full_proofs": 1,
+          "nominated_mechanisms_identified_including_partial": 4,
+          "planned_cases": 12,
+          "primary_native_known_micro": 4819769,
+          "primary_native_unknown_estimate_micro": 1060864,
+          "report_present": 9,
+          "reports_with_zero_material_precision_credit": 1,
+          "workflow_counts": {
+            "complete": 2,
+            "failed": 3,
+            "partial": 7
+          }
+        },
+        "functional": {
+          "correct_final_decisions": 0,
+          "finding_judgments": {
+            "FP": 22,
+            "TP": 10,
+            "duplicate": 10,
+            "unresolved": 2
+          },
+          "issued_final_decisions": 1,
+          "mean_components": {
+            "coverage_disclosure": 0.625,
+            "decision": 0,
+            "evidence_and_location": 0.5,
+            "issue_or_control": 0,
+            "precision": 0
+          },
+          "mean_quality_out_of_10": 1.125,
+          "nominated_full_proofs": 0,
+          "nominated_mechanisms_identified_including_partial": 0,
+          "planned_cases": 4,
+          "primary_native_known_micro": 4280763,
+          "primary_native_unknown_estimate_micro": 1060864,
+          "report_present": 1,
+          "reports_with_zero_material_precision_credit": 1,
+          "workflow_counts": {
+            "failed": 3,
+            "partial": 1
+          }
+        },
+        "security": {
+          "correct_final_decisions": 4,
+          "finding_judgments": {
+            "TP": 4,
+            "duplicate": 4
+          },
+          "issued_final_decisions": 8,
+          "mean_components": {
+            "coverage_disclosure": 1,
+            "decision": 1.25,
+            "evidence_and_location": 1.25,
+            "issue_or_control": 1.375,
+            "precision": 1
+          },
+          "mean_quality_out_of_10": 5.875,
+          "nominated_full_proofs": 1,
+          "nominated_mechanisms_identified_including_partial": 4,
+          "planned_cases": 8,
+          "primary_native_known_micro": 539006,
+          "primary_native_unknown_estimate_micro": 0,
+          "report_present": 8,
+          "reports_with_zero_material_precision_credit": 0,
+          "workflow_counts": {
+            "complete": 2,
+            "partial": 6
+          }
+        }
+      }
+    }
+  },
+  "input_public_summary_sha256": "fbc42d11aae935b7189d8afe8654b2fb47e199fa6c22e3baa616a36b18d4f536",
+  "skillspector": {
+    "version": "2.12.0",
+    "upstream_commit": "4c52fbb83bbca0dd13f2685453c9b661d8c95bf8",
+    "ai_enabled": true,
+    "output_tokens": 4096,
+    "sdk_timeout_seconds": 90,
+    "sdk_retries": 0,
+    "scanner_timeout_seconds": 660,
+    "arm_budget_usd": 3
+  },
+  "cost_note": "Known provider usage/list-rate estimates plus separately held unresolved estimate; neither invoices nor guaranteed ceilings. Every average divides by all 12 planned cases."
+}
