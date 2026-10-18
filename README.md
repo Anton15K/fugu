@@ -10,7 +10,7 @@ Coding and Agentic Engineering track. [MIT license](LICENSE).
 
 **Judge reading path:** [Use case](#use-case) → [Checks and verdicts](#evidence-analysis-and-verdicts) →
 [NVIDIA / Nebius](#nvidia-and-nebius-integration) → [Benchmark and charts](#full-workflow-benchmark-5-october-2026) →
-[Maintainer outcomes](#real-world-outcomes-updated-12-october-2026) → [Run locally](#run-locally).
+[Maintainer outcomes](#real-world-outcomes-updated-18-october-2026) → [Run locally](#run-locally).
 Try the [offline judge casebook](docs/judge-casebook.md) without credentials or paid inference.
 
 ## Use case
@@ -178,7 +178,9 @@ results](docs/benchmark-full-workflow-20261005.md) include exclusions, native
 thresholds, accounting and interpretation; the [sealed measurement inventory](bench/results/2026-10-05-full-workflow/measurement/inventory.json)
 binds the retained artifacts.
 
-## Real-world outcomes (updated 12 October 2026)
+<a id="real-world-outcomes-updated-12-october-2026"></a>
+
+## Real-world outcomes (updated 18 October 2026)
 
 A **Fugu-assisted source review** identified missing HTTP timeouts in the
 ComfyUI agent skill. The [maintainer confirmed the issue](https://github.com/MieMieeeee/comfyui-agent-skill/issues/3#issuecomment-6082877509)
@@ -194,9 +196,17 @@ on **10 October 2026 at 08:26:40Z**; issue #257 was then closed as completed.
 The merged PR confirms the fix: case encoding for uppercase Go module paths
 while preserving canonical module names. It also documents the prior lookup failure.
 
-Four public reports came from the investigation, with **two upstream fixes**.
-Two reports remain open and unanswered as of **12 October 2026**; one is an
-optional metadata improvement.
+In **tronghieu/agent-skills**, the investigation also identified that
+`profile_data.py` ignored `--max-rows` for ordinary JSON input, through source
+review rather than an automated Fugu alert. The [maintainer confirmed the bug](https://github.com/tronghieu/agent-skills/issues/19#issuecomment-6247963724)
+and merged [PR #23](https://github.com/tronghieu/agent-skills/pull/23) on
+**18 October 2026**; issue #19 was closed as completed. The fix applies the limit
+after reading JSON and adds the reported three-row fixture as a regression test.
+This caps profiling work, not JSON parsing memory.
+
+Four public reports came from the investigation, with **three upstream fixes**.
+As of **18 October 2026**, only the [optional read-only metadata request](https://github.com/omniwaifu/arr-assistant-mcp/issues/17)
+remains open and unanswered.
 
 ## Local CLI (bring your own key)
 
